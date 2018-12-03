@@ -17,9 +17,6 @@ Please note: I have no idea how GitHub works and I'm mostly making this to play 
 
 Paintjob Packer is just the last step in making a mod, it helps you turn a lovingly crafted image into a fully working .scs file. You'll first need to make your paintjob in a program such as Photoshop. You can find templates and tutorials all over the web.
 
-### Making single paintjobs
-1. Run `single.py`
-
 ### Making full paintjob packs
 1. Run `auto.py`
 
@@ -42,7 +39,7 @@ This is intended for when you are developing a paintjob. If you make a small twe
 * `set_auto.py`: Sets parameters for automatic paintjob pack generation
 * `set_man.py`: Sets parameters for manual test paintjob generation
 * `paintjob.py`: Functions and other goodies used by everything else
-* `auto_params.txt`: Parameters for automatic paintjob pack generation
-* `man_params.txt`: Parameters for manual paintjob generation
+* `config.ini`: Parameters for paintjob generation, as well as the program's built-in database of trucks etc.
+* `autotrucks.ini`: List of trucks for use in automatic pack generation
 
 TODO: Finish the How to Use section
