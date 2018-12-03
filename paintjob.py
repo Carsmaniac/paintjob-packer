@@ -1,16 +1,14 @@
 # print("Hello, world!")
 
-version = 0.0
+version = "v0.0"
 
 ape = "no"
 
 def welcome_message():
-    print("Paintjob Packer, v%s" % version)
+    print("Paintjob Packer %s" % version)
     print("Developed with love <3 by Carsmaniac")
+    print("https://github.com/Carsmaniac/paintjob-packer")
 
 class Sii:
     def test():
         print("dmdmfmdf")
-
-def load_auto_params(mode="r"):
-    auto_params = open("auto_params.txt",mode)
