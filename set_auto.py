@@ -7,16 +7,15 @@
 # Create file from scratch   *or maybe not the above two, just this one
 # Modify other params
 
-import paintjob, configparser, sys, time
-
-paintjob.welcome_message()
+import paintjob, configparser, sys, time, os
 
 def menu():
     print("\n"*30)
+    print("=== Full Paintjob Pack Configurator ===")
+    print("")
     print("1 - View/edit modpack parameters")
-    print("2 - View truck list")
-    print("3 - Add truck to truck list")
-    print("4 - Generate new truck list from scratch")
+    print("2 - View/edit truck list")
+    print("3 - Manage truck lists")
     print("")
     print("0 - Exit program")
     print("")
@@ -26,13 +25,12 @@ def menu():
     elif menu_choice == "2":
         view_list()
     elif menu_choice == "3":
-        append_list()
-    elif menu_choice == "4":
-        regen_list()
+        manage_lists()
     elif menu_choice == "0":
         sys.exit()
     else:
         print("Invalid selection")
+        time.sleep(1.5)
         menu() # yeah this isn't a good idea
 
 def view_params():
@@ -60,6 +58,7 @@ def view_params():
         menu()
     else:
         print("Invalid selection")
+        time.sleep(1.5)
         view_params()
 
 def edit_params():
@@ -91,9 +90,10 @@ def edit_params():
         view_params()
     else:
         print("Invalid selection")
+        time.sleep(1.5)
         edit_params()
     print("")
-    new_param_value = input("Enter new value for %s : " % param_to_edit[1])
+    new_param_value = input("Enter new value for %s: " % param_to_edit[1])
     param_to_edit = param_to_edit[0]
     config = configparser.ConfigParser()
     config.read("config.ini")
@@ -106,12 +106,92 @@ def edit_params():
     edit_params()
 
 def view_list():
+    print("\n"*30)
+    config = configparser.ConfigParser()
+    config.read("config.ini")
+    truck_list = config["AutoParams"]["truck_list"]
+    print("Current list: %s" % truck_list)
+    print("")
+    config = []
+    config = configparser.ConfigParser()
+    config.read("auto lists/%s.ini" % truck_list)
+    all_trucks_in_list = config.sections()
+    all_trucks_in_list.remove("Params")
+    for truck in all_trucks_in_list:
+        print(config[truck]["database_name"])
+    print("1 - Add truck to list")
+    print("2 - Modify truck")
+    print("3 - Remove truck from list")
+    print("")
+    print("0 - Back to previous menu")
+    print("")
+    menu_choice = input("Enter selection: ")
+    menu() # TODO: editing lists (add, edit, remove)
+
+def add_to_list(truck_list):
     pass
 
-def append_list():
+def edit_list(truck_list):
     pass
 
-def regen_list():
+def remove_from_list(truck_list):
     pass
+
+def manage_lists():
+    print("\n"*30)
+    config = configparser.ConfigParser()
+    config.read("config.ini")
+    truck_list = config["AutoParams"]["truck_list"]
+    print("Current list: %s" % truck_list)
+    print("")
+    other_lists_with_ext = os.listdir("auto lists")
+    other_lists = []
+    for list in other_lists_with_ext:
+        list = list[:-4]
+        other_lists.append(list)
+    other_lists.remove(truck_list)
+    if len(other_lists) == 0:
+        print("This is your only truck list")
+        menu_num = 0
+        print("")
+        print("1 - Create a new list")
+    else:
+        print("Switch to another list:")
+        menu_num = 1
+        for list in other_lists:
+            print("%s - %s" % (menu_num,list))
+            menu_num += 1
+        print("")
+        print("%s - Create a new list" % menu_num)
+        print("%s - Remove a list" % menu_num+1)
+        print("%s - Modify a list" % menu_num+2)
+    print("")
+    print("0 - Back to previous menu")
+    print("")
+    menu_choice = input("Enter selection: ")
+    if menu_num == 0 and menu_choice == "1":
+        create_list()
+    elif menu_choice == "0":
+        menu()
+    elif menu_choice < menu_num: # TODO: Make this work
+        switch_to_list(other_lists[menu_num-1])
+    else: # TODO: Creating, removing and modifying lists
+        print("Invalid selection") # NOTE: list type "euro" = truck types "euro", "euro mod" and "trailer", same for american
+        time.sleep(1.5)
+        manage_lists()
+
+def create_list(): # TODO: Creating lists
+    pass
+
+def switch_to_list(list_to_switch_to):
+    print("")
+    config = configparser.ConfigParser()
+    config.read("config.ini")
+    config["AutoParams"]["truck_list"] = list_to_switch_to
+    with open("config.ini", "w") as configfile:
+        config.write(configfile)
+    print("Switched lists successfully")
+    time.sleep(1.5)
+    manage_lists()
 
 menu()
