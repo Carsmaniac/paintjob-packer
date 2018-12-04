@@ -113,7 +113,7 @@ def edit_truck():
     print("")
     print("Make (internal):         %s" % config["ManParams"]["make"])
     print("Model (internal):        %s" % config["ManParams"]["model"])
-    print("Cabins (internal):       %s" % config["ManParams"]["cabins"].split(","))
+    print("Cabins (internal):       %s" % config["ManParams"]["cabins"].replace(",", ", "))
     print("")
     print("Select type of truck to support")
     print("1 - Euro Truck Simulator 2")
