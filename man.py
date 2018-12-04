@@ -6,25 +6,25 @@ print("")
 print("=== Manual Paintjob Generator ===")
 print("")
 print("Generating paintjob from preset parameters...")
-config = configparser.ConfigParser()
-config.read("config.ini")
+manual = configparser.ConfigParser()
+manual.read("truck lists/manual.ini")
 
-make = config["ManParams"]["make"]
-model = config["ManParams"]["model"]
-cabins = config["ManParams"]["cabins"]
+make = manual["Params"]["make"]
+model = manual["Params"]["model"]
+cabins = manual["Params"]["cabins"]
 cabins = cabins.split(",")
 
-internal_name = config["ManParams"]["internal_name"]
+internal_name = manual["Params"]["internal_name"]
 
-ingame_name = config["ManParams"]["ingame_name"]
-price = config["ManParams"]["price"]
-unlock_level = config["ManParams"]["unlock_level"]
+ingame_name = manual["Params"]["ingame_name"]
+price = manual["Params"]["price"]
+unlock_level = manual["Params"]["unlock_level"]
 
-pack_name = config["ManParams"]["pack_name"]
-pack_version = config["ManParams"]["pack_version"]
-pack_author = config["ManParams"]["pack_author"]
+pack_name = manual["Params"]["pack_name"]
+pack_version = manual["Params"]["pack_version"]
+pack_author = manual["Params"]["pack_author"]
 
-database_name = config["ManParams"]["database_name"]
+database_name = manual["Params"]["database_name"]
 vehicle_type = "euro"
 new_truck_format = False
 # TODO: vehicle_type (if need be) and new_truck_format support

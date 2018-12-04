@@ -22,21 +22,21 @@ def menu():
 
 def view_params():
     print("\n"*50)
-    config = configparser.ConfigParser()
-    config.read("config.ini")
+    list_ini = configparser.ConfigParser()
+    list_ini.read("truck lists/manual.ini")
     print("=== Modpack parameters ===")
-    print("Mod name:        %s" % config["ManParams"]["pack_name"])
-    print("Mod author:      %s" % config["ManParams"]["pack_author"])
-    print("Mod version:     %s" % config["ManParams"]["pack_version"])
+    print("Mod name:        %s" % list_ini["Params"]["pack_name"])
+    print("Mod author:      %s" % list_ini["Params"]["pack_author"])
+    print("Mod version:     %s" % list_ini["Params"]["pack_version"])
     print("")
     print("=== In-game paintjob parameters ===")
-    print("In-game name:    %s" % config["ManParams"]["ingame_name"])
-    print("Price:           %s" % config["ManParams"]["price"])
-    print("Unlock level:    %s" % config["ManParams"]["unlock_level"])
+    print("In-game name:    %s" % list_ini["Params"]["ingame_name"])
+    print("Price:           %s" % list_ini["Params"]["price"])
+    print("Unlock level:    %s" % list_ini["Params"]["unlock_level"])
     print("")
     print("=== Other parameters ===")
-    print("Supported truck: %s" % config["ManParams"]["database_name"])
-    print("Internal name:   %s" % config["ManParams"]["internal_name"])
+    print("Supported truck: %s" % list_ini["Params"]["database_name"])
+    print("Internal name:   %s" % list_ini["Params"]["internal_name"])
     print("")
     print("1 - Edit modpack or in-game parameters")
     print("2 - Edit supported truck")
@@ -95,11 +95,11 @@ def edit_params():
         print("")
         new_param_value = input("Enter new value for %s: " % param_to_edit[1])
         param_to_edit = param_to_edit[0]
-        config = configparser.ConfigParser()
-        config.read("config.ini")
-        config["ManParams"][param_to_edit] = new_param_value
-        with open("config.ini", "w") as configfile:
-            config.write(configfile)
+        list_ini = configparser.ConfigParser()
+        list_ini.read("truck lists/manual.ini")
+        list_ini["Params"][param_to_edit] = new_param_value
+        with open("truck lists/manual.ini", "w") as configfile:
+            list_ini.write(configfile)
         print("")
         print("Parameter changed successfully")
         time.sleep(2)
@@ -107,13 +107,13 @@ def edit_params():
 
 def edit_truck():
     print("\n"*50)
-    config = configparser.ConfigParser()
-    config.read("config.ini")
-    print("Current supported truck: %s" % config["ManParams"]["database_name"])
+    list_ini = configparser.ConfigParser()
+    list_ini.read("truck lists/manual.ini")
+    print("Current supported truck: %s" % list_ini["Params"]["database_name"])
     print("")
-    print("Make (internal):         %s" % config["ManParams"]["make"])
-    print("Model (internal):        %s" % config["ManParams"]["model"])
-    print("Cabins (internal):       %s" % config["ManParams"]["cabins"].replace(",", ", "))
+    print("Make (internal):         %s" % list_ini["Params"]["make"])
+    print("Model (internal):        %s" % list_ini["Params"]["model"])
+    print("Cabins (internal):       %s" % list_ini["Params"]["cabins"].replace(",", ", "))
     print("")
     print("Select type of truck to support")
     print("1 - Euro Truck Simulator 2")
@@ -148,12 +148,12 @@ def edit_truck():
             print("Select trailer to support")
         else:
             print("Select truck to support")
-        config = []
-        config = configparser.ConfigParser()
-        config.read("database.ini")
+        database_ini = []
+        database_ini = configparser.ConfigParser()
+        database_ini.read("database.ini")
         vehicles_to_display = []
-        for vehicle in config.sections():
-            if config[vehicle]["vehicle_type"] == vehicle_type:
+        for vehicle in database_ini.sections():
+            if database_ini[vehicle]["vehicle_type"] == vehicle_type:
                 vehicles_to_display.append(vehicle)
         menu_choice_counter = 1
         for vehicle in vehicles_to_display:
@@ -169,36 +169,36 @@ def edit_truck():
 
 def choose_cabins(database_name, cabin_1=False, cabin_2=False, cabin_3=False, cabin_8x4=False):
     print("\n"*50)
-    config = []
-    config = configparser.ConfigParser()
-    config.read("database.ini")
+    database_ini = []
+    database_ini = configparser.ConfigParser()
+    database_ini.read("database.ini")
     print("Select cabin of %s to toggle support" % database_name)
-    if "cabin_1" in config[database_name]:
+    if "cabin_1" in database_ini[database_name]:
         if not cabin_1:
-            print("1 - [ ] - %s" % config[database_name]["cabin_1"])
+            print("1 - [ ] - %s" % database_ini[database_name]["cabin_1"])
         else:
-            print("1 - [X] - %s" % config[database_name]["cabin_1"])
+            print("1 - [X] - %s" % database_ini[database_name]["cabin_1"])
     else:
         cabin_1 = None
-    if "cabin_2" in config[database_name]:
+    if "cabin_2" in database_ini[database_name]:
         if not cabin_2:
-            print("2 - [ ] - %s" % config[database_name]["cabin_2"])
+            print("2 - [ ] - %s" % database_ini[database_name]["cabin_2"])
         else:
-            print("2 - [X] - %s" % config[database_name]["cabin_2"])
+            print("2 - [X] - %s" % database_ini[database_name]["cabin_2"])
     else:
         cabin_2 = None
-    if "cabin_3" in config[database_name]:
+    if "cabin_3" in database_ini[database_name]:
         if not cabin_3:
-            print("3 - [ ] - %s" % config[database_name]["cabin_3"])
+            print("3 - [ ] - %s" % database_ini[database_name]["cabin_3"])
         else:
-            print("3 - [X] - %s" % config[database_name]["cabin_3"])
+            print("3 - [X] - %s" % database_ini[database_name]["cabin_3"])
     else:
         cabin_3 = None
-    if "cabin_8x4" in config[database_name]:
+    if "cabin_8x4" in database_ini[database_name]:
         if not cabin_8x4:
-            print("4 - [ ] - %s" % config[database_name]["cabin_8x4"])
+            print("4 - [ ] - %s" % database_ini[database_name]["cabin_8x4"])
         else:
-            print("4 - [X] - %s" % config[database_name]["cabin_8x4"])
+            print("4 - [X] - %s" % database_ini[database_name]["cabin_8x4"])   ########## UP TO HERE
     else:
         cabin_8x4 = None
     print("")
@@ -222,22 +222,22 @@ def choose_cabins(database_name, cabin_1=False, cabin_2=False, cabin_3=False, ca
     elif menu_choice == "5" and (cabin_1 or cabin_2 or cabin_3 or cabin_8x4):
         cabins_selected = []
         if cabin_1:
-            cabins_selected.append(config[database_name]["cabin_1"])
+            cabins_selected.append(database_ini[database_name]["cabin_1"])
         if cabin_2:
-            cabins_selected.append(config[database_name]["cabin_2"])
+            cabins_selected.append(database_ini[database_name]["cabin_2"])
         if cabin_3:
-            cabins_selected.append(config[database_name]["cabin_3"])
+            cabins_selected.append(database_ini[database_name]["cabin_3"])
         if cabin_8x4:
-            cabins_selected.append(config[database_name]["cabin_8x4"])
+            cabins_selected.append(database_ini[database_name]["cabin_8x4"])
         cabins_selected = ",".join(str(i) for i in cabins_selected)
-        config_ini = configparser.ConfigParser()
-        config_ini.read("config.ini")
-        config_ini["ManParams"]["database_name"] = database_name
-        config_ini["ManParams"]["make"] = config[database_name]["make"]
-        config_ini["ManParams"]["model"] = config[database_name]["model"]
-        config_ini["ManParams"]["cabins"] = cabins_selected
-        with open("config.ini", "w") as configfile:
-            config_ini.write(configfile)
+        list_ini = configparser.ConfigParser()
+        list_ini.read("truck lists/manual.ini")
+        list_ini["Params"]["database_name"] = database_name
+        list_ini["Params"]["make"] = database_ini[database_name]["make"]
+        list_ini["Params"]["model"] = database_ini[database_name]["model"]
+        list_ini["Params"]["cabins"] = cabins_selected
+        with open("truck lists/manual.ini", "w") as configfile:
+            list_ini.write(configfile)
         print("Supported truck changed successfully")
         time.sleep(1.5)
         edit_truck()
