@@ -76,6 +76,7 @@ def edit_params():
     print("0 - Back to previous menu")
     print("")
     menu_choice = input("Enter selection: ")
+    param_to_edit = None
     if menu_choice == "1":
         param_to_edit = ("pack_name", "Mod name")
     elif menu_choice == "2":
@@ -94,18 +95,19 @@ def edit_params():
         print("Invalid selection")
         time.sleep(1.5)
         edit_params()
-    print("")
-    new_param_value = input("Enter new value for %s: " % param_to_edit[1])
-    param_to_edit = param_to_edit[0]
-    config = configparser.ConfigParser()
-    config.read("config.ini")
-    config["AutoParams"][param_to_edit] = new_param_value
-    with open("config.ini", "w") as configfile:
-        config.write(configfile)
-    print("")
-    print("Parameter changed successfully")
-    time.sleep(2)
-    edit_params()
+    if param_to_edit != None:
+        print("")
+        new_param_value = input("Enter new value for %s: " % param_to_edit[1])
+        param_to_edit = param_to_edit[0]
+        config = configparser.ConfigParser()
+        config.read("config.ini")
+        config["AutoParams"][param_to_edit] = new_param_value
+        with open("config.ini", "w") as configfile:
+            config.write(configfile)
+        print("")
+        print("Parameter changed successfully")
+        time.sleep(2)
+        edit_params()
 
 def view_list():
     print("\n"*50)
