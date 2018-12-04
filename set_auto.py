@@ -10,7 +10,7 @@
 import paintjob, configparser, sys, time, os
 
 def menu():
-    print("\n"*30)
+    print("\n"*50)
     paintjob.welcome_message()
     print("")
     print("=== Full Paintjob Pack Configurator ===")
@@ -36,7 +36,7 @@ def menu():
         menu() # yeah this isn't a good idea
 
 def view_params():
-    print("\n"*30)
+    print("\n"*50)
     config = configparser.ConfigParser()
     config.read("config.ini")
     print("=== Mod file parameters ===")
@@ -64,7 +64,7 @@ def view_params():
         view_params()
 
 def edit_params():
-    print("\n"*30)
+    print("\n"*50)
     print("Select parameter to edit")
     print("1 - Mod name")
     print("2 - Mod author")
@@ -108,7 +108,7 @@ def edit_params():
     edit_params()
 
 def view_list():
-    print("\n"*30)
+    print("\n"*50)
     config = configparser.ConfigParser()
     config.read("config.ini")
     truck_list = config["AutoParams"]["truck_list"]
@@ -140,7 +140,7 @@ def remove_from_list(truck_list):
     pass
 
 def manage_lists():
-    print("\n"*30)
+    print("\n"*50)
     config = configparser.ConfigParser()
     config.read("config.ini")
     truck_list = config["AutoParams"]["truck_list"]

@@ -1,6 +1,6 @@
 import paintjob, configparser
 
-print("\n"*30)
+print("\n"*50)
 paintjob.welcome_message()
 print("")
 print("=== Manual Paintjob Generator ===")
