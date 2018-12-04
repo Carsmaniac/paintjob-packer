@@ -13,6 +13,7 @@ def convert_string_to_hex(string_input): # returns a hexified version of an inpu
     elif isinstance(string_input, str):
         string_input = string_input.encode()
     string_output = binascii.hexlify(string_input) # TEMP: If I need to reverse, unhexlify. If not, delete this comment
+    string_output = string_output.decode()
     return string_output
 
 def generate_tobj_string(path): # TEMP: does this work for the Scania S tobjs files too?
@@ -25,14 +26,14 @@ def generate_tobj_string(path): # TEMP: does this work for the Scania S tobjs fi
 
 class Files: # TODO: Scania S changes?
     def def_sii(make, model, cabins, internal_name, ingame_name, price, unlock_level): # wow that's not confusing at all
-        file = open("output/def/vehicle/truck/%s.%s/paint_job/%s.sii")
+        file = open("output/def/vehicle/truck/%s.%s/paint_job/%s.sii" % (make, model, internal_name), "w")
         file.write("SiiNunit\n")
         file.write("{\n")
-        file.write("accessory_paint_job_data: %s.%s>5s.paint_job\n" % (internal_name, make, model))
+        file.write("accessory_paint_job_data: %s.%s.%s.paint_job\n" % (internal_name, make, model))
         file.write("{\n")
         file.write('    name:                 "%s"\n' % ingame_name)
         file.write("    price:                %s\n" % price)
-        file.write("    unlock                %s\n" % unlock_level)
+        file.write("    unlock:               %s\n" % unlock_level)
         file.write('    icon:                 "%s"\n' % internal_name)
         file.write("    airbrush:             true\n")
         file.write("\n")
@@ -45,7 +46,7 @@ class Files: # TODO: Scania S changes?
         file.close()
 
     def manifest_sii(pack_version, pack_name, pack_author):
-        file.open("output/manifest.sii", "w")
+        file = open("output/manifest.sii", "w")
         file.write("SiiNunit\n")
         file.write("{\n")
         file.write("mod_package: .package_name\n")
@@ -74,12 +75,12 @@ class Files: # TODO: Scania S changes?
     def copy_image_files(mode, internal_name):
         if mode == "auto": input_folder = "auto input"
         elif mode == "man": input_folder = "man input"
-        shutil.copyfile("%s/%s.dds" % (input_folder, internal_name), "output/vehicle/truck/upgrade/paintjob/%s.dds" & internal_name)
+        shutil.copyfile("%s/%s.dds" % (input_folder, internal_name), "output/vehicle/truck/upgrade/paintjob/%s.dds" % internal_name)
         shutil.copyfile("%s/icon.dds" % input_folder, "output/material/ui/accessory/%s.dds" % internal_name)
 
     def copy_mod_package_files(mode):
         if mode == "auto": input_folder = "auto input"
-        elif mode  == "main": input_folder = "man input"
+        elif mode  == "man": input_folder = "man input"
         shutil.copyfile("%s/mod_description.txt" % input_folder, "output/mod_description.txt")
         shutil.copyfile("%s/snoop.txt" % input_folder, "output/Snooping as usual I see.txt") # vitally important file
         shutil.copyfile("%s/mod_image.jpg" % input_folder, "output/mod_image.jpg")
@@ -107,13 +108,13 @@ class Folders:
         Folders.make_folder("output/vehicle/truck/upgrade/paintjob")
 
     def specific_mod_folders(make, model, new_truck_format = False): # TODO: Add new_truck_format to database file
-        Folder.make_folder("output/def/vehicle/truck/%s.%s/paint_job" % (make, model))
+        Folders.make_folder("output/def/vehicle/truck/%s.%s/paint_job" % (make, model))
         if new_truck_format:
             pass # TODO: Scania S folder support here
 
     def clear_output_folder():
         shutil.rmtree("output")
-        os.makedirs("output")
+        # os.makedirs("output")
 
 def compile_mod_file(truck_list=None):
     shutil.make_archive("paintjob", "zip", "output")

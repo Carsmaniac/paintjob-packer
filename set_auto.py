@@ -11,6 +11,8 @@ import paintjob, configparser, sys, time, os
 
 def menu():
     print("\n"*30)
+    paintjob.welcome_message()
+    print("")
     print("=== Full Paintjob Pack Configurator ===")
     print("")
     print("1 - View/edit modpack parameters")
