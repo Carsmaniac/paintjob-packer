@@ -81,7 +81,7 @@ def edit_params():
     elif menu_choice == "3":
         param_to_edit = ("pack_version", "Mod version")
     elif menu_choice == "4":
-        param_to_edit = ("name", "Ingame name")
+        param_to_edit = ("ingame_name", "Ingame name")
     elif menu_choice == "5":
         param_to_edit = ("price", "Price")
     elif menu_choice == "6":
@@ -176,7 +176,7 @@ def manage_lists():
     elif menu_choice < menu_num: # TODO: Make this work
         switch_to_list(other_lists[menu_num-1])
     else: # TODO: Creating, removing and modifying lists
-        print("Invalid selection") # NOTE: list type "euro" = truck types "euro", "euro mod" and "trailer", same for american
+        print("Invalid selection") # NOTE: list_type "euro" = vehicle_type "euro", "euro mod" and "trailer", same for american
         time.sleep(1.5)
         manage_lists()
 
@@ -194,4 +194,6 @@ def switch_to_list(list_to_switch_to):
     time.sleep(1.5)
     manage_lists()
 
+# TODO: Make input folders
+# TODO: Make a default skin list
 menu()

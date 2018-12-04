@@ -1,0 +1,29 @@
+Here's a list of variable names so that nothing gets confused
+
+=== Truck stuff ===
+make
+model
+cabins
+DB: cabin_1, cabin_2, cabin_3
+
+=== Unseen paintjob stuff ===
+internal_name
+
+=== Ingame paintjob stuff ===
+ingame_name
+price
+unlock_level
+
+=== Mod manager stuff ===
+pack_name
+pack_version
+pack_author
+
+=== Paintjob Packer stuff ===
+mode (auto, man)
+DATABASE: vehicle_type (euro, american, trailer, euro mod, american mod)
+DATABASE: new_truck_format (bool)
+CONFIG: truck_list
+TRUCK LIST: database_name
+TRUCK LIST (Params): list_type (euro, american)
+TRUCK LIST: list_name
