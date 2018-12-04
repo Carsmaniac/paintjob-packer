@@ -44,8 +44,8 @@ def view_params():
     print("Mod author:   %s" % config["AutoParams"]["pack_author"])
     print("Mod version:  %s" % config["AutoParams"]["pack_version"])
     print("")
-    print("=== Ingame paintjob parameters ===")
-    print("Ingame name:  %s" % config["AutoParams"]["name"])
+    print("=== In-game paintjob parameters ===")
+    print("In-game name: %s" % config["AutoParams"]["ingame_name"])
     print("Price:        %s" % config["AutoParams"]["price"])
     print("Unlock level: %s" % config["AutoParams"]["unlock_level"])
     print("")
@@ -69,7 +69,7 @@ def edit_params():
     print("1 - Mod name")
     print("2 - Mod author")
     print("3 - Mod version")
-    print("4 - Ingame name")
+    print("4 - In-game name")
     print("5 - Price")
     print("6 - Unlock level")
     print("")
@@ -83,7 +83,7 @@ def edit_params():
     elif menu_choice == "3":
         param_to_edit = ("pack_version", "Mod version")
     elif menu_choice == "4":
-        param_to_edit = ("ingame_name", "Ingame name")
+        param_to_edit = ("ingame_name", "In-game name")
     elif menu_choice == "5":
         param_to_edit = ("price", "Price")
     elif menu_choice == "6":

@@ -9,7 +9,7 @@ DB: cabin_1, cabin_2, cabin_3
 === Unseen paintjob stuff ===
 internal_name
 
-=== Ingame paintjob stuff ===
+=== In-game paintjob stuff ===
 ingame_name
 price
 unlock_level
