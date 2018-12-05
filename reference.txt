@@ -28,6 +28,7 @@ CONFIG: all_truck_lists
 TRUCK LIST: database_name
 TRUCK LIST: list_type (euro, american)
 TRUCK LIST: list_name
+TRUCK LIST: cabin_numbers
 
 === File and folder structure ===
 input
