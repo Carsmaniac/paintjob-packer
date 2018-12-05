@@ -96,6 +96,7 @@ def switch_truck_list():
     menu_choice_counter = 1
     if len(all_truck_lists) != 0:
         print("Select list to switch to: ")
+        print("")
         for other_truck_list in all_truck_lists:
             list_ini = configparser.ConfigParser()
             list_ini.read("truck lists/%s.ini" % other_truck_list)
@@ -137,7 +138,8 @@ def edit_params(truck_list):
         manual = True
     else:
         manual = False
-    print("Select parameter to edit")
+    print("Select parameter to edit:")
+    print("")
     print("1 - Mod name")
     print("2 - Mod author")
     print("3 - Mod version")
@@ -193,9 +195,10 @@ def select_truck(mode="man"): # mode can be man or add
         print("Model (internal):        %s" % list_ini["Params"]["model"])
         print("Cabins (internal):       %s" % list_ini["Params"]["cabins"].replace(",", ", "))
         print("")
-        print("Select type of truck to support")
+        print("Select type of truck to support:")
     else:
-        print("Select type of truck to add")
+        print("Select type of truck to add:")
+    print("")
     print("1 - Euro Truck Simulator 2")
     print("2 - American Truck Simulator")
     print("3 - Euro Truck Simulator 2 truck mod")
@@ -262,7 +265,8 @@ def edit_auto_trucks():
     if len(all_trucks_in_list) == 0:
         print("This list is empty")
     else:
-        print("Select truck to edit/remove")
+        print("Select truck to edit/remove:")
+        print("")
         menu_choice_counter = 1
         for truck in all_trucks_in_list:
             print("%s - %s (%s, %s cabins)" % (menu_choice_counter, truck, list_ini[truck]["database_name"], len(list_ini[truck]["cabins"].split(","))))
@@ -340,6 +344,7 @@ def choose_cabins(database_name, cabin_1=False, cabin_2=False, cabin_3=False, ca
         print("Select cabin of %s (%s) to toggle support" % (internal_name, database_name))
     else:
         print("Select cabin of %s to toggle support" % database_name)
+    print("")
     if "cabin_1" in database_ini[database_name]:
         if not cabin_1:
             print("1 - [ ] - %s" % database_ini[database_name]["cabin_1"])
