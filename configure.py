@@ -298,7 +298,8 @@ def edit_truck(selected_truck):
     print("Selected truck: %s (%s)" % (selected_truck, list_ini[selected_truck]["database_name"]))
     print("")
     print("1 - Edit truck")
-    print("2 - Remove truck")
+    if len(list_ini.sections()) > 3:
+        print("2 - Remove truck")
     print("")
     print("0 - Back to previous menu")
     print("")
@@ -322,7 +323,7 @@ def edit_truck(selected_truck):
         else:
             cabin_8x4 = False
         choose_cabins(database_name=list_ini[selected_truck]["database_name"], cabin_1=cabin_1, cabin_2=cabin_2, cabin_3=cabin_3, cabin_8x4=cabin_8x4, mode="edit", internal_name=selected_truck)
-    elif menu_choice == "2":
+    elif menu_choice == "2" and len(list_ini.sections()) > 3:
         list_ini.remove_section(selected_truck)
         with open("truck lists/%s.ini" % truck_list, "w") as configfile:
             list_ini.write(configfile)
@@ -594,8 +595,6 @@ menu()
 # TODO: whenever displaying make, model or cabins show nice looking names
 #   make_name, model_name, cabin_1_name etc
 #   database_name can be generated from make_name and model_name
-
-# TODO: can't remove the last truck
 
 # TODO: remove lists, change name
 
