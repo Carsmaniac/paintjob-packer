@@ -415,6 +415,7 @@ def choose_cabins(database_name, cabin_1=False, cabin_2=False, cabin_3=False, ca
             list_ini["Params"]["make"] = database_ini[database_name]["make"]
             list_ini["Params"]["model"] = database_ini[database_name]["model"]
             list_ini["Params"]["cabins"] = cabins_selected
+            list_ini["Params"]["cabin_numbers"] = selected_cabin_numbers
             with open("truck lists/manual.ini", "w") as configfile:
                 list_ini.write(configfile)
             print("Supported truck changed successfully")
@@ -589,9 +590,6 @@ def create_new_list(new_list_name=None, new_truck_list=None):
             create_new_list(new_list_name, new_truck_list)
 
 menu()
-
-# TODO: cabin_numbers when calling choose_cabin when editing manual?
-#   cabin_numbers in manual.ini?
 
 # TODO: whenever displaying make, model or cabins show nice looking names
 #   make_name, model_name, cabin_1_name etc
