@@ -536,7 +536,11 @@ def create_new_list(new_list_name=None, new_truck_list=None):
     if new_truck_list == None:
         new_truck_list = input("Enter internal name for new list: ")
         print("")
+<<<<<<< HEAD
         if new_truck_list in all_truck_lists or new_truck_list in ("manual","defaults_euro","defaults_american"):
+=======
+        if new_truck_list in all_truck_lists or new_truck_list == "manual" or new_truck_list == "defaults":
+>>>>>>> 78584a5dd859574b2994ee841d559226c9f5d89d
             print("Internal name already exists, choose another")
             time.sleep(1.5)
             new_truck_list = None
