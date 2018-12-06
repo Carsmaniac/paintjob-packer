@@ -95,14 +95,11 @@ def switch_truck_list():
     all_truck_lists.remove(truck_list)
     menu_choice_counter = 1
     if len(all_truck_lists) != 0:
-        print("Select list to switch to: ")
-        print("")
         for other_truck_list in all_truck_lists:
             list_ini = configparser.ConfigParser()
             list_ini.read("truck lists/%s.ini" % other_truck_list)
-            print("%s - %s (%s trucks)" % (menu_choice_counter, list_ini["Params"]["list_name"], str(len(list_ini.sections())-1)))
+            print("%s - Switch to %s (%s trucks)" % (menu_choice_counter, list_ini["Params"]["list_name"], str(len(list_ini.sections())-1)))
             menu_choice_counter += 1
-        print("")
         print("%s - Create a new truck list" % menu_choice_counter)
     else:
         print("No other truck lists")
@@ -138,28 +135,30 @@ def edit_params(truck_list):
         manual = True
     else:
         manual = False
+    list_ini = configparser.ConfigParser()
+    list_ini.read("truck lists/%s.ini" % truck_list)
     print("Select parameter to edit:")
     print("")
-    print("1 - Mod name")
-    print("2 - Mod author")
-    print("3 - Mod version")
-    print("4 - In-game name")
-    print("5 - Price")
-    print("6 - Unlock level")
+    print("1 - Edit mod name     (%s)" % list_ini["Params"]["pack_name"])
+    print("2 - Edit mod author   (%s)" % list_ini["Params"]["pack_author"])
+    print("3 - Edit mod version  (%s)" % list_ini["Params"]["pack_version"])
+    print("4 - Edit in-game name (%s)" % list_ini["Params"]["ingame_name"])
+    print("5 - Edit price        (%s)" % list_ini["Params"]["price"])
+    print("6 - Edit unlock level (%s)" % list_ini["Params"]["unlock_level"])
     print("")
     print("0 - Back to previous menu")
     print("")
     menu_choice = input("Enter selection: ")
     if menu_choice == "1":
-        param_to_edit = ("pack_name", "Mod name")
+        param_to_edit = ("pack_name", "mod name")
     elif menu_choice == "2":
-        param_to_edit = ("pack_author", "Mod author")
+        param_to_edit = ("pack_author", "mod author")
     elif menu_choice == "3":
-        param_to_edit = ("pack_version", "Mod version")
+        param_to_edit = ("pack_version", "mod version")
     elif menu_choice == "4":
-        param_to_edit = ("ingame_name", "In-game name")
+        param_to_edit = ("ingame_name", "in-game name")
     elif menu_choice == "5":
-        param_to_edit = ("price", "Price")
+        param_to_edit = ("price", "price")
     elif menu_choice == "6":
         param_to_edit = ("unlock_level", "Unlock level")
     elif menu_choice == "0":
@@ -172,17 +171,18 @@ def edit_params(truck_list):
         edit_params(truck_list)
     if param_to_edit != None:
         print("")
-        new_param_value = input("Enter new value for %s: " % param_to_edit[1])
-        param_to_edit = param_to_edit[0]
-        list_ini = configparser.ConfigParser()
-        list_ini.read("truck lists/%s.ini" % truck_list)
-        list_ini["Params"][param_to_edit] = new_param_value
-        with open("truck lists/%s.ini" % truck_list, "w") as configfile:
-            list_ini.write(configfile)
-        print("")
-        print("Parameter changed successfully")
-        time.sleep(1.5)
-        edit_params(truck_list)
+        new_param_value = input("Enter new value for %s, or nothing to cancel: " % param_to_edit[1])
+        if new_param_value == "":
+            edit_params(truck_list)
+        else:
+            param_to_edit = param_to_edit[0]
+            list_ini["Params"][param_to_edit] = new_param_value
+            with open("truck lists/%s.ini" % truck_list, "w") as configfile:
+                list_ini.write(configfile)
+            print("")
+            print("Parameter changed successfully")
+            time.sleep(1.5)
+            edit_params(truck_list)
 
 def select_truck(mode="man"): # mode can be man or add
     print("\n"*50)
@@ -265,13 +265,10 @@ def edit_auto_trucks():
     if len(all_trucks_in_list) == 0:
         print("This list is empty")
     else:
-        print("Select truck to edit/remove:")
-        print("")
         menu_choice_counter = 1
         for truck in all_trucks_in_list:
-            print("%s - %s (%s, %s cabins)" % (menu_choice_counter, truck, list_ini[truck]["database_name"], len(list_ini[truck]["cabins"].split(","))))
+            print("%s - Edit/remove %s (%s, %s cabins)" % (menu_choice_counter, truck, list_ini[truck]["database_name"], len(list_ini[truck]["cabins"].split(","))))
             menu_choice_counter += 1
-    print("")
     print("%s - Add a new truck" % menu_choice_counter)
     print("")
     print("0 - Back to previous menu")
@@ -521,6 +518,8 @@ def create_new_list(new_list_name=None, new_truck_list=None):
     all_truck_lists = config["Params"]["all_truck_lists"]
     all_truck_lists = all_truck_lists.split(",")
     print("Current truck list: %s (%s)" % (config["Params"]["list_name"],config["Params"]["truck_list"]))
+    if new_list_name != None and new_truck_list != None:
+        print("New truck list: %s (%s)" % (new_list_name, new_truck_list))
     if len(all_truck_lists) > 1:
         print("")
         print("Other truck lists:")
@@ -600,3 +599,7 @@ menu()
 # TODO: remove lists, change name
 
 # TODO: Changing variables, show the current value and let people exit (..or nothing to cancel)
+
+# TODO: First-run function (makes a list from default values, sets up folders, tutorial?, etc) (default lists or globex lists - choice)
+
+# TODO: (big) ATS and trailer support!
