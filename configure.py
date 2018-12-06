@@ -516,8 +516,6 @@ def edit_man_internal_name():
 
 def create_new_list(new_list_name=None, new_truck_list=None):
     print("\n"*50)
-    manual_ini = configparser.ConfigParser()
-    manual_ini.read("truck lists/manual.ini")
     config = configparser.ConfigParser()
     config.read("config.ini")
     all_truck_lists = config["Params"]["all_truck_lists"]
@@ -539,21 +537,12 @@ def create_new_list(new_list_name=None, new_truck_list=None):
     if new_truck_list == None:
         new_truck_list = input("Enter internal name for new list: ")
         print("")
-        if new_truck_list in all_truck_lists or new_truck_list == "manual":
+        if new_truck_list in all_truck_lists or new_truck_list in ("manual","defaults_euro","defaults_american"):
             print("Internal name already exists, choose another")
             time.sleep(1.5)
             new_truck_list = None
         create_new_list(new_list_name, new_truck_list)
     else:
-        list_ini = configparser.ConfigParser()
-        list_ini.add_section("Params")
-        list_ini["Params"]["ingame_name"] = manual_ini["Params"]["ingame_name"]
-        list_ini["Params"]["price"] = manual_ini["Params"]["price"]
-        list_ini["Params"]["unlock_level"] = manual_ini["Params"]["unlock_level"]
-        list_ini["Params"]["pack_version"] = manual_ini["Params"]["pack_version"]
-        list_ini["Params"]["pack_name"] = manual_ini["Params"]["pack_name"]
-        list_ini["Params"]["pack_author"] = manual_ini["Params"]["pack_author"]
-        list_ini["Params"]["list_name"] = new_list_name
         print("")
         print("Select type of list to make: ")
         print("")
@@ -562,21 +551,33 @@ def create_new_list(new_list_name=None, new_truck_list=None):
         print("")
         menu_choice = input("Enter selection: ")
         if menu_choice in ["1","2"]:
+            defaults_ini = configparser.ConfigParser()
             if menu_choice == "1":
                 list_ini["Params"]["list_type"] = "euro"
+                defaults_ini.read("truck lists/defaults_euro.ini")
             else:
                 list_ini["Params"]["list_type"] = "american"
-            internal_name = manual_ini["Params"]["internal_name"]
+                defaults_ini.read("truck lists/defaults_american.ini") # TODO: defaults_american once ATS support is in
+            list_ini = configparser.ConfigParser()
+            list_ini.add_section("Params")
+            list_ini["Params"]["ingame_name"] = defaults_ini["Params"]["ingame_name"]
+            list_ini["Params"]["price"] = defaults_ini["Params"]["price"]
+            list_ini["Params"]["unlock_level"] = defaults_ini["Params"]["unlock_level"]
+            list_ini["Params"]["pack_version"] = defaults_ini["Params"]["pack_version"]
+            list_ini["Params"]["pack_name"] = defaults_ini["Params"]["pack_name"]
+            list_ini["Params"]["pack_author"] = defaults_ini["Params"]["pack_author"]
+            list_ini["Params"]["list_name"] = new_list_name
+            internal_name = defaults_ini["Params"]["internal_name"]
             list_ini.add_section(internal_name)
-            list_ini[internal_name]["database_name"] = manual_ini["Params"]["database_name"]
-            list_ini[internal_name]["make"] = manual_ini["Params"]["make"]
-            list_ini[internal_name]["model"] = manual_ini["Params"]["model"]
-            list_ini[internal_name]["cabins"] = manual_ini["Params"]["cabins"]
-            list_ini[internal_name]["cabin_numbers"] = manual_ini["Params"]["cabin_numbers"]
+            list_ini[internal_name]["database_name"] = defaults_ini["Params"]["database_name"]
+            list_ini[internal_name]["make"] = defaults_ini["Params"]["make"]
+            list_ini[internal_name]["model"] = defaults_ini["Params"]["model"]
+            list_ini[internal_name]["cabins"] = defaults_ini["Params"]["cabins"]
+            list_ini[internal_name]["cabin_numbers"] = defaults_ini["Params"]["cabin_numbers"]
             with open("truck lists/%s.ini" % new_truck_list, "w") as configfile:
                 list_ini.write(configfile)
             print("New list made successfully")
-            print("Default values from the manual painjob generator used, please change them to your liking")
+            print("Default values used, please change them to your liking")
             time.sleep(3)
             config["Params"]["truck_list"] = new_truck_list
             config["Params"]["list_name"] = new_list_name
