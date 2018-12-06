@@ -512,8 +512,81 @@ def edit_man_internal_name():
         time.sleep(2.5)
         edit_man_internal_name()
 
-def create_new_list(): # TODO: this
-    pass
+def create_new_list(new_list_name=None, new_truck_list=None):
+    print("\n"*50)
+    manual_ini = configparser.ConfigParser()
+    manual_ini.read("truck lists/manual.ini")
+    config = configparser.ConfigParser()
+    config.read("config.ini")
+    all_truck_lists = config["Params"]["all_truck_lists"]
+    all_truck_lists = all_truck_lists.split(",")
+    print("Current truck list: %s (%s)" % (config["Params"]["list_name"],config["Params"]["truck_list"]))
+    if len(all_truck_lists) > 1:
+        print("")
+        print("Other truck lists:")
+        print("")
+        for other_list in all_truck_lists:
+            if other_list != config["Params"]["truck_list"]:
+                list_ini = configparser.ConfigParser()
+                list_ini.read("truck lists/%s.ini" % other_list)
+                print("%s (%s)" % (list_ini["Params"]["list_name"],other_list))
+    print("")
+    if new_list_name == None:
+        new_list_name = input("Enter name for new list: ")
+        print("")
+    if new_truck_list == None:
+        new_truck_list = input("Enter internal name for new list: ")
+        print("")
+        if new_truck_list in all_truck_lists or new_truck_list == "manual":
+            print("Internal name already exists, choose another")
+            time.sleep(1.5)
+            new_truck_list = None
+        create_new_list(new_list_name, new_truck_list)
+    else:
+        list_ini = configparser.ConfigParser()
+        list_ini.add_section("Params")
+        list_ini["Params"]["ingame_name"] = manual_ini["Params"]["ingame_name"]
+        list_ini["Params"]["price"] = manual_ini["Params"]["price"]
+        list_ini["Params"]["unlock_level"] = manual_ini["Params"]["unlock_level"]
+        list_ini["Params"]["pack_version"] = manual_ini["Params"]["pack_version"]
+        list_ini["Params"]["pack_name"] = manual_ini["Params"]["pack_name"]
+        list_ini["Params"]["pack_author"] = manual_ini["Params"]["pack_author"]
+        list_ini["Params"]["list_name"] = new_list_name
+        print("")
+        print("Select type of list to make: ")
+        print("")
+        print("1 - Euro Truck Simulator 2")
+        print("2 - American Truck Simulator")
+        print("")
+        menu_choice = input("Enter selection: ")
+        if menu_choice in ["1","2"]:
+            if menu_choice == "1":
+                list_ini["Params"]["list_type"] = "euro"
+            else:
+                list_ini["Params"]["list_type"] = "american"
+            internal_name = manual_ini["Params"]["internal_name"]
+            list_ini.add_section(internal_name)
+            list_ini[internal_name]["database_name"] = manual_ini["Params"]["database_name"]
+            list_ini[internal_name]["make"] = manual_ini["Params"]["make"]
+            list_ini[internal_name]["model"] = manual_ini["Params"]["model"]
+            list_ini[internal_name]["cabins"] = manual_ini["Params"]["cabins"]
+            list_ini[internal_name]["cabin_numbers"] = manual_ini["Params"]["cabin_numbers"]
+            with open("truck lists/%s.ini" % new_truck_list, "w") as configfile:
+                list_ini.write(configfile)
+            print("New list made successfully")
+            print("Default values from the manual painjob generator used, please change them to your liking")
+            time.sleep(3)
+            config["Params"]["truck_list"] = new_truck_list
+            config["Params"]["list_name"] = new_list_name
+            all_truck_lists.append(new_truck_list)
+            config["Params"]["all_truck_lists"] = ",".join(i for i in all_truck_lists)
+            with open("config.ini", "w") as configfile:
+                config.write(configfile)
+            view_params()
+        else:
+            print("Invalid selection")
+            time.sleep(1.5)
+            create_new_list(new_list_name, new_truck_list)
 
 menu()
 
@@ -523,3 +596,9 @@ menu()
 # TODO: whenever displaying make, model or cabins show nice looking names
 #   make_name, model_name, cabin_1_name etc
 #   database_name can be generated from make_name and model_name
+
+# TODO: can't remove the last truck
+
+# TODO: remove lists, change name
+
+# TODO: Changing variables, show the current value and let people exit (..or nothing to cancel)
