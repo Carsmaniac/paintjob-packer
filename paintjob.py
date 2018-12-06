@@ -1,6 +1,6 @@
 import os, shutil, binascii, codecs, configparser
 
-version = "v0.0"
+version = "v0.1"
 
 def welcome_message():
     print("Paintjob Packer %s" % version)
