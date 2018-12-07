@@ -18,28 +18,32 @@ Please note: I have no idea how GitHub works and I'm mostly making this to play 
 Paintjob Packer is just the last step in making a mod, it helps you turn a lovingly crafted image into a fully working .scs file. You'll first need to make your paintjob in a program such as Photoshop. You can find templates and tutorials all over the web.
 
 ### Making full paintjob packs
-1. Run `auto.py`
+1. Run `configure.py`
+2. Set up a truck list to your liking, following on-screen instructions
+3. Save your paintjobs as `.dds` files, named after each paintjob's internal name
+4. Place them in `input/<list name here>`
+5. Add your modpack images
+6. Run `auto.py`
+7. Mod will be created and placed in the base folder
 
 ### Making single test mods
 This is intended for when you are developing a paintjob. If you make a small tweak to your file, you can generate a new .scs file in one click without having to worry about piles of menus.
 
 1. Save your paintjob as `test.dds`
-2. Place it inside `input/man`
+2. Place it inside `input/manual`
 3. Run `man.py`
 4. Your mod will be saved as `test.scs` in the base folder
 
 ### Additional Tips
-* When saving your .dds files, save them in the DXT5 format with mipmaps, otherwise you might run into problems ingame
+* When saving your `.dds` files, save them in the DXT5 format with mipmaps, otherwise you might run into problems ingame
 
 ## Files
 
 * `single.py`: Generates a single paintjob
 * `auto.py`: Generates a complete paintjob pack
 * `man.py`: Generates a single paintjob with preset parameters
-* `set_auto.py`: Sets parameters for automatic paintjob pack generation
-* `set_man.py`: Sets parameters for manual test paintjob generation
+* `configure.py`: Configures parameters for paintjob packs and single manual paintjobs
 * `paintjob.py`: Functions and other goodies used by everything else
-* `config.ini`: Parameters for paintjob generation, as well as the program's built-in database of trucks etc.
-* `autotrucks.ini`: List of trucks for use in automatic pack generation
+* `config.ini`: Parameters for paintjob generation
 
-TODO: Finish the How to Use section
+TODO: Finish the readme
