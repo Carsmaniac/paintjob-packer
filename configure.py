@@ -11,7 +11,7 @@ def menu():
     list_name = config["Params"]["list_name"]
     print("Current paintjob pack truck list: %s" % list_name)
     print("")
-    print("1 - View/edit current truck list parameters")
+    print("1 - View/edit paintjob pack parameters")
     print("2 - Switch to another truck list")
     print("3 - View/edit manual paintjob parameters")
     print("")
@@ -460,6 +460,17 @@ def choose_cabins(database_name, cabin_1=False, cabin_2=False, cabin_3=False, ca
                         list_ini[new_internal_name]["model"] = database_ini[database_name]["model"]
                     list_ini[new_internal_name]["cabins"] = cabins_selected
                     list_ini[new_internal_name]["cabin_numbers"] = selected_cabin_numbers
+                    list_ini[new_internal_name]["new_truck_format"] = database_ini[database_name]["new_truck_format"]
+                    if list_ini[new_internal_name].getboolean("new_truck_format"):
+                        print("Truck uses the new accessory format! Ensure you edit its accessory textures and assign its accessories")
+                        time.sleep(2.5)
+                        accessories_ini = configparser.ConfigParser()
+                        accessories_ini.read("accessories.ini")
+                        list_ini[new_internal_name]["accessory_name_list"] = "default_accessory_texture"
+                        all_accessory_types = []
+                        for accessory_type in accessories_ini.options(database_name):
+                            all_accessory_types.append("%s=0" % accessory_type)
+                        list_ini[new_internal_name]["accessory_dict"] = ",".join(all_accessory_types)
                     if mode == "edit" and internal_name != new_internal_name:
                         list_ini.remove_section(internal_name)
                     with open("truck lists/%s.ini" % truck_list, "w") as configfile:
