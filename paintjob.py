@@ -25,7 +25,7 @@ def generate_tobj_string(path): # TEMP: does this work for the Scania S tobjs fi
     return tobj_file
 
 class Files: # TODO: Scania S changes?
-    def def_sii(make, model, cabins, internal_name, ingame_name, price, unlock_level): # wow that's not confusing at all
+    def def_sii(make, model, cabins, internal_name, ingame_name, price, unlock_level, new_truck_format): # wow that's not confusing at all
         file = open("output/def/vehicle/truck/%s.%s/paint_job/%s.sii" % (make, model, internal_name), "w")
         file.write("SiiNunit\n")
         file.write("{\n")
@@ -37,7 +37,10 @@ class Files: # TODO: Scania S changes?
         file.write('    icon:                 "%s"\n' % internal_name)
         file.write("    airbrush:             true\n")
         file.write("\n")
-        file.write('    paint_job_mask:       "/vehicle/truck/upgrade/paintjob/%s.tobj"\n' % internal_name)
+        if new_truck_format:
+            file.write('    paint_job_mask:       "/vehicle/truck/upgrade/paintjob/%s_%s6/%s/%s.tobj"\n' % (make, model, internal_name, internal_name))
+        else:
+            file.write('    paint_job_mask:       "/vehicle/truck/upgrade/paintjob/%s.tobj"\n' % internal_name)
         file.write("\n")
         for each_cabin in cabins:
             file.write('    suitable_for[]: "%s.%s.%s.cabin"\n' % (each_cabin, make, model))
@@ -72,35 +75,43 @@ class Files: # TODO: Scania S changes?
         file.write("}\n")
         file.close()
 
-    def copy_image_files(mode, internal_name):
-        if mode == "auto": input_folder = "auto input"
-        elif mode == "man": input_folder = "man input"
-        shutil.copyfile("%s/%s.dds" % (input_folder, internal_name), "output/vehicle/truck/upgrade/paintjob/%s.dds" % internal_name)
+    def copy_image_files(truck_list, internal_name, new_truck_format, make, model, accessory_names):
+        input_folder = "input/%s" % truck_list
         shutil.copyfile("%s/icon.dds" % input_folder, "output/material/ui/accessory/%s.dds" % internal_name)
+        if new_truck_format:
+            shutil.copyfile("%s/%s.dds" % (input_folder, internal_name), "output/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s.dds" % (make, model, internal_name, internal_name))
+            for accessory_name in accessory_names:
+                shutil.copyfile("%s/%s.dds" % (input_folder, accessory_name), "output/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s.dds" % (make, model, internal_name, accessory_name))
+        else:
+            shutil.copyfile("%s/%s.dds" % (input_folder, internal_name), "output/vehicle/truck/upgrade/paintjob/%s.dds" % internal_name)
 
-    def copy_mod_package_files(mode):
-        if mode == "auto": input_folder = "auto input"
-        elif mode  == "man": input_folder = "man input"
+    def copy_mod_package_files(truck_list):
+        input_folder = "input/%s" % truck_list
         shutil.copyfile("%s/mod_description.txt" % input_folder, "output/mod_description.txt")
         shutil.copyfile("%s/snoop.txt" % input_folder, "output/Snooping as usual I see.txt") # vitally important file
         shutil.copyfile("%s/mod_image.jpg" % input_folder, "output/mod_image.jpg")
 
-    def generate_tobj_files(internal_name, new_truck_format = False): # TODO: Scania S tobj files
+    def generate_tobj_files(internal_name, new_truck_format, accessory_names = None): # TODO: Scania S tobj files
         file = open("output/material/ui/accessory/%s.tobj" % internal_name, "wb")
         file.write(generate_tobj_string("/material/ui/accessory/%s.dds" % internal_name))
         file.close()
-        file = open("output/vehicle/truck/upgrade/paintjob/%s.tobj" % internal_name, "wb")
-        file.write(generate_tobj_string("/vehicle/truck/upgrade/paintjob/%s.dds" % internal_name))
-        file.close()
+        if new_truck_format:
+            file = open("output/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s.tobj" % (make, model, internal_name, internal_name), "wb")
+            file.write(generate_tobj_string("/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s.dds" % (make, model, internal_name, internal_name)))
+            file.close()
+            for accessory_name in accessory_names:
+                file.open("output/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s" % (make, model, internal_name, accessory_name))
+                file.write(generate_tobj_string("/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s" % (make, model, internal_name, accessory_name)))
+                file.close()
+        else:
+            file = open("output/vehicle/truck/upgrade/paintjob/%s.tobj" % internal_name, "wb")
+            file.write(generate_tobj_string("/vehicle/truck/upgrade/paintjob/%s.dds" % internal_name))
+            file.close()
 
 class Folders:
     def make_folder(folder_name):
         if not os.path.exists(folder_name):
             os.makedirs(folder_name)
-
-    def input_folders():
-        Folders.make_folder("man input")
-        Folders.make_folder("auto input")
 
     def common_mod_folders():
         Folders.make_folder("output")
