@@ -31,10 +31,10 @@ new_truck_format = manual["Params"].getboolean("new_truck_format")
 
 if new_truck_format:
     accessory_names = manual["Params"]["accessory_names"].split(",")
-    accessories = dict(item.split("=") for item in manual["Params"]["accessories"].split(","))
+    accessory_dict = dict(item.split("=") for item in manual["Params"]["accessory_dict"].split(","))
 else:
     accessory_names = None
-    accessories = None
+    accessory_dict = None
 
 print("Generating paintjob for %s..." % database_name)
 
@@ -44,7 +44,7 @@ paintjob.Folders.specific_mod_folders(make=make, model=model, new_truck_format=n
 print("Generating definition files...")
 paintjob.Files.def_sii(make=make, model=model, cabins=cabins, internal_name=internal_name, ingame_name=ingame_name, price=price, unlock_level=unlock_level, new_truck_format=new_truck_format)
 if new_truck_format:
-    paintjob.Files.def_accessory_sii(make=make, model=model, internal_name=internal_name, accessory_names=accessory_names, accessories=accessories, database_name=database_name)
+    paintjob.Files.def_accessory_sii(make=make, model=model, internal_name=internal_name, accessory_names=accessory_names, accessory_dict=accessory_dict, database_name=database_name)
 paintjob.Files.material_mat(internal_name=internal_name)
 paintjob.Files.generate_tobj_files(internal_name=internal_name, make=make, model=model, new_truck_format=new_truck_format, accessory_names=accessory_names)
 paintjob.Files.manifest_sii(pack_version=pack_version, pack_name=pack_name, pack_author=pack_author)

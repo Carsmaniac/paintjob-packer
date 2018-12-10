@@ -29,8 +29,12 @@ TRUCK LIST: database_name
 TRUCK LIST: list_type (euro, american)
 TRUCK LIST: list_name
 TRUCK LIST/MAN: cabin_numbers
-TRUCK LIST/MAN: accessory_names
-TRUCK LIST/MAN: accessories
+
+=== Accessory stuff ===
+accessory_dict (dictionary of accessory_type:index of accessory_names)
+accessory_type (e.g. accessory_painted_exhaust)
+accessory_name (an "accessory texture", e.g. shared_white)
+accessory_names (list of all "accesory_name"s)
 
 === File and folder structure ===
 input

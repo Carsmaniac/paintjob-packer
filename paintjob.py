@@ -56,7 +56,7 @@ class Files:
         file.write("}\n")
         file.close()
 
-    def def_accessory_sii(make, model, internal_name, accessory_names, accessories, database_name):
+    def def_accessory_sii(make, model, internal_name, accessory_names, accessory_dict, database_name):
         file = open("output/def/vehicle/truck/%s.%s/paint_job/accessory/%s.sii" % (make, model, internal_name), "w")
         file.write("SiiNunit\n")
         file.write("{\n")
@@ -65,8 +65,8 @@ class Files:
             file.write("simple_paint_job_data: .ovr%s\n" % group_counter)
             file.write("{\n")
             file.write('    paint_job_mask: "/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s.tobj"\n' % (make, model, internal_name, group))
-            for accessory_type in accessories:
-                if accessories[accessory_type] == str(group_counter):
+            for accessory_type in accessory_dict:
+                if accessory_dict[accessory_type] == str(group_counter):
                     for truck_part in get_accessory_list(accessory_type, database_name):
                         file.write('    acc_list[]: "%s"\n' % truck_part)
             file.write("}\n")
