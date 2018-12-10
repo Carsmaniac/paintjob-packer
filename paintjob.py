@@ -24,6 +24,11 @@ def generate_tobj_string(path): # TEMP: does this work for the Scania S tobjs fi
     tobj_file = codecs.decode(tobj_string, "hex_codec")
     return tobj_file
 
+def get_accessory_list(accessory_type, database_name):
+    accessories_ini = configparser.ConfigParser()
+    accessories_ini.read("accessories.ini")
+    return accessories_ini[database_name][accessory_type].split(",")
+
 class Files: # TODO: Scania S changes?
     def def_sii(make, model, cabins, internal_name, ingame_name, price, unlock_level, new_truck_format): # wow that's not confusing at all
         file = open("output/def/vehicle/truck/%s.%s/paint_job/%s.sii" % (make, model, internal_name), "w")
@@ -45,6 +50,24 @@ class Files: # TODO: Scania S changes?
         for each_cabin in cabins:
             file.write('    suitable_for[]: "%s.%s.%s.cabin"\n' % (each_cabin, make, model))
         file.write("}\n")
+        file.write("}\n")
+        file.close()
+
+    def def_accessory_sii(make, model, internal_name, accessory_names, accessories, database_name):
+        file = open("output/def/vehicle/truck/%s.%s/%s/accessory/%s.sii" % (make, model, internal_name, internal_name))
+        file.write("SiiNunit\n")
+        file.write("{\n")
+        group_counter = 0
+        for group in accessory_names:
+            file.write("simple_paint_job_data: .ovr%s\n" % group_counter)
+            file.write("{\n")
+            file.write('    paint_job_mask: "/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s.tobj"\n' % (make, model, internal_name, group))
+            for accessory_type in accessories:
+                if accessories[accessory_type] == group_counter:
+                    for truck_part in get_accessory_list(accessory_type):
+                        file.write('    acc_list[]: "%s"\n' % truck_part)
+            file.write("}\n")
+            group_counter += 1
         file.write("}\n")
         file.close()
 
