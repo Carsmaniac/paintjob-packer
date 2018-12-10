@@ -56,12 +56,12 @@ class Files:
         file.write("}\n")
         file.close()
 
-    def def_accessory_sii(make, model, internal_name, accessory_names, accessory_dict, database_name):
+    def def_accessory_sii(make, model, internal_name, accessory_name_list, accessory_dict, database_name):
         file = open("output/def/vehicle/truck/%s.%s/paint_job/accessory/%s.sii" % (make, model, internal_name), "w")
         file.write("SiiNunit\n")
         file.write("{\n")
         group_counter = 0
-        for group in accessory_names:
+        for group in accessory_name_list:
             file.write("simple_paint_job_data: .ovr%s\n" % group_counter)
             file.write("{\n")
             file.write('    paint_job_mask: "/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s.tobj"\n' % (make, model, internal_name, group))
@@ -102,12 +102,12 @@ class Files:
         file.write("}\n")
         file.close()
 
-    def copy_image_files(truck_list, internal_name, new_truck_format, make, model, accessory_names):
+    def copy_image_files(truck_list, internal_name, new_truck_format, make, model, accessory_name_list):
         input_folder = "input/%s" % truck_list
         shutil.copyfile("%s/icon.dds" % input_folder, "output/material/ui/accessory/%s.dds" % internal_name)
         if new_truck_format:
             shutil.copyfile("%s/%s.dds" % (input_folder, internal_name), "output/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s.dds" % (make, model, internal_name, internal_name))
-            for accessory_name in accessory_names:
+            for accessory_name in accessory_name_list:
                 shutil.copyfile("%s/%s.dds" % (input_folder, accessory_name), "output/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s.dds" % (make, model, internal_name, accessory_name))
         else:
             shutil.copyfile("%s/%s.dds" % (input_folder, internal_name), "output/vehicle/truck/upgrade/paintjob/%s.dds" % internal_name)
@@ -118,7 +118,7 @@ class Files:
         shutil.copyfile("%s/snoop.txt" % input_folder, "output/Snooping as usual I see.txt") # vitally important file
         shutil.copyfile("%s/mod_image.jpg" % input_folder, "output/mod_image.jpg")
 
-    def generate_tobj_files(internal_name, make, model, new_truck_format, accessory_names):
+    def generate_tobj_files(internal_name, make, model, new_truck_format, accessory_name_list):
         file = open("output/material/ui/accessory/%s.tobj" % internal_name, "wb")
         file.write(generate_tobj_string("/material/ui/accessory/%s.dds" % internal_name))
         file.close()
@@ -126,7 +126,7 @@ class Files:
             file = open("output/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s.tobj" % (make, model, internal_name, internal_name), "wb")
             file.write(generate_tobj_string("/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s.dds" % (make, model, internal_name, internal_name), alternate=True))
             file.close()
-            for accessory_name in accessory_names:
+            for accessory_name in accessory_name_list:
                 file = open("output/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s.tobj" % (make, model, internal_name, accessory_name), "wb")
                 file.write(generate_tobj_string("/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s.dds" % (make, model, internal_name, accessory_name), alternate=True))
                 file.close()

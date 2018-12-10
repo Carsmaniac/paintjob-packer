@@ -34,7 +34,7 @@ TRUCK LIST/MAN: cabin_numbers
 accessory_dict (dictionary of accessory_type:index of accessory_names)
 accessory_type (e.g. accessory_painted_exhaust)
 accessory_name (an "accessory texture", e.g. shared_white)
-accessory_names (list of all "accesory_name"s)
+accessory_name_list (list of all "accesory_name"s)
 
 === File and folder structure ===
 input
