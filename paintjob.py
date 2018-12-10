@@ -16,8 +16,11 @@ def convert_string_to_hex(string_input): # returns a hexified version of an inpu
     string_output = string_output.decode()
     return string_output
 
-def generate_tobj_string(path):
-    tobj_string = "010AB170000000000000000000000000000000000000000002000303030002020000000000883900" # the start of every tobj file is the same
+def generate_tobj_string(path, alternate=False):
+    if alternate:
+        tobj_string = "010AB170000000000000000000000000000000000100000002000303030002020000000000010000" # new_truck_format vehicle
+    else:
+        tobj_string = "010AB170000000000000000000000000000000000000000002000303030002020000000000883900" # material & non-new_truck_format vehicle
     tobj_string += convert_string_to_hex(len(path))
     tobj_string += "00000000000000"
     tobj_string += convert_string_to_hex(path)
@@ -43,7 +46,7 @@ class Files:
         file.write("    airbrush:             true\n")
         file.write("\n")
         if new_truck_format:
-            file.write('    paint_job_mask:       "/vehicle/truck/upgrade/paintjob/%s_%s6/%s/%s.tobj"\n' % (make, model, internal_name, internal_name))
+            file.write('    paint_job_mask:       "/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s.tobj"\n' % (make, model, internal_name, internal_name))
         else:
             file.write('    paint_job_mask:       "/vehicle/truck/upgrade/paintjob/%s.tobj"\n' % internal_name)
         file.write("\n")
@@ -54,7 +57,7 @@ class Files:
         file.close()
 
     def def_accessory_sii(make, model, internal_name, accessory_names, accessories, database_name):
-        file = open("output/def/vehicle/truck/%s.%s/%s/accessory/%s.sii" % (make, model, internal_name, internal_name))
+        file = open("output/def/vehicle/truck/%s.%s/paint_job/accessory/%s.sii" % (make, model, internal_name), "w")
         file.write("SiiNunit\n")
         file.write("{\n")
         group_counter = 0
@@ -63,10 +66,11 @@ class Files:
             file.write("{\n")
             file.write('    paint_job_mask: "/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s.tobj"\n' % (make, model, internal_name, group))
             for accessory_type in accessories:
-                if accessories[accessory_type] == group_counter:
-                    for truck_part in get_accessory_list(accessory_type):
+                if accessories[accessory_type] == str(group_counter):
+                    for truck_part in get_accessory_list(accessory_type, database_name):
                         file.write('    acc_list[]: "%s"\n' % truck_part)
             file.write("}\n")
+            file.write("\n")
             group_counter += 1
         file.write("}\n")
         file.close()
@@ -114,17 +118,17 @@ class Files:
         shutil.copyfile("%s/snoop.txt" % input_folder, "output/Snooping as usual I see.txt") # vitally important file
         shutil.copyfile("%s/mod_image.jpg" % input_folder, "output/mod_image.jpg")
 
-    def generate_tobj_files(internal_name, new_truck_format, accessory_names = None):
+    def generate_tobj_files(internal_name, make, model, new_truck_format, accessory_names):
         file = open("output/material/ui/accessory/%s.tobj" % internal_name, "wb")
         file.write(generate_tobj_string("/material/ui/accessory/%s.dds" % internal_name))
         file.close()
         if new_truck_format:
             file = open("output/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s.tobj" % (make, model, internal_name, internal_name), "wb")
-            file.write(generate_tobj_string("/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s.dds" % (make, model, internal_name, internal_name)))
+            file.write(generate_tobj_string("/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s.dds" % (make, model, internal_name, internal_name), alternate=True))
             file.close()
             for accessory_name in accessory_names:
-                file.open("output/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s" % (make, model, internal_name, accessory_name))
-                file.write(generate_tobj_string("/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s" % (make, model, internal_name, accessory_name)))
+                file = open("output/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s.tobj" % (make, model, internal_name, accessory_name), "wb")
+                file.write(generate_tobj_string("/vehicle/truck/upgrade/paintjob/%s_%s/%s/%s.dds" % (make, model, internal_name, accessory_name), alternate=True))
                 file.close()
         else:
             file = open("output/vehicle/truck/upgrade/paintjob/%s.tobj" % internal_name, "wb")
@@ -141,11 +145,11 @@ class Folders:
         Folders.make_folder("output/material/ui/accessory")
         Folders.make_folder("output/vehicle/truck/upgrade/paintjob")
 
-    def specific_mod_folders(make, model, new_truck_format=False, internal_name):
+    def specific_mod_folders(make, model, new_truck_format, internal_name):
         Folders.make_folder("output/def/vehicle/truck/%s.%s/paint_job" % (make, model))
         if new_truck_format:
             Folders.make_folder("output/def/vehicle/truck/%s.%s/paint_job/accessory" % (make, model))
-            Folders.make_folder("vehicle/truck/upgrade/paintjob/%s_%s/%s" % (make, model, internal_name))
+            Folders.make_folder("output/vehicle/truck/upgrade/paintjob/%s_%s/%s" % (make, model, internal_name))
 
     def clear_output_folder():
         shutil.rmtree("output")
