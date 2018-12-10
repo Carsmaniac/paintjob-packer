@@ -16,7 +16,7 @@ def convert_string_to_hex(string_input): # returns a hexified version of an inpu
     string_output = string_output.decode()
     return string_output
 
-def generate_tobj_string(path): # TEMP: does this work for the Scania S tobjs files too?
+def generate_tobj_string(path):
     tobj_string = "010AB170000000000000000000000000000000000000000002000303030002020000000000883900" # the start of every tobj file is the same
     tobj_string += convert_string_to_hex(len(path))
     tobj_string += "00000000000000"
@@ -29,7 +29,7 @@ def get_accessory_list(accessory_type, database_name):
     accessories_ini.read("accessories.ini")
     return accessories_ini[database_name][accessory_type].split(",")
 
-class Files: # TODO: Scania S changes?
+class Files:
     def def_sii(make, model, cabins, internal_name, ingame_name, price, unlock_level, new_truck_format): # wow that's not confusing at all
         file = open("output/def/vehicle/truck/%s.%s/paint_job/%s.sii" % (make, model, internal_name), "w")
         file.write("SiiNunit\n")
@@ -114,7 +114,7 @@ class Files: # TODO: Scania S changes?
         shutil.copyfile("%s/snoop.txt" % input_folder, "output/Snooping as usual I see.txt") # vitally important file
         shutil.copyfile("%s/mod_image.jpg" % input_folder, "output/mod_image.jpg")
 
-    def generate_tobj_files(internal_name, new_truck_format, accessory_names = None): # TODO: Scania S tobj files
+    def generate_tobj_files(internal_name, new_truck_format, accessory_names = None):
         file = open("output/material/ui/accessory/%s.tobj" % internal_name, "wb")
         file.write(generate_tobj_string("/material/ui/accessory/%s.dds" % internal_name))
         file.close()
@@ -141,10 +141,11 @@ class Folders:
         Folders.make_folder("output/material/ui/accessory")
         Folders.make_folder("output/vehicle/truck/upgrade/paintjob")
 
-    def specific_mod_folders(make, model, new_truck_format = False): # TODO: Add new_truck_format to database file
+    def specific_mod_folders(make, model, new_truck_format=False, internal_name):
         Folders.make_folder("output/def/vehicle/truck/%s.%s/paint_job" % (make, model))
         if new_truck_format:
-            pass # TODO: Scania S folder support here
+            Folders.make_folder("output/def/vehicle/truck/%s.%s/paint_job/accessory" % (make, model))
+            Folders.make_folder("vehicle/truck/upgrade/paintjob/%s_%s/%s" % (make, model, internal_name))
 
     def clear_output_folder():
         shutil.rmtree("output")

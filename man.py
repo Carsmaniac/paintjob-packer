@@ -37,7 +37,7 @@ print("Generating paintjob for %s..." % database_name)
 
 print("Creating folders...")
 paintjob.Folders.common_mod_folders()
-paintjob.Folders.specific_mod_folders(make=make, model=model, new_truck_format=new_truck_format)
+paintjob.Folders.specific_mod_folders(make=make, model=model, new_truck_format=new_truck_format, internal_name=internal_name)
 print("Generating definition files...")
 paintjob.Files.def_sii(make=make, model=model, cabins=cabins, internal_name=internal_name, ingame_name=ingame_name, price=price, unlock_level=unlock_level, new_truck_format=new_truck_format)
 if new_truck_format:
