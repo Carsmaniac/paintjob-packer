@@ -292,11 +292,23 @@ def edit_truck(selected_truck):
     truck_list = config["Params"]["truck_list"]
     list_ini = configparser.ConfigParser()
     list_ini.read("truck lists/%s.ini" % truck_list)
+    if len(list_ini.sections()) > 2:
+        show_remove_truck = True
+    else:
+        show_remove_truck = False
+    if list_ini[selected_truck].getboolean("new_truck_format"):
+        show_edit_accessories = True
+    else:
+        show_edit_accessories = False
     print("Selected truck: %s (%s)" % (selected_truck, list_ini[selected_truck]["database_name"]))
     print("")
     print("1 - Edit truck")
-    if len(list_ini.sections()) > 3:
-        print("2 - Remove truck")
+    menu_choice_counter = 2
+    if show_remove_truck:
+        print("%s - Remove truck" % menu_choice_counter)
+        menu_choice_counter += 1
+    if show_edit_accessories:
+        print("%s - View/edit truck accessories" % menu_choice_counter)
     print("")
     print("0 - Back to previous menu")
     print("")
@@ -320,13 +332,27 @@ def edit_truck(selected_truck):
         else:
             cabin_8x4 = False
         choose_cabins(database_name=list_ini[selected_truck]["database_name"], cabin_1=cabin_1, cabin_2=cabin_2, cabin_3=cabin_3, cabin_8x4=cabin_8x4, mode="edit", internal_name=selected_truck)
-    elif menu_choice == "2" and len(list_ini.sections()) > 3:
-        list_ini.remove_section(selected_truck)
-        with open("truck lists/%s.ini" % truck_list, "w") as configfile:
-            list_ini.write(configfile)
-        print("Removed truck successfully")
-        time.sleep(1.5)
-        edit_auto_trucks()
+    elif menu_choice == "2":
+        if show_remove_truck:
+            list_ini.remove_section(selected_truck)
+            with open("truck lists/%s.ini" % truck_list, "w") as configfile:
+                list_ini.write(configfile)
+            print("Removed truck successfully")
+            time.sleep(1.5)
+            edit_auto_trucks()
+        elif show_edit_accessories:
+            view_accessories(selected_truck, truck_list)
+        else:
+            print("Invalid selection")
+            time.sleep(1.5)
+            edit_truck(selected_truck)
+    elif menu_choice == "3":
+        if show_edit_accessories and show_remove_truck:
+            view_accessories(selected_truck, truck_list)
+        else:
+            print("Invalid selection")
+            time.sleep(1.5)
+            edit_truck(selected_truck)
     elif menu_choice == "0":
         edit_auto_trucks()
     else:
@@ -600,6 +626,193 @@ def create_new_list(new_list_name=None, new_truck_list=None):
             print("Invalid selection")
             time.sleep(1.5)
             create_new_list(new_list_name, new_truck_list)
+
+def view_accessories(internal_name, truck_list):
+    list_ini = configparser.ConfigParser()
+    list_ini.read("truck lists/%s.ini" % truck_list)
+    if truck_list == "manual":
+        list_key = "Params"
+    else:
+        list_key = internal_name
+    accessory_name_list = list_ini[list_key]["accessory_name_list"].split(",")
+    accessory_dict = dict(item.split("=") for item in list_ini[list_key]["accessory_dict"].split(","))
+    database_name = list_ini[list_key]["database_name"]
+    print("\n"*50)
+    if truck_list == "manual":
+        print("Current truck: %s (%s accessory textures)" % (database_name, len(accessory_name_list)))
+    else:
+        print("Current truck: %s (%s, %s accessory textures)" % (internal_name, database_name, len(accessory_name_list)))
+    print("")
+    accessory_name_counter = 0
+    for accessory_name in accessory_name_list:
+        assigned_accessories = 0
+        for accessory_type in accessory_dict:
+            if accessory_dict[accessory_type] == str(accessory_name_counter):
+                assigned_accessories += 1
+        print("%s - Edit %s (%s accessories assigned)" % (str(accessory_name_counter+1), accessory_name, str(assigned_accessories)))
+        accessory_name_counter += 1
+    print("%s - Assign accessories" % str(accessory_name_counter+1))
+    print("%s - Create new accessory texture" % str(accessory_name_counter+2))
+    print("")
+    print("0 - Back to previous menu")
+    print("")
+    menu_choice = input("Enter selection: ")
+    if menu_choice == "0":
+        if truck_list == "manual":
+            pass
+        else:
+            edit_truck(internal_name)
+    elif menu_choice in [str(i+1) for i in range(len(accessory_name_list))]:
+        edit_accessory_name(internal_name, truck_list, int(menu_choice)-1)
+    elif menu_choice == str(accessory_name_counter+1):
+        assign_accessories(internal_name, truck_list)
+    elif menu_choice == str(accessory_name_counter+2):
+        print("")
+        new_accessory_name = input("Enter name for new accessory texture, or nothing to cancel: ")
+        if new_accessory_name == "":
+            view_accessories(internal_name, truck_list)
+        elif new_accessory_name in accessory_name_list:
+            print("Name already exists, cancelling...")
+            time.sleep(1.5)
+            view_accessories(internal_name, truck_list)
+        else:
+            new_accessory_name = re.sub("\W+","",new_accessory_name).lower()
+            accessory_name_list.append(new_accessory_name)
+            accessory_name_list = ",".join(accessory_name_list)
+            list_ini[list_key]["accessory_name_list"] = accessory_name_list
+            with open("truck lists/%s.ini" % truck_list, "w") as configfile:
+                list_ini.write(configfile)
+            print("Created new accessory texture successfully")
+            time.sleep(1.5)
+            view_accessories(internal_name, truck_list)
+    else:
+        print("Invalid selection")
+        time.sleep(1.5)
+        view_accessories(internal_name, truck_list)
+
+def edit_accessory_name(internal_name, truck_list, accessory_name_index):
+    list_ini = configparser.ConfigParser()
+    list_ini.read("truck lists/%s.ini" % truck_list)
+    if truck_list == "manual":
+        list_key = "Params"
+    else:
+        list_key = internal_name
+    accessory_name_list = list_ini[list_key]["accessory_name_list"].split(",")
+    accessory_dict = dict(item.split("=") for item in list_ini[list_key]["accessory_dict"].split(","))
+    accessory_name = accessory_name_list[accessory_name_index]
+    assigned_accessories = []
+    for accessory_type in accessory_dict:
+        if accessory_dict[accessory_type] == str(accessory_name_index):
+            assigned_accessories.append(accessory_type)
+    database_name = list_ini[list_key]["database_name"]
+    print("\n"*50)
+    print("Current accessory texture: %s" % accessory_name_list[accessory_name_index])
+    print("")
+    print("Assigned accessories:") # TODO: accessory_type_name
+    for accessory_type in assigned_accessories:
+        print(accessory_type)
+    print("")
+    print("1 - Rename %s" % accessory_name)
+    if len(accessory_name_list) > 1:
+        print("2 - Remove %s (any assigned accessories will be reassigned to a different texture)" % accessory_name)
+    print("")
+    print("0 - Back to previous menu")
+    print("")
+    menu_choice = input("Enter selection: ")
+    if menu_choice == "1":
+        print("")
+        new_accessory_name = input("Enter new name, or nothing to cancel: ")
+        if new_accessory_name == "":
+            edit_accessory_name(internal_name, truck_list, accessory_name_index)
+        elif new_accessory_name in accessory_name_list:
+            print("Name already exists, cancelling...")
+            time.sleep(1.5)
+            edit_accessory_name(internal_name, truck_list, accessory_name_index)
+        else:
+            accessory_name_list.remove(accessory_name)
+            accessory_name_list.append(new_accessory_name)
+            accessory_name_list = ",".join(accessory_name_list)
+            list_ini[list_key]["accessory_name_list"] = accessory_name_list
+            with open("truck lists/%s.ini" % truck_list, "w") as configfile:
+                list_ini.write(configfile)
+            print("Renamed accessory texture successfully")
+            time.sleep(1.5)
+            view_accessories(internal_name, truck_list)
+    elif menu_choice == "2" and len(accessory_name_list) > 1:
+        verbose_accessory_dict = {}
+        for accessory_type in accessory_dict:
+            verbose_accessory_dict[accessory_type] = accessory_name_list[int(accessory_dict[accessory_type])]
+        accessory_name_list.remove(accessory_name)
+        for accessory_type in verbose_accessory_dict:
+            if verbose_accessory_dict[accessory_type] in accessory_name_list:
+                verbose_accessory_dict[accessory_type] = accessory_name_list.index(verbose_accessory_dict[accessory_type])
+            else:
+                verbose_accessory_dict[accessory_type] = 0
+        accessory_name_list = ",".join(accessory_name_list)
+        list_ini[list_key]["accessory_name_list"] = accessory_name_list
+        all_accessory_types = []
+        for each_accessory_type in verbose_accessory_dict:
+            all_accessory_types.append("%s=%s" % (each_accessory_type, verbose_accessory_dict[each_accessory_type]))
+        list_ini[list_key]["accessory_dict"] = ",".join(all_accessory_types)
+        with open("truck lists/%s.ini" % truck_list, "w") as configfile:
+            list_ini.write(configfile)
+        print("Removed accessory texture successfully")
+        time.sleep(1.5)
+        view_accessories(internal_name, truck_list)
+    elif menu_choice == "0":
+        view_accessories(internal_name, truck_list)
+    else:
+        print("Invalid selection")
+        time.sleep(1.5)
+        edit_accessory_name(internal_name, truck_list, accessory_name_index)
+
+def assign_accessories(internal_name, truck_list):
+    list_ini = configparser.ConfigParser()
+    list_ini.read("truck lists/%s.ini" % truck_list)
+    if truck_list == "manual":
+        list_key = "Params"
+    else:
+        list_key = internal_name
+    accessory_name_list = list_ini[list_key]["accessory_name_list"].split(",")
+    accessory_dict = dict(item.split("=") for item in list_ini[list_key]["accessory_dict"].split(","))
+    database_name = list_ini[list_key]["database_name"]
+    print("\n"*50)
+    menu_choice_counter = 1
+    for accessory_type in accessory_dict:
+        print("%s - Reassign %s (currently assigned to %s)" % (menu_choice_counter, accessory_type, accessory_name_list[int(accessory_dict[accessory_type])]))
+        menu_choice_counter += 1
+    print("")
+    print("0 - Back to previous menu")
+    print("")
+    menu_choice = input("Enter selection: ")
+    if menu_choice in [str(i+1) for i in range(len(accessory_dict))]:
+        accessory_type = list(accessory_dict.keys())[int(menu_choice)-1]
+        print("\n"*50)
+        menu_choice_counter = 1
+        for accessory_name in accessory_name_list:
+            print("%s - Assign %s to %s" % (menu_choice_counter, accessory_type, accessory_name_list[menu_choice_counter-1]))
+            menu_choice_counter += 1
+        print("")
+        menu_choice = input("Enter selection, or nothing to cancel: ")
+        if menu_choice in [str(i+1) for i in range(len(accessory_name_list))]:
+            accessory_dict[accessory_type] = str(int(menu_choice)-1)
+            all_accessory_types = []
+            for each_accessory_type in accessory_dict:
+                all_accessory_types.append("%s=%s" % (each_accessory_type, accessory_dict[each_accessory_type]))
+            list_ini[list_key]["accessory_dict"] = ",".join(all_accessory_types)
+            with open("truck lists/%s.ini" % truck_list, "w") as configfile:
+                list_ini.write(configfile)
+            print("Reassigned %s successfully" % accessory_type)
+            time.sleep(1.5)
+            assign_accessories(internal_name, truck_list)
+        else:
+            assign_accessories(internal_name, truck_list)
+    elif menu_choice == "0":
+        view_accessories(internal_name, truck_list)
+    else:
+        print("Invalid selection")
+        time.sleep(1.5)
+        assign_accessories(internal_name, truck_list)
 
 menu()
 
