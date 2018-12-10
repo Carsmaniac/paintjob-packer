@@ -1,0 +1,8 @@
+Major feature to do list
+- Whenever displaying make, model or cabins show nice looking names
+	- make_name, model_name, cabin_1_name etc
+	- database_name for new entries can be generated from make_name and model_name
+- Removing truck lists and changing name
+- First-run function to set up folders & default lists and act as a tutorial
+- American truck support
+- Trailer support
