@@ -815,15 +815,3 @@ def assign_accessories(internal_name, truck_list):
         assign_accessories(internal_name, truck_list)
 
 menu()
-
-# TODO: whenever displaying make, model or cabins show nice looking names
-#   make_name, model_name, cabin_1_name etc
-#   database_name can be generated from make_name and model_name
-
-# TODO: remove lists, change name
-
-# TODO: Changing variables, show the current value and let people exit (..or nothing to cancel)
-
-# TODO: First-run function (makes a list from default values, sets up folders, tutorial?, etc) (default lists or globex lists - choice)
-
-# TODO: (big) ATS and trailer support!
