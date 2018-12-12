@@ -1,3 +1,6 @@
 
 __pycache__/paintjob.cpython-36.pyc
 paintjob_new.py
+.DS_Store
+__pycache__/paintjob.cpython-37.pyc
+*.pyc
