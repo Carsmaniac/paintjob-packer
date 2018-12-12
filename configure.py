@@ -72,6 +72,10 @@ def view_params(manual=False):
         print("3 - Edit internal name")
         if list_ini["Params"].getboolean("new_truck_format"):
             print("4 - View/edit truck accessories")
+        if list_type == "euro":
+            print("5 - Switch to ATS support")
+        else:
+            print("5 - Switch to ETS 2 support")
     else:
         print("2 - View/edit supported trucks")
     print("")
@@ -88,6 +92,8 @@ def view_params(manual=False):
         edit_auto_trucks()
     elif menu_choice == "4" and manual:
         view_accessories(list_ini["Params"]["internal_name"], "manual")
+    elif menu_choice == "5" and manual:
+        select_truck(mode="man switch")
     elif menu_choice == "0":
         menu()
     else:
@@ -196,10 +202,10 @@ def edit_params(truck_list):
             time.sleep(1.5)
             edit_params(truck_list)
 
-def select_truck(mode="man"): # mode can be man or add
+def select_truck(mode="man"): # mode can be man, man switch or add
     print("\n"*50)
-    if mode == "man":
-        list_ini = configparser.ConfigParser()
+    list_ini = configparser.ConfigParser()
+    if mode in ["man", "man switch"]:
         list_ini.read("truck lists/manual.ini")
         print("Current supported truck: %s" % list_ini["Params"]["database_name"])
         print("")
@@ -215,6 +221,11 @@ def select_truck(mode="man"): # mode can be man or add
         print("Select type of truck to add:")
     print("")
     list_type = list_ini["Params"]["list_type"]
+    if mode == "man switch":
+        if list_type == "euro":
+            list_type = "american"
+        else:
+            list_type = "euro"
     if list_type == "euro":
         print("1 - Euro Truck Simulator 2")
         print("2 - Euro Truck Simulator 2 truck mod")
@@ -241,7 +252,7 @@ def select_truck(mode="man"): # mode can be man or add
     elif menu_choice == "3" and list_type == "american":
         vehicle_type = "american trailer"
     elif menu_choice == "0":
-        if mode == "man":
+        if mode in ["man", "man switch"]:
             view_params(manual=True)
         else:
             edit_auto_trucks()
@@ -251,7 +262,7 @@ def select_truck(mode="man"): # mode can be man or add
         select_truck(mode)
     if vehicle_type != None:
         print("\n"*50)
-        if mode == "man":
+        if mode in ["man", "man switch"]:
             print("Select truck to support")
         else:
             print("Select truck to add")
@@ -454,13 +465,17 @@ def choose_cabins(database_name, cabin_1=False, cabin_2=False, cabin_3=False, ca
         cabins_selected = ",".join(i for i in cabins_selected)
         selected_cabin_numbers = ",".join(i for i in selected_cabin_numbers)
         list_ini = configparser.ConfigParser()
-        if mode == "man":
+        if mode in ["man", "man switch"]:
             list_ini.read("truck lists/manual.ini")
             list_ini["Params"]["database_name"] = database_name
             list_ini["Params"]["make"] = database_ini[database_name]["make"]
             list_ini["Params"]["model"] = database_ini[database_name]["model"]
             list_ini["Params"]["cabins"] = cabins_selected
             list_ini["Params"]["cabin_numbers"] = selected_cabin_numbers
+            if mode == "man switch" and list_ini["Params"]["list_type"] == "euro":
+                list_ini["Params"]["list_type"] = "american"
+            elif mode == "man switch" and list_ini["Params"]["list_type"] == "american":
+                list_ini["Params"]["list_type"] = "euro"
             with open("truck lists/manual.ini", "w") as configfile:
                 list_ini.write(configfile)
             print("Supported truck changed successfully")
