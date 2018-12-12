@@ -41,6 +41,10 @@ def view_params(manual=False):
         truck_list = config["Params"]["truck_list"]
     list_ini = configparser.ConfigParser()
     list_ini.read("truck lists/%s.ini" % truck_list)
+    list_type = list_ini["Params"]["list_type"]
+    if not manual:
+        print("Current truck list: %s" % list_ini["Params"]["list_name"])
+        print("")
     print("=== Modpack parameters ===")
     print("Mod name:         %s" % list_ini["Params"]["pack_name"])
     print("Mod author:       %s" % list_ini["Params"]["pack_author"])
@@ -52,6 +56,10 @@ def view_params(manual=False):
     print("Unlock level:     %s" % list_ini["Params"]["unlock_level"])
     print("")
     print("=== Other parameters ===")
+    if list_type == "euro":
+        print("Supported game:   Euro Truck Simulator 2")
+    else:
+        print("Supported game:   American Truck Simulator")
     if manual:
         print("Supported truck:  %s" % list_ini["Params"]["database_name"])
         print("Internal name:    %s" % list_ini["Params"]["internal_name"])
@@ -201,28 +209,37 @@ def select_truck(mode="man"): # mode can be man or add
         print("")
         print("Select type of truck to support:")
     else:
+        config_ini = configparser.ConfigParser()
+        config_ini.read("config.ini")
+        list_ini.read("truck lists/%s.ini" % config_ini["Params"]["truck_list"])
         print("Select type of truck to add:")
     print("")
-    print("1 - Euro Truck Simulator 2")
-    print("2 - American Truck Simulator")
-    print("3 - Euro Truck Simulator 2 truck mod")
-    print("4 - American Truck Simulator truck mod")
-    print("5 - Player-owned trailer")
+    list_type = list_ini["Params"]["list_type"]
+    if list_type == "euro":
+        print("1 - Euro Truck Simulator 2")
+        print("2 - Euro Truck Simulator 2 truck mod")
+        print("3 - Euro Truck Simulator 2 player-owned trailer")
+    elif list_type == "american":
+        print("1 - American Truck Simulator")
+        print("2 - American Truck Simulator truck mod")
+        print("3 - American Truck Simulator player-owned trailer")
     print("")
     print("0 - Back to previous menu")
     print("")
     menu_choice = input("Enter selection: ")
     vehicle_type = None
-    if menu_choice == "1":
+    if menu_choice == "1" and list_type == "euro":
         vehicle_type = "euro"
-    elif menu_choice == "2":
-        vehicle_type = "american"
-    elif menu_choice == "3":
+    elif menu_choice == "2" and list_type == "euro":
         vehicle_type = "euro mod"
-    elif menu_choice == "4":
+    elif menu_choice == "3" and list_type == "euro":
+        vehicle_type = "euro trailer"
+    elif menu_choice == "1" and list_type == "american":
+        vehicle_type = "american"
+    elif menu_choice == "2" and list_type == "american":
         vehicle_type = "american mod"
-    elif menu_choice == "5":
-        vehicle_type = "trailer"
+    elif menu_choice == "3" and list_type == "american":
+        vehicle_type = "american trailer"
     elif menu_choice == "0":
         if mode == "man":
             view_params(manual=True)
