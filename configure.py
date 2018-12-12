@@ -1,4 +1,4 @@
-import paintjob, configparser, sys, time, re
+import paintjob, configparser, sys, time, re, os
 
 def menu():
     print("\n"*50)
@@ -25,6 +25,7 @@ def menu():
     elif menu_choice == "3":
         view_params(manual=True)
     elif menu_choice == "0":
+        print("\n"*50)
         sys.exit()
     else:
         print("Invalid selection")
@@ -78,6 +79,7 @@ def view_params(manual=False):
             print("5 - Switch to ETS 2 support")
     else:
         print("2 - View/edit supported trucks")
+        print("3 - Rename truck list")
     print("")
     print("0 - Back to previous menu")
     print("")
@@ -88,6 +90,8 @@ def view_params(manual=False):
         select_truck()
     elif menu_choice == "3" and manual:
         edit_man_internal_name()
+    elif menu_choice == "3":
+        rename_truck_list(truck_list)
     elif menu_choice == "2":
         edit_auto_trucks()
     elif menu_choice == "4" and manual:
@@ -662,6 +666,63 @@ def create_new_list(new_list_name=None, new_truck_list=None):
             print("Invalid selection")
             time.sleep(1.5)
             create_new_list(new_list_name, new_truck_list)
+
+def rename_truck_list(truck_list):
+    config_ini = configparser.ConfigParser()
+    config_ini.read("config.ini")
+    list_name = config_ini["Params"]["list_name"]
+    list_ini = configparser.ConfigParser()
+    list_ini.read("truck lists/%s.ini" % truck_list)
+    print("\n"*50)
+    print("Current truck list: %s" % list_name)
+    print("")
+    print("1 - Change list name (%s)" % list_name)
+    print("2 - Change internal name (%s)" % truck_list)
+    print("")
+    print("0 - Back to previous menu")
+    print("")
+    menu_choice = input("Enter selection: ")
+    print("")
+    if menu_choice == "1":
+        new_list_name = input("Enter new list name, or nothing to cancel: ")
+        if new_list_name == "":
+            rename_truck_list(truck_list)
+        else:
+            list_ini["Params"]["list_name"] = new_list_name
+            with open("truck lists/%s.ini" % truck_list, "w") as configfile:
+                list_ini.write(configfile)
+            config_ini["Params"]["list_name"] = new_list_name
+            with open("config.ini", "w") as configfile:
+                config_ini.write(configfile)
+            print("Name changed successfully")
+            time.sleep(1.5)
+            rename_truck_list(truck_list)
+    elif menu_choice == "2":
+        new_truck_list = input("Enter new internal name, or nothing to cancel: ")
+        all_truck_lists = config_ini["Params"]["all_truck_lists"].split(",")
+        if new_truck_list == "":
+            rename_truck_list(truck_list)
+        elif new_truck_list in all_truck_lists:
+            print("Internal name already exists, cancelling...")
+            time.sleep(1.5)
+            rename_truck_list(truck_list)
+        else:
+            all_truck_lists.remove(truck_list)
+            all_truck_lists.append(new_truck_list)
+            config_ini["Params"]["all_truck_lists"] = ",".join(all_truck_lists)
+            config_ini["Params"]["truck_list"] = new_truck_list
+            with open("config.ini", "w") as configfile:
+                config_ini.write(configfile)
+            os.rename("truck lists/%s.ini" % truck_list, "truck lists/%s.ini" % new_truck_list)
+            print("Internal name changed successfully")
+            time.sleep(1.5)
+            rename_truck_list(new_truck_list)
+    elif menu_choice == "0":
+        view_params(manual = False)
+    else:
+        print("Invalid selection")
+        time.sleep(1.5)
+        rename_truck_list(truck_list)
 
 def view_accessories(internal_name, truck_list):
     list_ini = configparser.ConfigParser()
