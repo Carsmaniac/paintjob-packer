@@ -628,14 +628,14 @@ def create_new_list(new_list_name=None, new_truck_list=None):
         menu_choice = input("Enter selection: ")
         if menu_choice in ["1","2"]:
             defaults_ini = configparser.ConfigParser()
+            list_ini = configparser.ConfigParser()
+            list_ini.add_section("Params")
             if menu_choice == "1":
                 list_ini["Params"]["list_type"] = "euro"
                 defaults_ini.read("truck lists/defaults_euro.ini")
             else:
                 list_ini["Params"]["list_type"] = "american"
                 defaults_ini.read("truck lists/defaults_american.ini") # TODO: defaults_american once ATS support is in
-            list_ini = configparser.ConfigParser()
-            list_ini.add_section("Params")
             list_ini["Params"]["ingame_name"] = defaults_ini["Params"]["ingame_name"]
             list_ini["Params"]["price"] = defaults_ini["Params"]["price"]
             list_ini["Params"]["unlock_level"] = defaults_ini["Params"]["unlock_level"]
