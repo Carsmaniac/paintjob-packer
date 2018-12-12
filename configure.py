@@ -62,6 +62,8 @@ def view_params(manual=False):
     if manual:
         print("2 - Edit supported truck")
         print("3 - Edit internal name")
+        if list_ini["Params"].getboolean("new_truck_format"):
+            print("4 - View/edit truck accessories")
     else:
         print("2 - View/edit supported trucks")
     print("")
@@ -76,6 +78,8 @@ def view_params(manual=False):
         edit_man_internal_name()
     elif menu_choice == "2":
         edit_auto_trucks()
+    elif menu_choice == "4" and manual:
+        view_accessories(list_ini["Params"]["internal_name"], "manual")
     elif menu_choice == "0":
         menu()
     else:
@@ -659,7 +663,7 @@ def view_accessories(internal_name, truck_list):
     menu_choice = input("Enter selection: ")
     if menu_choice == "0":
         if truck_list == "manual":
-            pass
+            view_params(manual = True)
         else:
             edit_truck(internal_name)
     elif menu_choice in [str(i+1) for i in range(len(accessory_name_list))]:
