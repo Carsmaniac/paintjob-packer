@@ -585,6 +585,7 @@ def choose_cabins(database_name, cabin_1=False, cabin_2=False, cabin_3=False, ca
                     list_ini[new_internal_name]["cabins"] = cabins_selected
                     list_ini[new_internal_name]["cabin_numbers"] = selected_cabin_numbers
                     list_ini[new_internal_name]["new_truck_format"] = database_ini[database_name]["new_truck_format"]
+                    list_ini[new_internal_name]["vehicle_type"] = database_ini[database_name]["vehicle_type"]
                     if list_ini[new_internal_name].getboolean("new_truck_format"):
                         print("Truck uses the new accessory format! Ensure you edit its accessory textures and assign its accessories")
                         time.sleep(2.5)

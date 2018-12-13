@@ -27,7 +27,6 @@ pack_author = manual["Params"]["pack_author"]
 database_name = manual["Params"]["database_name"]
 vehicle_type = "euro"
 new_truck_format = manual["Params"].getboolean("new_truck_format")
-# TODO: vehicle_type (if need be)
 
 if new_truck_format:
     accessory_name_list = manual["Params"]["accessory_name_list"].split(",")
