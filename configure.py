@@ -37,12 +37,13 @@ def view_params(manual=False):
     if manual:
         truck_list = "manual"
     else:
-        config = configparser.ConfigParser()
-        config.read("config.ini")
-        truck_list = config["Params"]["truck_list"]
+        config_ini = configparser.ConfigParser()
+        config_ini.read("config.ini")
+        truck_list = config_ini["Params"]["truck_list"]
     list_ini = configparser.ConfigParser()
     list_ini.read("truck lists/%s.ini" % truck_list)
     list_type = list_ini["Params"]["list_type"]
+    all_truck_lists = config_ini["Params"]["all_truck_lists"].split(",")
     if not manual:
         print("Current truck list: %s" % list_ini["Params"]["list_name"])
         print("")
@@ -80,6 +81,8 @@ def view_params(manual=False):
     else:
         print("2 - View/edit supported trucks")
         print("3 - Rename truck list")
+        if len(all_truck_lists) > 1:
+            print("4 - Remove truck list")
     print("")
     print("0 - Back to previous menu")
     print("")
@@ -90,10 +93,24 @@ def view_params(manual=False):
         select_truck()
     elif menu_choice == "3" and manual:
         edit_man_internal_name()
-    elif menu_choice == "3":
+    elif menu_choice == "3" and not manual:
         rename_truck_list(truck_list)
-    elif menu_choice == "2":
+    elif menu_choice == "2" and not manual:
         edit_auto_trucks()
+    elif menu_choice == "4" and not manual:
+        all_truck_lists.remove(truck_list)
+        config_ini["Params"]["all_truck_lists"] = ",".join(all_truck_lists)
+        os.remove("truck lists/%s.ini" % truck_list)
+        truck_list = all_truck_lists[0]
+        config_ini["Params"]["truck_list"] = truck_list
+        list_ini = configparser.ConfigParser()
+        list_ini.read("truck lists/%s.ini" % truck_list)
+        config_ini["Params"]["list_name"] = list_ini["Params"]["list_name"]
+        with open("config.ini", "w") as configfile:
+            config_ini.write(configfile)
+        print("List removed successfully")
+        time.sleep(1.5)
+        view_params(manual = False)
     elif menu_choice == "4" and manual:
         view_accessories(list_ini["Params"]["internal_name"], "manual")
     elif menu_choice == "5" and manual:
@@ -339,7 +356,8 @@ def edit_truck(selected_truck):
     print("Selected truck: %s (%s)" % (selected_truck, list_ini[selected_truck]["database_name"]))
     print("")
     print("1 - Edit truck")
-    menu_choice_counter = 2
+    print("2 - Rename truck")
+    menu_choice_counter = 3
     if show_remove_truck:
         print("%s - Remove truck" % menu_choice_counter)
         menu_choice_counter += 1
@@ -369,6 +387,46 @@ def edit_truck(selected_truck):
             cabin_8x4 = False
         choose_cabins(database_name=list_ini[selected_truck]["database_name"], cabin_1=cabin_1, cabin_2=cabin_2, cabin_3=cabin_3, cabin_8x4=cabin_8x4, mode="edit", internal_name=selected_truck)
     elif menu_choice == "2":
+        print("")
+        print("Note: internal name should: - be 12 or fewer characters")
+        print("                            - consist of only letters, numbers and underscores")
+        print("                            - be unique")
+        print("Paintjob Packer will warn you if the name already exists in this truck list,")
+        print("however please take caution when using multiple mods at once")
+        print("")
+        new_internal_name = input("Enter new internal name, or nothing to cancel: ")
+        if new_internal_name == "":
+            edit_truck(selected_truck)
+        else:
+            new_internal_name = re.sub("\W+","",new_internal_name).lower()
+            if len(new_internal_name) <= 12:
+                if new_internal_name not in list_ini.sections():
+                    print("Internal name %s is okay" % new_internal_name)
+                    name_is_okay = True
+                else:
+                    if new_internal_name == selected_truck:
+                        print("Internal name %s is okay" % new_internal_name)
+                        name_is_okay = True
+                    else:
+                        print("Internal name %s already exists in %s" % (new_internal_name, list_ini["Params"]["list_name"]))
+                        name_is_okay = False
+            else:
+                print("Internal name %s is too long" % new_internal_name)
+                name_is_okay = False
+            if name_is_okay:
+                list_ini.add_section(new_internal_name)
+                for key in list_ini[selected_truck]:
+                    list_ini[new_internal_name][key] = list_ini[selected_truck][key]
+                list_ini.remove_section(selected_truck)
+                with open("truck lists/%s.ini" % truck_list, "w") as configfile:
+                    list_ini.write(configfile)
+                print("Internal name changed successfully")
+                time.sleep(1.5)
+                edit_truck(new_internal_name)
+            else:
+                time.sleep(1.5)
+                edit_truck(selected_truck)
+    elif menu_choice == "3":
         if show_remove_truck:
             list_ini.remove_section(selected_truck)
             with open("truck lists/%s.ini" % truck_list, "w") as configfile:
@@ -382,7 +440,7 @@ def edit_truck(selected_truck):
             print("Invalid selection")
             time.sleep(1.5)
             edit_truck(selected_truck)
-    elif menu_choice == "3":
+    elif menu_choice == "4":
         if show_edit_accessories and show_remove_truck:
             view_accessories(selected_truck, truck_list)
         else:
@@ -512,7 +570,7 @@ def choose_cabins(database_name, cabin_1=False, cabin_2=False, cabin_3=False, ca
                             print("Internal name %s is okay" % new_internal_name)
                             name_is_okay = True
                         else:
-                            print("Internal name %s already exists in list %s" % (new_internal_name, list_ini["Params"]["list_name"]))
+                            print("Internal name %s already exists in %s" % (new_internal_name, list_ini["Params"]["list_name"]))
                             name_is_okay = False
                 else:
                     print("Internal name %s is too long" % new_internal_name)
