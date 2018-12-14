@@ -160,7 +160,5 @@ def compile_mod_file(truck_list=None):
     if truck_list == None:
         mod_name = "Paintjob Packer %s Mod" % version
     else:
-        config = configparser.ConfigParser()
-        config.read("auto lists/%s.ini" % truck_list)
-        mod_name = config["Params"]["list_name"]
+        mod_name = truck_list
     os.rename("paintjob.zip", "%s.scs" % mod_name)

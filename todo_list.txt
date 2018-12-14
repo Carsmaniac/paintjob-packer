@@ -1,7 +1,10 @@
 Major feature to do list
-- Whenever displaying make, model or cabins show nice looking names
-	- make_name, model_name, cabin_1_name etc
-	- database_name for new entries can be generated from make_name and model_name
 - First-run function to set up folders & default lists and act as a tutorial
 - Trailer support
 - Function (within configure?) that tells you all the files you need to provide, and where to put them
+
+user-facing-names branch
+- Whenever displaying make, model or cabins show nice looking names
+	- make_name, model_name, cabin_1_name etc
+	- database_name for new entries can be generated from make_name and model_name
+- Remove all mention of "truck list"s in user-facing messages (see commit 6b7963c)

@@ -9,8 +9,7 @@ def menu():
     config_ini = configparser.ConfigParser()
     config_ini.read("config.ini")
     truck_list = config_ini["Params"]["truck_list"]
-    list_name = config_ini["Params"]["list_name"]
-    print("Current truck list: %s" % list_name)
+    print("Current truck list: %s" % truck_list)
     print("")
     print("1 - Generate pack from current list")
     print("2 - Change to another list")
@@ -35,9 +34,8 @@ def switch_truck_list():
     config = configparser.ConfigParser()
     config.read("config.ini")
     truck_list = config["Params"]["truck_list"]
-    list_name = config["Params"]["list_name"]
     all_truck_lists = config["Params"]["all_truck_lists"].split(",")
-    print("Current truck list: %s" % list_name)
+    print("Current truck list: %s" % truck_list)
     print("")
     all_truck_lists.remove(truck_list)
     menu_choice_counter = 1
@@ -45,7 +43,7 @@ def switch_truck_list():
         for other_truck_list in all_truck_lists:
             list_ini = configparser.ConfigParser()
             list_ini.read("truck lists/%s.ini" % other_truck_list)
-            print("%s - Switch to %s (%s trucks)" % (menu_choice_counter, list_ini["Params"]["list_name"], str(len(list_ini.sections())-1)))
+            print("%s - Switch to %s (%s trucks)" % (menu_choice_counter, other_truck_list, str(len(list_ini.sections())-1)))
             menu_choice_counter += 1
     else:
         print("No other truck lists")
@@ -56,12 +54,9 @@ def switch_truck_list():
     if menu_choice in [str(i+1) for i in range(len(all_truck_lists))]:
         new_truck_list = all_truck_lists[int(menu_choice)-1]
         config["Params"]["truck_list"] = new_truck_list
-        list_ini = configparser.ConfigParser()
-        list_ini.read("truck lists/%s.ini" % new_truck_list)
-        config["Params"]["list_name"] = list_ini["Params"]["list_name"]
         with open("config.ini", "w") as configfile:
             config.write(configfile)
-        print("Switched to %s successfully" % config["Params"]["list_name"])
+        print("Switched to %s successfully" % new_truck_list)
         time.sleep(1.5)
         switch_truck_list()
     elif menu_choice == "0":
@@ -129,7 +124,7 @@ def make_truck_files(internal_name, truck_list):
 
 def finish_up(truck_list):
     print("Compiling mod...")
-    paintjob.compile_mod_file()
+    paintjob.compile_mod_file(truck_list=truck_list)
     print("Cleaning up...")
     paintjob.Folders.clear_output_folder()
 
