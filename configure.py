@@ -34,11 +34,11 @@ def menu():
 
 def view_params(manual=False):
     print("\n"*50)
+    config_ini = configparser.ConfigParser()
+    config_ini.read("config.ini")
     if manual:
         truck_list = "manual"
     else:
-        config_ini = configparser.ConfigParser()
-        config_ini.read("config.ini")
         truck_list = config_ini["Params"]["truck_list"]
     list_ini = configparser.ConfigParser()
     list_ini.read("truck lists/%s.ini" % truck_list)
@@ -222,10 +222,12 @@ def select_truck(mode="man"): # mode can be man, man switch or add
     if mode in ["man", "man switch"]:
         list_ini.read("truck lists/manual.ini")
         print("Current supported truck: %s" % list_ini["Params"]["database_name"])
-        print("")
-        print("Make (internal):         %s" % list_ini["Params"]["make"])
-        print("Model (internal):        %s" % list_ini["Params"]["model"])
-        print("Cabins (internal):       %s" % list_ini["Params"]["cabins"].replace(",", ", "))
+        database_ini = configparser.ConfigParser()
+        database_ini.read("database.ini")
+        all_cabin_names = []
+        for each_cabin in list_ini["Params"]["cabin_numbers"].split(","):
+            all_cabin_names.append(database_ini[list_ini["Params"]["database_name"]]["cabin_%s_name" % each_cabin])
+        print("Supported cabins:        %s" % ", ".join(all_cabin_names))
         print("")
         print("Select type of truck to support:")
     else:
@@ -458,30 +460,30 @@ def choose_cabins(database_name, cabin_1=False, cabin_2=False, cabin_3=False, ca
     print("")
     if "cabin_1" in database_ini[database_name]:
         if not cabin_1:
-            print("1 - [ ] - %s" % database_ini[database_name]["cabin_1"])
+            print("1 - [ ] - %s" % database_ini[database_name]["cabin_1_name"])
         else:
-            print("1 - [X] - %s" % database_ini[database_name]["cabin_1"])
+            print("1 - [X] - %s" % database_ini[database_name]["cabin_1_name"])
     else:
         cabin_1 = None
     if "cabin_2" in database_ini[database_name]:
         if not cabin_2:
-            print("2 - [ ] - %s" % database_ini[database_name]["cabin_2"])
+            print("2 - [ ] - %s" % database_ini[database_name]["cabin_2_name"])
         else:
-            print("2 - [X] - %s" % database_ini[database_name]["cabin_2"])
+            print("2 - [X] - %s" % database_ini[database_name]["cabin_2_name"])
     else:
         cabin_2 = None
     if "cabin_3" in database_ini[database_name]:
         if not cabin_3:
-            print("3 - [ ] - %s" % database_ini[database_name]["cabin_3"])
+            print("3 - [ ] - %s" % database_ini[database_name]["cabin_3_name"])
         else:
-            print("3 - [X] - %s" % database_ini[database_name]["cabin_3"])
+            print("3 - [X] - %s" % database_ini[database_name]["cabin_3_name"])
     else:
         cabin_3 = None
     if "cabin_8x4" in database_ini[database_name]:
         if not cabin_8x4:
-            print("4 - [ ] - %s" % database_ini[database_name]["cabin_8x4"])
+            print("4 - [ ] - %s" % database_ini[database_name]["cabin_8x4_name"])
         else:
-            print("4 - [X] - %s" % database_ini[database_name]["cabin_8x4"])
+            print("4 - [X] - %s" % database_ini[database_name]["cabin_8x4_name"])
     else:
         cabin_8x4 = None
     print("")
@@ -552,7 +554,7 @@ def choose_cabins(database_name, cabin_1=False, cabin_2=False, cabin_3=False, ca
             list_ini.read("truck lists/%s.ini" % truck_list)
             if new_internal_name == "":
                 choose_cabins(database_name, cabin_1, cabin_2, cabin_3, cabin_8x4, mode, internal_name)
-            else:
+            else: # TODO: REWRITE THIS MESS
                 new_internal_name = re.sub("\W+","",new_internal_name).lower()
                 if len(new_internal_name) <= 12:
                     if new_internal_name not in list_ini.sections():
