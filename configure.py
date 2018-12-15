@@ -401,7 +401,7 @@ def edit_truck(selected_truck):
                 else:
                     if new_internal_name == selected_truck:
                         print("Internal name %s is okay" % new_internal_name)
-                        name_is_okay = True
+                        name_is_okay = None
                     else:
                         print("Internal name %s already exists in %s" % (new_internal_name, truck_list))
                         name_is_okay = False
@@ -418,6 +418,8 @@ def edit_truck(selected_truck):
                 print("Internal name changed successfully")
                 time.sleep(1.5)
                 edit_truck(new_internal_name)
+            elif name_is_okay = None:
+                edit_truck(selected_truck)
             else:
                 time.sleep(1.5)
                 edit_truck(selected_truck)
