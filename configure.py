@@ -48,7 +48,6 @@ def view_params(manual=False):
         print("Current paintjob pack: %s" % truck_list)
         print("")
     print("=== Modpack parameters ===")
-    print("Mod name:         %s" % list_ini["Params"]["pack_name"]) # TODO: pack name = mod name?
     print("Mod author:       %s" % list_ini["Params"]["pack_author"])
     print("Mod version:      %s" % list_ini["Params"]["pack_version"])
     print("")
@@ -171,27 +170,24 @@ def edit_params(truck_list):
     list_ini.read("truck lists/%s.ini" % truck_list)
     print("Select parameter to edit:")
     print("")
-    print("1 - Edit mod name     (%s)" % list_ini["Params"]["pack_name"])
-    print("2 - Edit mod author   (%s)" % list_ini["Params"]["pack_author"])
-    print("3 - Edit mod version  (%s)" % list_ini["Params"]["pack_version"])
-    print("4 - Edit in-game name (%s)" % list_ini["Params"]["ingame_name"])
-    print("5 - Edit price        (%s)" % list_ini["Params"]["price"])
-    print("6 - Edit unlock level (%s)" % list_ini["Params"]["unlock_level"])
+    print("1 - Edit mod author   (%s)" % list_ini["Params"]["pack_author"])
+    print("2 - Edit mod version  (%s)" % list_ini["Params"]["pack_version"])
+    print("3 - Edit in-game name (%s)" % list_ini["Params"]["ingame_name"])
+    print("4 - Edit price        (%s)" % list_ini["Params"]["price"])
+    print("5 - Edit unlock level (%s)" % list_ini["Params"]["unlock_level"])
     print("")
     print("0 - Back to previous menu")
     print("")
     menu_choice = input("Enter selection: ")
     if menu_choice == "1":
-        param_to_edit = ("pack_name", "mod name")
-    elif menu_choice == "2":
         param_to_edit = ("pack_author", "mod author")
-    elif menu_choice == "3":
+    elif menu_choice == "2":
         param_to_edit = ("pack_version", "mod version")
-    elif menu_choice == "4":
+    elif menu_choice == "3":
         param_to_edit = ("ingame_name", "in-game name")
-    elif menu_choice == "5":
+    elif menu_choice == "4":
         param_to_edit = ("price", "price")
-    elif menu_choice == "6":
+    elif menu_choice == "5":
         param_to_edit = ("unlock_level", "Unlock level")
     elif menu_choice == "0":
         param_to_edit = None
@@ -282,7 +278,6 @@ def select_truck(mode="man"): # mode can be man, man switch or add
             print("Select truck to support")
         else:
             print("Select truck to add")
-        database_ini = []
         database_ini = configparser.ConfigParser()
         database_ini.read("database.ini")
         vehicles_to_display = []
@@ -418,7 +413,7 @@ def edit_truck(selected_truck):
                 print("Internal name changed successfully")
                 time.sleep(1.5)
                 edit_truck(new_internal_name)
-            elif name_is_okay = None:
+            elif name_is_okay == None:
                 edit_truck(selected_truck)
             else:
                 time.sleep(1.5)
@@ -670,6 +665,10 @@ def create_new_list(new_truck_list=None):
             print("Name already exists, choose another")
             time.sleep(1.5)
             new_truck_list = None
+        elif "," in new_truck_list:
+            print("Name cannot contain any commas")
+            time.sleep(1.5)
+            new_truck_list = None
         create_new_list(new_truck_list)
     else:
         print("")
@@ -693,7 +692,6 @@ def create_new_list(new_truck_list=None):
             list_ini["Params"]["price"] = defaults_ini["Params"]["price"]
             list_ini["Params"]["unlock_level"] = defaults_ini["Params"]["unlock_level"]
             list_ini["Params"]["pack_version"] = defaults_ini["Params"]["pack_version"]
-            list_ini["Params"]["pack_name"] = defaults_ini["Params"]["pack_name"]
             list_ini["Params"]["pack_author"] = defaults_ini["Params"]["pack_author"]
             internal_name = defaults_ini["Params"]["internal_name"]
             list_ini.add_section(internal_name)
@@ -730,6 +728,10 @@ def rename_truck_list(truck_list):
         view_params(manual=False)
     elif new_truck_list in all_truck_lists or new_truck_list in ["manual", "defaults_euro", "defaults_american"]:
         print("Name already exists")
+        time.sleep(1.5)
+        rename_truck_list(truck_list)
+    elif "," in new_truck_list:
+        print("Name cannot contain any commas")
         time.sleep(1.5)
         rename_truck_list(truck_list)
     else:

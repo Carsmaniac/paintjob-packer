@@ -81,7 +81,7 @@ def make_pack_files(truck_list):
     list_ini.read("truck lists/%s.ini" % truck_list)
 
     pack_version = list_ini["Params"]["pack_version"]
-    pack_name = list_ini["Params"]["pack_name"]
+    pack_name = truck_list
     pack_author = list_ini["Params"]["pack_author"]
 
     print("Creating overall mod files...")

@@ -20,7 +20,7 @@ ingame_name = manual["Params"]["ingame_name"]
 price = manual["Params"]["price"]
 unlock_level = manual["Params"]["unlock_level"]
 
-pack_name = manual["Params"]["pack_name"]
+pack_name = "Paintjob Packer Mod"
 pack_version = manual["Params"]["pack_version"]
 pack_author = manual["Params"]["pack_author"]
 
