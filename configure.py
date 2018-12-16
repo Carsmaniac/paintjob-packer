@@ -9,10 +9,10 @@ def menu():
     config = configparser.ConfigParser()
     config.read("config.ini")
     truck_list = config["Params"]["truck_list"]
-    print("Current paintjob pack truck list: %s" % truck_list)
+    print("Current paintjob pack: %s" % truck_list)
     print("")
     print("1 - View/edit paintjob pack parameters")
-    print("2 - Switch to another truck list")
+    print("2 - Switch to another paintjob pack")
     print("3 - View/edit manual paintjob parameters")
     print("")
     print("0 - Exit program")
@@ -45,10 +45,10 @@ def view_params(manual=False):
     list_type = list_ini["Params"]["list_type"]
     all_truck_lists = config_ini["Params"]["all_truck_lists"].split(",")
     if not manual:
-        print("Current truck list: %s" % truck_list)
+        print("Current paintjob pack: %s" % truck_list)
         print("")
     print("=== Modpack parameters ===")
-    print("Mod name:         %s" % list_ini["Params"]["pack_name"])
+    print("Mod name:         %s" % list_ini["Params"]["pack_name"]) # TODO: pack name = mod name?
     print("Mod author:       %s" % list_ini["Params"]["pack_author"])
     print("Mod version:      %s" % list_ini["Params"]["pack_version"])
     print("")
@@ -80,9 +80,9 @@ def view_params(manual=False):
             print("5 - Switch to ETS 2 support")
     else:
         print("2 - View/edit supported trucks")
-        print("3 - Rename truck list")
+        print("3 - Rename paintjob pack")
         if len(all_truck_lists) > 1:
-            print("4 - Remove truck list")
+            print("4 - Remove paintjob pack")
     print("")
     print("0 - Back to previous menu")
     print("")
@@ -105,7 +105,7 @@ def view_params(manual=False):
         config_ini["Params"]["truck_list"] = truck_list
         with open("config.ini", "w") as configfile:
             config_ini.write(configfile)
-        print("List removed successfully")
+        print("Pack removed successfully")
         time.sleep(1.5)
         view_params(manual = False)
     elif menu_choice == "4" and manual:
@@ -125,7 +125,7 @@ def switch_truck_list():
     config_ini.read("config.ini")
     truck_list = config_ini["Params"]["truck_list"]
     all_truck_lists = config_ini["Params"]["all_truck_lists"].split(",")
-    print("Current truck list: %s" % truck_list)
+    print("Current paintjob pack: %s" % truck_list)
     print("")
     all_truck_lists.remove(truck_list)
     menu_choice_counter = 1
@@ -135,11 +135,11 @@ def switch_truck_list():
             list_ini.read("truck lists/%s.ini" % other_truck_list)
             print("%s - Switch to %s (%s trucks)" % (menu_choice_counter, other_truck_list, str(len(list_ini.sections())-1)))
             menu_choice_counter += 1
-        print("%s - Create a new truck list" % menu_choice_counter)
+        print("%s - Create a new paintjob pack" % menu_choice_counter)
     else:
-        print("No other truck lists")
+        print("No other paintjob packs")
         print("")
-        print("1 - Create new truck list")
+        print("1 - Create new paintjob pack")
     print("")
     print("0 - Back to previous menu")
     print("")
@@ -311,7 +311,7 @@ def edit_auto_trucks():
     all_trucks_in_list = list_ini.sections()
     all_trucks_in_list.remove("Params")
     if len(all_trucks_in_list) == 0:
-        print("This list is empty")
+        print("This pack is empty")
     else:
         menu_choice_counter = 1
         for truck in all_trucks_in_list:
@@ -386,7 +386,7 @@ def edit_truck(selected_truck):
         print("Note: internal name should: - be 12 or fewer characters")
         print("                            - consist of only letters, numbers and underscores")
         print("                            - be unique")
-        print("Paintjob Packer will warn you if the name already exists in this truck list,")
+        print("Paintjob Packer will warn you if the name is already in use in this paintjob pack,")
         print("however please take caution when using multiple mods at once")
         print("")
         new_internal_name = input("Enter new internal name, or nothing to cancel: ")
@@ -545,7 +545,7 @@ def choose_cabins(database_name, cabin_1=False, cabin_2=False, cabin_3=False, ca
             print("Note: internal name should: - be 12 or fewer characters")
             print("                            - consist of only letters, numbers and underscores")
             print("                            - be unique")
-            print("Paintjob Packer will warn you if the name already exists in this truck list,")
+            print("Paintjob Packer will warn you if the name is already in use in this paintjob pack,")
             print("however please take caution when using multiple mods at once")
             print("")
             new_internal_name = input("Enter internal name for paintjob, or nothing to cancel: ")
@@ -650,12 +650,12 @@ def create_new_list(new_truck_list=None):
     config.read("config.ini")
     all_truck_lists = config["Params"]["all_truck_lists"]
     all_truck_lists = all_truck_lists.split(",")
-    print("Current truck list: %s" % config["Params"]["truck_list"])
+    print("Current paintjob pack: %s" % config["Params"]["truck_list"])
     if new_truck_list != None:
-        print("New truck list: %s" % new_truck_list)
+        print("New paintjob pack: %s" % new_truck_list)
     if len(all_truck_lists) > 1:
         print("")
-        print("Other truck lists:")
+        print("Other paintjob packs:")
         print("")
         for other_list in all_truck_lists:
             if other_list != config["Params"]["truck_list"]:
@@ -664,7 +664,7 @@ def create_new_list(new_truck_list=None):
                 print("%s" % other_list)
     print("")
     if new_truck_list == None:
-        new_truck_list = input("Enter name for new list: ")
+        new_truck_list = input("Enter name for new pack: ")
         print("")
         if new_truck_list in all_truck_lists or new_truck_list in ("manual","defaults_euro","defaults_american"):
             print("Name already exists, choose another")
@@ -673,7 +673,7 @@ def create_new_list(new_truck_list=None):
         create_new_list(new_truck_list)
     else:
         print("")
-        print("Select type of list to make: ")
+        print("Select game to support: ")
         print("")
         print("1 - Euro Truck Simulator 2")
         print("2 - American Truck Simulator")
@@ -704,7 +704,7 @@ def create_new_list(new_truck_list=None):
             list_ini[internal_name]["cabin_numbers"] = defaults_ini["Params"]["cabin_numbers"]
             with open("truck lists/%s.ini" % new_truck_list, "w") as configfile:
                 list_ini.write(configfile)
-            print("New list made successfully")
+            print("New pack made successfully")
             print("Default values used, please change them to your liking")
             time.sleep(3)
             config["Params"]["truck_list"] = new_truck_list
@@ -722,9 +722,9 @@ def rename_truck_list(truck_list):
     config_ini = configparser.ConfigParser()
     config_ini.read("config.ini")
     print("\n"*50)
-    print("Current truck list: %s" % truck_list)
+    print("Current paintjob pack: %s" % truck_list)
     print("")
-    new_truck_list = input("Enter new list name, or nothing to cancel: ")
+    new_truck_list = input("Enter new pack name, or nothing to cancel: ")
     all_truck_lists = config_ini["Params"]["all_truck_lists"].split(",")
     if new_truck_list== "":
         view_params(manual=False)

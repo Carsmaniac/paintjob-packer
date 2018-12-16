@@ -9,10 +9,10 @@ def menu():
     config_ini = configparser.ConfigParser()
     config_ini.read("config.ini")
     truck_list = config_ini["Params"]["truck_list"]
-    print("Current truck list: %s" % truck_list)
+    print("Current paintjob pack: %s" % truck_list)
     print("")
-    print("1 - Generate pack from current list")
-    print("2 - Change to another list")
+    print("1 - Generate paintjob pack")
+    print("2 - Change to another paintjob pack")
     print("")
     print("0 - Exit program")
     print("")
@@ -35,7 +35,7 @@ def switch_truck_list():
     config.read("config.ini")
     truck_list = config["Params"]["truck_list"]
     all_truck_lists = config["Params"]["all_truck_lists"].split(",")
-    print("Current truck list: %s" % truck_list)
+    print("Current paintjob pack: %s" % truck_list)
     print("")
     all_truck_lists.remove(truck_list)
     menu_choice_counter = 1
@@ -46,7 +46,7 @@ def switch_truck_list():
             print("%s - Switch to %s (%s trucks)" % (menu_choice_counter, other_truck_list, str(len(list_ini.sections())-1)))
             menu_choice_counter += 1
     else:
-        print("No other truck lists")
+        print("No other paintjob packs")
     print("")
     print("0 - Back to previous menu")
     print("")
