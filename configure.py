@@ -651,7 +651,6 @@ def create_new_list(new_truck_list=None):
     if len(all_truck_lists) > 1:
         print("")
         print("Other paintjob packs:")
-        print("")
         for other_list in all_truck_lists:
             if other_list != config["Params"]["truck_list"]:
                 list_ini = configparser.ConfigParser()
@@ -848,6 +847,11 @@ def edit_accessory_name(internal_name, truck_list, accessory_name_index):
             time.sleep(1.5)
             edit_accessory_name(internal_name, truck_list, accessory_name_index)
         else:
+            new_clean_accessory_name = ""
+            for character in new_accessory_name:
+                if character not in (",", " "):
+                    new_clean_accessory_name += character
+            new_accessory_name = new_clean_accessory_name
             accessory_name_list.remove(accessory_name)
             accessory_name_list.append(new_accessory_name)
             accessory_name_list = ",".join(accessory_name_list)
