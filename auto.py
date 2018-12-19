@@ -93,16 +93,24 @@ def make_truck_files(internal_name, truck_list):
     list_ini = configparser.ConfigParser()
     list_ini.read("truck lists/%s.ini" % truck_list)
 
+    vehicle_type = list_ini[internal_name]["vehicle_type"]
+    if vehicle_type in ["euro trailer", "american trailer"]:
+        trailer = True
+    else:
+        trailer = False
+
     ingame_name = list_ini["Params"]["ingame_name"]
     price = list_ini["Params"]["price"]
     unlock_level = list_ini["Params"]["unlock_level"]
 
     make = list_ini[internal_name]["make"]
     model = list_ini[internal_name]["model"]
-    cabins = list_ini[internal_name]["cabins"]
-    cabins = cabins.split(",")
+    if trailer:
+        cabins = None
+    else:
+        cabins = list_ini[internal_name]["cabins"]
+        cabins = cabins.split(",")
 
-    vehicle_type = list_ini[internal_name]["vehicle_type"]
     database_name = list_ini[internal_name]["database_name"]
     new_truck_format = list_ini[internal_name].getboolean("new_truck_format")
 
@@ -114,13 +122,13 @@ def make_truck_files(internal_name, truck_list):
         accessory_dict = None
 
     print("Creating files for %s..." % internal_name)
-    paintjob.Folders.specific_mod_folders(make=make, model=model, new_truck_format=new_truck_format, internal_name=internal_name)
-    paintjob.Files.def_sii(make=make, model=model, cabins=cabins, internal_name=internal_name, ingame_name=ingame_name, price=price, unlock_level=unlock_level, new_truck_format=new_truck_format)
+    paintjob.Folders.specific_mod_folders(make=make, model=model, new_truck_format=new_truck_format, internal_name=internal_name, trailer=trailer)
+    paintjob.Files.def_sii(make=make, model=model, cabins=cabins, internal_name=internal_name, ingame_name=ingame_name, price=price, unlock_level=unlock_level, new_truck_format=new_truck_format, trailer=trailer)
     if new_truck_format:
-        paintjob.Files.def_accessory_sii(make=make, model=model, internal_name=internal_name, accessory_name_list=accessory_name_list, accessory_dict=accessory_dict, database_name=database_name)
+        paintjob.Files.def_accessory_sii(make=make, model=model, internal_name=internal_name, accessory_name_list=accessory_name_list, accessory_dict=accessory_dict, database_name=database_name, trailer=trailer)
     paintjob.Files.material_mat(internal_name=internal_name)
-    paintjob.Files.generate_tobj_files(internal_name=internal_name, make=make, model=model, new_truck_format=new_truck_format, accessory_name_list=accessory_name_list)
-    paintjob.Files.copy_image_files(truck_list=truck_list, internal_name=internal_name, new_truck_format=new_truck_format, make=make, model=model, accessory_name_list=accessory_name_list)
+    paintjob.Files.generate_tobj_files(internal_name=internal_name, make=make, model=model, new_truck_format=new_truck_format, accessory_name_list=accessory_name_list, trailer=trailer)
+    paintjob.Files.copy_image_files(truck_list=truck_list, internal_name=internal_name, new_truck_format=new_truck_format, make=make, model=model, accessory_name_list=accessory_name_list, trailer=trailer)
 
 def finish_up(truck_list):
     print("Compiling mod...")
