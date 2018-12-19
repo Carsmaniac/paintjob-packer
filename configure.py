@@ -345,7 +345,7 @@ def edit_truck(selected_truck):
         show_edit_accessories = False
     print("Selected truck: %s (%s)" % (selected_truck, list_ini[selected_truck]["database_name"]))
     print("")
-    print("1 - Edit truck")
+    print("1 - Edit truck cabins")
     print("2 - Rename truck")
     menu_choice_counter = 3
     if show_remove_truck:
@@ -518,91 +518,87 @@ def choose_cabins(database_name, cabin_1=False, cabin_2=False, cabin_3=False, ca
             selected_cabin_numbers.append("8x4")
         cabins_selected = ",".join(i for i in cabins_selected)
         selected_cabin_numbers = ",".join(i for i in selected_cabin_numbers)
-        list_ini = configparser.ConfigParser()
+    if mode in ["man", "man switch"]:
+        truck_list = "manual"
+        list_ini_key = "Params"
+    else:
+        config_ini = configparser.ConfigParser()
+        config_ini.read("config.ini")
+        truck_list = config_ini["Params"]["truck_list"]
+        if mode == "edit":
+            list_ini_key = internal_name
+        else:
+            list_ini_key = None # defined later
+    list_ini = configparser.ConfigParser()
+    list_ini.read("truck lists/%s.ini" % truck_list)
+    if mode == "add":
+        print("")
+        print("Note: internal name should: - be 12 or fewer characters")
+        print("                            - consist of only letters, numbers and underscores")
+        print("                            - be unique")
+        print("Paintjob Packer will warn you if the name is already in use in this paintjob pack,")
+        print("however please take caution when using multiple mods at once")
+        print("")
+        new_internal_name = input("Enter internal name for paintjob, or nothing to cancel: ")
+        print("")
+        if new_internal_name == "":
+            choose_cabins(database_name, cabin_1, cabin_2, cabin_3, cabin_8x4, mode, internal_name)
+        else:
+            new_internal_name = re.sub("\W+","",new_internal_name).lower()
+            if len(new_internal_name) <= 12:
+                if new_internal_name not in list_ini.sections():
+                    print("Internal name %s is okay" % new_internal_name)
+                    name_is_okay = True
+                else:
+                    print("Internal name %s already exists in %s" % (new_internal_name, truck_list))
+                    name_is_okay = False
+            else:
+                print("Internal name %s is too long" % new_internal_name)
+                name_is_okay = False
+            if name_is_okay:
+                time.sleep(1)
+                list_ini_key = new_internal_name
+                list_ini.add_section(new_internal_name)
+            else:
+                time.sleep(2.5)
+                choose_cabins(database_name, cabin_1, cabin_2, cabin_3, cabin_8x4, mode, internal_name)
+    if list_ini_key != None:
+        if mode != "edit":
+            list_ini[list_ini_key]["database_name"] = database_name
+            list_ini[list_ini_key]["make"] = database_ini[database_name]["make"]
+            list_ini[list_ini_key]["model"] = database_ini[database_name]["model"]
+        list_ini[list_ini_key]["cabins"] = cabins_selected
+        list_ini[list_ini_key]["cabin_numbers"] = selected_cabin_numbers
+        list_ini[list_ini_key]["new_truck_format"] = database_ini[database_name]["new_truck_format"]
+        if mode == "man switch":
+            if list_ini[list_ini_key]["list_type"] == "euro":
+                list_ini[list_ini_key]["list_type"] = "american"
+            else:
+                list_ini[list_ini_key]["list_type"] = "euro"
+        if list_ini[list_ini_key].getboolean("new_truck_format"):
+            print("Truck uses the new accessory format! Ensure you edit its accessory textures and assign its accessories")
+            time.sleep(2.5)
+            accessories_ini = configparser.ConfigParser()
+            accessories_ini.read("accessories.ini")
+            list_ini[list_ini_key]["accessory_name_list"] = "Default accessory texture"
+            all_accessory_types = []
+            for accessory_type in accessories_ini.options(database_name):
+                all_accessory_types.append("%s=0" % accessory_type)
+            list_ini[list_ini_key]["accessory_dict"] = ",".join(all_accessory_types)
+        with open("truck lists/%s.ini" % truck_list, "w") as configfile:
+            list_ini.write(configfile)
         if mode in ["man", "man switch"]:
-            list_ini.read("truck lists/manual.ini")
-            list_ini["Params"]["database_name"] = database_name
-            list_ini["Params"]["make"] = database_ini[database_name]["make"]
-            list_ini["Params"]["model"] = database_ini[database_name]["model"]
-            list_ini["Params"]["cabins"] = cabins_selected
-            list_ini["Params"]["cabin_numbers"] = selected_cabin_numbers
-            if mode == "man switch" and list_ini["Params"]["list_type"] == "euro":
-                list_ini["Params"]["list_type"] = "american"
-            elif mode == "man switch" and list_ini["Params"]["list_type"] == "american":
-                list_ini["Params"]["list_type"] = "euro"
-            with open("truck lists/manual.ini", "w") as configfile:
-                list_ini.write(configfile)
             print("Supported truck changed successfully")
             time.sleep(1.5)
             select_truck(mode)
-        else:
-            print("")
-            print("Note: internal name should: - be 12 or fewer characters")
-            print("                            - consist of only letters, numbers and underscores")
-            print("                            - be unique")
-            print("Paintjob Packer will warn you if the name is already in use in this paintjob pack,")
-            print("however please take caution when using multiple mods at once")
-            print("")
-            new_internal_name = input("Enter internal name for paintjob, or nothing to cancel: ")
-            print("")
-            config = configparser.ConfigParser()
-            config.read("config.ini")
-            truck_list = config["Params"]["truck_list"]
-            list_ini.read("truck lists/%s.ini" % truck_list)
-            if new_internal_name == "":
-                choose_cabins(database_name, cabin_1, cabin_2, cabin_3, cabin_8x4, mode, internal_name)
-            else: # TODO: REWRITE THIS MESS
-                new_internal_name = re.sub("\W+","",new_internal_name).lower()
-                if len(new_internal_name) <= 12:
-                    if new_internal_name not in list_ini.sections():
-                        print("Internal name %s is okay" % new_internal_name)
-                        name_is_okay = True
-                    else:
-                        if new_internal_name == internal_name and mode == "edit":
-                            print("Internal name %s is okay" % new_internal_name)
-                            name_is_okay = True
-                        else:
-                            print("Internal name %s already exists in %s" % (new_internal_name, truck_list))
-                            name_is_okay = False
-                else:
-                    print("Internal name %s is too long" % new_internal_name)
-                    name_is_okay = False
-                if name_is_okay:
-                    time.sleep(1)
-                    if mode == "add" or (mode == "edit" and internal_name != new_internal_name):
-                        list_ini.add_section(new_internal_name)
-                        list_ini[new_internal_name]["database_name"] = database_name
-                        list_ini[new_internal_name]["make"] = database_ini[database_name]["make"]
-                        list_ini[new_internal_name]["model"] = database_ini[database_name]["model"]
-                    list_ini[new_internal_name]["cabins"] = cabins_selected
-                    list_ini[new_internal_name]["cabin_numbers"] = selected_cabin_numbers
-                    list_ini[new_internal_name]["new_truck_format"] = database_ini[database_name]["new_truck_format"]
-                    list_ini[new_internal_name]["vehicle_type"] = database_ini[database_name]["vehicle_type"]
-                    if list_ini[new_internal_name].getboolean("new_truck_format"):
-                        print("Truck uses the new accessory format! Ensure you edit its accessory textures and assign its accessories")
-                        time.sleep(2.5)
-                        accessories_ini = configparser.ConfigParser()
-                        accessories_ini.read("accessories.ini")
-                        list_ini[new_internal_name]["accessory_name_list"] = "default_accessory_texture"
-                        all_accessory_types = []
-                        for accessory_type in accessories_ini.options(database_name):
-                            all_accessory_types.append("%s=0" % accessory_type)
-                        list_ini[new_internal_name]["accessory_dict"] = ",".join(all_accessory_types)
-                    if mode == "edit" and internal_name != new_internal_name:
-                        list_ini.remove_section(internal_name)
-                    with open("truck lists/%s.ini" % truck_list, "w") as configfile:
-                        list_ini.write(configfile)
-                    if mode == "add":
-                        print("Truck added successfully")
-                        time.sleep(1.5)
-                        edit_auto_trucks()
-                    else:
-                        print("Truck edited successfully")
-                        time.sleep(1.5)
-                        edit_truck(new_internal_name)
-                else:
-                    time.sleep(2.5)
-                    choose_cabins(database_name, cabin_1, cabin_2, cabin_3, cabin_8x4, mode, internal_name)
+        elif mode == "add":
+            print("Truck added successfully")
+            time.sleep(1.5)
+            edit_auto_trucks()
+        elif mode == "edit":
+            print("Truck cabins edited successfully")
+            time.sleep(1.5)
+            edit_truck(internal_name)
     elif menu_choice == "0":
         if mode == "edit":
             edit_truck(internal_name)

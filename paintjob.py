@@ -12,7 +12,7 @@ def convert_string_to_hex(string_input): # returns a hexified version of an inpu
         string_input = bytes([string_input])
     elif isinstance(string_input, str):
         string_input = string_input.encode()
-    string_output = binascii.hexlify(string_input) # TEMP: If I need to reverse, unhexlify. If not, delete this comment
+    string_output = binascii.hexlify(string_input)
     string_output = string_output.decode()
     return string_output
 
