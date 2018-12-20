@@ -71,12 +71,18 @@ def view_params(manual=False):
     if manual:
         print("2 - Edit supported truck")
         print("3 - Edit internal name")
-        if list_ini["Params"].getboolean("new_truck_format"):
+        show_accessories = list_ini["Params"].getboolean("new_truck_format")
+        current_euro_list = list_type == "euro"
+        if show_accessories:
             print("4 - View/edit truck accessories")
-        if list_type == "euro":
-            print("5 - Switch to ATS support")
+            if current_euro_list:
+                print("5 - Switch to ATS support")
+            else:
+                print("5 - Switch to ETS 2 support")
+        elif current_euro_list:
+            print("4 - Switch to ATS support")
         else:
-            print("5 - Switch to ETS 2 support")
+            print("4 - Switch to ETS 2 support")
     else:
         print("2 - View/edit supported trucks")
         print("3 - Rename paintjob pack")
@@ -107,9 +113,11 @@ def view_params(manual=False):
         print("Pack removed successfully")
         time.sleep(1.5)
         view_params(manual = False)
-    elif menu_choice == "4" and manual:
+    elif menu_choice == "4" and manual and show_accessories:
         view_accessories(list_ini["Params"]["internal_name"], "manual")
-    elif menu_choice == "5" and manual:
+    elif menu_choice == "5" and manual and show_accessories:
+        select_truck(mode="man switch")
+    elif menu_choice == "4" and manual and not show_accessories:
         select_truck(mode="man switch")
     elif menu_choice == "0":
         menu()
@@ -216,20 +224,23 @@ def select_truck(mode="man"): # mode can be man, man switch or add
     print("\n"*50)
     list_ini = configparser.ConfigParser()
     if mode in ["man", "man switch"]:
+        truck_list = "manual"
         list_ini.read("truck lists/manual.ini")
         print("Current supported truck: %s" % list_ini["Params"]["database_name"])
         database_ini = configparser.ConfigParser()
         database_ini.read("database.ini")
-        all_cabin_names = []
-        for each_cabin in list_ini["Params"]["cabin_numbers"].split(","):
-            all_cabin_names.append(database_ini[list_ini["Params"]["database_name"]]["cabin_%s_name" % each_cabin])
-        print("Supported cabins:        %s" % ", ".join(all_cabin_names))
+        if list_ini["Params"]["vehicle_type"] not in ["euro trailer", "american trailer"]:
+            all_cabin_names = []
+            for each_cabin in list_ini["Params"]["cabin_numbers"].split(","):
+                all_cabin_names.append(database_ini[list_ini["Params"]["database_name"]]["cabin_%s_name" % each_cabin])
+            print("Supported cabins:        %s" % ", ".join(all_cabin_names))
         print("")
         print("Select type of truck to support:")
     else:
         config_ini = configparser.ConfigParser()
         config_ini.read("config.ini")
-        list_ini.read("truck lists/%s.ini" % config_ini["Params"]["truck_list"])
+        truck_list = config_ini["Params"]["truck_list"]
+        list_ini.read("truck lists/%s.ini" % truck_list)
         print("Select type of truck to add:")
     print("")
     list_type = list_ini["Params"]["list_type"]
@@ -292,7 +303,87 @@ def select_truck(mode="man"): # mode can be man, man switch or add
         menu_choice = input("Enter selection, or nothing to cancel: ")
         database_name = None
         if menu_choice in [str(i+1) for i in range(len(vehicles_to_display))]:
-            choose_cabins(vehicles_to_display[int(menu_choice)-1], mode=mode)
+            if vehicle_type in ["euro trailer", "american trailer"]:
+                if mode == "add":
+                    list_ini_key = None
+                    print("")
+                    print("Note: internal name should: - be 12 or fewer characters")
+                    print("                            - consist of only letters, numbers and underscores")
+                    print("                            - be unique")
+                    if mode == "add":
+                        print("Paintjob Packer will warn you if the name is already in use in this paintjob pack,")
+                        print("however please take caution when using multiple mods at once")
+                    else:
+                        print("Please take caution when using multiple mods at once")
+                    print("")
+                    new_internal_name = input("Enter internal name for paintjob, or nothing to cancel: ")
+                    print("")
+                    if new_internal_name == "":
+                        if mode == "add":
+                            edit_auto_trucks()
+                        else:
+                            view_params(manual=True)
+                    else:
+                        new_internal_name = re.sub("\W+","",new_internal_name).lower()
+                        if len(new_internal_name) <= 12:
+                            if mode in ["man", "man switch"]:
+                                print("Internal name %s is okay" % new_internal_name)
+                                name_is_okay = True
+                            else:
+                                if new_internal_name not in list_ini.sections():
+                                    print("Internal name %s is okay" % new_internal_name)
+                                    name_is_okay = True
+                                else:
+                                    print("Internal name %s already exists in %s" % (new_internal_name, truck_list))
+                                    name_is_okay = False
+                        else:
+                            print("Internal name %s is too long" % new_internal_name)
+                            name_is_okay = False
+                        if name_is_okay:
+                            time.sleep(1)
+                            if mode == "add":
+                                list_ini_key = new_internal_name
+                                list_ini.add_section(new_internal_name)
+                            else:
+                                list_ini_key = "Params"
+                        else:
+                            time.sleep(2.5)
+                            select_truck(mode)
+                else:
+                    list_ini_key = "Params"
+                if list_ini_key != None:
+                    database_ini = configparser.ConfigParser()
+                    database_ini.read("database.ini")
+                    selected_vehicle = vehicles_to_display[int(menu_choice)-1]
+                    list_ini[list_ini_key]["database_name"] = selected_vehicle
+                    list_ini[list_ini_key]["make"] = database_ini[selected_vehicle]["make"]
+                    list_ini[list_ini_key]["model"] = database_ini[selected_vehicle]["model"]
+                    list_ini[list_ini_key]["new_truck_format"] = database_ini[selected_vehicle]["new_truck_format"]
+                    list_ini[list_ini_key]["vehicle_type"] = vehicle_type
+                    if mode in ["man", "man switch"]:
+                        list_ini[list_ini_key]["list_type"] = list_type
+                    if list_ini[list_ini_key].getboolean("new_truck_format"):
+                        print("Trailer uses the new accessory format! Ensure you edit its accessory textures and assign its accessories")
+                        time.sleep(2.5)
+                        accessories_ini = configparser.ConfigParser()
+                        accessories_ini.read("accessories.ini")
+                        list_ini[list_ini_key]["accessory_name_list"] = "Default accessory texture"
+                        all_accessory_types = []
+                        for accessory_type in accessories_ini.options(selected_vehicle):
+                            all_accessory_types.append("%s=0" % accessory_type)
+                        list_ini[list_ini_key]["accessory_dict"] = ",".join(all_accessory_types)
+                    with open("truck lists/%s.ini" % truck_list, "w") as configfile:
+                        list_ini.write(configfile)
+                    if mode == "add":
+                        print("Trailer added successfully")
+                        time.sleep(1.5)
+                        edit_auto_trucks()
+                    else:
+                        print("Supported vehicle changed successfully")
+                        time.sleep(1.5)
+                        view_params(manual=True)
+            else:
+                choose_cabins(vehicles_to_display[int(menu_choice)-1], mode=mode)
         else:
             select_truck(mode)
 
@@ -570,6 +661,7 @@ def choose_cabins(database_name, cabin_1=False, cabin_2=False, cabin_3=False, ca
         list_ini[list_ini_key]["cabins"] = cabins_selected
         list_ini[list_ini_key]["cabin_numbers"] = selected_cabin_numbers
         list_ini[list_ini_key]["new_truck_format"] = database_ini[database_name]["new_truck_format"]
+        list_ini[list_ini_key]["vehicle_type"] = database_ini[database_name]["vehicle_type"]
         if mode == "man switch":
             if list_ini[list_ini_key]["list_type"] == "euro":
                 list_ini[list_ini_key]["list_type"] = "american"
