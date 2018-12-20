@@ -169,11 +169,13 @@ class Folders:
     def specific_mod_folders(make, model, new_truck_format, internal_name, trailer):
         if trailer:
             Folders.make_folder("output/def/vehicle/trailer_owned/%s.%s/paint_job" % (make, model))
+            Folders.make_folder("output/vehicle/trailer_owned/upgrade/paintjob")
             if new_truck_format:
                 Folders.make_folder("output/def/vehicle/trailer_owned/%s.%s/paint_job/accessory" % (make, model))
                 Folders.make_folder("output/vehicle/trailer_owned/upgrade/paintjob/%s_%s/%s" % (make, model, internal_name))
         else:
             Folders.make_folder("output/def/vehicle/truck/%s.%s/paint_job" % (make, model))
+            Folders.make_folder("output/vehicle/truck/upgrade/paintjob")
             if new_truck_format:
                 Folders.make_folder("output/def/vehicle/truck/%s.%s/paint_job/accessory" % (make, model))
                 Folders.make_folder("output/vehicle/truck/upgrade/paintjob/%s_%s/%s" % (make, model, internal_name))

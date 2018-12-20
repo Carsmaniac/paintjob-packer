@@ -4,3 +4,4 @@ paintjob_new.py
 .DS_Store
 __pycache__/paintjob.cpython-37.pyc
 *.pyc
+*.dds

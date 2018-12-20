@@ -5,3 +5,4 @@ Major feature to do list
 - Man.py configuration
     - output to base folder or mod folder (corresponding game, select Windows, macOS or Linux)
     - compile or not
+- DAF Euro 6 B cab name incorrect
