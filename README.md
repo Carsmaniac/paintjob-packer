@@ -3,6 +3,9 @@ Paintjob mod maker for SCS trucksim games
 
 Please note: I have no idea how GitHub works and I'm mostly making this to play around :)
 
+## This project is on hold for now
+A major rewrite is in order, so for now development has stopped. See the latest commit for details. This message will be removed once the future of Paintjob Packer has been determined, and development begins again.
+
 ## Functions (wishlist)
 
 * Generate trucksim mods
