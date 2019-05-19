@@ -1,8 +1,0 @@
-Major feature to do list
-- First-run function to set up folders & default lists and act as a tutorial
-- Trailer support
-- Function (within configure?) that tells you all the files you need to provide, and where to put them
-- Man.py configuration
-    - output to base folder or mod folder (corresponding game, select Windows, macOS or Linux)
-    - compile or not
-- DAF Euro 6 B cab name incorrect

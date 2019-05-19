@@ -1,5 +1,0 @@
-This mod was made with Paintjob Packer
-Developed with love <3 by Carsmaniac
-https://github.com/Carsmaniac/paintjob-packer
-
-I see you're snooping around inside its files, hopefully you find what you're looking for ;)
