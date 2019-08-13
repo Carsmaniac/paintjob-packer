@@ -1,0 +1,6 @@
+Scania T
+modauthor;RJL
+modlink;https://steamcommunity.com/sharedfiles/filedetails/?id=1233343065
+trailer:false
+a:longline,b:toplinexc,c:topline,d:highline,e:normal
+accessories:false

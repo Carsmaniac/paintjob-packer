@@ -1,0 +1,6 @@
+Mercedes-Benz Actros 2014
+modauthor;
+modlink;
+trailer:false
+a:gigaspace,b:bigspace,c:streamspace,8:gs_8x4
+accessories:false

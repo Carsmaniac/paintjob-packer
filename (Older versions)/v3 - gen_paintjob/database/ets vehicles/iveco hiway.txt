@@ -1,0 +1,6 @@
+Iveco Stralis Hi-Way
+modauthor;
+modlink;
+trailer:false
+a:hiway
+accessories:false

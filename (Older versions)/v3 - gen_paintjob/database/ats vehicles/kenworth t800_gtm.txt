@@ -1,0 +1,6 @@
+Kenworth T800
+modauthor;GTM
+modlink;https://steamcommunity.com/sharedfiles/filedetails/?id=1387205658
+trailer:false
+a:exclusive,b:standard,c:duty
+accessories:false

@@ -1,0 +1,6 @@
+Mercedes-Benz Actros 2009
+modauthor;
+modlink;
+trailer:false
+a:megaspace,b:cabin_l,c:cabin_l_lw
+accessories:false

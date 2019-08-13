@@ -1,0 +1,6 @@
+Volvo FH16 2009 conversion
+modauthor;Frkn64
+modlink;http://steamcommunity.com/sharedfiles/filedetails/?id=714516984
+trailer:false
+a:l2h3,b:l2h2,c:l2h1
+accessories:false

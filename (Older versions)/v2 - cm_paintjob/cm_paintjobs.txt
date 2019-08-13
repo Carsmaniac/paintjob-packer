@@ -1,0 +1,43 @@
+=== In-game Parameters ===
+Name:
+1.35 test paintjob
+
+Price:
+6000
+
+Unlock level:
+0
+
+=== Mod Manager Parameters ===
+Mod name:
+1.35 test pack
+
+Author:
+Carsmaniac
+
+Version:
+v1.0
+
+=== Other ===
+Icon name:
+135_icon
+
+Add-on:
+false
+>> true = individual truck files only, to add to an existing mod
+>> false = new pack from scratch
+
+=== Individual Paintjobs ===
+>> Format: internal_name;vehicle_type;make;model;all,supported,cabins
+>> Vehicle types: truck, truck_acc, trailer
+>> Instead of "box" for box trailers, put "box_ets" or "box_ats", also for flatbed, gooseneck & log
+tra389;truck;peterbilt;389;exclusive,standard,duty
+tra579;truck;peterbilt;579;exclusive,standard,duty
+tra900;truck;kenworth;w900;exclusive,standard,duty
+tra680;truck;kenworth;t680;exclusive,standard,duty
+travnl;truck;volvo;vnl;exclusive,standard,duty
+trabox;trailer;scs;box_ats
+trafla;trailer;scs;flatbed_ats
+trachp;trailer;scs;chipvan
+tralog;trailer;scs;log_ats
+tragoo;trailer;scs;gooseneck_ats

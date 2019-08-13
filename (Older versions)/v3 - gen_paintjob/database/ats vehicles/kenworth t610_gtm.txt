@@ -1,0 +1,6 @@
+Kenworth T610
+modauthor;GTM
+modlink;https://steamcommunity.com/sharedfiles/filedetails/?id=1305493186
+trailer:false
+a:exclusive,b:standard,c:duty
+accessories:false

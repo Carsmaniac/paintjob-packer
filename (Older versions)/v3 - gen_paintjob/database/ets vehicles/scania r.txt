@@ -1,0 +1,8 @@
+Scania R 2009
+modauthor;
+modlink;
+trailer:false
+a:topline,b:highline,c:normal,8:tl_8x4
+accessories:true
+rear_bumper:r_bumper.arbumpermg01,r_bumper.arbumpermg03
+chassis_cover:r_chs_cover.chscmg4x203,r_chs_cover.chscmg6x203,r_chs_cover.chscmg6x2403

@@ -1,0 +1,8 @@
+body.van_48
+body.m_floor_48
+body.belly_van_48
+rear_body.simple
+chs_f_l.aero
+chs_f_l.paint_45
+chs_f_r.aero
+chs_f_r.paint_45

@@ -1,0 +1,6 @@
+Volvo FH16 2012
+modauthor;
+modlink;
+trailer:false
+a:l2h3,b:l2h2,c:l2h1,8:l2h3_8x4
+accessories:false

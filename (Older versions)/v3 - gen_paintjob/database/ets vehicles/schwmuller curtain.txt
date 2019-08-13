@@ -1,0 +1,9 @@
+Schwarzmuller Platform
+modauthor;
+modlink;
+trailer:true
+
+accessories:true
+body:body.curtain
+rear_bumper:r_bumper.rbumper1p,r_bumper.rbumper2p
+sideskirts:chs_f_l.pallet1p,chs_f_l.sp2_b1p,chs_f_l.sp2p,chs_f_l.sp2p_b1,chs_f_l.sp2p_b1p,chs_f_l.sp2p_b2,chs_f_l.sp2p_b3,chs_f_l.sp2p_b4,chs_f_l.sp2p_et,chs_f_l.sp2p_t,chs_f_r.pallet1p,chs_f_r.sp2_b1p,chs_f_r.sp2p,chs_f_r.sp2p_b1,chs_f_r.sp2p_b1p,chs_f_r.sp2p_b2,chs_f_r.sp2p_b3,chs_f_r.sp2p_b4,chs_f_r.sp2p_et,chs_f_r.sp2p_t,chs_r_l.b1p,chs_r_l.b1p_b2,chs_r_l.b1p_b3,chs_r_l.b1p_b4,chs_r_l.b1p_et,chs_r_l.b1p_t,chs_f_l.sp1p,chs_f_r.sp1p,chs_r_r.b1p,chs_r_r.b1p_et,chs_r_r.b1p_t

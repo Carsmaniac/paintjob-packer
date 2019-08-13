@@ -1,0 +1,6 @@
+Freightliner Argosy
+modauthor;Lucasi
+modlink;https://steamcommunity.com/sharedfiles/filedetails/?id=882898189
+trailer:false
+a:raised_roof,b:spoiler_roof,c:low_roof2,d:low_roof
+accessories:false

@@ -1,0 +1,18 @@
+Scania S
+modauthor;
+modlink;
+trailer:false
+a:highline,b:normal,8:highline_8x4
+accessories:true
+exhaust:exhaust_m.mg01
+front_logo:f_logo.painted
+mirrors:f_mirror.painted,mirror.painted,mirror.painted_f,s_mirror.painted
+sunshields:sunshld.stock,sunshld.sunshld_01,sunshld.sunshld_04,sunshld.sunshld_05,sunshld.sunshld_06
+sideskirts_4x2:sideskirt.4x2_p,sideskirt.4x2_p_1,sideskirt.4x2_p_2,sideskirt.4x2_p_v8,sideskirt.4x2_p_v8_1,sideskirt.4x2_p_v8_2
+sideskirts_6x4:sideskirt.6x2_p,sideskirt.6x2_p_1,sideskirt.6x2_p_2,sideskirt.6x2_p_v8,sideskirt.6x2_p_v8_1,sideskirt.6x2_p_v8_2
+sideskirts_6x4_long:sideskirt.6x2l_p,sideskirt.6x2l_p_1,sideskirt.6x2l_p_2,sideskirt.6x2l_p_v8,sideskirt.6x2l_p_v8_1,sideskirt.6x2l_p_v8_2
+sideskirts_8x4:sideskirt.8x4_p
+mudflaps:f_mudflap.kotr,f_mudflap.kotrh,f_mudflap.kotrl,f_mudflap.scania,f_mudflap.scaniah,f_mudflap.scanial,f_mudflap.scaniamg,f_mudflap.scaniamgh,f_mudflap.scaniamgl,f_mudflap.v8,f_mudflap.v8h,f_mudflap.v8l
+rear_bumper:r_bumper.duty_p,r_bumper.mg01,r_bumper.mg03,r_bumper.mg04,r_bumper.stock_p
+chassis_cover:r_chs_cover.4x2_p,r_chs_cover.6xn_p,r_chs_cover.6xnl_p
+rear_fender:r_fender.4x2_blk_p,r_fender.4x2_p,r_fender.4x2_spcgr_p,r_fender.6x2_blk_p,r_fender.6x2_p,r_fender.6x2_spcgr_p,r_fender.6x2l_blk_p,r_fender.6x2l_p,r_fender.6x2l_spcgr_p,r_fender.8x4_blk_p,r_fender.8x4_p,r_fender.8x4_spcgr_p

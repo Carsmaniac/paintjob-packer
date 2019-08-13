@@ -1,0 +1,12 @@
+SCS Flatbed (Sliding Tarp)
+modauthor;
+modlink;
+trailer:true
+
+accessories:true
+body_28ft:body.curtain_28,body.curtain_28bd
+body_32ft:body.curtain_32
+body_45ft:body.curtain_45
+body_48ft:body.curtain_48
+body_53ft:body.curtain_53
+body_front:f_body.wind_def

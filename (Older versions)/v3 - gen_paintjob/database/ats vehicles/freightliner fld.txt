@@ -1,0 +1,6 @@
+Freightliner FLD
+modauthor;Lucasi
+modlink;https://steamcommunity.com/sharedfiles/filedetails/?id=1322705595
+trailer:false
+a:highroof,b:lowroof
+accessories:false

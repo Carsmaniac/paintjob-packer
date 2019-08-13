@@ -1,0 +1,18 @@
+Mack R Series
+modauthor;Harven
+modlink;https://steamcommunity.com/sharedfiles/filedetails/?id=1463066263
+trailer:false
+a:r600dayd,b:r600day
+accessories:true
+deflector:cabdefl.deflector,cabdefl.scoops
+grille:grill.fullpaint,grill.painted
+headlights:lamps.double,lamps.double_chr,lamps.single,lamps.single_chr
+brackets:lbracket.bracketp,rbracket.bracketp
+mirrors:mirror.painted,mirror.painteds
+sunshield:sunshield.sunshield1
+mudflaps:mudflaps.painted,mudflaps.paintedf
+mudguard:mudguard.fullp,mudguard.quarterp
+petrol_tank_straps:straps.bigp,straps.roundp,straps.squarechr,straps.squarep
+front_bumper:bumper.bull_p,bumper.cust_p,bumper.heavy_p,bumper.stock_p
+rear_bumper:r_bumper.customp
+petrol_tank:tanks.bigp,tanks.roundp,tanks.squarep

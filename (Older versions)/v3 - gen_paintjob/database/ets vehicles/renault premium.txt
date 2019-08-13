@@ -1,0 +1,6 @@
+Renault Premium
+modauthor;
+modlink;
+trailer:false
+a:higher,b:normal
+accessories:false

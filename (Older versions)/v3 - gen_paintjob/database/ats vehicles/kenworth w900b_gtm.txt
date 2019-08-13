@@ -1,0 +1,6 @@
+Kenworth W900B
+modauthor;GTM
+modlink;https://steamcommunity.com/sharedfiles/filedetails/?id=1378683697
+trailer:false
+a:exclusive,b:standard,c:duty
+accessories:false

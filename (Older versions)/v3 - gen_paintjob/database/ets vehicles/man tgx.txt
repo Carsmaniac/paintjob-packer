@@ -1,0 +1,6 @@
+MAN TGX
+modauthor;
+modlink;
+trailer:false
+a:xxl_cab,b:xlx_cab,c:xl_cab
+accessories:false

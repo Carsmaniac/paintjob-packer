@@ -1,0 +1,6 @@
+International 9800
+modauthor;Lucasi
+modlink;https://steamcommunity.com/sharedfiles/filedetails/?id=1322663266
+trailer:false
+a:standard,b:lowspoiler,c:low
+accessories:false
