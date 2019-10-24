@@ -96,3 +96,97 @@ def make_paintjob_icon_mat(pj_int_name):
     file.write("    texture_name: \"texture\"\n")
     file.write("}\n")
     file.close()
+
+def make_def_folder(veh_trailer, veh_path, veh_uses_accessories):
+    if veh_trailer:
+        veh_type = "trailer_owned"
+    else:
+        veh_type = "truck"
+    extra_path = ""
+    if veh_uses_accessories:
+        extra_path = "/accessory"
+    make_folder("def/vehicle/%s/%s/paint_job%s" % (veh_type, veh_path, extra_path))
+
+def make_cabin_sii(veh_path, pj_int_name, cab_size, cab_name, veh_make, veh_model):
+    cab_pj_name = pj_int_name+"_"+cab_size
+    file = open("output/def/vehicle/truck/%s/paint_job/%s.sii" % (veh_path, cab_pj_name), "w")
+    file.write("SiiNunit\n")
+    file.write("{\n")
+    file.write("accessory_paint_job_data: %s.%s.paint_job\n" % (cab_pj_name, veh_path))
+    file.write("{\n")
+    file.write("@include \"%s_settings.sui\"\n" % pj_int_name)
+    file.write("    suitable_for[]: \"%s.%s.cabin\"\n" % (cab_name, veh_path))
+    file.write("    paint_job_mask: \"/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_%s.tobj\"\n" % (pj_int_name, veh_make, veh_model, cab_size))
+    file.write("}\n")
+    file.write("}\n")
+    file.close()
+
+def make_only_sii(veh_trailer, veh_path, pj_int_name, pj_colour, veh_make, veh_model):
+    if veh_trailer:
+        veh_type = "trailer_owned"
+        tobj_path = "shared_%s.tobj" % pj_colour
+    else:
+        veh_type = "truck"
+        tobj_path = "%s_%s/cabin_a.tobj" % (veh_make, veh_model)
+    file = open("output/def/vehicle/%s/%s/paint_job/%s.sii" % (veh_type, veh_path, pj_int_name), "w")
+    file.write("SiiNunit\n")
+    file.write("{\n")
+    file.write("accessory_paint_job_data: %s.%s.paint_job\n" % (pj_int_name, veh_path))
+    file.write("{\n")
+    file.write("@include \"%s_settings.sui\"\n" % pj_int_name)
+    file.write("    paint_job_mask: \"/vehicle/%s/upgrade/paintjob/%s/%s\n" % (veh_type, pj_int_name, tobj_path))
+    file.write("}\n")
+    file.write("}\n")
+    file.close()
+
+def make_settings_sui(veh_trailer, veh_path, pj_int_name, pj_name, pj_price):
+    if veh_trailer:
+        veh_type = "trailer_owned"
+    else:
+        veh_type = "truck"
+    file = open("output/def/vehicle/%s/%s/paint_job/%s_settings.sui" % (veh_type, veh_path, pj_int_name), "w")
+    file.write("    name:     \"%s\"\n" % pj_name)
+    file.write("    price:    %s\n" % pj_price)
+    file.write("    unlock:   0\n")
+    file.write("    airbrush: true\n")
+    file.write("    icon:     \"paintjob_icons/%s_icon\"\n" % pj_int_name)
+    file.close()
+
+def make_cabin_acc_sii(veh_path, pj_int_name, cab_size, veh_make, veh_model, veh_acc_dict):
+    cab_pj_name = pj_int_name+"_"+cab_size
+    file = open("output/def/vehicle/truck/%s/paint_job/accessory/%s.sii" % (veh_path, cab_pj_name), "w")
+    file.write("SiiNunit\n")
+    file.write("{\n")
+    ovr_counter = 0
+    for acc_name in veh_acc_dict:
+        file.write("\n")
+        file.write("simple_paint_job_data: .ovr%s\n" % str(ovr_counter))
+        file.write("{\n")
+        file.write("    paint_job_mask: \"/vehicle/truck/upgrade/paintjob/%s/%s_%s/%s.tobj\"\n" % (pj_int_name, veh_make, veh_model, acc_name))
+        for acc in veh_acc_dict[acc_name]:
+            file.write("    acc_list[]: \"%s\"\n" % acc)
+        file.write("}\n")
+        ovr_counter += 1
+    file.write("}\n")
+    file.close()
+
+def make_only_acc_sii(veh_trailer, veh_path, pj_int_name, veh_make, veh_model, veh_acc_dict):
+    if veh_trailer:
+        veh_type = "trailer_owned"
+    else:
+        veh_type = "truck"
+    file = open("output/def/vehicle/%s/%s/paint_job/accessory/%s.sii" % (veh_type, veh_path, pj_int_name), "w")
+    file.write("SiiNunit\n")
+    file.write("{\n")
+    ovr_counter = 0
+    for acc_name in veh_acc_dict:
+        file.write("\n")
+        file.write("simple_paint_job_data: .ovr%s\n" % str(ovr_counter))
+        file.write("{\n")
+        file.write("    paint_job_mask: \"/vehicle/%s/upgrade/paintjob/%s/%s_%s/%s.tobj\"\n" % (veh_type, pj_int_name, veh_make, veh_model, acc_name))
+        for acc in veh_acc_dict[acc_name]:
+            file.write("    acc_list[]: \"%s\"\n" % acc)
+        file.write("}\n")
+        ovr_counter += 1
+    file.write("}\n")
+    file.close()

@@ -51,7 +51,7 @@ for pj in list_of_paintjobs:
     make_paintjob_icon_tobj(pj_int_name)
     make_paintjob_icon_mat(pj_int_name)
 
-    pj_contains_truck = False
+    pj_contains_truck = False # only for shared_colour, not folder
     pj_contains_trailer = False
     for veh in pj_list_of_vehicles:
         veh_ini = configparser.ConfigParser(allow_no_value = True)
@@ -64,7 +64,7 @@ for pj in list_of_paintjobs:
         veh_trailer = veh_ini["vehicle info"].getboolean("trailer")
         veh_mod = veh_ini["vehicle info"].getboolean("mod")
         if veh_mod:
-            veh_mod_authot = veh_ini["vehicle info"]["mod author"]
+            veh_mod_author = veh_ini["vehicle info"]["mod author"]
             veh_mod_link = veh_ini["vehicle info"]["mod link"]
         veh_uses_accessories = veh_ini["vehicle info"].getboolean("uses accessories")
         if veh_uses_accessories:
@@ -74,8 +74,29 @@ for pj in list_of_paintjobs:
                 veh_acc_dict[acc] = list(veh_ini[acc].keys())
         if veh_trailer:
             pj_contains_trailer = True
+            veh_separate_paintjobs = False
         else:
             pj_contains_truck = True
             veh_separate_paintjobs = veh_ini["cabins"].getboolean("separate paintjobs")
             veh_cabins = dict(veh_ini["cabins"].items())
             veh_cabins.pop("separate paintjobs", None)
+        make_def_folder(veh_trailer, veh_path, veh_uses_accessories)
+        make_settings_sui(veh_trailer, veh_path, pj_int_name, pj_name, pj_price)
+
+        if veh_separate_paintjobs: # most trucks
+            for cab in veh_cabins:
+                cab_size = cab
+                cab_name = veh_cabins[cab]
+                make_cabin_sii(veh_path, pj_int_name, cab_size, cab_name, veh_make, veh_model)
+                if veh_uses_accessories:
+                    make_cabin_acc_sii(veh_path, pj_int_name, cab_size, veh_make, veh_model, veh_acc_dict)
+        else: # trailers and some mods
+            make_only_sii(veh_trailer, veh_path, pj_int_name, pj_colour, veh_make, veh_model)
+            if veh_uses_accessories:
+                make_only_acc_sii(veh_trailer, veh_path, pj_int_name, veh_make, veh_model, veh_acc_dict)
+
+        # paintjob vehicle folder
+        # vehicle folders
+        # cabin dds and tobjs
+
+        # (paintjob shared_colour dds and tobjs)
