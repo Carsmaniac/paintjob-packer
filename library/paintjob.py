@@ -31,7 +31,8 @@ class Pack:
 
 def clear_output_folder():
     print("Clearing output folder")
-    shutil.rmtree("output")
+    if os.path.exists("output"):
+        shutil.rmtree("output")
     os.makedirs("output")
 
 def make_folder(path):
