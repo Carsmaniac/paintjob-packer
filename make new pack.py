@@ -75,13 +75,15 @@ for pj in list_of_paintjobs:
         if veh_trailer:
             pj_contains_trailer = True
             veh_separate_paintjobs = False
+            veh_type = "trailer_owned"
         else:
             pj_contains_truck = True
             veh_separate_paintjobs = veh_ini["cabins"].getboolean("separate paintjobs")
+            veh_type = "truck"
             veh_cabins = dict(veh_ini["cabins"].items())
             veh_cabins.pop("separate paintjobs", None)
-        make_def_folder(veh_trailer, veh_path, veh_uses_accessories)
-        make_settings_sui(veh_trailer, veh_path, pj_int_name, pj_name, pj_price)
+        make_def_folder(veh_type, veh_path, veh_uses_accessories)
+        make_settings_sui(veh_type, veh_path, pj_int_name, pj_name, pj_price)
 
         if veh_separate_paintjobs: # most trucks
             for cab in veh_cabins:
