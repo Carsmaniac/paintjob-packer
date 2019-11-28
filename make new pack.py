@@ -102,5 +102,4 @@ for pj in list_of_paintjobs:
         if not veh_trailer:
             copy_cabin_dds(pj_int_name, veh_make, veh_model)
         if veh_uses_accessories:
-            copy_acc_dds(veh_type, pj_int_name, veh_make, veh_model, veh_acc_dict)
-            make_acc_tobj(veh_type, pj_int_name, veh_make, veh_model, veh_acc_dict)
+            make_acc_tobj(veh_type, pj_int_name, veh_make, veh_model, veh_acc_dict, pj_colour)
