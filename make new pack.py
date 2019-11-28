@@ -89,17 +89,18 @@ for pj in list_of_paintjobs:
                 cab_size = cab
                 cab_name = veh_cabins[cab]
                 make_cabin_sii(veh_path, pj_int_name, cab_size, cab_name, veh_make, veh_model)
-                copy_cabin_dds(pj_int_name, veh_make, veh_model, cab_size)
                 make_cabin_tobj(pj_int_name, veh_make, veh_model, cab_size)
                 if veh_uses_accessories:
                     make_cabin_acc_sii(veh_path, pj_int_name, cab_size, veh_make, veh_model, veh_acc_dict)
         else: # trailers and some mods
             make_only_sii(veh_trailer, veh_path, pj_int_name, pj_colour, veh_make, veh_model)
             if not veh_trailer:
-                copy_cabin_dds(pj_int_name, veh_make, veh_model)
                 make_cabin_tobj(pj_int_name, veh_make, veh_model)
             if veh_uses_accessories:
                 make_only_acc_sii(veh_type, veh_path, pj_int_name, veh_make, veh_model, veh_acc_dict)
+
+        if not veh_trailer:
+            copy_cabin_dds(pj_int_name, veh_make, veh_model)
         if veh_uses_accessories:
             copy_acc_dds(veh_type, pj_int_name, veh_make, veh_model, veh_acc_dict)
             make_acc_tobj(veh_type, pj_int_name, veh_make, veh_model, veh_acc_dict)

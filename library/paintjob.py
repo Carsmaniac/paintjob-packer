@@ -182,19 +182,19 @@ def make_only_acc_sii(veh_type, veh_path, pj_int_name, veh_make, veh_model, veh_
 def make_vehicle_folder(veh_type, pj_int_name, veh_make, veh_model):
     make_folder("vehicle/%s/upgrade/paintjob/%s/%s_%s" % (veh_type, pj_int_name, veh_make, veh_model))
 
-def copy_cabin_dds(pj_int_name, veh_make, veh_model, cab_size="a"):
-    shutil.copyfile(EMPTY_DDS, "output/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_%s.dds" % (pj_int_name, veh_make, veh_model, cab_size))
 
 def copy_acc_dds(veh_type, pj_int_name, veh_make, veh_model, veh_acc_dict):
     for acc_name in veh_acc_dict:
         shutil.copyfile(EMPTY_DDS, "output/vehicle/%s/upgrade/paintjob/%s/%s_%s/%s.dds" % (veh_type, pj_int_name, veh_make, veh_model, acc_name))
+def copy_cabin_dds(pj_int_name, veh_make, veh_model):
+    shutil.copyfile(EMPTY_DDS, "output/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_a.dds" % (pj_int_name, veh_make, veh_model))
 
 def copy_shared_colour_dds(veh_type, pj_int_name, pj_colour):
     shutil.copyfile(EMPTY_DDS, "output/vehicle/%s/upgrade/paintjob/%s/shared_%s.dds" % (veh_type, pj_int_name, pj_colour))
 
 def make_cabin_tobj(pj_int_name, veh_make, veh_model, cab_size="a"):
     file = open("output/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_%s.tobj" % (pj_int_name, veh_make, veh_model, cab_size), "wb")
-    file.write(generate_tobj("/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_%s.dds" % (pj_int_name, veh_make, veh_model, cab_size)))
+    file.write(generate_tobj("/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_a.dds" % (pj_int_name, veh_make, veh_model)))
     file.close()
 
 def make_acc_tobj(veh_type, pj_int_name, veh_make, veh_model, veh_acc_dict):
