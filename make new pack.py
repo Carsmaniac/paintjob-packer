@@ -51,8 +51,6 @@ for pj in list_of_paintjobs:
     make_paintjob_icon_tobj(pj_int_name)
     make_paintjob_icon_mat(pj_int_name)
 
-    pj_contains_truck = False # only for shared_colour, not folder
-    pj_contains_trailer = False
     for veh in pj_list_of_vehicles:
         veh_ini = configparser.ConfigParser(allow_no_value = True)
         veh_ini.read("vehicles/%s/%s.ini" % (game, veh))
@@ -73,32 +71,34 @@ for pj in list_of_paintjobs:
             for acc in veh_accessories:
                 veh_acc_dict[acc] = list(veh_ini[acc].keys())
         if veh_trailer:
-            pj_contains_trailer = True
             veh_separate_paintjobs = False
             veh_type = "trailer_owned"
         else:
-            pj_contains_truck = True
             veh_separate_paintjobs = veh_ini["cabins"].getboolean("separate paintjobs")
             veh_type = "truck"
             veh_cabins = dict(veh_ini["cabins"].items())
             veh_cabins.pop("separate paintjobs", None)
         make_def_folder(veh_type, veh_path, veh_uses_accessories)
         make_settings_sui(veh_type, veh_path, pj_int_name, pj_name, pj_price)
+        make_vehicle_folder(veh_type, pj_int_name, veh_make, veh_model)
+        copy_shared_colour_dds(veh_type, pj_int_name, pj_colour) # runs multiple times, which is okay
+        make_shared_colour_tobj(veh_type, pj_int_name, pj_colour)
 
         if veh_separate_paintjobs: # most trucks
             for cab in veh_cabins:
                 cab_size = cab
                 cab_name = veh_cabins[cab]
                 make_cabin_sii(veh_path, pj_int_name, cab_size, cab_name, veh_make, veh_model)
+                copy_cabin_dds(pj_int_name, veh_make, veh_model, cab_size)
+                make_cabin_tobj(pj_int_name, veh_make, veh_model, cab_size)
                 if veh_uses_accessories:
                     make_cabin_acc_sii(veh_path, pj_int_name, cab_size, veh_make, veh_model, veh_acc_dict)
         else: # trailers and some mods
             make_only_sii(veh_trailer, veh_path, pj_int_name, pj_colour, veh_make, veh_model)
+            if not veh_trailer:
+                copy_cabin_dds(pj_int_name, veh_make, veh_model)
             if veh_uses_accessories:
-                make_only_acc_sii(veh_trailer, veh_path, pj_int_name, veh_make, veh_model, veh_acc_dict)
-
-        # paintjob vehicle folder
-        # vehicle folders
-        # cabin dds and tobjs
-
-        # (paintjob shared_colour dds and tobjs)
+                make_only_acc_sii(veh_type, veh_path, pj_int_name, veh_make, veh_model, veh_acc_dict)
+        if veh_uses_accessoties:
+            copy_acc_dds(veh_type, pj_int_name, veh_make, veh_model, veh_acc_dict)
+            make_acc_tobj(veh_type, pj_int_name, veh_make, veh_model, veh_acc_dict)
