@@ -97,8 +97,9 @@ for pj in list_of_paintjobs:
             make_only_sii(veh_trailer, veh_path, pj_int_name, pj_colour, veh_make, veh_model)
             if not veh_trailer:
                 copy_cabin_dds(pj_int_name, veh_make, veh_model)
+                make_cabin_tobj(pj_int_name, veh_make, veh_model)
             if veh_uses_accessories:
                 make_only_acc_sii(veh_type, veh_path, pj_int_name, veh_make, veh_model, veh_acc_dict)
-        if veh_uses_accessoties:
+        if veh_uses_accessories:
             copy_acc_dds(veh_type, pj_int_name, veh_make, veh_model, veh_acc_dict)
             make_acc_tobj(veh_type, pj_int_name, veh_make, veh_model, veh_acc_dict)
