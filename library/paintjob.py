@@ -3,12 +3,12 @@ import os, shutil, binascii, codecs
 EMPTY_DDS = "library/placeholder files/empty.dds"
 
 class Pack:
-    def __init__(self, file_name, game = None):
+    def __init__(self, file_name, _game = None):
         pack_ini = configparser.ConfigParser(allow_no_value = True)
         if file_name == "new":
             pack_ini.read("new pack.ini")
         else:
-            pack_ini.read("library/packs/%s/%s.ini" % (game, file_name))
+            pack_ini.read("library/packs/%s/%s.ini" % (_game, file_name))
         self.game = pack_ini["pack info"]["game"]
         self.name = pack_ini["pack info"]["name"]
         self.version = input_file["pack info"]["version"]
@@ -106,14 +106,14 @@ def generate_tobj(path):
 
 
 
-def make_manifest_sii(mod_version, mod_name):
+def make_manifest_sii(pack):
     file = open("output/manifest.sii", "w")
     file.write("SiiNunit\n")
     file.write("{\n")
     file.write("mod_package: .package_name\n")
     file.write("{\n")
-    file.write("    package_version:  \"%s\"\n" % mod_version)
-    file.write("    display_name:     \"%s\"\n" % mod_name)
+    file.write("    package_version:  \"%s\"\n" % pack.version)
+    file.write("    display_name:     \"%s\"\n" % pack.name)
     file.write("    author:           \"Carsmaniac\"\n")
     file.write("\n")
     file.write("    category[]:       \"paint_job\"\n")
@@ -130,124 +130,124 @@ def copy_mod_manager_image():
 def make_material_folder():
     make_folder("material/ui/accessory/paintjob_icons")
 
-def copy_paintjob_icon(pj_int_name):
-    shutil.copyfile("library/placeholder files/paintjob_icon.dds", "output/material/ui/accessory/paintjob_icons/%s_icon.dds" % pj_int_name)
+def copy_paintjob_icon(pj):
+    shutil.copyfile("library/placeholder files/paintjob_icon.dds", "output/material/ui/accessory/paintjob_icons/%s_icon.dds" % pj.int_name)
 
-def make_paintjob_icon_tobj(pj_int_name):
-    file = open("output/material/ui/accessory/paintjob_icons/%s_icon.tobj" % pj_int_name, "wb")
-    file.write(generate_tobj("/material/ui/acessory/paintjob_icons/%s_icon.dds" % pj_int_name))
+def make_paintjob_icon_tobj(pj):
+    file = open("output/material/ui/accessory/paintjob_icons/%s_icon.tobj" % pj.int_name, "wb")
+    file.write(generate_tobj("/material/ui/acessory/paintjob_icons/%s_icon.dds" % pj.int_name))
     file.close()
 
-def make_paintjob_icon_mat(pj_int_name):
-    file = open("output/material/ui/accessory/paintjob_icons/%s_icon.mat" % pj_int_name, "w")
+def make_paintjob_icon_mat(pj):
+    file = open("output/material/ui/accessory/paintjob_icons/%s_icon.mat" % pj.int_name, "w")
     file.write("material: \"ui\"\n")
     file.write("{\n")
-    file.write("    texture:      \"%s_icon.tobj\"\n" % pj_int_name)
+    file.write("    texture:      \"%s_icon.tobj\"\n" % pj.int_name)
     file.write("    texture_name: \"texture\"\n")
     file.write("}\n")
     file.close()
 
-def make_def_folder(veh_type, veh_path, veh_uses_accessories):
+def make_def_folder(veh):
     extra_path = ""
-    if veh_uses_accessories:
+    if veh.uses_accessories:
         extra_path = "/accessory"
-    make_folder("def/vehicle/%s/%s/paint_job%s" % (veh_type, veh_path, extra_path))
+    make_folder("def/vehicle/%s/%s/paint_job%s" % (veh.type, veh.path, extra_path))
 
-def make_cabin_sii(veh_path, pj_int_name, cab_size, cab_name, veh_make, veh_model):
-    cab_pj_name = pj_int_name+"_"+cab_size
-    file = open("output/def/vehicle/truck/%s/paint_job/%s.sii" % (veh_path, cab_pj_name), "w")
+def make_cabin_sii(veh, pj, cab_size, cab_name):
+    cab_pj_name = pj.int_name+"_"+cab_size
+    file = open("output/def/vehicle/truck/%s/paint_job/%s.sii" % (veh.path, cab_pj_name), "w")
     file.write("SiiNunit\n")
     file.write("{\n")
-    file.write("accessory_paint_job_data: %s.%s.paint_job\n" % (cab_pj_name, veh_path))
+    file.write("accessory_paint_job_data: %s.%s.paint_job\n" % (cab_pj_name, veh.path))
     file.write("{\n")
-    file.write("@include \"%s_settings.sui\"\n" % pj_int_name)
-    file.write("    suitable_for[]: \"%s.%s.cabin\"\n" % (cab_name, veh_path))
-    file.write("    paint_job_mask: \"/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_%s.tobj\"\n" % (pj_int_name, veh_make, veh_model, cab_size))
+    file.write("@include \"%s_settings.sui\"\n" % pj.int_name)
+    file.write("    suitable_for[]: \"%s.%s.cabin\"\n" % (cab_name, veh.path))
+    file.write("    paint_job_mask: \"/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_%s.tobj\"\n" % (pj.int_name, veh.make, veh.model, cab_size))
     file.write("}\n")
     file.write("}\n")
     file.close()
 
-def make_only_sii(veh_type, veh_path, pj_int_name, pj_colour, veh_make, veh_model):
-    if veh_type == "trailer_owned":
-        tobj_path = "shared_%s.tobj" % pj_colour
+def make_only_sii(veh, pj):
+    if veh.type == "trailer_owned":
+        tobj_path = "shared_%s.tobj" % pj.colour
     else:
-        tobj_path = "%s_%s/cabin_a.tobj" % (veh_make, veh_model)
-    file = open("output/def/vehicle/%s/%s/paint_job/%s.sii" % (veh_type, veh_path, pj_int_name), "w")
+        tobj_path = "%s_%s/cabin_a.tobj" % (veh.make, veh.model)
+    file = open("output/def/vehicle/%s/%s/paint_job/%s.sii" % (veh.type, veh.path, pj.int_name), "w")
     file.write("SiiNunit\n")
     file.write("{\n")
-    file.write("accessory_paint_job_data: %s.%s.paint_job\n" % (pj_int_name, veh_path))
+    file.write("accessory_paint_job_data: %s.%s.paint_job\n" % (pj.int_name, veh.path))
     file.write("{\n")
-    file.write("@include \"%s_settings.sui\"\n" % pj_int_name)
-    file.write("    paint_job_mask: \"/vehicle/%s/upgrade/paintjob/%s/%s\n" % (veh_type, pj_int_name, tobj_path))
+    file.write("@include \"%s_settings.sui\"\n" % pj.int_name)
+    file.write("    paint_job_mask: \"/vehicle/%s/upgrade/paintjob/%s/%s\n" % (veh.type, pj.int_name, tobj_path))
     file.write("}\n")
     file.write("}\n")
     file.close()
 
-def make_settings_sui(veh_type, veh_path, pj_int_name, pj_name, pj_price):
-    file = open("output/def/vehicle/%s/%s/paint_job/%s_settings.sui" % (veh_type, veh_path, pj_int_name), "w")
-    file.write("    name:     \"%s\"\n" % pj_name)
-    file.write("    price:    %s\n" % pj_price)
+def make_settings_sui(veh, pj):
+    file = open("output/def/vehicle/%s/%s/paint_job/%s_settings.sui" % (veh.type, veh.path, pj.int_name), "w")
+    file.write("    name:     \"%s\"\n" % pj.name)
+    file.write("    price:    %s\n" % pj.price)
     file.write("    unlock:   0\n")
     file.write("    airbrush: true\n")
-    file.write("    icon:     \"paintjob_icons/%s_icon\"\n" % pj_int_name)
+    file.write("    icon:     \"paintjob_icons/%s_icon\"\n" % pj.int_name)
     file.close()
 
-def make_cabin_acc_sii(veh_path, pj_int_name, cab_size, veh_make, veh_model, veh_acc_dict):
-    cab_pj_name = pj_int_name+"_"+cab_size
-    file = open("output/def/vehicle/truck/%s/paint_job/accessory/%s.sii" % (veh_path, cab_pj_name), "w")
+def make_cabin_acc_sii(veh, pj, cab_size):
+    cab_pj_name = pj.int_name+"_"+cab_size
+    file = open("output/def/vehicle/truck/%s/paint_job/accessory/%s.sii" % (veh.path, cab_pj_name), "w")
     file.write("SiiNunit\n")
     file.write("{\n")
     ovr_counter = 0
-    for acc_name in veh_acc_dict:
+    for acc_name in veh.acc_dict:
         file.write("\n")
         file.write("simple_paint_job_data: .ovr%s\n" % str(ovr_counter))
         file.write("{\n")
-        file.write("    paint_job_mask: \"/vehicle/truck/upgrade/paintjob/%s/%s_%s/%s.tobj\"\n" % (pj_int_name, veh_make, veh_model, acc_name))
-        for acc in veh_acc_dict[acc_name]:
+        file.write("    paint_job_mask: \"/vehicle/truck/upgrade/paintjob/%s/%s_%s/%s.tobj\"\n" % (pj.int_name, veh.make, veh.model, acc_name))
+        for acc in veh.acc_dict[acc_name]:
             file.write("    acc_list[]: \"%s\"\n" % acc)
         file.write("}\n")
         ovr_counter += 1
     file.write("}\n")
     file.close()
 
-def make_only_acc_sii(veh_type, veh_path, pj_int_name, veh_make, veh_model, veh_acc_dict):
-    file = open("output/def/vehicle/%s/%s/paint_job/accessory/%s.sii" % (veh_type, veh_path, pj_int_name), "w")
+def make_only_acc_sii(veh, pj):
+    file = open("output/def/vehicle/%s/%s/paint_job/accessory/%s.sii" % (veh.type, veh.path, pj.int_name), "w")
     file.write("SiiNunit\n")
     file.write("{\n")
     ovr_counter = 0
-    for acc_name in veh_acc_dict:
+    for acc_name in veh.acc_dict:
         file.write("\n")
         file.write("simple_paint_job_data: .ovr%s\n" % str(ovr_counter))
         file.write("{\n")
-        file.write("    paint_job_mask: \"/vehicle/%s/upgrade/paintjob/%s/%s_%s/%s.tobj\"\n" % (veh_type, pj_int_name, veh_make, veh_model, acc_name))
-        for acc in veh_acc_dict[acc_name]:
+        file.write("    paint_job_mask: \"/vehicle/%s/upgrade/paintjob/%s/%s_%s/%s.tobj\"\n" % (veh.type, pj.int_name, veh.make, veh.model, acc_name))
+        for acc in veh.acc_dict[acc_name]:
             file.write("    acc_list[]: \"%s\"\n" % acc)
         file.write("}\n")
         ovr_counter += 1
     file.write("}\n")
     file.close()
 
-def make_vehicle_folder(veh_type, pj_int_name, veh_make, veh_model):
-    make_folder("vehicle/%s/upgrade/paintjob/%s/%s_%s" % (veh_type, pj_int_name, veh_make, veh_model))
+def make_vehicle_folder(veh, pj):
+    make_folder("vehicle/%s/upgrade/paintjob/%s/%s_%s" % (veh.type, pj.int_name, veh.make, veh.model))
 
-def copy_cabin_dds(pj_int_name, veh_make, veh_model):
-    shutil.copyfile(EMPTY_DDS, "output/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_a.dds" % (pj_int_name, veh_make, veh_model))
+def copy_cabin_dds(pj, veh):
+    shutil.copyfile(EMPTY_DDS, "output/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_a.dds" % (pj.int_name, veh.make, veh.model))
 
-def copy_shared_colour_dds(veh_type, pj_int_name, pj_colour):
-    shutil.copyfile(EMPTY_DDS, "output/vehicle/%s/upgrade/paintjob/%s/shared_%s.dds" % (veh_type, pj_int_name, pj_colour))
+def copy_shared_colour_dds(veh, pj):
+    shutil.copyfile(EMPTY_DDS, "output/vehicle/%s/upgrade/paintjob/%s/shared_%s.dds" % (veh.type, pj.int_name, pj.colour))
 
-def make_cabin_tobj(pj_int_name, veh_make, veh_model, cab_size = "a"):
-    file = open("output/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_%s.tobj" % (pj_int_name, veh_make, veh_model, cab_size), "wb")
-    file.write(generate_tobj("/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_a.dds" % (pj_int_name, veh_make, veh_model)))
+def make_cabin_tobj(pj, veh, cab_size = "a"):
+    file = open("output/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_%s.tobj" % (pj.int_name, veh.make, veh.model, cab_size), "wb")
+    file.write(generate_tobj("/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_a.dds" % (pj.int_name, veh.make, veh.model)))
     file.close()
 
-def make_acc_tobj(veh_type, pj_int_name, veh_make, veh_model, veh_acc_dict, pj_colour):
-    for acc_name in veh_acc_dict:
-        file = open("output/vehicle/%s/upgrade/paintjob/%s/%s_%s/%s.tobj" % (veh_type, pj_int_name, veh_make, veh_model, acc_name), "wb")
-        file.write(generate_tobj("/vehicle/%s/upgrade/paintjob/%s/shared_%s.dds" % (veh_type, pj_int_name, pj_colour)))
+def make_acc_tobj(veh, pj):
+    for acc_name in veh.acc_dict:
+        file = open("output/vehicle/%s/upgrade/paintjob/%s/%s_%s/%s.tobj" % (veh.type, pj.int_name, veh.make, veh.model, acc_name), "wb")
+        file.write(generate_tobj("/vehicle/%s/upgrade/paintjob/%s/shared_%s.dds" % (veh.type, pj.int_name, pj.colour)))
         file.close()
 
-def make_shared_colour_tobj(veh_type, pj_int_name, pj_colour):
-    file = open("output/vehicle/%s/upgrade/paintjob/%s/shared_%s.tobj" % (veh_type, pj_int_name, pj_colour), "wb")
-    file.write(generate_tobj("/vehicle/%s/upgrade/paintjob/%s/shared_%s.dds" % (veh_type, pj_int_name, pj_colour)))
+def make_shared_colour_tobj(veh, pj):
+    file = open("output/vehicle/%s/upgrade/paintjob/%s/shared_%s.tobj" % (veh.type, pj.int_name, pj.colour), "wb")
+    file.write(generate_tobj("/vehicle/%s/upgrade/paintjob/%s/shared_%s.dds" % (veh.type, pj.int_name, pj.colour)))
     file.close()
