@@ -2,34 +2,76 @@ import os, shutil, binascii, codecs
 
 EMPTY_DDS = "library/placeholder files/empty.dds"
 
-class Vehicle:
-    def example_variables():
-        make = "scania"
-        model = "r"
-        vehicle_path = "scania.r"
-        alt_uvset = False
-        name = "Scania R 2009"
-        trailer = False
-        mod = False
-        mod_author = ""
-        mod_link = ""
-        accessories = True
-        cabins = {"a":"topline","b":"highline","c":"normal","8":"tl_8x4"}
-        acc_dict = {"rear_bumper":["r_bumper.arbumpermg01","r_bumper.arbumpermg03"],
-                    "chassis_cover":["r_chs_cover.chscmg4x203","r_chs_cover.chscmg6x203","r_chs_cover.chscmg6x2403"]}
-
 class Pack:
-    def example_variables():
-        name = "XPO Logistics Paintjob Pack"
-        version = "v1.0"
-        game = "ets"
-        paintjobs = ["xpo","xpow","waxpo","waxpow"]
-        main_paintjob = "xpo"
-        related_mods = {"norbert":"A French logistics company that...","globex":"A totally unrelated mod"}
-        link = "http://etcetc"
-        suggested_by = ["bobman302","that guy"]
-        description = "XPO Logistics is an American company....."
-        more_info = "XPO uses many paintjobs...."
+    def __init__(self, file_name, game = None):
+        pack_ini = configparser.ConfigParser(allow_no_value = True)
+        if file_name == "new":
+            pack_ini.read("new pack.ini")
+        else:
+            pack_ini.read("library/packs/%s/%s.ini" % (game, file_name))
+        self.game = pack_ini["pack info"]["game"]
+        self.name = pack_ini["pack info"]["name"]
+        self.version = input_file["pack info"]["version"]
+        self.list_of_paintjobs = pack_ini["pack info"]["paintjobs"].split(",")
+        for pj in self.list_of_paintjobs:
+            pass # TODO: pj class
+        self.main_paintjob = pack_ini["pack info"]["main paintjob"]
+        self.list_of_related_packs = pack_ini["pack info"]["related packs"].split(",")
+        for rel in self.list_of_related_packs:
+            pass # TODO: rel class
+        self.link = pack_ini["pack info"]["link"]
+        self.brief_desc = pack_ini["pack info"]["description"]
+        self.more_info = pack_ini["pack info"]["more info"]
+
+class Paintjob:
+    def __init__(self, pack_ini, ini_sec):
+        self.int_name = "cm_" + ini_sec
+        self.name = pack_ini[ini_sec]["name"]
+        self.price = pack_ini[ini_sec]["price"]
+        self.colour = pack_ini[ini_sec]["main colour"]
+        self.list_of_vehicles = []
+        for veh in list(pack_ini[ini_sec].keys()):
+            if veh not in ("name", "price", "main colour"):
+                self.list_of_vehicles.append(veh)
+        for veh in self.list_of_vehicles:
+            pass # TODO: vehicle class
+
+class Vehicle:
+    def __init__(self, file_name, game):
+        veh_ini = configparser.ConfigParser(allow_no_value = True)
+        veh_ini.read("library/vehicles/%s/%s.ini" % (game, file_name))
+        self.make = veh_ini["vehicle info"]["make"]
+        self.model = veh_ini["vehicle info"]["model"]
+        self.path = veh_ini["vehicle info"]["vehicle path"]
+        self.alt_uvset = veh_ini["vehicle info"].getboolean("alt uvset")
+        self.name = veh_ini["vehicle info"]["name"]
+        self.trailer = veh_ini["vehicle info"].getboolean("trailer")
+        self.mod = veh_ini["vehicle info"].getboolean("mod")
+        self.mod_author = veh_ini["vehicle info"]["mod author"]
+        self.mod_link = veh_ini["vehicle info"]["mod link"]
+        self.uses_accessories = veh_ini["vehicle info"].getboolean("uses accessories")
+        if self.uses_accessories:
+            self.accessories = veh_ini["vehicle info"]["accessories"].split(",")
+            self.acc_dict = {}
+            for acc in self.accessories:
+                self.acc_dict[acc] = list(veh_ini[acc].keys())
+        if self.trailer:
+            self.separate_paintjobs = False
+            self.type = "trailer_owned"
+        else:
+            self.separate_paintjobs = veh_ini["cabins"].getboolean("separate paintjobs")
+            self.type = "truck"
+            self.cabins = dict(veh_ini["cabins"].items())
+            self.cabins.pop("separate paintjobs", None)
+
+class RelatedPack:
+    def __init__(self, pack_ini, ini_sec):
+        self.game = pack_ini["pack info"]["game"]
+        self.description = pack_ini[ini_sec]["description"]
+        rel_ini = configparser.ConfigParser(allow_no_value = True)
+        rel_ini.read("library/packs/%s/%s.ini" % (self.game, ini_sec))
+        self.name = rel_ini["pack info"]["name"]
+        self.link = rel_ini["pack info"]["link"]
 
 def clear_output_folder():
     print("Clearing output folder")
@@ -57,6 +99,8 @@ def generate_tobj(path):
     tobj_string += convert_string_to_hex(path)
     tobj_file = codecs.decode(tobj_string, "hex_codec")
     return tobj_file
+
+
 
 def make_manifest_sii(mod_version, mod_name):
     file = open("output/manifest.sii", "w")
@@ -188,7 +232,7 @@ def copy_cabin_dds(pj_int_name, veh_make, veh_model):
 def copy_shared_colour_dds(veh_type, pj_int_name, pj_colour):
     shutil.copyfile(EMPTY_DDS, "output/vehicle/%s/upgrade/paintjob/%s/shared_%s.dds" % (veh_type, pj_int_name, pj_colour))
 
-def make_cabin_tobj(pj_int_name, veh_make, veh_model, cab_size="a"):
+def make_cabin_tobj(pj_int_name, veh_make, veh_model, cab_size = "a"):
     file = open("output/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_%s.tobj" % (pj_int_name, veh_make, veh_model, cab_size), "wb")
     file.write(generate_tobj("/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_a.dds" % (pj_int_name, veh_make, veh_model)))
     file.close()

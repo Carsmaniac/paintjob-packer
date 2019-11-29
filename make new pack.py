@@ -14,11 +14,10 @@ list_of_paintjobs = input_file["pack info"]["paintjobs"].split(",")
 main_paintjob = input_file["pack info"]["main paintjob"]
 
 related_mods = input_file["pack info"]["related mods"].split(",")
-mod_link = input_file["pack info"]["link"]
+link = input_file["pack info"]["link"]
 
-description = input_file["pack info"]["description"]
+brief_desc = input_file["pack info"]["description"]
 more_info = input_file["pack info"]["more info"]
-suggested_by = input_file["pack info"]["suggested by"].split(",")
 
 clear_output_folder()
 
