@@ -1,4 +1,4 @@
-import os, shutil, binascii, codecs
+import os, shutil, binascii, codecs, configparser
 
 EMPTY_DDS = "library/placeholder files/empty.dds"
 
@@ -11,7 +11,7 @@ class Pack:
             pack_ini.read("library/packs/%s/%s.ini" % (_game, file_name))
         self.game = pack_ini["pack info"]["game"]
         self.name = pack_ini["pack info"]["name"]
-        self.version = input_file["pack info"]["version"]
+        self.version = pack_ini["pack info"]["version"]
         self.list_of_paintjobs = pack_ini["pack info"]["paintjobs"].split(",")
         self.paintjobs = []
         for pj in self.list_of_paintjobs:
@@ -20,7 +20,8 @@ class Pack:
         self.list_of_related_packs = pack_ini["pack info"]["related packs"].split(",")
         self.related_packs = []
         for rel in self.list_of_related_packs:
-            self.related_packs.append(RelatedPack(pack_ini, rel))
+            if rel != "": # don't bother if the pack has no related packs
+                self.related_packs.append(RelatedPack(pack_ini, rel))
         self.link = pack_ini["pack info"]["link"]
         self.brief_desc = pack_ini["pack info"]["description"]
         self.more_info = pack_ini["pack info"]["more info"]
@@ -236,10 +237,14 @@ def copy_cabin_dds(pj, veh):
 def copy_shared_colour_dds(veh, pj):
     shutil.copyfile(EMPTY_DDS, "output/vehicle/%s/upgrade/paintjob/%s/shared_%s.dds" % (veh.type, pj.int_name, pj.colour))
 
-def make_cabin_tobj(pj, veh, cab_size = "a"):
+def make_cabin_tobj(pj, veh, cab_size):
     file = open("output/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_%s.tobj" % (pj.int_name, veh.make, veh.model, cab_size), "wb")
     file.write(generate_tobj("/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_a.dds" % (pj.int_name, veh.make, veh.model)))
     file.close()
+
+def make_only_tobj(pj, veh):
+    if not veh.trailer: # checking here makes other places neater, and *almost* makes this function's existence worth it
+        make_cabin_tobj(pj, veh, cab_size = "a")
 
 def make_acc_tobj(veh, pj):
     for acc_name in veh.acc_dict:
