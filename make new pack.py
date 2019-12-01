@@ -10,11 +10,16 @@ copy_mod_manager_image()
 make_material_folder()
 
 for pj in pack.paintjobs:
+    print("")
+    print("Making paintjob: "+pj.name)
+
     copy_paintjob_icon(pj)
     make_paintjob_icon_tobj(pj)
     make_paintjob_icon_mat(pj)
 
     for veh in pj.vehicles:
+        print("Adding vehicle: "+veh.name)
+
         make_def_folder(veh)
         make_settings_sui(veh, pj)
         make_vehicle_folder(veh, pj)
@@ -40,3 +45,6 @@ for pj in pack.paintjobs:
 
         if veh.uses_accessories:
             make_acc_tobj(veh, pj)
+
+print("")
+print("Finished")

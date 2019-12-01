@@ -78,6 +78,8 @@ class RelatedPack:
         self.name = rel_ini["pack info"]["name"]
         self.link = rel_ini["pack info"]["link"]
 
+
+
 def clear_output_folder():
     print("Clearing output folder")
     if os.path.exists("output"):
@@ -107,6 +109,8 @@ def generate_tobj(path):
 
 
 
+# loose files
+
 def make_manifest_sii(pack):
     file = open("output/manifest.sii", "w")
     file.write("SiiNunit\n")
@@ -128,6 +132,10 @@ def make_manifest_sii(pack):
 def copy_mod_manager_image():
     shutil.copyfile("library/placeholder files/mod_manager_image.jpg", "output/mod_manager_image.jpg")
 
+
+
+# material folder
+
 def make_material_folder():
     make_folder("material/ui/accessory/paintjob_icons")
 
@@ -136,7 +144,7 @@ def copy_paintjob_icon(pj):
 
 def make_paintjob_icon_tobj(pj):
     file = open("output/material/ui/accessory/paintjob_icons/%s_icon.tobj" % pj.int_name, "wb")
-    file.write(generate_tobj("/material/ui/acessory/paintjob_icons/%s_icon.dds" % pj.int_name))
+    file.write(generate_tobj("/material/ui/accessory/paintjob_icons/%s_icon.dds" % pj.int_name))
     file.close()
 
 def make_paintjob_icon_mat(pj):
@@ -147,6 +155,10 @@ def make_paintjob_icon_mat(pj):
     file.write("    texture_name: \"texture\"\n")
     file.write("}\n")
     file.close()
+
+
+
+# def folder
 
 def make_def_folder(veh):
     extra_path = ""
@@ -179,7 +191,7 @@ def make_only_sii(veh, pj):
     file.write("accessory_paint_job_data: %s.%s.paint_job\n" % (pj.int_name, veh.path))
     file.write("{\n")
     file.write("@include \"%s_settings.sui\"\n" % pj.int_name)
-    file.write("    paint_job_mask: \"/vehicle/%s/upgrade/paintjob/%s/%s\n" % (veh.type, pj.int_name, tobj_path))
+    file.write("    paint_job_mask: \"/vehicle/%s/upgrade/paintjob/%s/%s\"\n" % (veh.type, pj.int_name, tobj_path))
     file.write("}\n")
     file.write("}\n")
     file.close()
@@ -227,6 +239,10 @@ def make_only_acc_sii(veh, pj):
         ovr_counter += 1
     file.write("}\n")
     file.close()
+
+
+
+# vehicle folder
 
 def make_vehicle_folder(veh, pj):
     make_folder("vehicle/%s/upgrade/paintjob/%s/%s_%s" % (veh.type, pj.int_name, veh.make, veh.model))
