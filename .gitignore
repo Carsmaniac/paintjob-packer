@@ -2,3 +2,4 @@
 *.pyc
 output/*
 .DS_Store
+library/packs/*

@@ -272,3 +272,76 @@ def make_shared_colour_tobj(veh, pj):
     file = open("output/vehicle/%s/upgrade/paintjob/%s/shared_%s.tobj" % (veh.type, pj.int_name, pj.colour), "wb")
     file.write(generate_tobj("/vehicle/%s/upgrade/paintjob/%s/shared_%s.dds" % (veh.type, pj.int_name, pj.colour)))
     file.close()
+
+
+
+# packer functions
+
+def make_pack(pack):
+    clear_output_folder()
+
+    print("")
+    print("Making mod: "+pack.name)
+
+    make_manifest_sii(pack)
+    copy_mod_manager_image()
+    make_material_folder()
+
+    for pj in pack.paintjobs:
+        print("")
+        print("Making paintjob: "+pj.name)
+
+        copy_paintjob_icon(pj)
+        make_paintjob_icon_tobj(pj)
+        make_paintjob_icon_mat(pj)
+
+        for veh in pj.vehicles:
+            print("Adding vehicle: "+veh.name)
+
+            make_def_folder(veh)
+            make_settings_sui(veh, pj)
+            make_vehicle_folder(veh, pj)
+            copy_shared_colour_dds(veh, pj)
+            make_shared_colour_tobj(veh, pj)
+
+            if veh.separate_paintjobs:
+                for cab in veh.cabins:
+                    cab_size = cab
+                    cab_name = veh.cabins[cab]
+                    make_cabin_sii(veh, pj, cab_size, cab_name)
+                    make_cabin_tobj(pj, veh, cab_size)
+                    if veh.uses_accessories:
+                        make_cabin_acc_sii(veh, pj, cab_size)
+            else:
+                make_only_sii(veh, pj)
+                make_only_tobj(pj, veh)
+                if veh.uses_accessories:
+                    make_only_acc_sii(veh, pj)
+
+            if not veh.trailer:
+                copy_cabin_dds(pj, veh)
+
+            if veh.uses_accessories:
+                make_acc_tobj(veh, pj)
+
+    print("")
+    print("Finished")
+
+def save_new_pack_to_database(pack):
+    print("Saving new pack to database")
+
+    if os.path.isfile("library/packs/%s/%s.ini" % (pack.game, pack.main_paintjob)):
+        print("Pack already exists...")
+        oops_input = input("Enter Y to overwrite, N to not overwrite, or anything else to abort: ")
+
+        if oops_input in ("Y", "y"):
+            shutil.copyfile("new pack.ini", "library/packs/%s/%s.ini" % (pack.game, pack.main_paintjob))
+            shutil.copyfile("library/placeholder files/new pack.ini", "new pack.ini")
+        elif oops_input in ("N", "n"):
+            shutil.copyfile("library/placeholder files/new pack.ini", "new pack.ini")
+        else:
+            pass
+
+    else:
+        shutil.copyfile("new pack.ini", "library/packs/%s/%s.ini" % (pack.game, pack.main_paintjob))
+        shutil.copyfile("library/placeholder files/new pack.ini", "new pack.ini")
