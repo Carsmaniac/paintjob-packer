@@ -132,6 +132,12 @@ def make_manifest_sii(pack):
 def copy_mod_manager_image():
     shutil.copyfile("library/placeholder files/mod_manager_image.jpg", "output/mod_manager_image.jpg")
 
+def make_workshop_description(pack):
+    pass
+
+def make_manifest_description(pack):
+    pass
+
 
 
 # material folder
@@ -345,3 +351,6 @@ def save_new_pack_to_database(pack):
     else:
         shutil.copyfile("new pack.ini", "library/packs/%s/%s.ini" % (pack.game, pack.main_paintjob))
         shutil.copyfile("library/placeholder files/new pack.ini", "new pack.ini")
+
+def clear_existing_ini():
+    shutil.copyfile("library/placeholder files/existing pack.ini", "existing pack.ini")
