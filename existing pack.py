@@ -7,29 +7,16 @@ ini_game = existing_ini["info"]["game"]
 ini_pack = existing_ini["info"]["pack"]
 pack = Pack(ini_pack, ini_game)
 
-if existing_ini["X to choose"]["add paintjob"] == "X":
-    pass
+vehicles_to_add = []
+for veh in list(existing_ini["add vehicles"].keys()):
+    vehicles_to_add.append(Vehicle(veh, ini_game))
+if len(vehicles_to_add) > 0:
+    if vehicles_to_add[0] != "":
+        make_pack_addon(pack, vehicles_to_add)
 
-elif existing_ini["X to choose"]["add vehicles"] == "X":
-    pass
-
-elif existing_ini["X to choose"]["make description"] == "X":
-    if existing_ini["description"].getboolean("workshop desc"):
-        make_workshop_description(pack)
-    if existing_ini["description"].getboolean("manifest desc"):
-        make_manifest_description(pack)
-
-elif existing_ini["X to choose"]["make whole pack"] == "X":
-    make_pack(pack)
-else:
-    print("oops")
+if existing_ini["description"].getboolean("workshop desc"):
+    make_workshop_description(pack)
+if existing_ini["description"].getboolean("manifest desc"):
+    make_manifest_description(pack)
 
 clear_existing_ini()
-
-"""to do configparser
-allow_no_value
-default delimiter :
-space after and not before?
-default boolean true false (no capital)
-
-"""
