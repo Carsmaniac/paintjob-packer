@@ -368,3 +368,44 @@ def save_existing_pack_to_database(pack):
     pack_ini["pack info"]["game"] = pack.game
     pack_ini["pack info"]["name"] = pack.name
     pack_ini["pack info"]["version"] = pack.version
+    paintjobs = "" #TODO: easy way to join list?
+    for pj in pack.list_of_paintjobs:
+        paintjobs += ","+pj
+    pack_ini["pack info"]["paintjobs"] = paintjobs[1:]
+    pack_ini["pack info"]["main paintjob"] = pack.main_paintjob
+    relateds = "" #TODO: easy way to join list?
+    for rel in pack.list_of_related_packs:
+        relateds += ","+rel
+    pack_ini["pack info"]["related packs"] = relateds[1:]
+    pack_ini["pack info"]["link"] = pack.link
+    pack_ini["pack info"]["description"] = pack.brief_desc
+    pack_ini["pack info"]["more info"] = pack.more_info
+
+    for pj in pack.paintjobs:
+        int_name = pj.int_name[3:]
+        pack_ini.add_section(int_name)
+        pack_ini[int_name]["name"] = pj.name
+        pack_ini[int_name]["price"] = pj.price
+        pack_ini[int_name]["main colour"] = pj.colour
+        for veh in pj.list_of_vehicles:
+            pack_ini[int_name][veh] = "" #TODO: make without delimiter?
+
+    for rel in pack.related_packs:
+        pack_ini.add_section(rel.int_name)
+        pack_ini[rel.int_name]["description"] = pj.description
+
+    with open("library/packs/%s/%s.ini" % (pack.game, pack.main_paintjob), "w") as config_file:
+        pack_ini.write(config_file)
+
+def make_pack_addon(pack, vehicles_to_add):
+    for veh in vehicles_to_add:
+        for pj in pack.paintjobs:
+            pj.list_of_vehicles.append(veh.make+" "+veh.model)
+            pj.vehicles.append(veh)
+
+            make_vehicle_files(veh, pj, shared_colour = False)
+
+    save_existing_pack_to_database(pack)
+
+    # add vehicles to all paintjobs then save the pack file
+    # make just the vehicle files for the vehicles added, for each paintjob
