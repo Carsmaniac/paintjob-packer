@@ -71,10 +71,11 @@ class Vehicle:
 
 class RelatedPack:
     def __init__(self, pack_ini, ini_sec):
+        self.int_name = ini_sec
         self.game = pack_ini["pack info"]["game"]
         self.description = pack_ini[ini_sec]["description"]
         rel_ini = configparser.ConfigParser(allow_no_value = True)
-        rel_ini.read("library/packs/%s/%s.ini" % (self.game, ini_sec))
+        rel_ini.read("library/packs/%s/%s.ini" % (self.game, self.int_name))
         self.name = rel_ini["pack info"]["name"]
         self.link = rel_ini["pack info"]["link"]
 
@@ -283,6 +284,37 @@ def make_shared_colour_tobj(veh, pj):
 
 # packer functions
 
+def make_vehicle_files(veh, pj, shared_colour = True):
+    print("Adding vehicle: "+veh.name)
+
+    make_def_folder(veh)
+    make_settings_sui(veh, pj)
+    make_vehicle_folder(veh, pj)
+
+    if shared_colour:
+        copy_shared_colour_dds(veh, pj)
+        make_shared_colour_tobj(veh, pj)
+
+    if veh.separate_paintjobs:
+        for cab in veh.cabins:
+            cab_size = cab
+            cab_name = veh.cabins[cab]
+            make_cabin_sii(veh, pj, cab_size, cab_name)
+            make_cabin_tobj(pj, veh, cab_size)
+            if veh.uses_accessories:
+                make_cabin_acc_sii(veh, pj, cab_size)
+    else:
+        make_only_sii(veh, pj)
+        make_only_tobj(pj, veh)
+        if veh.uses_accessories:
+            make_only_acc_sii(veh, pj)
+
+    if not veh.trailer:
+        copy_cabin_dds(pj, veh)
+
+    if veh.uses_accessories:
+        make_acc_tobj(veh, pj)
+
 def make_pack(pack):
     clear_output_folder()
 
@@ -302,33 +334,7 @@ def make_pack(pack):
         make_paintjob_icon_mat(pj)
 
         for veh in pj.vehicles:
-            print("Adding vehicle: "+veh.name)
-
-            make_def_folder(veh)
-            make_settings_sui(veh, pj)
-            make_vehicle_folder(veh, pj)
-            copy_shared_colour_dds(veh, pj)
-            make_shared_colour_tobj(veh, pj)
-
-            if veh.separate_paintjobs:
-                for cab in veh.cabins:
-                    cab_size = cab
-                    cab_name = veh.cabins[cab]
-                    make_cabin_sii(veh, pj, cab_size, cab_name)
-                    make_cabin_tobj(pj, veh, cab_size)
-                    if veh.uses_accessories:
-                        make_cabin_acc_sii(veh, pj, cab_size)
-            else:
-                make_only_sii(veh, pj)
-                make_only_tobj(pj, veh)
-                if veh.uses_accessories:
-                    make_only_acc_sii(veh, pj)
-
-            if not veh.trailer:
-                copy_cabin_dds(pj, veh)
-
-            if veh.uses_accessories:
-                make_acc_tobj(veh, pj)
+            make_vehicle_files(veh, pj)
 
     print("")
     print("Finished")
@@ -354,3 +360,11 @@ def save_new_pack_to_database(pack):
 
 def clear_existing_ini():
     shutil.copyfile("library/placeholder files/existing pack.ini", "existing pack.ini")
+
+def save_existing_pack_to_database(pack):
+    pack_ini = configparser.ConfigParser()
+
+    pack_ini.add_section("pack info")
+    pack_ini["pack info"]["game"] = pack.game
+    pack_ini["pack info"]["name"] = pack.name
+    pack_ini["pack info"]["version"] = pack.version
