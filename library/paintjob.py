@@ -133,11 +133,72 @@ def make_manifest_sii(pack):
 def copy_mod_manager_image():
     shutil.copyfile("library/placeholder files/mod_manager_image.jpg", "output/mod_manager_image.jpg")
 
-def make_workshop_description(pack):
-    pass
+def make_description(pack, workshop):
+    other_game = {"ets":"ats","ats":"ets"}[pack.game]
+    if os.path.isfile("library/packs/%s/%s.ini" % (other_game,pack.main_paintjob)):
+        other_pack_exists = True
+        other_pack = Pack(pack.main_paintbjo, other_game)
+    else:
+        other_pack_exists = False
 
-def make_manifest_description(pack):
-    pass
+    list_scs_trucks = []
+    list_mod_trucks = []
+    list_trailers = []
+    for pj in pack.paintjobs:
+        for veh in pj.vehicles:
+            if veh.trailer:
+                if veh.name not in list_trailers:
+                    list_trailers.append(veh.name)
+            elif veh.mod:
+                if veh.name not in list_mod_trucks:
+                    list_mod_trucks.append([veh.mod_author, veh.name, veh.mod_link])
+            else:
+                if veh.name not in list_scs_trucks:
+                    list_scs_trucks.append(veh.name)
+    list_scs_trucks = sorted(list_scs_trucks)
+    list_mod_trucks = sorted(list_mod_trucks)
+    list_trailers = sorted(list_trailers)
+
+    if workshop:
+        file = open("output/workshop_description.txt", "w")
+    else:
+        file = open("output/mod_manager_description.txt", "w")
+    file.write(pack.brief_desc+"\n")
+    file.write("\n")
+    if other_pack_exists:
+        other_game_name = {"ets":"Euro Truck Simulator 2","ats":"American Truck Simulator"}[other_game]
+        if workshop:
+            file.write("%s pack available [url=%s]here[/url].\n" % (other_game_name, other_pack.link))
+        else:
+            file.write("%s pack also available on the Workshop.\n" % other_game_name)
+        file.write("\n")
+    file.write("Trucks supported:\n")
+    for veh in list_scs_trucks:
+        file.write(veh+"\n")
+    for veh in list_mod_trucks:
+        if workshop:
+            file.write("%s's [url=%s]%s[/url]\n" % (veh[0], veh[2], veh[1]))
+        else:
+            file.write("%s's %s\n" % (veh[0], veh[1]))
+    file.write("\n")
+    if len(list_trailers) > 0:
+        file.write("Trailers supported:\n")
+        for veh in list_trailers:
+            file.write(veh+"\n")
+        file.write("\n")
+    if pack.more_info != "":
+        file.write(pack.more_info+"\n")
+        file.write("\n")
+    if len(pack.related_packs) > 0 and workshop:
+        file.write("Related mods:\n")
+        for rel in pack.related_packs:
+            file.write("[url=%s]%s[/url] - %s\n" % (rel.link, rel.name, rel.description))
+        file.write("\n")
+    file.write("Enjoy! :)\n")
+    if not workshop:
+        file.write("\n")
+        file.write("Reminder: My mods are only officially available on Steam Workshop. Be sure to downlaod them there for support and updates!\n")
+    file.close()
 
 
 
@@ -406,6 +467,3 @@ def make_pack_addon(pack, vehicles_to_add):
             make_vehicle_files(veh, pj, shared_colour = False)
 
     save_existing_pack_to_database(pack)
-
-    # add vehicles to all paintjobs then save the pack file
-    # make just the vehicle files for the vehicles added, for each paintjob
