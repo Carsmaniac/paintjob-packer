@@ -408,12 +408,14 @@ def save_new_pack_to_database(pack):
         oops_input = input("Enter Y to overwrite, N to not overwrite, or anything else to abort: ")
 
         if oops_input in ("Y", "y"):
+            print("Overwriting...")
             shutil.copyfile("new pack.ini", "library/packs/%s/%s.ini" % (pack.game, pack.main_paintjob))
             shutil.copyfile("library/placeholder files/new pack.ini", "new pack.ini")
         elif oops_input in ("N", "n"):
+            print("Discarding...")
             shutil.copyfile("library/placeholder files/new pack.ini", "new pack.ini")
         else:
-            pass
+            print("Aborting...")
 
     else:
         shutil.copyfile("new pack.ini", "library/packs/%s/%s.ini" % (pack.game, pack.main_paintjob))
