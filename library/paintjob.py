@@ -345,6 +345,36 @@ def make_shared_colour_tobj(veh, pj):
 
 # packer functions
 
+def make_unifier_ini(pack, vehicles_to_add = None):
+    uni_ini = configparser.ConfigParser()
+    uni_ini.add_section("paintjobs")
+
+    for pj in pack:
+        uni_ini["paintjobs"][pj] = ""
+        if pj.int_name not in list(uni_ini.keys()):
+            uni_ini.add_section(pj.int_name)
+        if vehicles_to_add == None:
+            uni_vehicles = pj.vehicles
+        else:
+            uni_vehicles = vehicles_to_add
+
+        for veh in uni_vehicles:
+            if veh.separate_paintjobs:
+                veh_name = veh.make+"_"+veh.model
+                uni_ini[pj][veh_name] = ""
+                if veh_name not in list(uni_ini.keys()):
+                    uni_ini.add_section(veh_name)
+                    uni_ini[veh_name]["path"] = veh.path
+                    uni_ini[veh_name]["accessories"] = veh.uses_accessories
+                    cabins_list = "" #TODO: easy way to join list?
+                    for cabin in list(veh.cabins.keys()):
+                        cabins_list += ","+cabin
+                        uni_ini[veh_name][cabin] = veh.cabins[cabin]
+                    uni_ini[veh_name]["cabins"] = cabins_list[1:]
+
+    with open("output/unifier.ini", "w") as config_file:
+        uni_ini.write(config_file)
+
 def make_vehicle_files(veh, pj, shared_colour = True):
     print("Adding vehicle: "+veh.name)
 
@@ -396,6 +426,8 @@ def make_pack(pack):
 
         for veh in pj.vehicles:
             make_vehicle_files(veh, pj)
+
+    make_unifier_ini(pack)
 
     print("")
     print("Finished")
@@ -468,4 +500,5 @@ def make_pack_addon(pack, vehicles_to_add):
 
             make_vehicle_files(veh, pj, shared_colour = False)
 
+    make_unifier_ini(pack, vehicles_to_add)
     save_existing_pack_to_database(pack)
