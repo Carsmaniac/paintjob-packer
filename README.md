@@ -18,9 +18,8 @@ Mod making tool for Euro Truck Simulator 2 and American Truck Simulator
 
 ## Files
 
-* `make new pack.py`: Generates a full mod from the input file
-* `make old pack.py`: Generates the files for a previously made mod already in the program's database
-* `make addon.py`: Generates files needed to add specific vehicles to an existing mod
-* `make desc.py`: Generates Steam Workshop and/or in-game mod manager description files, for a previously made mod
+* `new pack.py`: Generates a full mod from the input file
+* `existing pack.py`: Generates files needed to add specific vehicles to an existing mod, and/or re-generates description files
 * `new pack.ini`: Input file for making a new mod from scratch
-* `other input.ini`: Input file for all other functions, involving previously made mods
+* `existing pack.ini`: Input file for all actions involving previously made mods
+* `reference.txt`: List of all vehicles supported by the program
