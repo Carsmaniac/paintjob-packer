@@ -47,4 +47,5 @@ for pj in paintjobs:
             file.close()
             paintjobs_after_unifying += 1
 print("")
-print("Total paintjobs reduced from %s to %s (reduction of %s%)" % (paintjobs_before_unifying, paintjobs_after_unifying, 100*(1-(paintjobs_after_unifying / paintjobs_before_unifying))))
+percentage_reduction = str( 100 * ( 1 - ( paintjobs_after_unifying / paintjobs_before_unifying ) ) )[:2]+"%"
+print("Total paintjobs reduced from %s to %s (reduction of %s)" % (paintjobs_before_unifying, paintjobs_after_unifying, percentage_reduction))

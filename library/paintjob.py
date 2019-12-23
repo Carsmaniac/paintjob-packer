@@ -349,8 +349,8 @@ def make_unifier_ini(pack, vehicles_to_add = None):
     uni_ini = configparser.ConfigParser()
     uni_ini.add_section("paintjobs")
 
-    for pj in pack:
-        uni_ini["paintjobs"][pj] = ""
+    for pj in pack.paintjobs:
+        uni_ini["paintjobs"][pj.int_name] = ""
         if pj.int_name not in list(uni_ini.keys()):
             uni_ini.add_section(pj.int_name)
         if vehicles_to_add == None:
@@ -361,11 +361,11 @@ def make_unifier_ini(pack, vehicles_to_add = None):
         for veh in uni_vehicles:
             if veh.separate_paintjobs:
                 veh_name = veh.make+"_"+veh.model
-                uni_ini[pj][veh_name] = ""
+                uni_ini[pj.int_name][veh_name] = ""
                 if veh_name not in list(uni_ini.keys()):
                     uni_ini.add_section(veh_name)
                     uni_ini[veh_name]["path"] = veh.path
-                    uni_ini[veh_name]["accessories"] = veh.uses_accessories
+                    uni_ini[veh_name]["accessories"] = str(veh.uses_accessories)
                     cabins_list = "" #TODO: easy way to join list?
                     for cabin in list(veh.cabins.keys()):
                         cabins_list += ","+cabin
@@ -374,6 +374,8 @@ def make_unifier_ini(pack, vehicles_to_add = None):
 
     with open("output/unifier.ini", "w") as config_file:
         uni_ini.write(config_file)
+
+    shutil.copyfile("library/placeholder files/unifier.py", "output/unifier.py")
 
 def make_vehicle_files(veh, pj, shared_colour = True):
     print("Adding vehicle: "+veh.name)
