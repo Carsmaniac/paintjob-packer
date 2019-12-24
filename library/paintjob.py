@@ -60,6 +60,13 @@ class Vehicle:
             self.acc_dict = {}
             for acc in self.accessories:
                 self.acc_dict[acc] = list(veh_ini[acc].keys())
+            self.textured_accessories = veh_ini["vehicle info"]["textured accessories"].split(",")
+            self.tex_acc_dict = {}
+            for acc in self.textured_accessories:
+                self.tex_acc_dict[acc] = list(veh_ini[acc].keys())
+            self.all_acc_dict = self.acc_dict
+            for acc in self.tex_acc_dict:
+                self.all_acc_dict[acc] = self.tex_acc_dict[acc]
         if self.trailer:
             self.separate_paintjobs = False
             self.type = "trailer_owned"
@@ -281,12 +288,12 @@ def make_cabin_acc_sii(veh, pj, cab_size):
     file.write("SiiNunit\n")
     file.write("{\n")
     ovr_counter = 0
-    for acc_name in veh.acc_dict:
+    for acc_name in veh.all_acc_dict:
         file.write("\n")
         file.write("simple_paint_job_data: .ovr%s\n" % str(ovr_counter))
         file.write("{\n")
         file.write("    paint_job_mask: \"/vehicle/truck/upgrade/paintjob/%s/%s_%s/%s.tobj\"\n" % (pj.int_name, veh.make, veh.model, acc_name))
-        for acc in veh.acc_dict[acc_name]:
+        for acc in veh.all_acc_dict[acc_name]:
             file.write("    acc_list[]: \"%s\"\n" % acc)
         file.write("}\n")
         ovr_counter += 1
@@ -298,12 +305,12 @@ def make_only_acc_sii(veh, pj):
     file.write("SiiNunit\n")
     file.write("{\n")
     ovr_counter = 0
-    for acc_name in veh.acc_dict:
+    for acc_name in veh.all_acc_dict:
         file.write("\n")
         file.write("simple_paint_job_data: .ovr%s\n" % str(ovr_counter))
         file.write("{\n")
         file.write("    paint_job_mask: \"/vehicle/%s/upgrade/paintjob/%s/%s_%s/%s.tobj\"\n" % (veh.type, pj.int_name, veh.make, veh.model, acc_name))
-        for acc in veh.acc_dict[acc_name]:
+        for acc in veh.all_acc_dict[acc_name]:
             file.write("    acc_list[]: \"%s\"\n" % acc)
         file.write("}\n")
         ovr_counter += 1
@@ -323,6 +330,10 @@ def copy_cabin_dds(pj, veh):
 def copy_shared_colour_dds(veh, pj):
     shutil.copyfile(EMPTY_DDS, "output/vehicle/%s/upgrade/paintjob/%s/shared_%s.dds" % (veh.type, pj.int_name, pj.colour))
 
+def copy_textured_accessory_dds(veh, pj):
+    for acc_name in veh.tex_acc_dict:
+        shutil.copyfile(EMPTY_DDS, "output/vehicle/%s/upgrade/paintjob/%s/%s_%s/%s.dds" % (veh.type, pj.int_name, veh.make, veh.model, acc_name))
+
 def make_cabin_tobj(pj, veh, cab_size):
     file = open("output/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_%s.tobj" % (pj.int_name, veh.make, veh.model, cab_size), "wb")
     file.write(generate_tobj("/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_a.dds" % (pj.int_name, veh.make, veh.model)))
@@ -336,6 +347,10 @@ def make_acc_tobj(veh, pj):
     for acc_name in veh.acc_dict:
         file = open("output/vehicle/%s/upgrade/paintjob/%s/%s_%s/%s.tobj" % (veh.type, pj.int_name, veh.make, veh.model, acc_name), "wb")
         file.write(generate_tobj("/vehicle/%s/upgrade/paintjob/%s/shared_%s.dds" % (veh.type, pj.int_name, pj.colour)))
+        file.close()
+    for acc_name in veh.tex_acc_dict:
+        file = open("output/vehicle/%s/upgrade/paintjob/%s/%s_%s/%s.tobj" % (veh.type, pj.int_name, veh.make, veh.model, acc_name), "wb")
+        file.write(generate_tobj("/vehicle/%s/upgrade/paintjob/%s/%s_%s/%s.dds" % (veh.type, pj.int_name, veh.make, veh.model, acc_name)))
         file.close()
 
 def make_shared_colour_tobj(veh, pj):
@@ -409,6 +424,7 @@ def make_vehicle_files(veh, pj, shared_colour = True):
 
     if veh.uses_accessories:
         make_acc_tobj(veh, pj)
+        copy_textured_accessory_dds(veh, pj)
 
 def make_pack(pack):
     clear_output_folder()
