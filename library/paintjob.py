@@ -160,7 +160,7 @@ def make_description(pack, workshop):
     list_trailers = sorted(list_trailers)
 
     if workshop:
-        file = open("output/workshop_description.txt", "w")
+        file = open("output/Workshop description.txt", "w")
     else:
         file = open("output/mod_manager_description.txt", "w")
     file.write(pack.brief_desc+"\n")
@@ -271,6 +271,8 @@ def make_settings_sui(veh, pj):
     file.write("    unlock:   0\n")
     file.write("    airbrush: true\n")
     file.write("    icon:     \"paintjob_icons/%s_icon\"\n" % pj.int_name)
+    if veh.alt_uvset:
+        file.write("    alternate_uvset: true\n")
     file.close()
 
 def make_cabin_acc_sii(veh, pj, cab_size):
