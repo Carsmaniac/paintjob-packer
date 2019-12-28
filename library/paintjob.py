@@ -59,11 +59,13 @@ class Vehicle:
             self.accessories = veh_ini["vehicle info"]["accessories"].split(",")
             self.acc_dict = {}
             for acc in self.accessories:
-                self.acc_dict[acc] = list(veh_ini[acc].keys())
+                if acc != "":
+                    self.acc_dict[acc] = list(veh_ini[acc].keys())
             self.textured_accessories = veh_ini["vehicle info"]["textured accessories"].split(",")
             self.tex_acc_dict = {}
             for acc in self.textured_accessories:
-                self.tex_acc_dict[acc] = list(veh_ini[acc].keys())
+                if acc != "":
+                    self.tex_acc_dict[acc] = list(veh_ini[acc].keys())
             self.all_acc_dict = self.acc_dict
             for acc in self.tex_acc_dict:
                 self.all_acc_dict[acc] = self.tex_acc_dict[acc]
