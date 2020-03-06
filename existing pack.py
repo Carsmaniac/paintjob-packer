@@ -1,4 +1,4 @@
-import configparser
+import configparser, time
 from library.paintjob import *
 
 existing_ini = configparser.ConfigParser(allow_no_value = True)
@@ -19,3 +19,6 @@ if existing_ini["description"].getboolean("manifest desc"):
     make_description(pack, workshop = False)
 
 clear_existing_ini()
+
+print("Success!")
+time.sleep(2)

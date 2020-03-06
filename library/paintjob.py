@@ -146,7 +146,7 @@ def make_description(pack, workshop):
     other_game = {"ets":"ats","ats":"ets"}[pack.game]
     if os.path.isfile("library/packs/%s/%s.ini" % (other_game,pack.main_paintjob)):
         other_pack_exists = True
-        other_pack = Pack(pack.main_paintbjo, other_game)
+        other_pack = Pack(pack.main_paintjob, other_game)
     else:
         other_pack_exists = False
 
