@@ -11,6 +11,12 @@ vehicles_to_add = []
 for veh in list(existing_ini["add vehicles"].keys()):
     vehicles_to_add.append(Vehicle(veh, ini_game))
 if len(vehicles_to_add) > 0:
+    print("Pack version: "+pack.version)
+    new_version = input("Enter new version, or leave blank to keep the same: ")
+    if new_version != "":
+        pack.version = new_version
+        make_manifest_sii(pack)
+    print("")
     make_pack_addon(pack, vehicles_to_add)
 
 if existing_ini["description"].getboolean("workshop desc"):
