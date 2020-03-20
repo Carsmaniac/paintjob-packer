@@ -1,9 +1,6 @@
 import tkinter as tk
-from tkinter import ttk
-from tkinter import messagebox
-from tkinter import filedialog
-import webbrowser
-import sys
+from tkinter import ttk, messagebox, filedialog
+import webbrowser, sys, configparser, os, math
 
 version = "1.0"
 
@@ -110,10 +107,11 @@ class PackerApp:
         self.panel_ingame.grid(row = 1, column = 0, sticky = "ew")
         self.panel_internal = ttk.LabelFrame(self.main_screen, text = "Internal (Hidden) Paintjob Info")
         self.panel_internal.grid(row = 2, column = 0, sticky = "ew")
-        self.panel_vehicles_pack = ttk.Frame(self.main_screen)
-        self.panel_vehicles_single = ttk.Frame(self.main_screen)
+        self.panel_vehicles_pack = ttk.LabelFrame(self.main_screen, text = "Vehicles Supported")
+        self.panel_vehicles_single = ttk.LabelFrame(self.main_screen, text = "Vehicle Supported")
         self.panel_buttons = ttk.Frame(self.main_screen)
         self.panel_buttons.grid(row = 3, column = 0, columnspan = 2, sticky = "ew")
+        self.panel_buttons.columnconfigure(1, weight = 1)
 
         # Mod Info panel
         self.panel_mod_name_variable = tk.StringVar()
@@ -122,21 +120,21 @@ class PackerApp:
         self.panel_mod_name_input = ttk.Entry(self.panel_mod, width = 30, textvariable = self.panel_mod_name_variable)
         self.panel_mod_name_input.grid(row = 0, column = 1, padx = 5, sticky = "w")
         self.panel_mod_name_help = ttk.Button(self.panel_mod, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Mod Name", message = "The name of your mod, as it appears in the in-game mod manager\n\ne.g. Transit Co. Paintjob Pack"))
-        self.panel_mod_name_help.grid(row = 0, column = 2, padx = 5)
+        self.panel_mod_name_help.grid(row = 0, column = 2, padx = (0, 5))
         self.panel_mod_version_variable = tk.StringVar(None, "1.0")
         self.panel_mod_version_label = ttk.Label(self.panel_mod, text = "Version:")
         self.panel_mod_version_label.grid(row = 1, column = 0, padx = 5, sticky = "w")
         self.panel_mod_version_input = ttk.Entry(self.panel_mod, width = 5, textvariable = self.panel_mod_version_variable)
         self.panel_mod_version_input.grid(row = 1, column = 1, padx = 5, sticky = "w")
         self.panel_mod_version_help = ttk.Button(self.panel_mod, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Mod Version", message = "The version of your mod, as it appears in the in-game mod manager\n\ne.g. 1.0"))
-        self.panel_mod_version_help.grid(row = 1, column = 2, padx = 5)
+        self.panel_mod_version_help.grid(row = 1, column = 2, padx = (0, 5))
         self.panel_mod_author_variable = tk.StringVar()
         self.panel_mod_author_label = ttk.Label(self.panel_mod, text = "Author:")
         self.panel_mod_author_label.grid(row = 2, column = 0, padx = 5, sticky = "w")
         self.panel_mod_author_input = ttk.Entry(self.panel_mod, width = 30, textvariable = self.panel_mod_author_variable)
         self.panel_mod_author_input.grid(row = 2, column = 1, padx = 5, sticky = "w")
         self.panel_mod_author_help = ttk.Button(self.panel_mod, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Author", message = "The author of your mod, as it appears in the in-game mod manager\n\ne.g. Carsmaniac"))
-        self.panel_mod_author_help.grid(row = 2, column = 2,)
+        self.panel_mod_author_help.grid(row = 2, column = 2, padx = (0, 5))
         self.panel_mod_spacer_label = ttk.Label(self.panel_mod, image = self.image_spacer_100)
         self.panel_mod_spacer_label.grid(row = 3, column = 0)
         self.panel_mod_spacer_input = ttk.Label(self.panel_mod, image = self.image_spacer_200)
@@ -149,19 +147,19 @@ class PackerApp:
         self.panel_ingame_name_input = ttk.Entry(self.panel_ingame, width = 30, textvariable = self.panel_ingame_name_variable)
         self.panel_ingame_name_input.grid(row = 0, column = 1, padx = 5, sticky = "w")
         self.panel_ingame_name_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: In-Game Name", message = "The name of your paintjob as it appears in-game in the vehicle purchase/upgrade screen\n\ne.g. Transit Co. Paintjob"))
-        self.panel_ingame_name_help.grid(row = 0, column = 2, padx = 5)
+        self.panel_ingame_name_help.grid(row = 0, column = 2, padx = (0, 5))
         self.panel_ingame_price_variable = tk.StringVar()
         self.panel_ingame_price_label = ttk.Label(self.panel_ingame, text = "Price:")
         self.panel_ingame_price_label.grid(row = 1, column = 0, padx = 5, sticky = "w")
         self.panel_ingame_price_input = ttk.Entry(self.panel_ingame, width = 7, textvariable = self.panel_ingame_price_variable)
         self.panel_ingame_price_input.grid(row = 1, column = 1, padx = 5, sticky = "w")
         self.panel_ingame_price_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: In-Game Price", message = "How much your paintjob costs in-game, in {}.\n\ne.g. 6000".format(self.currency)))
-        self.panel_ingame_price_help.grid(row = 1, column = 2, padx = 5)
+        self.panel_ingame_price_help.grid(row = 1, column = 2, padx = (0, 5))
         self.panel_ingame_default_variable = tk.BooleanVar(None, True)
         self.panel_ingame_default_checkbox = ttk.Checkbutton(self.panel_ingame, text = "Unlocked by default", variable = self.panel_ingame_default_variable, command = lambda : self.toggle_unlock_level())
         self.panel_ingame_default_checkbox.grid(row = 2, column = 0, columnspan = 2, padx = 5, sticky = "w")
         self.panel_ingame_default_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Unlocked By Default", message = "Whether or not your paintjob can be bought from level 0, for example on a brand new profile"))
-        self.panel_ingame_default_help.grid(row = 2, column = 2, padx = 5)
+        self.panel_ingame_default_help.grid(row = 2, column = 2, padx = (0, 5))
         self.panel_ingame_unlock_variable = tk.StringVar()
         self.panel_ingame_unlock_label = ttk.Label(self.panel_ingame, text = "Unlock level:")
         self.panel_ingame_unlock_label.grid(row = 3, column = 0, padx = 5, sticky = "w")
@@ -169,7 +167,7 @@ class PackerApp:
         self.panel_ingame_unlock_input.grid(row = 3, column = 1, padx = 5, sticky = "w")
         self.panel_ingame_unlock_input.state(["disabled"]) # disabled by default, as the "unlocked by default" checkbox is checked by default
         self.panel_ingame_unlock_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Unlock Level", message = "If not unlocked by default, what level your paintjob is made purchasable at\n\ne.g. 11"))
-        self.panel_ingame_unlock_help.grid(row = 3, column = 2, padx = 5)
+        self.panel_ingame_unlock_help.grid(row = 3, column = 2, padx = (0, 5))
         self.panel_ingame_spacer_label = ttk.Label(self.panel_ingame, image = self.image_spacer_100)
         self.panel_ingame_spacer_label.grid(row = 4, column = 0)
         self.panel_ingame_spacer_input = ttk.Label(self.panel_ingame, image = self.image_spacer_200)
@@ -182,38 +180,55 @@ class PackerApp:
         self.panel_internal_name_input = ttk.Entry(self.panel_internal, width = 15, textvariable = self.panel_internal_name_variable)
         self.panel_internal_name_input.grid(row = 0, column = 1, padx = 5, sticky = "w")
         self.panel_internal_name_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Internal Name", message = "A unique name used by the game to identify your paintjob. Mod users will NOT see this name.\n\nMust be {} characters or fewer, and only contain letters, numbers and underscores.\n\nMust also be unique, if two different mods use the same internal name they will be incompatible with each other.\n\ne.g. transit_pj".format(self.internal_name_length)))
-        self.panel_internal_name_help.grid(row = 0, column = 2, padx = 5)
+        self.panel_internal_name_help.grid(row = 0, column = 2, padx = (0, 5))
         self.panel_internal_colour_variable = tk.StringVar()
         self.panel_internal_colour_label = ttk.Label(self.panel_internal, text = "Main colour:")
         self.panel_internal_colour_label.grid(row = 1, column = 0, padx = 5, sticky = "w")
         self.panel_internal_colour_input = ttk.Entry(self.panel_internal, width = 15, textvariable = self.panel_internal_colour_variable)
         self.panel_internal_colour_input.grid(row = 1, column = 1, padx = 5, sticky = "w")
         self.panel_internal_colour_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Main Colour", message = "A name used for accessory files, which are used in trailers and some newer trucks. Mod users will NOT see this.\n\nMust only contain letters, numbers and underscores.\n\ne.g. yellow"))
-        self.panel_internal_colour_help.grid(row = 1, column = 2, padx = 5)
+        self.panel_internal_colour_help.grid(row = 1, column = 2, padx = (0, 5))
         self.panel_internal_spacer_label = ttk.Label(self.panel_internal, image = self.image_spacer_100)
         self.panel_internal_spacer_label.grid(row = 2, column = 0)
         self.panel_internal_spacer_input = ttk.Label(self.panel_internal, image = self.image_spacer_200)
         self.panel_internal_spacer_input.grid(row = 2, column = 1)
 
-        # Vehicles supported panel
+        # Vehicle supported panel (single paintjob)
+        self.panel_single_type_variable = tk.StringVar(None, "Truck")
+        self.panel_single_type_variable.trace("w", self.change_displayed_vehicle_dropdown)
+        self.panel_single_type_label = ttk.Label(self.panel_vehicles_single, text = "Type:")
+        self.panel_single_type_label.grid(row = 0, column = 0, padx = 5, sticky = "w")
+        self.panel_single_type_dropdown = ttk.Combobox(self.panel_vehicles_single, state = "readonly", textvariable = self.panel_single_type_variable, values = ["Truck", "Trailer", "Truck Mod"])
+        self.panel_single_type_dropdown.grid(row = 1, column = 0, padx = 5)
+        self.panel_single_vehicle_variable = tk.StringVar()
+        self.panel_single_vehicle_label = ttk.Label(self.panel_vehicles_single, text = "Vehicle:")
+        self.panel_single_vehicle_label.grid(row = 2, column = 0, padx = 5, pady = (5, 0), sticky = "w")
+        self.panel_single_vehicle_dropdown = ttk.Combobox(self.panel_vehicles_single, state = "readonly", textvariable = self.panel_single_vehicle_variable, values = ["Truck1", "Truck2", "Truck3"])
+        self.panel_single_vehicle_dropdown.grid(row = 3, column = 0, padx = 5)
+
+        # Vehicles supported panel (paintjob pack)
+        self.panel_pack_selector = ttk.Notebook(self.panel_vehicles_pack)
+        self.panel_pack_selector.grid(row = 0, column = 0, sticky = "nsew", padx = 5, pady = (0, 5))
+        self.tab_trucks = ttk.Frame(self.panel_pack_selector)
+        self.panel_pack_selector.add(self.tab_trucks, text = "Trucks")
+        self.tab_trailers = ttk.Frame(self.panel_pack_selector)
+        self.panel_pack_selector.add(self.tab_trailers, text = "Trailers")
+        self.tab_mods = ttk.Frame(self.panel_pack_selector)
+        self.panel_pack_selector.add(self.tab_mods, text = "Truck Mods")
 
         # buttons along the bottom
         self.panel_buttons_setup = ttk.Button(self.panel_buttons, text = "< Back to setup", command = lambda : self.switch_to_setup_screen())
-        self.panel_buttons_setup.grid(row = 1, column = 0, padx = 5, pady = 5, sticky = "w")
-        self.panel_buttons_feedback = ttk.Label(self.panel_buttons, text = "Leave feedback", foreground = "blue", cursor = self.cursor)
-        self.panel_buttons_feedback.grid(row = 1, column = 1, pady = 5, sticky = "e")
+        self.panel_buttons_setup.grid(row = 1, column = 0, pady = (5, 0), sticky = "w")
+        self.panel_buttons_feedback = ttk.Label(self.panel_buttons, text = "Leave feedback or get support", foreground = "blue", cursor = self.cursor)
+        self.panel_buttons_feedback.grid(row = 1, column = 1, pady = (5, 0), padx = 10, sticky = "e")
         self.panel_buttons_feedback.bind("<1>", lambda e: webbrowser.open_new("http://example.com"))
         self.panel_buttons_generate = ttk.Button(self.panel_buttons, text = "Generate mod", command = lambda : messagebox.showinfo(title = "Hi", message = "Yes"))
-        self.panel_buttons_generate.grid(row = 1, column = 2, pady = 5, padx = 5, sticky = "e")
-        self.panel_buttons_spacer_label = ttk.Label(self.panel_buttons, image = self.image_spacer_100)
-        self.panel_buttons_spacer_label.grid(row = 0, column = 0)
-        self.panel_buttons_spacer_input = ttk.Label(self.panel_buttons, image = self.image_spacer_200)
-        self.panel_buttons_spacer_input.grid(row = 0, column = 1)
+        self.panel_buttons_generate.grid(row = 1, column = 2, pady = (5, 0), sticky = "e")
 
     def switch_to_setup_screen(self):
-        if self.tab_paintjob_variable == "single":
+        if self.tab_paintjob_variable.get() == "single":
             self.panel_vehicles_single.grid_forget()
-        elif self.tab_paintjob_variable == "pack":
+        elif self.tab_paintjob_variable.get() == "pack":
             self.panel_vehicles_pack.grid_forget()
         self.main_screen.grid_forget()
         self.setup_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
@@ -221,19 +236,23 @@ class PackerApp:
     def switch_to_main_screen(self):
         self.setup_screen.grid_forget()
         self.main_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
-        if self.tab_paintjob_variable == "single":
-            self.panel_vehicles_single.grid(row = 0, column = 1, rowspan = 3, sticky = "ns")
-        elif self.tab_paintjob_variable == "pack":
-            self.panel_vehicles_pack.grid(row = 0, column = 1, rowspan = 3, sticky = "ns")
+        if self.tab_paintjob_variable.get() == "single":
+            self.panel_vehicles_single.grid(row = 0, column = 1, rowspan = 3, sticky = "ns", padx = (5, 0))
+        elif self.tab_paintjob_variable.get() == "pack":
+            self.panel_vehicles_pack.grid(row = 0, column = 1, rowspan = 3, sticky = "ns", padx = (5, 0))
+        self.load_main_screen_variables()
 
+    def load_main_screen_variables(self):
         if self.tab_game_variable.get() == "ats":
             self.currency = "dollars"
         elif self.tab_game_variable.get() == "ets":
             self.currency = "euro" # in English, accoring to the EU, the plural of euro is "euro", not "euros"
+
         if self.tab_cabins_variable.get() == "separate":
             self.internal_name_length = 10
         elif self.tab_cabins_variable.get() == "combined":
             self.internal_name_length = 12
+
         if sys.platform.startswith("win"):
             self.cursor = "hand2"
         elif sys.platform.startswith("linux"):
@@ -241,17 +260,85 @@ class PackerApp:
         elif sys.platform.startswith("darwin"):
             self.cursor = "pointinghand" # hand2 looks strange on macOS, the correct equivalent is pointinghand
 
+        (self.truck_list, self.trailer_list, self.mod_list) = self.load_list_of_vehicles(self.tab_game_variable.get())
+        self.truck_list_1 = self.truck_list[:math.ceil(len(self.truck_list)/2)] # lists need to be split for multiple vehicle selection, it's easier if it's done here
+        self.truck_list_2 = self.truck_list[math.ceil(len(self.truck_list)/2):]
+        self.trailer_list_1 = self.trailer_list[:math.ceil(len(self.trailer_list)/2)]
+        self.trailer_list_2 = self.trailer_list[math.ceil(len(self.trailer_list)/2):]
+        self.mod_list_1 = self.mod_list[:math.ceil(len(self.mod_list)/2)]
+        self.mod_list_2 = self.mod_list[math.ceil(len(self.mod_list)/2):]
+
+        for i in range(len(self.truck_list_1)):
+            self.truck_list_1[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
+        for i in range(len(self.truck_list_2)):
+            self.truck_list_2[i].check.grid(row = i, column = 1, sticky = "w", padx = 5)
+        for i in range(len(self.trailer_list_1)):
+            self.trailer_list_1[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
+        for i in range(len(self.trailer_list_2)):
+            self.trailer_list_2[i].check.grid(row = i, column = 1, sticky = "w", padx = 5)
+        for i in range(len(self.mod_list_1)):
+            self.mod_list_1[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
+        for i in range(len(self.mod_list_2)):
+            self.mod_list_2[i].check.grid(row = i, column = 1, sticky = "w", padx = 5)
+
     def toggle_unlock_level(self):
         if self.panel_ingame_default_variable.get():
             self.panel_ingame_unlock_input.state(["disabled"])
         else:
             self.panel_ingame_unlock_input.state(["!disabled"])
 
+    def load_list_of_vehicles(self, game):
+        complete_list = []
+        for file_name in os.listdir("library/vehicles/{}".format(game)):
+            complete_list.append(VehSelection(game, file_name))
+        truck_list = []
+        trailer_list = []
+        mod_list = []
+        for veh in complete_list:
+            if veh.mod:
+                veh.check = ttk.Checkbutton(self.tab_mods, text = veh.name)
+                veh.check.state(["!alternate","!selected"])
+                mod_list.append(veh)
+            elif veh.trailer:
+                veh.check = ttk.Checkbutton(self.tab_trailers, text = veh.name)
+                veh.check.state(["!alternate","!selected"])
+                trailer_list.append(veh)
+            else:
+                veh.check = ttk.Checkbutton(self.tab_trucks, text = veh.name)
+                veh.check.state(["!alternate","!selected"])
+                truck_list.append(veh)
+        return (truck_list, trailer_list, mod_list)
+
+    def change_displayed_vehicle_dropdown(self, *args):
+        type = self.panel_single_type_variable.get()
+        self.panel_single_vehicle_variable.set("")
+        new_values = []
+        if type == "Truck":
+            for veh in self.truck_list: new_values.append()
+        elif type == "Trailer":
+            self.panel_single_vehicle_dropdown.config(values = ["Trailer"])
+        elif type == "Truck Mod":
+            self.panel_single_vehicle_dropdown.config(values = ["Truck Mod"])
+        self.panel_single_vehicle_dropdown.config(values = new_values)
+
+class VehSelection:
+
+    def __init__(self, _game, _file_name):
+        self.file_name = _file_name
+        self.game = _game
+        veh_ini = configparser.ConfigParser(allow_no_value = True)
+        veh_ini.read("library/vehicles/{}/{}".format(self.game, self.file_name))
+        self.name = veh_ini["vehicle info"]["name"]
+        self.trailer = veh_ini["vehicle info"].getboolean("trailer")
+        self.mod = veh_ini["vehicle info"].getboolean("mod")
+        self.mod_author = veh_ini["vehicle info"]["mod author"]
+        self.mod_link = veh_ini["vehicle info"]["mod link"]
+
 def main():
     root = tk.Tk()
     root.title("Paintjob Packer v{}".format(version))
     root.iconphoto(True, tk.PhotoImage(file = "library/packer images/icon.png"))
-    # root.resizable(False, False)
+    root.resizable(False, False)
     packer = PackerApp(root)
     root.mainloop()
 
