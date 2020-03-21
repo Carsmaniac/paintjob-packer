@@ -2,15 +2,19 @@ import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 import webbrowser, sys, configparser, os, math
 
+# ABANDON ALL HOPE, YE WHO ENTER HERE
+# I'm a designer, not a programmer, my code's a mess
+
 version = "1.0"
 
 class PackerApp:
 
     def __init__(self, master):
-        # container to hold setup screen
+        # container to hold setup/main screen
         self.container = ttk.Frame(master)
         self.container.pack(fill = "both")
 
+        self.image_packer = tk.PhotoImage(file = "library/packer images/packer.gif")
         self.image_ats = tk.PhotoImage(file = "library/packer images/ats.gif")
         self.image_ets = tk.PhotoImage(file = "library/packer images/ets.gif")
         self.image_single_paintjob = tk.PhotoImage(file = "library/packer images/single paintjob.gif")
@@ -32,12 +36,38 @@ class PackerApp:
         self.setup_screen = ttk.Frame(self.container)
         self.tab_selector = ttk.Notebook(self.setup_screen)
         self.tab_selector.pack(fill = "both")
+        self.tab_welcome = ttk.Frame(self.tab_selector)
+        self.tab_selector.add(self.tab_welcome, text = " Welcome ", sticky = "nsew")
         self.tab_game = ttk.Frame(self.tab_selector)
         self.tab_selector.add(self.tab_game, text = " Game ")
         self.tab_paintjob = ttk.Frame(self.tab_selector)
         self.tab_selector.add(self.tab_paintjob, text = " Paintjobs ")
         self.tab_cabins = ttk.Frame(self.tab_selector)
         self.tab_selector.add(self.tab_cabins, text = " Cabin Handling ")
+
+        # Welcome tab
+        self.tab_welcome_title = ttk.Label(self.tab_welcome, text = "Welcome to Paintjob Packer")
+        self.tab_welcome_title.grid(row = 0, column = 0, columnspan = 2, pady = 20)
+        self.tab_welcome_image = ttk.Label(self.tab_welcome, image = self.image_packer)
+        self.tab_welcome_image.grid(row = 1, column = 0, columnspan = 2)
+        self.tab_welcome_link_forum = ttk.Label(self.tab_welcome, text = "Forum thread", foreground = "blue", cursor = self.cursor)
+        self.tab_welcome_link_forum.grid(row = 2, column = 0, pady = 20)
+        self.tab_welcome_link_forum.bind("<1>", lambda e: webbrowser.open_new("http://example.com"))
+        self.tab_welcome_link_github = ttk.Label(self.tab_welcome, text = "GitHub page", foreground = "blue", cursor = self.cursor)
+        self.tab_welcome_link_github.grid(row = 2, column = 1, pady = 20)
+        self.tab_welcome_link_github.bind("<1>", lambda e: webbrowser.open_new("http://github.com/carsmaniac/paintjob-packer"))
+        self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "If this is your first time using Paintjob Packer, please watch the following instructional video:")
+        self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (15, 0))
+        self.tab_welcome_link_video = ttk.Label(self.tab_welcome, text = "Instructional video", foreground = "blue", cursor = self.cursor)
+        self.tab_welcome_link_video.grid(row = 4, column = 0, columnspan = 2)
+        self.tab_welcome_link_video.bind("<1>", lambda e: webbrowser.open_new("http://example.com"))
+        self.tab_welcome_button_prev = ttk.Label(self.tab_welcome, text = " ") # to keep everything centred
+        self.tab_welcome_button_prev.grid(row = 5, column = 0, sticky = "sw")
+        self.tab_welcome_button_next = ttk.Button(self.tab_welcome, text = "Next >", command = lambda : self.tab_selector.select(1))
+        self.tab_welcome_button_next.grid(row = 5, column = 1, sticky = "se", pady = 10, padx = 10)
+        self.tab_welcome.rowconfigure(5, weight = 1)
+        self.tab_welcome.columnconfigure(0, weight = 1)
+        self.tab_welcome.columnconfigure(1, weight = 1)
 
         # Game tab
         self.tab_game_title = ttk.Label(self.tab_game, text = "Which game are you making a mod for?")
@@ -55,7 +85,9 @@ class PackerApp:
         self.tab_game_image_ets.bind("<1>", lambda e: self.tab_game_variable.set("ets"))
         self.tab_game_dummy_desc = ttk.Label(self.tab_game, text = "  \n") # to space things out evenly
         self.tab_game_dummy_desc.grid(row = 3, column = 0)
-        self.tab_game_button_next = ttk.Button(self.tab_game, text = "Next >", command = lambda : self.tab_selector.select(1))
+        self.tab_game_button_prev = ttk.Button(self.tab_game, text = "< Prev", command = lambda : self.tab_selector.select(0))
+        self.tab_game_button_prev.grid(row = 4, column = 0, sticky = "sw", pady = 10, padx = 10)
+        self.tab_game_button_next = ttk.Button(self.tab_game, text = "Next >", command = lambda : self.tab_selector.select(2))
         self.tab_game_button_next.grid(row = 4, column = 1, sticky = "se", pady = 10, padx = 10)
 
         # Paintjobs tab
@@ -76,9 +108,9 @@ class PackerApp:
         self.tab_paintjob_desc_single.grid(row = 3, column = 0, padx = 10, sticky = "n")
         self.tab_paintjob_desc_pack = ttk.Label(self.tab_paintjob, text = "One paintjob that supports multiple vehicles", wraplength = 300)
         self.tab_paintjob_desc_pack.grid(row = 3, column = 1, padx = 10, sticky = "n")
-        self.tab_paintjob_button_prev = ttk.Button(self.tab_paintjob, text = "< Prev", command = lambda : self.tab_selector.select(0))
+        self.tab_paintjob_button_prev = ttk.Button(self.tab_paintjob, text = "< Prev", command = lambda : self.tab_selector.select(1))
         self.tab_paintjob_button_prev.grid(row = 4, column = 0, padx = 10, pady = 10, sticky = "w")
-        self.tab_paintjob_button_next = ttk.Button(self.tab_paintjob, text = "Next >", command = lambda : self.tab_selector.select(2))
+        self.tab_paintjob_button_next = ttk.Button(self.tab_paintjob, text = "Next >", command = lambda : self.tab_selector.select(3))
         self.tab_paintjob_button_next.grid(row = 4, column = 1, padx = 10, pady = 10, sticky = "e")
 
         # Cabin Handling tab
@@ -99,7 +131,7 @@ class PackerApp:
         self.tab_cabins_desc_combined.grid(row = 3, column = 0, padx = 10, sticky = "n")
         self.tab_cabins_desc_separate = ttk.Label(self.tab_cabins, text = "Lets you customise your paintjob for each\ncabin, but is more complex to make", justify = "center")
         self.tab_cabins_desc_separate.grid(row = 3, column = 1, padx = 10, sticky = "n")
-        self.tab_cabins_button_prev = ttk.Button(self.tab_cabins, text = "< Prev", command = lambda : self.tab_selector.select(1))
+        self.tab_cabins_button_prev = ttk.Button(self.tab_cabins, text = "< Prev", command = lambda : self.tab_selector.select(2))
         self.tab_cabins_button_prev.grid(row = 4, column = 0, padx = 10, pady = 10, sticky = "w")
         self.tab_cabins_button_next = ttk.Button(self.tab_cabins, text = "Continue", command = lambda : self.switch_to_main_screen())
         self.tab_cabins_button_next.grid(row = 4, column = 1, padx = 10, pady = 10, stick = "e")
