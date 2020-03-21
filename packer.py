@@ -233,6 +233,19 @@ class PackerApp:
         self.main_screen.grid_forget()
         self.setup_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
 
+        for veh in self.truck_list_1:
+            veh.check.grid_forget()
+        for veh in self.truck_list_2:
+            veh.check.grid_forget()
+        for veh in self.trailer_list_1:
+            veh.check.grid_forget()
+        for veh in self.trailer_list_2:
+            veh.check.grid_forget()
+        for veh in self.mod_list_1:
+            veh.check.grid_forget()
+        for veh in self.mod_list_2:
+            veh.check.grid_forget()
+
     def switch_to_main_screen(self):
         self.setup_screen.grid_forget()
         self.main_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
