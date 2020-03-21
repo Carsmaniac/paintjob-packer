@@ -6,6 +6,10 @@ import webbrowser, sys, configparser, os, math
 # I'm a designer, not a programmer, my code's a mess
 
 version = "1.0"
+video_link = "https://google.com"
+forum_link = "https://google.com"
+github_link = "https://github.com/carsmaniac/paintjob-packer"
+mod_link_page_link = "https://github.com/Carsmaniac/paintjob-packer/blob/ui-overhaul/mod%20links.md" # I could replace the %20 with a space to look neater, but it might break compatibility with some browsers (maybe..?)
 
 class PackerApp:
 
@@ -32,6 +36,8 @@ class PackerApp:
         elif sys.platform.startswith("darwin"): # macOS
             self.cursor = "pointinghand"
 
+        self.seen_unifier_warning = False # will show the warning only once per session
+
         # setup screen and immediate contents
         self.setup_screen = ttk.Frame(self.container)
         self.tab_selector = ttk.Notebook(self.setup_screen)
@@ -52,15 +58,15 @@ class PackerApp:
         self.tab_welcome_image.grid(row = 1, column = 0, columnspan = 2)
         self.tab_welcome_link_forum = ttk.Label(self.tab_welcome, text = "Forum thread", foreground = "blue", cursor = self.cursor)
         self.tab_welcome_link_forum.grid(row = 2, column = 0, pady = 20)
-        self.tab_welcome_link_forum.bind("<1>", lambda e: webbrowser.open_new("http://example.com"))
+        self.tab_welcome_link_forum.bind("<1>", lambda e: webbrowser.open_new(forum_link))
         self.tab_welcome_link_github = ttk.Label(self.tab_welcome, text = "GitHub page", foreground = "blue", cursor = self.cursor)
         self.tab_welcome_link_github.grid(row = 2, column = 1, pady = 20)
-        self.tab_welcome_link_github.bind("<1>", lambda e: webbrowser.open_new("https://github.com/carsmaniac/paintjob-packer"))
+        self.tab_welcome_link_github.bind("<1>", lambda e: webbrowser.open_new(github_link))
         self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "If this is your first time using Paintjob Packer, please watch the following instructional video:")
         self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (15, 0))
         self.tab_welcome_link_video = ttk.Label(self.tab_welcome, text = "Instructional video", foreground = "blue", cursor = self.cursor)
         self.tab_welcome_link_video.grid(row = 4, column = 0, columnspan = 2)
-        self.tab_welcome_link_video.bind("<1>", lambda e: webbrowser.open_new("http://example.com"))
+        self.tab_welcome_link_video.bind("<1>", lambda e: webbrowser.open_new(video_link))
         self.tab_welcome_button_prev = ttk.Label(self.tab_welcome, text = " ") # to keep everything centred
         self.tab_welcome_button_prev.grid(row = 5, column = 0, sticky = "sw")
         self.tab_welcome_button_next = ttk.Button(self.tab_welcome, text = "Next >", command = lambda : self.tab_selector.select(1))
@@ -221,17 +227,17 @@ class PackerApp:
         self.panel_internal_name_input.grid(row = 0, column = 1, padx = 5, sticky = "w")
         self.panel_internal_name_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Internal Name", message = "A unique name used by the game to identify your paintjob. Mod users will NOT see this name.\n\nMust be {} characters or fewer, and only contain letters, numbers and underscores.\n\nMust also be unique, if two different mods use the same internal name they will be incompatible with each other.\n\ne.g. transit_pj".format(self.internal_name_length)))
         self.panel_internal_name_help.grid(row = 0, column = 2, padx = (0, 5))
-        self.panel_internal_colour_variable = tk.StringVar()
-        self.panel_internal_colour_label = ttk.Label(self.panel_internal, text = "Main colour:")
-        self.panel_internal_colour_label.grid(row = 1, column = 0, padx = 5, sticky = "w")
-        self.panel_internal_colour_input = ttk.Entry(self.panel_internal, width = 15, textvariable = self.panel_internal_colour_variable)
-        self.panel_internal_colour_input.grid(row = 1, column = 1, padx = 5, sticky = "w")
-        self.panel_internal_colour_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Main Colour", message = "A name used for accessory files, which are used in trailers and some newer trucks. Mod users will NOT see this.\n\nMust only contain letters, numbers and underscores.\n\ne.g. yellow"))
-        self.panel_internal_colour_help.grid(row = 1, column = 2, padx = (0, 5))
+
+        self.panel_internal_unifier_variable = tk.BooleanVar(None, False)
+        self.panel_internal_unifier_checkbox = ttk.Checkbutton(self.panel_internal, text = "Use cabin unifier system (advanced users only)", variable = self.panel_internal_unifier_variable, command = lambda : self.show_unifier_warning())
+        self.panel_internal_unifier_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Cabin Unifer", message = "Fill this in"))
+        self.panel_internal_unifier_warning = ttk.Label(self.panel_internal, text = "Please watch the following video before using the unifier:")
+        self.panel_internal_unifier_link = ttk.Label(self.panel_internal, text = "Instructional video", foreground = "blue", cursor = self.cursor)
+        self.panel_internal_unifier_link.bind("<1>", lambda e: webbrowser.open_new(video_link))
         self.panel_internal_spacer_label = ttk.Label(self.panel_internal, image = self.image_spacer_100)
-        self.panel_internal_spacer_label.grid(row = 2, column = 0)
+        self.panel_internal_spacer_label.grid(row = 4, column = 0)
         self.panel_internal_spacer_input = ttk.Label(self.panel_internal, image = self.image_spacer_200)
-        self.panel_internal_spacer_input.grid(row = 2, column = 1)
+        self.panel_internal_spacer_input.grid(row = 4, column = 1)
 
         # Vehicle supported panel (single paintjob)
         self.panel_single_type_variable = tk.StringVar(None, "Truck")
@@ -256,14 +262,14 @@ class PackerApp:
         self.tab_mods = ttk.Frame(self.panel_pack_selector)
         self.panel_pack_selector.add(self.tab_mods, text = "Truck Mods")
         self.panel_pack_link_page = ttk.Label(self.tab_mods, text = "Download links for all mods", foreground = "blue", cursor = self.cursor)
-        self.panel_pack_link_page.bind("<1>", lambda e: webbrowser.open_new("https://github.com/Carsmaniac/paintjob-packer/blob/master/mod links.md"))
+        self.panel_pack_link_page.bind("<1>", lambda e: webbrowser.open_new(mod_link_page_link))
 
         # buttons along the bottom
         self.panel_buttons_setup = ttk.Button(self.panel_buttons, text = "< Back to setup", command = lambda : self.switch_to_setup_screen())
         self.panel_buttons_setup.grid(row = 1, column = 0, pady = (5, 0), sticky = "w")
         self.panel_buttons_feedback = ttk.Label(self.panel_buttons, text = "Leave feedback or get support", foreground = "blue", cursor = self.cursor)
         self.panel_buttons_feedback.grid(row = 1, column = 1, pady = (5, 0), padx = 10, sticky = "e")
-        self.panel_buttons_feedback.bind("<1>", lambda e: webbrowser.open_new("http://example.com"))
+        self.panel_buttons_feedback.bind("<1>", lambda e: webbrowser.open_new(forum_link))
         self.panel_buttons_generate = ttk.Button(self.panel_buttons, text = "Generate mod", command = lambda : messagebox.showinfo(title = "Hi", message = "Yes"))
         self.panel_buttons_generate.grid(row = 1, column = 2, pady = (5, 0), sticky = "e")
 
@@ -288,7 +294,12 @@ class PackerApp:
         for veh in self.mod_list_2:
             veh.check.grid_forget()
 
-        self.panel_pack_link_page.ungrid() # just in case it changes location
+        self.panel_pack_link_page.grid_forget() # just in case it changes location
+
+        self.panel_internal_unifier_checkbox.grid_forget()
+        self.panel_internal_unifier_help.grid_forget()
+        self.panel_internal_unifier_warning.grid_forget()
+        self.panel_internal_unifier_link.grid_forget()
 
     def switch_to_main_screen(self):
         self.setup_screen.grid_forget()
@@ -307,6 +318,11 @@ class PackerApp:
 
         if self.tab_cabins_variable.get() == "separate":
             self.internal_name_length = 10
+            self.panel_internal_unifier_checkbox.grid(row = 1, column = 0, columnspan = 2, padx = 5, sticky = "w")
+            self.panel_internal_unifier_help.grid(row = 1, column = 2, padx = (0, 5))
+            if self.seen_unifier_warning: # these are gridded by show_unifier_warning the first time, then here for all subsequent times (if user goes back to setup, then to main again)
+                self.panel_internal_unifier_warning.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
+                self.panel_internal_unifier_link.grid(row = 3, column = 0, columnspan = 3, padx = 5, sticky = "w")
         elif self.tab_cabins_variable.get() == "combined":
             self.internal_name_length = 12
 
@@ -372,6 +388,14 @@ class PackerApp:
         elif type == "Truck Mod":
             self.panel_single_vehicle_dropdown.config(values = ["Truck Mod"])
         self.panel_single_vehicle_dropdown.config(values = new_values)
+
+    def show_unifier_warning(self):
+        print(self.seen_unifier_warning)
+        if not self.seen_unifier_warning:
+            messagebox.showwarning(title = "Cabin Unifier", message = "The cabin unifier is for advanced users only, please watch the instructional video before use\n\nA hex editing program and Python 3 are required to use the unifier system")
+            self.seen_unifier_warning = True
+            self.panel_internal_unifier_link.grid(row = 3, column = 0, columnspan = 3, padx = 5, sticky = "w")
+            self.panel_internal_unifier_warning.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
 
 class VehSelection:
 
