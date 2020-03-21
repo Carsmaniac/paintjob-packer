@@ -230,7 +230,7 @@ class PackerApp:
 
         self.panel_internal_unifier_variable = tk.BooleanVar(None, False)
         self.panel_internal_unifier_checkbox = ttk.Checkbutton(self.panel_internal, text = "Use cabin unifier system (advanced users only)", variable = self.panel_internal_unifier_variable, command = lambda : self.show_unifier_warning())
-        self.panel_internal_unifier_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Cabin Unifer", message = "Fill this in"))
+        self.panel_internal_unifier_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Cabin Unifer", message = "Changes all separate cabin paintjobs to point to a single .dds, and adds a separate program that unifies them all into one paintjob\n\nIf some of your textures end up working for multiple cabins (e.g. one for Cabin A, one for Cabin B and Cabin C), this unifies them to a single paintjob to make in-game paintjob switching smoother, and cut down on mod download size\n\nSee instructional video for a more thorough explanation\n\nRequires a hex editor and Python 3 to use"))
         self.panel_internal_unifier_warning = ttk.Label(self.panel_internal, text = "Please watch the following video before using the unifier:")
         self.panel_internal_unifier_link = ttk.Label(self.panel_internal, text = "Instructional video", foreground = "blue", cursor = self.cursor)
         self.panel_internal_unifier_link.bind("<1>", lambda e: webbrowser.open_new(video_link))
@@ -244,13 +244,13 @@ class PackerApp:
         self.panel_single_type_variable.trace("w", self.change_displayed_vehicle_dropdown)
         self.panel_single_type_label = ttk.Label(self.panel_vehicles_single, text = "Type:")
         self.panel_single_type_label.grid(row = 0, column = 0, padx = 5, sticky = "w")
-        self.panel_single_type_dropdown = ttk.Combobox(self.panel_vehicles_single, state = "readonly", textvariable = self.panel_single_type_variable, values = ["Truck", "Trailer", "Truck Mod"])
-        self.panel_single_type_dropdown.grid(row = 1, column = 0, padx = 5)
+        self.panel_single_type_dropdown = ttk.Combobox(self.panel_vehicles_single, state = "readonly", textvariable = self.panel_single_type_variable, values = ["Truck", "Trailer", "Truck Mod"], width = 12)
+        self.panel_single_type_dropdown.grid(row = 1, column = 0, padx = 5, sticky = "w")
         self.panel_single_vehicle_variable = tk.StringVar()
         self.panel_single_vehicle_label = ttk.Label(self.panel_vehicles_single, text = "Vehicle:")
         self.panel_single_vehicle_label.grid(row = 2, column = 0, padx = 5, pady = (5, 0), sticky = "w")
-        self.panel_single_vehicle_dropdown = ttk.Combobox(self.panel_vehicles_single, state = "readonly", textvariable = self.panel_single_vehicle_variable, values = ["Truck1", "Truck2", "Truck3"])
-        self.panel_single_vehicle_dropdown.grid(row = 3, column = 0, padx = 5)
+        self.panel_single_vehicle_dropdown = ttk.Combobox(self.panel_vehicles_single, state = "readonly", textvariable = self.panel_single_vehicle_variable, values = [], width = 30)
+        self.panel_single_vehicle_dropdown.grid(row = 3, column = 0, padx = 5, sticky = "w")
 
         # Vehicles supported panel (paintjob pack)
         self.panel_pack_selector = ttk.Notebook(self.panel_vehicles_pack)
@@ -349,6 +349,8 @@ class PackerApp:
 
         self.panel_pack_link_page.grid(row = len(self.mod_list_2), column = 1, sticky = "w", padx = 5)
 
+        self.change_displayed_vehicle_dropdown()
+
     def toggle_unlock_level(self):
         if self.panel_ingame_default_variable.get():
             self.panel_ingame_unlock_input.state(["disabled"])
@@ -382,15 +384,14 @@ class PackerApp:
         self.panel_single_vehicle_variable.set("")
         new_values = []
         if type == "Truck":
-            for veh in self.truck_list: new_values.append()
+            for veh in self.truck_list: new_values.append(veh.name)
         elif type == "Trailer":
-            self.panel_single_vehicle_dropdown.config(values = ["Trailer"])
+            for veh in self.trailer_list: new_values.append(veh.name)
         elif type == "Truck Mod":
-            self.panel_single_vehicle_dropdown.config(values = ["Truck Mod"])
+            for veh in self.mod_list: new_values.append(veh.name)
         self.panel_single_vehicle_dropdown.config(values = new_values)
 
     def show_unifier_warning(self):
-        print(self.seen_unifier_warning)
         if not self.seen_unifier_warning:
             messagebox.showwarning(title = "Cabin Unifier", message = "The cabin unifier is for advanced users only, please watch the instructional video before use\n\nA hex editing program and Python 3 are required to use the unifier system")
             self.seen_unifier_warning = True
