@@ -55,7 +55,7 @@ class PackerApp:
         self.tab_welcome_link_forum.bind("<1>", lambda e: webbrowser.open_new("http://example.com"))
         self.tab_welcome_link_github = ttk.Label(self.tab_welcome, text = "GitHub page", foreground = "blue", cursor = self.cursor)
         self.tab_welcome_link_github.grid(row = 2, column = 1, pady = 20)
-        self.tab_welcome_link_github.bind("<1>", lambda e: webbrowser.open_new("http://github.com/carsmaniac/paintjob-packer"))
+        self.tab_welcome_link_github.bind("<1>", lambda e: webbrowser.open_new("https://github.com/carsmaniac/paintjob-packer"))
         self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "If this is your first time using Paintjob Packer, please watch the following instructional video:")
         self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (15, 0))
         self.tab_welcome_link_video = ttk.Label(self.tab_welcome, text = "Instructional video", foreground = "blue", cursor = self.cursor)
@@ -145,12 +145,13 @@ class PackerApp:
         self.panel_ingame = ttk.LabelFrame(self.main_screen, text = "In-Game Paintjob Info")
         self.panel_ingame.grid(row = 1, column = 0, sticky = "ew")
         self.panel_internal = ttk.LabelFrame(self.main_screen, text = "Internal (Hidden) Paintjob Info")
-        self.panel_internal.grid(row = 2, column = 0, sticky = "ew")
+        self.panel_internal.grid(row = 2, column = 0, sticky = "new")
         self.panel_vehicles_pack = ttk.LabelFrame(self.main_screen, text = "Vehicles Supported")
         self.panel_vehicles_single = ttk.LabelFrame(self.main_screen, text = "Vehicle Supported")
         self.panel_buttons = ttk.Frame(self.main_screen)
         self.panel_buttons.grid(row = 3, column = 0, columnspan = 2, sticky = "ew")
         self.panel_buttons.columnconfigure(1, weight = 1)
+        self.main_screen.rowconfigure(2, weight = 1) # keeps things tidy if too many mods get added
 
         # Mod Info panel
         self.panel_mod_name_variable = tk.StringVar()
@@ -254,6 +255,8 @@ class PackerApp:
         self.panel_pack_selector.add(self.tab_trailers, text = "Trailers")
         self.tab_mods = ttk.Frame(self.panel_pack_selector)
         self.panel_pack_selector.add(self.tab_mods, text = "Truck Mods")
+        self.panel_pack_link_page = ttk.Label(self.tab_mods, text = "Download links for all mods", foreground = "blue", cursor = self.cursor)
+        self.panel_pack_link_page.bind("<1>", lambda e: webbrowser.open_new("https://github.com/Carsmaniac/paintjob-packer/blob/master/mod links.md"))
 
         # buttons along the bottom
         self.panel_buttons_setup = ttk.Button(self.panel_buttons, text = "< Back to setup", command = lambda : self.switch_to_setup_screen())
@@ -284,6 +287,8 @@ class PackerApp:
             veh.check.grid_forget()
         for veh in self.mod_list_2:
             veh.check.grid_forget()
+
+        self.panel_pack_link_page.ungrid() # just in case it changes location
 
     def switch_to_main_screen(self):
         self.setup_screen.grid_forget()
@@ -325,6 +330,8 @@ class PackerApp:
             self.mod_list_1[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
         for i in range(len(self.mod_list_2)):
             self.mod_list_2[i].check.grid(row = i, column = 1, sticky = "w", padx = 5)
+
+        self.panel_pack_link_page.grid(row = len(self.mod_list_2), column = 1, sticky = "w", padx = 5)
 
     def toggle_unlock_level(self):
         if self.panel_ingame_default_variable.get():
