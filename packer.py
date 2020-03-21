@@ -19,7 +19,14 @@ class PackerApp:
         self.image_combined_cabins = tk.PhotoImage(file = "library/packer images/combined cabins.gif")
         self.image_spacer_100 = tk.PhotoImage(file = "library/packer images/spacer 100.png")
         self.image_spacer_200 = tk.PhotoImage(file = "library/packer images/spacer 200.png")
-        self.cursor = "hand2"
+
+        # load appropriate cursor for OS, used when mousing over links
+        if sys.platform.startswith("win"):
+            self.cursor = "hand2"
+        elif sys.platform.startswith("linux"):
+            self.cursor = "hand2"
+        elif sys.platform.startswith("darwin"): # macOS
+            self.cursor = "pointinghand"
 
         # setup screen and immediate contents
         self.setup_screen = ttk.Frame(self.container)
@@ -265,13 +272,6 @@ class PackerApp:
             self.internal_name_length = 10
         elif self.tab_cabins_variable.get() == "combined":
             self.internal_name_length = 12
-
-        if sys.platform.startswith("win"):
-            self.cursor = "hand2"
-        elif sys.platform.startswith("linux"):
-            self.cursor = "hand2"
-        elif sys.platform.startswith("darwin"):
-            self.cursor = "pointinghand" # hand2 looks strange on macOS, the correct equivalent is pointinghand
 
         (self.truck_list, self.trailer_list, self.mod_list) = self.load_list_of_vehicles(self.tab_game_variable.get())
         self.truck_list_1 = self.truck_list[:math.ceil(len(self.truck_list)/2)] # lists need to be split for multiple vehicle selection, it's easier if it's done here
