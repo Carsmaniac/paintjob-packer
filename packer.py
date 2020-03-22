@@ -476,16 +476,56 @@ class PackerApp:
                 inputs_verified = False
                 messagebox.showerror(title = "No vehicle selected", message = "Please select a vehicle to support")
 
+        if os.path.exists(os.path.expanduser("~/Desktop/Paintjob Packer Output")):
+            if len(os.listdir(os.path.expanduser("~/Desktop/Paintjob Packer Output"))) > 0:
+                inputs_verified = False
+                messagebox.showerror(title = "Output folder not clear", message = "Output folder contains items, please delete everything within the folder, or delete the folder itself\n\nThe output folder is \"Paintjob Packer Output\", on your desktop")
+
         if inputs_verified:
-            print("Success")
             self.make_paintjob()
 
     def make_paintjob(self):
-        pass
-        # self.loading_value.set(5.0)
-        # self.loading_bar.config(maximum = 10.0)
-        # self.loading_current.set("DAF XF 105")
-        # self.loading_window.state("normal")
+        truck_list = self.truck_list_1 + self.truck_list_2
+        trailer_list = self.trailer_list_1 + self.trailer_list_2
+        mod_list = self.mod_list_1 + self.mod_list_2
+
+        vehicle_list = []
+        for veh in truck_list + trailer_list + mod_list:
+            vehicle_list.append(pj.Vehicle(veh.file_name, self.tab_game_variable.get()))
+
+        single_veh_name = self.panel_single_vehicle_variable.get()
+        for veh in vehicle_list:
+            if veh.name == single_veh_name:
+                single_veh = veh
+
+        game = self.tab_game_variable.get()
+
+        mod_name = self.panel_mod_name_variable.get()
+        mod_version = self.panel_mod_version_variable.get()
+        mod_author = self.panel_mod_author_variable.get()
+
+        ingame_name = self.panel_ingame_name_variable.get()
+        ingame_price = self.panel_ingame_price_variable.get()
+        if self.panel_ingame_default_variable.get():
+            unlock_level = 0
+        else:
+            unlock_level = self.panel_ingame_unlock_variable.get()
+
+        internal_name = self.panel_internal_name_variable.get()
+
+        num_of_paintjobs = self.tab_paintjob_variable.get()
+        cabin_handling = self.tab_cabins_variable.get()
+        using_unifier = self.panel_internal_unifier_variable.get()
+
+        # os.makedirs(os.path.expanduser("~/Desktop/Paintjob Packer Output"))
+
+        """
+        self.loading_value.set(5.0)
+        self.loading_bar.config(maximum = 10.0)
+        self.loading_current.set("DAF XF 105")
+        self.loading_window.state("normal")
+        """
+
 
 class VehSelection:
 
@@ -498,7 +538,6 @@ class VehSelection:
         self.trailer = veh_ini["vehicle info"].getboolean("trailer")
         self.mod = veh_ini["vehicle info"].getboolean("mod")
         self.mod_author = veh_ini["vehicle info"]["mod author"]
-        self.mod_link = veh_ini["vehicle info"]["mod link"]
 
 def main():
     root = tk.Tk()
