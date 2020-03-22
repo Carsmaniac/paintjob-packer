@@ -10,7 +10,7 @@ version = "1.0"
 video_link = "https://google.com"
 forum_link = "https://google.com"
 github_link = "https://github.com/carsmaniac/paintjob-packer"
-mod_link_page_link = "https://github.com/Carsmaniac/paintjob-packer/blob/ui-overhaul/mod%20links.md" # I could replace the %20 with a space to look neater, but it might break compatibility with some browsers (maybe..?)
+mod_link_page_link = "https://github.com/Carsmaniac/paintjob-packer/blob/ui-overhaul/mod%20links.md"
 
 class PackerApp:
 
@@ -356,6 +356,7 @@ class PackerApp:
         self.panel_pack_link_page.grid(row = len(self.mod_list_2), column = 1, sticky = "w", padx = 5)
 
         self.change_displayed_vehicle_dropdown()
+        self.update_total_vehicles_supported()
 
     def toggle_unlock_level(self):
         if self.panel_ingame_default_variable.get():
@@ -478,23 +479,32 @@ class PackerApp:
 
         if os.path.exists(os.path.expanduser("~/Desktop/Paintjob Packer Output")):
             if len(os.listdir(os.path.expanduser("~/Desktop/Paintjob Packer Output"))) > 0:
-                inputs_verified = False
+                inputs_verified = False # I don't want to be on the receiving end of an irate user who lost their important report the night before it was due, because they happened to store it in the paintjob packer folder
                 messagebox.showerror(title = "Output folder not clear", message = "Output folder contains items, please delete everything within the folder, or delete the folder itself\n\nThe output folder is \"Paintjob Packer Output\", on your desktop")
 
         if inputs_verified:
             self.make_paintjob()
 
     def make_paintjob(self):
-        truck_list = self.truck_list_1 + self.truck_list_2
-        trailer_list = self.trailer_list_1 + self.trailer_list_2
-        mod_list = self.mod_list_1 + self.mod_list_2
+        truck_list = []
+        for veh in self.truck_list_1 + self.truck_list_2:
+            if "selected" in veh.check.state():
+                truck_list.append(veh)
+        trailer_list = []
+        for veh in self.trailer_list_1 + self.trailer_list_2:
+            if "selected" in veh.check.state():
+                trailer_list.append(veh)
+        mod_list = []
+        for veh in self.mod_list_1 + self.mod_list_2:
+            if "selected" in veh.check.state():
+                mod_list.append(veh)
 
         vehicle_list = []
         for veh in truck_list + trailer_list + mod_list:
             vehicle_list.append(pj.Vehicle(veh.file_name, self.tab_game_variable.get()))
 
         single_veh_name = self.panel_single_vehicle_variable.get()
-        for veh in vehicle_list:
+        for veh in self.truck_list_1 + self.truck_list_2 + self.trailer_list_1 + self.trailer_list_2 + self.mod_list_1 + self.mod_list_2:
             if veh.name == single_veh_name:
                 single_veh = veh
 
@@ -517,7 +527,64 @@ class PackerApp:
         cabin_handling = self.tab_cabins_variable.get()
         using_unifier = self.panel_internal_unifier_variable.get()
 
-        # os.makedirs(os.path.expanduser("~/Desktop/Paintjob Packer Output"))
+        if num_of_paintjobs == "single":
+            if single_veh.mod:
+                mod_list.append(single_veh)
+            elif single_veh.trailer:
+                trailer_list.append(single_veh)
+            else:
+                truck_list.append(single_veh)
+            vehicle_list.append(single_veh)
+
+        if not os.path.exists(os.path.expanduser("~/Desktop/Paintjob Packer Output")):
+            os.makedirs(os.path.expanduser("~/Desktop/Paintjob Packer Output"))
+
+        # work out how many operations need to take place
+        self.loading_value.set(0.0)
+
+        "manifest.sii"
+        pj.make_manifest_sii(mod_version, mod_name, mod_author)
+
+        "mod_manager_image.jpg"
+        pj.copy_mod_manager_image()
+
+        "mod_manager_desciption.txt"
+        pj.make_description(truck_list, trailer_list, mod_list)
+
+        pj.make_material_folder()
+
+        pj.copy_paintjob_icon(internal_name)
+
+        pj.make_paintjob_icon_tobj(internal_name)
+
+        pj.make_paintjob_icon_mat(internal_name)
+
+        for veh in vehicle_list:
+            "veh.name"
+            pj.make_def_folder(veh)
+            pj.make_settings_sui(veh, internal_name, ingame_name, ingame_price, unlock_level)
+            pj.make_vehicle_folder(veh, internal_name)
+            if cabin_handling == "combined" or veh.type == "trailer_owned" or not veh.separate_paintjobs:
+                paintjob_name = internal_name
+                pj.make_def_sii(veh, paintjob_name, internal_name)
+                pj.copy_main_dds(veh, internal_name, paintjob_name, using_unifier)
+                pj.make_main_tobj(veh, internal_name, paintjob_name, using_unifier)
+                if veh.uses_accessories:
+                    pj.make_accessory_sii(veh, internal_name, paintjob_name)
+            else:
+                for cab_size in veh.cabins:
+                    paintjob_name = internal_name + "_" + cab_size
+                    pj.make_def_sii(veh, paintjob_name, internal_name, veh.cabins[cab_size], cab_size)
+                    pj.copy_main_dds(veh, internal_name, paintjob_name, using_unifier)
+                    pj.make_main_tobj(veh, internal_name, paintjob_name, using_unifier)
+                    if veh.uses_accessories:
+                        pj.make_accessory_sii(veh, internal_name, paintjob_name)
+            if veh.uses_accessories:
+                pj.copy_accessory_dds(veh, internal_name)
+                pj.make_accessory_tobj(veh, internal_name)
+
+        if using_unifier:
+            pj.make_unifier_ini(internal_name, vehicle_list)
 
         """
         self.loading_value.set(5.0)

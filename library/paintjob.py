@@ -86,7 +86,7 @@ def make_description(truck_list, trailer_list, mod_list):
         for veh in truck_list:
             file.write(veh.name+"\n")
         for veh in mod_list:
-            file.write("{}'s {}\n'".format(veh.mod_author, veh.name))
+            file.write("{}'s {}\n".format(veh.mod_author, veh.name))
         file.write("\n")
     if len(trailer_list) > 0:
         file.write("Trailers supported:\n")
@@ -135,13 +135,13 @@ def make_def_sii(veh, paintjob_name, internal_name, cab_name = None, cab_size = 
     file.write("accessory_paint_job_data: {}.{}.paint_job\n".format(paintjob_name, veh.path))
     file.write("{\n")
     file.write("@include \"{}_settings.sui\"\n".format(internal_name))
-    if internal_name != paintjob_name: # cabin handling: separate paintjobs
+    if veh.type == "trailer_owned":
+        file.write("    paint_job_mask: \"/vehicle/trailer_owned/upgrade/paintjob/{}/{}_{}/base_colour.tobj\"\n".format(internal_name, veh.make, veh.model))
+    elif internal_name != paintjob_name: # cabin handling: separate paintjobs
         file.write("    suitable_for[]: \"{}.{}.cabin\"\n".format(cab_name, veh.path))
         file.write("    paint_job_mask: \"/vehicle/truck/upgrade/paintjob/{}/{}_{}/cabin_{}.tobj\"\n".format(internal_name, veh.make, veh.model, cab_size))
     elif veh.type == "truck": # cabin handling: combined paintjobs
         file.write("    paint_job_mask: \"/vehicle/truck/upgrade/paintjob/{}/{}_{}/cabin.tobj\"\n".format(internal_name, veh.make, veh.model))
-    elif veh.type == "trailer_owned":
-        file.write("    paint_job_mask: \"/vehicle/trailer_owned/upgrade/paintjob/{}/{}_{}/base_colour.tobj\"\n".format(internal_name, veh.make, veh.model))
     file.close()
 
 def make_settings_sui(veh, internal_name, ingame_name, ingame_price, unlock_level):
@@ -165,7 +165,7 @@ def make_accessory_sii(veh, internal_name, paintjob_name):
         file.write("simple_paint_job_data: .ovr{}\n".format(ovr_counter))
         file.write("{\n")
         file.write("    paint_job_mask: \"/vehicle/{}/upgrade/paintjob/{}/{}_{}/{}.tobj\"\n".format(veh.type, internal_name, veh.make, veh.model, acc_name))
-        for acc in veh.acc_dict[acc]:
+        for acc in veh.acc_dict[acc_name]:
             file.write("    acc_list[]: \"{}\"\n".format(acc))
         ovr_counter += 1
     file.write("}\n")
@@ -179,7 +179,9 @@ def make_vehicle_folder(veh, internal_name):
     make_folder("vehicle/{}/upgrade/paintjob/{}/{}_{}".format(veh.type, internal_name, veh.make, veh.model))
 
 def copy_main_dds(veh, internal_name, paintjob_name, using_unifier):
-    if internal_name != paintjob_name:
+    if veh.type == "trailer_owned":
+        shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/trailer_owned/upgrade/paintjob/{}/{}_{}/base_colour.dds".format(internal_name, veh.make, veh.model))
+    elif internal_name != paintjob_name:
         if using_unifier:
             shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/truck/upgrade/paintjob/{}/{}_{}/cabin_a.dds".format(internal_name, veh.make, veh.model))
         else:
@@ -187,15 +189,17 @@ def copy_main_dds(veh, internal_name, paintjob_name, using_unifier):
                 shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/truck/upgrade/paintjob/{}/{}_{}/cabin_{}.dds".format(internal_name, veh.make, veh.model, cab_size))
     elif veh.type == "truck":
         shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/truck/upgrade/paintjob/{}/{}_{}/cabin.dds".format(internal_name, veh.make, veh.model))
-    elif veh.type == "trailer_owned":
-        shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/trailer_owned/upgrade/paintjob/{}/{}_{}/base_colour.dds".format(internal_name, veh.make, veh.model))
 
 def copy_accessory_dds(veh, internal_name):
     for acc_name in veh.acc_dict:
         shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{}_{}/{}.dds".format(veh.type, internal_name, veh.make, veh.model, acc_name))
 
 def make_main_tobj(veh, internal_name, paintjob_name, using_unifier):
-    if internal_name != paintjob_name:
+    if veh.type == "trailer_owned":
+        file = open(output_path + "/vehicle/trailer_owned/upgrade/paintjob/{}/{}_{}/base_colour.tobj".format(internal_name, veh.make, veh.model), "wb")
+        file.write(generate_tobj("/vehicle/trailer_owned/upgrade/paintjob/{}/{}_{}/base_colour.dds".format(internal_name, veh.make, veh.model)))
+        file.close()
+    elif internal_name != paintjob_name:
         for cab_size in veh.cabins:
             file = open(output_path + "/vehicle/truck/upgrade/paintjob/{}/{}_{}/cabin_{}.tobj".format(internal_name, veh.make, veh.model, cab_size), "wb")
             if using_unifier:
@@ -206,10 +210,6 @@ def make_main_tobj(veh, internal_name, paintjob_name, using_unifier):
     elif veh.type == "truck":
         file = open(output_path + "/vehicle/truck/upgrade/paintjob/{}/{}_{}/cabin.tobj".format(internal_name, veh.make, veh.model), "wb")
         file.write(generate_tobj("/vehicle/truck/upgrade/paintjob/{}/{}_{}/cabin.dds".format(internal_name, veh.make, veh.model)))
-        file.close()
-    elif veh.type == "trailer_owned":
-        file = open(output_path + "/vehicle/trailer/upgrade/paintjob/{}/{}_{}/base_colour.tobj".format(internal_name, veh.make, veh.model), "wb")
-        file.write(generate_tobj("/vehicle/trailer/upgrade/paintjob/{}/{}_{}/base_colour.dds".format(internal_name, veh.make, veh.model)))
         file.close()
 
 def make_accessory_tobj(veh, internal_name):
@@ -222,7 +222,12 @@ def make_accessory_tobj(veh, internal_name):
 
 # packer functions
 
-def make_unifier_ini(internal_name, vehicles_to_add):
+def make_unifier_ini(internal_name, vehicle_list):
+    vehicles_to_add = []
+    for veh in vehicle_list:
+        if veh.type == "truck" and veh.separate_paintjobs:
+            vehicles_to_add.append(veh)
+
     uni_ini = configparser.ConfigParser()
     uni_ini.add_section("paintjob")
     uni_ini["paintjob"]["internal name"] = internal_name
