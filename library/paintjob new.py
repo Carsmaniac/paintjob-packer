@@ -175,42 +175,48 @@ def make_accessory_sii(veh, internal_name, paintjob_name):
 
 # vehicle folder
 
-def make_vehicle_folder(veh, pj):
-    make_folder("vehicle/%s/upgrade/paintjob/%s/%s_%s" % (veh.type, pj.int_name, veh.make, veh.model))
+def make_vehicle_folder(veh, internal_name):
+    make_folder("vehicle/{}/upgrade/paintjob/{}/{}_{}" % (veh.type, internal_name, veh.make, veh.model))
 
-def copy_cabin_dds(pj, veh):
-    shutil.copyfile(EMPTY_DDS, "output/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_a.dds" % (pj.int_name, veh.make, veh.model))
+def copy_main_dds(veh, internal_name, paintjob_name, using_unifier):
+    if internal_name != paintjob_name:
+        if using_unifier:
+            shutil.copyfile("library/placeholder files/empty.dds", output_folder + "/vehicle/truck/upgrade/paintjob/{}/{}_{}/cabin_a.dds".format(internal_name, veh.make, veh.model))
+        else:
+            for cab_size in veh.cabins:
+                shutil.copyfile("library/placeholder files/empty.dds", output_folder + "/vehicle/truck/upgrade/paintjob/{}/{}_{}/cabin_{}.dds".format(internal_name, veh.make, veh.model, cab_size))
+    elif veh.type == "truck":
+        shutil.copyfile("library/placeholder files/empty.dds", output_folder + "/vehicle/truck/upgrade/paintjob/{}/{}_{}/cabin.dds".format(internal_name, veh.make, veh.model))
+    elif veh.type == "trailer_owned":
+        shutil.copyfile("library/placeholder files/empty.dds", output_folder + "/vehicle/trailer_owned/upgrade/paintjob/{}/{}_{}/base_colour.dds".format(internal_name, veh.make, veh.model))
 
-def copy_shared_colour_dds(veh, pj):
-    shutil.copyfile(EMPTY_DDS, "output/vehicle/%s/upgrade/paintjob/%s/shared_%s.dds" % (veh.type, pj.int_name, pj.colour))
-
-def copy_textured_accessory_dds(veh, pj):
-    for acc_name in veh.tex_acc_dict:
-        shutil.copyfile(EMPTY_DDS, "output/vehicle/%s/upgrade/paintjob/%s/%s_%s/%s.dds" % (veh.type, pj.int_name, veh.make, veh.model, acc_name))
-
-def make_cabin_tobj(pj, veh, cab_size):
-    file = open("output/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_%s.tobj" % (pj.int_name, veh.make, veh.model, cab_size), "wb")
-    file.write(generate_tobj("/vehicle/truck/upgrade/paintjob/%s/%s_%s/cabin_a.dds" % (pj.int_name, veh.make, veh.model)))
-    file.close()
-
-def make_only_tobj(pj, veh):
-    if not veh.trailer: # checking here makes other places neater, and *almost* makes this function's existence worth it
-        make_cabin_tobj(pj, veh, cab_size = "a")
-
-def make_acc_tobj(veh, pj):
+def copy_accessory_dds(veh, internal_name):
     for acc_name in veh.acc_dict:
-        file = open("output/vehicle/%s/upgrade/paintjob/%s/%s_%s/%s.tobj" % (veh.type, pj.int_name, veh.make, veh.model, acc_name), "wb")
-        file.write(generate_tobj("/vehicle/%s/upgrade/paintjob/%s/shared_%s.dds" % (veh.type, pj.int_name, pj.colour)))
+        shutil.copyfile("library/placeholder files/empty.dds", output_folder + "/vehicle/{}/upgrade/paintjob/{}/{}_{}/{}.dds".format(veh.type, internal_name, veh.make, veh.model, acc_name))
+
+def make_main_tobj(veh, internal_name, paintjob_name, using_unifier):
+    if internal_name != paintjob_name:
+        for cab_size in veh.cabins:
+            file = open(output_folder + "/vehicle/truck/upgrade/paintjob/{}/{}_{}/cabin_{}.tobj".format(internal_name, veh.make, veh.model, cab_size), "wb")
+            if using_unifier:
+                file.write(generate_tobj("/vehicle/truck/upgrade/paintjob/{}/{}_{}/cabin_a.dds".format(internal_name, veh.make, veh.model, cab_size)))
+            else:
+                file.write(generate_tobj("/vehicle/truck/upgrade/paintjob/{}/{}_{}/cabin_{}.dds".format(internal_name, veh.make, veh.model, cab_size)))
+            file.close()
+    elif veh.type == "truck":
+        file = open(output_folder + "/vehicle/truck/upgrade/paintjob/{}/{}_{}/cabin.tobj".format(internal_name, veh.make, veh.model), "wb")
+        file.write(generate_tobj("/vehicle/truck/upgrade/paintjob/{}/{}_{}/cabin.dds".format(internal_name, veh.make, veh.model)))
         file.close()
-    for acc_name in veh.tex_acc_dict:
-        file = open("output/vehicle/%s/upgrade/paintjob/%s/%s_%s/%s.tobj" % (veh.type, pj.int_name, veh.make, veh.model, acc_name), "wb")
-        file.write(generate_tobj("/vehicle/%s/upgrade/paintjob/%s/%s_%s/%s.dds" % (veh.type, pj.int_name, veh.make, veh.model, acc_name)))
+    elif veh.type == "trailer_owned":
+        file = open(output_folder + "/vehicle/trailer/upgrade/paintjob/{}/{}_{}/base_colour.tobj".format(internal_name, veh.make, veh.model), "wb")
+        file.write(generate_tobj("/vehicle/trailer/upgrade/paintjob/{}/{}_{}/base_colour.dds".format(internal_name, veh.make, veh.model)))
         file.close()
 
-def make_shared_colour_tobj(veh, pj):
-    file = open("output/vehicle/%s/upgrade/paintjob/%s/shared_%s.tobj" % (veh.type, pj.int_name, pj.colour), "wb")
-    file.write(generate_tobj("/vehicle/%s/upgrade/paintjob/%s/shared_%s.dds" % (veh.type, pj.int_name, pj.colour)))
-    file.close()
+def make_accessory_tobj(veh, internal_name):
+    for acc_name in veh.acc_dict:
+        file = open(output_folder + "/vehicle/{}/upgrade/paintjob/{}/{}_{}/{}.tobj".format(veh.type, internal_name, veh.make, veh.model, acc_name), "wb")
+        file.write(generate_tobj("/vehicle/{}/upgrade/paintjob/{}/{}_{}/{}.dds".format(veh.type, internal_name, veh.make, veh.model, acc_name)))
+        file.close()
 
 
 
