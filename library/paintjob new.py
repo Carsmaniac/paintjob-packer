@@ -222,163 +222,21 @@ def make_accessory_tobj(veh, internal_name):
 
 # packer functions
 
-def make_unifier_ini(pack, vehicles_to_add = None):
+def make_unifier_ini(internal_name, vehicles_to_add):
     uni_ini = configparser.ConfigParser()
-    uni_ini.add_section("paintjobs")
+    uni_ini.add_section("paintjob")
+    uni_ini["paintjob"]["internal name"] = internal_name
 
-    for pj in pack.paintjobs:
-        uni_ini["paintjobs"][pj.int_name] = ""
-        if pj.int_name not in list(uni_ini.keys()):
-            uni_ini.add_section(pj.int_name)
-        if vehicles_to_add == None:
-            uni_vehicles = pj.vehicles
-        else:
-            uni_vehicles = vehicles_to_add
+    for veh in vehicles_to_add:
+        veh_name = "{}_{}".format(veh.make, veh.model)
+        uni_ini.add_section(veh_name)
+        uni_ini[veh_name]["path"] = veh.path
+        uni_ini[veh_name]["accessories"] = str(veh.uses_accessories)
+        uni_ini[veh_name]["cabins"] = ",".join(veh.cabins)
+        for cabin in veh.cabins:
+            uni_ini[veh_name][cabin] = veh.cabins[cabin]
 
-        for veh in uni_vehicles:
-            if veh.separate_paintjobs:
-                veh_name = veh.make+"_"+veh.model
-                uni_ini[pj.int_name][veh_name] = ""
-                if veh_name not in list(uni_ini.keys()):
-                    uni_ini.add_section(veh_name)
-                    uni_ini[veh_name]["path"] = veh.path
-                    uni_ini[veh_name]["accessories"] = str(veh.uses_accessories)
-                    cabins_list = "" #TODO: easy way to join list?
-                    for cabin in list(veh.cabins.keys()):
-                        cabins_list += ","+cabin
-                        uni_ini[veh_name][cabin] = veh.cabins[cabin]
-                    uni_ini[veh_name]["cabins"] = cabins_list[1:]
-
-    with open("output/unifier.ini", "w") as config_file:
+    with open(output_folder + "/unifier.ini", "w") as config_file:
         uni_ini.write(config_file)
 
-    shutil.copyfile("library/placeholder files/unifier.py", "output/unifier.py")
-
-def make_vehicle_files(veh, pj, shared_colour = True):
-    print("Adding vehicle: "+veh.name)
-
-    make_def_folder(veh)
-    make_settings_sui(veh, pj)
-    make_vehicle_folder(veh, pj)
-
-    if shared_colour:
-        copy_shared_colour_dds(veh, pj)
-        make_shared_colour_tobj(veh, pj)
-
-    if veh.separate_paintjobs:
-        for cab in veh.cabins:
-            cab_size = cab
-            cab_name = veh.cabins[cab]
-            make_cabin_sii(veh, pj, cab_size, cab_name)
-            make_cabin_tobj(pj, veh, cab_size)
-            if veh.uses_accessories:
-                make_cabin_acc_sii(veh, pj, cab_size)
-    else:
-        make_only_sii(veh, pj)
-        make_only_tobj(pj, veh)
-        if veh.uses_accessories:
-            make_only_acc_sii(veh, pj)
-
-    if not veh.trailer:
-        copy_cabin_dds(pj, veh)
-
-    if veh.uses_accessories:
-        make_acc_tobj(veh, pj)
-        copy_textured_accessory_dds(veh, pj)
-
-def make_pack(pack):
-    clear_output_folder()
-
-    print("")
-    print("Making mod: "+pack.name)
-
-    make_manifest_sii(pack)
-    copy_mod_manager_image()
-    make_material_folder()
-
-    for pj in pack.paintjobs:
-        print("")
-        print("Making paintjob: "+pj.name)
-
-        copy_paintjob_icon(pj)
-        make_paintjob_icon_tobj(pj)
-        make_paintjob_icon_mat(pj)
-
-        for veh in pj.vehicles:
-            make_vehicle_files(veh, pj)
-
-    make_unifier_ini(pack)
-
-    print("")
-    print("Finished")
-
-def save_new_pack_to_database(pack):
-    print("Saving new pack to database")
-
-    if os.path.isfile("library/packs/%s/%s.ini" % (pack.game, pack.main_paintjob)):
-        print("Pack already exists...")
-        oops_input = input("Enter Y to overwrite, N to not overwrite, or anything else to abort: ")
-
-        if oops_input in ("Y", "y"):
-            print("Overwriting...")
-            shutil.copyfile("new pack.ini", "library/packs/%s/%s.ini" % (pack.game, pack.main_paintjob))
-            shutil.copyfile("library/placeholder files/new pack.ini", "new pack.ini")
-        elif oops_input in ("N", "n"):
-            print("Discarding...")
-            shutil.copyfile("library/placeholder files/new pack.ini", "new pack.ini")
-        else:
-            print("Aborting...")
-
-    else:
-        shutil.copyfile("new pack.ini", "library/packs/%s/%s.ini" % (pack.game, pack.main_paintjob))
-        shutil.copyfile("library/placeholder files/new pack.ini", "new pack.ini")
-
-def clear_existing_ini():
-    shutil.copyfile("library/placeholder files/existing pack.ini", "existing pack.ini")
-
-def save_existing_pack_to_database(pack):
-    pack_ini = configparser.ConfigParser()
-
-    pack_ini.add_section("pack info")
-    pack_ini["pack info"]["game"] = pack.game
-    pack_ini["pack info"]["name"] = pack.name
-    pack_ini["pack info"]["version"] = pack.version
-    paintjobs = "" #TODO: easy way to join list?
-    for pj in pack.list_of_paintjobs:
-        paintjobs += ","+pj
-    pack_ini["pack info"]["paintjobs"] = paintjobs[1:]
-    pack_ini["pack info"]["main paintjob"] = pack.main_paintjob
-    relateds = "" #TODO: easy way to join list?
-    for rel in pack.list_of_related_packs:
-        relateds += ","+rel
-    pack_ini["pack info"]["related packs"] = relateds[1:]
-    pack_ini["pack info"]["link"] = pack.link
-    pack_ini["pack info"]["description"] = pack.brief_desc
-    pack_ini["pack info"]["more info"] = pack.more_info
-
-    for pj in pack.paintjobs:
-        int_name = pj.int_name[3:]
-        pack_ini.add_section(int_name)
-        pack_ini[int_name]["name"] = pj.name
-        pack_ini[int_name]["price"] = pj.price
-        pack_ini[int_name]["main colour"] = pj.colour
-        for veh in pj.list_of_vehicles:
-            pack_ini[int_name][veh] = "" #TODO: make without delimiter?
-
-    for rel in pack.related_packs:
-        pack_ini.add_section(rel.int_name)
-        pack_ini[rel.int_name]["description"] = pj.description
-
-    with open("library/packs/%s/%s.ini" % (pack.game, pack.main_paintjob), "w") as config_file:
-        pack_ini.write(config_file)
-
-def make_pack_addon(pack, vehicles_to_add):
-    for veh in vehicles_to_add:
-        for pj in pack.paintjobs:
-            pj.list_of_vehicles.append(veh.make+" "+veh.model)
-            pj.vehicles.append(veh)
-
-            make_vehicle_files(veh, pj, shared_colour = False)
-
-    make_unifier_ini(pack, vehicles_to_add)
-    save_existing_pack_to_database(pack)
+    shutil.copyfile("library/placeholder files/unifier.py", output_folder + "/unifier.py")
