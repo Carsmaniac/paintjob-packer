@@ -1,6 +1,7 @@
 import tkinter as tk
-from tkinter import ttk, messagebox, filedialog
+from tkinter import ttk, messagebox
 import webbrowser, sys, configparser, os, math, re
+import library.paintjob as pj
 
 # ABANDON ALL HOPE, YE WHO ENTER HERE
 # I'm a designer, not a programmer, my code's a mess
@@ -38,6 +39,20 @@ class PackerApp:
 
         self.seen_unifier_warning = False # will show the warning only once per session
         self.total_vehicles = 0
+
+        # second window displayed when generating mod
+        self.loading_window = tk.Toplevel(master)
+        self.loading_window.title("Generating Mod")
+        self.loading_window.state("withdrawn")
+        self.loading_window.resizable(False, False)
+        self.loading_label = ttk.Label(self.loading_window, text = "Generating mod, please wait...")
+        self.loading_label.grid(row = 0, column = 0, pady = 20)
+        self.loading_value = tk.DoubleVar(None, 5.0)
+        self.loading_bar = ttk.Progressbar(self.loading_window, orient = "horizontal", length = 200, mode = "determinate", variable = self.loading_value)
+        self.loading_bar.grid(row = 1, column = 0, padx = 45)
+        self.loading_current = tk.StringVar(None, "DAF XF 105")
+        self.loading_current_label = ttk.Label(self.loading_window, textvariable = self.loading_current)
+        self.loading_current_label.grid(row = 2, column = 0, pady = 20)
 
         # setup screen and immediate contents
         self.setup_screen = ttk.Frame(self.container)
@@ -463,6 +478,14 @@ class PackerApp:
 
         if inputs_verified:
             print("Success")
+            self.make_paintjob()
+
+    def make_paintjob(self):
+        pass
+        # self.loading_value.set(5.0)
+        # self.loading_bar.config(maximum = 10.0)
+        # self.loading_current.set("DAF XF 105")
+        # self.loading_window.state("normal")
 
 class VehSelection:
 
