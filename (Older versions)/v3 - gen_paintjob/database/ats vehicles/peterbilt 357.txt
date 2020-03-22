@@ -1,6 +1,0 @@
-Peterbilt 357
-modauthor;guidot
-modlink;https://steamcommunity.com/sharedfiles/filedetails/?id=848269827
-trailer:false
-a:standard
-accessories:false

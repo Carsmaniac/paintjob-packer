@@ -1,6 +1,0 @@
-SCS Logger
-modauthor;
-modlink;
-trailer:true
-
-accessories:true

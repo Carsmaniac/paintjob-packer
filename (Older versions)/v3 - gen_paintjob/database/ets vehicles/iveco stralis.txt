@@ -1,6 +1,0 @@
-Iveco Stralis
-modauthor;
-modlink;
-trailer:false
-a:as_higher,b:at_higher,c:at
-accessories:false

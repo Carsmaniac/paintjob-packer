@@ -1,6 +1,0 @@
-Freightliner FLB
-modauthor;Harven
-modlink;https://steamcommunity.com/sharedfiles/filedetails/?id=867655192
-trailer:false
-a:lowcabw,b:lowcab
-accessories:false

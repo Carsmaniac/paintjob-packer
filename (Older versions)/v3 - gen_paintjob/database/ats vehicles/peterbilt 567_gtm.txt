@@ -1,6 +1,0 @@
-Peterbilt 567
-modauthor;GTM
-modlink;https://steamcommunity.com/sharedfiles/filedetails/?id=1410475763
-trailer:false
-a:exclusive,b:duty
-accessories:false

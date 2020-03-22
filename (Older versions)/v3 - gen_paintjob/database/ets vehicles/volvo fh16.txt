@@ -1,6 +1,0 @@
-Volvo FH16 2009
-modauthor;
-modlink;
-trailer:false
-a:l2h3,b:l2h2,c:l2h1
-accessories:false

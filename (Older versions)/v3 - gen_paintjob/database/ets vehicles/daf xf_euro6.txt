@@ -1,6 +1,0 @@
-DAF XF Euro 6
-modauthor;
-modlink;
-trailer:false
-a:superspace,b:spacespoiler,c:space
-accessories:false

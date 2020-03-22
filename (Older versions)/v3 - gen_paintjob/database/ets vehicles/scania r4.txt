@@ -1,6 +1,0 @@
-Scania R 4-series
-modauthor;RJL
-modlink;https://steamcommunity.com/sharedfiles/filedetails/?id=1233285693
-trailer:false
-a:longline,b:toplinexc,c:topline,d:normal
-accessories:false

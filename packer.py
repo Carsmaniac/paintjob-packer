@@ -10,7 +10,7 @@ version = "1.0"
 video_link = "https://google.com"
 forum_link = "https://google.com"
 github_link = "https://github.com/carsmaniac/paintjob-packer"
-mod_link_page_link = "https://github.com/Carsmaniac/paintjob-packer/blob/ui-overhaul/mod%20links.md"
+mod_link_page_link = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
 
 class PackerApp:
 

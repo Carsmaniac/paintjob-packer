@@ -1,6 +1,0 @@
-SCS Container Carrier
-modauthor;
-modlink;
-trailer:true
-
-accessories:true

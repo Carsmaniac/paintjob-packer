@@ -1,6 +1,0 @@
-Peterbilt 389
-modauthor;
-modlink;
-trailer:false
-a:exclusive,b:standard,c:duty
-accessories:false

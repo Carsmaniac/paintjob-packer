@@ -1,6 +1,0 @@
-Peterbilt 377
-modauthor;guidot
-modlink;https://steamcommunity.com/sharedfiles/filedetails/?id=1353572559
-trailer:false
-a:standard,b:duty,c:day
-accessories:false

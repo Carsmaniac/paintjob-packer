@@ -1,7 +1,0 @@
-SCS Container Carrier
-modauthor;
-modlink;
-trailer:true
-
-accessories:true
-sideskirts:chs_f_l.side01_sh,chs_f_l.sideskirt_02,chs_f_l.sideskirt_01,chs_f_l.sideskirt_1d,chs_f_l.sideskirt_2d,chs_f_l.sideskirt_03,chs_f_r.side01_sh,chs_f_r.side01_sh_t,chs_f_r.sideskirt_02,chs_f_r.sideskirt_01,chs_f_r.sideskirt_1d,chs_f_r.sideskirt_2d,chs_f_r.sideskirt_03,chs_m_l.sideskirt,chs_m_l.paint_box_m,chs_m_r.sideskirt,chs_m_r.paint_box_m,chs_r_l.paint_box,chs_r_r.paint_box

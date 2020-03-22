@@ -1,6 +1,0 @@
-Renault Magnum
-modauthor;
-modlink;
-trailer:false
-a:solo
-accessories:false

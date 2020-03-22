@@ -1,9 +1,0 @@
-Krone Box Liner
-modauthor;
-modlink;
-trailer:true
-
-accessories:true
-body_main:body.cont
-rear_bumper:r_bumper.bumper01p
-sideskirts:chs_f_l.side01p,chs_f_l.side01sp,chs_f_l.side01tp,chs_f_l.side01tsp,chs_f_r.side01p,chs_f_r.side01tp

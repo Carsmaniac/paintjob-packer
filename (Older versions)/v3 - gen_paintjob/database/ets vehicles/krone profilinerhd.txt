@@ -1,9 +1,0 @@
-Krone Profi Liner HD Flatbed
-modauthor;
-modlink;
-trailer:true
-
-accessories:true
-body_main:body.flatbed
-sideskirts:chs_f_l.pallet01p,chs_f_l.side01p,chs_f_l.side02p,chs_f_l.side02s2p,chs_f_l.side02sp,chs_f_l.side02tp,chs_f_l.side02ts2p,chs_f_l.side02tsp,chs_f_r.pallet01p,chs_f_r.side01p,chs_f_r.side02p,chs_f_r.side02s2p,chs_f_r.side02sp,chs_f_r.side02tp,chs_f_r.side02ts2p,chs_f_r.side02tsp,chs_r_l.pallet01p,chs_r_r.pallet01p
-rear_bumper:r_bumper.bumper01p

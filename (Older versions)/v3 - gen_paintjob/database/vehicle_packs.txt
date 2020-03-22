@@ -1,5 +1,0 @@
-ets standardpack:daf xf_euro6,man tgx_euro6,mercedes actros2014,scania r,scania r_2016,scania s_2016,scania streamline,volvo fh16_2012
-ets fullpack:daf xf,daf xf_euro6,iveco hiway,iveco stralis,man tgx,man tgx_euro6,mercedes actros,mercedes actros2014,renault magnum,renault premium,scania r,scania r_2016,scania s_2016,scania streamline,volvo fh16,volvo fh16_2012
-ets trailerpack:scs box,schwmuller curtain,schwmuller reefer,krone coolliner,krone dryliner,krone profiliner
-ats fullpack:peterbilt 389,peterbilt 579,kenworth w900,kenworth t680,volvo vnl
-ats trailerpack:scs box,scs chipvan

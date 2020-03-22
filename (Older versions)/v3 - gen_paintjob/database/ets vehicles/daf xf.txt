@@ -1,6 +1,0 @@
-DAF XF 105
-modauthor;
-modlink;
-trailer:false
-a:super_s_cab,b:s_cab_plus,c:space_cab
-accessories:false

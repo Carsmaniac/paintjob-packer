@@ -1,7 +1,0 @@
-body.curtain_28
-body.curtain_28bd
-body.curtain_32
-body.curtain_45
-body.curtain_48
-body.curtain_53
-f_body.wind_def
