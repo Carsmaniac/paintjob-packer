@@ -37,6 +37,7 @@ class PackerApp:
             self.cursor = "pointinghand"
 
         self.seen_unifier_warning = False # will show the warning only once per session
+        self.total_vehicles = 0
 
         # setup screen and immediate contents
         self.setup_screen = ttk.Frame(self.container)
@@ -152,7 +153,7 @@ class PackerApp:
         self.panel_ingame.grid(row = 1, column = 0, sticky = "ew")
         self.panel_internal = ttk.LabelFrame(self.main_screen, text = "Internal (Hidden) Paintjob Info")
         self.panel_internal.grid(row = 2, column = 0, sticky = "new")
-        self.panel_vehicles_pack = ttk.LabelFrame(self.main_screen, text = "Vehicles Supported")
+        self.panel_vehicles_pack = ttk.LabelFrame(self.main_screen, text = "Vehicles Supported (0)")
         self.panel_vehicles_single = ttk.LabelFrame(self.main_screen, text = "Vehicle Supported")
         self.panel_buttons = ttk.Frame(self.main_screen)
         self.panel_buttons.grid(row = 3, column = 0, columnspan = 2, sticky = "ew")
@@ -281,17 +282,7 @@ class PackerApp:
         self.main_screen.grid_forget()
         self.setup_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
 
-        for veh in self.truck_list_1:
-            veh.check.grid_forget()
-        for veh in self.truck_list_2:
-            veh.check.grid_forget()
-        for veh in self.trailer_list_1:
-            veh.check.grid_forget()
-        for veh in self.trailer_list_2:
-            veh.check.grid_forget()
-        for veh in self.mod_list_1:
-            veh.check.grid_forget()
-        for veh in self.mod_list_2:
+        for veh in self.truck_list_1 + self.truck_list_2 + self.trailer_list_1 + self.trailer_list_2 + self.mod_list_1 + self.mod_list_2:
             veh.check.grid_forget()
 
         self.panel_pack_link_page.grid_forget() # just in case it changes location
@@ -366,15 +357,15 @@ class PackerApp:
         mod_list = []
         for veh in complete_list:
             if veh.mod:
-                veh.check = ttk.Checkbutton(self.tab_mods, text = veh.name)
+                veh.check = ttk.Checkbutton(self.tab_mods, text = veh.name, command = lambda : self.update_total_vehicles_supported())
                 veh.check.state(["!alternate","!selected"])
                 mod_list.append(veh)
             elif veh.trailer:
-                veh.check = ttk.Checkbutton(self.tab_trailers, text = veh.name)
+                veh.check = ttk.Checkbutton(self.tab_trailers, text = veh.name, command = lambda : self.update_total_vehicles_supported())
                 veh.check.state(["!alternate","!selected"])
                 trailer_list.append(veh)
             else:
-                veh.check = ttk.Checkbutton(self.tab_trucks, text = veh.name)
+                veh.check = ttk.Checkbutton(self.tab_trucks, text = veh.name, command = lambda : self.update_total_vehicles_supported())
                 veh.check.state(["!alternate","!selected"])
                 truck_list.append(veh)
         return (truck_list, trailer_list, mod_list)
@@ -398,6 +389,12 @@ class PackerApp:
             self.panel_internal_unifier_link.grid(row = 3, column = 0, columnspan = 3, padx = 5, sticky = "w")
             self.panel_internal_unifier_warning.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
 
+    def update_total_vehicles_supported(self):
+        self.total_vehicles = 0
+        for veh in self.truck_list_1 + self.truck_list_2 + self.trailer_list_1 + self.trailer_list_2 + self.mod_list_1 + self.mod_list_2:
+            if "selected" in veh.check.state():
+                self.total_vehicles += 1
+        self.panel_vehicles_pack.configure(text = "Vehicles Supported ({})".format(self.total_vehicles))
 class VehSelection:
 
     def __init__(self, _game, _file_name):
