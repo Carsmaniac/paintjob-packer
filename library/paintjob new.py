@@ -1,10 +1,11 @@
 import os, shutil, binascii, codecs, configparser
 
+output_path = os.path.expanduser("~/Desktop/Paintjob Packer Output")
 
 class Vehicle:
     def __init__(self, file_name, game):
         veh_ini = configparser.ConfigParser(allow_no_value = True)
-        veh_ini.read("library/vehicles/%s/%s.ini" % (game, file_name))
+        veh_ini.read("library/vehicles/{}/{}.ini".format(game, file_name))
         self.make = veh_ini["vehicle info"]["make"]
         self.model = veh_ini["vehicle info"]["model"]
         self.path = veh_ini["vehicle info"]["vehicle path"]
@@ -32,16 +33,9 @@ class Vehicle:
 
 
 
-
-def clear_output_folder():
-    print("Clearing output folder")
-    if os.path.exists("output"):
-        shutil.rmtree("output")
-    os.makedirs("output")
-
 def make_folder(path):
-    if not os.path.exists("output/" + path):
-        os.makedirs("output/" + path)
+    if not os.path.exists(output_path + "/" + path):
+        os.makedirs(output_path + "/" + path)
 
 def convert_string_to_hex(string_input):
     if isinstance(string_input, int):
@@ -52,7 +46,7 @@ def convert_string_to_hex(string_input):
     string_output = string_output.decode()
     return string_output
 
-def generate_tobj(path):
+def generate_tobj(path): # TODO: icon tobj?
     tobj_string = "010AB170000000000000000000000000000000000100020002000303030002020001000000010000"
     tobj_string += convert_string_to_hex(len(path))
     tobj_string += "00000000000000"
@@ -64,15 +58,15 @@ def generate_tobj(path):
 
 # loose files
 
-def make_manifest_sii(pack):
-    file = open("output/manifest.sii", "w")
+def make_manifest_sii(mod_version, mod_name, mod_author):
+    file = open(output_path + "/manifest.sii", "w")
     file.write("SiiNunit\n")
     file.write("{\n")
     file.write("mod_package: .package_name\n")
     file.write("{\n")
-    file.write("    package_version:  \"%s\"\n" % pack.version)
-    file.write("    display_name:     \"%s\"\n" % pack.name)
-    file.write("    author:           \"Carsmaniac\"\n")
+    file.write("    package_version:  \"{}\"\n".format(mod_version))
+    file.write("    display_name:     \"{}\"\n".format(mod_name))
+    file.write("    author:           \"{}\"\n".format(mod_author))
     file.write("\n")
     file.write("    category[]:       \"paint_job\"\n")
     file.write("\n")
@@ -83,73 +77,21 @@ def make_manifest_sii(pack):
     file.close()
 
 def copy_mod_manager_image():
-    shutil.copyfile("library/placeholder files/mod_manager_image.jpg", "output/mod_manager_image.jpg")
+    shutil.copyfile("library/placeholder files/mod_manager_image.jpg", output_path + "/mod_manager_image.jpg")
 
-def make_description(pack, workshop):
-    other_game = {"ets":"ats","ats":"ets"}[pack.game]
-    if os.path.isfile("library/packs/%s/%s.ini" % (other_game,pack.main_paintjob)):
-        other_pack_exists = True
-        other_pack = Pack(pack.main_paintjob, other_game)
-    else:
-        other_pack_exists = False
-
-    list_scs_trucks = []
-    list_mod_trucks = []
-    list_trailers = []
-    for pj in pack.paintjobs:
-        for veh in pj.vehicles:
-            if veh.trailer:
-                if veh.name not in list_trailers:
-                    list_trailers.append(veh.name)
-            elif veh.mod:
-                if veh.name not in list_mod_trucks:
-                    list_mod_trucks.append([veh.mod_author, veh.name, veh.mod_link])
-            else:
-                if veh.name not in list_scs_trucks:
-                    list_scs_trucks.append(veh.name)
-    list_scs_trucks = sorted(list_scs_trucks)
-    list_mod_trucks = sorted(list_mod_trucks)
-    list_trailers = sorted(list_trailers)
-
-    if workshop:
-        file = open("output/Workshop description.txt", "w")
-    else:
-        file = open("output/mod_manager_description.txt", "w")
-    file.write(pack.brief_desc+"\n")
-    file.write("\n")
-    if other_pack_exists:
-        other_game_name = {"ets":"Euro Truck Simulator 2","ats":"American Truck Simulator"}[other_game]
-        if workshop:
-            file.write("%s pack available [url=%s]here[/url].\n" % (other_game_name, other_pack.link))
-        else:
-            file.write("%s pack also available on the Workshop.\n" % other_game_name)
+def make_description(truck_list, trailer_list, mod_list):
+    file = open(output_path + "/mod_manager_description.txt", "w")
+    if len(truck_list) + len(mod_list) > 0:
+        file.write("Trucks supported:\n")
+        for veh in truck_list:
+            file.write(veh.name+"\n")
+        for veh in mod_list:
+            file.write("{}'s {}\n'".format(veh.mod_author, veh.name))
         file.write("\n")
-    file.write("Trucks supported:\n")
-    for veh in list_scs_trucks:
-        file.write(veh+"\n")
-    for veh in list_mod_trucks:
-        if workshop:
-            file.write("%s's [url=%s]%s[/url]\n" % (veh[0], veh[2], veh[1]))
-        else:
-            file.write("%s's %s\n" % (veh[0], veh[1]))
-    file.write("\n")
-    if len(list_trailers) > 0:
+    if len(trailer_list) > 0:
         file.write("Trailers supported:\n")
-        for veh in list_trailers:
-            file.write(veh+"\n")
-        file.write("\n")
-    if pack.more_info != "":
-        file.write(pack.more_info+"\n")
-        file.write("\n")
-    if len(pack.related_packs) > 0 and workshop:
-        file.write("Related mods:\n")
-        for rel in pack.related_packs:
-            file.write("[url=%s]%s[/url] - %s\n" % (rel.link, rel.name, rel.description))
-        file.write("\n")
-    file.write("Enjoy! :)\n")
-    if not workshop:
-        file.write("\n")
-        file.write("Reminder: My mods are only officially available on Steam Workshop. Be sure to downlaod them there for support and updates!\n")
+        for veh in trailer_list:
+            file.write(veh.name+"\n")
     file.close()
 
 
