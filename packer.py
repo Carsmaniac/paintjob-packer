@@ -539,16 +539,21 @@ class PackerApp:
         if not os.path.exists(os.path.expanduser("~/Desktop/Paintjob Packer Output")):
             os.makedirs(os.path.expanduser("~/Desktop/Paintjob Packer Output"))
 
-        # work out how many operations need to take place
         self.loading_value.set(0.0)
+        total_things_to_load = len(vehicle_list) + 1
+        if using_unifier:
+            total_things_to_load += 1
+        self.loading_bar.config(maximum = float(total_things_to_load))
+        self.loading_window.state("normal")
+        self.loading_window.lift()
 
-        "manifest.sii"
+        self.loading_value.set(self.loading_value.get()+1.0)
+        self.loading_current.set("Loose files")
+
         pj.make_manifest_sii(mod_version, mod_name, mod_author)
 
-        "mod_manager_image.jpg"
         pj.copy_mod_manager_image()
 
-        "mod_manager_desciption.txt"
         pj.make_description(truck_list, trailer_list, mod_list)
 
         pj.make_material_folder()
@@ -560,7 +565,8 @@ class PackerApp:
         pj.make_paintjob_icon_mat(internal_name)
 
         for veh in vehicle_list:
-            "veh.name"
+            self.loading_value.set(self.loading_value.get()+1.0)
+            self.loading_current.set(veh.name)
             pj.make_def_folder(veh)
             pj.make_settings_sui(veh, internal_name, ingame_name, ingame_price, unlock_level)
             pj.make_vehicle_folder(veh, internal_name)
@@ -584,15 +590,12 @@ class PackerApp:
                 pj.make_accessory_tobj(veh, internal_name)
 
         if using_unifier:
+            self.loading_value.set(self.loading_value.get()+1.0)
+            self.loading_current.set("Cabin unifier")
             pj.make_unifier_ini(internal_name, vehicle_list)
 
-        """
-        self.loading_value.set(5.0)
-        self.loading_bar.config(maximum = 10.0)
-        self.loading_current.set("DAF XF 105")
-        self.loading_window.state("normal")
-        """
-
+        self.loading_current.set("Complete!")
+        self.loading_window.state("withdrawn")
 
 class VehSelection:
 
