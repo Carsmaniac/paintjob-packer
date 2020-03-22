@@ -1,43 +1,5 @@
 import os, shutil, binascii, codecs, configparser
 
-class Pack:
-    def __init__(self, file_name, _game = None):
-        pack_ini = configparser.ConfigParser(allow_no_value = True)
-        if file_name == "new":
-            pack_ini.read("new pack.ini")
-        else:
-            pack_ini.read("library/packs/%s/%s.ini" % (_game, file_name))
-        self.game = pack_ini["pack info"]["game"]
-        self.name = pack_ini["pack info"]["name"]
-        self.version = pack_ini["pack info"]["version"]
-        self.list_of_paintjobs = pack_ini["pack info"]["paintjobs"].split(",")
-        self.paintjobs = []
-        for pj in self.list_of_paintjobs:
-            self.paintjobs.append(Paintjob(pack_ini, pj, self.game))
-        self.main_paintjob = pack_ini["pack info"]["main paintjob"]
-        self.list_of_related_packs = pack_ini["pack info"]["related packs"].split(",")
-        self.related_packs = []
-        for rel in self.list_of_related_packs:
-            if rel != "": # don't bother if the pack has no related packs
-                self.related_packs.append(RelatedPack(pack_ini, rel))
-        self.link = pack_ini["pack info"]["link"]
-        self.brief_desc = pack_ini["pack info"]["description"]
-        self.more_info = pack_ini["pack info"]["more info"]
-
-class Paintjob:
-    def __init__(self, pack_ini, ini_sec, _game):
-        self.int_name = "cm_" + ini_sec
-        self.name = pack_ini[ini_sec]["name"]
-        self.price = pack_ini[ini_sec]["price"]
-        self.colour = pack_ini[ini_sec]["main colour"]
-        self.game = _game
-        self.list_of_vehicles = []
-        for veh in list(pack_ini[ini_sec].keys()):
-            if veh not in ("name", "price", "main colour"):
-                self.list_of_vehicles.append(veh)
-        self.vehicles = []
-        for veh in self.list_of_vehicles:
-            self.vehicles.append(Vehicle(veh, self.game))
 
 class Vehicle:
     def __init__(self, file_name, game):
@@ -68,15 +30,6 @@ class Vehicle:
             self.cabins = dict(veh_ini["cabins"].items())
             self.cabins.pop("separate paintjobs", None)
 
-class RelatedPack:
-    def __init__(self, pack_ini, ini_sec):
-        self.int_name = ini_sec
-        self.game = pack_ini["pack info"]["game"]
-        self.description = pack_ini[ini_sec]["description"]
-        rel_ini = configparser.ConfigParser(allow_no_value = True)
-        rel_ini.read("library/packs/%s/%s.ini" % (self.game, self.int_name))
-        self.name = rel_ini["pack info"]["name"]
-        self.link = rel_ini["pack info"]["link"]
 
 
 
