@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
-import webbrowser, sys, configparser, os, math
+import webbrowser, sys, configparser, os, math, re
 
 # ABANDON ALL HOPE, YE WHO ENTER HERE
 # I'm a designer, not a programmer, my code's a mess
@@ -171,7 +171,7 @@ class PackerApp:
         self.panel_mod_version_variable = tk.StringVar(None, "1.0")
         self.panel_mod_version_label = ttk.Label(self.panel_mod, text = "Version:")
         self.panel_mod_version_label.grid(row = 1, column = 0, padx = 5, sticky = "w")
-        self.panel_mod_version_input = ttk.Entry(self.panel_mod, width = 5, textvariable = self.panel_mod_version_variable)
+        self.panel_mod_version_input = ttk.Entry(self.panel_mod, width = 7, textvariable = self.panel_mod_version_variable)
         self.panel_mod_version_input.grid(row = 1, column = 1, padx = 5, sticky = "w")
         self.panel_mod_version_help = ttk.Button(self.panel_mod, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Mod Version", message = "The version of your mod, as it appears in the in-game mod manager\n\ne.g. 1.0"))
         self.panel_mod_version_help.grid(row = 1, column = 2, padx = (0, 5))
@@ -271,7 +271,7 @@ class PackerApp:
         self.panel_buttons_feedback = ttk.Label(self.panel_buttons, text = "Leave feedback or get support", foreground = "blue", cursor = self.cursor)
         self.panel_buttons_feedback.grid(row = 1, column = 1, pady = (5, 0), padx = 10, sticky = "e")
         self.panel_buttons_feedback.bind("<1>", lambda e: webbrowser.open_new(forum_link))
-        self.panel_buttons_generate = ttk.Button(self.panel_buttons, text = "Generate mod", command = lambda : messagebox.showinfo(title = "Hi", message = "Yes"))
+        self.panel_buttons_generate = ttk.Button(self.panel_buttons, text = "Generate mod", command = lambda : self.verify_all_inputs())
         self.panel_buttons_generate.grid(row = 1, column = 2, pady = (5, 0), sticky = "e")
 
     def switch_to_setup_screen(self):
@@ -395,6 +395,75 @@ class PackerApp:
             if "selected" in veh.check.state():
                 self.total_vehicles += 1
         self.panel_vehicles_pack.configure(text = "Vehicles Supported ({})".format(self.total_vehicles))
+
+    def verify_all_inputs(self):
+        inputs_verified = True
+
+        # mod info
+        if len(self.panel_mod_name_variable.get()) < 1:
+            inputs_verified = False
+            messagebox.showerror(title = "No mod name", message = "Please enter a mod name")
+        if "\"" in self.panel_mod_name_variable.get(): # using if instead of elif, users will see everything wrong with what they've entered
+            inputs_verified = False
+            messagebox.showerror(title = "Quotation marks in mod name", message = "Mod names cannot contain \"")
+        if len(self.panel_mod_version_variable.get()) < 1:
+            inputs_verified = False
+            messagebox.showerror(title = "No mod version", message = "Please enter a mod version")
+        if "\"" in self.panel_mod_version_variable.get():
+            inputs_verified = False
+            messagebox.showerror(title = "Quotation marks in mod version", message = "Mod versions cannot contain \"")
+        if len(self.panel_mod_author_variable.get()) < 1:
+            inputs_verified = False
+            messagebox.showerror(title = "No mod author", message = "Please enter a mod author")
+        if "\"" in self.panel_mod_author_variable.get():
+            inputs_verified = False
+            messagebox.showerror(title = "Quotation marks in mod author", message = "Mod authors cannot contain \"")
+
+        # in-game paintjob info
+        if len(self.panel_ingame_name_variable.get()) < 1:
+            inputs_verified = False
+            messagebox.showerror(title = "No paintjob name", message = "Please enter a paintjob name")
+        if "\"" in self.panel_ingame_name_variable.get():
+            inputs_verified = False
+            messagebox.showerror(title = "Quotation marks in paintjob name", message = "Paintjob names cannot contain \"")
+        if len(self.panel_ingame_price_variable.get()) < 1:
+            inputs_verified = False
+            messagebox.showerror(title = "No paintjob price", message = "Please enter a paintjob price")
+        if not re.match("^[0-9]*$", self.panel_ingame_price_variable.get()):
+            inputs_verified = False
+            messagebox.showerror(title = "Invalid paintjob price", message = "Paintjob price must be a number, with no decimal points, currency signs, spaces or letters")
+        if not self.panel_ingame_default_variable.get():
+            if len(self.panel_ingame_unlock_variable.get()) < 1:
+                inputs_verified = False
+                messagebox.showerror(title = "No unlock level", message = "Please enter an unlock level")
+            if not re.match("^[0-9]*$", self.panel_ingame_unlock_variable.get()):
+                inputs_verified = False
+                messagebox.showerror(title = "Invalid unlock level", message = "Unlock level must be a number, with no other characters or spaces")
+
+        # internal paintjob info
+        if len(self.panel_internal_name_variable.get()) < 1:
+            inputs_verified = False
+            messagebox.showerror(title = "No internal name", message = "Please enter an internal name")
+        if len(self.panel_internal_name_variable.get()) > self.internal_name_length:
+            inputs_verified = False
+            messagebox.showerror(title = "Internal name too long", message = "Internal name too long, it must be {} characters or fewer".format(self.internal_name_length))
+        if not re.match("^[0-9a-z\_]*$", self.panel_internal_name_variable.get()):
+            inputs_verified = False
+            messagebox.showerror(title = "Invalid internal name", message = "Internal name must only contain lowercase letters, numbers and underscores") # I think uppercase letters might work, but no paintjobs in the base game/DLCs use them, so best practice to avoid them
+
+        # vehicle selection
+        if self.tab_paintjob_variable.get() == "pack":
+            if self.total_vehicles < 1:
+                inputs_verified = False
+                messagebox.showerror(title = "No vehicles selected", message = "Please select at least one truck, trailer or truck mod")
+        elif self.tab_paintjob_variable.get() == "single":
+            if self.panel_single_vehicle_variable.get() == "":
+                inputs_verified = False
+                messagebox.showerror(title = "No vehicle selected", message = "Please select a vehicle to support")
+
+        if inputs_verified:
+            print("Success")
+
 class VehSelection:
 
     def __init__(self, _game, _file_name):
