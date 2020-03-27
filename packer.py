@@ -7,7 +7,6 @@ import library.paintjob as pj
 # I'm a designer, not a programmer, my code's a mess
 
 version = "1.0"
-video_link = "https://google.com"
 forum_link = "https://google.com"
 github_link = "https://github.com/carsmaniac/paintjob-packer"
 mod_link_page_link = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
@@ -80,9 +79,6 @@ class PackerApp:
         self.tab_welcome_link_github.bind("<1>", lambda e: webbrowser.open_new(github_link))
         self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "If this is your first time using Paintjob Packer, please read the guide on the GitHub page")
         self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (25, 0))
-        # self.tab_welcome_link_video = ttk.Label(self.tab_welcome, text = "Instructional video", foreground = "blue", cursor = self.cursor)
-        # self.tab_welcome_link_video.grid(row = 4, column = 0, columnspan = 2)
-        # self.tab_welcome_link_video.bind("<1>", lambda e: webbrowser.open_new(video_link))
         self.tab_welcome_button_prev = ttk.Label(self.tab_welcome, text = " ") # to keep everything centred
         self.tab_welcome_button_prev.grid(row = 5, column = 0, sticky = "sw")
         self.tab_welcome_button_next = ttk.Button(self.tab_welcome, text = "Next >", command = lambda : self.tab_selector.select(1))
@@ -246,10 +242,10 @@ class PackerApp:
 
         self.panel_internal_unifier_variable = tk.BooleanVar(None, False)
         self.panel_internal_unifier_checkbox = ttk.Checkbutton(self.panel_internal, text = "Use cabin unifier system (advanced users only)", variable = self.panel_internal_unifier_variable, command = lambda : self.show_unifier_warning())
-        self.panel_internal_unifier_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Cabin Unifer", message = "Changes all separate cabin paintjobs to point to a single .dds, and adds a separate program that unifies them all into one paintjob\n\nIf some of your textures end up working for multiple cabins (e.g. one for Cabin A, one for Cabin B and Cabin C), this unifies them to a single paintjob to make in-game paintjob switching smoother, and cut down on mod download size\n\nSee instructional video for a more thorough explanation\n\nRequires a hex editor and Python 3 to use"))
-        self.panel_internal_unifier_warning = ttk.Label(self.panel_internal, text = "Please watch the following video before using the unifier:")
-        self.panel_internal_unifier_link = ttk.Label(self.panel_internal, text = "Instructional video", foreground = "blue", cursor = self.cursor)
-        self.panel_internal_unifier_link.bind("<1>", lambda e: webbrowser.open_new(video_link))
+        self.panel_internal_unifier_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Cabin Unifer", message = "Changes all separate cabin paintjobs to point to a single .dds, and adds a separate program that unifies them all into one paintjob\n\nIf some of your textures end up working for multiple cabins (e.g. one for Cabin A, one for Cabin B and Cabin C), this unifies them to a single paintjob to make in-game paintjob switching smoother, and cut down on mod download size\n\nSee guide on the GitHub page for a more thorough explanation\n\nRequires a hex editor and Python 3 to use"))
+        # self.panel_internal_unifier_warning = ttk.Label(self.panel_internal, text = "Please watch the following video before using the unifier:")
+        self.panel_internal_unifier_link = ttk.Label(self.panel_internal, text = "Please read the guide here before using the unifier", foreground = "blue", cursor = self.cursor)
+        self.panel_internal_unifier_link.bind("<1>", lambda e: webbrowser.open_new(github_link))
         self.panel_internal_spacer_label = ttk.Label(self.panel_internal, image = self.image_spacer_100)
         self.panel_internal_spacer_label.grid(row = 4, column = 0)
         self.panel_internal_spacer_input = ttk.Label(self.panel_internal, image = self.image_spacer_200)
@@ -304,7 +300,7 @@ class PackerApp:
 
         self.panel_internal_unifier_checkbox.grid_forget()
         self.panel_internal_unifier_help.grid_forget()
-        self.panel_internal_unifier_warning.grid_forget()
+        # self.panel_internal_unifier_warning.grid_forget()
         self.panel_internal_unifier_link.grid_forget()
 
     def switch_to_main_screen(self):
@@ -327,7 +323,7 @@ class PackerApp:
             self.panel_internal_unifier_checkbox.grid(row = 1, column = 0, columnspan = 2, padx = 5, sticky = "w")
             self.panel_internal_unifier_help.grid(row = 1, column = 2, padx = (0, 5))
             if self.seen_unifier_warning: # these are gridded by show_unifier_warning the first time, then here for all subsequent times (if user goes back to setup, then to main again)
-                self.panel_internal_unifier_warning.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
+                # self.panel_internal_unifier_warning.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
                 self.panel_internal_unifier_link.grid(row = 3, column = 0, columnspan = 3, padx = 5, sticky = "w")
         elif self.tab_cabins_variable.get() == "combined":
             self.internal_name_length = 12
@@ -400,10 +396,10 @@ class PackerApp:
 
     def show_unifier_warning(self):
         if not self.seen_unifier_warning:
-            messagebox.showwarning(title = "Cabin Unifier", message = "The cabin unifier is for advanced users only, please watch the instructional video before use\n\nA hex editing program and Python 3 are required to use the unifier system")
+            # messagebox.showwarning(title = "Cabin Unifier", message = "The cabin unifier is for advanced users only, please watch the instructional video before use\n\nA hex editing program and Python 3 are required to use the unifier system")
             self.seen_unifier_warning = True
             self.panel_internal_unifier_link.grid(row = 3, column = 0, columnspan = 3, padx = 5, sticky = "w")
-            self.panel_internal_unifier_warning.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
+            # self.panel_internal_unifier_warning.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
 
     def update_total_vehicles_supported(self):
         self.total_vehicles = 0
@@ -602,7 +598,7 @@ class PackerApp:
         file.write("Thanks for using Paintjob Packer!\n")
         file.write("This text file contains a list of all of the placeholder files you'll need to replace.\n")
         file.write("\n")
-        file.write("For more info, see the instructional video: {}\n".format(self.video_link))
+        file.write("For more info, see the guide on the GitHub page: {}\n".format(github_link))
         file.write("\n")
         file.write("\n")
         file.write("\n")
@@ -650,7 +646,8 @@ class PackerApp:
             file.write("Since you're using the cabin unifier, you will need to change cabin .tobj files\n")
             file.write("to add additional textures. If your cabin_a.dds doesn't work on Cabin B of a truck,\n")
             file.write("for example, you'll need to create a second .dds file called cabin_b.dds, then edit\n")
-            file.write("cabin_b.tobj to point to it. See the instructional video for a visual example.\n")
+            file.write("cabin_b.tobj to point to it. You can link multiple .tobjs to the same .dds, e.g. you\n")
+            file.write("could also point cabin_c.tobj to cabin_b.dds")
         else:
             file.write("Note: you don't have to change any .tobj files, any .mat files, or anything in the def folder\n")
             file.write("\n")
