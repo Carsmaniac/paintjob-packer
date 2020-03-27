@@ -44,7 +44,7 @@ for veh in vehicles:
             input("Unifier cannot continue, press enter to quit")
             sys.exit()
         else:
-            dds_cab_size = str(file.read())[-6:-5] # gets just the letter of the DDS referred to, e.g. "b" from cabin_b.dds
+            dds_cab_size = str(tobj_file.read())[-6:-5] # gets just the letter of the DDS referred to, e.g. "b" from cabin_b.dds
             tobj_file.close()
             if dds_cab_size not in veh["cabin_dict"]:
                 print("WARNING - Incorrectly named file: vehicle/truck/upgrade/paintjobs/{}/{}/cabin_{}.dds".format(internal_name, veh["make_model"], dds_cab_size))

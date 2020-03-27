@@ -3,13 +3,17 @@ from tkinter import ttk, messagebox
 import webbrowser, sys, configparser, os, math, re
 import library.paintjob as pj
 
-# ABANDON ALL HOPE, YE WHO ENTER HERE
-# I'm a designer, not a programmer, my code's a mess
-
 version = "1.0"
 forum_link = "https://google.com"
 github_link = "https://github.com/carsmaniac/paintjob-packer"
 mod_link_page_link = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
+
+# set the path depending on how Paintjob Packer is bundled
+try:
+    base_path = sys._MEIPASS # packaged into executable
+except AttributeError:
+    base_path = os.path.abspath(".") # loose .py
+os.chdir(base_path)
 
 class PackerApp:
 
@@ -36,10 +40,10 @@ class PackerApp:
         elif sys.platform.startswith("darwin"): # macOS
             self.cursor = "pointinghand"
 
-        self.seen_unifier_warning = False # will show the warning only once per session
-        self.total_vehicles = 0
+        self.seen_unifier_warning = False # controls whether the link to the guide is displayed
+        self.total_vehicles = 0 # used in the vehicle selector when making a paintjob pack
 
-        # second window displayed when generating mod
+        # second window displayed when generating mod, mostly useless as it generates so quickly
         self.loading_window = tk.Toplevel(master)
         self.loading_window.title("Generating Mod")
         self.loading_window.state("withdrawn")
@@ -242,7 +246,7 @@ class PackerApp:
 
         self.panel_internal_unifier_variable = tk.BooleanVar(None, False)
         self.panel_internal_unifier_checkbox = ttk.Checkbutton(self.panel_internal, text = "Use cabin unifier system (advanced users only)", variable = self.panel_internal_unifier_variable, command = lambda : self.show_unifier_warning())
-        self.panel_internal_unifier_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Cabin Unifer", message = "Changes all separate cabin paintjobs to point to a single .dds, and adds a separate program that unifies them all into one paintjob\n\nIf some of your textures end up working for multiple cabins (e.g. one for Cabin A, one for Cabin B and Cabin C), this unifies them to a single paintjob to make in-game paintjob switching smoother, and cut down on mod download size\n\nSee guide on the GitHub page for a more thorough explanation\n\nRequires a hex editor and Python 3 to use"))
+        self.panel_internal_unifier_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Cabin Unifer", message = "Changes all separate cabin paintjobs to point to a single .dds, and adds a separate program that unifies them all into one paintjob\n\nIf some of your textures end up working for multiple cabins (e.g. one for Cabin A, one for Cabin B and Cabin C), this unifies them to a single paintjob to make in-game paintjob switching smoother, and cut down on mod download size\n\nSee guide on the GitHub page for a more thorough explanation\n\nRequires a hex editor to use"))
         # self.panel_internal_unifier_warning = ttk.Label(self.panel_internal, text = "Please watch the following video before using the unifier:")
         self.panel_internal_unifier_link = ttk.Label(self.panel_internal, text = "Please read the guide here before using the unifier", foreground = "blue", cursor = self.cursor)
         self.panel_internal_unifier_link.bind("<1>", lambda e: webbrowser.open_new(github_link))
@@ -312,11 +316,11 @@ class PackerApp:
             self.panel_vehicles_pack.grid(row = 0, column = 1, rowspan = 3, sticky = "ns", padx = (5, 0))
         self.load_main_screen_variables()
 
-    def load_main_screen_variables(self):
+    def load_main_screen_variables(self): # also grids and ungrids stuff depending on said variables
         if self.tab_game_variable.get() == "ats":
             self.currency = "dollars"
         elif self.tab_game_variable.get() == "ets":
-            self.currency = "euro" # in English, accoring to the EU, the plural of euro is "euro", not "euros"
+            self.currency = "euro"
 
         if self.tab_cabins_variable.get() == "separate":
             self.internal_name_length = 10
@@ -396,7 +400,7 @@ class PackerApp:
 
     def show_unifier_warning(self):
         if not self.seen_unifier_warning:
-            # messagebox.showwarning(title = "Cabin Unifier", message = "The cabin unifier is for advanced users only, please watch the instructional video before use\n\nA hex editing program and Python 3 are required to use the unifier system")
+            # messagebox.showwarning(title = "Cabin Unifier", message = "The cabin unifier is for advanced users only, please watch the instructional video before use\n\nA hex editing program is required to use the unifier system")
             self.seen_unifier_warning = True
             self.panel_internal_unifier_link.grid(row = 3, column = 0, columnspan = 3, padx = 5, sticky = "w")
             # self.panel_internal_unifier_warning.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
