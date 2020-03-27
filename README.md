@@ -15,8 +15,8 @@ Paintjob Packer doesn't make a completed mod when you click the *Generate mod* b
 
 ### Required programs
 
-* **Image manipulator** that can save as DDS. I use Photoshop with the [DDS plugin](http://fnordware.blogspot.com/2014/09/dds-plug-in-for-after-effects-and.html), but you can also use [GIMP](https://www.gimp.org/downloads/) (free) with its [DDS plugin](https://code.google.com/archive/p/gimp-dds/downloads)
-* If you're using the cabin unifier, a **hex editor**. I use [HxD](https://mh-nexus.de/en/hxd/) on Windows and Hex Fiend on [macOS](https://ridiculousfish.com/hexfiend/)
+* An **image manipulator** that can save as DDS. I use Photoshop with the [DDS plugin](http://fnordware.blogspot.com/2014/09/dds-plug-in-for-after-effects-and.html), but you can also use [GIMP](https://www.gimp.org/downloads/) (free) with its [DDS plugin](https://code.google.com/archive/p/gimp-dds/downloads)
+* If you're using the cabin unifier, a **hex editor**. I use [HxD](https://mh-nexus.de/en/hxd/) on Windows and [Hex Fiend](https://ridiculousfish.com/hexfiend/) on macOS
 
 1. Generate base files using Paintjob Packer
     * Paintjob Packer is made for paintjob packs, but you can also make a single paintjob
@@ -43,22 +43,22 @@ Paintjob Packer doesn't make a completed mod when you click the *Generate mod* b
     * For consistency's sake, Cabin A is always the biggest cabin size, then Cabin B is smaller, then Cabin C is the smallest. If the 8x4 chassis uses a separate cabin, it's called Cabin 8
     * Some trucks have fewer than 3 cabins, and some mods have more than 3
     * You'll need to replace every cabin DDS there
-    
+
 5. Make accessory files
     * Only necessary for trailers and some trucks
     * Not all accessories need templates, if you just want to change the colour of a part simply re-colour the placeholder file that's already there
-    
+
 ### If using the cabin unifier system
 
 6. Make additional DDS files if needed
     * Each truck will only generate with `cabin_a.dds` by default, if you need additional sizes you'll need to make additional DDS files
     * You only need to make additional files if your design doesn't work on a certain-sized cabin, most paintjobs will work fine with just the one DDS
     * Make sure additional DDS file names match an existing TOBJ, e.g. `cabin_b.dds` is okay, but `cabin_small.dds` is not
-    
+
 7. Edit existing TOBJ files to point to your new DDS
     * Open the TOBJ using a hex editor and edit only a single letter near the end, e.g. turning `cabin_a` into `cabin_b`
     * Multiple TOBJ files can point to the same DDS, so you could have one DDS for cabins A & 8, and a second for cabins B & C, for example
-    
+
 8. Run the cabin unifier
     * If any files are missing or named incorrectly, the unifier will let you know
     * Don't edit `unifier.ini`, it might cause the unifier to work incorrectly
