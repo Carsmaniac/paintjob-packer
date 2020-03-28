@@ -48,3 +48,4 @@
 
 * I've prioritised Steam Workshop links over SCS Forums links for mods that have both
 * For mods with multiple contributing authors (most of them), I've listed the author as the Workshop uploader, or forum thread creator
+* I believe modding should remain a free and open medium, as such Paintjob Packer does not support any paid mods by default

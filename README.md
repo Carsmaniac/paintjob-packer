@@ -1,13 +1,13 @@
 # Paintjob Packer
-Paintjob Packer is a lightweight mod making tool for Euro Truck Simulator 2 and American Truck Simulator. It allows you to generate simple (airbrush) paintjob mods, with a focus on mods that support multiple vehicles.
+Paintjob Packer is a lightweight mod making tool for Euro Truck Simulator 2 and American Truck Simulator. It allows you to generate simple paintjob mods, with a focus on mods that support multiple vehicles.
 
 ## Functions
 
 * Support for player-owned trailers, including those from DLCs
 * Support for trucks using the newer accessory-based paintjob system, like the Scania S and MAN TGX Euro 6
+* Support for as many vehicles as you like in a single mod
 * Built-in support for 40 modded trucks, full list [here](https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md)
 * Support for separate paintjobs for each cabin of a truck, in case a single texture doesn't work for all of them
-* Very lightweight - starts quickly, can generate a 50-paintjob mod in under a second
 
 ## Making a mod
 
@@ -63,4 +63,4 @@ Paintjob Packer doesn't make a completed mod when you click the *Generate mod* b
     * If any files are missing or named incorrectly, the unifier will let you know
     * Don't edit `unifier.ini`, it might cause the unifier to work incorrectly
     * The unifier looks at your TOBJ files to see which cabins you need and which you don't, then edits some files in the def folder
-    * You can only unify once, so delete `unifier.exe`/`unifier.app` and `unifier.ini` afterwards
+    * You can only unify once, so delete `Cabin Unifier.exe` (or `unifier.py`) and `unifier.ini` afterwards

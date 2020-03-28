@@ -253,7 +253,7 @@ class PackerApp:
 
         self.panel_internal_unifier_variable = tk.BooleanVar(None, False)
         self.panel_internal_unifier_checkbox = ttk.Checkbutton(self.panel_internal, text = "Use cabin unifier system (advanced users only)", variable = self.panel_internal_unifier_variable, command = lambda : self.show_unifier_warning())
-        self.panel_internal_unifier_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Cabin Unifer", message = "Changes all separate cabin paintjobs to point to a single .dds, and adds a separate program that unifies them all into one paintjob\n\nIf some of your textures end up working for multiple cabins (e.g. one for Cabin A, one for Cabin B and Cabin C), this unifies them to a single paintjob to make in-game paintjob switching smoother, and cut down on mod download size\n\nSee guide on the GitHub page for a more thorough explanation\n\nRequires a hex editor to use"))
+        self.panel_internal_unifier_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Cabin Unifer", message = "Changes all separate cabin paintjobs to point to a single .dds, and adds a separate program that unifies them all into one paintjob\n\nIf some of your textures end up working for multiple cabins (e.g. one for Cabin A, one for Cabin B and Cabin C), this unifies them to a single paintjob to make in-game paintjob switching smoother, and cut down on mod download size\n\nSee the guide on the GitHub page for a more thorough explanation\n\nRequires a hex editor to use"))
         # self.panel_internal_unifier_warning = ttk.Label(self.panel_internal, text = "Please watch the following video before using the unifier:")
         self.panel_internal_unifier_link = ttk.Label(self.panel_internal, text = "Please read the guide here before using the unifier", foreground = "blue", cursor = self.cursor)
         self.panel_internal_unifier_link.bind("<1>", lambda e: webbrowser.open_new(github_link))
@@ -697,7 +697,9 @@ class PackerApp:
             file.write("to add additional textures. If your cabin_a.dds doesn't work on Cabin B of a truck,\n")
             file.write("for example, you'll need to create a second .dds file called cabin_b.dds, then edit\n")
             file.write("cabin_b.tobj to point to it. You can link multiple .tobjs to the same .dds, e.g. you\n")
-            file.write("could also point cabin_c.tobj to cabin_b.dds\n")
+            file.write("could also point cabin_c.tobj to cabin_b.dds. After you've added all the extra files\n")
+            file.write("you need, run the Cabin Unifier. If it completes successfully you can delete it and\n")
+            file.write("unifier.ini, if not it will tell you what went wrong.\n")
         else:
             file.write("Note: you don't have to change any .tobj files, any .mat files, or anything in the def folder\n")
 
