@@ -248,7 +248,7 @@ class PackerApp:
         self.panel_internal_name_label.grid(row = 0, column = 0, padx = 5, sticky = "w")
         self.panel_internal_name_input = ttk.Entry(self.panel_internal, width = 15, textvariable = self.panel_internal_name_variable)
         self.panel_internal_name_input.grid(row = 0, column = 1, padx = 5, sticky = "w")
-        self.panel_internal_name_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Internal Name", message = "A unique name used by the game to identify your paintjob. Mod users will NOT see this name.\n\nMust be {} characters or fewer, and only contain letters, numbers and underscores.\n\nMust also be unique, if two different mods use the same internal name they will be incompatible with each other.\n\ne.g. transit_pj".format(self.internal_name_length)))
+        self.panel_internal_name_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Internal Name", message = "A unique name used by the game to identify your paintjob. Mod users will NOT see this name.\n\nMust be {} characters or fewer, and only contain letters, numbers and underscores.\n\nMust also be unique, if two different mods use the same internal name they will be incompatible with each other.\n\ne.g. transit_co".format(self.internal_name_length)))
         self.panel_internal_name_help.grid(row = 0, column = 2, padx = (0, 5))
 
         self.panel_internal_unifier_variable = tk.BooleanVar(None, False)
@@ -489,7 +489,7 @@ class PackerApp:
             if len(os.listdir(output_path+"/Paintjob Packer Output")) > 0:
                 inputs_verified = False # I don't want to be on the receiving end of an irate user who lost their important report the night before it was due, because they happened to store it in the paintjob packer folder
                 if using_executable:
-                    messagebox.showerror(title = "Output folder not clear", message = "Output folder contains items, please delete everything within the folder, or delete the folder itself\n\nThe output folder is \"Paintjob Packer Output\", next to the program")
+                    messagebox.showerror(title = "Output folder not clear", message = "Output folder contains items, please delete everything within the folder, or delete the folder itself\n\nThe output folder is \"Paintjob Packer Output\", next to the Paintjob Packer executable")
                 else:
                     messagebox.showerror(title = "Output folder not clear", message = "Output folder contains items, please delete everything within the folder, or delete the folder itself\n\nThe output folder is \"Paintjob Packer Output\", on your desktop")
 
@@ -620,6 +620,13 @@ class PackerApp:
 
         self.loading_current.set("Complete!")
         self.loading_window.state("withdrawn")
+
+        if using_executable:
+            output_loc = "in the same folder as the Paintjob Packer executable"
+        else:
+            output_loc = "on your desktop"
+        exit_now = messagebox.showinfo(title = "Mod generation complete", message = "Your mod has been generated successfully, it's been placed {}.\n\nNext to the output folder is a readme with a list of all of the files you'll need to replace.\n\nNote that your mod is not complete yet, see the guide on the GitHub page for instructions on how to complete it.\n\nThanks for using Paintjob Packer! The program will now quit.".format(output_loc))
+        sys.exit()
 
     def make_readme_file(self, internal_name, using_unifier, game):
         file = open(output_path+"/Read Me! - Paintjob Packer.txt", "w")

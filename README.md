@@ -7,7 +7,7 @@ Paintjob Packer is a lightweight mod making tool for Euro Truck Simulator 2 and 
 * Support for trucks using the newer accessory-based paintjob system, like the Scania S and MAN TGX Euro 6
 * Built-in support for 40 modded trucks, full list [here](https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md)
 * Support for separate paintjobs for each cabin of a truck, in case a single texture doesn't work for all of them
-* Very lightweight - starts instantly, can generate a 50-paintjob mod in under a second
+* Very lightweight - starts quickly, can generate a 50-paintjob mod in under a second
 
 ## Making a mod
 
