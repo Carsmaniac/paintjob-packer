@@ -45,6 +45,7 @@ Paintjob Packer doesn't make a completed mod when you click the *Generate mod* b
     * You'll need to replace every cabin DDS there
 
 5. Make accessory files
+    * Every DDS not replaced in the last step
     * Only necessary for trailers and some trucks
     * Not all accessories need templates, if you just want to change the colour of a part simply re-colour the placeholder file that's already there
 
