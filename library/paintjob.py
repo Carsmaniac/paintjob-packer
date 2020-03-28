@@ -220,7 +220,7 @@ def make_accessory_tobj(output_path, veh, internal_name):
 
 # packer functions
 
-def make_unifier_ini(output_path, internal_name, vehicle_list):
+def make_unifier_ini(output_path, internal_name, vehicle_list, unifier_name):
     vehicles_to_add = []
     for veh in vehicle_list:
         if veh.type == "truck" and veh.separate_paintjobs:
@@ -242,4 +242,4 @@ def make_unifier_ini(output_path, internal_name, vehicle_list):
     with open(output_path + "/unifier.ini", "w") as config_file:
         uni_ini.write(config_file)
 
-    shutil.copyfile("library/placeholder files/unifier.py", output_path + "/unifier.py")
+    shutil.copyfile("library/placeholder files/" + unifier_name, output_path + "/" + unifier_name)

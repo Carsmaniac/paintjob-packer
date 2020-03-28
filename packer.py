@@ -614,7 +614,11 @@ class PackerApp:
         if using_unifier:
             self.loading_value.set(self.loading_value.get()+1.0)
             self.loading_current.set("Cabin unifier")
-            pj.make_unifier_ini(out_path, internal_name, vehicle_list)
+            if using_executable:
+                unifier_name = "Cabin Unifier.exe"
+            else:
+                unifier_name = "unifier.py"
+            pj.make_unifier_ini(out_path, internal_name, vehicle_list, unifier_name)
 
         self.make_readme_file(internal_name, using_unifier, game)
 
