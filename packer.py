@@ -11,9 +11,16 @@ mod_link_page_link = "https://github.com/Carsmaniac/paintjob-packer/blob/master/
 # set the path depending on how Paintjob Packer is bundled
 try:
     base_path = sys._MEIPASS # packaged into executable
+    using_executable = True
 except AttributeError:
     base_path = os.path.abspath(".") # loose .py
+    using_executable = False
 os.chdir(base_path)
+
+if using_executable:
+    output_path = ""
+else:
+    output_path = os.path.expanduser("~/Desktop")
 
 class PackerApp:
 
@@ -35,10 +42,10 @@ class PackerApp:
         # load appropriate cursor for OS, used when mousing over links
         if sys.platform.startswith("win"):
             self.cursor = "hand2"
-        elif sys.platform.startswith("linux"):
-            self.cursor = "hand2"
         elif sys.platform.startswith("darwin"): # macOS
             self.cursor = "pointinghand"
+        elif sys.platform.startswith("linux"):
+            self.cursor = "hand2"
 
         self.seen_unifier_warning = False # controls whether the link to the guide is displayed
         self.total_vehicles = 0 # used in the vehicle selector when making a paintjob pack
@@ -149,9 +156,9 @@ class PackerApp:
         self.tab_cabins_option_separate = ttk.Radiobutton(self.tab_cabins, text = "Separate paintjobs for each cabin", value = "separate", variable = self.tab_cabins_variable)
         self.tab_cabins_option_separate.grid(row = 2, column = 1, pady = 10)
         self.tab_cabins_image_separate.bind("<1>", lambda e: self.tab_cabins_variable.set("separate"))
-        self.tab_cabins_desc_combined = ttk.Label(self.tab_cabins, text = "Simpler to make, but may result in wonky\npaintjobs on differently-sized cabins", justify = "center")
+        self.tab_cabins_desc_combined = ttk.Label(self.tab_cabins, text = "Smaller mod size, but your design might not\nwork perfectly across all the cabin sizes", justify = "center")
         self.tab_cabins_desc_combined.grid(row = 3, column = 0, padx = 10, sticky = "n")
-        self.tab_cabins_desc_separate = ttk.Label(self.tab_cabins, text = "Lets you customise your paintjob for each\ncabin, but is more complex to make", justify = "center")
+        self.tab_cabins_desc_separate = ttk.Label(self.tab_cabins, text = "Lets you tweak your design for each cabin\nsize, but your mod will be bigger", justify = "center")
         self.tab_cabins_desc_separate.grid(row = 3, column = 1, padx = 10, sticky = "n")
         self.tab_cabins_button_prev = ttk.Button(self.tab_cabins, text = "< Prev", command = lambda : self.tab_selector.select(2))
         self.tab_cabins_button_prev.grid(row = 4, column = 0, padx = 10, pady = 10, sticky = "w")
@@ -414,76 +421,89 @@ class PackerApp:
 
     def verify_all_inputs(self):
         inputs_verified = True
+        all_errors = []
 
         # mod info
         if len(self.panel_mod_name_variable.get()) < 1:
             inputs_verified = False
-            messagebox.showerror(title = "No mod name", message = "Please enter a mod name")
-        if "\"" in self.panel_mod_name_variable.get(): # using if instead of elif, users will see everything wrong with what they've entered
+            all_errors.append(["No mod name", "Please enter a mod name"])
+        if "\"" in self.panel_mod_name_variable.get():
             inputs_verified = False
-            messagebox.showerror(title = "Quotation marks in mod name", message = "Mod names cannot contain \"")
+            all_errors.append(["Quotation marks in mod name", "Mod names cannot contain \""])
         if len(self.panel_mod_version_variable.get()) < 1:
             inputs_verified = False
-            messagebox.showerror(title = "No mod version", message = "Please enter a mod version")
+            all_errors.append(["No mod version", "Please enter a mod version"])
         if "\"" in self.panel_mod_version_variable.get():
             inputs_verified = False
-            messagebox.showerror(title = "Quotation marks in mod version", message = "Mod versions cannot contain \"")
+            all_errors.append(["Quotation marks in mod version", "Mod versions cannot contain \""])
         if len(self.panel_mod_author_variable.get()) < 1:
             inputs_verified = False
-            messagebox.showerror(title = "No mod author", message = "Please enter a mod author")
+            all_errors.append(["No mod author", "Please enter a mod author"])
         if "\"" in self.panel_mod_author_variable.get():
             inputs_verified = False
-            messagebox.showerror(title = "Quotation marks in mod author", message = "Mod authors cannot contain \"")
+            all_errors.append(["Quotation marks in mod author", "Mod authors cannot contain \""])
 
         # in-game paintjob info
         if len(self.panel_ingame_name_variable.get()) < 1:
             inputs_verified = False
-            messagebox.showerror(title = "No paintjob name", message = "Please enter a paintjob name")
+            all_errors.append(["No paintjob name", "Please enter a paintjob name"])
         if "\"" in self.panel_ingame_name_variable.get():
             inputs_verified = False
-            messagebox.showerror(title = "Quotation marks in paintjob name", message = "Paintjob names cannot contain \"")
+            all_errors.append(["Quotation marks in paintjob name", "Paintjob names cannot contain \""])
         if len(self.panel_ingame_price_variable.get()) < 1:
             inputs_verified = False
-            messagebox.showerror(title = "No paintjob price", message = "Please enter a paintjob price")
+            all_errors.append(["No paintjob price", "Please enter a paintjob price"])
         if not re.match("^[0-9]*$", self.panel_ingame_price_variable.get()):
             inputs_verified = False
-            messagebox.showerror(title = "Invalid paintjob price", message = "Paintjob price must be a number, with no decimal points, currency signs, spaces or letters")
+            all_errors.append(["Invalid paintjob price", "Paintjob price must be a number, with no decimal points, currency signs, spaces or letters"])
         if not self.panel_ingame_default_variable.get():
             if len(self.panel_ingame_unlock_variable.get()) < 1:
                 inputs_verified = False
-                messagebox.showerror(title = "No unlock level", message = "Please enter an unlock level")
+                all_errors.append(["No unlock level", "Please enter an unlock level"])
             if not re.match("^[0-9]*$", self.panel_ingame_unlock_variable.get()):
                 inputs_verified = False
-                messagebox.showerror(title = "Invalid unlock level", message = "Unlock level must be a number, with no other characters or spaces")
+                all_errors.append(["Invalid unlock level", "Unlock level must be a number, with no other characters or spaces"])
 
         # internal paintjob info
         if len(self.panel_internal_name_variable.get()) < 1:
             inputs_verified = False
-            messagebox.showerror(title = "No internal name", message = "Please enter an internal name")
+            all_errors.append(["No internal name", "Please enter an internal name"])
         if len(self.panel_internal_name_variable.get()) > self.internal_name_length:
             inputs_verified = False
-            messagebox.showerror(title = "Internal name too long", message = "Internal name too long, it must be {} characters or fewer".format(self.internal_name_length))
+            all_errors.append(["Internal name too long", "Internal name too long, it must be {} characters or fewer".format(self.internal_name_length)])
         if not re.match("^[0-9a-z\_]*$", self.panel_internal_name_variable.get()):
             inputs_verified = False
-            messagebox.showerror(title = "Invalid internal name", message = "Internal name must only contain lowercase letters, numbers and underscores") # I think uppercase letters might work, but no paintjobs in the base game/DLCs use them, so best practice to avoid them
+            all_errors.append(["Invalid internal name", "Internal name must only contain lowercase letters, numbers and underscores"]) # I think uppercase letters might work, but no paintjobs in the base game/DLCs use them, so best practice to avoid them
 
         # vehicle selection
         if self.tab_paintjob_variable.get() == "pack":
             if self.total_vehicles < 1:
                 inputs_verified = False
-                messagebox.showerror(title = "No vehicles selected", message = "Please select at least one truck, trailer or truck mod")
+                all_errors.append(["No vehicles selected", "Please select at least one truck, trailer or truck mod"])
         elif self.tab_paintjob_variable.get() == "single":
             if self.panel_single_vehicle_variable.get() == "":
                 inputs_verified = False
-                messagebox.showerror(title = "No vehicle selected", message = "Please select a vehicle to support")
+                all_errors.append(["No vehicle selected", "Please select a vehicle to support"])
 
-        if os.path.exists(os.path.expanduser("~/Desktop/Paintjob Packer Output")):
-            if len(os.listdir(os.path.expanduser("~/Desktop/Paintjob Packer Output"))) > 0:
+        if os.path.exists(output_path+"/Paintjob Packer Output"):
+            if len(os.listdir(output_path+"/Paintjob Packer Output")) > 0:
                 inputs_verified = False # I don't want to be on the receiving end of an irate user who lost their important report the night before it was due, because they happened to store it in the paintjob packer folder
-                messagebox.showerror(title = "Output folder not clear", message = "Output folder contains items, please delete everything within the folder, or delete the folder itself\n\nThe output folder is \"Paintjob Packer Output\", on your desktop")
+                if using_executable:
+                    messagebox.showerror(title = "Output folder not clear", message = "Output folder contains items, please delete everything within the folder, or delete the folder itself\n\nThe output folder is \"Paintjob Packer Output\", next to the program")
+                else:
+                    messagebox.showerror(title = "Output folder not clear", message = "Output folder contains items, please delete everything within the folder, or delete the folder itself\n\nThe output folder is \"Paintjob Packer Output\", on your desktop")
 
         if inputs_verified:
             self.make_paintjob()
+        else:
+            if len(all_errors) == 1:
+                messagebox.showerror(title = all_errors[0][0], message = all_errors[0][1])
+            elif len(all_errors) > 1:
+                total_message = ""
+                for error in all_errors:
+                    total_message += error[0]+":\n"
+                    total_message += error[1]+"\n\n"
+                messagebox.showerror(title = "{} errors".format(len(all_errors)), message = total_message)
 
     def make_paintjob(self):
         truck_list = []
@@ -527,6 +547,8 @@ class PackerApp:
         cabin_handling = self.tab_cabins_variable.get()
         using_unifier = self.panel_internal_unifier_variable.get()
 
+        out_path = output_path+"/Paintjob Packer Output"
+
         if num_of_paintjobs == "single":
             if single_veh.mod:
                 mod_list.append(single_veh)
@@ -536,8 +558,8 @@ class PackerApp:
                 truck_list.append(single_veh)
             vehicle_list.append(single_veh)
 
-        if not os.path.exists(os.path.expanduser("~/Desktop/Paintjob Packer Output")):
-            os.makedirs(os.path.expanduser("~/Desktop/Paintjob Packer Output"))
+        if not os.path.exists(output_path+"/Paintjob Packer Output"):
+            os.makedirs(output_path+"/Paintjob Packer Output")
 
         self.loading_value.set(0.0)
         total_things_to_load = len(vehicle_list) + 1
@@ -550,55 +572,57 @@ class PackerApp:
         self.loading_value.set(self.loading_value.get()+1.0)
         self.loading_current.set("Loose files")
 
-        pj.make_manifest_sii(mod_version, mod_name, mod_author)
+        pj.make_manifest_sii(out_path, mod_version, mod_name, mod_author)
 
-        pj.copy_mod_manager_image()
+        pj.copy_mod_manager_image(out_path)
 
-        pj.make_description(truck_list, trailer_list, mod_list)
+        pj.make_description(out_path, truck_list, trailer_list, mod_list)
 
-        pj.make_material_folder()
+        pj.make_material_folder(out_path)
 
-        pj.copy_paintjob_icon(internal_name)
+        pj.copy_paintjob_icon(out_path, internal_name)
 
-        pj.make_paintjob_icon_tobj(internal_name)
+        pj.make_paintjob_icon_tobj(out_path, internal_name)
 
-        pj.make_paintjob_icon_mat(internal_name)
+        pj.make_paintjob_icon_mat(out_path, internal_name)
 
         for veh in vehicle_list:
             self.loading_value.set(self.loading_value.get()+1.0)
             self.loading_current.set(veh.name)
-            pj.make_def_folder(veh)
-            pj.make_settings_sui(veh, internal_name, ingame_name, ingame_price, unlock_level)
-            pj.make_vehicle_folder(veh, internal_name)
+            pj.make_def_folder(out_path, veh)
+            pj.make_settings_sui(out_path, veh, internal_name, ingame_name, ingame_price, unlock_level)
+            pj.make_vehicle_folder(out_path, veh, internal_name)
             if cabin_handling == "combined" or veh.type == "trailer_owned" or not veh.separate_paintjobs:
                 paintjob_name = internal_name
-                pj.make_def_sii(veh, paintjob_name, internal_name)
-                pj.copy_main_dds(veh, internal_name, paintjob_name, using_unifier)
-                pj.make_main_tobj(veh, internal_name, paintjob_name, using_unifier)
+                pj.make_def_sii(out_path, veh, paintjob_name, internal_name)
+                pj.copy_main_dds(out_path, veh, internal_name, paintjob_name, using_unifier)
+                pj.make_main_tobj(out_path, veh, internal_name, paintjob_name, using_unifier)
                 if veh.uses_accessories:
-                    pj.make_accessory_sii(veh, internal_name, paintjob_name)
+                    pj.make_accessory_sii(out_path, veh, internal_name, paintjob_name)
             else:
                 for cab_size in veh.cabins:
                     paintjob_name = internal_name + "_" + cab_size
-                    pj.make_def_sii(veh, paintjob_name, internal_name, veh.cabins[cab_size], cab_size)
-                    pj.copy_main_dds(veh, internal_name, paintjob_name, using_unifier)
-                    pj.make_main_tobj(veh, internal_name, paintjob_name, using_unifier)
+                    pj.make_def_sii(out_path, veh, paintjob_name, internal_name, veh.cabins[cab_size], cab_size)
+                    pj.copy_main_dds(out_path, veh, internal_name, paintjob_name, using_unifier)
+                    pj.make_main_tobj(out_path, veh, internal_name, paintjob_name, using_unifier)
                     if veh.uses_accessories:
-                        pj.make_accessory_sii(veh, internal_name, paintjob_name)
+                        pj.make_accessory_sii(out_path, veh, internal_name, paintjob_name)
             if veh.uses_accessories:
-                pj.copy_accessory_dds(veh, internal_name)
-                pj.make_accessory_tobj(veh, internal_name)
+                pj.copy_accessory_dds(out_path, veh, internal_name)
+                pj.make_accessory_tobj(out_path, veh, internal_name)
 
         if using_unifier:
             self.loading_value.set(self.loading_value.get()+1.0)
             self.loading_current.set("Cabin unifier")
-            pj.make_unifier_ini(internal_name, vehicle_list)
+            pj.make_unifier_ini(out_path, internal_name, vehicle_list)
+
+        self.make_readme_file(internal_name, using_unifier, game)
 
         self.loading_current.set("Complete!")
         self.loading_window.state("withdrawn")
 
-    def make_readme_file(self, internal_name, using_unifier):
-        file = open(os.path.expanduser("~/Desktop/Paintjob Packer.txt"), "w")
+    def make_readme_file(self, internal_name, using_unifier, game):
+        file = open(output_path+"/Read Me! - Paintjob Packer.txt", "w")
         file.write("Thanks for using Paintjob Packer!\n")
         file.write("This text file contains a list of all of the placeholder files you'll need to replace.\n")
         file.write("\n")
@@ -606,29 +630,44 @@ class PackerApp:
         file.write("\n")
         file.write("\n")
         file.write("\n")
+        file.write("To test your mod, move the output folder (the folder itself, not just the files inside it!) to your mod folder:")
+        if game == "ets":
+            game_name = "Euro Truck Simulator 2"
+        elif game == "ats":
+            game_name = "American Truck Simulator"
+        if sys.platform.startswith("win"):
+            mod_folder_location = "C:\\Users\\(username)\\Documents\\{}\\mod".format(game_name)
+        elif sys.platform.startswith("darwin"):
+            mod_folder_location = "/Users/(username)/Library/Application Support/{}/mod".format(game_name)
+        elif sys.platform.startswith("linux"):
+            mod_folder_location = "/home/(username)/.local/share/{}/mod".format(game_name)
+        file.write(mod_folder_location+"\n")
+        file.write("\n")
+        file.write("\n")
+        file.write("\n")
         file.write("== Mod manager image ==\n")
         file.write("mod_manager_image.jpg\n")
-        file.write("276x162 JPEG image\n")
+        file.write("276 x 162 JPEG image\n")
         file.write("\n")
         file.write("\n")
         file.write("\n")
         file.write("== Mod manager description ==\n")
         file.write("mod_manager_description.txt\n")
-        file.write("This contains an auto-generated list of vehicles supported by your mod. You\n")
-        file.write("may want to add some extra description to it, maybe explaining your mod a bit.\n")
+        file.write("This contains an auto-generated list of vehicles supported by your mod.\n")
+        file.write("You may want to add some extra description to it, maybe explaining your mod a bit.\n")
         file.write("\n")
         file.write("\n")
         file.write("\n")
         file.write("== In-game paintjob icon ==\n")
         file.write("material/ui/accessory/{}_icon.dds\n".format(internal_name))
-        file.write("256x64 DDS image (saved in DXT5 format with mipmaps), see the placeholder for recommended size/shape\n")
+        file.write("256 x 64 DDS image (saved in DXT5 format with mipmaps), see the placeholder for recommended size/shape\n")
         file.write("This is the icon you see when you go to buy your paintjob in-game.\n")
         file.write("\n")
         file.write("\n")
         file.write("\n")
         file.write("== Vehicle textures ==\n")
         file.write("vehicle/truck/upgrade/paintjob/{}/<vehicle>/<all the .dds files>\n".format(internal_name))
-        file.write("                              and/or\n")
+        file.write("and/or\n")
         file.write("vehicle/trailer_owned/upgrade/paintjob/{}/<vehicle>/<all the .dds files>\n".format(internal_name))
         file.write("DDS images (saved in DXT5 format with mipmaps), height and width need to be powers of 2 (e.g. 16, 64, 1024, 2048, 4096)\n")
         file.write("\n")
@@ -651,10 +690,9 @@ class PackerApp:
             file.write("to add additional textures. If your cabin_a.dds doesn't work on Cabin B of a truck,\n")
             file.write("for example, you'll need to create a second .dds file called cabin_b.dds, then edit\n")
             file.write("cabin_b.tobj to point to it. You can link multiple .tobjs to the same .dds, e.g. you\n")
-            file.write("could also point cabin_c.tobj to cabin_b.dds")
+            file.write("could also point cabin_c.tobj to cabin_b.dds\n")
         else:
             file.write("Note: you don't have to change any .tobj files, any .mat files, or anything in the def folder\n")
-            file.write("\n")
 
 class VehSelection:
 

@@ -5,17 +5,17 @@ Paintjob Packer is a lightweight mod making tool for Euro Truck Simulator 2 and 
 
 * Support for player-owned trailers, including those from DLCs
 * Support for trucks using the newer accessory-based paintjob system, like the Scania S and MAN TGX Euro 6
-* Built-in support for 40 modded trucks
+* Built-in support for 40 modded trucks, full list [here](https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md)
 * Support for separate paintjobs for each cabin of a truck, in case a single texture doesn't work for all of them
 * Very lightweight - starts instantly, can generate a 50-paintjob mod in under a second
 
-## Making a mod from scratch
+## Making a mod
 
 Paintjob Packer doesn't make a completed mod when you click the *Generate mod* button. Instead, it makes what I call "custom example mods", giving you all the files you need for your mod, but with placeholders standing in for every image/texture. You then go through and replace all the placeholder images with your own to complete the mod. Since you usually have to test and tweak a paintjob many times before it's ready, this setup means you only have to run the program once.
 
 ### Required programs
 
-* An **image manipulator** that can save as DDS. I use Photoshop with the [DDS plugin](http://fnordware.blogspot.com/2014/09/dds-plug-in-for-after-effects-and.html), but you can also use [GIMP](https://www.gimp.org/downloads/) (free) with its [DDS plugin](https://code.google.com/archive/p/gimp-dds/downloads)
+* An **image manipulator** that can save as DDS. I use Photoshop with the [DDS plugin](https://fnordware.blogspot.com/2014/09/dds-plug-in-for-after-effects-and.html), but you can also use [GIMP](https://www.gimp.org/downloads/) (free) with its [DDS plugin](https://code.google.com/archive/p/gimp-dds/downloads)
 * If you're using the cabin unifier, a **hex editor**. I use [HxD](https://mh-nexus.de/en/hxd/) on Windows and [Hex Fiend](https://ridiculousfish.com/hexfiend/) on macOS
 
 1. Generate base files using Paintjob Packer

@@ -1,7 +1,5 @@
 import os, shutil, binascii, codecs, configparser
 
-output_path = os.path.expanduser("~/Desktop/Paintjob Packer Output")
-
 class Vehicle:
     def __init__(self, file_name, game):
         veh_ini = configparser.ConfigParser(allow_no_value = True)
@@ -33,7 +31,7 @@ class Vehicle:
 
 
 
-def make_folder(path):
+def make_folder(output_path, path):
     if not os.path.exists(output_path + "/" + path):
         os.makedirs(output_path + "/" + path)
 
@@ -58,7 +56,7 @@ def generate_tobj(path): # TODO: icon tobj?
 
 # loose files
 
-def make_manifest_sii(mod_version, mod_name, mod_author):
+def make_manifest_sii(output_path, mod_version, mod_name, mod_author):
     file = open(output_path + "/manifest.sii", "w")
     file.write("SiiNunit\n")
     file.write("{\n")
@@ -76,10 +74,10 @@ def make_manifest_sii(mod_version, mod_name, mod_author):
     file.write("}\n")
     file.close()
 
-def copy_mod_manager_image():
+def copy_mod_manager_image(output_path):
     shutil.copyfile("library/placeholder files/mod_manager_image.jpg", output_path + "/mod_manager_image.jpg")
 
-def make_description(truck_list, trailer_list, mod_list):
+def make_description(output_path, truck_list, trailer_list, mod_list):
     file = open(output_path + "/mod_manager_description.txt", "w")
     if len(truck_list) + len(mod_list) > 0:
         file.write("Trucks supported:\n")
@@ -98,18 +96,18 @@ def make_description(truck_list, trailer_list, mod_list):
 
 # material folder
 
-def make_material_folder():
-    make_folder("material/ui/accessory/")
+def make_material_folder(output_path):
+    make_folder(output_path, "material/ui/accessory/")
 
-def copy_paintjob_icon(internal_name):
+def copy_paintjob_icon(output_path, internal_name):
     shutil.copyfile("library/placeholder files/paintjob_icon.dds", output_path + "/material/ui/accessory/{}_icon.dds".format(internal_name))
 
-def make_paintjob_icon_tobj(internal_name): # TODO: tobj like SCS paintjobs, makes a difference?
+def make_paintjob_icon_tobj(output_path, internal_name): # TODO: tobj like SCS paintjobs, makes a difference?
     file = open(output_path + "/material/ui/accessory/{}_icon.tobj".format(internal_name), "wb")
     file.write(generate_tobj("/material/ui/accessory/{}_icon.dds".format(internal_name)))
     file.close()
 
-def make_paintjob_icon_mat(internal_name):
+def make_paintjob_icon_mat(output_path, internal_name):
     file = open(output_path + "/material/ui/accessory/{}_icon.mat".format(internal_name), "w")
     file.write("material: \"ui\"\n")
     file.write("{\n")
@@ -122,13 +120,13 @@ def make_paintjob_icon_mat(internal_name):
 
 # def folder
 
-def make_def_folder(veh):
+def make_def_folder(output_path, veh):
     extra_path = ""
     if veh.uses_accessories:
         extra_path = "/accessory"
-    make_folder("def/vehicle/{}/{}/paint_job{}".format(veh.type, veh.path, extra_path))
+    make_folder(output_path, "def/vehicle/{}/{}/paint_job{}".format(veh.type, veh.path, extra_path))
 
-def make_def_sii(veh, paintjob_name, internal_name, cab_name = None, cab_size = None):
+def make_def_sii(output_path, veh, paintjob_name, internal_name, cab_name = None, cab_size = None):
     file = open(output_path + "/def/vehicle/{}/{}/paint_job/{}.sii".format(veh.type, veh.path, paintjob_name), "w")
     file.write("SiiNunit\n")
     file.write("{\n")
@@ -144,7 +142,7 @@ def make_def_sii(veh, paintjob_name, internal_name, cab_name = None, cab_size = 
         file.write("    paint_job_mask: \"/vehicle/truck/upgrade/paintjob/{}/{}_{}/cabin.tobj\"\n".format(internal_name, veh.make, veh.model))
     file.close()
 
-def make_settings_sui(veh, internal_name, ingame_name, ingame_price, unlock_level):
+def make_settings_sui(output_path, veh, internal_name, ingame_name, ingame_price, unlock_level):
     file = open(output_path + "/def/vehicle/{}/{}/paint_job/{}_settings.sui".format(veh.type, veh.path, internal_name), "w")
     file.write("    name:     \"{}\"\n".format(ingame_name))
     file.write("    price:    {}\n".format(ingame_price))
@@ -155,7 +153,7 @@ def make_settings_sui(veh, internal_name, ingame_name, ingame_price, unlock_leve
         file.write("    alternate_uvset: true\n")
     file.close()
 
-def make_accessory_sii(veh, internal_name, paintjob_name):
+def make_accessory_sii(output_path, veh, internal_name, paintjob_name):
     file = open(output_path + "/def/vehicle/{}/{}/paint_job/accessory/{}.sii".format(veh.type, veh.path, paintjob_name), "w")
     file.write("SiiNunit\n")
     file.write("{\n")
@@ -175,10 +173,10 @@ def make_accessory_sii(veh, internal_name, paintjob_name):
 
 # vehicle folder
 
-def make_vehicle_folder(veh, internal_name):
-    make_folder("vehicle/{}/upgrade/paintjob/{}/{}_{}".format(veh.type, internal_name, veh.make, veh.model))
+def make_vehicle_folder(output_path, veh, internal_name):
+    make_folder(output_path, "vehicle/{}/upgrade/paintjob/{}/{}_{}".format(veh.type, internal_name, veh.make, veh.model))
 
-def copy_main_dds(veh, internal_name, paintjob_name, using_unifier):
+def copy_main_dds(output_path, veh, internal_name, paintjob_name, using_unifier):
     if veh.type == "trailer_owned":
         shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/trailer_owned/upgrade/paintjob/{}/{}_{}/base_colour.dds".format(internal_name, veh.make, veh.model))
     elif internal_name != paintjob_name:
@@ -190,11 +188,11 @@ def copy_main_dds(veh, internal_name, paintjob_name, using_unifier):
     elif veh.type == "truck":
         shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/truck/upgrade/paintjob/{}/{}_{}/cabin.dds".format(internal_name, veh.make, veh.model))
 
-def copy_accessory_dds(veh, internal_name):
+def copy_accessory_dds(output_path, veh, internal_name):
     for acc_name in veh.acc_dict:
         shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{}_{}/{}.dds".format(veh.type, internal_name, veh.make, veh.model, acc_name))
 
-def make_main_tobj(veh, internal_name, paintjob_name, using_unifier):
+def make_main_tobj(output_path, veh, internal_name, paintjob_name, using_unifier):
     if veh.type == "trailer_owned":
         file = open(output_path + "/vehicle/trailer_owned/upgrade/paintjob/{}/{}_{}/base_colour.tobj".format(internal_name, veh.make, veh.model), "wb")
         file.write(generate_tobj("/vehicle/trailer_owned/upgrade/paintjob/{}/{}_{}/base_colour.dds".format(internal_name, veh.make, veh.model)))
@@ -212,7 +210,7 @@ def make_main_tobj(veh, internal_name, paintjob_name, using_unifier):
         file.write(generate_tobj("/vehicle/truck/upgrade/paintjob/{}/{}_{}/cabin.dds".format(internal_name, veh.make, veh.model)))
         file.close()
 
-def make_accessory_tobj(veh, internal_name):
+def make_accessory_tobj(output_path, veh, internal_name):
     for acc_name in veh.acc_dict:
         file = open(output_path + "/vehicle/{}/upgrade/paintjob/{}/{}_{}/{}.tobj".format(veh.type, internal_name, veh.make, veh.model, acc_name), "wb")
         file.write(generate_tobj("/vehicle/{}/upgrade/paintjob/{}/{}_{}/{}.dds".format(veh.type, internal_name, veh.make, veh.model, acc_name)))
@@ -222,7 +220,7 @@ def make_accessory_tobj(veh, internal_name):
 
 # packer functions
 
-def make_unifier_ini(internal_name, vehicle_list):
+def make_unifier_ini(output_path, internal_name, vehicle_list):
     vehicles_to_add = []
     for veh in vehicle_list:
         if veh.type == "truck" and veh.separate_paintjobs:
