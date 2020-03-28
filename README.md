@@ -1,7 +1,7 @@
 # Paintjob Packer
 Paintjob Packer is a lightweight mod making tool for Euro Truck Simulator 2 and American Truck Simulator. It allows you to generate simple paintjob mods, with a focus on mods that support multiple vehicles.
 
-## Functions
+## Features
 
 * Support for player-owned trailers, including those from DLCs
 * Support for trucks using the newer accessory-based paintjob system, like the Scania S and MAN TGX Euro 6
