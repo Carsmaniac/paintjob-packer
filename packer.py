@@ -17,10 +17,7 @@ except AttributeError:
     using_executable = False
 os.chdir(base_path)
 
-if using_executable:
-    output_path = ""
-else:
-    output_path = os.path.expanduser("~/Desktop")
+output_path = os.path.expanduser("~/Desktop")
 
 class PackerApp:
 
@@ -488,10 +485,7 @@ class PackerApp:
         if os.path.exists(output_path+"/Paintjob Packer Output"):
             if len(os.listdir(output_path+"/Paintjob Packer Output")) > 0:
                 inputs_verified = False # I don't want to be on the receiving end of an irate user who lost their important report the night before it was due, because they happened to store it in the paintjob packer folder
-                if using_executable:
-                    messagebox.showerror(title = "Output folder not clear", message = "Output folder contains items, please delete everything within the folder, or delete the folder itself\n\nThe output folder is \"Paintjob Packer Output\", next to the Paintjob Packer executable")
-                else:
-                    messagebox.showerror(title = "Output folder not clear", message = "Output folder contains items, please delete everything within the folder, or delete the folder itself\n\nThe output folder is \"Paintjob Packer Output\", on your desktop")
+                messagebox.showerror(title = "Output folder not clear", message = "Output folder contains items, please delete everything within the folder, or delete the folder itself\n\nThe output folder is \"Paintjob Packer Output\", on your desktop")
 
         if inputs_verified:
             self.make_paintjob()
@@ -625,11 +619,7 @@ class PackerApp:
         self.loading_current.set("Complete!")
         self.loading_window.state("withdrawn")
 
-        if using_executable:
-            output_loc = "in the same folder as the Paintjob Packer executable"
-        else:
-            output_loc = "on your desktop"
-        exit_now = messagebox.showinfo(title = "Mod generation complete", message = "Your mod has been generated successfully, it's been placed {}.\n\nNext to the output folder is a readme with a list of all of the files you'll need to replace.\n\nNote that your mod is not complete yet, see the guide on the GitHub page for instructions on how to complete it.\n\nThanks for using Paintjob Packer! The program will now quit.".format(output_loc))
+        exit_now = messagebox.showinfo(title = "Mod generation complete", message = "Your mod has been generated successfully, it's been placed on your desktop.\n\nNext to the output folder is a readme with a list of all of the files you'll need to replace.\n\nNote that your mod is not complete yet, see the guide on the GitHub page for instructions on how to complete it.\n\nThanks for using Paintjob Packer! The program will now quit.")
         sys.exit()
 
     def make_readme_file(self, internal_name, using_unifier, game):

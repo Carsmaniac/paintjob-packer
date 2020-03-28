@@ -148,7 +148,7 @@ def make_settings_sui(output_path, veh, internal_name, ingame_name, ingame_price
     file.write("    price:    {}\n".format(ingame_price))
     file.write("    unlock:   {}\n".format(unlock_level))
     file.write("    airbrush: true\n")
-    file.write("    icon:     \"paintjob_icons/{}_icon\"\n".format(internal_name))
+    file.write("    icon:     \"{}_icon\"\n".format(internal_name))
     if veh.alt_uvset:
         file.write("    alternate_uvset: true\n")
     file.close()
@@ -165,6 +165,7 @@ def make_accessory_sii(output_path, veh, internal_name, paintjob_name):
         file.write("    paint_job_mask: \"/vehicle/{}/upgrade/paintjob/{}/{}_{}/{}.tobj\"\n".format(veh.type, internal_name, veh.make, veh.model, acc_name))
         for acc in veh.acc_dict[acc_name]:
             file.write("    acc_list[]: \"{}\"\n".format(acc))
+        file.write("}\n")
         ovr_counter += 1
     file.write("}\n")
     file.close()
