@@ -637,17 +637,17 @@ class PackerApp:
         file.write("\n")
         file.write("\n")
         file.write("\n")
-        file.write("To test your mod, move the output folder (the folder itself, not just the files inside it!) to your mod folder:")
+        file.write("To test your mod, move the output folder (the folder itself, not just the files inside it!) to your mod folder:\n")
         if game == "ets":
             game_name = "Euro Truck Simulator 2"
         elif game == "ats":
             game_name = "American Truck Simulator"
         if sys.platform.startswith("win"):
-            mod_folder_location = "C:\\Users\\(username)\\Documents\\{}\\mod".format(game_name)
+            mod_folder_location = "C:\\Users\\(username)\\Documents\\{}\\mod\n".format(game_name)
         elif sys.platform.startswith("darwin"):
-            mod_folder_location = "/Users/(username)/Library/Application Support/{}/mod".format(game_name)
+            mod_folder_location = "/Users/(username)/Library/Application Support/{}/mod\n".format(game_name)
         elif sys.platform.startswith("linux"):
-            mod_folder_location = "/home/(username)/.local/share/{}/mod".format(game_name)
+            mod_folder_location = "/home/(username)/.local/share/{}/mod\n".format(game_name)
         file.write(mod_folder_location+"\n")
         file.write("\n")
         file.write("\n")
