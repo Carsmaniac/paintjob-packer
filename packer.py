@@ -520,7 +520,7 @@ class PackerApp:
         single_veh_name = self.panel_single_vehicle_variable.get()
         for veh in self.truck_list_1 + self.truck_list_2 + self.trailer_list_1 + self.trailer_list_2 + self.mod_list_1 + self.mod_list_2:
             if veh.name == single_veh_name:
-                single_veh = veh
+                single_veh = pj.Vehicle(veh.file_name, self.tab_game_variable.get())
 
         game = self.tab_game_variable.get()
 
