@@ -703,7 +703,7 @@ class VehSelection:
         self.file_name = _file_name
         self.game = _game
         veh_ini = configparser.ConfigParser(allow_no_value = True)
-        veh_ini.read("library/vehicles/{}/{}".format(self.game, self.file_name))
+        veh_ini.read("library/vehicles/{}/{}".format(self.game, self.file_name), encoding="utf-8")
         self.name = veh_ini["vehicle info"]["name"]
         self.trailer = veh_ini["vehicle info"].getboolean("trailer")
         self.mod = veh_ini["vehicle info"].getboolean("mod")
