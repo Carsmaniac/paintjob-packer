@@ -264,7 +264,7 @@ class PackerApp:
         self.panel_single_type_variable.trace("w", self.change_displayed_vehicle_dropdown)
         self.panel_single_type_label = ttk.Label(self.panel_vehicles_single, text = "Type:")
         self.panel_single_type_label.grid(row = 0, column = 0, padx = 5, sticky = "w")
-        self.panel_single_type_dropdown = ttk.Combobox(self.panel_vehicles_single, state = "readonly", textvariable = self.panel_single_type_variable, values = ["Truck", "Trailer", "Truck Mod"], width = 12)
+        self.panel_single_type_dropdown = ttk.Combobox(self.panel_vehicles_single, state = "readonly", textvariable = self.panel_single_type_variable, values = ["Truck", "Truck Mod", "Trailer", "Trailer Mod"], width = 12)
         self.panel_single_type_dropdown.grid(row = 1, column = 0, padx = 5, sticky = "w")
         self.panel_single_vehicle_variable = tk.StringVar()
         self.panel_single_vehicle_label = ttk.Label(self.panel_vehicles_single, text = "Vehicle:")
@@ -279,10 +279,14 @@ class PackerApp:
         self.panel_pack_selector.add(self.tab_trucks, text = "Trucks")
         self.tab_trailers = ttk.Frame(self.panel_pack_selector)
         self.panel_pack_selector.add(self.tab_trailers, text = "Trailers")
-        self.tab_mods = ttk.Frame(self.panel_pack_selector)
-        self.panel_pack_selector.add(self.tab_mods, text = "Truck Mods")
-        self.panel_pack_link_page = ttk.Label(self.tab_mods, text = "Download links for all mods", foreground = "blue", cursor = self.cursor)
-        self.panel_pack_link_page.bind("<1>", lambda e: webbrowser.open_new(mod_link_page_link))
+        self.tab_truck_mods = ttk.Frame(self.panel_pack_selector)
+        self.panel_pack_selector.add(self.tab_truck_mods, text = "Truck Mods")
+        self.tab_trailer_mods = ttk.Frame(self.panel_pack_selector)
+        self.panel_pack_selector.add(self.tab_trailer_mods, text = "Trailer Mods")
+        self.panel_pack_link_truck = ttk.Label(self.tab_truck_mods, text = "Download links for all mods", foreground = "blue", cursor = self.cursor)
+        self.panel_pack_link_truck.bind("<1>", lambda e: webbrowser.open_new(mod_link_page_link))
+        self.panel_pack_link_trailer = ttk.Label(self.tab_trailer_mods, text = "Download links for all mods", foreground = "blue", cursor = self.cursor)
+        self.panel_pack_link_trailer.bind("<1>", lambda e: webbrowser.open_new(mod_link_page_link))
 
         # buttons along the bottom
         self.panel_buttons_setup = ttk.Button(self.panel_buttons, text = "< Back to setup", command = lambda : self.switch_to_setup_screen())
@@ -301,10 +305,11 @@ class PackerApp:
         self.main_screen.grid_forget()
         self.setup_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
 
-        for veh in self.truck_list_1 + self.truck_list_2 + self.trailer_list_1 + self.trailer_list_2 + self.mod_list_1 + self.mod_list_2:
+        for veh in self.truck_list_1 + self.truck_list_2 + self.truck_mod_list_1 + self.truck_mod_list_2 + self.trailer_list_1 + self.trailer_list_2 + self.trailer_mod_list_1 + self.trailer_mod_list_2:
             veh.check.grid_forget()
 
-        self.panel_pack_link_page.grid_forget() # just in case it changes location
+        self.panel_pack_link_truck.grid_forget() # just in case it changes location
+        self.panel_pack_link_trailer.grid_forget()
 
         self.panel_internal_unifier_checkbox.grid_forget()
         self.panel_internal_unifier_help.grid_forget()
@@ -336,28 +341,35 @@ class PackerApp:
         elif self.tab_cabins_variable.get() == "combined":
             self.internal_name_length = 12
 
-        (self.truck_list, self.trailer_list, self.mod_list) = self.load_list_of_vehicles(self.tab_game_variable.get())
+        (self.truck_list, self.truck_mod_list, self.trailer_list, self.trailer_mod_list) = self.load_list_of_vehicles(self.tab_game_variable.get())
         self.truck_list_1 = self.truck_list[:math.ceil(len(self.truck_list)/2)] # lists need to be split for multiple vehicle selection, it's easier if it's done here
         self.truck_list_2 = self.truck_list[math.ceil(len(self.truck_list)/2):]
+        self.truck_mod_list_1 = self.truck_mod_list[:math.ceil(len(self.truck_mod_list)/2)]
+        self.truck_mod_list_2 = self.truck_mod_list[math.ceil(len(self.truck_mod_list)/2):]
         self.trailer_list_1 = self.trailer_list[:math.ceil(len(self.trailer_list)/2)]
         self.trailer_list_2 = self.trailer_list[math.ceil(len(self.trailer_list)/2):]
-        self.mod_list_1 = self.mod_list[:math.ceil(len(self.mod_list)/2)]
-        self.mod_list_2 = self.mod_list[math.ceil(len(self.mod_list)/2):]
+        self.trailer_mod_list_1 = self.trailer_mod_list[:math.ceil(len(self.trailer_mod_list)/2)]
+        self.trailer_mod_list_2 = self.trailer_mod_list[math.ceil(len(self.trailer_mod_list)/2):]
 
         for i in range(len(self.truck_list_1)):
             self.truck_list_1[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
         for i in range(len(self.truck_list_2)):
             self.truck_list_2[i].check.grid(row = i, column = 1, sticky = "w", padx = 5)
+        for i in range(len(self.truck_mod_list_1)):
+            self.truck_mod_list_1[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
+        for i in range(len(self.truck_mod_list_2)):
+            self.truck_mod_list_2[i].check.grid(row = i, column = 1, sticky = "w", padx = 5)
         for i in range(len(self.trailer_list_1)):
             self.trailer_list_1[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
         for i in range(len(self.trailer_list_2)):
             self.trailer_list_2[i].check.grid(row = i, column = 1, sticky = "w", padx = 5)
-        for i in range(len(self.mod_list_1)):
-            self.mod_list_1[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
-        for i in range(len(self.mod_list_2)):
-            self.mod_list_2[i].check.grid(row = i, column = 1, sticky = "w", padx = 5)
+        for i in range(len(self.trailer_mod_list_1)):
+            self.trailer_mod_list_1[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
+        for i in range(len(self.trailer_mod_list_2)):
+            self.trailer_mod_list_2[i].check.grid(row = i, column = 1, sticky = "w", padx = 5)
 
-        self.panel_pack_link_page.grid(row = len(self.mod_list_2), column = 1, sticky = "w", padx = 5)
+        self.panel_pack_link_truck.grid(row = len(self.truck_mod_list_2), column = 1, sticky = "w", padx = 5)
+        self.panel_pack_link_trailer.grid(row = len(self.trailer_mod_list_2), column = 1, sticky = "w", padx = 5)
 
         self.change_displayed_vehicle_dropdown()
         self.update_total_vehicles_supported()
@@ -373,22 +385,29 @@ class PackerApp:
         for file_name in os.listdir("library/vehicles/{}".format(game)):
             complete_list.append(VehSelection(game, file_name))
         truck_list = []
+        truck_mod_list = []
         trailer_list = []
-        mod_list = []
+        trailer_mod_list = []
         for veh in complete_list:
-            if veh.mod:
-                veh.check = ttk.Checkbutton(self.tab_mods, text = veh.name, command = lambda : self.update_total_vehicles_supported())
-                veh.check.state(["!alternate","!selected"])
-                mod_list.append(veh)
-            elif veh.trailer:
-                veh.check = ttk.Checkbutton(self.tab_trailers, text = veh.name, command = lambda : self.update_total_vehicles_supported())
-                veh.check.state(["!alternate","!selected"])
-                trailer_list.append(veh)
+            if veh.trailer:
+                if veh.mod:
+                    veh.check = ttk.Checkbutton(self.tab_trailer_mods, text = veh.name, command = lambda : self.update_total_vehicles_supported())
+                    veh.check.state(["!alternate","!selected"])
+                    trailer_mod_list.append(veh)
+                else:
+                    veh.check = ttk.Checkbutton(self.tab_trailers, text = veh.name, command = lambda : self.update_total_vehicles_supported())
+                    veh.check.state(["!alternate","!selected"])
+                    trailer_list.append(veh)
             else:
-                veh.check = ttk.Checkbutton(self.tab_trucks, text = veh.name, command = lambda : self.update_total_vehicles_supported())
-                veh.check.state(["!alternate","!selected"])
-                truck_list.append(veh)
-        return (truck_list, trailer_list, mod_list)
+                if veh.mod:
+                    veh.check = ttk.Checkbutton(self.tab_truck_mods, text = veh.name, command = lambda : self.update_total_vehicles_supported())
+                    veh.check.state(["!alternate","!selected"])
+                    truck_mod_list.append(veh)
+                else:
+                    veh.check = ttk.Checkbutton(self.tab_trucks, text = veh.name, command = lambda : self.update_total_vehicles_supported())
+                    veh.check.state(["!alternate","!selected"])
+                    truck_list.append(veh)
+        return (truck_list, truck_mod_list, trailer_list, trailer_mod_list)
 
     def change_displayed_vehicle_dropdown(self, *args):
         type = self.panel_single_type_variable.get()
@@ -396,10 +415,12 @@ class PackerApp:
         new_values = []
         if type == "Truck":
             for veh in self.truck_list: new_values.append(veh.name)
+        elif type == "Truck Mod":
+            for veh in self.truck_mod_list: new_values.append(veh.name)
         elif type == "Trailer":
             for veh in self.trailer_list: new_values.append(veh.name)
-        elif type == "Truck Mod":
-            for veh in self.mod_list: new_values.append(veh.name)
+        elif type == "Trailer Mod":
+            for veh in self.trailer_mod_list: new_values.append(veh.name)
         self.panel_single_vehicle_dropdown.config(values = new_values)
 
     def show_unifier_warning(self):
@@ -411,7 +432,7 @@ class PackerApp:
 
     def update_total_vehicles_supported(self):
         self.total_vehicles = 0
-        for veh in self.truck_list_1 + self.truck_list_2 + self.trailer_list_1 + self.trailer_list_2 + self.mod_list_1 + self.mod_list_2:
+        for veh in self.truck_list_1 + self.truck_list_2 + self.truck_mod_list_1 + self.truck_mod_list_2 + self.trailer_list_1 + self.trailer_list_2 + self.trailer_mod_list_1 + self.trailer_mod_list_2:
             if "selected" in veh.check.state():
                 self.total_vehicles += 1
         self.panel_vehicles_pack.configure(text = "Vehicles Supported ({})".format(self.total_vehicles))
@@ -504,21 +525,25 @@ class PackerApp:
         for veh in self.truck_list_1 + self.truck_list_2:
             if "selected" in veh.check.state():
                 truck_list.append(veh)
+        truck_mod_list = []
+        for veh in self.truck_mod_list_1 + self.truck_mod_list_2:
+            if "selected" in veh.check.state():
+                truck_mod_list.append(veh)
         trailer_list = []
         for veh in self.trailer_list_1 + self.trailer_list_2:
             if "selected" in veh.check.state():
                 trailer_list.append(veh)
-        mod_list = []
-        for veh in self.mod_list_1 + self.mod_list_2:
+        trailer_mod_list = []
+        for veh in self.trailer_mod_list_1 + self.trailer_mod_list_2:
             if "selected" in veh.check.state():
-                mod_list.append(veh)
+                trailer_mod_list.append(veh)
 
         vehicle_list = []
-        for veh in truck_list + trailer_list + mod_list:
+        for veh in truck_list + truck_mod_list + trailer_list + trailer_mod_list:
             vehicle_list.append(pj.Vehicle(veh.file_name, self.tab_game_variable.get()))
 
         single_veh_name = self.panel_single_vehicle_variable.get()
-        for veh in self.truck_list_1 + self.truck_list_2 + self.trailer_list_1 + self.trailer_list_2 + self.mod_list_1 + self.mod_list_2:
+        for veh in self.truck_list_1 + self.truck_list_2 + self.truck_mod_list_1 + self.truck_mod_list_2 + self.trailer_list_1 + self.trailer_list_2 + self.trailer_mod_list_1 + self.trailer_mod_list_2:
             if veh.name == single_veh_name:
                 single_veh = pj.Vehicle(veh.file_name, self.tab_game_variable.get())
 
@@ -544,12 +569,16 @@ class PackerApp:
         out_path = output_path+"/Paintjob Packer Output"
 
         if num_of_paintjobs == "single":
-            if single_veh.mod:
-                mod_list.append(single_veh)
-            elif single_veh.trailer:
-                trailer_list.append(single_veh)
+            if single_veh.trailer:
+                if single_veh.mod:
+                    trailer_mod_list.append(single_veh)
+                else:
+                    trailer_list.append(single_veh)
             else:
-                truck_list.append(single_veh)
+                if single_veh.mod:
+                    truck_mod_list.append(single_veh)
+                else:
+                    truck_list.append(single_veh)
             vehicle_list.append(single_veh)
 
         if not os.path.exists(output_path+"/Paintjob Packer Output"):
@@ -570,7 +599,7 @@ class PackerApp:
 
         pj.copy_mod_manager_image(out_path)
 
-        pj.make_description(out_path, truck_list, trailer_list, mod_list)
+        pj.make_description(out_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list)
 
         pj.make_material_folder(out_path)
 

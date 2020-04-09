@@ -77,19 +77,21 @@ def make_manifest_sii(output_path, mod_version, mod_name, mod_author):
 def copy_mod_manager_image(output_path):
     shutil.copyfile("library/placeholder files/mod_manager_image.jpg", output_path + "/mod_manager_image.jpg")
 
-def make_description(output_path, truck_list, trailer_list, mod_list):
+def make_description(output_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list):
     file = open(output_path + "/mod_manager_description.txt", "w")
-    if len(truck_list) + len(mod_list) > 0:
+    if len(truck_list) + len(truck_mod_list) > 0:
         file.write("Trucks supported:\n")
         for veh in truck_list:
             file.write(veh.name+"\n")
-        for veh in mod_list:
+        for veh in truck_mod_list:
             file.write("{}'s {}\n".format(veh.mod_author, veh.name))
         file.write("\n")
-    if len(trailer_list) > 0:
+    if len(truck_list) + len(trailer_mod_list) > 0:
         file.write("Trailers supported:\n")
         for veh in trailer_list:
             file.write(veh.name+"\n")
+        for veh in trailer_mod_list:
+            file.write("{}'s {}\n".format(veh.mod_author, veh.name))
     file.close()
 
 
