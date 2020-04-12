@@ -142,6 +142,8 @@ def make_def_sii(output_path, veh, paintjob_name, internal_name, cab_name = None
         file.write("    paint_job_mask: \"/vehicle/truck/upgrade/paintjob/{}/{}_{}/cabin_{}.tobj\"\n".format(internal_name, veh.make, veh.model, cab_size))
     elif veh.type == "truck": # cabin handling: combined paintjobs
         file.write("    paint_job_mask: \"/vehicle/truck/upgrade/paintjob/{}/{}_{}/cabin.tobj\"\n".format(internal_name, veh.make, veh.model))
+    file.write("}\n")
+    file.write("}\n")
     file.close()
 
 def make_settings_sui(output_path, veh, internal_name, ingame_name, ingame_price, unlock_level):
