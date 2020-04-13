@@ -24,23 +24,18 @@
 
 ## Trailers
 
-* Bodex KIS 3 by **Racing** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=268372)
-* Ekeri Trailers by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1430605250) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=251460)
+* Ekeri Trailer Pack by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1430605250) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=251460)
 * Feldbinder KIP by **LadenSwallow** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1958469898) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=279245)
-* Kassbohrer SRI by **kazan1234** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=281268)
 * Knapen K100 by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1709544505) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=270442)
-* Kogel Cool Maxx by **axelrol** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=244396)
-* Kraker Walkingfloor pack by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1431285928) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=233975)
+* Kraker Trailer Pack by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1431285928) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=233975)
 * Krone Cool Liner Mega by **Sogard3** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=263489)
-* Krone Mega/Coil Liner by **Sogard3** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=260235)
+* Krone Mega Liner by **Sogard3** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=260235)
 * Menci Cistern by **MD Modding** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=260010)
-* NTM Trailers by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1431253303) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=250206)
+* NTM Trailer Pack by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1431253303) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=250206)
 * Schmitz Cargobull by **MD Modding** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=252193)
-* Schmitz Pack by **Schumi** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=269232)
-* Schmitz S.CS by **Lanker** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=252428)
+* Schmitz S.CS Mega by **Lanker** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=252428)
 * Schmitz S.KO by **obelihnio** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1762541488) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=273447)
-* VAK Trailers by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1443578012) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=256559)
-* Wielton Pack by **Schumi** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=269022)
+* VAK Trailer Pack by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1443578012) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=256559)
 
 # American Truck Simulator
 
