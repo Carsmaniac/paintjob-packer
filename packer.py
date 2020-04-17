@@ -643,7 +643,7 @@ class PackerApp:
                 unifier_name = "unifier.py"
             pj.make_unifier_ini(out_path, internal_name, vehicle_list, unifier_name)
 
-        self.make_readme_file(internal_name, using_unifier, game)
+        self.make_readme_file(internal_name, using_unifier, game, mod_name)
 
         self.loading_current.set("Complete!")
         self.loading_window.state("withdrawn")
@@ -651,16 +651,17 @@ class PackerApp:
         exit_now = messagebox.showinfo(title = "Mod generation complete", message = "Your mod has been generated successfully, it's been placed on your desktop.\n\nNext to the output folder is a readme with a list of all of the files you'll need to replace.\n\nNote that your mod is not complete yet, see the guide on the GitHub page for instructions on how to complete it.\n\nThanks for using Paintjob Packer! The program will now quit.")
         sys.exit()
 
-    def make_readme_file(self, internal_name, using_unifier, game):
-        file = open(output_path+"/Read Me! - Paintjob Packer.txt", "w")
+    def make_readme_file(self, internal_name, using_unifier, game, mod_name):
+        file = open(output_path+"/How to complete your mod.txt", "w")
         file.write("Thanks for using Paintjob Packer!\n")
-        file.write("This text file contains a list of all of the placeholder files you'll need to replace.\n")
+        file.write("\n")
+        file.write("At the moment the {} folder contains a mod with placeholder textures and images, you now need to replace those with your own files.\n".format(mod_name))
         file.write("\n")
         file.write("For more info, see the guide on the GitHub page: {}\n".format(github_link))
         file.write("\n")
         file.write("\n")
         file.write("\n")
-        file.write("To test your mod, move the output folder (the folder itself, not just the files inside it!) to your mod folder:\n")
+        file.write("To test your mod, move the {} folder (the folder itself, not just the files inside it) to your mod folder:\n".format(mod_name))
         if game == "ets":
             game_name = "Euro Truck Simulator 2"
         elif game == "ats":
@@ -690,15 +691,16 @@ class PackerApp:
         file.write("\n")
         file.write("== In-game paintjob icon ==\n")
         file.write("material/ui/accessory/{}_icon.dds\n".format(internal_name))
-        file.write("256 x 64 DDS image (saved in DXT5 format with mipmaps), see the placeholder for recommended size/shape\n")
+        file.write("256 x 64 DDS image (saved in DXT5 format with mipmaps), see the placeholder for recommended size/shape.\n")
         file.write("This is the icon you see when you go to buy your paintjob in-game.\n")
         file.write("\n")
         file.write("\n")
         file.write("\n")
         file.write("== Vehicle textures ==\n")
-        file.write("vehicle/truck/upgrade/paintjob/{}/<vehicle>/<all the .dds files>\n".format(internal_name))
+        file.write("All of the .dds files in:")
+        file.write("vehicle/truck/upgrade/paintjob/{}/<vehicle>/\n".format(internal_name))
         file.write("and/or\n")
-        file.write("vehicle/trailer_owned/upgrade/paintjob/{}/<vehicle>/<all the .dds files>\n".format(internal_name))
+        file.write("vehicle/trailer_owned/upgrade/paintjob/{}/<vehicle>/\n".format(internal_name))
         file.write("DDS images (saved in DXT5 format with mipmaps), height and width need to be powers of 2 (e.g. 16, 64, 1024, 2048, 4096)\n")
         file.write("\n")
         file.write("The \"cabin\" images in the truck folders are the main files of your paintjob,\n")
