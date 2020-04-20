@@ -17,7 +17,7 @@ except AttributeError:
     using_executable = False
 os.chdir(base_path)
 
-output_path = os.path.expanduser("~/Desktop")
+output_path = os.path.expanduser("~/Desktop/Paintjob Packer Output")
 
 class PackerApp:
 
@@ -503,8 +503,8 @@ class PackerApp:
                 inputs_verified = False
                 all_errors.append(["No vehicle selected", "Please select a vehicle to support"])
 
-        if os.path.exists(output_path+"/Paintjob Packer Output"):
-            if len(os.listdir(output_path+"/Paintjob Packer Output")) > 0:
+        if os.path.exists(output_path):
+            if len(os.listdir(output_path)) > 0:
                 inputs_verified = False # I don't want to be on the receiving end of an irate user who lost their important report the night before it was due, because they happened to store it in the paintjob packer folder
                 messagebox.showerror(title = "Output folder not clear", message = "Output folder contains items, please delete everything within the folder, or delete the folder itself\n\nThe output folder is \"Paintjob Packer Output\", on your desktop")
 
@@ -566,7 +566,7 @@ class PackerApp:
         cabin_handling = self.tab_cabins_variable.get()
         using_unifier = self.panel_internal_unifier_variable.get()
 
-        out_path = output_path+"/Paintjob Packer Output"
+        out_path = output_path+"/"+mod_name
 
         if num_of_paintjobs == "single":
             if single_veh.trailer:
@@ -581,8 +581,8 @@ class PackerApp:
                     truck_list.append(single_veh)
             vehicle_list.append(single_veh)
 
-        if not os.path.exists(output_path+"/Paintjob Packer Output"):
-            os.makedirs(output_path+"/Paintjob Packer Output")
+        if not os.path.exists(out_path):
+            os.makedirs(out_path)
 
         self.loading_value.set(0.0)
         total_things_to_load = len(vehicle_list) + 1
@@ -648,20 +648,20 @@ class PackerApp:
         self.loading_current.set("Complete!")
         self.loading_window.state("withdrawn")
 
-        exit_now = messagebox.showinfo(title = "Mod generation complete", message = "Your mod has been generated successfully, it's been placed on your desktop.\n\nNext to the output folder is a readme with a list of all of the files you'll need to replace.\n\nNote that your mod is not complete yet, see the guide on the GitHub page for instructions on how to complete it.\n\nThanks for using Paintjob Packer! The program will now quit.")
+        exit_now = messagebox.showinfo(title = "Mod generation complete", message = "Your mod has been generated successfully, it's been placed in the output folder on your desktop.\n\nInside the output folder is a readme with a list of all of the files you'll need to replace.\n\nNote that your mod is not complete yet, see the guide on the GitHub page for instructions on how to complete it.\n\nThanks for using Paintjob Packer! The program will now quit.")
         sys.exit()
 
     def make_readme_file(self, internal_name, using_unifier, game, mod_name):
         file = open(output_path+"/How to complete your mod.txt", "w")
         file.write("Thanks for using Paintjob Packer!\n")
         file.write("\n")
-        file.write("At the moment the {} folder contains a mod with placeholder textures and images, you now need to replace those with your own files.\n".format(mod_name))
+        file.write("At the moment the \"{}\" folder contains a mod with placeholder textures and images, you now need to replace those with your own files.\n".format(mod_name))
         file.write("\n")
         file.write("For more info, see the guide on the GitHub page: {}\n".format(github_link))
         file.write("\n")
         file.write("\n")
         file.write("\n")
-        file.write("To test your mod, move the {} folder (the folder itself, not just the files inside it) to your mod folder:\n".format(mod_name))
+        file.write("To test your mod, move the \"{}\" folder (the folder itself, not just the files inside it) to your mod folder:\n".format(mod_name))
         if game == "ets":
             game_name = "Euro Truck Simulator 2"
         elif game == "ats":
@@ -672,7 +672,7 @@ class PackerApp:
             mod_folder_location = "/Users/(username)/Library/Application Support/{}/mod\n".format(game_name)
         elif sys.platform.startswith("linux"):
             mod_folder_location = "/home/(username)/.local/share/{}/mod\n".format(game_name)
-        file.write(mod_folder_location+"\n")
+        file.write(mod_folder_location)
         file.write("\n")
         file.write("\n")
         file.write("\n")
