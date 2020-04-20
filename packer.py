@@ -250,7 +250,7 @@ class PackerApp:
         self.panel_internal_workshop_variable = tk.BooleanVar(None, False)
         self.panel_internal_workshop_checkbox = ttk.Checkbutton(self.panel_internal, text = "Generate files for Steam Workshop upload", variable = self.panel_internal_workshop_variable)
         self.panel_internal_workshop_checkbox.grid(row = 3, column = 0, columnspan = 2, padx = 5, sticky = "w")
-        self.panel_internal_workshop_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Workshop Upload", message = "Generates additional files needed when uploading to Steam Workshop, including a workshop image, an uploading folder and a workshop description with working links to any modded vehicles you support"))
+        self.panel_internal_workshop_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Workshop Upload", message = "Generates additional files needed when uploading to Steam Workshop, including a workshop image, an uploading folder and a workshop description with working links to any modded vehicles you support\n\nRequires the SCS Workshop Uploader, which only supports Windows"))
         self.panel_internal_workshop_help.grid(row = 3, column = 2, padx = (0, 5))
 
         self.panel_internal_unifier_variable = tk.BooleanVar(None, False)
@@ -656,6 +656,7 @@ class PackerApp:
         if workshop_upload:
             pj.copy_versions_sii(output_path+"/Workshop uploading")
             pj.copy_workshop_image(output_path)
+            self.make_workshop_readme()
 
         self.make_readme_file(internal_name, using_unifier, game, mod_name)
 
@@ -741,6 +742,42 @@ class PackerApp:
             file.write("unifier.ini, if not it will tell you what went wrong.\n")
         else:
             file.write("Note: you don't have to change any .tobj files, any .mat files, or anything in the def folder\n")
+        file.close()
+
+    def make_workshop_readme(self):
+        file = open(output_path+"/How to upload your mod to Steam Workshop.txt", "w")
+        file.write("In order to upload your mod to Steam Workshop, you'll need to use the SCS Workshop Uploader, which only runs on Windows.\n")
+        file.write("To download it, you'll need to own ETS 2 or ATS on Steam. Then go to View > Hidden Games, tick \"Tools\" in the dropdown on\n")
+        file.write("the left, then scroll down to find the SCS Workshop Uploader.\n")
+        file.write("\n")
+        file.write("\n")
+        file.write("\n")
+        file.write("Once your mod is complete, compress all of its files into a zip file. Name it universal.zip, and move it to the \"Workshop\n")
+        file.write("uploading\" folder, which should already contain a file called versions.sii.\n")
+        file.write("\n")
+        file.write("You'll also need to create a workshop image, which is a 640 x 360 JPEG, that will represent your mod when people search\n")
+        file.write("for it on the Workshop. There is a placeholder Workshop image.jpg with the correct dimensions.\n")
+        file.write("\n")
+        file.write("\n")
+        file.write("\n")
+        file.write("Open the SCS Workshop Uploader and select your game. In the Mod data section browse to the \"Workshop uploading\" folder\n")
+        file.write("and your workshop image. Enter your mod name, change the visibility to Public if you wish, then enter your description.\n")
+        file.write("There's an automatically generated Workshop description at the bottom of this text file that you can copy-paste. On the right,\n")
+        file.write("select \"Truck parts\" under Type, then scroll down and check \"Paintjobs\". Select all the brands applicable to your mod, and\n")
+        file.write("enter a change note if you wish.\n")
+        file.write("\n")
+        file.write("When you upload your mod, assuming everything else is okay, you'll get a warning mentioning display_name. This is normal, and it\n")
+        file.write("appears because Workshop mods don't use the mod name that you specified when initially generating the mod files, but instead use\n")
+        file.write("the name that you enter in the Workshop Uploader. This warning can be safely ignored.\n")
+        file.write("\n")
+        file.write("\n")
+        file.write("\n")
+        file.write("Below is a workshop description. It's identical to the mod manager description, but with clickable links for any modded vehicles you support.\n")
+        file.write("\n")
+        file.write("\n")
+        file.write("\n")
+        file.write("(desc here)\n")
+        file.close()
 
 class VehSelection:
 
