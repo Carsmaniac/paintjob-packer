@@ -599,7 +599,7 @@ class PackerApp:
 
         pj.copy_mod_manager_image(out_path)
 
-        pj.make_description(out_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list)
+        pj.make_description(out_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs)
 
         pj.make_material_folder(out_path)
 
