@@ -170,7 +170,7 @@ class PackerApp:
         self.panel_mod.grid(row = 0, column = 0, sticky = "ew")
         self.panel_ingame = ttk.LabelFrame(self.main_screen, text = "In-Game Paintjob Info")
         self.panel_ingame.grid(row = 1, column = 0, sticky = "ew")
-        self.panel_internal = ttk.LabelFrame(self.main_screen, text = "Internal (Hidden) Paintjob Info")
+        self.panel_internal = ttk.LabelFrame(self.main_screen, text = "Internal (Hidden) Info and Other Settings")
         self.panel_internal.grid(row = 2, column = 0, sticky = "new")
         self.panel_vehicles_pack = ttk.LabelFrame(self.main_screen, text = "Vehicles Supported (0)")
         self.panel_vehicles_single = ttk.LabelFrame(self.main_screen, text = "Vehicle Supported")
@@ -247,6 +247,11 @@ class PackerApp:
         self.panel_internal_name_input.grid(row = 0, column = 1, padx = 5, sticky = "w")
         self.panel_internal_name_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Internal Name", message = "A unique name used by the game to identify your paintjob. Mod users will NOT see this name.\n\nMust be {} characters or fewer, and only contain letters, numbers and underscores.\n\nMust also be unique, if two different mods use the same internal name they will be incompatible with each other.\n\ne.g. transit_co".format(self.internal_name_length)))
         self.panel_internal_name_help.grid(row = 0, column = 2, padx = (0, 5))
+        self.panel_internal_workshop_variable = tk.BooleanVar(None, False)
+        self.panel_internal_workshop_checkbox = ttk.Checkbutton(self.panel_internal, text = "Generate files for Steam Workshop upload", variable = self.panel_internal_workshop_variable)
+        self.panel_internal_workshop_checkbox.grid(row = 3, column = 0, columnspan = 2, padx = 5, sticky = "w")
+        self.panel_internal_workshop_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Workshop Upload", message = "Generates additional files needed when uploading to Steam Workshop, including a workshop image, an uploading folder and a workshop description with working links to any modded vehicles you support"))
+        self.panel_internal_workshop_help.grid(row = 3, column = 2, padx = (0, 5))
 
         self.panel_internal_unifier_variable = tk.BooleanVar(None, False)
         self.panel_internal_unifier_checkbox = ttk.Checkbutton(self.panel_internal, text = "Use cabin unifier system (advanced users only)", variable = self.panel_internal_unifier_variable, command = lambda : self.show_unifier_warning())
@@ -337,7 +342,7 @@ class PackerApp:
             self.panel_internal_unifier_help.grid(row = 1, column = 2, padx = (0, 5))
             if self.seen_unifier_warning: # these are gridded by show_unifier_warning the first time, then here for all subsequent times (if user goes back to setup, then to main again)
                 # self.panel_internal_unifier_warning.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
-                self.panel_internal_unifier_link.grid(row = 3, column = 0, columnspan = 3, padx = 5, sticky = "w")
+                self.panel_internal_unifier_link.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
         elif self.tab_cabins_variable.get() == "combined":
             self.internal_name_length = 12
 
@@ -427,7 +432,7 @@ class PackerApp:
         if not self.seen_unifier_warning:
             # messagebox.showwarning(title = "Cabin Unifier", message = "The cabin unifier is for advanced users only, please watch the instructional video before use\n\nA hex editing program is required to use the unifier system")
             self.seen_unifier_warning = True
-            self.panel_internal_unifier_link.grid(row = 3, column = 0, columnspan = 3, padx = 5, sticky = "w")
+            self.panel_internal_unifier_link.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
             # self.panel_internal_unifier_warning.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
 
     def update_total_vehicles_supported(self):
@@ -564,6 +569,7 @@ class PackerApp:
 
         num_of_paintjobs = self.tab_paintjob_variable.get()
         cabin_handling = self.tab_cabins_variable.get()
+        workshop_upload = self.panel_internal_workshop_variable.get()
         using_unifier = self.panel_internal_unifier_variable.get()
 
         out_path = output_path+"/"+mod_name
@@ -583,6 +589,10 @@ class PackerApp:
 
         if not os.path.exists(out_path):
             os.makedirs(out_path)
+
+        if workshop_upload:
+            if not os.path.exists(output_path+"/Workshop uploading"):
+                os.makedirs(output_path+"/Workshop uploading")
 
         self.loading_value.set(0.0)
         total_things_to_load = len(vehicle_list) + 1
@@ -642,6 +652,10 @@ class PackerApp:
             else:
                 unifier_name = "unifier.py"
             pj.make_unifier_ini(out_path, internal_name, vehicle_list, unifier_name)
+
+        if workshop_upload:
+            pj.copy_versions_sii(output_path+"/Workshop uploading")
+            pj.copy_workshop_image(output_path)
 
         self.make_readme_file(internal_name, using_unifier, game, mod_name)
 

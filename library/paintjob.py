@@ -100,6 +100,12 @@ def make_description(output_path, truck_list, truck_mod_list, trailer_list, trai
                 file.write("{}'s {}\n".format(veh.mod_author, veh.name))
     file.close()
 
+def copy_versions_sii(ouput_path):
+    shutil.copyfile("library/placeholder files/versions.sii", output_path + "/versions.sii")
+
+def copy_workshop_image(ouput_path):
+    shutil.copyfile("library/placeholder files/Workshop image.jpg", output_path + "/Workshop image.jpg")
+
 
 
 # material folder
