@@ -24,7 +24,7 @@
 
 ## Trailers
 
-* Australian Drop Deck Trailers by **Custom Aussie Mods ** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1924196277)
+* Australian Drop Deck Trailers by **Custom Aussie Mods** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1924196277)
 * Ekeri Trailer Pack by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1430605250) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=251460)
 * Feldbinder KIP by **LadenSwallow** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1958469898) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=279245)
 * Knapen K100 by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1709544505) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=270442)
