@@ -1,10 +1,10 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-import webbrowser, sys, configparser, os, math, re
+import webbrowser, sys, configparser, os, math, re, traceback
 import library.paintjob as pj
 
-version = "1.1"
-forum_link = "https://is.gd/CMPackerThread"
+version = "1.2"
+forum_link = "https://forum.scssoft.com/viewtopic.php?f=33&t=282956"
 github_link = "https://github.com/carsmaniac/paintjob-packer"
 mod_link_page_link = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
 
@@ -17,7 +17,7 @@ except AttributeError:
     using_executable = False
 os.chdir(base_path)
 
-output_path = os.path.expanduser("~/Desktop")
+output_path = os.path.expanduser("~/Desktop/Paintjob Packer Output")
 
 class PackerApp:
 
@@ -170,7 +170,7 @@ class PackerApp:
         self.panel_mod.grid(row = 0, column = 0, sticky = "ew")
         self.panel_ingame = ttk.LabelFrame(self.main_screen, text = "In-Game Paintjob Info")
         self.panel_ingame.grid(row = 1, column = 0, sticky = "ew")
-        self.panel_internal = ttk.LabelFrame(self.main_screen, text = "Internal (Hidden) Paintjob Info")
+        self.panel_internal = ttk.LabelFrame(self.main_screen, text = "Internal (Hidden) Info and Other Settings")
         self.panel_internal.grid(row = 2, column = 0, sticky = "new")
         self.panel_vehicles_pack = ttk.LabelFrame(self.main_screen, text = "Vehicles Supported (0)")
         self.panel_vehicles_single = ttk.LabelFrame(self.main_screen, text = "Vehicle Supported")
@@ -247,6 +247,11 @@ class PackerApp:
         self.panel_internal_name_input.grid(row = 0, column = 1, padx = 5, sticky = "w")
         self.panel_internal_name_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Internal Name", message = "A unique name used by the game to identify your paintjob. Mod users will NOT see this name.\n\nMust be {} characters or fewer, and only contain letters, numbers and underscores.\n\nMust also be unique, if two different mods use the same internal name they will be incompatible with each other.\n\ne.g. transit_co".format(self.internal_name_length)))
         self.panel_internal_name_help.grid(row = 0, column = 2, padx = (0, 5))
+        self.panel_internal_workshop_variable = tk.BooleanVar(None, False)
+        self.panel_internal_workshop_checkbox = ttk.Checkbutton(self.panel_internal, text = "Generate files for Steam Workshop upload", variable = self.panel_internal_workshop_variable)
+        self.panel_internal_workshop_checkbox.grid(row = 3, column = 0, columnspan = 2, padx = 5, sticky = "w")
+        self.panel_internal_workshop_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Workshop Upload", message = "Generates additional files needed when uploading to Steam Workshop, including a workshop image, an uploading folder and a workshop description with working links to any modded vehicles you support\n\nRequires the SCS Workshop Uploader, which only supports Windows"))
+        self.panel_internal_workshop_help.grid(row = 3, column = 2, padx = (0, 5))
 
         self.panel_internal_unifier_variable = tk.BooleanVar(None, False)
         self.panel_internal_unifier_checkbox = ttk.Checkbutton(self.panel_internal, text = "Use cabin unifier system (advanced users only)", variable = self.panel_internal_unifier_variable, command = lambda : self.show_unifier_warning())
@@ -337,7 +342,7 @@ class PackerApp:
             self.panel_internal_unifier_help.grid(row = 1, column = 2, padx = (0, 5))
             if self.seen_unifier_warning: # these are gridded by show_unifier_warning the first time, then here for all subsequent times (if user goes back to setup, then to main again)
                 # self.panel_internal_unifier_warning.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
-                self.panel_internal_unifier_link.grid(row = 3, column = 0, columnspan = 3, padx = 5, sticky = "w")
+                self.panel_internal_unifier_link.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
         elif self.tab_cabins_variable.get() == "combined":
             self.internal_name_length = 12
 
@@ -427,7 +432,7 @@ class PackerApp:
         if not self.seen_unifier_warning:
             # messagebox.showwarning(title = "Cabin Unifier", message = "The cabin unifier is for advanced users only, please watch the instructional video before use\n\nA hex editing program is required to use the unifier system")
             self.seen_unifier_warning = True
-            self.panel_internal_unifier_link.grid(row = 3, column = 0, columnspan = 3, padx = 5, sticky = "w")
+            self.panel_internal_unifier_link.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
             # self.panel_internal_unifier_warning.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
 
     def update_total_vehicles_supported(self):
@@ -503,8 +508,8 @@ class PackerApp:
                 inputs_verified = False
                 all_errors.append(["No vehicle selected", "Please select a vehicle to support"])
 
-        if os.path.exists(output_path+"/Paintjob Packer Output"):
-            if len(os.listdir(output_path+"/Paintjob Packer Output")) > 0:
+        if os.path.exists(output_path):
+            if len(os.listdir(output_path)) > 0:
                 inputs_verified = False # I don't want to be on the receiving end of an irate user who lost their important report the night before it was due, because they happened to store it in the paintjob packer folder
                 messagebox.showerror(title = "Output folder not clear", message = "Output folder contains items, please delete everything within the folder, or delete the folder itself\n\nThe output folder is \"Paintjob Packer Output\", on your desktop")
 
@@ -564,9 +569,10 @@ class PackerApp:
 
         num_of_paintjobs = self.tab_paintjob_variable.get()
         cabin_handling = self.tab_cabins_variable.get()
+        workshop_upload = self.panel_internal_workshop_variable.get()
         using_unifier = self.panel_internal_unifier_variable.get()
 
-        out_path = output_path+"/Paintjob Packer Output"
+        out_path = output_path+"/"+mod_name
 
         if num_of_paintjobs == "single":
             if single_veh.trailer:
@@ -581,8 +587,12 @@ class PackerApp:
                     truck_list.append(single_veh)
             vehicle_list.append(single_veh)
 
-        if not os.path.exists(output_path+"/Paintjob Packer Output"):
-            os.makedirs(output_path+"/Paintjob Packer Output")
+        if not os.path.exists(out_path):
+            os.makedirs(out_path)
+
+        if workshop_upload:
+            if not os.path.exists(output_path+"/Workshop uploading"):
+                os.makedirs(output_path+"/Workshop uploading")
 
         self.loading_value.set(0.0)
         total_things_to_load = len(vehicle_list) + 1
@@ -599,7 +609,7 @@ class PackerApp:
 
         pj.copy_mod_manager_image(out_path)
 
-        pj.make_description(out_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list)
+        pj.make_description(out_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs)
 
         pj.make_material_folder(out_path)
 
@@ -643,24 +653,30 @@ class PackerApp:
                 unifier_name = "unifier.py"
             pj.make_unifier_ini(out_path, internal_name, vehicle_list, unifier_name)
 
-        self.make_readme_file(internal_name, using_unifier, game)
+        if workshop_upload:
+            pj.copy_versions_sii(output_path+"/Workshop uploading")
+            pj.copy_workshop_image(output_path)
+            self.make_workshop_readme(truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs)
+
+        self.make_readme_file(internal_name, using_unifier, game, mod_name)
 
         self.loading_current.set("Complete!")
         self.loading_window.state("withdrawn")
 
-        exit_now = messagebox.showinfo(title = "Mod generation complete", message = "Your mod has been generated successfully, it's been placed on your desktop.\n\nNext to the output folder is a readme with a list of all of the files you'll need to replace.\n\nNote that your mod is not complete yet, see the guide on the GitHub page for instructions on how to complete it.\n\nThanks for using Paintjob Packer! The program will now quit.")
+        exit_now = messagebox.showinfo(title = "Mod generation complete", message = "Your mod has been generated successfully, it's been placed in the output folder on your desktop.\n\nInside the output folder is a readme with a list of all of the files you'll need to replace.\n\nNote that your mod is not complete yet, see the guide on the GitHub page for instructions on how to complete it.\n\nThanks for using Paintjob Packer! The program will now quit.")
         sys.exit()
 
-    def make_readme_file(self, internal_name, using_unifier, game):
-        file = open(output_path+"/Read Me! - Paintjob Packer.txt", "w")
+    def make_readme_file(self, internal_name, using_unifier, game, mod_name):
+        file = open(output_path+"/How to complete your mod.txt", "w")
         file.write("Thanks for using Paintjob Packer!\n")
-        file.write("This text file contains a list of all of the placeholder files you'll need to replace.\n")
+        file.write("\n")
+        file.write("At the moment the \"{}\" folder contains a mod with placeholder textures and images, you now need to replace those with your own files.\n".format(mod_name))
         file.write("\n")
         file.write("For more info, see the guide on the GitHub page: {}\n".format(github_link))
         file.write("\n")
         file.write("\n")
         file.write("\n")
-        file.write("To test your mod, move the output folder (the folder itself, not just the files inside it!) to your mod folder:\n")
+        file.write("To test your mod, move the \"{}\" folder (the folder itself, not just the files inside it) to your mod folder:\n".format(mod_name))
         if game == "ets":
             game_name = "Euro Truck Simulator 2"
         elif game == "ats":
@@ -671,7 +687,7 @@ class PackerApp:
             mod_folder_location = "/Users/(username)/Library/Application Support/{}/mod\n".format(game_name)
         elif sys.platform.startswith("linux"):
             mod_folder_location = "/home/(username)/.local/share/{}/mod\n".format(game_name)
-        file.write(mod_folder_location+"\n")
+        file.write(mod_folder_location)
         file.write("\n")
         file.write("\n")
         file.write("\n")
@@ -690,15 +706,16 @@ class PackerApp:
         file.write("\n")
         file.write("== In-game paintjob icon ==\n")
         file.write("material/ui/accessory/{}_icon.dds\n".format(internal_name))
-        file.write("256 x 64 DDS image (saved in DXT5 format with mipmaps), see the placeholder for recommended size/shape\n")
+        file.write("256 x 64 DDS image (saved in DXT5 format with mipmaps), see the placeholder for recommended size/shape.\n")
         file.write("This is the icon you see when you go to buy your paintjob in-game.\n")
         file.write("\n")
         file.write("\n")
         file.write("\n")
         file.write("== Vehicle textures ==\n")
-        file.write("vehicle/truck/upgrade/paintjob/{}/<vehicle>/<all the .dds files>\n".format(internal_name))
+        file.write("All of the .dds files in:")
+        file.write("vehicle/truck/upgrade/paintjob/{}/<vehicle>/\n".format(internal_name))
         file.write("and/or\n")
-        file.write("vehicle/trailer_owned/upgrade/paintjob/{}/<vehicle>/<all the .dds files>\n".format(internal_name))
+        file.write("vehicle/trailer_owned/upgrade/paintjob/{}/<vehicle>/\n".format(internal_name))
         file.write("DDS images (saved in DXT5 format with mipmaps), height and width need to be powers of 2 (e.g. 16, 64, 1024, 2048, 4096)\n")
         file.write("\n")
         file.write("The \"cabin\" images in the truck folders are the main files of your paintjob,\n")
@@ -725,6 +742,60 @@ class PackerApp:
             file.write("unifier.ini, if not it will tell you what went wrong.\n")
         else:
             file.write("Note: you don't have to change any .tobj files, any .mat files, or anything in the def folder\n")
+        file.close()
+
+    def make_workshop_readme(self, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs):
+        file = open(output_path+"/How to upload your mod to Steam Workshop.txt", "w")
+        file.write("In order to upload your mod to Steam Workshop, you'll need to use the SCS Workshop Uploader, which only runs on Windows.\n")
+        file.write("To download it, you'll need to own ETS 2 or ATS on Steam. Then go to View > Hidden Games, tick \"Tools\" in the dropdown on\n")
+        file.write("the left, then scroll down to find the SCS Workshop Uploader.\n")
+        file.write("\n")
+        file.write("\n")
+        file.write("\n")
+        file.write("Once your mod is complete, compress all of its files into a zip file. Name it universal.zip, and move it to the \"Workshop\n")
+        file.write("uploading\" folder, which should already contain a file called versions.sii.\n")
+        file.write("\n")
+        file.write("You'll also need to create a workshop image, which is a 640 x 360 JPEG, that will represent your mod when people search\n")
+        file.write("for it on the Workshop. There is a placeholder Workshop image.jpg with the correct dimensions.\n")
+        file.write("\n")
+        file.write("\n")
+        file.write("\n")
+        file.write("Open the SCS Workshop Uploader and select your game. In the Mod data section browse to the \"Workshop uploading\" folder\n")
+        file.write("and your workshop image. Enter your mod name, change the visibility to Public if you wish, then enter your description.\n")
+        file.write("There's an automatically generated Workshop description at the bottom of this text file that you can copy-paste. On the right,\n")
+        file.write("select \"Truck parts\" under Type, then scroll down and check \"Paintjobs\". Select all the brands applicable to your mod, and\n")
+        file.write("enter a change note if you wish.\n")
+        file.write("\n")
+        file.write("When you upload your mod, assuming everything else is okay, you'll get a warning mentioning display_name. This is normal, and it\n")
+        file.write("appears because Workshop mods don't use the mod name that you specified when initially generating the mod files, but instead use\n")
+        file.write("the name that you enter in the Workshop Uploader. This warning can be safely ignored.\n")
+        file.write("\n")
+        file.write("\n")
+        file.write("\n")
+        file.write("Below is a workshop description. It's identical to the mod manager description, but with clickable links for any modded vehicles you support.\n")
+        file.write("\n")
+        file.write("\n")
+        file.write("\n")
+        if num_of_paintjobs == "single":
+            for veh in truck_list + trailer_list:
+                file.write("This paintjob supports the {}\n".format(veh.name))
+            for veh in truck_mod_list + trailer_mod_list:
+                file.write("This paintjob supports {}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name))
+        else:
+            if len(truck_list) + len(truck_mod_list) > 0:
+                file.write("Trucks supported:\n")
+                for veh in truck_list:
+                    file.write(veh.name+"\n")
+                for veh in truck_mod_list:
+                    file.write("{}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name))
+                file.write("\n")
+            if len(trailer_list) + len(trailer_mod_list) > 0:
+                file.write("Trailers supported:\n")
+                for veh in trailer_list:
+                    file.write(veh.name+"\n")
+                for veh in trailer_mod_list:
+                    file.write("{}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name))
+        file.close()
 
 class VehSelection:
 
@@ -737,12 +808,19 @@ class VehSelection:
         self.trailer = veh_ini["vehicle info"].getboolean("trailer")
         self.mod = veh_ini["vehicle info"].getboolean("mod")
         self.mod_author = veh_ini["vehicle info"]["mod author"]
+        self.mod_link = veh_ini["vehicle info"]["mod link"]
+
+def show_unhandled_error(error_type, error_message, error_traceback):
+    # there's probably a neater way to do this, but this works
+    messagebox.showerror(title = "Unhandled exception", message = "Something has gone very wrong!\n\nPlease send this error message (the entire thing, including the lengthy traceback) to the developer!\n\nError type: {}\nError: {}\n\nTraceback:\n{}".format(error_type.__name__, str(error_message), "\n".join(traceback.format_list(traceback.extract_tb(error_traceback)))))
+
 
 def main():
     root = tk.Tk()
     root.title("Paintjob Packer v{}".format(version))
     root.iconphoto(True, tk.PhotoImage(file = "library/packer images/icon.png"))
     root.resizable(False, False)
+    root.report_callback_exception = show_unhandled_error
     packer = PackerApp(root)
     root.mainloop()
 
