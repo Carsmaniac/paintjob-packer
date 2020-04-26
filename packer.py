@@ -3,8 +3,8 @@ from tkinter import ttk, messagebox
 import webbrowser, sys, configparser, os, math, re
 import library.paintjob as pj
 
-version = "1.1"
-forum_link = "https://is.gd/CMPackerThread"
+version = "1.2"
+forum_link = "https://forum.scssoft.com/viewtopic.php?f=33&t=282956"
 github_link = "https://github.com/carsmaniac/paintjob-packer"
 mod_link_page_link = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
 
@@ -656,7 +656,7 @@ class PackerApp:
         if workshop_upload:
             pj.copy_versions_sii(output_path+"/Workshop uploading")
             pj.copy_workshop_image(output_path)
-            self.make_workshop_readme()
+            self.make_workshop_readme(truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs)
 
         self.make_readme_file(internal_name, using_unifier, game, mod_name)
 
@@ -744,7 +744,7 @@ class PackerApp:
             file.write("Note: you don't have to change any .tobj files, any .mat files, or anything in the def folder\n")
         file.close()
 
-    def make_workshop_readme(self):
+    def make_workshop_readme(self, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs):
         file = open(output_path+"/How to upload your mod to Steam Workshop.txt", "w")
         file.write("In order to upload your mod to Steam Workshop, you'll need to use the SCS Workshop Uploader, which only runs on Windows.\n")
         file.write("To download it, you'll need to own ETS 2 or ATS on Steam. Then go to View > Hidden Games, tick \"Tools\" in the dropdown on\n")
@@ -776,7 +776,25 @@ class PackerApp:
         file.write("\n")
         file.write("\n")
         file.write("\n")
-        file.write("(desc here)\n")
+        if num_of_paintjobs == "single":
+            for veh in truck_list + trailer_list:
+                file.write("This paintjob supports the {}\n".format(veh.name))
+            for veh in truck_mod_list + trailer_mod_list:
+                file.write("This paintjob supports {}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name))
+        else:
+            if len(truck_list) + len(truck_mod_list) > 0:
+                file.write("Trucks supported:\n")
+                for veh in truck_list:
+                    file.write(veh.name+"\n")
+                for veh in truck_mod_list:
+                    file.write("{}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name))
+                file.write("\n")
+            if len(trailer_list) + len(trailer_mod_list) > 0:
+                file.write("Trailers supported:\n")
+                for veh in trailer_list:
+                    file.write(veh.name+"\n")
+                for veh in trailer_mod_list:
+                    file.write("{}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name))
         file.close()
 
 class VehSelection:

@@ -92,7 +92,7 @@ def make_description(output_path, truck_list, truck_mod_list, trailer_list, trai
             for veh in truck_mod_list:
                 file.write("{}'s {}\n".format(veh.mod_author, veh.name))
             file.write("\n")
-        if len(truck_list) + len(trailer_mod_list) > 0:
+        if len(trailer_list) + len(trailer_mod_list) > 0:
             file.write("Trailers supported:\n")
             for veh in trailer_list:
                 file.write(veh.name+"\n")
