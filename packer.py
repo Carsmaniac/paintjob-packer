@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
-import webbrowser, sys, configparser, os, math, re
+import webbrowser, sys, configparser, os, math, re, traceback
 import library.paintjob as pj
 
 version = "1.2"
@@ -808,12 +808,19 @@ class VehSelection:
         self.trailer = veh_ini["vehicle info"].getboolean("trailer")
         self.mod = veh_ini["vehicle info"].getboolean("mod")
         self.mod_author = veh_ini["vehicle info"]["mod author"]
+        self.mod_link = veh_ini["vehicle info"]["mod link"]
+
+def show_unhandled_error(error_type, error_message, error_traceback):
+    # there's probably a neater way to do this, but this works
+    messagebox.showerror(title = "Unhandled exception", message = "Something has gone very wrong!\n\nPlease send this error message (the entire thing, including the lengthy traceback) to the developer!\n\nError type: {}\nError: {}\n\nTraceback:\n{}".format(error_type.__name__, str(error_message), "\n".join(traceback.format_list(traceback.extract_tb(error_traceback)))))
+
 
 def main():
     root = tk.Tk()
     root.title("Paintjob Packer v{}".format(version))
     root.iconphoto(True, tk.PhotoImage(file = "library/packer images/icon.png"))
     root.resizable(False, False)
+    root.report_callback_exception = show_unhandled_error
     packer = PackerApp(root)
     root.mainloop()
 
