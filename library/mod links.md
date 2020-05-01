@@ -60,8 +60,8 @@
 * Mack R Series by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1463066263) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256935)
 * Peterbilt 567 by **GTM** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1410475763) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=255232)
 * Peterbilt Project 3XX by **guidot** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1835092596) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=256189)
-* Scot A2HD by **Smarty** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=661658019)
-* Volvo VNL 2018 by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1832939055) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=201612)
+* Scot A2HD by **Smarty** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=661658019) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=201612)
+* Volvo VNL 2018 by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1832939055) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256560)
 * Volvo VNR by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1833428947) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256338)
 
 ## Trailers
