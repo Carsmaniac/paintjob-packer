@@ -44,10 +44,10 @@ for veh in vehicles:
             dds_cab_size = str(tobj_file.read())[-6:-5] # gets just the letter of the DDS referred to, e.g. "b" from cabin_b.dds
             tobj_file.close()
             if dds_cab_size not in veh["cabin_dict"]:
-                messagebox.showerror(title = "Incorrectly named file", message = "WARNING - Incorrectly named file: vehicle/truck/upgrade/paintjobs/{}/{}/cabin_{}.dds\n\nAll .dds files need to be named similarly to an existing .tobj file, e.g. \"cabin_b.dds\" is fine, but \"cabin_2.dds\" or \"small_cabin.dds\" is not\n\nThe cabin unifier will now quit".format(internal_name, veh["make_model"], dds_cab_size))
+                messagebox.showerror(title = "Incorrectly named file", message = "WARNING - Incorrectly named file: vehicle/truck/upgrade/paintjob/{}/{}/cabin_{}.dds\n\nAll .dds files need to be named similarly to an existing .tobj file, e.g. \"cabin_b.dds\" is fine, but \"cabin_2.dds\" or \"small_cabin.dds\" is not\n\nThe cabin unifier will now quit".format(internal_name, veh["make_model"], dds_cab_size))
                 sys.exit()
-            if not os.path.isfile("vehicle/truck/upgrade/paintjobs/{}/{}/cabin_{}.dds".format(internal_name, veh["make_model"], dds_cab_size)):
-                messagebox.showerror(title = "File missing", message = "WARNING - File missing: vehicle/truck/upgrade/paintjobs/{}/{}/cabin_{}.dds\n\nThe cabin unifier will now quit".format(internal_name, veh["make_model"], dds_cab_size))
+            if not os.path.isfile("vehicle/truck/upgrade/paintjob/{}/{}/cabin_{}.dds".format(internal_name, veh["make_model"], dds_cab_size)):
+                messagebox.showerror(title = "File missing", message = "WARNING - File missing: vehicle/truck/upgrade/paintjob/{}/{}/cabin_{}.dds\n\nThe cabin unifier will now quit".format(internal_name, veh["make_model"], dds_cab_size))
                 sys.exit()
             if dds_cab_size not in veh["tobj_cabin_dict"]:
                 veh["tobj_cabin_dict"][dds_cab_size] = []
