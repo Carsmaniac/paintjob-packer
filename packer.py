@@ -71,8 +71,8 @@ class PackerApp:
         self.tab_selector.add(self.tab_game, text = " Game ")
         self.tab_paintjob = ttk.Frame(self.tab_selector)
         self.tab_selector.add(self.tab_paintjob, text = " Paintjobs ")
-        self.tab_cabins = ttk.Frame(self.tab_selector)
-        self.tab_selector.add(self.tab_cabins, text = " Cabin Handling ")
+        self.tab_cabin_handling = ttk.Frame(self.tab_selector)
+        self.tab_selector.add(self.tab_cabin_handling, text = " Cabin Handling ")
 
         # Welcome tab
         self.tab_welcome_title = ttk.Label(self.tab_welcome, text = "Welcome to Paintjob Packer")
@@ -140,27 +140,27 @@ class PackerApp:
         self.tab_paintjob_button_next.grid(row = 4, column = 1, padx = 10, pady = 10, sticky = "e")
 
         # Cabin Handling tab
-        self.tab_cabins_title = ttk.Label(self.tab_cabins, text = "How should separate cabins be handled?")
-        self.tab_cabins_title.grid(row = 0, column = 0, columnspan = 2, pady = 20)
-        self.tab_cabins_image_combined = ttk.Label(self.tab_cabins, image = self.image_combined_cabins)
-        self.tab_cabins_image_combined.grid(row = 1, column = 0, padx = 10)
-        self.tab_cabins_image_separate = ttk.Label(self.tab_cabins, image = self.image_separate_cabins)
-        self.tab_cabins_image_separate.grid(row = 1, column = 1, padx = 10)
-        self.tab_cabins_variable = tk.StringVar(None, "combined")
-        self.tab_cabins_option_combined = ttk.Radiobutton(self.tab_cabins, text = "One paintjob per vehicle", value = "combined", variable = self.tab_cabins_variable)
-        self.tab_cabins_option_combined.grid(row = 2, column = 0, pady = 10)
-        self.tab_cabins_image_combined.bind("<1>", lambda e: self.tab_cabins_variable.set("combined"))
-        self.tab_cabins_option_separate = ttk.Radiobutton(self.tab_cabins, text = "Separate paintjobs for each cabin", value = "separate", variable = self.tab_cabins_variable)
-        self.tab_cabins_option_separate.grid(row = 2, column = 1, pady = 10)
-        self.tab_cabins_image_separate.bind("<1>", lambda e: self.tab_cabins_variable.set("separate"))
-        self.tab_cabins_desc_combined = ttk.Label(self.tab_cabins, text = "Smaller mod size, but your design might not\nwork perfectly across all the cabin sizes", justify = "center")
-        self.tab_cabins_desc_combined.grid(row = 3, column = 0, padx = 10, sticky = "n")
-        self.tab_cabins_desc_separate = ttk.Label(self.tab_cabins, text = "Lets you tweak your design for each cabin\nsize, but your mod will be bigger", justify = "center")
-        self.tab_cabins_desc_separate.grid(row = 3, column = 1, padx = 10, sticky = "n")
-        self.tab_cabins_button_prev = ttk.Button(self.tab_cabins, text = "< Prev", command = lambda : self.tab_selector.select(2))
-        self.tab_cabins_button_prev.grid(row = 4, column = 0, padx = 10, pady = 10, sticky = "w")
-        self.tab_cabins_button_next = ttk.Button(self.tab_cabins, text = "Continue", command = lambda : self.switch_to_main_screen())
-        self.tab_cabins_button_next.grid(row = 4, column = 1, padx = 10, pady = 10, stick = "e")
+        self.tab_cabin_handling_title = ttk.Label(self.tab_cabin_handling, text = "How should separate cabins be handled?")
+        self.tab_cabin_handling_title.grid(row = 0, column = 0, columnspan = 2, pady = 20)
+        self.tab_cabin_handling_image_combined = ttk.Label(self.tab_cabin_handling, image = self.image_combined_cabins)
+        self.tab_cabin_handling_image_combined.grid(row = 1, column = 0, padx = 10)
+        self.tab_cabin_handling_image_separate = ttk.Label(self.tab_cabin_handling, image = self.image_separate_cabins)
+        self.tab_cabin_handling_image_separate.grid(row = 1, column = 1, padx = 10)
+        self.tab_cabin_handling_variable = tk.StringVar(None, "combined")
+        self.tab_cabin_handling_option_combined = ttk.Radiobutton(self.tab_cabin_handling, text = "One paintjob per vehicle", value = "combined", variable = self.tab_cabin_handling_variable)
+        self.tab_cabin_handling_option_combined.grid(row = 2, column = 0, pady = 10)
+        self.tab_cabin_handling_image_combined.bind("<1>", lambda e: self.tab_cabin_handling_variable.set("combined"))
+        self.tab_cabin_handling_option_separate = ttk.Radiobutton(self.tab_cabin_handling, text = "Separate paintjobs for each cabin", value = "separate", variable = self.tab_cabin_handling_variable)
+        self.tab_cabin_handling_option_separate.grid(row = 2, column = 1, pady = 10)
+        self.tab_cabin_handling_image_separate.bind("<1>", lambda e: self.tab_cabin_handling_variable.set("separate"))
+        self.tab_cabin_handling_desc_combined = ttk.Label(self.tab_cabin_handling, text = "Smaller mod size, but your design might not\nwork perfectly across all the cabin sizes", justify = "center")
+        self.tab_cabin_handling_desc_combined.grid(row = 3, column = 0, padx = 10, sticky = "n")
+        self.tab_cabin_handling_desc_separate = ttk.Label(self.tab_cabin_handling, text = "Lets you tweak your design for each cabin\nsize, but your mod will be bigger", justify = "center")
+        self.tab_cabin_handling_desc_separate.grid(row = 3, column = 1, padx = 10, sticky = "n")
+        self.tab_cabin_handling_button_prev = ttk.Button(self.tab_cabin_handling, text = "< Prev", command = lambda : self.tab_selector.select(2))
+        self.tab_cabin_handling_button_prev.grid(row = 4, column = 0, padx = 10, pady = 10, sticky = "w")
+        self.tab_cabin_handling_button_next = ttk.Button(self.tab_cabin_handling, text = "Continue", command = lambda : self.switch_to_main_screen())
+        self.tab_cabin_handling_button_next.grid(row = 4, column = 1, padx = 10, pady = 10, stick = "e")
 
         self.setup_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
 
@@ -336,14 +336,14 @@ class PackerApp:
         elif self.tab_game_variable.get() == "ets":
             self.currency = "euro"
 
-        if self.tab_cabins_variable.get() == "separate":
+        if self.tab_cabin_handling_variable.get() == "separate":
             self.internal_name_length = 10
             self.panel_internal_unifier_checkbox.grid(row = 1, column = 0, columnspan = 2, padx = 5, sticky = "w")
             self.panel_internal_unifier_help.grid(row = 1, column = 2, padx = (0, 5))
             if self.seen_unifier_warning: # these are gridded by show_unifier_warning the first time, then here for all subsequent times (if user goes back to setup, then to main again)
                 # self.panel_internal_unifier_warning.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
                 self.panel_internal_unifier_link.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
-        elif self.tab_cabins_variable.get() == "combined":
+        elif self.tab_cabin_handling_variable.get() == "combined":
             self.internal_name_length = 12
 
         (self.truck_list, self.truck_mod_list, self.trailer_list, self.trailer_mod_list) = self.load_list_of_vehicles(self.tab_game_variable.get())
@@ -568,7 +568,7 @@ class PackerApp:
         internal_name = self.panel_internal_name_variable.get()
 
         num_of_paintjobs = self.tab_paintjob_variable.get()
-        cabin_handling = self.tab_cabins_variable.get()
+        cabin_handling = self.tab_cabin_handling_variable.get()
         workshop_upload = self.panel_internal_workshop_variable.get()
         using_unifier = self.panel_internal_unifier_variable.get()
 
