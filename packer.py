@@ -77,6 +77,7 @@ class PackerApp:
         self.tab_selector.add(self.tab_cabins, text = " Cabins ")
         self.tab_cabin_handling = ttk.Frame(self.tab_selector)
         self.tab_selector.add(self.tab_cabin_handling, text = " Cabin Handling ")
+        self.tab_selector.hide(self.tab_cabin_handling) # the title is set here, but the tab doesn't need to be shown yet
 
         # Welcome tab
         self.tab_welcome_title = ttk.Label(self.tab_welcome, text = "Welcome to Paintjob Packer")
@@ -153,14 +154,20 @@ class PackerApp:
         self.tab_cabins_variable = tk.StringVar(None, "large")
         self.tab_cabins_option_large = ttk.Radiobutton(self.tab_cabins, text = "Largest cabin only", value = "large", variable = self.tab_cabins_variable)
         self.tab_cabins_option_large.grid(row = 2, column = 0, pady = 10)
+        self.tab_cabins_option_large.bind("<1>", lambda e: self.show_hide_cabin_handling_tab("large"))
+        self.tab_cabins_image_large.bind("<1>", lambda e: self.show_hide_cabin_handling_tab("large"))
         self.tab_cabins_option_all = ttk.Radiobutton(self.tab_cabins, text = "All truck cabins", value = "all", variable = self.tab_cabins_variable)
         self.tab_cabins_option_all.grid(row = 2, column = 1, pady = 10)
+        self.tab_cabins_option_all.bind("<1>", lambda e: self.show_hide_cabin_handling_tab("all"))
+        self.tab_cabins_image_all.bind("<1>", lambda e: self.show_hide_cabin_handling_tab("all"))
         self.tab_cabins_desc_large = ttk.Label(self.tab_cabins, text = "Support only the largest cabin\nsize (Cabin A) for each truck", justify = "center")
         self.tab_cabins_desc_large.grid(row = 3, column = 0, padx = 10, sticky = "n")
         self.tab_cabins_desc_all = ttk.Label(self.tab_cabins, text = "Support every cabin\nsize for each truck", justify = "center")
         self.tab_cabins_desc_all.grid(row = 3, column = 1, padx = 10, sticky = "n")
         self.tab_cabins_button_prev = ttk.Button(self.tab_cabins, text = "< Prev", command = lambda : self.tab_selector.select(2))
-
+        self.tab_cabins_button_prev.grid(row = 4, column = 0, padx = 10, pady = 10, sticky = "w")
+        self.tab_cabins_button_next = ttk.Button(self.tab_cabins, text = "Continue", command = lambda : self.switch_to_main_screen())
+        self.tab_cabins_button_next.grid(row = 4, column = 1, padx = 10, pady = 10, sticky = "e")
 
         # Cabin Handling tab
         self.tab_cabin_handling_title = ttk.Label(self.tab_cabin_handling, text = "How should separate cabins be handled?")
@@ -180,7 +187,7 @@ class PackerApp:
         self.tab_cabin_handling_desc_combined.grid(row = 3, column = 0, padx = 10, sticky = "n")
         self.tab_cabin_handling_desc_separate = ttk.Label(self.tab_cabin_handling, text = "Lets you tweak your design for each cabin\nsize, but your mod will be bigger", justify = "center")
         self.tab_cabin_handling_desc_separate.grid(row = 3, column = 1, padx = 10, sticky = "n")
-        self.tab_cabin_handling_button_prev = ttk.Button(self.tab_cabin_handling, text = "< Prev", command = lambda : self.tab_selector.select(2))
+        self.tab_cabin_handling_button_prev = ttk.Button(self.tab_cabin_handling, text = "< Prev", command = lambda : self.tab_selector.select(3))
         self.tab_cabin_handling_button_prev.grid(row = 4, column = 0, padx = 10, pady = 10, sticky = "w")
         self.tab_cabin_handling_button_next = ttk.Button(self.tab_cabin_handling, text = "Continue", command = lambda : self.switch_to_main_screen())
         self.tab_cabin_handling_button_next.grid(row = 4, column = 1, padx = 10, pady = 10, stick = "e")
@@ -324,6 +331,15 @@ class PackerApp:
         self.panel_buttons_feedback.bind("<1>", lambda e: webbrowser.open_new(forum_link))
         self.panel_buttons_generate = ttk.Button(self.panel_buttons, text = "Generate mod", command = lambda : self.verify_all_inputs())
         self.panel_buttons_generate.grid(row = 1, column = 2, pady = (5, 0), sticky = "e")
+
+    def show_hide_cabin_handling_tab(self, cabins_variable):
+        self.tab_cabins_variable.set(cabins_variable)
+        if cabins_variable == "large":
+            self.tab_selector.hide(self.tab_cabin_handling)
+            self.tab_cabins_button_next.configure(text = "Continue", command = lambda : self.switch_to_main_screen())
+        elif cabins_variable == "all":
+            self.tab_selector.add(self.tab_cabin_handling)
+            self.tab_cabins_button_next.configure(text = "Next >", command = lambda : self.tab_selector.select(4))
 
     def switch_to_setup_screen(self):
         if self.tab_paintjob_variable.get() == "single":
