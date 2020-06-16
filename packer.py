@@ -31,6 +31,8 @@ class PackerApp:
         self.image_ets = tk.PhotoImage(file = "library/packer images/ets.png")
         self.image_single_paintjob = tk.PhotoImage(file = "library/packer images/single paintjob.png")
         self.image_paintjob_pack = tk.PhotoImage(file = "library/packer images/paintjob pack.png")
+        self.image_all_cabins = tk.PhotoImage(file = "library/packer images/all cabins.png")
+        self.image_large_cabins = tk.PhotoImage(file = "library/packer images/large cabins.png")
         self.image_separate_cabins = tk.PhotoImage(file = "library/packer images/separate cabins.png")
         self.image_combined_cabins = tk.PhotoImage(file = "library/packer images/combined cabins.png")
         self.image_spacer_100 = tk.PhotoImage(file = "library/packer images/spacer 100.png")
@@ -71,6 +73,8 @@ class PackerApp:
         self.tab_selector.add(self.tab_game, text = " Game ")
         self.tab_paintjob = ttk.Frame(self.tab_selector)
         self.tab_selector.add(self.tab_paintjob, text = " Paintjobs ")
+        self.tab_cabins = ttk.Frame(self.tab_selector)
+        self.tab_selector.add(self.tab_cabins, text = " Cabins ")
         self.tab_cabin_handling = ttk.Frame(self.tab_selector)
         self.tab_selector.add(self.tab_cabin_handling, text = " Cabin Handling ")
 
@@ -138,6 +142,25 @@ class PackerApp:
         self.tab_paintjob_button_prev.grid(row = 4, column = 0, padx = 10, pady = 10, sticky = "w")
         self.tab_paintjob_button_next = ttk.Button(self.tab_paintjob, text = "Next >", command = lambda : self.tab_selector.select(3))
         self.tab_paintjob_button_next.grid(row = 4, column = 1, padx = 10, pady = 10, sticky = "e")
+
+        # Cabins tab
+        self.tab_cabins_title = ttk.Label(self.tab_cabins, text = "Which cabins should be supported?")
+        self.tab_cabins_title.grid(row = 0, column = 0, columnspan = 2, pady = 20)
+        self.tab_cabins_image_large = ttk.Label(self.tab_cabins, image = self.image_large_cabins)
+        self.tab_cabins_image_large.grid(row = 1, column = 0, padx = 10)
+        self.tab_cabins_image_all = ttk.Label(self.tab_cabins, image = self.image_all_cabins)
+        self.tab_cabins_image_all.grid(row = 1, column = 1, padx = 10)
+        self.tab_cabins_variable = tk.StringVar(None, "large")
+        self.tab_cabins_option_large = ttk.Radiobutton(self.tab_cabins, text = "Largest cabin only", value = "large", variable = self.tab_cabins_variable)
+        self.tab_cabins_option_large.grid(row = 2, column = 0, pady = 10)
+        self.tab_cabins_option_all = ttk.Radiobutton(self.tab_cabins, text = "All truck cabins", value = "all", variable = self.tab_cabins_variable)
+        self.tab_cabins_option_all.grid(row = 2, column = 1, pady = 10)
+        self.tab_cabins_desc_large = ttk.Label(self.tab_cabins, text = "Support only the largest cabin\nsize (Cabin A) for each truck", justify = "center")
+        self.tab_cabins_desc_large.grid(row = 3, column = 0, padx = 10, sticky = "n")
+        self.tab_cabins_desc_all = ttk.Label(self.tab_cabins, text = "Support every cabin\nsize for each truck", justify = "center")
+        self.tab_cabins_desc_all.grid(row = 3, column = 1, padx = 10, sticky = "n")
+        self.tab_cabins_button_prev = ttk.Button(self.tab_cabins, text = "< Prev", command = lambda : self.tab_selector.select(2))
+
 
         # Cabin Handling tab
         self.tab_cabin_handling_title = ttk.Label(self.tab_cabin_handling, text = "How should separate cabins be handled?")
