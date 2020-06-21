@@ -46,7 +46,6 @@ class PackerApp:
         elif sys.platform.startswith("linux"):
             self.cursor = "hand2"
 
-        self.seen_unifier_warning = False # controls whether the link to the guide is displayed
         self.total_vehicles = 0 # used in the vehicle selector when making a paintjob pack
 
         # second window displayed when generating mod, mostly useless as it generates so quickly
@@ -312,7 +311,7 @@ class PackerApp:
         self.panel_internal_spacer_input = ttk.Label(self.panel_internal, image = self.image_spacer_200)
         self.panel_internal_spacer_input.grid(row = 8, column = 1)
 
-        # Vehicle supported panel (single paintjob)
+        # Vehicle Supported panel (single paintjob)
         self.panel_single_type_variable = tk.StringVar(None, "Truck")
         self.panel_single_type_variable.trace("w", self.change_displayed_vehicle_dropdown)
         self.panel_single_type_label = ttk.Label(self.panel_vehicles_single, text = "Type:")
@@ -325,7 +324,7 @@ class PackerApp:
         self.panel_single_vehicle_dropdown = ttk.Combobox(self.panel_vehicles_single, state = "readonly", textvariable = self.panel_single_vehicle_variable, values = [], width = 30)
         self.panel_single_vehicle_dropdown.grid(row = 3, column = 0, padx = 5, sticky = "w")
 
-        # Vehicles supported panel (paintjob pack)
+        # Vehicles Supported panel (paintjob pack)
         self.panel_pack_selector = ttk.Notebook(self.panel_vehicles_pack)
         self.panel_pack_selector.grid(row = 0, column = 0, sticky = "nsew", padx = 5, pady = (0, 5))
         self.tab_trucks = ttk.Frame(self.panel_pack_selector)
@@ -350,10 +349,6 @@ class PackerApp:
         self.panel_buttons_generate = ttk.Button(self.panel_buttons, text = "Generate mod", command = lambda : self.verify_all_inputs())
         self.panel_buttons_generate.grid(row = 1, column = 2, pady = (5, 0), sticky = "e")
 
-    def test_trace(self, *args):
-        print(self.panel_single_vehicle_variable.get())
-        self.panel_single_vehicle_variable.trace("w", self.test_trace)
-
     def update_cabin_dropdowns(self, *args):
         if self.panel_internal_supported_variable.get() == "Largest cabin only":
             self.panel_internal_handling_label.grid_forget()
@@ -366,6 +361,7 @@ class PackerApp:
             self.panel_internal_handling_label.grid(row = 5, column = 0, padx = 5, sticky = "w")
             self.panel_internal_handling_dropdown.grid(row = 5, column = 1, padx = 5, sticky = "w")
             self.panel_internal_handling_help.grid(row = 5, column = 2, padx = (0, 5))
+
             if self.panel_internal_handling_variable.get() == "Combined paintjob":
                 self.panel_internal_unifier_checkbox.grid_forget()
                 self.panel_internal_unifier_help.grid_forget()
@@ -373,11 +369,10 @@ class PackerApp:
             elif self.panel_internal_handling_variable.get() == "Separate paintjobs":
                 self.panel_internal_unifier_checkbox.grid(row = 6, column = 0, columnspan = 2, padx = 5, sticky = "w")
                 self.panel_internal_unifier_help.grid(row = 6, column = 2, padx = (0, 5))
+
                 if not self.panel_internal_unifier_variable.get():
-                    pass
                     self.panel_internal_unifier_warning.grid_forget()
                 elif self.panel_internal_unifier_variable.get():
-                    pass
                     self.panel_internal_unifier_warning.grid(row = 7, column = 0, columnspan = 3, padx = 5, sticky = "w")
 
     def show_hide_cabin_handling_tab(self, cabins_variable):
@@ -403,11 +398,6 @@ class PackerApp:
         self.panel_pack_link_truck.grid_forget() # just in case it changes location
         self.panel_pack_link_trailer.grid_forget()
 
-        self.panel_internal_unifier_checkbox.grid_forget()
-        self.panel_internal_unifier_help.grid_forget()
-        # self.panel_internal_unifier_warning.grid_forget()
-        self.panel_internal_unifier_link.grid_forget()
-
     def switch_to_main_screen(self):
         self.setup_screen.grid_forget()
         self.main_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
@@ -427,9 +417,6 @@ class PackerApp:
             self.internal_name_length = 10
             self.panel_internal_unifier_checkbox.grid(row = 1, column = 0, columnspan = 2, padx = 5, sticky = "w")
             self.panel_internal_unifier_help.grid(row = 1, column = 2, padx = (0, 5))
-            if self.seen_unifier_warning: # these are gridded by show_unifier_warning the first time, then here for all subsequent times (if user goes back to setup, then to main again)
-                # self.panel_internal_unifier_warning.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
-                self.panel_internal_unifier_link.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
         elif self.tab_cabin_handling_variable.get() == "combined":
             self.internal_name_length = 12
 
@@ -514,13 +501,6 @@ class PackerApp:
         elif type == "Trailer Mod":
             for veh in self.trailer_mod_list: new_values.append(veh.name)
         self.panel_single_vehicle_dropdown.config(values = new_values)
-
-    def show_unifier_warning(self):
-        if not self.seen_unifier_warning:
-            # messagebox.showwarning(title = "Cabin Unifier", message = "The cabin unifier is for advanced users only, please watch the instructional video before use\n\nA hex editing program is required to use the unifier system")
-            self.seen_unifier_warning = True
-            self.panel_internal_unifier_link.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
-            # self.panel_internal_unifier_warning.grid(row = 2, column = 0, columnspan = 3, padx = 5, sticky = "w")
 
     def update_total_vehicles_supported(self):
         self.total_vehicles = 0
