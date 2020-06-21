@@ -282,17 +282,35 @@ class PackerApp:
         self.panel_internal_workshop_checkbox.grid(row = 3, column = 0, columnspan = 2, padx = 5, sticky = "w")
         self.panel_internal_workshop_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Workshop Upload", message = "Generates additional files needed when uploading to Steam Workshop, including a workshop image, an uploading folder and a workshop description with working links to any modded vehicles you support\n\nRequires the SCS Workshop Uploader, which only supports Windows"))
         self.panel_internal_workshop_help.grid(row = 3, column = 2, padx = (0, 5))
-
+        self.panel_internal_supported_variable = tk.StringVar(None, "Largest cabin only")
+        self.panel_internal_supported_variable.trace("w", self.update_cabin_dropdowns)
+        self.panel_internal_supported_label = ttk.Label(self.panel_internal, text = "Supported cabins:")
+        self.panel_internal_supported_label.grid(row = 4, column = 0, padx = (5, 0), sticky = "w")
+        self.panel_internal_supported_dropdown = ttk.Combobox(self.panel_internal, state = "readonly", textvariable = self.panel_internal_supported_variable, values = ["Largest cabin only", "All cabins"], width = 20)
+        self.panel_internal_supported_dropdown.grid(row = 4, column = 1, padx = 5, sticky = "w")
+        self.panel_internal_supported_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Supported Cabins", message = "Whether your paintjob supports only the largest cabin for each truck, or all cabins.\n\nNote that the 8x4 chassis uses a separate cabin in some cases, which would not be supported if you choose largest cabin only.\n\ne.g. If you're making a paintjob for the Scania Streamline, a \"largest cabin only\" paintjob would only support the Topline cabin, whereas an \"all cabins\" paintjob would support the Normal, Highline and Topline cabins, as well as the separate Topline 8x4 cabin."))
+        self.panel_internal_supported_help.grid(row = 4, column = 2, padx = (0, 5))
+        self.panel_internal_handling_variable = tk.StringVar(None, "Combined paintjob")
+        self.panel_internal_handling_variable.trace("w", self.update_cabin_dropdowns)
+        self.panel_internal_handling_label = ttk.Label(self.panel_internal, text = "Cabin handling:")
+        # self.panel_internal_handling_label.grid(row = 5, column = 0, padx = 5, sticky = "w")
+        self.panel_internal_handling_dropdown = ttk.Combobox(self.panel_internal, state = "readonly", textvariable = self.panel_internal_handling_variable, values = ["Combined paintjob", "Separate paintjobs"], width = 20)
+        # self.panel_internal_handling_dropdown.grid(row = 5, column = 1, padx = 5, sticky = "w")
+        self.panel_internal_handling_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Cabin Handling", message = "Whether multiple cabins should be combined into a single paintjob, or separated into multiple paintjobs.\n\nA single combined paintjob requires less work and results in a smaller mod size, as you only need to make a single cabin texture for each truck. However, your design might not work across all the different cabin sizes, for example your design could look correct on large cabins, but be positioned incorrectly/stretched/cut off on smaller cabins.\n\nSeparate paintjobs allow you to tweak your design to work for each cabin, but require more work and result in a larger mod size, as you need to make separate textures for every cabin whether they need them or not.\n\nThe optional cabin unifier system gives you the benefits of both options, but is a little trickier to use and requires a hex editor. To use the cabin unifier, choose \"separate paintjobs\"."))
+        # self.panel_internal_handling_help.grid(row = 5, column = 2, padx = (0, 5))
         self.panel_internal_unifier_variable = tk.BooleanVar(None, False)
-        self.panel_internal_unifier_checkbox = ttk.Checkbutton(self.panel_internal, text = "Use cabin unifier system (advanced users only)", variable = self.panel_internal_unifier_variable, command = lambda : self.show_unifier_warning())
-        self.panel_internal_unifier_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Cabin Unifer", message = "Changes all separate cabin paintjobs to point to a single .dds, and adds a separate program that unifies them all into one paintjob\n\nIf some of your textures end up working for multiple cabins (e.g. one for Cabin A, one for Cabin B and Cabin C), this unifies them to a single paintjob to make in-game paintjob switching smoother, and cut down on mod download size\n\nSee the guide on the GitHub page for a more thorough explanation\n\nRequires a hex editor to use"))
-        # self.panel_internal_unifier_warning = ttk.Label(self.panel_internal, text = "Please watch the following video before using the unifier:")
-        self.panel_internal_unifier_link = ttk.Label(self.panel_internal, text = "Please read the guide here before using the unifier", foreground = "blue", cursor = self.cursor)
-        self.panel_internal_unifier_link.bind("<1>", lambda e: webbrowser.open_new(github_link))
+        self.panel_internal_unifier_variable.trace("w", self.update_cabin_dropdowns)
+        self.panel_internal_unifier_checkbox = ttk.Checkbutton(self.panel_internal, text = "Use the cabin unifier system", variable = self.panel_internal_unifier_variable)
+        # self.panel_internal_unifier_checkbox.grid(row = 6, column = 0, columnspan = 2, padx = 5, sticky = "w")
+        self.panel_internal_unifier_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Cabin Unifier", message = "All separate paintjobs for each truck are changed so that they point to a single cabin texture. You can then add additional textures if needed by editing .tobj files using a hex editor. Once you've finished making your mod, the unifier program will then combine any paintjobs that point to the same texture.\n\ne.g. If you have one texture used for Cabin A, and another texture used for both Cabin B and Cabin C, you'll end up with only 2 paintjobs after unifying, instead of 3.\n\nRequires a hex editor to use."))
+        # self.panel_internal_unifier_help.grid(row = 6, column = 2, padx = (0, 5))
+        self.panel_internal_unifier_warning = ttk.Label(self.panel_internal, text = "Please read this guide before using the cabin unifier", foreground = "blue", cursor = self.cursor)
+        self.panel_internal_unifier_warning.bind("<1>", lambda e: webbrowser.open_new(github_link))
+        # self.panel_internal_unifier_warning.grid(row = 7, column = 0, columnspan = 3, padx = 5, sticky = "w")
         self.panel_internal_spacer_label = ttk.Label(self.panel_internal, image = self.image_spacer_100)
-        self.panel_internal_spacer_label.grid(row = 4, column = 0)
+        self.panel_internal_spacer_label.grid(row = 8, column = 0)
         self.panel_internal_spacer_input = ttk.Label(self.panel_internal, image = self.image_spacer_200)
-        self.panel_internal_spacer_input.grid(row = 4, column = 1)
+        self.panel_internal_spacer_input.grid(row = 8, column = 1)
 
         # Vehicle supported panel (single paintjob)
         self.panel_single_type_variable = tk.StringVar(None, "Truck")
@@ -331,6 +349,36 @@ class PackerApp:
         self.panel_buttons_feedback.bind("<1>", lambda e: webbrowser.open_new(forum_link))
         self.panel_buttons_generate = ttk.Button(self.panel_buttons, text = "Generate mod", command = lambda : self.verify_all_inputs())
         self.panel_buttons_generate.grid(row = 1, column = 2, pady = (5, 0), sticky = "e")
+
+    def test_trace(self, *args):
+        print(self.panel_single_vehicle_variable.get())
+        self.panel_single_vehicle_variable.trace("w", self.test_trace)
+
+    def update_cabin_dropdowns(self, *args):
+        if self.panel_internal_supported_variable.get() == "Largest cabin only":
+            self.panel_internal_handling_label.grid_forget()
+            self.panel_internal_handling_dropdown.grid_forget()
+            self.panel_internal_handling_help.grid_forget()
+            self.panel_internal_unifier_checkbox.grid_forget()
+            self.panel_internal_unifier_help.grid_forget()
+            self.panel_internal_unifier_warning.grid_forget()
+        elif self.panel_internal_supported_variable.get() == "All cabins":
+            self.panel_internal_handling_label.grid(row = 5, column = 0, padx = 5, sticky = "w")
+            self.panel_internal_handling_dropdown.grid(row = 5, column = 1, padx = 5, sticky = "w")
+            self.panel_internal_handling_help.grid(row = 5, column = 2, padx = (0, 5))
+            if self.panel_internal_handling_variable.get() == "Combined paintjob":
+                self.panel_internal_unifier_checkbox.grid_forget()
+                self.panel_internal_unifier_help.grid_forget()
+                self.panel_internal_unifier_warning.grid_forget()
+            elif self.panel_internal_handling_variable.get() == "Separate paintjobs":
+                self.panel_internal_unifier_checkbox.grid(row = 6, column = 0, columnspan = 2, padx = 5, sticky = "w")
+                self.panel_internal_unifier_help.grid(row = 6, column = 2, padx = (0, 5))
+                if not self.panel_internal_unifier_variable.get():
+                    pass
+                    self.panel_internal_unifier_warning.grid_forget()
+                elif self.panel_internal_unifier_variable.get():
+                    pass
+                    self.panel_internal_unifier_warning.grid(row = 7, column = 0, columnspan = 3, padx = 5, sticky = "w")
 
     def show_hide_cabin_handling_tab(self, cabins_variable):
         self.tab_cabins_variable.set(cabins_variable)
