@@ -685,7 +685,7 @@ class PackerApp:
         if workshop_upload:
             pj.copy_versions_sii(output_path+"/Workshop uploading")
             pj.copy_workshop_image(output_path)
-            self.make_workshop_readme(truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs)
+            self.make_workshop_readme(output_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs)
 
         self.make_readme_file(output_path, internal_name, using_unifier, game, mod_name)
 
@@ -773,7 +773,7 @@ class PackerApp:
             file.write("Note: you don't have to change any .tobj files, any .mat files, or anything in the def folder\n")
         file.close()
 
-    def make_workshop_readme(self, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs):
+    def make_workshop_readme(self, output_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs):
         file = open(output_path+"/How to upload your mod to Steam Workshop.txt", "w")
         file.write("In order to upload your mod to Steam Workshop, you'll need to use the SCS Workshop Uploader, which only runs on Windows.\n")
         file.write("To download it, you'll need to own ETS 2 or ATS on Steam. Then go to View > Hidden Games, tick \"Tools\" in the dropdown on\n")
