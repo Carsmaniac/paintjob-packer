@@ -297,6 +297,7 @@ class PackerApp:
         self.panel_buttons_generate.grid(row = 1, column = 2, pady = (5, 0), sticky = "e")
 
     def update_cabin_dropdowns(self, *args):
+        self.internal_name_length = 12
         if self.panel_internal_supported_variable.get() == "Largest cabin only":
             self.panel_internal_handling_label.grid_forget()
             self.panel_internal_handling_dropdown.grid_forget()
@@ -316,6 +317,7 @@ class PackerApp:
             elif self.panel_internal_handling_variable.get() == "Separate paintjobs":
                 self.panel_internal_unifier_checkbox.grid(row = 6, column = 0, columnspan = 2, padx = 5, sticky = "w")
                 self.panel_internal_unifier_help.grid(row = 6, column = 2, padx = (0, 5))
+                self.internal_name_length = 10
 
                 if not self.panel_internal_unifier_variable.get():
                     self.panel_internal_unifier_warning.grid_forget()
@@ -344,6 +346,7 @@ class PackerApp:
         elif self.tab_paintjob_variable.get() == "pack":
             self.panel_vehicles_pack.grid(row = 0, column = 1, rowspan = 3, sticky = "ns", padx = (5, 0))
         self.load_main_screen_variables()
+        self.update_cabin_dropdowns()
 
     def load_main_screen_variables(self): # also grids and ungrids stuff depending on said variables
         if self.tab_game_variable.get() == "ats":
@@ -564,11 +567,17 @@ class PackerApp:
             unlock_level = self.panel_ingame_unlock_variable.get()
 
         internal_name = self.panel_internal_name_variable.get()
-
         num_of_paintjobs = self.tab_paintjob_variable.get()
-        cabin_handling = self.tab_cabin_handling_variable.get()
         workshop_upload = self.panel_internal_workshop_variable.get()
+
+        cabins_supported = self.panel_internal_supported_variable.get()
+        cabin_handling = self.panel_internal_handling_variable.get()
         using_unifier = self.panel_internal_unifier_variable.get()
+
+        if cabins_supported == "Largest cabin only": # this shouldn't be needed, but it might be, so I'm doing it for safe measure
+            cabin_handling = "Combined paintjob"
+        if cabin_handling == "Combined paintjob":
+            using_unifier = False
 
         out_path = output_path+"/"+mod_name
 
@@ -623,9 +632,16 @@ class PackerApp:
             pj.make_def_folder(out_path, veh)
             pj.make_settings_sui(out_path, veh, internal_name, ingame_name, ingame_price, unlock_level)
             pj.make_vehicle_folder(out_path, veh, internal_name)
-            if cabin_handling == "combined" or veh.type == "trailer_owned" or not veh.separate_paintjobs:
+            if cabin_handling == "Combined paintjob" or veh.type == "trailer_owned" or not veh.separate_paintjobs:
                 paintjob_name = internal_name
                 pj.make_def_sii(out_path, veh, paintjob_name, internal_name)
+                pj.copy_main_dds(out_path, veh, internal_name, paintjob_name, using_unifier)
+                pj.make_main_tobj(out_path, veh, internal_name, paintjob_name, using_unifier)
+                if veh.uses_accessories:
+                    pj.make_accessory_sii(out_path, veh, internal_name, paintjob_name)
+            elif cabins_supported == "Largest cabin only":
+                paintjob_name = internal_name
+                pj.make_def_sii(out_path, veh, paintjob_name, internal_name, veh.cabins["a"], "a", True)
                 pj.copy_main_dds(out_path, veh, internal_name, paintjob_name, using_unifier)
                 pj.make_main_tobj(out_path, veh, internal_name, paintjob_name, using_unifier)
                 if veh.uses_accessories:
