@@ -270,6 +270,9 @@ class PackerApp:
         self.panel_single_vehicle_label.grid(row = 2, column = 0, padx = 5, pady = (5, 0), sticky = "w")
         self.panel_single_vehicle_dropdown = ttk.Combobox(self.panel_vehicles_single, state = "readonly", textvariable = self.panel_single_vehicle_variable, values = [], width = 30)
         self.panel_single_vehicle_dropdown.grid(row = 3, column = 0, padx = 5, sticky = "w")
+        self.panel_single_link = ttk.Label(self.panel_vehicles_single, text = "Download links for all mods", foreground = "blue", cursor = self.cursor)
+        self.panel_single_link.bind("<1>", lambda e: webbrowser.open_new(mod_link_page_link))
+        # self.panel_single_link.grid(row = 4, column = 0, pady = 5, padx = 5, sticky = "w")
 
         # Vehicles Supported panel (paintjob pack)
         self.panel_pack_selector = ttk.Notebook(self.panel_vehicles_pack)
@@ -435,6 +438,11 @@ class PackerApp:
         elif type == "Trailer Mod":
             for veh in self.trailer_mod_list: new_values.append(veh.name)
         self.panel_single_vehicle_dropdown.config(values = new_values)
+
+        if type in ["Truck Mod", "Trailer Mod"]:
+            self.panel_single_link.grid(row = 4, column = 0, pady = 5, padx = 5, sticky = "w")
+        else:
+            self.panel_single_link.grid_forget()
 
     def update_total_vehicles_supported(self):
         self.total_vehicles = 0
