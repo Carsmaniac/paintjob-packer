@@ -72,11 +72,6 @@ class PackerApp:
         self.tab_selector.add(self.tab_game, text = " Game ")
         self.tab_paintjob = ttk.Frame(self.tab_selector)
         self.tab_selector.add(self.tab_paintjob, text = " Paintjobs ")
-        self.tab_cabins = ttk.Frame(self.tab_selector)
-        self.tab_selector.add(self.tab_cabins, text = " Cabins ")
-        self.tab_cabin_handling = ttk.Frame(self.tab_selector)
-        self.tab_selector.add(self.tab_cabin_handling, text = " Cabin Handling ")
-        self.tab_selector.hide(self.tab_cabin_handling) # the title is set here, but the tab doesn't need to be shown yet
 
         # Welcome tab
         self.tab_welcome_title = ttk.Label(self.tab_welcome, text = "Welcome to Paintjob Packer")
@@ -140,56 +135,8 @@ class PackerApp:
         self.tab_paintjob_desc_pack.grid(row = 3, column = 1, padx = 10, sticky = "n")
         self.tab_paintjob_button_prev = ttk.Button(self.tab_paintjob, text = "< Prev", command = lambda : self.tab_selector.select(1))
         self.tab_paintjob_button_prev.grid(row = 4, column = 0, padx = 10, pady = 10, sticky = "w")
-        self.tab_paintjob_button_next = ttk.Button(self.tab_paintjob, text = "Next >", command = lambda : self.tab_selector.select(3))
+        self.tab_paintjob_button_next = ttk.Button(self.tab_paintjob, text = "Continue", command = lambda : self.switch_to_main_screen())
         self.tab_paintjob_button_next.grid(row = 4, column = 1, padx = 10, pady = 10, sticky = "e")
-
-        # Cabins tab
-        self.tab_cabins_title = ttk.Label(self.tab_cabins, text = "Which cabins should be supported?")
-        self.tab_cabins_title.grid(row = 0, column = 0, columnspan = 2, pady = 20)
-        self.tab_cabins_image_large = ttk.Label(self.tab_cabins, image = self.image_large_cabins)
-        self.tab_cabins_image_large.grid(row = 1, column = 0, padx = 10)
-        self.tab_cabins_image_all = ttk.Label(self.tab_cabins, image = self.image_all_cabins)
-        self.tab_cabins_image_all.grid(row = 1, column = 1, padx = 10)
-        self.tab_cabins_variable = tk.StringVar(None, "large")
-        self.tab_cabins_option_large = ttk.Radiobutton(self.tab_cabins, text = "Largest cabin only", value = "large", variable = self.tab_cabins_variable)
-        self.tab_cabins_option_large.grid(row = 2, column = 0, pady = 10)
-        self.tab_cabins_option_large.bind("<1>", lambda e: self.show_hide_cabin_handling_tab("large"))
-        self.tab_cabins_image_large.bind("<1>", lambda e: self.show_hide_cabin_handling_tab("large"))
-        self.tab_cabins_option_all = ttk.Radiobutton(self.tab_cabins, text = "All truck cabins", value = "all", variable = self.tab_cabins_variable)
-        self.tab_cabins_option_all.grid(row = 2, column = 1, pady = 10)
-        self.tab_cabins_option_all.bind("<1>", lambda e: self.show_hide_cabin_handling_tab("all"))
-        self.tab_cabins_image_all.bind("<1>", lambda e: self.show_hide_cabin_handling_tab("all"))
-        self.tab_cabins_desc_large = ttk.Label(self.tab_cabins, text = "Support only the largest cabin\nsize (Cabin A) for each truck", justify = "center")
-        self.tab_cabins_desc_large.grid(row = 3, column = 0, padx = 10, sticky = "n")
-        self.tab_cabins_desc_all = ttk.Label(self.tab_cabins, text = "Support every cabin\nsize for each truck", justify = "center")
-        self.tab_cabins_desc_all.grid(row = 3, column = 1, padx = 10, sticky = "n")
-        self.tab_cabins_button_prev = ttk.Button(self.tab_cabins, text = "< Prev", command = lambda : self.tab_selector.select(2))
-        self.tab_cabins_button_prev.grid(row = 4, column = 0, padx = 10, pady = 10, sticky = "w")
-        self.tab_cabins_button_next = ttk.Button(self.tab_cabins, text = "Continue", command = lambda : self.switch_to_main_screen())
-        self.tab_cabins_button_next.grid(row = 4, column = 1, padx = 10, pady = 10, sticky = "e")
-
-        # Cabin Handling tab
-        self.tab_cabin_handling_title = ttk.Label(self.tab_cabin_handling, text = "How should separate cabins be handled?")
-        self.tab_cabin_handling_title.grid(row = 0, column = 0, columnspan = 2, pady = 20)
-        self.tab_cabin_handling_image_combined = ttk.Label(self.tab_cabin_handling, image = self.image_combined_cabins)
-        self.tab_cabin_handling_image_combined.grid(row = 1, column = 0, padx = 10)
-        self.tab_cabin_handling_image_separate = ttk.Label(self.tab_cabin_handling, image = self.image_separate_cabins)
-        self.tab_cabin_handling_image_separate.grid(row = 1, column = 1, padx = 10)
-        self.tab_cabin_handling_variable = tk.StringVar(None, "combined")
-        self.tab_cabin_handling_option_combined = ttk.Radiobutton(self.tab_cabin_handling, text = "One paintjob per vehicle", value = "combined", variable = self.tab_cabin_handling_variable)
-        self.tab_cabin_handling_option_combined.grid(row = 2, column = 0, pady = 10)
-        self.tab_cabin_handling_image_combined.bind("<1>", lambda e: self.tab_cabin_handling_variable.set("combined"))
-        self.tab_cabin_handling_option_separate = ttk.Radiobutton(self.tab_cabin_handling, text = "Separate paintjobs for each cabin", value = "separate", variable = self.tab_cabin_handling_variable)
-        self.tab_cabin_handling_option_separate.grid(row = 2, column = 1, pady = 10)
-        self.tab_cabin_handling_image_separate.bind("<1>", lambda e: self.tab_cabin_handling_variable.set("separate"))
-        self.tab_cabin_handling_desc_combined = ttk.Label(self.tab_cabin_handling, text = "Smaller mod size, but your design might not\nwork perfectly across all the cabin sizes", justify = "center")
-        self.tab_cabin_handling_desc_combined.grid(row = 3, column = 0, padx = 10, sticky = "n")
-        self.tab_cabin_handling_desc_separate = ttk.Label(self.tab_cabin_handling, text = "Lets you tweak your design for each cabin\nsize, but your mod will be bigger", justify = "center")
-        self.tab_cabin_handling_desc_separate.grid(row = 3, column = 1, padx = 10, sticky = "n")
-        self.tab_cabin_handling_button_prev = ttk.Button(self.tab_cabin_handling, text = "< Prev", command = lambda : self.tab_selector.select(3))
-        self.tab_cabin_handling_button_prev.grid(row = 4, column = 0, padx = 10, pady = 10, sticky = "w")
-        self.tab_cabin_handling_button_next = ttk.Button(self.tab_cabin_handling, text = "Continue", command = lambda : self.switch_to_main_screen())
-        self.tab_cabin_handling_button_next.grid(row = 4, column = 1, padx = 10, pady = 10, stick = "e")
 
         self.setup_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
 
@@ -375,15 +322,6 @@ class PackerApp:
                 elif self.panel_internal_unifier_variable.get():
                     self.panel_internal_unifier_warning.grid(row = 7, column = 0, columnspan = 3, padx = 5, sticky = "w")
 
-    def show_hide_cabin_handling_tab(self, cabins_variable):
-        self.tab_cabins_variable.set(cabins_variable)
-        if cabins_variable == "large":
-            self.tab_selector.hide(self.tab_cabin_handling)
-            self.tab_cabins_button_next.configure(text = "Continue", command = lambda : self.switch_to_main_screen())
-        elif cabins_variable == "all":
-            self.tab_selector.add(self.tab_cabin_handling)
-            self.tab_cabins_button_next.configure(text = "Next >", command = lambda : self.tab_selector.select(4))
-
     def switch_to_setup_screen(self):
         if self.tab_paintjob_variable.get() == "single":
             self.panel_vehicles_single.grid_forget()
@@ -412,13 +350,6 @@ class PackerApp:
             self.currency = "dollars"
         elif self.tab_game_variable.get() == "ets":
             self.currency = "euro"
-
-        if self.tab_cabin_handling_variable.get() == "separate":
-            self.internal_name_length = 10
-            self.panel_internal_unifier_checkbox.grid(row = 1, column = 0, columnspan = 2, padx = 5, sticky = "w")
-            self.panel_internal_unifier_help.grid(row = 1, column = 2, padx = (0, 5))
-        elif self.tab_cabin_handling_variable.get() == "combined":
-            self.internal_name_length = 12
 
         (self.truck_list, self.truck_mod_list, self.trailer_list, self.trailer_mod_list) = self.load_list_of_vehicles(self.tab_game_variable.get())
         self.truck_list_1 = self.truck_list[:math.ceil(len(self.truck_list)/2)] # lists need to be split for multiple vehicle selection, it's easier if it's done here
