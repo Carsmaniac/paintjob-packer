@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import ttk, messagebox, filedialog
 import webbrowser, sys, configparser, os, math, re, traceback
 import library.paintjob as pj
 
@@ -17,7 +17,7 @@ except AttributeError:
     using_executable = False
 os.chdir(base_path)
 
-output_path = os.path.expanduser("~/Desktop/Paintjob Packer Output")
+desktop_path = os.path.expanduser("~/Desktop")
 
 class PackerApp:
 
@@ -288,12 +288,12 @@ class PackerApp:
         self.panel_pack_link_trailer.bind("<1>", lambda e: webbrowser.open_new(mod_link_page_link))
 
         # buttons along the bottom
-        self.panel_buttons_setup = ttk.Button(self.panel_buttons, text = "< Back to setup", command = lambda : self.switch_to_setup_screen())
+        self.panel_buttons_setup = ttk.Button(self.panel_buttons, text = "< Back to setup", command = lambda : self.switch_to_setup_screen(), width = 15)
         self.panel_buttons_setup.grid(row = 1, column = 0, pady = (5, 0), sticky = "w")
         self.panel_buttons_feedback = ttk.Label(self.panel_buttons, text = "Leave feedback or get support", foreground = "blue", cursor = self.cursor)
         self.panel_buttons_feedback.grid(row = 1, column = 1, pady = (5, 0), padx = 10, sticky = "e")
         self.panel_buttons_feedback.bind("<1>", lambda e: webbrowser.open_new(forum_link))
-        self.panel_buttons_generate = ttk.Button(self.panel_buttons, text = "Generate mod", command = lambda : self.verify_all_inputs())
+        self.panel_buttons_generate = ttk.Button(self.panel_buttons, text = "Generate and save...", command = lambda : self.verify_all_inputs(), width = 20)
         self.panel_buttons_generate.grid(row = 1, column = 2, pady = (5, 0), sticky = "e")
 
     def update_cabin_dropdowns(self, *args):
@@ -509,13 +509,8 @@ class PackerApp:
                 inputs_verified = False
                 all_errors.append(["No vehicle selected", "Please select a vehicle to support"])
 
-        if os.path.exists(output_path):
-            if len(os.listdir(output_path)) > 0:
-                inputs_verified = False # I don't want to be on the receiving end of an irate user who lost their important report the night before it was due, because they happened to store it in the paintjob packer folder
-                messagebox.showerror(title = "Output folder not clear", message = "Output folder contains items, please delete everything within the folder, or delete the folder itself\n\nThe output folder is \"Paintjob Packer Output\", on your desktop")
-
         if inputs_verified:
-            self.make_paintjob()
+            self.ask_save_location()
         else:
             if len(all_errors) == 1:
                 messagebox.showerror(title = all_errors[0][0], message = all_errors[0][1])
@@ -526,7 +521,19 @@ class PackerApp:
                     total_message += error[1]+"\n\n"
                 messagebox.showerror(title = "{} errors".format(len(all_errors)), message = total_message)
 
-    def make_paintjob(self):
+    def ask_save_location(self):
+        save_directory = filedialog.askdirectory(title = "Save Mod (subfolder will be created)", initialdir = desktop_path)
+        if save_directory != "":
+            output_path = save_directory + "/Paintjob Packer Output"
+            folder_clear = True
+            if os.path.exists(output_path):
+                if len(os.listdir(output_path)) > 0:
+                    folder_clear = False # I don't want to be on the receiving end of an irate user who lost their important report the night before it was due, because they happened to store it in the paintjob packer folder
+                    messagebox.showerror(title = "Output folder not clear", message = "A folder called \"Paintjob Packer Output\" already exists in the directory that you chose, and it contains files.\n\nPlease delete the \"Paintjob Packer Output\" folder, or delete everything inside it.")
+            if folder_clear:
+                self.make_paintjob(output_path)
+
+    def make_paintjob(self, output_path):
         truck_list = []
         for veh in self.truck_list_1 + self.truck_list_2:
             if "selected" in veh.check.state():
@@ -672,15 +679,15 @@ class PackerApp:
             pj.copy_workshop_image(output_path)
             self.make_workshop_readme(truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs)
 
-        self.make_readme_file(internal_name, using_unifier, game, mod_name)
+        self.make_readme_file(output_path, internal_name, using_unifier, game, mod_name)
 
         self.loading_current.set("Complete!")
         self.loading_window.state("withdrawn")
 
-        exit_now = messagebox.showinfo(title = "Mod generation complete", message = "Your mod has been generated successfully, it's been placed in the output folder on your desktop.\n\nInside the output folder is a readme with a list of all of the files you'll need to replace.\n\nNote that your mod is not complete yet, see the guide on the GitHub page for instructions on how to complete it.\n\nThanks for using Paintjob Packer! The program will now quit.")
+        exit_now = messagebox.showinfo(title = "Mod generation complete", message = "Your mod has been generated successfully! It's been placed in the directory you chose, inside a folder called Paintjob Packer Output.\n\nYour mod is not yet finished, refer to the text file inside the folder for instructions. There is also a guide on the GitHub page.\n\nThanks for using Paintjob Packer! :)")
         sys.exit()
 
-    def make_readme_file(self, internal_name, using_unifier, game, mod_name):
+    def make_readme_file(self, output_path, internal_name, using_unifier, game, mod_name):
         file = open(output_path+"/How to complete your mod.txt", "w")
         file.write("Thanks for using Paintjob Packer!\n")
         file.write("\n")
