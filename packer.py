@@ -237,22 +237,12 @@ class PackerApp:
         self.panel_internal_supported_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Supported Cabins", message = "Whether your paintjob supports only the largest cabin for each truck, or all cabins.\n\nNote that the 8x4 chassis uses a separate cabin in some cases, which would not be supported if you choose largest cabin only.\n\ne.g. If you're making a paintjob for the Scania Streamline, a \"largest cabin only\" paintjob would only support the Topline cabin, whereas an \"all cabins\" paintjob would support the Normal, Highline and Topline cabins, as well as the separate Topline 8x4 cabin."))
         self.panel_internal_supported_help.grid(row = 4, column = 2, padx = (0, 5))
         self.panel_internal_handling_variable = tk.StringVar(None, "Combined paintjob")
-        self.panel_internal_handling_variable.trace("w", self.update_cabin_dropdowns)
         self.panel_internal_handling_label = ttk.Label(self.panel_internal, text = "Cabin handling:")
         # self.panel_internal_handling_label.grid(row = 5, column = 0, padx = 5, sticky = "w")
         self.panel_internal_handling_dropdown = ttk.Combobox(self.panel_internal, state = "readonly", textvariable = self.panel_internal_handling_variable, values = ["Combined paintjob", "Separate paintjobs"], width = 20)
         # self.panel_internal_handling_dropdown.grid(row = 5, column = 1, padx = 5, sticky = "w")
-        self.panel_internal_handling_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Cabin Handling", message = "Whether multiple cabins should be combined into a single paintjob, or separated into multiple paintjobs.\n\nA single combined paintjob requires less work and results in a smaller mod size, as you only need to make a single cabin texture for each truck. However, your design might not work across all the different cabin sizes, for example your design could look correct on large cabins, but be positioned incorrectly/stretched/cut off on smaller cabins.\n\nSeparate paintjobs allow you to tweak your design to work for each cabin, but require more work and result in a larger mod size, as you need to make separate textures for every cabin whether they need them or not.\n\nThe optional cabin unifier system gives you the benefits of both options, but is a little trickier to use and requires a hex editor. To use the cabin unifier, choose \"separate paintjobs\"."))
+        self.panel_internal_handling_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Cabin Handling", message = "Whether multiple cabins should be combined into a single paintjob, or separated into multiple paintjobs.\n\nA single combined paintjob requires less work and results in a smaller mod size, as you only need to make a single cabin texture for each truck. However, your design might not work across all the different cabin sizes, for example your design could look correct on large cabins, but be positioned incorrectly/stretched/cut off on smaller cabins.\n\nSeparate paintjobs allow you to tweak your design to work for each cabin, but require more work and result in a larger mod size, as you need to make separate textures for every cabin whether they need them or not."))
         # self.panel_internal_handling_help.grid(row = 5, column = 2, padx = (0, 5))
-        self.panel_internal_unifier_variable = tk.BooleanVar(None, False)
-        self.panel_internal_unifier_variable.trace("w", self.update_cabin_dropdowns)
-        self.panel_internal_unifier_checkbox = ttk.Checkbutton(self.panel_internal, text = "Use the cabin unifier system", variable = self.panel_internal_unifier_variable)
-        # self.panel_internal_unifier_checkbox.grid(row = 6, column = 0, columnspan = 2, padx = 5, sticky = "w")
-        self.panel_internal_unifier_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Cabin Unifier", message = "All separate paintjobs for each truck are changed so that they point to a single cabin texture. You can then add additional textures if needed by editing .tobj files using a hex editor. Once you've finished making your mod, the unifier program will then combine any paintjobs that point to the same texture.\n\ne.g. If you have one texture used for Cabin A, and another texture used for both Cabin B and Cabin C, you'll end up with only 2 paintjobs after unifying, instead of 3.\n\nRequires a hex editor to use."))
-        # self.panel_internal_unifier_help.grid(row = 6, column = 2, padx = (0, 5))
-        self.panel_internal_unifier_warning = ttk.Label(self.panel_internal, text = "Please read this guide before using the cabin unifier", foreground = "blue", cursor = self.cursor)
-        self.panel_internal_unifier_warning.bind("<1>", lambda e: webbrowser.open_new(github_link))
-        # self.panel_internal_unifier_warning.grid(row = 7, column = 0, columnspan = 3, padx = 5, sticky = "w")
         self.panel_internal_spacer_label = ttk.Label(self.panel_internal, image = self.image_spacer_100)
         self.panel_internal_spacer_label.grid(row = 8, column = 0)
         self.panel_internal_spacer_input = ttk.Label(self.panel_internal, image = self.image_spacer_200)
@@ -305,27 +295,13 @@ class PackerApp:
             self.panel_internal_handling_label.grid_forget()
             self.panel_internal_handling_dropdown.grid_forget()
             self.panel_internal_handling_help.grid_forget()
-            self.panel_internal_unifier_checkbox.grid_forget()
-            self.panel_internal_unifier_help.grid_forget()
-            self.panel_internal_unifier_warning.grid_forget()
         elif self.panel_internal_supported_variable.get() == "All cabins":
             self.panel_internal_handling_label.grid(row = 5, column = 0, padx = 5, sticky = "w")
             self.panel_internal_handling_dropdown.grid(row = 5, column = 1, padx = 5, sticky = "w")
             self.panel_internal_handling_help.grid(row = 5, column = 2, padx = (0, 5))
 
-            if self.panel_internal_handling_variable.get() == "Combined paintjob":
-                self.panel_internal_unifier_checkbox.grid_forget()
-                self.panel_internal_unifier_help.grid_forget()
-                self.panel_internal_unifier_warning.grid_forget()
-            elif self.panel_internal_handling_variable.get() == "Separate paintjobs":
-                self.panel_internal_unifier_checkbox.grid(row = 6, column = 0, columnspan = 2, padx = 5, sticky = "w")
-                self.panel_internal_unifier_help.grid(row = 6, column = 2, padx = (0, 5))
+            if self.panel_internal_handling_variable.get() == "Separate paintjobs":
                 self.internal_name_length = 10
-
-                if not self.panel_internal_unifier_variable.get():
-                    self.panel_internal_unifier_warning.grid_forget()
-                elif self.panel_internal_unifier_variable.get():
-                    self.panel_internal_unifier_warning.grid(row = 7, column = 0, columnspan = 3, padx = 5, sticky = "w")
 
     def switch_to_setup_screen(self):
         if self.tab_paintjob_variable.get() == "single":
@@ -587,12 +563,9 @@ class PackerApp:
 
         cabins_supported = self.panel_internal_supported_variable.get()
         cabin_handling = self.panel_internal_handling_variable.get()
-        using_unifier = self.panel_internal_unifier_variable.get()
 
         if cabins_supported == "Largest cabin only": # this shouldn't be needed, but it might be, so I'm doing it for safe measure
             cabin_handling = "Combined paintjob"
-        if cabin_handling == "Combined paintjob":
-            using_unifier = False
 
         out_path = output_path+"/"+mod_name
 
@@ -618,8 +591,6 @@ class PackerApp:
 
         self.loading_value.set(0.0)
         total_things_to_load = len(vehicle_list) + 1
-        if using_unifier:
-            total_things_to_load += 1
         self.loading_bar.config(maximum = float(total_things_to_load))
         self.loading_window.state("normal")
         self.loading_window.lift()
@@ -649,45 +620,32 @@ class PackerApp:
             pj.make_vehicle_folder(out_path, veh, internal_name)
             if cabin_handling == "Combined paintjob" or veh.type == "trailer_owned" or not veh.separate_paintjobs:
                 paintjob_name = internal_name
-                pj.make_def_sii(out_path, veh, paintjob_name, internal_name)
-                pj.copy_main_dds(out_path, veh, internal_name, paintjob_name, using_unifier)
-                pj.make_main_tobj(out_path, veh, internal_name, paintjob_name, using_unifier)
-                if veh.uses_accessories:
-                    pj.make_accessory_sii(out_path, veh, internal_name, paintjob_name)
-            elif cabins_supported == "Largest cabin only":
-                paintjob_name = internal_name
-                pj.make_def_sii(out_path, veh, paintjob_name, internal_name, veh.cabins["a"], "a", True)
-                pj.copy_main_dds(out_path, veh, internal_name, paintjob_name, using_unifier)
-                pj.make_main_tobj(out_path, veh, internal_name, paintjob_name, using_unifier)
+                if cabins_supported == "Largest cabin only":
+                    pj.make_def_sii(out_path, veh, paintjob_name, internal_name, veh.cabins["a"][1], veh.cabins["a"][0], "a", True)
+                else:
+                    pj.make_def_sii(out_path, veh, paintjob_name, internal_name)
+                pj.copy_main_dds(out_path, veh, internal_name, paintjob_name)
+                pj.make_main_tobj(out_path, veh, internal_name, paintjob_name)
                 if veh.uses_accessories:
                     pj.make_accessory_sii(out_path, veh, internal_name, paintjob_name)
             else:
                 for cab_size in veh.cabins:
                     paintjob_name = internal_name + "_" + cab_size
-                    pj.make_def_sii(out_path, veh, paintjob_name, internal_name, veh.cabins[cab_size], cab_size)
-                    pj.copy_main_dds(out_path, veh, internal_name, paintjob_name, using_unifier)
-                    pj.make_main_tobj(out_path, veh, internal_name, paintjob_name, using_unifier)
+                    pj.make_def_sii(out_path, veh, paintjob_name, internal_name, veh.cabins[cab_size][1], veh.cabins[cab_size][0], cab_size)
+                    pj.copy_main_dds(out_path, veh, internal_name, paintjob_name)
+                    pj.make_main_tobj(out_path, veh, internal_name, paintjob_name)
                     if veh.uses_accessories:
                         pj.make_accessory_sii(out_path, veh, internal_name, paintjob_name)
             if veh.uses_accessories:
                 pj.copy_accessory_dds(out_path, veh, internal_name)
                 pj.make_accessory_tobj(out_path, veh, internal_name)
 
-        if using_unifier:
-            self.loading_value.set(self.loading_value.get()+1.0)
-            self.loading_current.set("Cabin unifier")
-            if using_executable:
-                unifier_name = "Cabin Unifier.exe"
-            else:
-                unifier_name = "unifier.py"
-            pj.make_unifier_ini(out_path, internal_name, vehicle_list, unifier_name)
-
         if workshop_upload:
             pj.copy_versions_sii(output_path+"/Workshop uploading")
             pj.copy_workshop_image(output_path)
             self.make_workshop_readme(output_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs)
 
-        self.make_readme_file(output_path, internal_name, using_unifier, game, mod_name)
+        self.make_readme_file(output_path, internal_name, game, mod_name)
 
         self.loading_current.set("Complete!")
         self.loading_window.state("withdrawn")
@@ -695,7 +653,7 @@ class PackerApp:
         exit_now = messagebox.showinfo(title = "Mod generation complete", message = "Your mod has been generated successfully! It's been placed in the directory you chose, inside a folder called Paintjob Packer Output.\n\nYour mod is not yet finished, refer to the text file inside the folder for instructions. There is also a guide on the GitHub page.\n\nThanks for using Paintjob Packer! :)")
         sys.exit()
 
-    def make_readme_file(self, output_path, internal_name, using_unifier, game, mod_name):
+    def make_readme_file(self, output_path, internal_name, game, mod_name):
         file = open(output_path+"/How to complete your mod.txt", "w")
         file.write("Thanks for using Paintjob Packer!\n")
         file.write("\n")
@@ -757,20 +715,7 @@ class PackerApp:
         file.write("\n")
         file.write("\n")
         file.write("\n")
-        if using_unifier:
-            file.write("Note: you don't have to change any .mat files, or anything in the def folder.\n")
-            file.write("\n")
-            file.write("\n")
-            file.write("\n")
-            file.write("Since you're using the cabin unifier, you will need to change cabin .tobj files\n")
-            file.write("to add additional textures. If your cabin_a.dds doesn't work on Cabin B of a truck,\n")
-            file.write("for example, you'll need to create a second .dds file called cabin_b.dds, then edit\n")
-            file.write("cabin_b.tobj to point to it. You can link multiple .tobjs to the same .dds, e.g. you\n")
-            file.write("could also point cabin_c.tobj to cabin_b.dds. After you've added all the extra files\n")
-            file.write("you need, run the Cabin Unifier. If it completes successfully you can delete it and\n")
-            file.write("unifier.ini, if not it will tell you what went wrong.\n")
-        else:
-            file.write("Note: you don't have to change any .tobj files, any .mat files, or anything in the def folder\n")
+        file.write("Note: you don't have to change any .tobj files, any .mat files, or anything in the def folder\n")
         file.close()
 
     def make_workshop_readme(self, output_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs):
