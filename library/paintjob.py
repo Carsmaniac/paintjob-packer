@@ -113,19 +113,19 @@ def copy_workshop_image(output_path):
 def make_material_folder(output_path):
     make_folder(output_path, "material/ui/accessory/")
 
-def copy_paintjob_icon(output_path, internal_name):
-    shutil.copyfile("library/placeholder files/paintjob_icon.dds", output_path + "/material/ui/accessory/{}_icon.dds".format(internal_name))
+def copy_paintjob_icon(output_path, ingame_name):
+    shutil.copyfile("library/placeholder files/paintjob_icon.dds", output_path + "/material/ui/accessory/{} Icon.dds".format(ingame_name))
 
-def make_paintjob_icon_tobj(output_path, internal_name): # TODO: tobj like SCS paintjobs, makes a difference?
-    file = open(output_path + "/material/ui/accessory/{}_icon.tobj".format(internal_name), "wb")
-    file.write(generate_tobj("/material/ui/accessory/{}_icon.dds".format(internal_name)))
+def make_paintjob_icon_tobj(output_path, ingame_name): # TODO: tobj like SCS paintjobs, makes a difference?
+    file = open(output_path + "/material/ui/accessory/{} Icon.tobj".format(ingame_name), "wb")
+    file.write(generate_tobj("/material/ui/accessory/{} Icon.dds".format(ingame_name)))
     file.close()
 
-def make_paintjob_icon_mat(output_path, internal_name):
+def make_paintjob_icon_mat(output_path, internal_name, ingame_name):
     file = open(output_path + "/material/ui/accessory/{}_icon.mat".format(internal_name), "w")
     file.write("material: \"ui\"\n")
     file.write("{\n")
-    file.write("\ttexture: \"{}_icon.tobj\"\n".format(internal_name))
+    file.write("\ttexture: \"{} Icon.tobj\"\n".format(ingame_name))
     file.write("\ttexture_name: \"texture\"\n")
     file.write("}\n")
     file.close()

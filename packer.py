@@ -635,11 +635,11 @@ class PackerApp:
 
         pj.make_material_folder(out_path)
 
-        pj.copy_paintjob_icon(out_path, internal_name)
+        pj.copy_paintjob_icon(out_path, ingame_name)
 
-        pj.make_paintjob_icon_tobj(out_path, internal_name)
+        pj.make_paintjob_icon_tobj(out_path, ingame_name)
 
-        pj.make_paintjob_icon_mat(out_path, internal_name)
+        pj.make_paintjob_icon_mat(out_path, internal_name, ingame_name)
 
         for veh in vehicle_list:
             self.loading_value.set(self.loading_value.get()+1.0)
