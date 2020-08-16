@@ -15,7 +15,7 @@ class Vehicle:
         self.mod_link = veh_ini["vehicle info"]["mod link"]
         self.uses_accessories = veh_ini["vehicle info"].getboolean("uses accessories")
         if self.uses_accessories:
-            self.accessories = veh_ini["vehicle info"]["accessories"].split(",")
+            self.accessories = veh_ini["vehicle info"]["accessories"].split(";")
             self.acc_dict = {}
             for acc in self.accessories:
                 if acc != "":
