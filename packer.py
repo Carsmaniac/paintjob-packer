@@ -617,28 +617,28 @@ class PackerApp:
             self.loading_current.set(veh.name)
             pj.make_def_folder(out_path, veh)
             pj.make_settings_sui(out_path, veh, internal_name, ingame_name, ingame_price, unlock_level)
-            pj.make_vehicle_folder(out_path, veh, internal_name)
+            pj.make_vehicle_folder(out_path, veh, ingame_name)
             if cabin_handling == "Combined paintjob" or veh.type == "trailer_owned" or not veh.separate_paintjobs:
                 paintjob_name = internal_name
                 if cabins_supported == "Largest cabin only":
-                    pj.make_def_sii(out_path, veh, paintjob_name, internal_name, veh.cabins["a"][1], veh.cabins["a"][0], "a", True)
+                    pj.make_def_sii(out_path, veh, paintjob_name, internal_name, ingame_name, veh.cabins["a"][1], veh.cabins["a"][0], "a", True)
                 else:
-                    pj.make_def_sii(out_path, veh, paintjob_name, internal_name)
-                pj.copy_main_dds(out_path, veh, internal_name, paintjob_name)
-                pj.make_main_tobj(out_path, veh, internal_name, paintjob_name)
+                    pj.make_def_sii(out_path, veh, paintjob_name, internal_name, ingame_name)
+                pj.copy_main_dds(out_path, veh, internal_name, ingame_name, paintjob_name)
+                pj.make_main_tobj(out_path, veh, internal_name, ingame_name, paintjob_name)
                 if veh.uses_accessories:
-                    pj.make_accessory_sii(out_path, veh, internal_name, paintjob_name)
+                    pj.make_accessory_sii(out_path, veh, ingame_name, paintjob_name)
             else:
                 for cab_size in veh.cabins:
                     paintjob_name = internal_name + "_" + cab_size
-                    pj.make_def_sii(out_path, veh, paintjob_name, internal_name, veh.cabins[cab_size][1], veh.cabins[cab_size][0], cab_size)
-                    pj.copy_main_dds(out_path, veh, internal_name, paintjob_name)
-                    pj.make_main_tobj(out_path, veh, internal_name, paintjob_name)
+                    pj.make_def_sii(out_path, veh, paintjob_name, internal_name, ingame_name, veh.cabins[cab_size][1], veh.cabins[cab_size][0], cab_size)
+                    pj.copy_main_dds(out_path, veh, internal_name, ingame_name, paintjob_name)
+                    pj.make_main_tobj(out_path, veh, internal_name, ingame_name, paintjob_name)
                     if veh.uses_accessories:
-                        pj.make_accessory_sii(out_path, veh, internal_name, paintjob_name)
+                        pj.make_accessory_sii(out_path, veh, ingame_name, paintjob_name)
             if veh.uses_accessories:
-                pj.copy_accessory_dds(out_path, veh, internal_name)
-                pj.make_accessory_tobj(out_path, veh, internal_name)
+                pj.copy_accessory_dds(out_path, veh, ingame_name)
+                pj.make_accessory_tobj(out_path, veh, ingame_name)
 
         if workshop_upload:
             pj.copy_versions_sii(output_path+"/Workshop uploading")
