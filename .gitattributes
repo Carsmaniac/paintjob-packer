@@ -1,2 +1,0 @@
-library/placeholder[[:space:]]files/ats[[:space:]]templates/*.dds filter=lfs diff=lfs merge=lfs -text
-library/placeholder[[:space:]]files/ets[[:space:]]templates/*.dds filter=lfs diff=lfs merge=lfs -text
