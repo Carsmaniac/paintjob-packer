@@ -621,7 +621,7 @@ class PackerApp:
             pj.make_vehicle_folder(out_path, veh, ingame_name)
             if cabin_handling == "Combined paintjob" or veh.type == "trailer_owned" or not veh.separate_paintjobs:
                 paintjob_name = internal_name
-                if cabins_supported == "Largest cabin only":
+                if cabins_supported == "Largest cabin only" and veh.type == "truck":
                     pj.make_def_sii(out_path, veh, paintjob_name, internal_name, ingame_name, veh.cabins["a"][1], veh.cabins["a"][0], "a", True)
                 else:
                     pj.make_def_sii(out_path, veh, paintjob_name, internal_name, ingame_name)

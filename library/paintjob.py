@@ -3,7 +3,7 @@ import os, shutil, binascii, codecs, configparser
 class Vehicle:
     def __init__(self, file_name, game):
         veh_ini = configparser.ConfigParser(allow_no_value = True)
-        veh_ini.read("library/vehicles/{}/{}".format(game, file_name))
+        veh_ini.read("library/vehicles/{}/{}".format(game, file_name), encoding="utf-8")
         self.path = veh_ini["vehicle info"]["vehicle path"]
         self.alt_uvset = veh_ini["vehicle info"].getboolean("alt uvset")
         self.name = veh_ini["vehicle info"]["name"]
@@ -68,17 +68,17 @@ def make_manifest_sii(output_path, mod_version, mod_name, mod_author):
     file.write("\n")
     file.write("\tcategory[]: \"paint_job\"\n")
     file.write("\n")
-    file.write("\ticon: \"Image.jpg\"\n")
-    file.write("\tdescription_file: \"Description.txt\"\n")
+    file.write("\ticon: \"Mod_Manager_Image.jpg\"\n")
+    file.write("\tdescription_file: \"Mod_Manager_Description.txt\"\n")
     file.write("}\n")
     file.write("}\n")
     file.close()
 
 def copy_mod_manager_image(output_path):
-    shutil.copyfile("library/placeholder files/mod_manager_image.jpg", output_path + "/Image.jpg")
+    shutil.copyfile("library/placeholder files/mod_manager_image.jpg", output_path + "/Mod_Manager_Image.jpg")
 
 def make_description(output_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs):
-    file = open(output_path + "/Description.txt", "w")
+    file = open(output_path + "/Mod_Manager_Description.txt", "w")
     if num_of_paintjobs == "single":
         for veh in truck_list + trailer_list:
             file.write("This paintjob supports the {}\n".format(veh.name))
