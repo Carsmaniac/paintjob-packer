@@ -375,7 +375,8 @@ class PackerApp:
     def load_list_of_vehicles(self, game):
         complete_list = []
         for file_name in os.listdir("library/vehicles/{}".format(game)):
-            complete_list.append(VehSelection(game, file_name))
+            if file_name != "mods": # TEMP remove this when modded vehicles added back in
+                complete_list.append(VehSelection(game, file_name))
         truck_list = []
         truck_mod_list = []
         trailer_list = []
@@ -624,7 +625,7 @@ class PackerApp:
                     pj.make_def_sii(out_path, veh, paintjob_name, internal_name, ingame_name, veh.cabins["a"][1], veh.cabins["a"][0], "a", True)
                 else:
                     pj.make_def_sii(out_path, veh, paintjob_name, internal_name, ingame_name)
-                pj.copy_main_dds(out_path, veh, internal_name, ingame_name, paintjob_name)
+                pj.copy_main_dds(out_path, veh, internal_name, ingame_name, paintjob_name, game)
                 pj.make_main_tobj(out_path, veh, internal_name, ingame_name, paintjob_name)
                 if veh.uses_accessories:
                     pj.make_accessory_sii(out_path, veh, ingame_name, paintjob_name)
@@ -632,12 +633,12 @@ class PackerApp:
                 for cab_size in veh.cabins:
                     paintjob_name = internal_name + "_" + cab_size
                     pj.make_def_sii(out_path, veh, paintjob_name, internal_name, ingame_name, veh.cabins[cab_size][1], veh.cabins[cab_size][0], cab_size)
-                    pj.copy_main_dds(out_path, veh, internal_name, ingame_name, paintjob_name)
+                    pj.copy_main_dds(out_path, veh, internal_name, ingame_name, paintjob_name, game)
                     pj.make_main_tobj(out_path, veh, internal_name, ingame_name, paintjob_name)
                     if veh.uses_accessories:
                         pj.make_accessory_sii(out_path, veh, ingame_name, paintjob_name)
             if veh.uses_accessories:
-                pj.copy_accessory_dds(out_path, veh, ingame_name)
+                pj.copy_accessory_dds(out_path, veh, ingame_name, game)
                 pj.make_accessory_tobj(out_path, veh, ingame_name)
 
         if workshop_upload:
