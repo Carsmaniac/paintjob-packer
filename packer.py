@@ -599,7 +599,7 @@ class PackerApp:
         self.loading_value.set(self.loading_value.get()+1.0)
         self.loading_current.set("Loose files")
 
-        pj.make_manifest_sii(out_path, mod_version, mod_name, mod_author)
+        pj.make_manifest_sii(out_path, mod_version, mod_name, mod_author, workshop_upload)
 
         pj.copy_mod_manager_image(out_path)
 

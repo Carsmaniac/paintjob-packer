@@ -56,14 +56,15 @@ def generate_tobj(path): # TODO: icon tobj?
 
 # loose files
 
-def make_manifest_sii(output_path, mod_version, mod_name, mod_author):
+def make_manifest_sii(output_path, mod_version, mod_name, mod_author, workshop_upload):
     file = open(output_path + "/manifest.sii", "w")
     file.write("SiiNunit\n")
     file.write("{\n")
     file.write("mod_package: .package_name\n")
     file.write("{\n")
     file.write("\tpackage_version: \"{}\"\n".format(mod_version))
-    file.write("\tdisplay_name: \"{}\"\n".format(mod_name))
+    if not workshop_upload:
+        file.write("\tdisplay_name: \"{}\"\n".format(mod_name))
     file.write("\tauthor: \"{}\"\n".format(mod_author))
     file.write("\n")
     file.write("\tcategory[]: \"paint_job\"\n")
