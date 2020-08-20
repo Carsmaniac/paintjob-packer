@@ -3,7 +3,7 @@ from tkinter import ttk, messagebox, filedialog
 import webbrowser, sys, configparser, os, math, re, traceback
 import library.paintjob as pj
 
-version = "1.3"
+version = "1.4"
 forum_link = "https://forum.scssoft.com/viewtopic.php?f=33&t=282956"
 github_link = "https://github.com/carsmaniac/paintjob-packer"
 mod_link_page_link = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
@@ -234,7 +234,7 @@ class PackerApp:
         self.panel_internal_supported_label.grid(row = 4, column = 0, padx = (5, 0), sticky = "w")
         self.panel_internal_supported_dropdown = ttk.Combobox(self.panel_internal, state = "readonly", textvariable = self.panel_internal_supported_variable, values = ["Largest cabin only", "All cabins"], width = 20)
         self.panel_internal_supported_dropdown.grid(row = 4, column = 1, padx = 5, sticky = "w")
-        self.panel_internal_supported_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Supported Cabins", message = "Whether your paintjob supports only the largest cabin for each truck, or all cabins.\n\nNote that the 8x4 chassis uses a separate cabin in some cases, which would not be supported if you choose largest cabin only.\n\ne.g. If you're making a paintjob for the Scania Streamline, a \"largest cabin only\" paintjob would only support the Topline cabin, whereas an \"all cabins\" paintjob would support the Normal, Highline and Topline cabins, as well as the separate Topline 8x4 cabin."))
+        self.panel_internal_supported_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Supported Cabins", message = "Whether your paintjob supports only the largest cabin for each truck, or all cabins.\n\nNote that the 8x4 chassis uses a separate cabin in some cases, which would not be supported if you choose largest cabin only.\n\ne.g. If you're making a paintjob for the Scania S, a \"largest cabin only\" paintjob would only support the High Roof cabin, whereas an \"all cabins\" paintjob would support the Normal Roof and High Roof cabins, as well as the separate High Roof 8x4 cabin."))
         self.panel_internal_supported_help.grid(row = 4, column = 2, padx = (0, 5))
         self.panel_internal_handling_variable = tk.StringVar(None, "Combined paintjob")
         self.panel_internal_handling_label = ttk.Label(self.panel_internal, text = "Cabin handling:")
@@ -243,6 +243,11 @@ class PackerApp:
         # self.panel_internal_handling_dropdown.grid(row = 5, column = 1, padx = 5, sticky = "w")
         self.panel_internal_handling_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Cabin Handling", message = "Whether multiple cabins should be combined into a single paintjob, or separated into multiple paintjobs.\n\nA single combined paintjob requires less work and results in a smaller mod size, as you only need to make a single cabin texture for each truck. However, your design might not work across all the different cabin sizes, for example your design could look correct on large cabins, but be positioned incorrectly/stretched/cut off on smaller cabins.\n\nSeparate paintjobs allow you to tweak your design to work for each cabin, but require more work and result in a larger mod size, as you need to make separate textures for every cabin whether they need them or not."))
         # self.panel_internal_handling_help.grid(row = 5, column = 2, padx = (0, 5))
+        self.panel_internal_templates_variable = tk.BooleanVar(None, True)
+        self.panel_internal_templates_checkbox = ttk.Checkbutton(self.panel_internal, text = "Use templates instead of empty placeholders", variable = self.panel_internal_templates_variable)
+        self.panel_internal_templates_checkbox.grid(row = 6, column = 0, columnspan = 2, padx = 5, sticky = "w")
+        self.panel_internal_templates_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Placeholder Templates", message = "Uses templates instead of empty placeholder files. If not selected, all .dds files will be empty white placeholder squares. If selected, all .dds files will be appropriate templates (4k for trucks, 4k/2k for trailers) instead of empty images.\n\nNote that modded trucks and trailers will always use empty placeholders, regardless of this option.\n\nRequires templates to be installed for the game you're making a mod for. Not supported in portable verions."))
+        self.panel_internal_templates_help.grid(row = 6, column = 2, padx = (0, 5))
         self.panel_internal_spacer_label = ttk.Label(self.panel_internal, image = self.image_spacer_100)
         self.panel_internal_spacer_label.grid(row = 8, column = 0)
         self.panel_internal_spacer_input = ttk.Label(self.panel_internal, image = self.image_spacer_200)
@@ -332,6 +337,13 @@ class PackerApp:
             self.currency = "dollars"
         elif self.tab_game_variable.get() == "ets":
             self.currency = "euro"
+
+        if os.path.exists("library/{} templates installed.ini".format(self.tab_game_variable.get())):
+            self.panel_internal_templates_variable.set(True)
+            self.panel_internal_templates_checkbox.state(["!disabled"])
+        else:
+            self.panel_internal_templates_variable.set(False)
+            self.panel_internal_templates_checkbox.state(["disabled"])
 
         (self.truck_list, self.truck_mod_list, self.trailer_list, self.trailer_mod_list) = self.load_list_of_vehicles(self.tab_game_variable.get())
         self.truck_list_1 = self.truck_list[:math.ceil(len(self.truck_list)/2)] # lists need to be split for multiple vehicle selection, it's easier if it's done here
@@ -568,6 +580,8 @@ class PackerApp:
         if cabins_supported == "Largest cabin only": # this shouldn't be needed, but it might be, so I'm doing it for safe measure
             cabin_handling = "Combined paintjob"
 
+        placeholder_templates = self.panel_internal_templates_variable.get()
+
         out_path = output_path+"/"+mod_name
 
         if num_of_paintjobs == "single":
@@ -625,7 +639,7 @@ class PackerApp:
                     pj.make_def_sii(out_path, veh, paintjob_name, internal_name, ingame_name, veh.cabins["a"][1], veh.cabins["a"][0], "a", True)
                 else:
                     pj.make_def_sii(out_path, veh, paintjob_name, internal_name, ingame_name)
-                pj.copy_main_dds(out_path, veh, internal_name, ingame_name, paintjob_name, game)
+                pj.copy_main_dds(out_path, veh, internal_name, ingame_name, paintjob_name, game, placeholder_templates)
                 pj.make_main_tobj(out_path, veh, internal_name, ingame_name, paintjob_name)
                 if veh.uses_accessories:
                     pj.make_accessory_sii(out_path, veh, ingame_name, paintjob_name)
@@ -633,12 +647,12 @@ class PackerApp:
                 for cab_size in veh.cabins:
                     paintjob_name = internal_name + "_" + cab_size
                     pj.make_def_sii(out_path, veh, paintjob_name, internal_name, ingame_name, veh.cabins[cab_size][1], veh.cabins[cab_size][0], cab_size)
-                    pj.copy_main_dds(out_path, veh, internal_name, ingame_name, paintjob_name, game)
+                    pj.copy_main_dds(out_path, veh, internal_name, ingame_name, paintjob_name, game, placeholder_templates)
                     pj.make_main_tobj(out_path, veh, internal_name, ingame_name, paintjob_name)
                     if veh.uses_accessories:
                         pj.make_accessory_sii(out_path, veh, ingame_name, paintjob_name)
             if veh.uses_accessories:
-                pj.copy_accessory_dds(out_path, veh, ingame_name, game)
+                pj.copy_accessory_dds(out_path, veh, ingame_name, game, placeholder_templates)
                 pj.make_accessory_tobj(out_path, veh, ingame_name)
 
         if workshop_upload:
