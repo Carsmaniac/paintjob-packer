@@ -10,7 +10,6 @@
 * Kenworth K100-E by **MrOverfloater** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1814887717) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=274886)
 * MAN TGA by **MADster** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=196526)
 * MAN TGS by **MADster** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=166544)
-* Mercedes-Benz Antos by **D3S Design** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=158237)
 * Mitsubishi Fuso Super Great V by **RecycleDog** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=246380)
 * Scania 143m by **Ekualizer** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=187840)
 * Scania R (and R 4-series) by **RJL** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1233285693) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=177963)

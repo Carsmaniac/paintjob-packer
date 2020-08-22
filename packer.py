@@ -31,10 +31,6 @@ class PackerApp:
         self.image_ets = tk.PhotoImage(file = "library/packer images/ets.png")
         self.image_single_paintjob = tk.PhotoImage(file = "library/packer images/single paintjob.png")
         self.image_paintjob_pack = tk.PhotoImage(file = "library/packer images/paintjob pack.png")
-        self.image_all_cabins = tk.PhotoImage(file = "library/packer images/all cabins.png")
-        self.image_large_cabins = tk.PhotoImage(file = "library/packer images/large cabins.png")
-        self.image_separate_cabins = tk.PhotoImage(file = "library/packer images/separate cabins.png")
-        self.image_combined_cabins = tk.PhotoImage(file = "library/packer images/combined cabins.png")
         self.image_spacer_100 = tk.PhotoImage(file = "library/packer images/spacer 100.png")
         self.image_spacer_200 = tk.PhotoImage(file = "library/packer images/spacer 200.png")
 
