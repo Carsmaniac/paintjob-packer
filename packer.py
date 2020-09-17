@@ -637,6 +637,8 @@ class PackerApp:
                         main_dds_name = "Cabin"
                 else:
                     main_dds_name = veh.name
+                if veh.alt_uvset:
+                    main_dds_name = main_dds_name + " (alt uvset)"
                 pj.make_def_sii(out_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name)
                 pj.copy_main_dds(out_path, veh, ingame_name, main_dds_name)
                 pj.make_main_tobj(out_path, veh, ingame_name, main_dds_name)
@@ -644,9 +646,10 @@ class PackerApp:
                 for cab_size in veh.cabins:
                     one_paintjob = False
                     paintjob_name = internal_name + "_" + cab_size
-                    cab_ingame_name = veh.cabins[cab_size][0]
+                    main_dds_name = veh.cabins[cab_size][0] # cabin in-game name
+                    if veh.alt_uvset:
+                        main_dds_name = main_dds_name[:-1] + ", alt uvset)" # inserts "alt uvset" into the brackets in the cabin name
                     cab_internal_name = veh.cabins[cab_size][1]
-                    main_dds_name = cab_ingame_name
                     pj.make_def_sii(out_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name, cab_internal_name)
                     pj.copy_main_dds(out_path, veh, ingame_name, main_dds_name)
                     pj.make_main_tobj(out_path, veh, ingame_name, main_dds_name)
