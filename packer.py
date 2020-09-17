@@ -146,9 +146,9 @@ class PackerApp:
         self.panel_internal.grid(row = 2, column = 0, sticky = "new")
         self.panel_vehicles_pack = ttk.LabelFrame(self.main_screen, text = "Vehicles Supported (0)")
         self.panel_vehicles_single = ttk.LabelFrame(self.main_screen, text = "Vehicle Supported")
-        self.panel_buttons = ttk.Frame(self.main_screen)
-        self.panel_buttons.grid(row = 3, column = 0, columnspan = 2, sticky = "ew")
-        self.panel_buttons.columnconfigure(1, weight = 1)
+        self.panel_main_buttons = ttk.Frame(self.main_screen)
+        self.panel_main_buttons.grid(row = 3, column = 0, columnspan = 2, sticky = "ew")
+        self.panel_main_buttons.columnconfigure(1, weight = 1)
         self.main_screen.rowconfigure(2, weight = 1) # keeps things tidy if too many mods get added
 
         # Mod Info panel
@@ -219,11 +219,6 @@ class PackerApp:
         self.panel_internal_name_input.grid(row = 0, column = 1, padx = 5, sticky = "w")
         self.panel_internal_name_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Internal Name", message = "A unique name used by the game to identify your paintjob. Mod users will NOT see this name.\n\nMust be {} characters or fewer, and only contain letters, numbers and underscores.\n\nMust also be unique, if two different mods use the same internal name they will be incompatible with each other.\n\ne.g. transit_co".format(self.internal_name_length)))
         self.panel_internal_name_help.grid(row = 0, column = 2, padx = (0, 5))
-        self.panel_internal_workshop_variable = tk.BooleanVar(None, False)
-        self.panel_internal_workshop_checkbox = ttk.Checkbutton(self.panel_internal, text = "Generate files for Steam Workshop upload", variable = self.panel_internal_workshop_variable)
-        self.panel_internal_workshop_checkbox.grid(row = 3, column = 0, columnspan = 2, padx = 5, sticky = "w")
-        self.panel_internal_workshop_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Workshop Upload", message = "Generates additional files needed when uploading to Steam Workshop, including a workshop image, an uploading folder and a workshop description with working links to any modded vehicles you support\n\nRequires the SCS Workshop Uploader, which only supports Windows"))
-        self.panel_internal_workshop_help.grid(row = 3, column = 2, padx = (0, 5))
         self.panel_internal_supported_variable = tk.StringVar(None, "Largest cabin only")
         self.panel_internal_supported_variable.trace("w", self.update_cabin_dropdowns)
         self.panel_internal_supported_label = ttk.Label(self.panel_internal, text = "Supported cabins:")
@@ -239,11 +234,6 @@ class PackerApp:
         # self.panel_internal_handling_dropdown.grid(row = 5, column = 1, padx = 5, sticky = "w")
         self.panel_internal_handling_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Cabin Handling", message = "Whether multiple cabins should be combined into a single paintjob, or separated into multiple paintjobs.\n\nA single combined paintjob requires less work and results in a smaller mod size, as you only need to make a single cabin texture for each truck. However, your design might not work across all the different cabin sizes, for example your design could look correct on large cabins, but be positioned incorrectly/stretched/cut off on smaller cabins.\n\nSeparate paintjobs allow you to tweak your design to work for each cabin, but require more work and result in a larger mod size, as you need to make separate textures for every cabin whether they need them or not."))
         # self.panel_internal_handling_help.grid(row = 5, column = 2, padx = (0, 5))
-        self.panel_internal_templates_variable = tk.BooleanVar(None, True)
-        self.panel_internal_templates_checkbox = ttk.Checkbutton(self.panel_internal, text = "Use templates instead of empty placeholders", variable = self.panel_internal_templates_variable)
-        self.panel_internal_templates_checkbox.grid(row = 6, column = 0, columnspan = 2, padx = 5, sticky = "w")
-        self.panel_internal_templates_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Placeholder Templates", message = "Uses templates instead of empty placeholder files. If not selected, all .dds files will be empty white placeholder squares. If selected, all .dds files will be appropriate templates (4k for trucks, 4k/2k for trailers) instead of empty images.\n\nNote that modded trucks and trailers will always use empty placeholders, regardless of this option.\n\nRequires templates to be installed for the game you're making a mod for. Not supported in portable verions."))
-        self.panel_internal_templates_help.grid(row = 6, column = 2, padx = (0, 5))
         self.panel_internal_spacer_label = ttk.Label(self.panel_internal, image = self.image_spacer_100)
         self.panel_internal_spacer_label.grid(row = 8, column = 0)
         self.panel_internal_spacer_input = ttk.Label(self.panel_internal, image = self.image_spacer_200)
@@ -282,13 +272,68 @@ class PackerApp:
         self.panel_pack_link_trailer.bind("<1>", lambda e: webbrowser.open_new(mod_link_page_link))
 
         # buttons along the bottom
-        self.panel_buttons_setup = ttk.Button(self.panel_buttons, text = "< Back to setup", command = lambda : self.switch_to_setup_screen(), width = 15)
-        self.panel_buttons_setup.grid(row = 1, column = 0, pady = (5, 0), sticky = "w")
-        self.panel_buttons_feedback = ttk.Label(self.panel_buttons, text = "Leave feedback or get support", foreground = "blue", cursor = self.cursor)
-        self.panel_buttons_feedback.grid(row = 1, column = 1, pady = (5, 0), padx = 10, sticky = "e")
-        self.panel_buttons_feedback.bind("<1>", lambda e: webbrowser.open_new(forum_link))
-        self.panel_buttons_generate = ttk.Button(self.panel_buttons, text = "Generate and save...", command = lambda : self.verify_all_inputs(), width = 20)
-        self.panel_buttons_generate.grid(row = 1, column = 2, pady = (5, 0), sticky = "e")
+        self.panel_main_buttons_setup = ttk.Button(self.panel_main_buttons, text = "< Back to setup", command = lambda : self.switch_to_setup_screen(), width = 15)
+        self.panel_main_buttons_setup.grid(row = 1, column = 0, pady = (5, 0), sticky = "w")
+        self.panel_main_buttons_feedback = ttk.Label(self.panel_main_buttons, text = "Leave feedback or get support", foreground = "blue", cursor = self.cursor)
+        self.panel_main_buttons_feedback.grid(row = 1, column = 1, pady = (5, 0), padx = 10, sticky = "e")
+        self.panel_main_buttons_feedback.bind("<1>", lambda e: webbrowser.open_new(forum_link))
+        self.panel_main_buttons_generate = ttk.Button(self.panel_main_buttons, text = "Generate and save...", command = lambda : self.verify_all_inputs(), width = 20)
+        self.panel_main_buttons_generate.grid(row = 1, column = 2, pady = (5, 0), sticky = "e")
+
+        # generate screen
+        self.generate_screen = ttk.Frame(self.container)
+        self.panel_generating = ttk.LabelFrame(self.generate_screen, text = "Generating Options")
+        self.panel_generating.grid(row = 0, column = 0, sticky = "ew")
+        self.panel_directory = ttk.LabelFrame(self.generate_screen, text = "Save Directory")
+        self.panel_directory.grid(row = 1, column = 0, sticky = "ew")
+        self.panel_progress = ttk.LabelFrame(self.generate_screen, text = "Progress")
+        self.panel_progress.grid(row = 2, column = 0, sticky = "ew")
+        self.panel_gen_buttons = ttk.Frame(self.generate_screen)
+        self.panel_gen_buttons.grid(row = 3, column = 0, sticky = "ew")
+
+        # Generating Options panel
+        self.panel_generating_workshop_variable = tk.BooleanVar(None, False)
+        self.panel_generating_workshop_checkbox = ttk.Checkbutton(self.panel_generating, text = "Generate files for Steam Workshop upload", variable = self.panel_generating_workshop_variable)
+        self.panel_generating_workshop_checkbox.grid(row = 0, column = 0, padx = 5, sticky = "w")
+        self.panel_generating_workshop_help = ttk.Button(self.panel_generating, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Workshop Upload", message = "Generates additional files needed when uploading to Steam Workshop, including a workshop image, an uploading folder and a workshop description with working links to any modded vehicles you support\n\nRequires the SCS Workshop Uploader, which only supports Windows"))
+        self.panel_generating_workshop_help.grid(row = 0, column = 1, padx = (0, 5))
+        self.panel_generating_templates_variable = tk.BooleanVar(None, False) # TODO: True by default, false and checkbox disabled if none installed
+        self.panel_generating_templates_checkbox = ttk.Checkbutton(self.panel_generating, text = "Use templates instead of empty placeholders", variable = self.panel_generating_templates_variable)
+        self.panel_generating_templates_checkbox.grid(row = 1, column = 0, padx = (5, 20), sticky = "w")
+        self.panel_generating_templates_help = ttk.Button(self.panel_generating, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Placeholder Templates", message = "Uses templates instead of empty placeholder files. If not selected, all .dds files will be empty white placeholder squares. If selected, all .dds files will be appropriate templates (4k for trucks, 4k/2k for trailers) instead of empty images. Note that some parts on certain vehicles will still use empty images, since there is no paintjob potential besides changing their colour.\n\nRequires templates to be installed for the game you're making a mod for. Not supported in portable verions."))
+        self.panel_generating_templates_help.grid(row = 1, column = 1, padx = (0, 5), pady = (0, 5))
+        self.panel_generating.columnconfigure(0, weight = 1)
+
+        # Save Directory panel
+        self.panel_directory_change_label = ttk.Label(self.panel_directory, text = "Current directory:")
+        self.panel_directory_change_label.grid(row = 0, column = 0, columnspan = 2, padx = 5, sticky = "w")
+        self.panel_directory_change_button = ttk.Button(self.panel_directory, text = "Change...", width = 10, command = self.ask_save_location)
+        self.panel_directory_change_button.grid(row = 0, column = 2, padx = (0, 5))
+        self.panel_directory_current_variable = tk.StringVar(None, desktop_path.replace("\\", "/"))
+        self.panel_directory_current_label = ttk.Label(self.panel_directory, textvariable = self.panel_directory_current_variable)
+        self.panel_directory_current_label.grid(row = 1, column = 0, columnspan = 3, padx = 5, sticky = "w")
+        self.panel_directory_note_label = ttk.Label(self.panel_directory, text = "A subfolder will created in your chosen directory")
+        self.panel_directory_note_label.grid(row = 2, column = 0, columnspan = 3, padx = 5, pady = (0, 5))
+        self.panel_directory.columnconfigure(0, weight = 1)
+
+        # Progress panel
+        self.progress_value = tk.DoubleVar(None, 50.0)
+        self.panel_progress_bar = ttk.Progressbar(self.panel_progress, orient = "horizontal", mode = "determinate", variable = self.progress_value)
+        self.panel_progress_bar.grid(row = 0, column = 0, padx = 5, sticky = "ew")
+        self.panel_progress_category_variable = tk.StringVar(None, "$Cat")
+        self.panel_progress_category_label = ttk.Label(self.panel_progress, textvariable = self.panel_progress_category_variable)
+        self.panel_progress_category_label.grid(row = 1, column = 0, padx = 5)
+        self.panel_progress_specific_variable = tk.StringVar(None, "$Specific")
+        self.panel_progress_specific_label = ttk.Label(self.panel_progress, textvariable = self.panel_progress_specific_variable)
+        self.panel_progress_specific_label.grid(row = 2, column = 0, padx = 5, pady = (0, 5))
+        self.panel_progress.columnconfigure(0, weight = 1)
+
+        # generating buttons
+        self.panel_gen_buttons_back = ttk.Button(self.panel_gen_buttons, text = "< Back", command = self.change_from_generate_to_main)
+        self.panel_gen_buttons_back.grid(row = 0, column = 0, pady = (5, 0), sticky = "w")
+        self.panel_gen_buttons_generate = ttk.Button(self.panel_gen_buttons, text = "Generate", command = lambda : print("make the mod"))
+        self.panel_gen_buttons_generate.grid(row = 0, column = 1, pady = (5, 0), sticky = "e")
+        self.panel_gen_buttons.columnconfigure(0, weight = 1)
 
     def update_cabin_dropdowns(self, *args):
         self.internal_name_length = 12
@@ -334,12 +379,12 @@ class PackerApp:
         elif self.tab_game_variable.get() == "ets":
             self.currency = "euro"
 
-        if os.path.exists("library/{} templates installed.ini".format(self.tab_game_variable.get())):
-            self.panel_internal_templates_variable.set(True)
-            self.panel_internal_templates_checkbox.state(["!disabled"])
-        else:
-            self.panel_internal_templates_variable.set(False)
-            self.panel_internal_templates_checkbox.state(["disabled"])
+        # if os.path.exists("library/{} templates installed.ini".format(self.tab_game_variable.get())):
+        #     self.panel_internal_templates_variable.set(True)
+        #     self.panel_internal_templates_checkbox.state(["!disabled"])
+        # else:
+        #     self.panel_internal_templates_variable.set(False)
+        #     self.panel_internal_templates_checkbox.state(["disabled"]) TODO: work this out in a better way
 
         (self.truck_list, self.truck_mod_list, self.trailer_list, self.trailer_mod_list) = self.load_list_of_vehicles(self.tab_game_variable.get())
         self.truck_list_1 = self.truck_list[:math.ceil(len(self.truck_list)/2)] # lists need to be split for multiple vehicle selection, it's easier if it's done here
@@ -436,6 +481,10 @@ class PackerApp:
                 self.total_vehicles += 1
         self.panel_vehicles_pack.configure(text = "Vehicles Supported ({})".format(self.total_vehicles))
 
+    def change_from_generate_to_main(self):
+        self.generate_screen.grid_forget()
+        self.main_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
+
     def verify_all_inputs(self):
         inputs_verified = True
         all_errors = []
@@ -496,14 +545,15 @@ class PackerApp:
         if self.tab_paintjob_variable.get() == "pack":
             if self.total_vehicles < 1:
                 inputs_verified = False
-                all_errors.append(["No vehicles selected", "Please select at least one truck, trailer or truck mod"])
+                all_errors.append(["No vehicles selected", "Please select at least one truck, trailer or mod"])
         elif self.tab_paintjob_variable.get() == "single":
             if self.panel_single_vehicle_variable.get() == "":
                 inputs_verified = False
                 all_errors.append(["No vehicle selected", "Please select a vehicle to support"])
 
         if inputs_verified:
-            self.ask_save_location()
+            self.main_screen.grid_forget()
+            self.generate_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
         else:
             if len(all_errors) == 1:
                 messagebox.showerror(title = all_errors[0][0], message = all_errors[0][1])
@@ -515,7 +565,7 @@ class PackerApp:
                 messagebox.showerror(title = "{} errors".format(len(all_errors)), message = total_message)
 
     def ask_save_location(self):
-        save_directory = filedialog.askdirectory(title = "Save Mod (subfolder will be created)", initialdir = desktop_path)
+        save_directory = filedialog.askdirectory(title = "Save Mod (subfolder will be created)", initialdir = self.panel_directory_current_variable.get())
         if save_directory != "":
             output_path = save_directory + "/Paintjob Packer Output"
             folder_clear = True
@@ -524,7 +574,7 @@ class PackerApp:
                     folder_clear = False # I don't want to be on the receiving end of an irate user who lost their important report the night before it was due, because they happened to store it in the paintjob packer folder
                     messagebox.showerror(title = "Output folder not clear", message = "A folder called \"Paintjob Packer Output\" already exists in the directory that you chose, and it contains files.\n\nPlease delete the \"Paintjob Packer Output\" folder, or delete everything inside it.")
             if folder_clear:
-                self.make_paintjob(output_path)
+                self.panel_directory_current_variable.set(save_directory)
 
     def make_paintjob(self, output_path):
         truck_list = []
@@ -568,7 +618,7 @@ class PackerApp:
 
         internal_name = self.panel_internal_name_variable.get()
         num_of_paintjobs = self.tab_paintjob_variable.get()
-        workshop_upload = self.panel_internal_workshop_variable.get()
+        workshop_upload = self.panel_generating_workshop_variable.get()
 
         cabins_supported = self.panel_internal_supported_variable.get()
         cabin_handling = self.panel_internal_handling_variable.get()
@@ -576,7 +626,7 @@ class PackerApp:
         if cabins_supported == "Largest cabin only": # this shouldn't be needed, but it might be, so I'm doing it for safe measure
             cabin_handling = "Combined paintjob"
 
-        placeholder_templates = self.panel_internal_templates_variable.get()
+        placeholder_templates = self.panel_generating_templates_variable.get()
 
         out_path = output_path+"/"+mod_name
 
