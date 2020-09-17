@@ -52,17 +52,16 @@
 * Mack R Series by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1463066263) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256935)
 * Peterbilt 386 by **R.Modjeski** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=284614)
 * Peterbilt 567 by **GTM** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1410475763) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=255232)
-* Project 3XX by **guidot** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1835092596) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=256189)
+* Project 3XX by **HFG** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1835092596) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=256189)
 * Scot A2HD by **Smarty** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=661658019) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=201612)
 * Volvo VNL 2018 by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1832939055) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256560)
 * Volvo VNR by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1833428947) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256338)
 
 ## Trailers
 
-* Fruehauf FB 40ft Refrigerator Van 1971 by **selonik** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=282742)
+* Fruehauf FB 40 ft Reefer 1971 by **selonik** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=282742)
 * Fruehauf Dryvan 1951 by **selonik** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=282617)
 * Ownable SCS Fuel Tanker by **DNA Transport** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=288888)
-* Peerless CTS-42 Chip Van by **Smarty** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2040721126) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=266601)
 * Utility 3000R Reefer by **Dro Modding** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1735332570) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=276125)
 * Vanguard Reefer by **Dro Modding** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1845487381) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=276343)
 * Wilkens Walking Floor by **Dro Modding** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1686749906) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=276126)
