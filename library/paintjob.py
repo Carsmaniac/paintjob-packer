@@ -141,23 +141,16 @@ def make_def_folder(output_path, veh):
         extra_path = "/accessory"
     make_folder(output_path, "def/vehicle/{}/{}/paint_job{}".format(veh.type, veh.path, extra_path))
 
-def make_def_sii(output_path, veh, paintjob_name, internal_name, ingame_name, cab_internal_name = None, cab_ingame_name = None, cab_size = None, largest_only = False):
-    file = open(output_path + "/def/vehicle/{}/{}/paint_job/{}.sii".format(veh.type, veh.path, paintjob_name), "w")
+def make_def_sii(output_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name, cab_internal_name=None):
+    file = open(output_path + "/def/vehicle/{}/{}/paint_job/{}.sii".format(veh.type, veh.path, paintjob_name))
     file.write("SiiNunit\n")
     file.write("{\n")
     file.write("accessory_paint_job_data: {}.{}.paint_job\n".format(paintjob_name, veh.path))
     file.write("{\n")
     file.write("@include \"{}_settings.sui\"\n".format(internal_name))
-    if veh.type == "trailer_owned":
-        file.write("\tpaint_job_mask: \"/vehicle/trailer_owned/upgrade/paintjob/{}/{}/Base Colour.tobj\"\n".format(ingame_name, veh.name))
-    elif largest_only:
+    if not one_paintjob:
         file.write("\tsuitable_for[]: \"{}.{}.cabin\"\n".format(cab_internal_name, veh.path))
-        file.write("\tpaint_job_mask: \"/vehicle/truck/upgrade/paintjob/{}/{}/Cabin.tobj\"\n".format(ingame_name, veh.name))
-    elif internal_name != paintjob_name: # cabin handling: separate paintjobs
-        file.write("\tsuitable_for[]: \"{}.{}.cabin\"\n".format(cab_internal_name, veh.path))
-        file.write("\tpaint_job_mask: \"/vehicle/truck/upgrade/paintjob/{}/{}/{}.tobj\"\n".format(ingame_name, veh.name, cab_ingame_name))
-    elif veh.type == "truck": # cabin handling: combined paintjobs
-        file.write("\tpaint_job_mask: \"/vehicle/truck/upgrade/paintjob/{}/{}/Cabin.tobj\"\n".format(ingame_name, veh.name))
+    file.write("\tpaint_job_mask: \"/vehicle/{}/upgrade/paintjob/{}/{}/{}.tobj\"\n".format(veh.type, ingame_name, veh.name, main_dds_name))
     file.write("}\n")
     file.write("}\n")
     file.close()
@@ -197,42 +190,17 @@ def make_accessory_sii(output_path, veh, ingame_name, paintjob_name):
 def make_vehicle_folder(output_path, veh, ingame_name):
     make_folder(output_path, "vehicle/{}/upgrade/paintjob/{}/{}".format(veh.type, ingame_name, veh.name))
 
-def copy_main_dds(output_path, veh, internal_name, ingame_name, paintjob_name, game, placeholder_templates):
-    if veh.type == "trailer_owned":
-        shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/trailer_owned/upgrade/paintjob/{}/{}/Base Colour.dds".format(ingame_name, veh.name))
-    elif internal_name != paintjob_name:
-        for cab_size in veh.cabins:
-            if placeholder_templates:
-                shutil.copyfile("library/placeholder files/{} templates/{}/{}.dds".format(game, veh.path, veh.cabins[cab_size][0]), output_path + "/vehicle/truck/upgrade/paintjob/{}/{}/{}.dds".format(ingame_name, veh.name, veh.cabins[cab_size][0]))
-            else:
-                shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/truck/upgrade/paintjob/{}/{}/{}.dds".format(ingame_name, veh.name, veh.cabins[cab_size][0]))
-    elif veh.type == "truck":
-        if placeholder_templates:
-            shutil.copyfile("library/placeholder files/{} templates/{}/{}.dds".format(game, veh.path, veh.cabins["a"][0]), output_path + "/vehicle/truck/upgrade/paintjob/{}/{}/Cabin.dds".format(ingame_name, veh.name))
-        else:
-            shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/truck/upgrade/paintjob/{}/{}/Cabin.dds".format(ingame_name, veh.name))
+def copy_main_dds(output_path, veh, ingame_name, main_dds_name):
+    shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, main_dds_name))
 
-def copy_accessory_dds(output_path, veh, ingame_name, game, placeholder_templates):
+def copy_accessory_dds(output_path, veh, ingame_name, game):
     for acc_name in veh.acc_dict:
-        if placeholder_templates:
-            shutil.copyfile("library/placeholder files/{} templates/{}/{}.dds".format(game, veh.path, acc_name), output_path + "/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, acc_name))
-        else:
-            shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, acc_name))
+        shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, acc_name))
 
-def make_main_tobj(output_path, veh, internal_name, ingame_name, paintjob_name):
-    if veh.type == "trailer_owned":
-        file = open(output_path + "/vehicle/trailer_owned/upgrade/paintjob/{}/{}/Base Colour.tobj".format(ingame_name, veh.name), "wb")
-        file.write(generate_tobj("/vehicle/trailer_owned/upgrade/paintjob/{}/{}/Base Colour.dds".format(ingame_name, veh.name)))
-        file.close()
-    elif internal_name != paintjob_name:
-        for cab_size in veh.cabins:
-            file = open(output_path + "/vehicle/truck/upgrade/paintjob/{}/{}/{}.tobj".format(ingame_name, veh.name, veh.cabins[cab_size][0]), "wb")
-            file.write(generate_tobj("/vehicle/truck/upgrade/paintjob/{}/{}/{}.dds".format(ingame_name, veh.name, veh.cabins[cab_size][0])))
-            file.close()
-    elif veh.type == "truck":
-        file = open(output_path + "/vehicle/truck/upgrade/paintjob/{}/{}/Cabin.tobj".format(ingame_name, veh.name), "wb")
-        file.write(generate_tobj("/vehicle/truck/upgrade/paintjob/{}/{}/Cabin.dds".format(ingame_name, veh.name)))
-        file.close()
+def make_main_tobj(output_path, veh, ingame_name, main_dds_name):
+    file = open(output_path + "/vehicle/{}/upgrade/paintjob/{}/{}/{}.tobj".format(veh.type, ingame_name, veh.name, main_dds_name), "wb")
+    file.write(generate_tobj("/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, main_dds_name)))
+    file.close()
 
 def make_accessory_tobj(output_path, veh, ingame_name):
     for acc_name in veh.acc_dict:
