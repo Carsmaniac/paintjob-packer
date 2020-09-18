@@ -28,7 +28,6 @@
 * Närko Trailer Pack by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2100157424) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=285206)
 * NTM Trailer Pack by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1431253303) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=250206)
 * Schmitz Cargobull by **MD Modding** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=252193)
-* Schmitz S.KO by **obelihnio** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1762541488) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=273447)
 * VAK Trailer Pack by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1443578012) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=256559)
 
 # American Truck Simulator

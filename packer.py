@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
-import webbrowser, sys, configparser, os, math, re, traceback
+import webbrowser, sys, configparser, os, math, re, traceback, zipfile
 import library.paintjob as pj
 
 version = "1.4"
@@ -678,6 +678,14 @@ class PackerApp:
             self.progress_value.set(self.progress_value.get()+1.0)
             self.panel_progress_category_variable.set(veh.name)
 
+            if placeholder_templates:
+                if os.path.exists("library/placeholder files/{} templates/{}.zip".format(game, veh.path)):
+                    template_zip = zipfile.ZipFile("library/placeholder files/{} templates/{}.zip".format(game, veh.path))
+                else:
+                    template_zip = None
+            else:
+                template_zip = None
+
             pj.make_def_folder(out_path, veh)
             self.panel_progress_specific_variable.set("Paintjob settings")
             self.panel_progress_specific_label.update()
@@ -698,7 +706,7 @@ class PackerApp:
                 if veh.alt_uvset:
                     main_dds_name = main_dds_name + " (alt uvset)"
                 pj.make_def_sii(out_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name)
-                pj.copy_main_dds(out_path, veh, ingame_name, main_dds_name)
+                pj.copy_main_dds(out_path, veh, ingame_name, main_dds_name, template_zip)
                 pj.make_main_tobj(out_path, veh, ingame_name, main_dds_name)
             else:
                 for cab_size in veh.cabins:
@@ -711,14 +719,17 @@ class PackerApp:
                         main_dds_name = main_dds_name[:-1] + ", alt uvset)" # inserts "alt uvset" into the brackets in the cabin name
                     cab_internal_name = veh.cabins[cab_size][1]
                     pj.make_def_sii(out_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name, cab_internal_name)
-                    pj.copy_main_dds(out_path, veh, ingame_name, main_dds_name)
+                    pj.copy_main_dds(out_path, veh, ingame_name, main_dds_name, template_zip)
                     pj.make_main_tobj(out_path, veh, ingame_name, main_dds_name)
             if veh.uses_accessories:
                 self.panel_progress_specific_variable.set("Accessories")
                 self.panel_progress_specific_label.update()
                 pj.make_accessory_sii(out_path, veh, ingame_name, paintjob_name)
-                pj.copy_accessory_dds(out_path, veh, ingame_name, game)
+                pj.copy_accessory_dds(out_path, veh, ingame_name, game, template_zip)
                 pj.make_accessory_tobj(out_path, veh, ingame_name)
+
+            if template_zip != None:
+                template_zip.close()
 
         if workshop_upload:
             self.progress_value.set(self.progress_value.get()+1.0)

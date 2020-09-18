@@ -190,12 +190,39 @@ def make_accessory_sii(output_path, veh, ingame_name, paintjob_name):
 def make_vehicle_folder(output_path, veh, ingame_name):
     make_folder(output_path, "vehicle/{}/upgrade/paintjob/{}/{}".format(veh.type, ingame_name, veh.name))
 
-def copy_main_dds(output_path, veh, ingame_name, main_dds_name):
-    shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, main_dds_name))
+def copy_main_dds(output_path, veh, ingame_name, main_dds_name, template_zip):
+    copy_square = False
 
-def copy_accessory_dds(output_path, veh, ingame_name, game):
+    if template_zip != None:
+        if main_dds_name+".dds" in template_zip.namelist():
+            template_zip.extract(main_dds_name+".dds", output_path+"/vehicle/{}/upgrade/paintjob/{}/{}".format(veh.type, ingame_name, veh.name))
+        elif veh.type == "truck": # largest cabin only paintjobs
+            template_zip.extract(veh.cabins["a"][0]+".dds", output_path+"/vehicle/{}/upgrade/paintjob/{}/{}".format(veh.type, ingame_name, veh.name))
+            os.rename(output_path+"/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, veh.cabins["a"][0]), output_path+"/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, main_dds_name))
+        else:
+            copy_square = True
+    else:
+        copy_square = True
+
+    if copy_square:
+        shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, main_dds_name))
+        print("SQUARE: {} {}".format(veh.name, main_dds_name))
+
+def copy_accessory_dds(output_path, veh, ingame_name, game, template_zip):
     for acc_name in veh.acc_dict:
-        shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, acc_name))
+        copy_square = False
+
+        if template_zip != None:
+            if acc_name+".dds" in template_zip.namelist():
+                template_zip.extract(acc_name+".dds", output_path+"/vehicle/{}/upgrade/paintjob/{}/{}".format(veh.type, ingame_name, veh.name))
+            else:
+                copy_square = True
+        else:
+            copy_square = True
+
+        if copy_square:
+            shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, acc_name))
+            print("SQUARE: {} {}".format(veh.name, acc_name))
 
 def make_main_tobj(output_path, veh, ingame_name, main_dds_name):
     file = open(output_path + "/vehicle/{}/upgrade/paintjob/{}/{}/{}.tobj".format(veh.type, ingame_name, veh.name, main_dds_name), "wb")
@@ -207,3 +234,8 @@ def make_accessory_tobj(output_path, veh, ingame_name):
         file = open(output_path + "/vehicle/{}/upgrade/paintjob/{}/{}/{}.tobj".format(veh.type, ingame_name, veh.name, acc_name), "wb")
         file.write(generate_tobj("/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, acc_name)))
         file.close()
+
+if __name__ == "__main__":
+    print("Run \"packer.py\" to launch Paintjob Packer")
+    print("")
+    input("Press enter to quit")
