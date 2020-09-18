@@ -691,7 +691,7 @@ class PackerApp:
             self.panel_progress_specific_label.update()
             pj.make_settings_sui(out_path, veh, internal_name, ingame_name, ingame_price, unlock_level)
             pj.make_vehicle_folder(out_path, veh, ingame_name)
-            if cabin_handling == "Combined paintjobs" or veh.type == "trailer_owned" or not veh.separate_paintjobs:
+            if cabin_handling == "Combined paintjob" or veh.type == "trailer_owned" or not veh.separate_paintjobs:
                 one_paintjob = True
                 paintjob_name = internal_name
                 if veh.uses_accessories:
@@ -710,17 +710,20 @@ class PackerApp:
                 pj.make_main_tobj(out_path, veh, ingame_name, main_dds_name)
             else:
                 for cab_size in veh.cabins:
-                    one_paintjob = False
-                    paintjob_name = internal_name + "_" + cab_size
-                    main_dds_name = veh.cabins[cab_size][0] # cabin in-game name
-                    self.panel_progress_specific_variable.set(main_dds_name)
-                    self.panel_progress_specific_label.update()
-                    if veh.alt_uvset:
-                        main_dds_name = main_dds_name[:-1] + ", alt uvset)" # inserts "alt uvset" into the brackets in the cabin name
-                    cab_internal_name = veh.cabins[cab_size][1]
-                    pj.make_def_sii(out_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name, cab_internal_name)
-                    pj.copy_main_dds(out_path, veh, ingame_name, main_dds_name, template_zip)
-                    pj.make_main_tobj(out_path, veh, ingame_name, main_dds_name)
+                    if cabins_supported == "Largest cabin only" and cab_size != "a":
+                        pass
+                    else:
+                        one_paintjob = False
+                        paintjob_name = internal_name + "_" + cab_size
+                        main_dds_name = veh.cabins[cab_size][0] # cabin in-game name
+                        self.panel_progress_specific_variable.set(main_dds_name)
+                        self.panel_progress_specific_label.update()
+                        if veh.alt_uvset:
+                            main_dds_name = main_dds_name[:-1] + ", alt uvset)" # inserts "alt uvset" into the brackets in the cabin name
+                        cab_internal_name = veh.cabins[cab_size][1]
+                        pj.make_def_sii(out_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name, cab_internal_name)
+                        pj.copy_main_dds(out_path, veh, ingame_name, main_dds_name, template_zip)
+                        pj.make_main_tobj(out_path, veh, ingame_name, main_dds_name)
             if veh.uses_accessories:
                 self.panel_progress_specific_variable.set("Accessories")
                 self.panel_progress_specific_label.update()
