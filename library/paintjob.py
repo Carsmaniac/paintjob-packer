@@ -197,8 +197,12 @@ def copy_main_dds(output_path, veh, ingame_name, main_dds_name, template_zip):
         if main_dds_name+".dds" in template_zip.namelist():
             template_zip.extract(main_dds_name+".dds", output_path+"/vehicle/{}/upgrade/paintjob/{}/{}".format(veh.type, ingame_name, veh.name))
         elif veh.type == "truck": # largest cabin only paintjobs
-            template_zip.extract(veh.cabins["a"][0]+".dds", output_path+"/vehicle/{}/upgrade/paintjob/{}/{}".format(veh.type, ingame_name, veh.name))
-            os.rename(output_path+"/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, veh.cabins["a"][0]), output_path+"/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, main_dds_name))
+            if veh.alt_uvset:
+                largest_cabin_name = veh.cabins["a"][0][:-1]+", alt uvset).dds"
+            else:
+                largest_cabin_name = veh.cabins["a"][0]+".dds"
+            template_zip.extract(largest_cabin_name, output_path+"/vehicle/{}/upgrade/paintjob/{}/{}".format(veh.type, ingame_name, veh.name))
+            os.rename(output_path+"/vehicle/{}/upgrade/paintjob/{}/{}/{}".format(veh.type, ingame_name, veh.name, largest_cabin_name), output_path+"/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, main_dds_name))
         else:
             copy_square = True
     else:
