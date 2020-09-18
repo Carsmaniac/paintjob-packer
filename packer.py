@@ -44,20 +44,6 @@ class PackerApp:
 
         self.total_vehicles = 0 # used in the vehicle selector when making a paintjob pack
 
-        # second window displayed when generating mod, mostly useless as it generates so quickly
-        self.loading_window = tk.Toplevel(master)
-        self.loading_window.title("Generating Mod")
-        self.loading_window.state("withdrawn")
-        self.loading_window.resizable(False, False)
-        self.loading_label = ttk.Label(self.loading_window, text = "Generating mod, please wait...")
-        self.loading_label.grid(row = 0, column = 0, pady = 20)
-        self.loading_value = tk.DoubleVar(None, 5.0)
-        self.loading_bar = ttk.Progressbar(self.loading_window, orient = "horizontal", length = 200, mode = "determinate", variable = self.loading_value)
-        self.loading_bar.grid(row = 1, column = 0, padx = 45)
-        self.loading_current = tk.StringVar(None, "DAF XF 105")
-        self.loading_current_label = ttk.Label(self.loading_window, textvariable = self.loading_current)
-        self.loading_current_label.grid(row = 2, column = 0, pady = 20)
-
         # setup screen and immediate contents
         self.setup_screen = ttk.Frame(self.container)
         self.tab_selector = ttk.Notebook(self.setup_screen)
@@ -317,13 +303,13 @@ class PackerApp:
         self.panel_directory.columnconfigure(0, weight = 1)
 
         # Progress panel
-        self.progress_value = tk.DoubleVar(None, 50.0)
+        self.progress_value = tk.DoubleVar(None, 0.0)
         self.panel_progress_bar = ttk.Progressbar(self.panel_progress, orient = "horizontal", mode = "determinate", variable = self.progress_value)
         self.panel_progress_bar.grid(row = 0, column = 0, padx = 5, sticky = "ew")
-        self.panel_progress_category_variable = tk.StringVar(None, "$Cat")
+        self.panel_progress_category_variable = tk.StringVar(None, "Ready to generate mod")
         self.panel_progress_category_label = ttk.Label(self.panel_progress, textvariable = self.panel_progress_category_variable)
         self.panel_progress_category_label.grid(row = 1, column = 0, padx = 5)
-        self.panel_progress_specific_variable = tk.StringVar(None, "$Specific")
+        self.panel_progress_specific_variable = tk.StringVar(None, "Progress will appear here")
         self.panel_progress_specific_label = ttk.Label(self.panel_progress, textvariable = self.panel_progress_specific_variable)
         self.panel_progress_specific_label.grid(row = 2, column = 0, padx = 5, pady = (0, 5))
         self.panel_progress.columnconfigure(0, weight = 1)
@@ -331,7 +317,7 @@ class PackerApp:
         # generating buttons
         self.panel_gen_buttons_back = ttk.Button(self.panel_gen_buttons, text = "< Back", command = self.change_from_generate_to_main)
         self.panel_gen_buttons_back.grid(row = 0, column = 0, pady = (5, 0), sticky = "w")
-        self.panel_gen_buttons_generate = ttk.Button(self.panel_gen_buttons, text = "Generate", command = lambda : print("make the mod"))
+        self.panel_gen_buttons_generate = ttk.Button(self.panel_gen_buttons, text = "Generate", command = lambda : self.check_if_folder_clear(self.panel_directory_current_variable.get()))
         self.panel_gen_buttons_generate.grid(row = 0, column = 1, pady = (5, 0), sticky = "e")
         self.panel_gen_buttons.columnconfigure(0, weight = 1)
 
@@ -428,8 +414,7 @@ class PackerApp:
     def load_list_of_vehicles(self, game):
         complete_list = []
         for file_name in os.listdir("library/vehicles/{}".format(game)):
-            if file_name != "mods": # TEMP remove this when modded vehicles added back in
-                complete_list.append(VehSelection(game, file_name))
+            complete_list.append(VehSelection(game, file_name))
         truck_list = []
         truck_mod_list = []
         trailer_list = []
@@ -567,6 +552,10 @@ class PackerApp:
     def ask_save_location(self):
         save_directory = filedialog.askdirectory(title = "Save Mod (subfolder will be created)", initialdir = self.panel_directory_current_variable.get())
         if save_directory != "":
+            self.panel_directory_current_variable.set(save_directory)
+
+    def check_if_folder_clear(self, save_directory):
+        if save_directory != "":
             output_path = save_directory + "/Paintjob Packer Output"
             folder_clear = True
             if os.path.exists(output_path):
@@ -574,7 +563,7 @@ class PackerApp:
                     folder_clear = False # I don't want to be on the receiving end of an irate user who lost their important report the night before it was due, because they happened to store it in the paintjob packer folder
                     messagebox.showerror(title = "Output folder not clear", message = "A folder called \"Paintjob Packer Output\" already exists in the directory that you chose, and it contains files.\n\nPlease delete the \"Paintjob Packer Output\" folder, or delete everything inside it.")
             if folder_clear:
-                self.panel_directory_current_variable.set(save_directory)
+                self.make_paintjob(output_path)
 
     def make_paintjob(self, output_path):
         truck_list = []
@@ -650,23 +639,31 @@ class PackerApp:
             if not os.path.exists(output_path+"/Workshop uploading"):
                 os.makedirs(output_path+"/Workshop uploading")
 
-        self.loading_value.set(0.0)
-        total_things_to_load = len(vehicle_list) + 1
-        self.loading_bar.config(maximum = float(total_things_to_load))
-        self.loading_window.state("normal")
-        self.loading_window.lift()
+        self.progress_value.set(0.0)
+        things_to_load = len(vehicle_list) + 2 # + general files, complete
+        if workshop_upload:
+            things_to_load += 1 # workshop image and description
+        self.panel_progress_bar.configure(maximum = float(things_to_load))
 
-        self.loading_value.set(self.loading_value.get()+1.0)
-        self.loading_current.set("Loose files")
+        self.progress_value.set(self.progress_value.get()+1.0)
+        self.panel_progress_category_variable.set("General mod files")
 
+        self.panel_progress_specific_variable.set("Mod manifest")
+        self.panel_progress_specific_label.update() # all these update()s ensure the progress bar is updated in real time
         pj.make_manifest_sii(out_path, mod_version, mod_name, mod_author, workshop_upload)
 
+        self.panel_progress_specific_variable.set("Mod manager image")
+        self.panel_progress_specific_label.update()
         pj.copy_mod_manager_image(out_path)
 
+        self.panel_progress_specific_variable.set("Mod manager description")
+        self.panel_progress_specific_label.update()
         pj.make_description(out_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs)
 
         pj.make_material_folder(out_path)
 
+        self.panel_progress_specific_variable.set("Paintjob icon")
+        self.panel_progress_specific_label.update()
         pj.copy_paintjob_icon(out_path, ingame_name)
 
         pj.make_paintjob_icon_tobj(out_path, ingame_name)
@@ -674,7 +671,12 @@ class PackerApp:
         pj.make_paintjob_icon_mat(out_path, internal_name, ingame_name)
 
         for veh in vehicle_list:
+            self.progress_value.set(self.progress_value.get()+1.0)
+            self.panel_progress_category_variable.set(veh.name)
+
             pj.make_def_folder(out_path, veh)
+            self.panel_progress_specific_variable.set("Paintjob settings")
+            self.panel_progress_specific_label.update()
             pj.make_settings_sui(out_path, veh, internal_name, ingame_name, ingame_price, unlock_level)
             pj.make_vehicle_folder(out_path, veh, ingame_name)
             if cabin_handling == "Combined paintjobs" or veh.type == "trailer_owned" or not veh.separate_paintjobs:
@@ -687,6 +689,8 @@ class PackerApp:
                         main_dds_name = "Cabin"
                 else:
                     main_dds_name = veh.name
+                self.panel_progress_specific_variable.set(main_dds_name)
+                self.panel_progress_specific_label.update()
                 if veh.alt_uvset:
                     main_dds_name = main_dds_name + " (alt uvset)"
                 pj.make_def_sii(out_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name)
@@ -697,6 +701,8 @@ class PackerApp:
                     one_paintjob = False
                     paintjob_name = internal_name + "_" + cab_size
                     main_dds_name = veh.cabins[cab_size][0] # cabin in-game name
+                    self.panel_progress_specific_variable.set(main_dds_name)
+                    self.panel_progress_specific_label.update()
                     if veh.alt_uvset:
                         main_dds_name = main_dds_name[:-1] + ", alt uvset)" # inserts "alt uvset" into the brackets in the cabin name
                     cab_internal_name = veh.cabins[cab_size][1]
@@ -704,19 +710,30 @@ class PackerApp:
                     pj.copy_main_dds(out_path, veh, ingame_name, main_dds_name)
                     pj.make_main_tobj(out_path, veh, ingame_name, main_dds_name)
             if veh.uses_accessories:
+                self.panel_progress_specific_variable.set("Accessories")
+                self.panel_progress_specific_label.update()
                 pj.make_accessory_sii(out_path, veh, ingame_name, paintjob_name)
                 pj.copy_accessory_dds(out_path, veh, ingame_name, game)
                 pj.make_accessory_tobj(out_path, veh, ingame_name)
 
         if workshop_upload:
+            self.progress_value.set(self.progress_value.get()+1.0)
+            self.panel_progress_category_variable.set("Workshop files")
+            self.panel_progress_specific_label.update()
             pj.copy_versions_sii(output_path+"/Workshop uploading")
+            self.panel_progress_specific_variable.set("Workshop image")
+            self.panel_progress_specific_label.update()
             pj.copy_workshop_image(output_path)
+            self.panel_progress_specific_variable.set("Workshop readme")
+            self.panel_progress_specific_label.update()
             self.make_workshop_readme(output_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs)
 
         self.make_readme_file(output_path, internal_name, game, mod_name)
 
-        self.loading_current.set("Complete!")
-        self.loading_window.state("withdrawn")
+        self.progress_value.set(self.progress_value.get()+1.0)
+        self.panel_progress_category_variable.set("Mod generation complete!")
+        self.panel_progress_specific_variable.set("See readme for further instructions")
+        self.panel_progress_specific_label.update()
 
         exit_now = messagebox.showinfo(title = "Mod generation complete", message = "Your mod has been generated successfully! It's been placed in the directory you chose, inside a folder called Paintjob Packer Output.\n\nYour mod is not yet finished, refer to the text file inside the folder for instructions. There is also a guide on the GitHub page.\n\nThanks for using Paintjob Packer! :)")
         sys.exit()
