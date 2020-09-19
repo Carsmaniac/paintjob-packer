@@ -711,6 +711,8 @@ class PackerApp:
                 pj.make_def_sii(out_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name)
                 pj.copy_main_dds(out_path, veh, ingame_name, main_dds_name, template_zip)
                 pj.make_main_tobj(out_path, veh, ingame_name, main_dds_name)
+                if veh.uses_accessories:
+                    pj.make_accessory_sii(out_path, veh, ingame_name, paintjob_name)
             else:
                 for cab_size in veh.cabins:
                     if cabins_supported == "Largest cabin only" and cab_size != "a":
@@ -727,10 +729,11 @@ class PackerApp:
                         pj.make_def_sii(out_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name, cab_internal_name)
                         pj.copy_main_dds(out_path, veh, ingame_name, main_dds_name, template_zip)
                         pj.make_main_tobj(out_path, veh, ingame_name, main_dds_name)
+                        if veh.uses_accessories:
+                            pj.make_accessory_sii(out_path, veh, ingame_name, paintjob_name)
             if veh.uses_accessories:
                 self.panel_progress_specific_variable.set("Accessories")
                 self.panel_progress_specific_label.update()
-                pj.make_accessory_sii(out_path, veh, ingame_name, paintjob_name)
                 pj.copy_accessory_dds(out_path, veh, ingame_name, game, template_zip)
                 pj.make_accessory_tobj(out_path, veh, ingame_name)
 
@@ -749,7 +752,7 @@ class PackerApp:
             self.panel_progress_specific_label.update()
             self.make_workshop_readme(output_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs, cabins_supported)
 
-        self.make_readme_file(output_path, paintjob_name, game, mod_name, truck_list+truck_mod_list, trailer_list+trailer_mod_list)
+        self.make_readme_file(output_path, ingame_name, game, mod_name, truck_list+truck_mod_list, trailer_list+trailer_mod_list)
 
         self.progress_value.set(self.progress_value.get()+1.0)
         self.panel_progress_category_variable.set("Mod generation complete!")
