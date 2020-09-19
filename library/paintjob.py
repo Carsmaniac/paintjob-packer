@@ -210,7 +210,6 @@ def copy_main_dds(output_path, veh, ingame_name, main_dds_name, template_zip):
 
     if copy_square:
         shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, main_dds_name))
-        print("SQUARE: {} {}".format(veh.name, main_dds_name))
 
 def copy_accessory_dds(output_path, veh, ingame_name, game, template_zip):
     for acc_name in veh.acc_dict:
@@ -226,7 +225,6 @@ def copy_accessory_dds(output_path, veh, ingame_name, game, template_zip):
 
         if copy_square:
             shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, acc_name))
-            print("SQUARE: {} {}".format(veh.name, acc_name))
 
 def make_main_tobj(output_path, veh, ingame_name, main_dds_name):
     file = open(output_path + "/vehicle/{}/upgrade/paintjob/{}/{}/{}.tobj".format(veh.type, ingame_name, veh.name, main_dds_name), "wb")
