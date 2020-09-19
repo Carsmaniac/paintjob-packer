@@ -216,6 +216,7 @@ class PackerApp:
         self.panel_internal_supported_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Supported Cabins", message = "Whether your paintjob supports only the largest cabin for each truck, or all cabins.\n\nNote that the 8x4 chassis uses a separate cabin in some cases, which would not be supported if you choose largest cabin only.\n\ne.g. If you're making a paintjob for the Scania S, a \"largest cabin only\" paintjob would only support the High Roof cabin, whereas an \"all cabins\" paintjob would support the Normal Roof and High Roof cabins, as well as the separate High Roof 8x4 cabin."))
         self.panel_internal_supported_help.grid(row = 4, column = 2, padx = (0, 5))
         self.panel_internal_handling_variable = tk.StringVar(None, "Combined paintjob")
+        self.panel_internal_handling_variable.trace("w", self.update_cabin_dropdowns)
         self.panel_internal_handling_label = ttk.Label(self.panel_internal, text = "Cabin handling:")
         # self.panel_internal_handling_label.grid(row = 5, column = 0, padx = 5, sticky = "w")
         self.panel_internal_handling_dropdown = ttk.Combobox(self.panel_internal, state = "readonly", textvariable = self.panel_internal_handling_variable, values = ["Combined paintjob", "Separate paintjobs"], width = 20)
@@ -283,12 +284,12 @@ class PackerApp:
         self.panel_generating_workshop_variable = tk.BooleanVar(None, False)
         self.panel_generating_workshop_checkbox = ttk.Checkbutton(self.panel_generating, text = "Generate files for Steam Workshop upload", variable = self.panel_generating_workshop_variable)
         self.panel_generating_workshop_checkbox.grid(row = 0, column = 0, padx = 5, sticky = "w")
-        self.panel_generating_workshop_help = ttk.Button(self.panel_generating, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Workshop Upload", message = "Generates additional files needed when uploading to Steam Workshop, including a workshop image, an uploading folder and a workshop description with working links to any modded vehicles you support\n\nRequires the SCS Workshop Uploader, which only supports Windows"))
+        self.panel_generating_workshop_help = ttk.Button(self.panel_generating, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Workshop Upload", message = "Generates additional files needed when uploading to Steam Workshop, including a workshop image, an uploading folder and a workshop description with working links to any modded vehicles you support.\n\nRequires the SCS Workshop Uploader, which only supports Windows."))
         self.panel_generating_workshop_help.grid(row = 0, column = 1, padx = (0, 5))
         self.panel_generating_templates_variable = tk.BooleanVar(None, False) # TODO: True by default, false and checkbox disabled if none installed
         self.panel_generating_templates_checkbox = ttk.Checkbutton(self.panel_generating, text = "Use templates instead of empty placeholders", variable = self.panel_generating_templates_variable)
         self.panel_generating_templates_checkbox.grid(row = 1, column = 0, padx = (5, 20), sticky = "w")
-        self.panel_generating_templates_help = ttk.Button(self.panel_generating, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Placeholder Templates", message = "Uses templates instead of empty placeholder files. If not selected, all .dds files will be empty white placeholder squares. If selected, all .dds files will be appropriate templates (4k for trucks, 4k/2k for trailers) instead of empty images. Note that some parts on certain vehicles will still use empty images, since there is no paintjob potential besides changing their colour.\n\nRequires templates to be installed for the game you're making a mod for. Not supported in portable verions."))
+        self.panel_generating_templates_help = ttk.Button(self.panel_generating, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Placeholder Templates", message = "Uses templates instead of empty placeholder files. If not selected, all .dds files will be empty white placeholder squares. If selected, all .dds files will be appropriate templates (4k for trucks, 4k/2k for trailers) instead of empty images. Note that some parts on certain vehicles will still use empty images, as they have no paintjob potential besides changing their colour.\n\nRequires templates to be installed for the game you're making a mod for. Not supported in portable verions."))
         self.panel_generating_templates_help.grid(row = 1, column = 1, padx = (0, 5), pady = (0, 5))
         self.panel_generating.columnconfigure(0, weight = 1)
 
@@ -760,8 +761,6 @@ class PackerApp:
 
     def make_readme_file(self, output_path, paintjob_name, game, mod_name, truck_list, trailer_list):
         file = open(output_path+"/How to complete your mod.txt", "w")
-        file.write("Thanks for using Paintjob Packer!\n")
-        file.write("\n")
         file.write("Your mod has been generated and placed inside the \"{}\" folder.\n".format(mod_name))
         file.write("There are a few steps left to finish it off. You'll need to replace the files listed in this document.\n")
         file.write("\n")
