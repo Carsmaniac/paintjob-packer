@@ -746,7 +746,7 @@ class PackerApp:
             pj.copy_workshop_image(output_path)
             self.panel_progress_specific_variable.set("Workshop readme")
             self.panel_progress_specific_label.update()
-            self.make_workshop_readme(output_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs)
+            self.make_workshop_readme(output_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs, cabins_supported)
 
         self.make_readme_file(output_path, paintjob_name, game, mod_name, truck_list+truck_mod_list, trailer_list+trailer_mod_list)
 
@@ -806,7 +806,7 @@ class PackerApp:
         file.write("\n")
         file.write("\n")
         file.write("== Vehicle textures ==\n")
-        file.write("All of the .dds files in:")
+        file.write("All of the .dds files in:\n")
         if len(truck_list) == 1:
             file.write("vehicle/truck/upgrade/paintjob/{}/{}/\n".format(paintjob_name, truck_list[0].name))
         elif len(truck_list) > 1:
@@ -817,22 +817,23 @@ class PackerApp:
             file.write("vehicle/trailer_owned/upgrade/paintjob/{}/{}/\n".format(paintjob_name, trailer_list[0].name))
         elif len(trailer_list) > 1:
             file.write("vehicle/trailer_owned/upgrade/paintjob/{}/<each vehicle>/\n".format(paintjob_name))
-        file.write("DDS images (saved in DXT5 format with mipmaps), height and width need to be powers of 2 (e.g. 16, 64, 1024, 2048, 4096)\n")
         file.write("\n")
         file.write("These are the main files of your mod, determining what your paintjob will actually look like.\n")
         if len(truck_list) + len(trailer_list) == 1:
             file.write("Replace or re-colour every DDS image in this folder.\n")
         else:
             file.write("Replace or re-colour every DDS image in these folders.\n")
+        file.write("\n")
         file.write("Save each DDS in DXT5 format with mipmaps, if possible.\n")
         file.write("Ensure every file's height and width is a power of 2 (e.g. 16, 64, 2048, 4096 etc).\n")
+        file.write("\n")
         if game == "ets":
             file.write("You can grab a complete template pack here: {}\n".format(ets_template_link))
         else:
             file.write("You can grab a complete template pack here: {}\n".format(ats_template_link))
         file.close()
 
-    def make_workshop_readme(self, output_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs):
+    def make_workshop_readme(self, output_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs, cabins_supported):
         file = open(output_path+"/How to upload your mod to Steam Workshop.txt", "w")
         file.write("In order to upload your mod to Steam Workshop, you'll need to use the SCS Workshop Uploader, which only runs on Windows.\n")
         file.write("To download it, you'll need to own ETS 2 or ATS on Steam. Then go to View > Hidden Games, tick \"Tools\" in the dropdown on\n")
@@ -854,15 +855,9 @@ class PackerApp:
         file.write("select \"Truck parts\" under Type, then scroll down and check \"Paintjobs\". Select all the brands applicable to your mod, and\n")
         file.write("enter a change note if you wish.\n")
         file.write("\n")
-        file.write("When you upload your mod, assuming everything else is okay, you'll get a warning mentioning display_name. This is normal, and it\n")
-        file.write("appears because Workshop mods don't use the mod name that you specified when initially generating the mod files, but instead use\n")
-        file.write("the name that you enter in the Workshop Uploader. This warning can be safely ignored.\n")
         file.write("\n")
         file.write("\n")
-        file.write("\n")
-        file.write("Below is a workshop description. It's identical to the mod manager description, but with clickable links for any modded vehicles you support.\n")
-        file.write("\n")
-        file.write("\n")
+        file.write("Below is a workshop description. It's identical to the mod manager description, but with clickable links for modded vehicles:\n")
         file.write("\n")
         if num_of_paintjobs == "single":
             for veh in truck_list + trailer_list:
