@@ -286,7 +286,7 @@ class PackerApp:
         self.panel_generating_workshop_checkbox.grid(row = 0, column = 0, padx = 5, sticky = "w")
         self.panel_generating_workshop_help = ttk.Button(self.panel_generating, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Workshop Upload", message = "Generates additional files needed when uploading to Steam Workshop, including a workshop image, an uploading folder and a workshop description with working links to any modded vehicles you support.\n\nRequires the SCS Workshop Uploader, which only supports Windows."))
         self.panel_generating_workshop_help.grid(row = 0, column = 1, padx = (0, 5))
-        self.panel_generating_templates_variable = tk.BooleanVar(None, False) # TODO: True by default, false and checkbox disabled if none installed
+        self.panel_generating_templates_variable = tk.BooleanVar(None, False)
         self.panel_generating_templates_checkbox = ttk.Checkbutton(self.panel_generating, text = "Use templates instead of empty placeholders", variable = self.panel_generating_templates_variable)
         self.panel_generating_templates_checkbox.grid(row = 1, column = 0, padx = (5, 20), sticky = "w")
         self.panel_generating_templates_help = ttk.Button(self.panel_generating, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Placeholder Templates", message = "Uses templates instead of empty placeholder files. If not selected, all .dds files will be empty white placeholder squares. If selected, all .dds files will be appropriate templates (4k for trucks, 4k/2k for trailers) instead of empty images. Note that some parts on certain vehicles will still use empty images, as they have no paintjob potential besides changing their colour.\n\nRequires templates to be installed for the game you're making a mod for. Not supported in portable verions."))
@@ -367,13 +367,6 @@ class PackerApp:
             self.currency = "dollars"
         elif self.tab_game_variable.get() == "ets":
             self.currency = "euro"
-
-        # if os.path.exists("library/{} templates installed.ini".format(self.tab_game_variable.get())):
-        #     self.panel_internal_templates_variable.set(True)
-        #     self.panel_internal_templates_checkbox.state(["!disabled"])
-        # else:
-        #     self.panel_internal_templates_variable.set(False)
-        #     self.panel_internal_templates_checkbox.state(["disabled"]) TODO: work this out in a better way
 
         (self.truck_list, self.truck_mod_list, self.trailer_list, self.trailer_mod_list) = self.load_list_of_vehicles(self.tab_game_variable.get())
         self.truck_list_1 = self.truck_list[:math.ceil(len(self.truck_list)/2)] # lists need to be split for multiple vehicle selection, it's easier if it's done here
