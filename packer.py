@@ -7,6 +7,8 @@ version = "1.4"
 forum_link = "https://forum.scssoft.com/viewtopic.php?f=33&t=282956"
 github_link = "https://github.com/carsmaniac/paintjob-packer"
 mod_link_page_link = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
+ets_template_link = "https://forum.scssoft.com/viewtopic.php?f=33&t=272386"
+ats_template_link = "https://forum.scssoft.com/viewtopic.php?f=199&t=288778"
 
 # set the path depending on how Paintjob Packer is bundled
 try:
@@ -746,7 +748,7 @@ class PackerApp:
             self.panel_progress_specific_label.update()
             self.make_workshop_readme(output_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs)
 
-        self.make_readme_file(output_path, internal_name, game, mod_name)
+        self.make_readme_file(output_path, paintjob_name, game, mod_name, truck_list+truck_mod_list, trailer_list+trailer_mod_list)
 
         self.progress_value.set(self.progress_value.get()+1.0)
         self.panel_progress_category_variable.set("Mod generation complete!")
@@ -756,17 +758,16 @@ class PackerApp:
         exit_now = messagebox.showinfo(title = "Mod generation complete", message = "Your mod has been generated successfully! It's been placed in the directory you chose, inside a folder called Paintjob Packer Output.\n\nYour mod is not yet finished, refer to the text file inside the folder for instructions. There is also a guide on the GitHub page.\n\nThanks for using Paintjob Packer! :)")
         sys.exit()
 
-    def make_readme_file(self, output_path, internal_name, game, mod_name):
+    def make_readme_file(self, output_path, paintjob_name, game, mod_name, truck_list, trailer_list):
         file = open(output_path+"/How to complete your mod.txt", "w")
         file.write("Thanks for using Paintjob Packer!\n")
         file.write("\n")
-        file.write("At the moment the \"{}\" folder contains a mod with placeholder textures and images, you now need to replace those with your own files.\n".format(mod_name))
-        file.write("\n")
-        file.write("For more info, see the guide on the GitHub page: {}\n".format(github_link))
-        file.write("\n")
+        file.write("Your mod has been generated and placed inside the \"{}\" folder.\n".format(mod_name))
+        file.write("There are a few steps left to finish it off. You'll need to replace the files listed in this document.\n")
         file.write("\n")
         file.write("\n")
-        file.write("To test your mod, move the \"{}\" folder (the folder itself, not just the files inside it) to your mod folder:\n".format(mod_name))
+        file.write("\n")
+        file.write("To test your mod as you make it, move the \"{}\" folder to your game's mod folder:\n".format(mod_name))
         if game == "ets":
             game_name = "Euro Truck Simulator 2"
         elif game == "ats":
@@ -782,43 +783,53 @@ class PackerApp:
         file.write("\n")
         file.write("\n")
         file.write("== Mod manager image ==\n")
-        file.write("mod_manager_image.jpg\n")
-        file.write("276 x 162 JPEG image\n")
+        file.write("Mod_Manager_Image.jpg\n")
+        file.write("\n")
+        file.write("A 276 x 162 JPEG image that represents your mod in the in-game mod manager.\n")
         file.write("\n")
         file.write("\n")
         file.write("\n")
         file.write("== Mod manager description ==\n")
-        file.write("mod_manager_description.txt\n")
-        file.write("This contains an auto-generated list of vehicles supported by your mod.\n")
-        file.write("You may want to add some extra description to it, maybe explaining your mod a bit.\n")
+        file.write("Mod_Manager_Description.txt\n")
+        file.write("\n")
+        file.write("Your mod's description in the mod manager.\n")
+        file.write("It can be replaced, or you can modify the one that's already there.\n")
         file.write("\n")
         file.write("\n")
         file.write("\n")
         file.write("== In-game paintjob icon ==\n")
-        file.write("material/ui/accessory/{}_icon.dds\n".format(internal_name))
-        file.write("256 x 64 DDS image (saved in DXT5 format with mipmaps), see the placeholder for recommended size/shape.\n")
-        file.write("This is the icon you see when you go to buy your paintjob in-game.\n")
+        file.write("material/ui/accessory/{} Icon.dds\n".format(paintjob_name))
+        file.write("\n")
+        file.write("A 256 x 64 DDS image that is shown in-game when you buy your paintjob.\n")
+        file.write("Stick to the shape in the placeholder for your icon to match the others in-game.\n")
         file.write("\n")
         file.write("\n")
         file.write("\n")
         file.write("== Vehicle textures ==\n")
         file.write("All of the .dds files in:")
-        file.write("vehicle/truck/upgrade/paintjob/{}/<vehicle>/\n".format(internal_name))
-        file.write("and/or\n")
-        file.write("vehicle/trailer_owned/upgrade/paintjob/{}/<vehicle>/\n".format(internal_name))
+        if len(truck_list) == 1:
+            file.write("vehicle/truck/upgrade/paintjob/{}/{}/\n".format(paintjob_name, truck_list[0].name))
+        elif len(truck_list) > 1:
+            file.write("vehicle/truck/upgrade/paintjob/{}/<each vehicle>/\n".format(paintjob_name))
+        if len(truck_list) > 0 and len(trailer_list) > 0:
+            file.write("and\n")
+        if len(trailer_list) == 1:
+            file.write("vehicle/trailer_owned/upgrade/paintjob/{}/{}/\n".format(paintjob_name, trailer_list[0].name))
+        elif len(trailer_list) > 1:
+            file.write("vehicle/trailer_owned/upgrade/paintjob/{}/<each vehicle>/\n".format(paintjob_name))
         file.write("DDS images (saved in DXT5 format with mipmaps), height and width need to be powers of 2 (e.g. 16, 64, 1024, 2048, 4096)\n")
         file.write("\n")
-        file.write("The \"cabin\" images in the truck folders are the main files of your paintjob,\n")
-        file.write("that's where you'll put the designs you make based off templates. All other\n")
-        file.write("images refer to accessory parts, which are found on trailers and some newer\n")
-        file.write("trucks. You can either create full-on textures for them using templates, or\n")
-        file.write("simply re-colour the placeholder files. For example, if you want to make one\n")
-        file.write("of the accessories red, you don't have to download a template for that specific\n")
-        file.write("part, you can just take the existing 4x4 file and make it red instead of white.\n")
-        file.write("\n")
-        file.write("\n")
-        file.write("\n")
-        file.write("Note: you don't have to change any .tobj files, any .mat files, or anything in the def folder\n")
+        file.write("These are the main files of your mod, determining what your paintjob will actually look like.\n")
+        if len(truck_list) + len(trailer_list) == 1:
+            file.write("Replace or re-colour every DDS image in this folder.\n")
+        else:
+            file.write("Replace or re-colour every DDS image in these folders.\n")
+        file.write("Save each DDS in DXT5 format with mipmaps, if possible.\n")
+        file.write("Ensure every file's height and width is a power of 2 (e.g. 16, 64, 2048, 4096 etc).\n")
+        if game == "ets":
+            file.write("You can grab a complete template pack here: {}\n".format(ets_template_link))
+        else:
+            file.write("You can grab a complete template pack here: {}\n".format(ats_template_link))
         file.close()
 
     def make_workshop_readme(self, output_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs):
@@ -889,7 +900,7 @@ class VehSelection:
 
 def show_unhandled_error(error_type, error_message, error_traceback):
     # there's probably a neater way to do this, but this works
-    messagebox.showerror(title = "Unhandled exception", message = "Something has gone very wrong!\n\nPlease send this error message (the entire thing, including the lengthy traceback) to the developer!\n\nError type: {}\nError: {}\n\nTraceback:\n{}".format(error_type.__name__, str(error_message), "\n".join(traceback.format_list(traceback.extract_tb(error_traceback)))))
+    messagebox.showerror(title = "Unhandled exception", message = "Something has gone very wrong!\n\nPlease send this error message to the developer!\n\nError type: {}\nError: {}\n\nTraceback:\n{}".format(error_type.__name__, str(error_message), "\n".join(traceback.format_list(traceback.extract_tb(error_traceback)))))
 
 
 def main():
