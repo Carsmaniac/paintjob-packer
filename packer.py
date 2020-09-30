@@ -480,19 +480,37 @@ class PackerApp:
             all_errors.append(["No mod name", "Please enter a mod name"])
         if "\"" in self.panel_mod_name_variable.get():
             inputs_verified = False
-            all_errors.append(["Quotation marks in mod name", "Mod names cannot contain \""])
+            all_errors.append(["Quotation marks in mod name", "Mod names cannot contain \" (quotation marks)"])
+        if "\\" in self.panel_mod_name_variable.get():
+            inputs_verified = False
+            all_errors.append(["Back slash in mod name", "Mod names cannot contain \\ (back slash)"])
+        if "/" in self.panel_mod_name_variable.get():
+            inputs_verified = False
+            all_errors.append(["Forward slash in mod name", "Mod names cannot contain / (forward slash)"])
         if len(self.panel_mod_version_variable.get()) < 1:
             inputs_verified = False
             all_errors.append(["No mod version", "Please enter a mod version"])
         if "\"" in self.panel_mod_version_variable.get():
             inputs_verified = False
-            all_errors.append(["Quotation marks in mod version", "Mod versions cannot contain \""])
+            all_errors.append(["Quotation marks in mod version", "Mod versions cannot contain \" (quotation marks)"])
+        if "\\" in self.panel_mod_version_variable.get():
+            inputs_verified = False
+            all_errors.append(["Back slash in mod version", "Mod versions cannot contain \\ (back slash)"])
+        if "/" in self.panel_mod_version_variable.get():
+            inputs_verified = False
+            all_errors.append(["Forward slash in mod version", "Mod versions cannot contain / (forward slash)"])
         if len(self.panel_mod_author_variable.get()) < 1:
             inputs_verified = False
             all_errors.append(["No mod author", "Please enter a mod author"])
         if "\"" in self.panel_mod_author_variable.get():
             inputs_verified = False
-            all_errors.append(["Quotation marks in mod author", "Mod authors cannot contain \""])
+            all_errors.append(["Quotation marks in mod author", "Mod authors cannot contain \" (quotation marks)"])
+        if "\\" in self.panel_mod_author_variable.get():
+            inputs_verified = False
+            all_errors.append(["Back slash in mod author", "Mod authors cannot contain \\ (back slash)"])
+        if "/" in self.panel_mod_author_variable.get():
+            inputs_verified = False
+            all_errors.append(["Forward slash in mod author", "Mod authors cannot contain / (forward slash)"])
 
         # in-game paintjob info
         if len(self.panel_ingame_name_variable.get()) < 1:
@@ -500,7 +518,16 @@ class PackerApp:
             all_errors.append(["No paintjob name", "Please enter a paintjob name"])
         if "\"" in self.panel_ingame_name_variable.get():
             inputs_verified = False
-            all_errors.append(["Quotation marks in paintjob name", "Paintjob names cannot contain \""])
+            all_errors.append(["Quotation marks in paintjob name", "Paintjob names cannot contain \" (quotation marks)"])
+        if "\\" in self.panel_ingame_name_variable.get():
+            inputs_verified = False
+            all_errors.append(["Back slash in paintjob name", "Paintjob names cannot contain \\ (back slash)"])
+        if "/" in self.panel_ingame_name_variable.get():
+            inputs_verified = False
+            all_errors.append(["Forward slash in paintjob name", "Paintjob names cannot contain / (forward slash)"])
+        if not pj.check_if_ascii(self.panel_ingame_name_variable.get()):
+            inputs_verified = False
+            all_errors.append(["Non-ASCII characters in paintjob name", "Paintjob names can only consist of ASCII characters:\n\nabcdefghijklmnopqrstuvwxyz\nABCDEFGHIJKLMNOPQRSTUVWXYZ\n0123456789\n! @ # $ % ^ & * ( ) - _ = + [ ] { } | ; : ' < > , . ? ` ~"])
         if len(self.panel_ingame_price_variable.get()) < 1:
             inputs_verified = False
             all_errors.append(["No paintjob price", "Please enter a paintjob price"])

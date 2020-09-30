@@ -44,6 +44,13 @@ def convert_string_to_hex(string_input):
     string_output = string_output.decode()
     return string_output
 
+def check_if_ascii(string_input):
+    ascii_string = string_input.encode("ascii", errors="ignore").decode()
+    if string_input == ascii_string:
+        return True
+    else:
+        return False
+
 def generate_tobj(path): # TODO: icon tobj?
     tobj_string = "010AB170000000000000000000000000000000000100020002000303030002020001000000010000"
     tobj_string += convert_string_to_hex(len(path))
