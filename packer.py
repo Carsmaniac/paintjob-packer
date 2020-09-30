@@ -3,7 +3,7 @@ from tkinter import ttk, messagebox, filedialog
 import webbrowser, sys, configparser, os, math, re, traceback, zipfile
 import library.paintjob as pj
 
-version = "1.4"
+version = "1.5"
 forum_link = "https://forum.scssoft.com/viewtopic.php?f=33&t=282956"
 github_link = "https://github.com/carsmaniac/paintjob-packer"
 mod_link_page_link = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
