@@ -39,6 +39,7 @@
 * Freightliner Argosy by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2113006265)
 * Freightliner Cascadia by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1836590955) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=261518)
 * Freightliner FLB by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=867643690) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=228835)
+* Freightliner FLC by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=282638)
 * Freightliner FLD by **Lucasi** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1322705595)
 * International 9800 by **Lucasi** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1322663266)
 * International LT by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1832865824) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=272906)
@@ -55,10 +56,12 @@
 * Scot A2HD by **Smarty** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=661658019) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=201612)
 * Volvo VNL 2018 by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1832939055) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256560)
 * Volvo VNR by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1833428947) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256338)
+* Western Star 4900FA by **YukonJack_AK** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2008394297) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=282025)
 
 ## Trailers
 
 * Fruehauf FB 40 ft Reefer 1971 by **selonik** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=282742)
+* Fruehauf FB9 F2 Dryvan by **HFG** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2224171226) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=289490)
 * Fruehauf Dryvan 1951 by **selonik** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=282617)
 * Ownable SCS Fuel Tanker by **DNA Transport** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=288888)
 * Utility 3000R Reefer by **Dro Modding** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1735332570) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=276125)
