@@ -1,9 +1,15 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 import webbrowser, sys, configparser, os, math, re, traceback, zipfile
-import library.paintjob as pj
+try:
+    import library.paintjob as pj
+except ModuleNotFoundError:
+    print("Paintjob Packer can't find its library files")
+    print("Make sure that the \"library\" folder is in the same directory as packer.py, and it contains all of its files")
+    input("Press enter to quit")
+    sys.exit()
 
-version = "1.5"
+version = "1.5.1"
 forum_link = "https://forum.scssoft.com/viewtopic.php?f=33&t=282956"
 github_link = "https://github.com/carsmaniac/paintjob-packer"
 mod_link_page_link = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
