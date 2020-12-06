@@ -51,7 +51,7 @@ def check_if_ascii(string_input):
     else:
         return False
 
-def generate_tobj(path): # TODO: icon tobj?
+def generate_tobj(path):
     tobj_string = "010AB170000000000000000000000000000000000100020002000303030002020001000000010000"
     tobj_string += convert_string_to_hex(len(path))
     tobj_string += "00000000000000"
@@ -124,7 +124,7 @@ def make_material_folder(output_path):
 def copy_paintjob_icon(output_path, ingame_name):
     shutil.copyfile("library/placeholder files/paintjob_icon.dds", output_path + "/material/ui/accessory/{} Icon.dds".format(ingame_name))
 
-def make_paintjob_icon_tobj(output_path, ingame_name): # TODO: tobj like SCS paintjobs, makes a difference?
+def make_paintjob_icon_tobj(output_path, ingame_name):
     file = open(output_path + "/material/ui/accessory/{} Icon.tobj".format(ingame_name), "wb")
     file.write(generate_tobj("/material/ui/accessory/{} Icon.dds".format(ingame_name)))
     file.close()
