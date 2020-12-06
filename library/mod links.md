@@ -37,7 +37,6 @@
 * Autocar AT by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=275163)
 * Autocar DC by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=275163)
 * Freightliner Argosy by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2113006265)
-* Freightliner Cascadia by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1836590955) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=261518)
 * Freightliner FLB by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=867643690) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=228835)
 * Freightliner FLC by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=282638)
 * Freightliner FLD by **Lucasi** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1322705595)
