@@ -734,7 +734,16 @@ class PackerApp:
                 self.panel_progress_specific_label.update()
                 if veh.alt_uvset:
                     main_dds_name = main_dds_name + " (alt uvset)"
-                pj.make_def_sii(out_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name)
+                if veh.type == "truck" and cabins_supported == "Largest cabin only":
+                    one_paintjob = False
+                    for cab_size in veh.cabins:
+                        if cab_size == "a":
+                            cab_internal_name = veh.cabins[cab_size][1]
+                            if "/" in cab_internal_name:
+                                cab_internal_name = cab_internal_name.split("/") # for when multiple cabins can use the same template, e.g. Western Star 49X
+                            pj.make_def_sii(out_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name, cab_internal_name)
+                else:
+                    pj.make_def_sii(out_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name)
                 pj.copy_main_dds(out_path, veh, ingame_name, main_dds_name, template_zip)
                 pj.make_main_tobj(out_path, veh, ingame_name, main_dds_name)
                 if veh.uses_accessories:
@@ -752,6 +761,8 @@ class PackerApp:
                         if veh.alt_uvset:
                             main_dds_name = main_dds_name[:-1] + ", alt uvset)" # inserts "alt uvset" into the brackets in the cabin name
                         cab_internal_name = veh.cabins[cab_size][1]
+                        if "/" in cab_internal_name:
+                            cab_internal_name = cab_internal_name.split("/") # for when multiple cabins can use the same template, e.g. Western Star 49X
                         pj.make_def_sii(out_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name, cab_internal_name)
                         pj.copy_main_dds(out_path, veh, ingame_name, main_dds_name, template_zip)
                         pj.make_main_tobj(out_path, veh, ingame_name, main_dds_name)

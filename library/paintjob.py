@@ -156,7 +156,11 @@ def make_def_sii(output_path, veh, paintjob_name, internal_name, one_paintjob, i
     file.write("{\n")
     file.write("@include \"{}_settings.sui\"\n".format(internal_name))
     if not one_paintjob:
-        file.write("\tsuitable_for[]: \"{}.{}.cabin\"\n".format(cab_internal_name, veh.path))
+        if type(cab_internal_name) is list:
+            for each_internal_name in cab_internal_name:
+                file.write("\tsuitable_for[]: \"{}.{}.cabin\"\n".format(each_internal_name, veh.path))
+        else:
+            file.write("\tsuitable_for[]: \"{}.{}.cabin\"\n".format(cab_internal_name, veh.path))
     file.write("\tpaint_job_mask: \"/vehicle/{}/upgrade/paintjob/{}/{}/{}.tobj\"\n".format(veh.type, ingame_name, veh.name, main_dds_name))
     file.write("}\n")
     file.write("}\n")
