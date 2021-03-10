@@ -55,7 +55,6 @@
 * Scot A2HD by **Smarty** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=661658019) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=201612)
 * Volvo VNL 2018 by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1832939055) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256560)
 * Volvo VNR by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1833428947) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256338)
-* Western Star 4900FA by **YukonJack_AK** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2008394297) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=282025)
 
 ## Trailers
 
@@ -63,9 +62,6 @@
 * Fruehauf FB9 F2 Dryvan by **HFG** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2224171226) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=289490)
 * Fruehauf Dryvan 1951 by **selonik** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=282617)
 * Ownable SCS Fuel Tanker by **DNA Transport** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=288888)
-* Utility 3000R Reefer by **Dro Modding** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1735332570) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=276125)
-* Vanguard Reefer by **Dro Modding** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1845487381) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=276343)
-* Wilkens Walking Floor by **Dro Modding** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1686749906) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=276126)
 
 ---
 
