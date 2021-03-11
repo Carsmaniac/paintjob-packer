@@ -4,7 +4,7 @@
 
 * DAF 95 ATi by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=268236)
 * DAF F241 by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=264917)
-* Ford F-MAX by **SimülasyonTÜRK** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1915802227) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=274617)
+* Ford F-MAX by **SimulasyonTURK** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1915802227) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=274617)
 * Freightliner Argosy by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2131434074)
 * Freightliner FLB by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=867655192) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=228835)
 * Kenworth K100-E by **MrOverfloater** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1814887717) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=274886)
