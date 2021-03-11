@@ -9,7 +9,6 @@ except ModuleNotFoundError:
     input("Press enter to quit")
     sys.exit()
 
-version = "1.5.1"
 forum_link = "https://forum.scssoft.com/viewtopic.php?f=33&t=282956"
 github_link = "https://github.com/carsmaniac/paintjob-packer"
 mod_link_page_link = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
@@ -26,6 +25,10 @@ except AttributeError:
 os.chdir(base_path)
 
 desktop_path = os.path.expanduser("~/Desktop")
+
+file = open("library/version.txt", "r")
+version = file.readlines()[0]
+file.close()
 
 class PackerApp:
 
