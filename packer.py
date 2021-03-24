@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
-import webbrowser, sys, configparser, os, math, re, traceback, zipfile
+import webbrowser, sys, configparser, os, math, re, traceback, zipfile, urllib.request
 try:
     import library.paintjob as pj
 except ModuleNotFoundError:
@@ -14,6 +14,8 @@ github_link = "https://github.com/carsmaniac/paintjob-packer"
 mod_link_page_link = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
 ets_template_link = "https://forum.scssoft.com/viewtopic.php?f=33&t=272386"
 ats_template_link = "https://forum.scssoft.com/viewtopic.php?f=199&t=288778"
+version_number_link = "https://raw.githubusercontent.com/Carsmaniac/paintjob-packer/master/library/version.txt"
+latest_version_download_link = github_link + "/releases/latest"
 
 # set the path depending on how Paintjob Packer is bundled
 try:
@@ -27,7 +29,7 @@ os.chdir(base_path)
 desktop_path = os.path.expanduser("~/Desktop")
 
 file = open("library/version.txt", "r")
-version = file.readlines()[0]
+version = file.readlines()[0].rstrip()
 file.close()
 
 class PackerApp:
@@ -77,7 +79,14 @@ class PackerApp:
         self.tab_welcome_link_github = ttk.Label(self.tab_welcome, text = "GitHub page", foreground = "blue", cursor = self.cursor)
         self.tab_welcome_link_github.grid(row = 2, column = 1, pady = 20)
         self.tab_welcome_link_github.bind("<1>", lambda e: webbrowser.open_new(github_link))
-        self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "If this is your first time using Paintjob Packer, please read the guide on the GitHub page")
+        new_ver = self.check_new_version()
+        if (new_ver != None):
+            self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "New version available! - {} - Click here to go to download page".format(new_ver), foreground = "red", cursor = self.cursor)
+            self.tab_welcome_message.bind("<1>", lambda e: webbrowser.open_new(latest_version_download_link))
+            self.tab_welcome_link_forum.configure(foreground = "black")
+            self.tab_welcome_link_github.configure(foreground = "black")
+        else:
+            self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "If this is your first time using Paintjob Packer, please read the guide on the GitHub page")
         self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (25, 0))
         self.tab_welcome_button_prev = ttk.Label(self.tab_welcome, text = " ") # to keep everything centred
         self.tab_welcome_button_prev.grid(row = 5, column = 0, sticky = "sw")
@@ -921,6 +930,64 @@ class PackerApp:
                 for veh in trailer_mod_list:
                     file.write("{}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name))
         file.close()
+
+    def check_new_version(self):
+        # get current and latest versions
+        print("Checking latest version on GitHub...")
+        print("Current version: " + version)
+        try:
+            file = urllib.request.urlopen(version_number_link)
+            for line in file:
+                latest_version = line.decode().rstrip()
+
+            print("Latest version: " + latest_version)
+
+            if version != latest_version:
+                # convert versions to version integer lists
+                current_version = version.split(".")
+                if len(current_version) < 3: # assuming single-number versions are never released, e.g. v2 will be v2.0
+                    current_version.append("0")
+                for i in range(3):
+                    current_version[i] = int(current_version[i])
+                latest_version = latest_version.split(".")
+                if len(latest_version) < 3:
+                    latest_version.append("0")
+                for i in range(3):
+                    latest_version[i] = int(latest_version[i])
+
+                # check if latest version is more recent than current
+                if latest_version[0] > current_version[0]:
+                    new_update_type = "Major update!"
+                elif latest_version[0] == current_version[0]: # because 1.5 is not an update to 2.4
+                    if latest_version[1] > current_version[1]:
+                        new_update_type = "Feature update"
+                    elif latest_version[1] == current_version[1]:
+                        if latest_version[2] > current_version[2]:
+                            new_update_type = "Hotfix"
+                        else:
+                            new_update_type = None
+                    else:
+                        new_update_type = None
+                else:
+                    new_update_type = None
+                if new_update_type != None:
+                    print("New version available! - " + new_update_type)
+            else:
+                new_update_type = None
+        except urllib.error.HTTPError:
+            print("Couldn't fetch new version, skipping (HTTPError)")
+            new_update_type = None
+        except urllib.error.URLError:
+            print("Couldn't fetch new version, skipping (URLError)")
+            new_update_type = None
+        except ValueError:
+            print("Couldn't parse version number, skipping (ValueError)")
+            new_update_type = None
+        except TypeError:
+            print("Couldn't compare version numbers, skipping (TypeError)")
+            new_update_type = None
+
+        return(new_update_type)
 
 class VehSelection:
 
