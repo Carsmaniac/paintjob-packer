@@ -163,7 +163,7 @@ class PackerApp:
         self.panel_mod_name_label.grid(row = 0, column = 0, padx = 5, sticky = "w")
         self.panel_mod_name_input = ttk.Entry(self.panel_mod, width = 30, textvariable = self.panel_mod_name_variable)
         self.panel_mod_name_input.grid(row = 0, column = 1, padx = 5, sticky = "w")
-        self.panel_mod_name_help = ttk.Button(self.panel_mod, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Mod Name", message = "The name of your mod, as it appears in the in-game mod manager\n\ne.g. Transit Co. Paintjob Pack"))
+        self.panel_mod_name_help = ttk.Button(self.panel_mod, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Mod Name", message = "The name of your mod, as it appears in the in-game mod manager\n\ne.g. Transit Co Paintjob Pack"))
         self.panel_mod_name_help.grid(row = 0, column = 2, padx = (0, 5))
         self.panel_mod_version_variable = tk.StringVar(None, "1.0")
         self.panel_mod_version_label = ttk.Label(self.panel_mod, text = "Version:")
@@ -190,7 +190,7 @@ class PackerApp:
         self.panel_ingame_name_label.grid(row = 0, column = 0, padx = 5, sticky = "w")
         self.panel_ingame_name_input = ttk.Entry(self.panel_ingame, width = 30, textvariable = self.panel_ingame_name_variable)
         self.panel_ingame_name_input.grid(row = 0, column = 1, padx = 5, sticky = "w")
-        self.panel_ingame_name_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: In-Game Name", message = "The name of your paintjob as it appears in-game in the vehicle purchase/upgrade screen\n\ne.g. Transit Co. Paintjob"))
+        self.panel_ingame_name_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: In-Game Name", message = "The name of your paintjob as it appears in-game in the vehicle purchase/upgrade screen\n\ne.g. Transit Co"))
         self.panel_ingame_name_help.grid(row = 0, column = 2, padx = (0, 5))
         self.panel_ingame_price_variable = tk.StringVar()
         self.panel_ingame_price_label = ttk.Label(self.panel_ingame, text = "Price:")
@@ -496,62 +496,48 @@ class PackerApp:
         if len(self.panel_mod_name_variable.get()) < 1:
             inputs_verified = False
             all_errors.append(["No mod name", "Please enter a mod name"])
-        if "\"" in self.panel_mod_name_variable.get():
+        if pj.contains_illegal_characters_file_name(self.panel_mod_name_variable.get()):
             inputs_verified = False
-            all_errors.append(["Quotation marks in mod name", "Mod names cannot contain \" (quotation marks)"])
-        if "\\" in self.panel_mod_name_variable.get():
+            all_errors.append(["Invalid character in mod name", "Mod name cannot contain the following characters:\n< > : \" / \\ | ? * ."])
+        if pj.contains_reserved_file_name(self.panel_mod_name_variable.get()):
             inputs_verified = False
-            all_errors.append(["Back slash in mod name", "Mod names cannot contain \\ (back slash)"])
-        if "/" in self.panel_mod_name_variable.get():
-            inputs_verified = False
-            all_errors.append(["Forward slash in mod name", "Mod names cannot contain / (forward slash)"])
+            all_errors.append(["Invalid mod name", "Mod name cannot be any of the following, as they are reserved file names:\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
+
         if len(self.panel_mod_version_variable.get()) < 1:
             inputs_verified = False
             all_errors.append(["No mod version", "Please enter a mod version"])
-        if "\"" in self.panel_mod_version_variable.get():
+        if pj.contains_illegal_characters_sii(self.panel_mod_version_variable.get()):
             inputs_verified = False
-            all_errors.append(["Quotation marks in mod version", "Mod versions cannot contain \" (quotation marks)"])
-        if "\\" in self.panel_mod_version_variable.get():
-            inputs_verified = False
-            all_errors.append(["Back slash in mod version", "Mod versions cannot contain \\ (back slash)"])
-        if "/" in self.panel_mod_version_variable.get():
-            inputs_verified = False
-            all_errors.append(["Forward slash in mod version", "Mod versions cannot contain / (forward slash)"])
+            all_errors.append(["Invalid character in mod version", "Mod version cannot contain the following characters:\n\" / \\"])
+
         if len(self.panel_mod_author_variable.get()) < 1:
             inputs_verified = False
             all_errors.append(["No mod author", "Please enter a mod author"])
-        if "\"" in self.panel_mod_author_variable.get():
+        if pj.contains_illegal_characters_sii(self.panel_mod_author_variable.get()):
             inputs_verified = False
-            all_errors.append(["Quotation marks in mod author", "Mod authors cannot contain \" (quotation marks)"])
-        if "\\" in self.panel_mod_author_variable.get():
-            inputs_verified = False
-            all_errors.append(["Back slash in mod author", "Mod authors cannot contain \\ (back slash)"])
-        if "/" in self.panel_mod_author_variable.get():
-            inputs_verified = False
-            all_errors.append(["Forward slash in mod author", "Mod authors cannot contain / (forward slash)"])
+            all_errors.append(["Invalid character in mod author", "Mod author cannot contain the following characters:\n\" / \\"])
 
         # in-game paintjob info
         if len(self.panel_ingame_name_variable.get()) < 1:
             inputs_verified = False
             all_errors.append(["No paintjob name", "Please enter a paintjob name"])
-        if "\"" in self.panel_ingame_name_variable.get():
+        if pj.contains_illegal_characters_file_name(self.panel_ingame_name_variable.get()):
             inputs_verified = False
-            all_errors.append(["Quotation marks in paintjob name", "Paintjob names cannot contain \" (quotation marks)"])
-        if "\\" in self.panel_ingame_name_variable.get():
+            all_errors.append(["Invalid character in paintjob name", "Paintjob name cannot contain the following characters:\n< > : \" / \\ | ? * ."])
+        if pj.contains_reserved_file_name(self.panel_ingame_name_variable.get()):
             inputs_verified = False
-            all_errors.append(["Back slash in paintjob name", "Paintjob names cannot contain \\ (back slash)"])
-        if "/" in self.panel_ingame_name_variable.get():
-            inputs_verified = False
-            all_errors.append(["Forward slash in paintjob name", "Paintjob names cannot contain / (forward slash)"])
+            all_errors.append(["Invalid paintjob name", "Paintjob name cannot be any of the following, as they are reserved file names:\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
         if not pj.check_if_ascii(self.panel_ingame_name_variable.get()):
             inputs_verified = False
-            all_errors.append(["Non-ASCII characters in paintjob name", "Paintjob names can only consist of ASCII characters:\n\nabcdefghijklmnopqrstuvwxyz\nABCDEFGHIJKLMNOPQRSTUVWXYZ\n0123456789\n! @ # $ % ^ & * ( ) - _ = + [ ] { } | ; : ' < > , . ? ` ~"])
+            all_errors.append(["Non-ASCII characters in paintjob name", "Paintjob names can only consist of ASCII characters:\n\nabcdefghijklmnopqrstuvwxyz\nABCDEFGHIJKLMNOPQRSTUVWXYZ\n0123456789\n! @ # $ % ^ & ( ) - _ = + [ ] { } ; ' , ` ~"])
+
         if len(self.panel_ingame_price_variable.get()) < 1:
             inputs_verified = False
             all_errors.append(["No paintjob price", "Please enter a paintjob price"])
         if not re.match("^[0-9]*$", self.panel_ingame_price_variable.get()):
             inputs_verified = False
             all_errors.append(["Invalid paintjob price", "Paintjob price must be a number, with no decimal points, currency signs, spaces or letters"])
+
         if not self.panel_ingame_default_variable.get():
             if len(self.panel_ingame_unlock_variable.get()) < 1:
                 inputs_verified = False
@@ -570,6 +556,9 @@ class PackerApp:
         if not re.match("^[0-9a-z\_]*$", self.panel_internal_name_variable.get()):
             inputs_verified = False
             all_errors.append(["Invalid internal name", "Internal name must only contain lowercase letters, numbers and underscores"]) # I think uppercase letters might work, but no paintjobs in the base game/DLCs use them, so best practice to avoid them
+        if pj.contains_reserved_file_name(self.panel_internal_name_variable.get()):
+            inputs_verified = False
+            all_errors.append(["Invalid internal name", "Internal name cannot be any of the following, as they are reserved file names:\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
 
         # vehicle selection
         if self.tab_paintjob_variable.get() == "pack":

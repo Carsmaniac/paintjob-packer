@@ -51,6 +51,33 @@ def check_if_ascii(string_input):
     else:
         return False
 
+def contains_illegal_characters_sii(string_input):
+    illegal_characters = ["\\","/","\""]
+    any_found = False
+    for char in illegal_characters:
+        if char in string_input:
+            any_found = True
+    return any_found
+
+def contains_illegal_characters_file_name(string_input):
+    illegal_characters = ["<",">",":","\"","/","\\","|","?","*","."]
+    any_found = False
+    for char in illegal_characters:
+        if char in string_input:
+            any_found = True
+    return any_found
+
+def contains_reserved_file_name(string_input):
+    reserved_names = ["CON","PRN","AUX","NUL"]
+    for i in range(9):
+        reserved_names.append("COM" + str(i+1))
+        reserved_names.append("LPT" + str(i+1))
+    any_found = False
+    for word in reserved_names:
+        if string_input.upper() == word:
+            any_found = True
+    return any_found
+
 def generate_tobj(path):
     tobj_string = "010AB170000000000000000000000000000000000100020002000303030002020001000000010000"
     tobj_string += convert_string_to_hex(len(path))
