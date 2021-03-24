@@ -19,8 +19,8 @@ Paintjob Packer doesn't make a completed mod when you click the *Generate mod* b
 Paintjob Packer requires an image editor that can save DDS files. DDS is a special image format used to save textures for many games, including both Trucksim games. You can use any of the following:
 
 * Photoshop with its [DDS plugin](https://fnordware.blogspot.com/2014/09/dds-plug-in-for-after-effects-and.html)
-* [GIMP](https://www.gimp.org/downloads/) with its [DDS plugin](https://code.google.com/archive/p/gimp-dds/downloads)
-* [Paint.NET](https://www.getpaint.net/download.html) with its built-in DDS plugin
+* [GIMP](https://www.gimp.org/downloads/)
+* [Paint.NET](https://www.getpaint.net/download.html)
 * Or you could use any program you like and convert your images to DDS using [DXTBmp](https://www.mwgfx.co.uk/programs/dxtbmp.htm)
 
 1. Generate base files using Paintjob Packer
