@@ -993,8 +993,13 @@ class VehSelection:
 
 def show_unhandled_error(error_type, error_message, error_traceback):
     # there's probably a neater way to do this, but this works
-    messagebox.showerror(title = "Unhandled exception", message = "Something has gone very wrong!\n\nPlease send this error message to the developer!\n\nError type: {}\nError: {}\n\nTraceback:\n{}".format(error_type.__name__, str(error_message), "\n".join(traceback.format_list(traceback.extract_tb(error_traceback)))))
-
+    clipboard = tk.Tk()
+    clipboard.withdraw()
+    clipboard.clipboard_clear()
+    clipboard.clipboard_append("{}: {}\n\nTraceback:\n{}".format(error_type.__name__, str(error_message), "\n".join(traceback.format_list(traceback.extract_tb(error_traceback)))))
+    clipboard.update()
+    clipboard.destroy()
+    messagebox.showerror(title = "Unhandled exception", message = "Something went very wrong and Paintjob Packer ran into an unexpected error.\n\nThe full error message has been copied to your clipboard, please send it to the developer on GitHub or the SCS Forums!")
 
 def main():
     root = tk.Tk()
