@@ -952,7 +952,7 @@ class PackerApp:
                         new_update_type = "Feature update"
                     elif latest_version[1] == current_version[1]:
                         if latest_version[2] > current_version[2]:
-                            new_update_type = "Hotfix"
+                            new_update_type = "Patch"
                         else:
                             new_update_type = None
                     else:
