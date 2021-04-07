@@ -14,6 +14,8 @@ Paintjob Packer is a lightweight mod making tool for Euro Truck Simulator 2 and 
 
 Paintjob Packer doesn't make a completed mod when you click the *Generate mod* button. Instead, it makes what I call "custom example mods", giving you all the files you need for your mod, but with placeholders standing in for every image/texture. You then go through and replace all the placeholder images with your own to complete the mod. Since you usually have to test and tweak a paintjob many times before it's ready, generating paintjobs this way means you only have to run the program once.
 
+**A more in-depth video version of this guide is [available on YouTube](https://www.youtube.com/watch?v=HJV8_X3P9k8)**
+
 ### Image editor requirements
 
 Paintjob Packer requires an image editor that can save DDS files. DDS is a special image format used to save textures for many games, including both Trucksim games. You can use any of the following:
@@ -34,12 +36,12 @@ Paintjob Packer requires an image editor that can save DDS files. DDS is a speci
     * The image must be a 276 x 162 JPEG
 
 3. Replace icon
-    * `material/ui/accessory/<paintjob name> Icon.dds`
+    * `material/ui/accessory/<paintjob>_icon.dds`
     * Must be a 256 x 64 DDS
     * If you want your icon to match the vanilla paintjobs, use the placeholder image as a guide for size & shape
 
 4. Replace vehicle textures
-    * `vehicle/truck/upgrade/paintjob/<paintjob name>/<vehicle>` and/or `vehicle/trailer_owned/upgrade/paintjob/<paintjob name>/<vehicle>`
+    * `vehicle/truck/upgrade/paintjob/<paintjob>/<vehicle>` and/or `vehicle/trailer_owned/upgrade/paintjob/<paintjob>/<vehicle>`
     * These are the main files of your mod, which determine what your paintjob will actually look like in-game
     * Save each DDS in DXT5 format with mipmaps, if possible
     * Ensure every file's height and width is a power of 2 (e.g. 16, 64, 2048, 4096 etc)
