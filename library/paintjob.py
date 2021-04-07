@@ -60,7 +60,7 @@ def contains_illegal_characters_sii(string_input):
     return any_found
 
 def contains_illegal_characters_file_name(string_input):
-    illegal_characters = ["<",">",":","\"","/","\\","|","?","*","."]
+    illegal_characters = ["<",">",":","\"","/","\\","|","?","*"]
     any_found = False
     for char in illegal_characters:
         if char in string_input:

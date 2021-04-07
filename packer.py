@@ -498,7 +498,10 @@ class PackerApp:
             all_errors.append(["No mod name", "Please enter a mod name"])
         if pj.contains_illegal_characters_file_name(self.panel_mod_name_variable.get()):
             inputs_verified = False
-            all_errors.append(["Invalid character in mod name", "Mod name cannot contain the following characters:\n< > : \" / \\ | ? * ."])
+            all_errors.append(["Invalid character in mod name", "Mod name cannot contain the following characters:\n< > : \" / \\ | ? *"])
+        if self.panel_mod_name_variable.get()[-1:] == ".":
+            inputs_verified = False
+            all_errors.append(["Mod name ends with full stop/period", "Mod name cannot end with \".\" (full stop/period)"])
         if pj.contains_reserved_file_name(self.panel_mod_name_variable.get()):
             inputs_verified = False
             all_errors.append(["Invalid mod name", "Mod name cannot be any of the following, as they are reserved file names:\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
@@ -523,7 +526,10 @@ class PackerApp:
             all_errors.append(["No paintjob name", "Please enter a paintjob name"])
         if pj.contains_illegal_characters_file_name(self.panel_ingame_name_variable.get()):
             inputs_verified = False
-            all_errors.append(["Invalid character in paintjob name", "Paintjob name cannot contain the following characters:\n< > : \" / \\ | ? * ."])
+            all_errors.append(["Invalid character in paintjob name", "Paintjob name cannot contain the following characters:\n< > : \" / \\ | ? *"])
+        if self.panel_ingame_name_variable.get()[-1:] == ".":
+            inputs_verified = False
+            all_errors.append(["Paintjob name ends with full stop/period", "Paintjob name cannot end with \".\" (full stop/period)"])
         if pj.contains_reserved_file_name(self.panel_ingame_name_variable.get()):
             inputs_verified = False
             all_errors.append(["Invalid paintjob name", "Paintjob name cannot be any of the following, as they are reserved file names:\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
