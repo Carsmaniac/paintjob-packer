@@ -10,12 +10,14 @@
 * Kenworth K100-E by **MrOverfloater** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1814887717) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=274886)
 * MAN TGA by **MADster** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=196526)
 * MAN TGS Euro 6 by **MADster** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=166544)
+* Mercedes-Benz Actros MP2 by **Dotec** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2333621047) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=289988)
 * Mitsubishi Fuso Super Great V by **RecycleDog** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=246380)
+* Roman Diesel by **PikPikker** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=293953)
 * Scania R (and R 4-series) by **RJL** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1233285693) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=177963)
 * Scania T (and T 4-series) by **RJL** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1233343065) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=151394)
 * SISU M-series by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=257924)
 * Volvo F88 by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=253258)
-* Volvo F Series by **Lucasi** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1131584022)
+* Volvo FM and FMX by **Galimim** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=278044)
 
 ## Trailers
 
@@ -37,10 +39,9 @@
 * Autocar AT by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=275163)
 * Autocar DC by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=275163)
 * Freightliner Argosy by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2113006265)
+* Freightliner Coronado 122SD by Big Joe - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=285445)
 * Freightliner FLB by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=867643690) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=228835)
 * Freightliner FLC by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=282638)
-* Freightliner FLD by **Lucasi** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1322705595)
-* International 9800 by **Lucasi** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1322663266)
 * International LT by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1832865824) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=272906)
 * Kenworth K100-E by **MrOverfloater** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1815959194) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=274886)
 * Kenworth T610 by **GTM** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1305493186) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=250790)
@@ -55,6 +56,7 @@
 * Scot A2HD by **Smarty** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=661658019) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=201612)
 * Volvo VNL 2018 by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1832939055) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256560)
 * Volvo VNR by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1833428947) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256338)
+* Western Star 4900 by **YukonJack_AK** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=282025)
 
 ## Trailers
 
