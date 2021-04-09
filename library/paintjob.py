@@ -264,7 +264,7 @@ def copy_main_dds(output_path, veh, ingame_name, main_dds_name, template_zip):
 
     if copy_square:
         if veh.mod:
-            shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{} [{}]/{}.dds".format(veh.type, ingame_name, veh.name, veh.mod_auhor, main_dds_name))
+            shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{} [{}]/{}.dds".format(veh.type, ingame_name, veh.name, veh.mod_author, main_dds_name))
         else:
             shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, main_dds_name))
 
