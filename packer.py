@@ -265,6 +265,7 @@ class PackerApp:
         # Vehicles Supported panel (paintjob pack)
         self.panel_pack_selector = ttk.Notebook(self.panel_vehicles_pack)
         self.panel_pack_selector.grid(row = 0, column = 0, sticky = "nsew", padx = 5, pady = (0, 5))
+        self.panel_pack_selector.bind_all("<MouseWheel>", self.mousewheel_scroll)
         self.tab_trucks = ttk.Frame(self.panel_pack_selector)
         self.panel_pack_selector.add(self.tab_trucks, text = "Trucks")
         self.tab_trailers = ttk.Frame(self.panel_pack_selector)
@@ -277,6 +278,43 @@ class PackerApp:
         self.panel_pack_link_truck.bind("<1>", lambda e: webbrowser.open_new(mod_link_page_link))
         self.panel_pack_link_trailer = ttk.Label(self.tab_trailer_mods, text = "Download links for all mods", foreground = "blue", cursor = self.cursor)
         self.panel_pack_link_trailer.bind("<1>", lambda e: webbrowser.open_new(mod_link_page_link))
+
+        # Scrollable lists in Vehicles Supported panel
+        self.scroll_canvas_trucks = tk.Canvas(self.tab_trucks, width = 300, height = 253, highlightthickness = 0)
+        self.scroll_bar_trucks = ttk.Scrollbar(self.tab_trucks, orient = "vertical", command = self.scroll_canvas_trucks.yview)
+        self.scroll_frame_trucks = ttk.Frame(self.scroll_canvas_trucks)
+        self.scroll_frame_trucks.bind("<Configure>", lambda e: self.scroll_canvas_trucks.configure(scrollregion = self.scroll_canvas_trucks.bbox("all")))
+        self.scroll_canvas_trucks.create_window((0, 0), window = self.scroll_frame_trucks, anchor = "nw")
+        self.scroll_canvas_trucks.configure(yscrollcommand = self.scroll_bar_trucks.set)
+        self.scroll_canvas_trucks.grid(row = 0, column = 0, sticky = "nws")
+        self.scroll_bar_trucks.grid(row = 0, column = 1, sticky = "nes")
+
+        self.scroll_canvas_trailers = tk.Canvas(self.tab_trailers, width = 300, height = 253, highlightthickness = 0)
+        self.scroll_bar_trailers = ttk.Scrollbar(self.tab_trailers, orient = "vertical", command = self.scroll_canvas_trailers.yview)
+        self.scroll_frame_trailers = ttk.Frame(self.scroll_canvas_trailers)
+        self.scroll_frame_trailers.bind("<Configure>", lambda e: self.scroll_canvas_trailers.configure(scrollregion = self.scroll_canvas_trailers.bbox("all")))
+        self.scroll_canvas_trailers.create_window((0, 0), window = self.scroll_frame_trailers, anchor = "nw")
+        self.scroll_canvas_trailers.configure(yscrollcommand = self.scroll_bar_trailers.set)
+        self.scroll_canvas_trailers.grid(row = 0, column = 0, sticky = "nws")
+        self.scroll_bar_trailers.grid(row = 0, column = 1, sticky = "nes")
+
+        self.scroll_canvas_truck_mods = tk.Canvas(self.tab_truck_mods, width = 300, height = 233, highlightthickness = 0)
+        self.scroll_bar_truck_mods = ttk.Scrollbar(self.tab_truck_mods, orient = "vertical", command = self.scroll_canvas_truck_mods.yview)
+        self.scroll_frame_truck_mods = ttk.Frame(self.scroll_canvas_truck_mods)
+        self.scroll_frame_truck_mods.bind("<Configure>", lambda e: self.scroll_canvas_truck_mods.configure(scrollregion = self.scroll_canvas_truck_mods.bbox("all")))
+        self.scroll_canvas_truck_mods.create_window((0, 0), window = self.scroll_frame_truck_mods, anchor = "nw")
+        self.scroll_canvas_truck_mods.configure(yscrollcommand = self.scroll_bar_truck_mods.set)
+        self.scroll_canvas_truck_mods.grid(row = 0, column = 0, sticky = "nws")
+        self.scroll_bar_truck_mods.grid(row = 0, column = 1, sticky = "nes")
+
+        self.scroll_canvas_trailer_mods = tk.Canvas(self.tab_trailer_mods, width = 300, height = 233, highlightthickness = 0)
+        self.scroll_bar_trailer_mods = ttk.Scrollbar(self.tab_trailer_mods, orient = "vertical", command = self.scroll_canvas_trailer_mods.yview)
+        self.scroll_frame_trailer_mods = ttk.Frame(self.scroll_canvas_trailer_mods)
+        self.scroll_frame_trailer_mods.bind("<Configure>", lambda e: self.scroll_canvas_trailer_mods.configure(scrollregion = self.scroll_canvas_trailer_mods.bbox("all")))
+        self.scroll_canvas_trailer_mods.create_window((0, 0), window = self.scroll_frame_trailer_mods, anchor = "nw")
+        self.scroll_canvas_trailer_mods.configure(yscrollcommand = self.scroll_bar_trailer_mods.set)
+        self.scroll_canvas_trailer_mods.grid(row = 0, column = 0, sticky = "nws")
+        self.scroll_bar_trailer_mods.grid(row = 0, column = 1, sticky = "nes")
 
         # buttons along the bottom
         self.panel_main_buttons_setup = ttk.Button(self.panel_main_buttons, text = "< Back to setup", command = lambda : self.switch_to_setup_screen(), width = 15)
@@ -364,7 +402,7 @@ class PackerApp:
         self.main_screen.grid_forget()
         self.setup_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
 
-        for veh in self.truck_list_1 + self.truck_list_2 + self.truck_mod_list_1 + self.truck_mod_list_2 + self.trailer_list_1 + self.trailer_list_2 + self.trailer_mod_list_1 + self.trailer_mod_list_2:
+        for veh in self.truck_list + self.truck_mod_list + self.trailer_list + self.trailer_mod_list:
             veh.check.grid_forget()
 
         self.panel_pack_link_truck.grid_forget() # just in case it changes location
@@ -387,34 +425,23 @@ class PackerApp:
             self.currency = "euro"
 
         (self.truck_list, self.truck_mod_list, self.trailer_list, self.trailer_mod_list) = self.load_list_of_vehicles(self.tab_game_variable.get())
-        self.truck_list_1 = self.truck_list[:math.ceil(len(self.truck_list)/2)] # lists need to be split for multiple vehicle selection, it's easier if it's done here
-        self.truck_list_2 = self.truck_list[math.ceil(len(self.truck_list)/2):]
-        self.truck_mod_list_1 = self.truck_mod_list[:math.ceil(len(self.truck_mod_list)/2)]
-        self.truck_mod_list_2 = self.truck_mod_list[math.ceil(len(self.truck_mod_list)/2):]
-        self.trailer_list_1 = self.trailer_list[:math.ceil(len(self.trailer_list)/2)]
-        self.trailer_list_2 = self.trailer_list[math.ceil(len(self.trailer_list)/2):]
-        self.trailer_mod_list_1 = self.trailer_mod_list[:math.ceil(len(self.trailer_mod_list)/2)]
-        self.trailer_mod_list_2 = self.trailer_mod_list[math.ceil(len(self.trailer_mod_list)/2):]
 
-        for i in range(len(self.truck_list_1)):
-            self.truck_list_1[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
-        for i in range(len(self.truck_list_2)):
-            self.truck_list_2[i].check.grid(row = i, column = 1, sticky = "w", padx = 5)
-        for i in range(len(self.truck_mod_list_1)):
-            self.truck_mod_list_1[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
-        for i in range(len(self.truck_mod_list_2)):
-            self.truck_mod_list_2[i].check.grid(row = i, column = 1, sticky = "w", padx = 5)
-        for i in range(len(self.trailer_list_1)):
-            self.trailer_list_1[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
-        for i in range(len(self.trailer_list_2)):
-            self.trailer_list_2[i].check.grid(row = i, column = 1, sticky = "w", padx = 5)
-        for i in range(len(self.trailer_mod_list_1)):
-            self.trailer_mod_list_1[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
-        for i in range(len(self.trailer_mod_list_2)):
-            self.trailer_mod_list_2[i].check.grid(row = i, column = 1, sticky = "w", padx = 5)
+        for i in range(len(self.truck_list)):
+            self.truck_list[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
+        for i in range(len(self.truck_mod_list)):
+            self.truck_mod_list[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
+        for i in range(len(self.trailer_list)):
+            self.trailer_list[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
+        for i in range(len(self.trailer_mod_list)):
+            self.trailer_mod_list[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
 
-        self.panel_pack_link_truck.grid(row = len(self.truck_mod_list_2), column = 1, sticky = "w", padx = 5)
-        self.panel_pack_link_trailer.grid(row = len(self.trailer_mod_list_2), column = 1, sticky = "w", padx = 5)
+        self.panel_pack_link_truck.grid(row = 1, column = 0, sticky = "w", padx = 5)
+        self.panel_pack_link_trailer.grid(row = 1, column = 0, sticky = "w", padx = 5)
+
+        self.scroll_canvas_trucks.yview_moveto(0)
+        self.scroll_canvas_trailers.yview_moveto(0)
+        self.scroll_canvas_truck_mods.yview_moveto(0)
+        self.scroll_canvas_trailer_mods.yview_moveto(0)
 
         self.change_displayed_vehicle_dropdown()
         self.update_total_vehicles_supported()
@@ -424,6 +451,19 @@ class PackerApp:
             self.panel_ingame_unlock_input.state(["disabled"])
         else:
             self.panel_ingame_unlock_input.state(["!disabled"])
+
+    def mousewheel_scroll(self, event):
+        # if self.tab_selector.index(self.tab_selector.select())
+        current_tab = self.panel_pack_selector.index(self.panel_pack_selector.select())
+        if current_tab == 0: # trucks
+            self.scroll_canvas_trucks.yview_scroll(int(-1 * (event.delta / 120)), "units") # will scroll too slowly on macOS, and maybe not at all on Linux
+        elif current_tab == 1: # trailers
+            self.scroll_canvas_trailers.yview_scroll(int(-1 * (event.delta / 120)), "units")
+            self.scroll_canvas_trailers.yview_moveto(0) # hack to prevent scrolling up past the content TODO: hack like this for ATS
+        elif current_tab == 2: # truck mods
+            self.scroll_canvas_truck_mods.yview_scroll(int(-1 * (event.delta / 120)), "units")
+        elif current_tab == 3: # trailer mods
+            self.scroll_canvas_trailer_mods.yview_scroll(int(-1 * (event.delta / 120)), "units")
 
     def load_list_of_vehicles(self, game):
         complete_list = []
@@ -436,20 +476,20 @@ class PackerApp:
         for veh in complete_list:
             if veh.trailer:
                 if veh.mod:
-                    veh.check = ttk.Checkbutton(self.tab_trailer_mods, text = veh.name, command = lambda : self.update_total_vehicles_supported())
+                    veh.check = ttk.Checkbutton(self.scroll_frame_trailer_mods, text = veh.name, command = lambda : self.update_total_vehicles_supported())
                     veh.check.state(["!alternate","!selected"])
                     trailer_mod_list.append(veh)
                 else:
-                    veh.check = ttk.Checkbutton(self.tab_trailers, text = veh.name, command = lambda : self.update_total_vehicles_supported())
+                    veh.check = ttk.Checkbutton(self.scroll_frame_trailers, text = veh.name, command = lambda : self.update_total_vehicles_supported())
                     veh.check.state(["!alternate","!selected"])
                     trailer_list.append(veh)
             else:
                 if veh.mod:
-                    veh.check = ttk.Checkbutton(self.tab_truck_mods, text = veh.name, command = lambda : self.update_total_vehicles_supported())
+                    veh.check = ttk.Checkbutton(self.scroll_frame_truck_mods, text = veh.name, command = lambda : self.update_total_vehicles_supported())
                     veh.check.state(["!alternate","!selected"])
                     truck_mod_list.append(veh)
                 else:
-                    veh.check = ttk.Checkbutton(self.tab_trucks, text = veh.name, command = lambda : self.update_total_vehicles_supported())
+                    veh.check = ttk.Checkbutton(self.scroll_frame_trucks, text = veh.name, command = lambda : self.update_total_vehicles_supported())
                     veh.check.state(["!alternate","!selected"])
                     truck_list.append(veh)
         truck_list.sort(key = lambda veh: veh.name)
@@ -479,7 +519,7 @@ class PackerApp:
 
     def update_total_vehicles_supported(self):
         self.total_vehicles = 0
-        for veh in self.truck_list_1 + self.truck_list_2 + self.truck_mod_list_1 + self.truck_mod_list_2 + self.trailer_list_1 + self.trailer_list_2 + self.trailer_mod_list_1 + self.trailer_mod_list_2:
+        for veh in self.truck_list + self.truck_mod_list + self.trailer_list + self.trailer_mod_list:
             if "selected" in veh.check.state():
                 self.total_vehicles += 1
         self.panel_vehicles_pack.configure(text = "Vehicles Supported ({})".format(self.total_vehicles))
@@ -577,9 +617,8 @@ class PackerApp:
                 all_errors.append(["No vehicle selected", "Please select a vehicle to support"])
 
         # check for incompatible vehicles
-        some_dict = {"daf.xf":["DAF XF105", "DAF XF105 [vad&k]"]}
         veh_path_dict = {}
-        for veh in self.truck_list_1 + self.truck_list_2 + self.truck_mod_list_1 + self.truck_mod_list_2 + self.trailer_list_1 + self.trailer_list_2 + self.trailer_mod_list_1 + self.trailer_mod_list_2:
+        for veh in self.truck_list + self.truck_mod_list + self.trailer_list + self.trailer_mod_list:
             if "selected" in veh.check.state():
                 if not veh.vehicle_path in veh_path_dict:
                     veh_path_dict[veh.vehicle_path] = []
@@ -621,19 +660,19 @@ class PackerApp:
 
     def make_paintjob(self, output_path):
         truck_list = []
-        for veh in self.truck_list_1 + self.truck_list_2:
+        for veh in self.truck_list:
             if "selected" in veh.check.state():
                 truck_list.append(veh)
         truck_mod_list = []
-        for veh in self.truck_mod_list_1 + self.truck_mod_list_2:
+        for veh in self.truck_mod_list:
             if "selected" in veh.check.state():
                 truck_mod_list.append(veh)
         trailer_list = []
-        for veh in self.trailer_list_1 + self.trailer_list_2:
+        for veh in self.trailer_list:
             if "selected" in veh.check.state():
                 trailer_list.append(veh)
         trailer_mod_list = []
-        for veh in self.trailer_mod_list_1 + self.trailer_mod_list_2:
+        for veh in self.trailer_mod_list:
             if "selected" in veh.check.state():
                 trailer_mod_list.append(veh)
 
@@ -642,7 +681,7 @@ class PackerApp:
             vehicle_list.append(pj.Vehicle(veh.file_name, self.tab_game_variable.get()))
 
         single_veh_name = self.panel_single_vehicle_variable.get()
-        for veh in self.truck_list_1 + self.truck_list_2 + self.truck_mod_list_1 + self.truck_mod_list_2 + self.trailer_list_1 + self.trailer_list_2 + self.trailer_mod_list_1 + self.trailer_mod_list_2:
+        for veh in self.truck_list + self.truck_mod_list + self.trailer_list + self.trailer_mod_list:
             if veh.name == single_veh_name:
                 single_veh = pj.Vehicle(veh.file_name, self.tab_game_variable.get())
 
