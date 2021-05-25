@@ -576,6 +576,20 @@ class PackerApp:
                 inputs_verified = False
                 all_errors.append(["No vehicle selected", "Please select a vehicle to support"])
 
+        # check for incompatible vehicles
+        some_dict = {"daf.xf":["DAF XF105", "DAF XF105 [vad&k]"]}
+        veh_path_dict = {}
+        for veh in self.truck_list_1 + self.truck_list_2 + self.truck_mod_list_1 + self.truck_mod_list_2 + self.trailer_list_1 + self.trailer_list_2 + self.trailer_mod_list_1 + self.trailer_mod_list_2:
+            if "selected" in veh.check.state():
+                if not veh.vehicle_path in veh_path_dict:
+                    veh_path_dict[veh.vehicle_path] = []
+                veh_path_dict[veh.vehicle_path].append(veh.name)
+        for veh_path in veh_path_dict.keys():
+            if len(veh_path_dict[veh_path]) > 1:
+                incompatible_vehicles = "\n".join(veh_path_dict[veh_path])
+                inputs_verified = False
+                all_errors.append(["Incompatible vehicles", "The following vehicles are incompatible with each other:\n" + incompatible_vehicles])
+
         if inputs_verified:
             self.main_screen.grid_forget()
             self.generate_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
@@ -1043,11 +1057,22 @@ class VehSelection:
         self.game = _game
         veh_ini = configparser.ConfigParser(allow_no_value = True)
         veh_ini.read("library/vehicles/{}/{}".format(self.game, self.file_name), encoding="utf-8")
+        self.vehicle_path = veh_ini["vehicle info"]["vehicle path"]
         self.name = veh_ini["vehicle info"]["name"]
         self.trailer = veh_ini["vehicle info"].getboolean("trailer")
         self.mod = veh_ini["vehicle info"].getboolean("mod")
-        self.mod_author = veh_ini["vehicle info"]["mod author"]
-        self.mod_link = veh_ini["vehicle info"]["mod link"]
+        if self.mod:
+            self.name += " [" + veh_ini["vehicle info"]["mod author"] + "]"
+        self.mod_link_workshop = veh_ini["vehicle info"]["mod link workshop"]
+        self.mod_link_forums = veh_ini["vehicle info"]["mod link forums"]
+        self.mod_link_author_site = veh_ini["vehicle info"]["mod link author site"]
+        # The canonical mod link is chosen with the priority of Steam Workshop > SCS Forums > Mod author's own site
+        if self.mod_link_workshop != "":
+            self.mod_link = self.mod_link_workshop
+        elif self.mod_link_forums != "":
+            self.mod_link = self.mod_link_forums
+        else:
+            self.mod_link = self.mod_link_author_site
 
 def show_unhandled_error(error_type, error_message, error_traceback):
     # there's probably a neater way to do this, but this works

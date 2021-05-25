@@ -10,7 +10,9 @@ class Vehicle:
         self.trailer = veh_ini["vehicle info"].getboolean("trailer")
         self.mod = veh_ini["vehicle info"].getboolean("mod")
         self.mod_author = veh_ini["vehicle info"]["mod author"]
-        self.mod_link = veh_ini["vehicle info"]["mod link"]
+        self.mod_link_workshop = veh_ini["vehicle info"]["mod link workshop"]
+        self.mod_link_forums = veh_ini["vehicle info"]["mod link forums"]
+        self.mod_link_author_site = veh_ini["vehicle info"]["mod link author site"]
         self.uses_accessories = veh_ini["vehicle info"].getboolean("uses accessories")
         if self.uses_accessories:
             self.accessories = veh_ini["vehicle info"]["accessories"].split(";")
@@ -28,6 +30,13 @@ class Vehicle:
             self.cabins.pop("separate paintjobs", None)
             for cabin in self.cabins:
                 self.cabins[cabin] = self.cabins[cabin].split(";")
+        # The canonical mod link is chosen with the priority of Steam Workshop > SCS Forums > Mod author's own site
+        if self.mod_link_workshop != "":
+            self.mod_link = self.mod_link_workshop
+        elif self.mod_link_forums != "":
+            self.mod_link = self.mod_link_forums
+        else:
+            self.mod_link = self.mod_link_author_site
 
 
 
