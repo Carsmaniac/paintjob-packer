@@ -275,9 +275,9 @@ class PackerApp:
         self.tab_trailer_mods = ttk.Frame(self.panel_pack_selector)
         self.panel_pack_selector.add(self.tab_trailer_mods, text = "Trailer Mods")
         self.panel_pack_link_truck = ttk.Label(self.tab_truck_mods, text = "Download links for all mods", foreground = "blue", cursor = self.cursor)
-        self.panel_pack_link_truck.bind("<1>", lambda e: webbrowser.open_new(mod_link_page_link))
+        self.panel_pack_link_truck.bind("<1>", self.open_mod_link_page)
         self.panel_pack_link_trailer = ttk.Label(self.tab_trailer_mods, text = "Download links for all mods", foreground = "blue", cursor = self.cursor)
-        self.panel_pack_link_trailer.bind("<1>", lambda e: webbrowser.open_new(mod_link_page_link))
+        self.panel_pack_link_trailer.bind("<1>", self.open_mod_link_page)
 
         # Scrollable lists in Vehicles Supported panel
         self.scroll_canvas_trucks = tk.Canvas(self.tab_trucks, width = 300, height = 253, highlightthickness = 0)
@@ -451,6 +451,12 @@ class PackerApp:
             self.panel_ingame_unlock_input.state(["disabled"])
         else:
             self.panel_ingame_unlock_input.state(["!disabled"])
+
+    def open_mod_link_page(self, *args):
+        if self.tab_game_variable.get() == "ets":
+            webbrowser.open_new(mod_link_page_link + "#euro-truck-simulator-2")
+        else:
+            webbrowser.open_new(mod_link_page_link + "#american-truck-simulator")
 
     def mousewheel_scroll(self, event):
         # if self.tab_selector.index(self.tab_selector.select())
