@@ -459,17 +459,20 @@ class PackerApp:
             webbrowser.open_new(mod_link_page_link + "#american-truck-simulator")
 
     def mousewheel_scroll(self, event):
-        # if self.tab_selector.index(self.tab_selector.select())
         current_tab = self.panel_pack_selector.index(self.panel_pack_selector.select())
         if current_tab == 0: # trucks
             self.scroll_canvas_trucks.yview_scroll(int(-1 * (event.delta / 120)), "units") # will scroll too slowly on macOS, and maybe not at all on Linux
+            if self.tab_game_variable.get() == "ats":
+                self.scroll_canvas_trucks.yview_moveto(0) # hack to prevent scrolling up past the content
         elif current_tab == 1: # trailers
             self.scroll_canvas_trailers.yview_scroll(int(-1 * (event.delta / 120)), "units")
-            self.scroll_canvas_trailers.yview_moveto(0) # hack to prevent scrolling up past the content TODO: hack like this for ATS
+            self.scroll_canvas_trailers.yview_moveto(0)
         elif current_tab == 2: # truck mods
             self.scroll_canvas_truck_mods.yview_scroll(int(-1 * (event.delta / 120)), "units")
         elif current_tab == 3: # trailer mods
             self.scroll_canvas_trailer_mods.yview_scroll(int(-1 * (event.delta / 120)), "units")
+            if self.tab_game_variable.get() == "ats":
+                self.scroll_canvas_trailer_mods.yview_moveto(0)
 
     def load_list_of_vehicles(self, game):
         complete_list = []
