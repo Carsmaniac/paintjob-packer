@@ -803,6 +803,9 @@ class PackerApp:
         self.panel_progress_specific_variable.set("See readme for further instructions")
         self.panel_progress_specific_label.update()
 
+        if os.path.exists("library/paintjob-tracker.txt"):
+            self.generate_paintjob_tracker_file(game, truck_list, truck_mod_list, trailer_list, trailer_mod_list, mod_name)
+
         exit_now = messagebox.showinfo(title = "Mod generation complete", message = "Your mod has been generated successfully! It's been placed in the directory you chose, inside a folder called Paintjob Packer Output.\n\nYour mod is not yet finished, refer to the text file inside the folder for instructions. There is also a guide on the GitHub page.\n\nThanks for using Paintjob Packer! :)")
         sys.exit()
 
@@ -925,6 +928,55 @@ class PackerApp:
                 for veh in trailer_mod_list:
                     file.write("{}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name))
         file.close()
+
+    def generate_paintjob_tracker_file(self, game, truck_list, truck_mod_list, trailer_list, trailer_mod_list, mod_name):
+        # This function is made to work with Paintjob Tracker, a mod management program I wrote for my own use
+        # For more info see my paintjob-tracker repo on GitHub
+        file = open("library/paintjob-tracker.txt", "r")
+        file_lines = file.readlines()
+        file.close()
+        tracker_directory = file_lines[0].rstrip() + "/" + game
+        tracker = configparser.ConfigParser(allow_no_value = True)
+
+        tracker["Pack Info"] = {}
+        all_trucks = []
+        for veh in truck_list:
+            all_trucks.append(veh.file_name[:-4])
+        tracker["Pack Info"]["Trucks"] = ";".join(all_trucks)
+        all_truck_mods = []
+        for veh in truck_mod_list:
+            all_truck_mods.append(veh.file_name[:-4] + "~" + veh.mod_author)
+        tracker["Pack Info"]["Truck mods"] = ";".join(all_truck_mods)
+        all_trailers = []
+        for veh in trailer_list:
+            all_trailers.append(veh.file_name[:-4])
+        tracker["Pack Info"]["Trailers"] = ";".join(all_trailers)
+        all_trailer_mods = []
+        for veh in trailer_mod_list:
+            all_trailer_mods.append(veh.file_name[:-4] + "~" + veh.mod_author)
+        tracker["Pack Info"]["Trailer mods"] = ";".join(all_trailer_mods)
+        tracker["Pack Info"]["Bus pack"] = False
+        tracker["Pack Info"]["Paintjobs"] = ""
+
+        tracker["Description"] = {}
+        tracker["Description"]["Short description"] = ""
+        tracker["Description"]["More info"] = ""
+        tracker["Description"]["Header image link"] = ""
+        tracker["Description"]["Forums screenshot image link"] = ""
+        tracker["Description"]["Related mods"] = ""
+
+        tracker["Links"] = {}
+        tracker["Links"]["Steam Workshop"] = ""
+        tracker["Links"]["Trucky"] = ""
+        tracker["Links"]["ShareMods"] = ""
+        tracker["Links"]["ModsBase"] = ""
+        tracker["Links"]["Forums"] = ""
+        if os.path.exists("{}/{}.ini".format(tracker_directory, mod_name)):
+            print("Paintjob Tracker file already present at {}/{}.ini, aborting file write".format(tracker_directory, mod_name))
+        else:
+            with open("{}/{}.ini".format(tracker_directory, mod_name), "w") as configfile:
+                tracker.write(configfile)
+            print("Paintjob Tracker file written to {}/{}.ini".format(tracker_directory, mod_name))
 
     def check_new_version(self):
         # get current and latest versions
