@@ -1008,7 +1008,7 @@ class PackerApp:
     def generate_paintjob_tracker_file(self, game, truck_list, truck_mod_list, trailer_list, trailer_mod_list, mod_name):
         # This function is made to work with Paintjob Tracker, a mod management program I wrote for my own use
         # For more info see my paintjob-tracker repo on GitHub
-        file = open("library/paintjob-tracker.txt", "r")
+        file = open("library/paintjob tracker.txt", "r")
         file_lines = file.readlines()
         file.close()
         tracker_directory = file_lines[0].rstrip() + "/" + game
