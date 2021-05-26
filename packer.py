@@ -19,13 +19,13 @@ except ModuleNotFoundError:
     input("Press enter to quit")
     sys.exit()
 
-forum_link = "https://forum.scssoft.com/viewtopic.php?f=33&t=282956"
-github_link = "https://github.com/carsmaniac/paintjob-packer"
-mod_link_page_link = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
-ets_template_link = "https://forum.scssoft.com/viewtopic.php?f=33&t=272386"
-ats_template_link = "https://forum.scssoft.com/viewtopic.php?f=199&t=288778"
-version_info_link = "https://raw.githubusercontent.com/Carsmaniac/paintjob-packer/new-version-checking/library/version.ini"
-latest_version_download_link = github_link + "/releases/latest"
+FORUM_LINK = "https://forum.scssoft.com/viewtopic.php?f=33&t=282956"
+GITHUB_LINK = "https://github.com/carsmaniac/paintjob-packer"
+MOD_LINK_PAGE_LINK = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
+ETS_TEMPLATE_LINK = "https://forum.scssoft.com/viewtopic.php?f=33&t=272386"
+ATS_TEMPLATE_LINK = "https://forum.scssoft.com/viewtopic.php?f=199&t=288778"
+VERSION_INFO_LINK = "https://raw.githubusercontent.com/Carsmaniac/paintjob-packer/new-version-checking/library/version.ini"
+LATEST_VERSION_DOWNLOAD_LINK = GITHUB_LINK + "/releases/latest"
 
 # set the path depending on how Paintjob Packer is bundled
 try:
@@ -85,20 +85,20 @@ class PackerApp:
         self.tab_welcome_image.grid(row = 1, column = 0, columnspan = 2)
         self.tab_welcome_link_forum = ttk.Label(self.tab_welcome, text = "Forum thread", foreground = "blue", cursor = self.cursor)
         self.tab_welcome_link_forum.grid(row = 2, column = 0, pady = 20)
-        self.tab_welcome_link_forum.bind("<1>", lambda e: webbrowser.open_new(forum_link))
+        self.tab_welcome_link_forum.bind("<1>", lambda e: webbrowser.open_new(FORUM_LINK))
         self.tab_welcome_link_github = ttk.Label(self.tab_welcome, text = "GitHub page", foreground = "blue", cursor = self.cursor)
         self.tab_welcome_link_github.grid(row = 2, column = 1, pady = 20)
-        self.tab_welcome_link_github.bind("<1>", lambda e: webbrowser.open_new(github_link))
+        self.tab_welcome_link_github.bind("<1>", lambda e: webbrowser.open_new(GITHUB_LINK))
         new_ver = self.check_new_version()
         if (new_ver[1] != None):
             self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "New version available! - v{} - Click here to go to download page".format(new_ver[0]), foreground = "red", cursor = self.cursor)
             self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (25, 0))
-            self.tab_welcome_message.bind("<1>", lambda e: webbrowser.open_new(latest_version_download_link))
+            self.tab_welcome_message.bind("<1>", lambda e: webbrowser.open_new(LATEST_VERSION_DOWNLOAD_LINK))
             self.tab_welcome_link_forum.configure(foreground = "black")
             self.tab_welcome_link_github.configure(foreground = "black")
             self.tab_welcome_update_info = ttk.Label(self.tab_welcome, text = "This update includes: " + new_ver[1], cursor = self.cursor)
             self.tab_welcome_update_info.grid(row = 4, column = 0, columnspan = 2)
-            self.tab_welcome_update_info.bind("<1>", lambda e: webbrowser.open_new(latest_version_download_link))
+            self.tab_welcome_update_info.bind("<1>", lambda e: webbrowser.open_new(LATEST_VERSION_DOWNLOAD_LINK))
         else:
             self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "If this is your first time using Paintjob Packer, please read the guide on the GitHub page")
             self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (25, 0))
@@ -273,7 +273,7 @@ class PackerApp:
         self.panel_single_vehicle_dropdown = ttk.Combobox(self.panel_vehicles_single, state = "readonly", textvariable = self.panel_single_vehicle_variable, values = [], width = 30)
         self.panel_single_vehicle_dropdown.grid(row = 3, column = 0, padx = 5, sticky = "w")
         self.panel_single_link = ttk.Label(self.panel_vehicles_single, text = "Download links for all mods", foreground = "blue", cursor = self.cursor)
-        self.panel_single_link.bind("<1>", lambda e: webbrowser.open_new(mod_link_page_link))
+        self.panel_single_link.bind("<1>", lambda e: webbrowser.open_new(MOD_LINK_PAGE_LINK))
         # self.panel_single_link.grid(row = 4, column = 0, pady = 5, padx = 5, sticky = "w")
 
         # Vehicles Supported panel (paintjob pack)
@@ -335,7 +335,7 @@ class PackerApp:
         self.panel_main_buttons_setup.grid(row = 1, column = 0, pady = (5, 0), sticky = "w")
         self.panel_main_buttons_feedback = ttk.Label(self.panel_main_buttons, text = "Leave feedback or get support", foreground = "blue", cursor = self.cursor)
         self.panel_main_buttons_feedback.grid(row = 1, column = 1, pady = (5, 0), padx = 10, sticky = "e")
-        self.panel_main_buttons_feedback.bind("<1>", lambda e: webbrowser.open_new(forum_link))
+        self.panel_main_buttons_feedback.bind("<1>", lambda e: webbrowser.open_new(FORUM_LINK))
         self.panel_main_buttons_generate = ttk.Button(self.panel_main_buttons, text = "Generate and save...", command = lambda : self.verify_all_inputs(), width = 20)
         self.panel_main_buttons_generate.grid(row = 1, column = 2, pady = (5, 0), sticky = "e")
 
@@ -468,9 +468,9 @@ class PackerApp:
 
     def open_mod_link_page(self, *args):
         if self.tab_game_variable.get() == "ets":
-            webbrowser.open_new(mod_link_page_link + "#euro-truck-simulator-2")
+            webbrowser.open_new(MOD_LINK_PAGE_LINK + "#euro-truck-simulator-2")
         else:
-            webbrowser.open_new(mod_link_page_link + "#american-truck-simulator")
+            webbrowser.open_new(MOD_LINK_PAGE_LINK + "#american-truck-simulator")
 
     def mousewheel_scroll(self, event):
         current_tab = self.panel_pack_selector.index(self.panel_pack_selector.select())
@@ -953,9 +953,9 @@ class PackerApp:
         file.write("Ensure every file's height and width is a power of 2 (e.g. 16, 64, 2048, 4096 etc).\n")
         file.write("\n")
         if game == "ets":
-            file.write("You can grab a complete template pack here: {}\n".format(ets_template_link))
+            file.write("You can grab a complete template pack here: {}\n".format(ETS_TEMPLATE_LINK))
         else:
-            file.write("You can grab a complete template pack here: {}\n".format(ats_template_link))
+            file.write("You can grab a complete template pack here: {}\n".format(ATS_TEMPLATE_LINK))
         file.close()
 
     def make_workshop_readme(self, output_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs, cabins_supported):
@@ -1060,7 +1060,7 @@ class PackerApp:
         update_message = None
         try:
             # get current and latest versions
-            version_info_ini = urllib.request.urlopen(version_info_link)
+            version_info_ini = urllib.request.urlopen(VERSION_INFO_LINK)
             version_info = configparser.ConfigParser()
             version_info.read_string(version_info_ini.read().decode())
             installed_version = version.split(".")
