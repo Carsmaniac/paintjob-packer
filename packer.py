@@ -988,21 +988,21 @@ class PackerApp:
             for veh in truck_list + trailer_list:
                 file.write("This paintjob supports the {}\n".format(veh.name))
             for veh in truck_mod_list + trailer_mod_list:
-                file.write("This paintjob supports {}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name))
+                file.write("This paintjob supports {}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name.split(" [")[0]))
         else:
             if len(truck_list) + len(truck_mod_list) > 0:
                 file.write("Trucks supported:\n")
                 for veh in truck_list:
                     file.write(veh.name+"\n")
                 for veh in truck_mod_list:
-                    file.write("{}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name))
+                    file.write("{}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name.split(" [")[0]))
                 file.write("\n")
             if len(trailer_list) + len(trailer_mod_list) > 0:
                 file.write("Trailers supported:\n")
                 for veh in trailer_list:
                     file.write(veh.name+"\n")
                 for veh in trailer_mod_list:
-                    file.write("{}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name))
+                    file.write("{}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name.split(" [")[0]))
         file.close()
 
     def generate_paintjob_tracker_file(self, game, truck_list, truck_mod_list, trailer_list, trailer_mod_list, mod_name):
@@ -1110,8 +1110,9 @@ class VehSelection:
         self.name = veh_ini["vehicle info"]["name"]
         self.trailer = veh_ini["vehicle info"].getboolean("trailer")
         self.mod = veh_ini["vehicle info"].getboolean("mod")
+        self.mod_author = veh_ini["vehicle info"]["mod author"]
         if self.mod:
-            self.name += " [" + veh_ini["vehicle info"]["mod author"] + "]"
+            self.name += " [" + self.mod_author + "]"
         self.mod_link_workshop = veh_ini["vehicle info"]["mod link workshop"]
         self.mod_link_forums = veh_ini["vehicle info"]["mod link forums"]
         self.mod_link_author_site = veh_ini["vehicle info"]["mod link author site"]

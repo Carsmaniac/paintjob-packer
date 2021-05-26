@@ -131,21 +131,21 @@ def make_description(output_path, truck_list, truck_mod_list, trailer_list, trai
         for veh in truck_list + trailer_list:
             file.write("This paintjob supports the {}\n".format(veh.name))
         for veh in truck_mod_list + trailer_mod_list:
-            file.write("This paintjob supports {}'s {}\n".format(veh.mod_author, veh.name))
+            file.write("This paintjob supports {}'s {}\n".format(veh.mod_author, veh.name.split(" [")[0]))
     else:
         if len(truck_list) + len(truck_mod_list) > 0:
             file.write("Trucks supported:\n")
             for veh in truck_list:
                 file.write(veh.name+"\n")
             for veh in truck_mod_list:
-                file.write("{}'s {}\n".format(veh.mod_author, veh.name))
+                file.write("{}'s {}\n".format(veh.mod_author, veh.name.split(" [")[0]))
             file.write("\n")
         if len(trailer_list) + len(trailer_mod_list) > 0:
             file.write("Trailers supported:\n")
             for veh in trailer_list:
                 file.write(veh.name+"\n")
             for veh in trailer_mod_list:
-                file.write("{}'s {}\n".format(veh.mod_author, veh.name))
+                file.write("{}'s {}\n".format(veh.mod_author, veh.name.split(" [")[0]))
     file.close()
 
 def copy_versions_sii(output_path):
