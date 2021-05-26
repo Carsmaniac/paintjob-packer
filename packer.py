@@ -14,8 +14,7 @@ github_link = "https://github.com/carsmaniac/paintjob-packer"
 mod_link_page_link = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
 ets_template_link = "https://forum.scssoft.com/viewtopic.php?f=33&t=272386"
 ats_template_link = "https://forum.scssoft.com/viewtopic.php?f=199&t=288778"
-version_number_link = "https://raw.githubusercontent.com/Carsmaniac/paintjob-packer/master/library/version.txt"
-version_info_link = "https://raw.githubusercontent.com/Carsmaniac/paintjob-packer/new-version-checking/library/version info.ini"
+version_info_link = "https://raw.githubusercontent.com/Carsmaniac/paintjob-packer/new-version-checking/library/version.ini"
 latest_version_download_link = github_link + "/releases/latest"
 
 # set the path depending on how Paintjob Packer is bundled
@@ -29,9 +28,9 @@ os.chdir(base_path)
 
 desktop_path = os.path.expanduser("~/Desktop")
 
-file = open("library/version.txt", "r")
-version = file.readlines()[0].rstrip()
-file.close()
+version_info = configparser.ConfigParser()
+version_info.read("library/version.ini")
+version = version_info["version info"]["installed version"]
 
 class PackerApp:
 
@@ -81,14 +80,18 @@ class PackerApp:
         self.tab_welcome_link_github.grid(row = 2, column = 1, pady = 20)
         self.tab_welcome_link_github.bind("<1>", lambda e: webbrowser.open_new(github_link))
         new_ver = self.check_new_version()
-        if (new_ver != None):
-            self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "New version available! - {} - Click here to go to download page".format(new_ver), foreground = "red", cursor = self.cursor)
+        if (new_ver[1] != None):
+            self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "New version available! - v{} - Click here to go to download page".format(new_ver[0]), foreground = "red", cursor = self.cursor)
+            self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (25, 0))
             self.tab_welcome_message.bind("<1>", lambda e: webbrowser.open_new(latest_version_download_link))
             self.tab_welcome_link_forum.configure(foreground = "black")
             self.tab_welcome_link_github.configure(foreground = "black")
+            self.tab_welcome_update_info = ttk.Label(self.tab_welcome, text = "This update includes: " + new_ver[1], cursor = self.cursor)
+            self.tab_welcome_update_info.grid(row = 4, column = 0, columnspan = 2)
+            self.tab_welcome_update_info.bind("<1>", lambda e: webbrowser.open_new(latest_version_download_link))
         else:
             self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "If this is your first time using Paintjob Packer, please read the guide on the GitHub page")
-        self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (25, 0))
+            self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (25, 0))
         self.tab_welcome_button_prev = ttk.Label(self.tab_welcome, text = " ") # to keep everything centred
         self.tab_welcome_button_prev.grid(row = 5, column = 0, sticky = "sw")
         self.tab_welcome_button_next = ttk.Button(self.tab_welcome, text = "Next >", command = lambda : self.tab_selector.select(1))
@@ -1042,66 +1045,49 @@ class PackerApp:
             print("Paintjob Tracker file written to {}/{}.ini".format(tracker_directory, mod_name))
 
     def check_new_version(self):
-        # get current and latest versions
-        # print("Trying something new")
-        # version_info = configparser.ConfigParser()
-        # version_info.readfp()
-
         print("Checking latest version on GitHub...")
         print("Current version: " + version)
+        update_message = None
         try:
-            file = urllib.request.urlopen(version_number_link)
-            for line in file:
-                latest_version = line.decode().rstrip()
+            # get current and latest versions
+            version_info_ini = urllib.request.urlopen(version_info_link)
+            version_info = configparser.ConfigParser()
+            version_info.read_string(version_info_ini.read().decode())
+            installed_version = version.split(".")
+            latest_release_string = version_info["version info"]["latest release"]
+            latest_release = latest_release_string.split(".")
+            print("Latest release: " + latest_release_string)
 
-            print("Latest version: " + latest_version)
+            # convert versions to integer lists
+            if len(installed_version) < 3:
+                installed_version.append("0")
+            if len(latest_release) < 3:
+                latest_release.append("0")
+            for i in range(3):
+                installed_version[i] = int(installed_version[i])
+                latest_release[i] = int(latest_release[i])
 
-            if version != latest_version:
-                # convert versions to version integer lists
-                current_version = version.split(".")
-                if len(current_version) < 3: # assuming single-number versions are never released, e.g. v2 will be v2.0
-                    current_version.append("0")
-                for i in range(3):
-                    current_version[i] = int(current_version[i])
-                latest_version = latest_version.split(".")
-                if len(latest_version) < 3:
-                    latest_version.append("0")
-                for i in range(3):
-                    latest_version[i] = int(latest_version[i])
-
-                # check if latest version is more recent than current
-                if latest_version[0] > current_version[0]:
-                    new_update_type = "Major update!"
-                elif latest_version[0] == current_version[0]: # because 1.5 is not an update to 2.4
-                    if latest_version[1] > current_version[1]:
-                        new_update_type = "Feature update"
-                    elif latest_version[1] == current_version[1]:
-                        if latest_version[2] > current_version[2]:
-                            new_update_type = "Patch"
-                        else:
-                            new_update_type = None
-                    else:
-                        new_update_type = None
-                else:
-                    new_update_type = None
-                if new_update_type != None:
-                    print("New version available! - " + new_update_type)
-            else:
-                new_update_type = None
+            # check if latest release is newer than current install
+            if latest_release[0] > installed_version[0]:
+                update_message = version_info["version info"]["major update"]
+            elif latest_release[0] == installed_version[0]:
+                if latest_release[1] > installed_version[1]:
+                    update_message = version_info["version info"]["feature update"]
+                elif latest_release[1] == installed_version[1]:
+                    if latest_release[2] > installed_version[2]:
+                        update_message = version_info["version info"]["patch update"]
+            if update_message != None:
+                print("New version available! - " + update_message)
         except urllib.error.HTTPError:
             print("Couldn't fetch new version, skipping (HTTPError)")
-            new_update_type = None
         except urllib.error.URLError:
             print("Couldn't fetch new version, skipping (URLError)")
-            new_update_type = None
         except ValueError:
             print("Couldn't parse version number, skipping (ValueError)")
-            new_update_type = None
         except TypeError:
             print("Couldn't compare version numbers, skipping (TypeError)")
-            new_update_type = None
 
-        return(new_update_type)
+        return([latest_release_string, update_message])
 
 class VehSelection:
 
