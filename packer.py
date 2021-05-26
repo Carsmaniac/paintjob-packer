@@ -1013,53 +1013,80 @@ class PackerApp:
         file.close()
         tracker_directory = file_lines[0].rstrip() + "/" + game
         tracker = configparser.ConfigParser(allow_no_value = True)
-        tracker.optionxform = str
-
-        tracker["pack info"] = {}
-        all_trucks = []
-        for veh in truck_list:
-            all_trucks.append(veh.file_name[:-4])
-        tracker["pack info"]["trucks"] = ";".join(all_trucks)
-        all_truck_mods = []
-        for veh in truck_mod_list:
-            all_truck_mods.append(veh.file_name[:-4])
-        tracker["pack info"]["truck mods"] = ";".join(all_truck_mods)
-        all_trailers = []
-        for veh in trailer_list:
-            all_trailers.append(veh.file_name[:-4])
-        tracker["pack info"]["trailers"] = ";".join(all_trailers)
-        all_trailer_mods = []
-        for veh in trailer_mod_list:
-            all_trailer_mods.append(veh.file_name[:-4])
-        tracker["pack info"]["trailer mods"] = ";".join(all_trailer_mods)
-        tracker["pack info"]["bus pack"] = False
-        tracker["pack info"]["paintjobs"] = ""
-
-        tracker["description"] = {}
-        tracker["description"]["short description"] = ""
-        tracker["description"]["more info"] = ""
-        tracker["description"]["related mods"] = ""
-        tracker.set("description", "# Pack/Reason;Pack/Reason") # inserts a comment into the file
-
-        tracker["images"] = {}
-        tracker["images"]["header"] = ""
-        tracker["images"]["showcase"] = ""
-
-        tracker["links"] = {}
-        tracker["links"]["steam workshop"] = ""
-        tracker["links"]["forums"] = ""
-        tracker["links"]["trucky"] = ""
-        tracker["links"]["modland"] = ""
-        tracker["links"]["sharemods"] = ""
-        tracker["links"]["modsbase"] = ""
-
-        tracker["changelog"] = {}
-        tracker.set("changelog", "Version 1.0")
-        tracker.set("changelog", "- ")
-
+        tracker.optionxform = str # preserves case
         if os.path.exists("{}/{}.ini".format(tracker_directory, mod_name)):
-            print("Paintjob Tracker file already present at {}/{}.ini, aborting file write".format(tracker_directory, mod_name))
+            tracker.read("{}/{}.ini".format(tracker_directory, mod_name), encoding = "UTF-8")
+            all_trucks = tracker["pack info"]["trucks"].split(";")
+            for veh in truck_list:
+                if veh.file_name[:-4] not in all_trucks:
+                    all_trucks.append(veh.file_name[:-4])
+                    tracker.set("changelog", "- Added {}".format(veh.name))
+            tracker["pack info"]["trucks"] = ";".join(all_trucks)
+            all_truck_mods = tracker["pack info"]["truck mods"].split(";")
+            for veh in truck_mod_list:
+                if veh.file_name[:-4] not in all_truck_mods:
+                    all_truck_mods.append(veh.file_name[:-4])
+                    tracker.set("changelog", "- Added {}'s {}".format(veh.mod_author, veh.name))
+            tracker["pack info"]["truck mods"] = ";".join(all_truck_mods)
+            all_trailers = tracker["pack info"]["trailers"].split(";")
+            for veh in trailer_list:
+                if veh.file_name[:-4] not in all_trailers:
+                    all_trailers.append(veh.file_name[:-4])
+                    tracker.set("changelog", "- Added {}".format(veh.name))
+            tracker["pack info"]["trailers"] = ";".join(all_trailers)
+            all_trailer_mods = tracker["pack info"]["trailer mods"].split(";")
+            for veh in trailer_mod_list:
+                if veh.file_name[:-4] not in all_trailer_mods:
+                    all_trailer_mods.append(veh.file_name[:-4])
+                    tracker.set("changelog", "- Added {}'s {}".format(veh.mod_author, veh.name))
+            tracker["pack info"]["trailer mods"] = ";".join(all_trailer_mods)
+
+            with open("{}/{}.ini".format(tracker_directory, mod_name), "w") as configfile:
+                tracker.write(configfile)
+            print("Paintjob Tracker file at {}/{}.ini updated".format(tracker_directory, mod_name))
         else:
+            tracker["pack info"] = {}
+            all_trucks = []
+            for veh in truck_list:
+                all_trucks.append(veh.file_name[:-4])
+            tracker["pack info"]["trucks"] = ";".join(all_trucks)
+            all_truck_mods = []
+            for veh in truck_mod_list:
+                all_truck_mods.append(veh.file_name[:-4])
+            tracker["pack info"]["truck mods"] = ";".join(all_truck_mods)
+            all_trailers = []
+            for veh in trailer_list:
+                all_trailers.append(veh.file_name[:-4])
+            tracker["pack info"]["trailers"] = ";".join(all_trailers)
+            all_trailer_mods = []
+            for veh in trailer_mod_list:
+                all_trailer_mods.append(veh.file_name[:-4])
+            tracker["pack info"]["trailer mods"] = ";".join(all_trailer_mods)
+            tracker["pack info"]["bus pack"] = False
+            tracker["pack info"]["paintjobs"] = ""
+
+            tracker["description"] = {}
+            tracker["description"]["short description"] = ""
+            tracker["description"]["more info"] = ""
+            tracker["description"]["related mods"] = ""
+            tracker.set("description", "# Pack/Reason;Pack/Reason") # inserts a comment into the file
+
+            tracker["images"] = {}
+            tracker["images"]["header"] = ""
+            tracker["images"]["showcase"] = ""
+
+            tracker["links"] = {}
+            tracker["links"]["steam workshop"] = ""
+            tracker["links"]["forums"] = ""
+            tracker["links"]["trucky"] = ""
+            tracker["links"]["modland"] = ""
+            tracker["links"]["sharemods"] = ""
+            tracker["links"]["modsbase"] = ""
+
+            tracker["changelog"] = {}
+            tracker.set("changelog", "Version 1.0")
+            tracker.set("changelog", "- Initial release")
+
             with open("{}/{}.ini".format(tracker_directory, mod_name), "w") as configfile:
                 tracker.write(configfile)
             print("Paintjob Tracker file written to {}/{}.ini".format(tracker_directory, mod_name))
