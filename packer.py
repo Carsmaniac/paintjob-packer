@@ -1014,39 +1014,39 @@ class PackerApp:
         tracker_directory = file_lines[0].rstrip() + "/" + game
         tracker = configparser.ConfigParser(allow_no_value = True)
 
-        tracker["Pack Info"] = {}
+        tracker["pack Info"] = {}
         all_trucks = []
         for veh in truck_list:
             all_trucks.append(veh.file_name[:-4])
-        tracker["Pack Info"]["Trucks"] = ";".join(all_trucks)
+        tracker["pack Info"][tTrucks"] = ";".join(all_trucks)
         all_truck_mods = []
         for veh in truck_mod_list:
             all_truck_mods.append(veh.file_name[:-4] + "~" + veh.mod_author)
-        tracker["Pack Info"]["Truck mods"] = ";".join(all_truck_mods)
+        tracker["pack Info"]["truck mods"] = ";".join(all_truck_mods)
         all_trailers = []
         for veh in trailer_list:
             all_trailers.append(veh.file_name[:-4])
-        tracker["Pack Info"]["Trailers"] = ";".join(all_trailers)
+        tracker["pack Info"]["trailers"] = ";".join(all_trailers)
         all_trailer_mods = []
         for veh in trailer_mod_list:
             all_trailer_mods.append(veh.file_name[:-4] + "~" + veh.mod_author)
-        tracker["Pack Info"]["Trailer mods"] = ";".join(all_trailer_mods)
-        tracker["Pack Info"]["Bus pack"] = False
-        tracker["Pack Info"]["Paintjobs"] = ""
+        tracker["pack Info"]["trailer mods"] = ";".join(all_trailer_mods)
+        tracker["pack Info"]["bus pack"] = False
+        tracker["pack Info"]["paintjobs"] = ""
 
-        tracker["Description"] = {}
-        tracker["Description"]["Short description"] = ""
-        tracker["Description"]["More info"] = ""
-        tracker["Description"]["Header image link"] = ""
-        tracker["Description"]["Forums screenshot image link"] = ""
-        tracker["Description"]["Related mods"] = ""
+        tracker["description"] = {}
+        tracker["description"]["short description"] = ""
+        tracker["description"]["more info"] = ""
+        tracker["description"]["header image link"] = ""
+        tracker["description"]["forums screenshot image link"] = ""
+        tracker["description"]["related mods"] = ""
 
-        tracker["Links"] = {}
-        tracker["Links"]["Steam Workshop"] = ""
-        tracker["Links"]["Trucky"] = ""
-        tracker["Links"]["ShareMods"] = ""
-        tracker["Links"]["ModsBase"] = ""
-        tracker["Links"]["Forums"] = ""
+        tracker["links"] = {}
+        tracker["links"]["steam Workshop"] = ""
+        tracker["links"]["trucky"] = ""
+        tracker["links"]["sharemods"] = ""
+        tracker["links"]["modsbase"] = ""
+        tracker["links"]["forums"] = ""
         if os.path.exists("{}/{}.ini".format(tracker_directory, mod_name)):
             print("Paintjob Tracker file already present at {}/{}.ini, aborting file write".format(tracker_directory, mod_name))
         else:
