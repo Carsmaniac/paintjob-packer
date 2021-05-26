@@ -24,7 +24,7 @@ GITHUB_LINK = "https://github.com/carsmaniac/paintjob-packer"
 MOD_LINK_PAGE_LINK = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
 ETS_TEMPLATE_LINK = "https://forum.scssoft.com/viewtopic.php?f=33&t=272386"
 ATS_TEMPLATE_LINK = "https://forum.scssoft.com/viewtopic.php?f=199&t=288778"
-VERSION_INFO_LINK = "https://raw.githubusercontent.com/Carsmaniac/paintjob-packer/new-version-checking/library/version.ini"
+VERSION_INFO_LINK = "https://raw.githubusercontent.com/Carsmaniac/paintjob-packer/new-gen-daf/library/version.ini"
 LATEST_VERSION_DOWNLOAD_LINK = GITHUB_LINK + "/releases/latest"
 
 # set the path depending on how Paintjob Packer is bundled
@@ -879,7 +879,7 @@ class PackerApp:
         self.panel_progress_specific_variable.set("See readme for further instructions")
         self.panel_progress_specific_label.update()
 
-        if os.path.exists("library/paintjob-tracker.txt"):
+        if os.path.exists("library/paintjob tracker.txt"):
             self.generate_paintjob_tracker_file(game, truck_list, truck_mod_list, trailer_list, trailer_mod_list, mod_name)
 
         exit_now = messagebox.showinfo(title = "Mod generation complete", message = "Your mod has been generated successfully! It's been placed in the directory you chose, inside a folder called Paintjob Packer Output.\n\nYour mod is not yet finished, refer to the text file inside the folder for instructions. There is also a guide on the GitHub page.\n\nThanks for using Paintjob Packer! :)")
@@ -1013,40 +1013,50 @@ class PackerApp:
         file.close()
         tracker_directory = file_lines[0].rstrip() + "/" + game
         tracker = configparser.ConfigParser(allow_no_value = True)
+        tracker.optionxform = str
 
-        tracker["pack Info"] = {}
+        tracker["pack info"] = {}
         all_trucks = []
         for veh in truck_list:
             all_trucks.append(veh.file_name[:-4])
-        tracker["pack Info"][tTrucks"] = ";".join(all_trucks)
+        tracker["pack info"]["trucks"] = ";".join(all_trucks)
         all_truck_mods = []
         for veh in truck_mod_list:
-            all_truck_mods.append(veh.file_name[:-4] + "~" + veh.mod_author)
-        tracker["pack Info"]["truck mods"] = ";".join(all_truck_mods)
+            all_truck_mods.append(veh.file_name[:-4])
+        tracker["pack info"]["truck mods"] = ";".join(all_truck_mods)
         all_trailers = []
         for veh in trailer_list:
             all_trailers.append(veh.file_name[:-4])
-        tracker["pack Info"]["trailers"] = ";".join(all_trailers)
+        tracker["pack info"]["trailers"] = ";".join(all_trailers)
         all_trailer_mods = []
         for veh in trailer_mod_list:
-            all_trailer_mods.append(veh.file_name[:-4] + "~" + veh.mod_author)
-        tracker["pack Info"]["trailer mods"] = ";".join(all_trailer_mods)
-        tracker["pack Info"]["bus pack"] = False
-        tracker["pack Info"]["paintjobs"] = ""
+            all_trailer_mods.append(veh.file_name[:-4])
+        tracker["pack info"]["trailer mods"] = ";".join(all_trailer_mods)
+        tracker["pack info"]["bus pack"] = False
+        tracker["pack info"]["paintjobs"] = ""
 
         tracker["description"] = {}
         tracker["description"]["short description"] = ""
         tracker["description"]["more info"] = ""
-        tracker["description"]["header image link"] = ""
-        tracker["description"]["forums screenshot image link"] = ""
         tracker["description"]["related mods"] = ""
+        tracker.set("description", "# Pack/Reason;Pack/Reason") # inserts a comment into the file
+
+        tracker["images"] = {}
+        tracker["images"]["header"] = ""
+        tracker["images"]["showcase"] = ""
 
         tracker["links"] = {}
-        tracker["links"]["steam Workshop"] = ""
+        tracker["links"]["steam workshop"] = ""
+        tracker["links"]["forums"] = ""
         tracker["links"]["trucky"] = ""
+        tracker["links"]["modland"] = ""
         tracker["links"]["sharemods"] = ""
         tracker["links"]["modsbase"] = ""
-        tracker["links"]["forums"] = ""
+
+        tracker["changelog"] = {}
+        tracker.set("changelog", "Version 1.0")
+        tracker.set("changelog", "- ")
+
         if os.path.exists("{}/{}.ini".format(tracker_directory, mod_name)):
             print("Paintjob Tracker file already present at {}/{}.ini, aborting file write".format(tracker_directory, mod_name))
         else:
@@ -1058,6 +1068,7 @@ class PackerApp:
         print("Checking latest version on GitHub...")
         print("Current version: " + version)
         update_message = None
+        latest_release_string = None
         try:
             # get current and latest versions
             version_info_ini = urllib.request.urlopen(VERSION_INFO_LINK)
