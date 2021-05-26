@@ -1,8 +1,18 @@
-import tkinter as tk
-from tkinter import ttk, messagebox, filedialog
-import webbrowser, sys, configparser, os, math, re, traceback, zipfile, urllib.request
+import tkinter as tk # GUI system
+from tkinter import ttk # nicer-looking GUI elements
+from tkinter import messagebox # showing popup windows for warnings and errors
+from tkinter import filedialog # choosing save directory
+import webbrowser # opening links in the web browser: forum thread, github page, mod links
+import sys # determining OS, and quitting Paintjob Packer
+import configparser # reading vehicle database files and version info
+import os # making folders and getting all vehicle database files
+import re # checking for invalid characters in mod/paintjob names
+import traceback # handling unexpected errors
+import zipfile # unzipping templates
+import urllib.request # fetching version info from GitHub
+
 try:
-    import library.paintjob as pj
+    import library.paintjob as pj # copying and generating mod files
 except ModuleNotFoundError:
     print("Paintjob Packer can't find its library files")
     print("Make sure that the \"library\" folder is in the same directory as packer.py, and it contains all of its files")

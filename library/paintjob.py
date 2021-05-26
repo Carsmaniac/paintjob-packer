@@ -1,4 +1,8 @@
-import os, shutil, binascii, codecs, configparser
+import os # making folders and renaming files
+import shutil # copying files
+import binascii # hex-ifying strings for TOBJ files
+import codecs # encoding TOBJ files
+import configparser # reading vehicle database files
 
 class Vehicle:
     def __init__(self, file_name, game):
