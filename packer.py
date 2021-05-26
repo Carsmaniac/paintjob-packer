@@ -15,6 +15,7 @@ mod_link_page_link = "https://github.com/Carsmaniac/paintjob-packer/blob/master/
 ets_template_link = "https://forum.scssoft.com/viewtopic.php?f=33&t=272386"
 ats_template_link = "https://forum.scssoft.com/viewtopic.php?f=199&t=288778"
 version_number_link = "https://raw.githubusercontent.com/Carsmaniac/paintjob-packer/master/library/version.txt"
+version_info_link = "https://raw.githubusercontent.com/Carsmaniac/paintjob-packer/new-version-checking/library/version info.ini"
 latest_version_download_link = github_link + "/releases/latest"
 
 # set the path depending on how Paintjob Packer is bundled
@@ -1042,6 +1043,10 @@ class PackerApp:
 
     def check_new_version(self):
         # get current and latest versions
+        # print("Trying something new")
+        # version_info = configparser.ConfigParser()
+        # version_info.readfp()
+
         print("Checking latest version on GitHub...")
         print("Current version: " + version)
         try:
