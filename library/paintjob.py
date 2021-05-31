@@ -216,6 +216,8 @@ def make_settings_sui(output_path, veh, internal_name, ingame_name, ingame_price
     file.write("\tunlock: {}\n".format(unlock_level))
     file.write("\tairbrush: true\n")
     file.write("\ticon: \"{}_icon\"\n".format(internal_name))
+    if veh.mod_author == "Etrusan": # workaround for the weirdness surrounding the DBus mods' doors
+        file.write("\tbase_color_locked: false\n")
     if veh.alt_uvset:
         file.write("\talternate_uvset: true\n")
     file.close()
