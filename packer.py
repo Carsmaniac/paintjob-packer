@@ -106,6 +106,9 @@ class PackerApp:
         else:
             self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "If this is your first time using Paintjob Packer, please read the guide on the GitHub page")
             self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (25, 0))
+            if sys.platform.startswith("darwin") or sys.platform.startswith("linux"):
+                self.tab_welcome_update_info = ttk.Label(self.tab_welcome, text = "Things might look a little wonky on macOS or Linux, sorry!")
+                self.tab_welcome_update_info.grid(row = 4, column = 0, columnspan = 2)
         self.tab_welcome_button_prev = ttk.Label(self.tab_welcome, text = " ") # to keep everything centred
         self.tab_welcome_button_prev.grid(row = 5, column = 0, sticky = "sw")
         self.tab_welcome_button_next = ttk.Button(self.tab_welcome, text = "Next >", command = lambda : self.tab_selector.select(1))
@@ -1034,25 +1037,25 @@ class PackerApp:
             for veh in truck_list:
                 if veh.file_name[:-4] not in all_trucks:
                     all_trucks.append(veh.file_name[:-4])
-                    tracker.set("changelog", "- Added {}".format(veh.name))
+                    tracker["description"]["changelog"] += "\\n- Added {}".format(veh.name)
             tracker["pack info"]["trucks"] = ";".join(all_trucks)
             all_truck_mods = tracker["pack info"]["truck mods"].split(";")
             for veh in truck_mod_list:
                 if veh.file_name[:-4] not in all_truck_mods:
                     all_truck_mods.append(veh.file_name[:-4])
-                    tracker.set("changelog", "- Added {}'s {}".format(veh.mod_author, veh.name))
+                    tracker["description"]["changelog"] += "\\n- Added {}'s {}".format(veh.mod_author, veh.name)
             tracker["pack info"]["truck mods"] = ";".join(all_truck_mods)
             all_trailers = tracker["pack info"]["trailers"].split(";")
             for veh in trailer_list:
                 if veh.file_name[:-4] not in all_trailers:
                     all_trailers.append(veh.file_name[:-4])
-                    tracker.set("changelog", "- Added {}".format(veh.name))
+                    tracker["description"]["changelog"] += "\\n- Added {}".format(veh.name)
             tracker["pack info"]["trailers"] = ";".join(all_trailers)
             all_trailer_mods = tracker["pack info"]["trailer mods"].split(";")
             for veh in trailer_mod_list:
                 if veh.file_name[:-4] not in all_trailer_mods:
                     all_trailer_mods.append(veh.file_name[:-4])
-                    tracker.set("changelog", "- Added {}'s {}".format(veh.mod_author, veh.name))
+                    tracker["description"]["changelog"] += "\\n- Added {}'s {}".format(veh.mod_author, veh.name)
             tracker["pack info"]["trailer mods"] = ";".join(all_trailer_mods)
 
             with open("{}/{}.ini".format(tracker_directory, mod_name), "w") as configfile:
@@ -1078,6 +1081,7 @@ class PackerApp:
             tracker["pack info"]["trailer mods"] = ";".join(all_trailer_mods)
             tracker["pack info"]["bus pack"] = False
             tracker["pack info"]["paintjobs"] = ""
+            tracker["pack info"]["checklist stage"] = 0
 
             tracker["description"] = {}
             tracker["description"]["short description"] = ""
