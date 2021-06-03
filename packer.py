@@ -106,8 +106,11 @@ class PackerApp:
         else:
             self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "If this is your first time using Paintjob Packer, please read the guide on the GitHub page")
             self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (25, 0))
-            if sys.platform.startswith("darwin") or sys.platform.startswith("linux"):
-                self.tab_welcome_update_info = ttk.Label(self.tab_welcome, text = "Things might look a little wonky on macOS or Linux, sorry!")
+            if sys.platform.startswith("darwin"):
+                self.tab_welcome_update_info = ttk.Label(self.tab_welcome, text = "Things might look a little wonky on macOS, but everything should still work")
+                self.tab_welcome_update_info.grid(row = 4, column = 0, columnspan = 2)
+            elif sys.platform.startswith("linux"):
+                self.tab_welcome_update_info = ttk.Label(self.tab_welcome, text = "Things might look a little wonky on Linux, but everything should still work")
                 self.tab_welcome_update_info.grid(row = 4, column = 0, columnspan = 2)
         self.tab_welcome_button_prev = ttk.Label(self.tab_welcome, text = " ") # to keep everything centred
         self.tab_welcome_button_prev.grid(row = 5, column = 0, sticky = "sw")
@@ -400,6 +403,46 @@ class PackerApp:
         self.panel_gen_buttons_generate = ttk.Button(self.panel_gen_buttons, text = "Generate", command = lambda : self.check_if_folder_clear(self.panel_directory_current_variable.get()))
         self.panel_gen_buttons_generate.grid(row = 0, column = 1, pady = (5, 0), sticky = "e")
         self.panel_gen_buttons.columnconfigure(0, weight = 1)
+
+        # error popup
+        self.error_screen = tk.Frame(self.container)
+        self.error_top_text = ttk.Label(self.error_screen, text = "Something went very wrong!\n\nPaintjob Packer ran into an\nunexpected error and can't continue", justify = "center")
+        self.error_top_text.grid(row = 0, column = 0, columnspan = 2, pady = 10)
+        self.error_text = tk.Text(self.error_screen, height = 10, width = 50)
+        self.error_text.grid(row = 1, column = 0, columnspan = 2, padx = 10)
+        self.error_copy_button = ttk.Button(self.error_screen, text = "Copy error to clipboard", command = self.copy_error, width = 20)
+        self.error_copy_button.grid(row = 2, column = 0, columnspan = 2, pady = 10)
+        self.error_mid_text = ttk.Label(self.error_screen, text = "Please send this error to the\ndeveloper on GitHub or the SCS Forums", justify = "center")
+        self.error_mid_text.grid(row = 3, column = 0, columnspan = 2)
+        self.error_github_link = ttk.Label(self.error_screen, text = "GitHub page", foreground = "blue", cursor = self.cursor)
+        self.error_github_link.grid(row = 4, column = 0, pady = 10)
+        self.error_github_link.bind("<1>", lambda e: webbrowser.open_new(GITHUB_LINK))
+        self.error_forums_link = ttk.Label(self.error_screen, text = "Forum thread", foreground = "blue", cursor = self.cursor)
+        self.error_forums_link.grid(row = 4, column = 1, pady = 10)
+        self.error_forums_link.bind("<1>", lambda e: webbrowser.open_new(FORUM_LINK))
+        self.error_bottom_text = ttk.Label(self.error_screen, text = "Thank you, and sorry for the inconvenience!")
+        self.error_bottom_text.grid(row = 5, column = 0, columnspan = 2)
+        self.error_exit_button = ttk.Button(self.error_screen, text = "Exit Paintjob Packer", command = sys.exit, width = 20)
+        self.error_exit_button.grid(row = 6, column = 0, columnspan = 2, pady = 10)
+
+        master.report_callback_exception = self.show_fancy_error # it's now safe to use the screen instead of the messagebox
+
+    def show_fancy_error(self, error_type, error_message, error_traceback):
+        print("\a")
+        self.setup_screen.grid_forget()
+        self.main_screen.grid_forget()
+        self.generate_screen.grid_forget()
+        self.error_screen.grid(row = 0, column = 0)
+        self.error_text.delete("1.0", "end")
+        self.error_text.insert("1.0", "{}: {}\n\nTraceback:\n{}".format(error_type.__name__, str(error_message), "\n".join(traceback.format_list(traceback.extract_tb(error_traceback)))))
+
+    def copy_error(self, *args):
+        clipboard = tk.Tk()
+        clipboard.withdraw()
+        clipboard.clipboard_clear()
+        clipboard.clipboard_append(self.error_text.get("1.0", "end"))
+        clipboard.update()
+        clipboard.destroy()
 
     def update_cabin_dropdowns(self, *args):
         self.internal_name_length = 12
@@ -1177,7 +1220,6 @@ class VehSelection:
             self.mod_link = self.mod_link_author_site
 
 def show_unhandled_error(error_type, error_message, error_traceback):
-    # there's probably a neater way to do this, but this works
     clipboard = tk.Tk()
     clipboard.withdraw()
     clipboard.clipboard_clear()
