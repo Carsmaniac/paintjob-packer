@@ -1210,12 +1210,15 @@ class VehSelection:
             self.name += " [" + self.mod_author + "]"
         self.mod_link_workshop = veh_ini["vehicle info"]["mod link workshop"]
         self.mod_link_forums = veh_ini["vehicle info"]["mod link forums"]
+        self.mod_link_trucky = veh_ini["vehicle info"]["mod link trucky"]
         self.mod_link_author_site = veh_ini["vehicle info"]["mod link author site"]
-        # The canonical mod link is chosen with the priority of Steam Workshop > SCS Forums > Mod author's own site
+        # The canonical mod link is chosen with the priority of Steam Workshop > SCS Forums > Trucky Mod Hub > Mod author's own site
         if self.mod_link_workshop != "":
             self.mod_link = self.mod_link_workshop
         elif self.mod_link_forums != "":
             self.mod_link = self.mod_link_forums
+        elif self.mod_link_trucky != "":
+            self.mod_link = self.mod_link_trucky
         else:
             self.mod_link = self.mod_link_author_site
 
