@@ -139,16 +139,16 @@ def make_description(output_path, truck_list, truck_mod_list, trailer_list, trai
         if len(truck_list) + len(truck_mod_list) > 0:
             file.write("Trucks supported:\n")
             for veh in truck_list:
-                file.write(veh.name+"\n")
+                file.write("- " + veh.name + "\n")
             for veh in truck_mod_list:
-                file.write("{}'s {}\n".format(veh.mod_author, veh.name.split(" [")[0]))
+                file.write("- {}'s {}\n".format(veh.mod_author, veh.name.split(" [")[0]))
             file.write("\n")
         if len(trailer_list) + len(trailer_mod_list) > 0:
             file.write("Trailers supported:\n")
             for veh in trailer_list:
-                file.write(veh.name+"\n")
+                file.write("- " + veh.name + "\n")
             for veh in trailer_mod_list:
-                file.write("{}'s {}\n".format(veh.mod_author, veh.name.split(" [")[0]))
+                file.write("- {}'s {}\n".format(veh.mod_author, veh.name.split(" [")[0]))
     file.close()
 
 def copy_versions_sii(output_path):
@@ -219,7 +219,7 @@ def make_settings_sui(output_path, veh, internal_name, ingame_name, ingame_price
     file.write("\tunlock: {}\n".format(unlock_level))
     file.write("\tairbrush: true\n")
     file.write("\ticon: \"{}_icon\"\n".format(internal_name))
-    if veh.mod_author == "Etrusan": # workaround for the weirdness surrounding the DBus mods' doors
+    if veh.mod_author in ["Etrusan", "Cristhian"]: # workaround for the weirdness surrounding bus mods' doors
         file.write("\tbase_color_locked: false\n")
     if veh.alt_uvset:
         file.write("\talternate_uvset: true\n")
