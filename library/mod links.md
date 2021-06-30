@@ -2,8 +2,8 @@
 
 ## Trucks
 
-* DAF 95 ATi by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=268236)
-* DAF F241 by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=264917)
+* DAF 95 ATi by **XBS** - [XBS Website](https://www.xbsmods.tk/ets2)
+* DAF F241 by **XBS** - [XBS Website](https://www.xbsmods.tk/ets2)
 * Ford F-MAX by **SimulasyonTURK** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1915802227) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=274617)
 * Freightliner Argosy by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2131434074)
 * Freightliner FLB by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=867655192) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=228835)
@@ -15,7 +15,7 @@
 * Roman Diesel by **PikPikker** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=293953)
 * Scania R (and R 4-series) by **RJL** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1233285693) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=177963)
 * Scania T (and T 4-series) by **RJL** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1233343065) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=151394)
-* SISU M-series by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=257924)
+* SISU M-series by **XBS** - [XBS Website](https://www.xbsmods.tk/ets2)
 * Volvo F88 by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=253258)
 * Volvo FM and FMX by **Galimim** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=278044)
 
@@ -41,7 +41,7 @@
 * Freightliner Argosy by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2113006265)
 * Freightliner Coronado 122SD by **Big Joe** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=285445)
 * Freightliner FLB by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=867643690) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=228835)
-* Freightliner FLC by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=282638)
+* Freightliner FLC by **XBS** - [XBS Website](https://www.xbsmods.tk/ats)
 * International LT by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1832865824) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=272906)
 * Kenworth K100-E by **MrOverfloater** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1815959194) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=274886)
 * Kenworth T610 by **GTM** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1305493186) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=250790)
