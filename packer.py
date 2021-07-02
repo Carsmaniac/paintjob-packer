@@ -701,7 +701,7 @@ class PackerApp:
         if inputs_verified:
             warning_vehicles = []
             for veh in self.truck_mod_list:
-                if "selected" in veh.check.state() and veh.mod_author in ["Etrusan", "Cristhian"]:
+                if "selected" in veh.check.state() and pj.bus_mod_door_hack(veh.vehicle_path):
                     warning_vehicles.append(veh.name)
             if len(warning_vehicles) > 0:
                 if len(warning_vehicles) == 1:
@@ -847,8 +847,8 @@ class PackerApp:
             self.panel_progress_category_variable.set(veh.name)
 
             if placeholder_templates:
-                if os.path.exists("library/placeholder files/{} templates/{}.zip".format(game, veh.path)):
-                    template_zip = zipfile.ZipFile("library/placeholder files/{} templates/{}.zip".format(game, veh.path))
+                if os.path.exists("library/placeholder files/{} templates/{} [{}].zip".format(game, veh.path, veh.mod_author)):
+                    template_zip = zipfile.ZipFile("library/placeholder files/{} templates/{} [{}].zip".format(game, veh.path, veh.mod_author))
                 else:
                     template_zip = None
             else:
