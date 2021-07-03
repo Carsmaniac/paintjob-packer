@@ -1,21 +1,31 @@
-import tkinter as tk
-from tkinter import ttk, messagebox, filedialog
-import webbrowser, sys, configparser, os, math, re, traceback, zipfile, urllib.request
+import tkinter as tk # GUI system
+from tkinter import ttk # nicer-looking GUI elements
+from tkinter import messagebox # showing popup windows for warnings and errors
+from tkinter import filedialog # choosing save directory
+import webbrowser # opening links in the web browser: forum thread, github page, mod links
+import sys # determining OS, and quitting Paintjob Packer
+import configparser # reading vehicle database files and version info
+import os # making folders and getting all vehicle database files
+import re # checking for invalid characters in mod/paintjob names
+import traceback # handling unexpected errors
+import zipfile # unzipping templates
+import urllib.request # fetching version info from GitHub
+
 try:
-    import library.paintjob as pj
+    import library.paintjob as pj # copying and generating mod files
 except ModuleNotFoundError:
     print("Paintjob Packer can't find its library files")
     print("Make sure that the \"library\" folder is in the same directory as packer.py, and it contains all of its files")
     input("Press enter to quit")
     sys.exit()
 
-forum_link = "https://forum.scssoft.com/viewtopic.php?f=33&t=282956"
-github_link = "https://github.com/carsmaniac/paintjob-packer"
-mod_link_page_link = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
-ets_template_link = "https://forum.scssoft.com/viewtopic.php?f=33&t=272386"
-ats_template_link = "https://forum.scssoft.com/viewtopic.php?f=199&t=288778"
-version_number_link = "https://raw.githubusercontent.com/Carsmaniac/paintjob-packer/master/library/version.txt"
-latest_version_download_link = github_link + "/releases/latest"
+FORUM_LINK = "https://forum.scssoft.com/viewtopic.php?f=33&t=282956"
+GITHUB_LINK = "https://github.com/carsmaniac/paintjob-packer"
+MOD_LINK_PAGE_LINK = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
+ETS_TEMPLATE_LINK = "https://forum.scssoft.com/viewtopic.php?f=33&t=272386"
+ATS_TEMPLATE_LINK = "https://forum.scssoft.com/viewtopic.php?f=199&t=288778"
+VERSION_INFO_LINK = "https://raw.githubusercontent.com/Carsmaniac/paintjob-packer/new-gen-daf/library/version.ini"
+LATEST_VERSION_DOWNLOAD_LINK = GITHUB_LINK + "/releases/latest"
 
 # set the path depending on how Paintjob Packer is bundled
 try:
@@ -28,9 +38,9 @@ os.chdir(base_path)
 
 desktop_path = os.path.expanduser("~/Desktop")
 
-file = open("library/version.txt", "r")
-version = file.readlines()[0].rstrip()
-file.close()
+version_info = configparser.ConfigParser()
+version_info.read("library/version.ini")
+version = version_info["version info"]["installed version"]
 
 class PackerApp:
 
@@ -75,19 +85,29 @@ class PackerApp:
         self.tab_welcome_image.grid(row = 1, column = 0, columnspan = 2)
         self.tab_welcome_link_forum = ttk.Label(self.tab_welcome, text = "Forum thread", foreground = "blue", cursor = self.cursor)
         self.tab_welcome_link_forum.grid(row = 2, column = 0, pady = 20)
-        self.tab_welcome_link_forum.bind("<1>", lambda e: webbrowser.open_new(forum_link))
+        self.tab_welcome_link_forum.bind("<1>", lambda e: webbrowser.open_new(FORUM_LINK))
         self.tab_welcome_link_github = ttk.Label(self.tab_welcome, text = "GitHub page", foreground = "blue", cursor = self.cursor)
         self.tab_welcome_link_github.grid(row = 2, column = 1, pady = 20)
-        self.tab_welcome_link_github.bind("<1>", lambda e: webbrowser.open_new(github_link))
+        self.tab_welcome_link_github.bind("<1>", lambda e: webbrowser.open_new(GITHUB_LINK))
         new_ver = self.check_new_version()
-        if (new_ver != None):
-            self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "New version available! - {} - Click here to go to download page".format(new_ver), foreground = "red", cursor = self.cursor)
-            self.tab_welcome_message.bind("<1>", lambda e: webbrowser.open_new(latest_version_download_link))
+        if (new_ver[1] != None):
+            self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "New version available! - v{} - Click here to go to download page".format(new_ver[0]), foreground = "red", cursor = self.cursor)
+            self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (25, 0))
+            self.tab_welcome_message.bind("<1>", lambda e: webbrowser.open_new(LATEST_VERSION_DOWNLOAD_LINK))
             self.tab_welcome_link_forum.configure(foreground = "black")
             self.tab_welcome_link_github.configure(foreground = "black")
+            self.tab_welcome_update_info = ttk.Label(self.tab_welcome, text = "This update includes: " + new_ver[1], cursor = self.cursor)
+            self.tab_welcome_update_info.grid(row = 4, column = 0, columnspan = 2)
+            self.tab_welcome_update_info.bind("<1>", lambda e: webbrowser.open_new(LATEST_VERSION_DOWNLOAD_LINK))
         else:
             self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "If this is your first time using Paintjob Packer, please read the guide on the GitHub page")
-        self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (25, 0))
+            self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (25, 0))
+            if sys.platform.startswith("darwin"):
+                self.tab_welcome_update_info = ttk.Label(self.tab_welcome, text = "Things might look a little wonky on macOS, but everything should still work")
+                self.tab_welcome_update_info.grid(row = 4, column = 0, columnspan = 2)
+            elif sys.platform.startswith("linux"):
+                self.tab_welcome_update_info = ttk.Label(self.tab_welcome, text = "Things might look a little wonky on Linux, but everything should still work")
+                self.tab_welcome_update_info.grid(row = 4, column = 0, columnspan = 2)
         self.tab_welcome_button_prev = ttk.Label(self.tab_welcome, text = " ") # to keep everything centred
         self.tab_welcome_button_prev.grid(row = 5, column = 0, sticky = "sw")
         self.tab_welcome_button_next = ttk.Button(self.tab_welcome, text = "Next >", command = lambda : self.tab_selector.select(1))
@@ -256,15 +276,16 @@ class PackerApp:
         self.panel_single_vehicle_variable = tk.StringVar()
         self.panel_single_vehicle_label = ttk.Label(self.panel_vehicles_single, text = "Vehicle:")
         self.panel_single_vehicle_label.grid(row = 2, column = 0, padx = 5, pady = (5, 0), sticky = "w")
-        self.panel_single_vehicle_dropdown = ttk.Combobox(self.panel_vehicles_single, state = "readonly", textvariable = self.panel_single_vehicle_variable, values = [], width = 30)
+        self.panel_single_vehicle_dropdown = ttk.Combobox(self.panel_vehicles_single, state = "readonly", textvariable = self.panel_single_vehicle_variable, values = [], width = 45)
         self.panel_single_vehicle_dropdown.grid(row = 3, column = 0, padx = 5, sticky = "w")
         self.panel_single_link = ttk.Label(self.panel_vehicles_single, text = "Download links for all mods", foreground = "blue", cursor = self.cursor)
-        self.panel_single_link.bind("<1>", lambda e: webbrowser.open_new(mod_link_page_link))
+        self.panel_single_link.bind("<1>", self.open_mod_link_page)
         # self.panel_single_link.grid(row = 4, column = 0, pady = 5, padx = 5, sticky = "w")
 
         # Vehicles Supported panel (paintjob pack)
         self.panel_pack_selector = ttk.Notebook(self.panel_vehicles_pack)
         self.panel_pack_selector.grid(row = 0, column = 0, sticky = "nsew", padx = 5, pady = (0, 5))
+        self.panel_pack_selector.bind_all("<MouseWheel>", self.mousewheel_scroll)
         self.tab_trucks = ttk.Frame(self.panel_pack_selector)
         self.panel_pack_selector.add(self.tab_trucks, text = "Trucks")
         self.tab_trailers = ttk.Frame(self.panel_pack_selector)
@@ -274,16 +295,53 @@ class PackerApp:
         self.tab_trailer_mods = ttk.Frame(self.panel_pack_selector)
         self.panel_pack_selector.add(self.tab_trailer_mods, text = "Trailer Mods")
         self.panel_pack_link_truck = ttk.Label(self.tab_truck_mods, text = "Download links for all mods", foreground = "blue", cursor = self.cursor)
-        self.panel_pack_link_truck.bind("<1>", lambda e: webbrowser.open_new(mod_link_page_link))
+        self.panel_pack_link_truck.bind("<1>", self.open_mod_link_page)
         self.panel_pack_link_trailer = ttk.Label(self.tab_trailer_mods, text = "Download links for all mods", foreground = "blue", cursor = self.cursor)
-        self.panel_pack_link_trailer.bind("<1>", lambda e: webbrowser.open_new(mod_link_page_link))
+        self.panel_pack_link_trailer.bind("<1>", self.open_mod_link_page)
+
+        # Scrollable lists in Vehicles Supported panel
+        self.scroll_canvas_trucks = tk.Canvas(self.tab_trucks, width = 300, height = 253, highlightthickness = 0)
+        self.scroll_bar_trucks = ttk.Scrollbar(self.tab_trucks, orient = "vertical", command = self.scroll_canvas_trucks.yview)
+        self.scroll_frame_trucks = ttk.Frame(self.scroll_canvas_trucks)
+        self.scroll_frame_trucks.bind("<Configure>", lambda e: self.scroll_canvas_trucks.configure(scrollregion = self.scroll_canvas_trucks.bbox("all")))
+        self.scroll_canvas_trucks.create_window((0, 0), window = self.scroll_frame_trucks, anchor = "nw")
+        self.scroll_canvas_trucks.configure(yscrollcommand = self.scroll_bar_trucks.set)
+        self.scroll_canvas_trucks.grid(row = 0, column = 0, sticky = "nws")
+        self.scroll_bar_trucks.grid(row = 0, column = 1, sticky = "nes")
+
+        self.scroll_canvas_trailers = tk.Canvas(self.tab_trailers, width = 300, height = 253, highlightthickness = 0)
+        self.scroll_bar_trailers = ttk.Scrollbar(self.tab_trailers, orient = "vertical", command = self.scroll_canvas_trailers.yview)
+        self.scroll_frame_trailers = ttk.Frame(self.scroll_canvas_trailers)
+        self.scroll_frame_trailers.bind("<Configure>", lambda e: self.scroll_canvas_trailers.configure(scrollregion = self.scroll_canvas_trailers.bbox("all")))
+        self.scroll_canvas_trailers.create_window((0, 0), window = self.scroll_frame_trailers, anchor = "nw")
+        self.scroll_canvas_trailers.configure(yscrollcommand = self.scroll_bar_trailers.set)
+        self.scroll_canvas_trailers.grid(row = 0, column = 0, sticky = "nws")
+        self.scroll_bar_trailers.grid(row = 0, column = 1, sticky = "nes")
+
+        self.scroll_canvas_truck_mods = tk.Canvas(self.tab_truck_mods, width = 300, height = 233, highlightthickness = 0)
+        self.scroll_bar_truck_mods = ttk.Scrollbar(self.tab_truck_mods, orient = "vertical", command = self.scroll_canvas_truck_mods.yview)
+        self.scroll_frame_truck_mods = ttk.Frame(self.scroll_canvas_truck_mods)
+        self.scroll_frame_truck_mods.bind("<Configure>", lambda e: self.scroll_canvas_truck_mods.configure(scrollregion = self.scroll_canvas_truck_mods.bbox("all")))
+        self.scroll_canvas_truck_mods.create_window((0, 0), window = self.scroll_frame_truck_mods, anchor = "nw")
+        self.scroll_canvas_truck_mods.configure(yscrollcommand = self.scroll_bar_truck_mods.set)
+        self.scroll_canvas_truck_mods.grid(row = 0, column = 0, sticky = "nws")
+        self.scroll_bar_truck_mods.grid(row = 0, column = 1, sticky = "nes")
+
+        self.scroll_canvas_trailer_mods = tk.Canvas(self.tab_trailer_mods, width = 300, height = 233, highlightthickness = 0)
+        self.scroll_bar_trailer_mods = ttk.Scrollbar(self.tab_trailer_mods, orient = "vertical", command = self.scroll_canvas_trailer_mods.yview)
+        self.scroll_frame_trailer_mods = ttk.Frame(self.scroll_canvas_trailer_mods)
+        self.scroll_frame_trailer_mods.bind("<Configure>", lambda e: self.scroll_canvas_trailer_mods.configure(scrollregion = self.scroll_canvas_trailer_mods.bbox("all")))
+        self.scroll_canvas_trailer_mods.create_window((0, 0), window = self.scroll_frame_trailer_mods, anchor = "nw")
+        self.scroll_canvas_trailer_mods.configure(yscrollcommand = self.scroll_bar_trailer_mods.set)
+        self.scroll_canvas_trailer_mods.grid(row = 0, column = 0, sticky = "nws")
+        self.scroll_bar_trailer_mods.grid(row = 0, column = 1, sticky = "nes")
 
         # buttons along the bottom
         self.panel_main_buttons_setup = ttk.Button(self.panel_main_buttons, text = "< Back to setup", command = lambda : self.switch_to_setup_screen(), width = 15)
         self.panel_main_buttons_setup.grid(row = 1, column = 0, pady = (5, 0), sticky = "w")
         self.panel_main_buttons_feedback = ttk.Label(self.panel_main_buttons, text = "Leave feedback or get support", foreground = "blue", cursor = self.cursor)
         self.panel_main_buttons_feedback.grid(row = 1, column = 1, pady = (5, 0), padx = 10, sticky = "e")
-        self.panel_main_buttons_feedback.bind("<1>", lambda e: webbrowser.open_new(forum_link))
+        self.panel_main_buttons_feedback.bind("<1>", lambda e: webbrowser.open_new(FORUM_LINK))
         self.panel_main_buttons_generate = ttk.Button(self.panel_main_buttons, text = "Generate and save...", command = lambda : self.verify_all_inputs(), width = 20)
         self.panel_main_buttons_generate.grid(row = 1, column = 2, pady = (5, 0), sticky = "e")
 
@@ -342,6 +400,46 @@ class PackerApp:
         self.panel_gen_buttons_generate.grid(row = 0, column = 1, pady = (5, 0), sticky = "e")
         self.panel_gen_buttons.columnconfigure(0, weight = 1)
 
+        # error popup
+        self.error_screen = tk.Frame(self.container)
+        self.error_top_text = ttk.Label(self.error_screen, text = "Something went very wrong!\n\nPaintjob Packer ran into an\nunexpected error and can't continue", justify = "center")
+        self.error_top_text.grid(row = 0, column = 0, columnspan = 2, pady = 10)
+        self.error_text = tk.Text(self.error_screen, height = 10, width = 50)
+        self.error_text.grid(row = 1, column = 0, columnspan = 2, padx = 10)
+        self.error_copy_button = ttk.Button(self.error_screen, text = "Copy error to clipboard", command = self.copy_error, width = 30)
+        self.error_copy_button.grid(row = 2, column = 0, columnspan = 2, pady = 10)
+        self.error_mid_text = ttk.Label(self.error_screen, text = "Please send this error to the\ndeveloper on GitHub or the SCS Forums", justify = "center")
+        self.error_mid_text.grid(row = 3, column = 0, columnspan = 2)
+        self.error_github_link = ttk.Label(self.error_screen, text = "GitHub page", foreground = "blue", cursor = self.cursor)
+        self.error_github_link.grid(row = 4, column = 0, pady = 10)
+        self.error_github_link.bind("<1>", lambda e: webbrowser.open_new(GITHUB_LINK))
+        self.error_forums_link = ttk.Label(self.error_screen, text = "Forum thread", foreground = "blue", cursor = self.cursor)
+        self.error_forums_link.grid(row = 4, column = 1, pady = 10)
+        self.error_forums_link.bind("<1>", lambda e: webbrowser.open_new(FORUM_LINK))
+        self.error_bottom_text = ttk.Label(self.error_screen, text = "Thank you, and sorry for the inconvenience!")
+        self.error_bottom_text.grid(row = 5, column = 0, columnspan = 2)
+        self.error_exit_button = ttk.Button(self.error_screen, text = "Exit Paintjob Packer", command = sys.exit, width = 20)
+        self.error_exit_button.grid(row = 6, column = 0, columnspan = 2, pady = 10)
+
+        master.report_callback_exception = self.show_fancy_error # it's now safe to use the screen instead of the messagebox
+
+    def show_fancy_error(self, error_type, error_message, error_traceback):
+        print("\a")
+        self.setup_screen.grid_forget()
+        self.main_screen.grid_forget()
+        self.generate_screen.grid_forget()
+        self.error_screen.grid(row = 0, column = 0)
+        self.error_text.delete("1.0", "end")
+        self.error_text.insert("1.0", "{}: {}\n\nTraceback:\n{}".format(error_type.__name__, str(error_message), "\n".join(traceback.format_list(traceback.extract_tb(error_traceback)))))
+
+    def copy_error(self, *args):
+        clipboard = tk.Tk()
+        clipboard.withdraw()
+        clipboard.clipboard_clear()
+        clipboard.clipboard_append(self.error_text.get("1.0", "end"))
+        clipboard.update()
+        clipboard.destroy()
+
     def update_cabin_dropdowns(self, *args):
         self.internal_name_length = 12
         if self.panel_internal_supported_variable.get() == "Largest cabin only":
@@ -364,7 +462,7 @@ class PackerApp:
         self.main_screen.grid_forget()
         self.setup_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
 
-        for veh in self.truck_list_1 + self.truck_list_2 + self.truck_mod_list_1 + self.truck_mod_list_2 + self.trailer_list_1 + self.trailer_list_2 + self.trailer_mod_list_1 + self.trailer_mod_list_2:
+        for veh in self.truck_list + self.truck_mod_list + self.trailer_list + self.trailer_mod_list:
             veh.check.grid_forget()
 
         self.panel_pack_link_truck.grid_forget() # just in case it changes location
@@ -387,34 +485,23 @@ class PackerApp:
             self.currency = "euro"
 
         (self.truck_list, self.truck_mod_list, self.trailer_list, self.trailer_mod_list) = self.load_list_of_vehicles(self.tab_game_variable.get())
-        self.truck_list_1 = self.truck_list[:math.ceil(len(self.truck_list)/2)] # lists need to be split for multiple vehicle selection, it's easier if it's done here
-        self.truck_list_2 = self.truck_list[math.ceil(len(self.truck_list)/2):]
-        self.truck_mod_list_1 = self.truck_mod_list[:math.ceil(len(self.truck_mod_list)/2)]
-        self.truck_mod_list_2 = self.truck_mod_list[math.ceil(len(self.truck_mod_list)/2):]
-        self.trailer_list_1 = self.trailer_list[:math.ceil(len(self.trailer_list)/2)]
-        self.trailer_list_2 = self.trailer_list[math.ceil(len(self.trailer_list)/2):]
-        self.trailer_mod_list_1 = self.trailer_mod_list[:math.ceil(len(self.trailer_mod_list)/2)]
-        self.trailer_mod_list_2 = self.trailer_mod_list[math.ceil(len(self.trailer_mod_list)/2):]
 
-        for i in range(len(self.truck_list_1)):
-            self.truck_list_1[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
-        for i in range(len(self.truck_list_2)):
-            self.truck_list_2[i].check.grid(row = i, column = 1, sticky = "w", padx = 5)
-        for i in range(len(self.truck_mod_list_1)):
-            self.truck_mod_list_1[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
-        for i in range(len(self.truck_mod_list_2)):
-            self.truck_mod_list_2[i].check.grid(row = i, column = 1, sticky = "w", padx = 5)
-        for i in range(len(self.trailer_list_1)):
-            self.trailer_list_1[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
-        for i in range(len(self.trailer_list_2)):
-            self.trailer_list_2[i].check.grid(row = i, column = 1, sticky = "w", padx = 5)
-        for i in range(len(self.trailer_mod_list_1)):
-            self.trailer_mod_list_1[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
-        for i in range(len(self.trailer_mod_list_2)):
-            self.trailer_mod_list_2[i].check.grid(row = i, column = 1, sticky = "w", padx = 5)
+        for i in range(len(self.truck_list)):
+            self.truck_list[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
+        for i in range(len(self.truck_mod_list)):
+            self.truck_mod_list[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
+        for i in range(len(self.trailer_list)):
+            self.trailer_list[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
+        for i in range(len(self.trailer_mod_list)):
+            self.trailer_mod_list[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
 
-        self.panel_pack_link_truck.grid(row = len(self.truck_mod_list_2), column = 1, sticky = "w", padx = 5)
-        self.panel_pack_link_trailer.grid(row = len(self.trailer_mod_list_2), column = 1, sticky = "w", padx = 5)
+        self.panel_pack_link_truck.grid(row = 1, column = 0, sticky = "w", padx = 5)
+        self.panel_pack_link_trailer.grid(row = 1, column = 0, sticky = "w", padx = 5)
+
+        self.scroll_canvas_trucks.yview_moveto(0)
+        self.scroll_canvas_trailers.yview_moveto(0)
+        self.scroll_canvas_truck_mods.yview_moveto(0)
+        self.scroll_canvas_trailer_mods.yview_moveto(0)
 
         self.change_displayed_vehicle_dropdown()
         self.update_total_vehicles_supported()
@@ -424,6 +511,28 @@ class PackerApp:
             self.panel_ingame_unlock_input.state(["disabled"])
         else:
             self.panel_ingame_unlock_input.state(["!disabled"])
+
+    def open_mod_link_page(self, *args):
+        if self.tab_game_variable.get() == "ets":
+            webbrowser.open_new(MOD_LINK_PAGE_LINK + "#euro-truck-simulator-2")
+        else:
+            webbrowser.open_new(MOD_LINK_PAGE_LINK + "#american-truck-simulator")
+
+    def mousewheel_scroll(self, event):
+        current_tab = self.panel_pack_selector.index(self.panel_pack_selector.select())
+        if current_tab == 0: # trucks
+            self.scroll_canvas_trucks.yview_scroll(int(-1 * (event.delta / 120)), "units") # will scroll too slowly on macOS, and maybe not at all on Linux
+            if self.tab_game_variable.get() == "ats":
+                self.scroll_canvas_trucks.yview_moveto(0) # hack to prevent scrolling up past the content
+        elif current_tab == 1: # trailers
+            self.scroll_canvas_trailers.yview_scroll(int(-1 * (event.delta / 120)), "units")
+            self.scroll_canvas_trailers.yview_moveto(0)
+        elif current_tab == 2: # truck mods
+            self.scroll_canvas_truck_mods.yview_scroll(int(-1 * (event.delta / 120)), "units")
+        elif current_tab == 3: # trailer mods
+            self.scroll_canvas_trailer_mods.yview_scroll(int(-1 * (event.delta / 120)), "units")
+            if self.tab_game_variable.get() == "ats":
+                self.scroll_canvas_trailer_mods.yview_moveto(0)
 
     def load_list_of_vehicles(self, game):
         complete_list = []
@@ -436,20 +545,20 @@ class PackerApp:
         for veh in complete_list:
             if veh.trailer:
                 if veh.mod:
-                    veh.check = ttk.Checkbutton(self.tab_trailer_mods, text = veh.name, command = lambda : self.update_total_vehicles_supported())
+                    veh.check = ttk.Checkbutton(self.scroll_frame_trailer_mods, text = veh.name, command = lambda : self.update_total_vehicles_supported())
                     veh.check.state(["!alternate","!selected"])
                     trailer_mod_list.append(veh)
                 else:
-                    veh.check = ttk.Checkbutton(self.tab_trailers, text = veh.name, command = lambda : self.update_total_vehicles_supported())
+                    veh.check = ttk.Checkbutton(self.scroll_frame_trailers, text = veh.name, command = lambda : self.update_total_vehicles_supported())
                     veh.check.state(["!alternate","!selected"])
                     trailer_list.append(veh)
             else:
                 if veh.mod:
-                    veh.check = ttk.Checkbutton(self.tab_truck_mods, text = veh.name, command = lambda : self.update_total_vehicles_supported())
+                    veh.check = ttk.Checkbutton(self.scroll_frame_truck_mods, text = veh.name, command = lambda : self.update_total_vehicles_supported())
                     veh.check.state(["!alternate","!selected"])
                     truck_mod_list.append(veh)
                 else:
-                    veh.check = ttk.Checkbutton(self.tab_trucks, text = veh.name, command = lambda : self.update_total_vehicles_supported())
+                    veh.check = ttk.Checkbutton(self.scroll_frame_trucks, text = veh.name, command = lambda : self.update_total_vehicles_supported())
                     veh.check.state(["!alternate","!selected"])
                     truck_list.append(veh)
         truck_list.sort(key = lambda veh: veh.name)
@@ -479,7 +588,7 @@ class PackerApp:
 
     def update_total_vehicles_supported(self):
         self.total_vehicles = 0
-        for veh in self.truck_list_1 + self.truck_list_2 + self.truck_mod_list_1 + self.truck_mod_list_2 + self.trailer_list_1 + self.trailer_list_2 + self.trailer_mod_list_1 + self.trailer_mod_list_2:
+        for veh in self.truck_list + self.truck_mod_list + self.trailer_list + self.trailer_mod_list:
             if "selected" in veh.check.state():
                 self.total_vehicles += 1
         self.panel_vehicles_pack.configure(text = "Vehicles Supported ({})".format(self.total_vehicles))
@@ -576,7 +685,30 @@ class PackerApp:
                 inputs_verified = False
                 all_errors.append(["No vehicle selected", "Please select a vehicle to support"])
 
+        # check for incompatible vehicles
+        veh_path_dict = {}
+        for veh in self.truck_list + self.truck_mod_list + self.trailer_list + self.trailer_mod_list:
+            if "selected" in veh.check.state():
+                if not veh.vehicle_path in veh_path_dict:
+                    veh_path_dict[veh.vehicle_path] = []
+                veh_path_dict[veh.vehicle_path].append(veh.name)
+        for veh_path in veh_path_dict.keys():
+            if len(veh_path_dict[veh_path]) > 1:
+                incompatible_vehicles = "\n".join(veh_path_dict[veh_path])
+                inputs_verified = False
+                all_errors.append(["Incompatible vehicles", "The following vehicles are incompatible with each other:\n" + incompatible_vehicles])
+
         if inputs_verified:
+            warning_vehicles = []
+            for veh in self.truck_mod_list:
+                if "selected" in veh.check.state() and pj.bus_mod_door_hack(veh.vehicle_path):
+                    warning_vehicles.append(veh.name)
+            if len(warning_vehicles) > 0:
+                if len(warning_vehicles) == 1:
+                    quantity_message = "This will affect the following vehicle:"
+                else:
+                    quantity_message = "This will affect the following vehicles that you've selected:"
+                messagebox.showwarning(title = "Bus Mods", message = "Bus Mods\n\nBecause of limitations of the game, bus mods use a workaround in order for paintjobs to appear on their doors. This means that paintjob mods work a little strangely, and will not affect the vehicles' doors.\n\nAny paintjobs generated by Paintjob Packer for bus mods will have a colour picker, which will allow you to change the colour of the doors, however you'll be unable to apply patterns/logos/text/etc to them. {}\n\n{}\n\nIn order to make a paintjob for a bus mod that works properly, try replacing the texture files of an existing paintjob, instead of making a brand new one. If you choose to continue, expect some weirdness with your mod, and note that it cannot be fixed.".format(quantity_message, "\n".join(warning_vehicles)))
             self.main_screen.grid_forget()
             self.generate_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
         else:
@@ -601,25 +733,25 @@ class PackerApp:
             if os.path.exists(output_path):
                 if len(os.listdir(output_path)) > 0:
                     folder_clear = False # I don't want to be on the receiving end of an irate user who lost their important report the night before it was due, because they happened to store it in the paintjob packer folder
-                    messagebox.showerror(title = "Output folder not clear", message = "A folder called \"Paintjob Packer Output\" already exists in the directory that you chose, and it contains files.\n\nPlease delete the \"Paintjob Packer Output\" folder, or delete everything inside it.")
+                    messagebox.showerror(title = "Output folder not clear", message = "A folder called \"Paintjob Packer Output\" already exists in the directory that you chose, and it contains files.\n\nPlease delete the \"Paintjob Packer Output\" folder to continue.")
             if folder_clear:
                 self.make_paintjob(output_path)
 
     def make_paintjob(self, output_path):
         truck_list = []
-        for veh in self.truck_list_1 + self.truck_list_2:
+        for veh in self.truck_list:
             if "selected" in veh.check.state():
                 truck_list.append(veh)
         truck_mod_list = []
-        for veh in self.truck_mod_list_1 + self.truck_mod_list_2:
+        for veh in self.truck_mod_list:
             if "selected" in veh.check.state():
                 truck_mod_list.append(veh)
         trailer_list = []
-        for veh in self.trailer_list_1 + self.trailer_list_2:
+        for veh in self.trailer_list:
             if "selected" in veh.check.state():
                 trailer_list.append(veh)
         trailer_mod_list = []
-        for veh in self.trailer_mod_list_1 + self.trailer_mod_list_2:
+        for veh in self.trailer_mod_list:
             if "selected" in veh.check.state():
                 trailer_mod_list.append(veh)
 
@@ -628,7 +760,7 @@ class PackerApp:
             vehicle_list.append(pj.Vehicle(veh.file_name, self.tab_game_variable.get()))
 
         single_veh_name = self.panel_single_vehicle_variable.get()
-        for veh in self.truck_list_1 + self.truck_list_2 + self.truck_mod_list_1 + self.truck_mod_list_2 + self.trailer_list_1 + self.trailer_list_2 + self.trailer_mod_list_1 + self.trailer_mod_list_2:
+        for veh in self.truck_list + self.truck_mod_list + self.trailer_list + self.trailer_mod_list:
             if veh.name == single_veh_name:
                 single_veh = pj.Vehicle(veh.file_name, self.tab_game_variable.get())
 
@@ -715,8 +847,8 @@ class PackerApp:
             self.panel_progress_category_variable.set(veh.name)
 
             if placeholder_templates:
-                if os.path.exists("library/placeholder files/{} templates/{}.zip".format(game, veh.path)):
-                    template_zip = zipfile.ZipFile("library/placeholder files/{} templates/{}.zip".format(game, veh.path))
+                if os.path.exists("library/placeholder files/{} templates/{} [{}].zip".format(game, veh.path, veh.mod_author)):
+                    template_zip = zipfile.ZipFile("library/placeholder files/{} templates/{} [{}].zip".format(game, veh.path, veh.mod_author))
                 else:
                     template_zip = None
             else:
@@ -803,6 +935,9 @@ class PackerApp:
         self.panel_progress_specific_variable.set("See readme for further instructions")
         self.panel_progress_specific_label.update()
 
+        if os.path.exists("library/paintjob tracker.txt") and num_of_paintjobs != "single" and mod_name != "123":
+            self.generate_paintjob_tracker_file(game, truck_list, truck_mod_list, trailer_list, trailer_mod_list, mod_name)
+
         exit_now = messagebox.showinfo(title = "Mod generation complete", message = "Your mod has been generated successfully! It's been placed in the directory you chose, inside a folder called Paintjob Packer Output.\n\nYour mod is not yet finished, refer to the text file inside the folder for instructions. There is also a guide on the GitHub page.\n\nThanks for using Paintjob Packer! :)")
         sys.exit()
 
@@ -874,9 +1009,9 @@ class PackerApp:
         file.write("Ensure every file's height and width is a power of 2 (e.g. 16, 64, 2048, 4096 etc).\n")
         file.write("\n")
         if game == "ets":
-            file.write("You can grab a complete template pack here: {}\n".format(ets_template_link))
+            file.write("You can grab a complete template pack here: {}\n".format(ETS_TEMPLATE_LINK))
         else:
-            file.write("You can grab a complete template pack here: {}\n".format(ats_template_link))
+            file.write("You can grab a complete template pack here: {}\n".format(ATS_TEMPLATE_LINK))
         file.close()
 
     def make_workshop_readme(self, output_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs, cabins_supported):
@@ -909,80 +1044,151 @@ class PackerApp:
             for veh in truck_list + trailer_list:
                 file.write("This paintjob supports the {}\n".format(veh.name))
             for veh in truck_mod_list + trailer_mod_list:
-                file.write("This paintjob supports {}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name))
+                file.write("This paintjob supports {}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name.split(" [")[0]))
         else:
             if len(truck_list) + len(truck_mod_list) > 0:
                 file.write("Trucks supported:\n")
                 for veh in truck_list:
                     file.write(veh.name+"\n")
                 for veh in truck_mod_list:
-                    file.write("{}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name))
+                    file.write("{}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name.split(" [")[0]))
                 file.write("\n")
             if len(trailer_list) + len(trailer_mod_list) > 0:
                 file.write("Trailers supported:\n")
                 for veh in trailer_list:
                     file.write(veh.name+"\n")
                 for veh in trailer_mod_list:
-                    file.write("{}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name))
+                    file.write("{}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name.split(" [")[0]))
         file.close()
 
+    def generate_paintjob_tracker_file(self, game, truck_list, truck_mod_list, trailer_list, trailer_mod_list, mod_name):
+        # This function is made to work with Paintjob Tracker, a mod management program I wrote for my own use
+        # For more info see my paintjob-tracker repo on GitHub
+        file = open("library/paintjob tracker.txt", "r")
+        file_lines = file.readlines()
+        file.close()
+        tracker_directory = file_lines[0].rstrip() + "/" + game
+        tracker = configparser.ConfigParser(allow_no_value = True)
+        tracker.optionxform = str # preserves case
+        if os.path.exists("{}/{}.ini".format(tracker_directory, mod_name)):
+            tracker.read("{}/{}.ini".format(tracker_directory, mod_name), encoding = "UTF-8")
+            all_trucks = tracker["pack info"]["trucks"].split(";")
+            for veh in truck_list:
+                if veh.file_name[:-4] not in all_trucks:
+                    all_trucks.append(veh.file_name[:-4])
+                    tracker["description"]["changelog"] += "\\n- Added {}".format(veh.name)
+            tracker["pack info"]["trucks"] = ";".join(all_trucks)
+            all_truck_mods = tracker["pack info"]["truck mods"].split(";")
+            for veh in truck_mod_list:
+                if veh.file_name[:-4] not in all_truck_mods:
+                    all_truck_mods.append(veh.file_name[:-4])
+                    tracker["description"]["changelog"] += "\\n- Added {}'s {}".format(veh.mod_author, veh.name)
+            tracker["pack info"]["truck mods"] = ";".join(all_truck_mods)
+            all_trailers = tracker["pack info"]["trailers"].split(";")
+            for veh in trailer_list:
+                if veh.file_name[:-4] not in all_trailers:
+                    all_trailers.append(veh.file_name[:-4])
+                    tracker["description"]["changelog"] += "\\n- Added {}".format(veh.name)
+            tracker["pack info"]["trailers"] = ";".join(all_trailers)
+            all_trailer_mods = tracker["pack info"]["trailer mods"].split(";")
+            for veh in trailer_mod_list:
+                if veh.file_name[:-4] not in all_trailer_mods:
+                    all_trailer_mods.append(veh.file_name[:-4])
+                    tracker["description"]["changelog"] += "\\n- Added {}'s {}".format(veh.mod_author, veh.name)
+            tracker["pack info"]["trailer mods"] = ";".join(all_trailer_mods)
+
+            with open("{}/{}.ini".format(tracker_directory, mod_name), "w") as configfile:
+                tracker.write(configfile)
+            print("Paintjob Tracker file at {}/{}.ini updated".format(tracker_directory, mod_name))
+        else:
+            tracker["pack info"] = {}
+            all_trucks = []
+            for veh in truck_list:
+                all_trucks.append(veh.file_name[:-4])
+            tracker["pack info"]["trucks"] = ";".join(all_trucks)
+            all_truck_mods = []
+            for veh in truck_mod_list:
+                all_truck_mods.append(veh.file_name[:-4])
+            tracker["pack info"]["truck mods"] = ";".join(all_truck_mods)
+            all_trailers = []
+            for veh in trailer_list:
+                all_trailers.append(veh.file_name[:-4])
+            tracker["pack info"]["trailers"] = ";".join(all_trailers)
+            all_trailer_mods = []
+            for veh in trailer_mod_list:
+                all_trailer_mods.append(veh.file_name[:-4])
+            tracker["pack info"]["trailer mods"] = ";".join(all_trailer_mods)
+            tracker["pack info"]["bus pack"] = False
+            tracker["pack info"]["paintjobs"] = ""
+            tracker["pack info"]["checklist stage"] = 0
+
+            tracker["description"] = {}
+            tracker["description"]["short description"] = ""
+            tracker["description"]["more info"] = ""
+            tracker["description"]["related mods"] = ""
+            tracker["description"]["changelog"] = "Version 1.0\\n- Initial release"
+
+            tracker["images"] = {}
+            tracker["images"]["header"] = ""
+            tracker["images"]["showcase"] = ""
+
+            tracker["links"] = {}
+            tracker["links"]["steam workshop"] = ""
+            tracker["links"]["forums"] = ""
+            tracker["links"]["trucky"] = ""
+            tracker["links"]["modland"] = ""
+            tracker["links"]["sharemods"] = ""
+            tracker["links"]["modsbase"] = ""
+
+            with open("{}/{}.ini".format(tracker_directory, mod_name), "w") as configfile:
+                tracker.write(configfile)
+            print("Paintjob Tracker file written to {}/{}.ini".format(tracker_directory, mod_name))
+
     def check_new_version(self):
-        # get current and latest versions
         print("Checking latest version on GitHub...")
         print("Current version: " + version)
+        update_message = None
+        latest_release_string = None
         try:
-            file = urllib.request.urlopen(version_number_link)
-            for line in file:
-                latest_version = line.decode().rstrip()
+            # get current and latest versions
+            version_info_ini = urllib.request.urlopen(VERSION_INFO_LINK)
+            version_info = configparser.ConfigParser()
+            version_info.read_string(version_info_ini.read().decode())
+            installed_version = version.split(".")
+            latest_release_string = version_info["version info"]["latest release"]
+            latest_release = latest_release_string.split(".")
+            print("Latest release: " + latest_release_string)
 
-            print("Latest version: " + latest_version)
+            # convert versions to integer lists
+            if len(installed_version) < 3:
+                installed_version.append("0")
+            if len(latest_release) < 3:
+                latest_release.append("0")
+            for i in range(3):
+                installed_version[i] = int(installed_version[i])
+                latest_release[i] = int(latest_release[i])
 
-            if version != latest_version:
-                # convert versions to version integer lists
-                current_version = version.split(".")
-                if len(current_version) < 3: # assuming single-number versions are never released, e.g. v2 will be v2.0
-                    current_version.append("0")
-                for i in range(3):
-                    current_version[i] = int(current_version[i])
-                latest_version = latest_version.split(".")
-                if len(latest_version) < 3:
-                    latest_version.append("0")
-                for i in range(3):
-                    latest_version[i] = int(latest_version[i])
-
-                # check if latest version is more recent than current
-                if latest_version[0] > current_version[0]:
-                    new_update_type = "Major update!"
-                elif latest_version[0] == current_version[0]: # because 1.5 is not an update to 2.4
-                    if latest_version[1] > current_version[1]:
-                        new_update_type = "Feature update"
-                    elif latest_version[1] == current_version[1]:
-                        if latest_version[2] > current_version[2]:
-                            new_update_type = "Patch"
-                        else:
-                            new_update_type = None
-                    else:
-                        new_update_type = None
-                else:
-                    new_update_type = None
-                if new_update_type != None:
-                    print("New version available! - " + new_update_type)
-            else:
-                new_update_type = None
+            # check if latest release is newer than current install
+            if latest_release[0] > installed_version[0]:
+                update_message = version_info["version info"]["major update"]
+            elif latest_release[0] == installed_version[0]:
+                if latest_release[1] > installed_version[1]:
+                    update_message = version_info["version info"]["feature update"]
+                elif latest_release[1] == installed_version[1]:
+                    if latest_release[2] > installed_version[2]:
+                        update_message = version_info["version info"]["patch update"]
+            if update_message != None:
+                print("New version available! - " + update_message)
         except urllib.error.HTTPError:
             print("Couldn't fetch new version, skipping (HTTPError)")
-            new_update_type = None
         except urllib.error.URLError:
             print("Couldn't fetch new version, skipping (URLError)")
-            new_update_type = None
         except ValueError:
             print("Couldn't parse version number, skipping (ValueError)")
-            new_update_type = None
         except TypeError:
             print("Couldn't compare version numbers, skipping (TypeError)")
-            new_update_type = None
 
-        return(new_update_type)
+        return([latest_release_string, update_message])
 
 class VehSelection:
 
@@ -991,14 +1197,28 @@ class VehSelection:
         self.game = _game
         veh_ini = configparser.ConfigParser(allow_no_value = True)
         veh_ini.read("library/vehicles/{}/{}".format(self.game, self.file_name), encoding="utf-8")
+        self.vehicle_path = veh_ini["vehicle info"]["vehicle path"]
         self.name = veh_ini["vehicle info"]["name"]
         self.trailer = veh_ini["vehicle info"].getboolean("trailer")
         self.mod = veh_ini["vehicle info"].getboolean("mod")
         self.mod_author = veh_ini["vehicle info"]["mod author"]
-        self.mod_link = veh_ini["vehicle info"]["mod link"]
+        if self.mod:
+            self.name += " [" + self.mod_author + "]"
+        self.mod_link_workshop = veh_ini["vehicle info"]["mod link workshop"]
+        self.mod_link_forums = veh_ini["vehicle info"]["mod link forums"]
+        self.mod_link_trucky = veh_ini["vehicle info"]["mod link trucky"]
+        self.mod_link_author_site = veh_ini["vehicle info"]["mod link author site"]
+        # The canonical mod link is chosen with the priority of Steam Workshop > SCS Forums > Trucky Mod Hub > Mod author's own site
+        if self.mod_link_workshop != "":
+            self.mod_link = self.mod_link_workshop
+        elif self.mod_link_forums != "":
+            self.mod_link = self.mod_link_forums
+        elif self.mod_link_trucky != "":
+            self.mod_link = self.mod_link_trucky
+        else:
+            self.mod_link = self.mod_link_author_site
 
 def show_unhandled_error(error_type, error_message, error_traceback):
-    # there's probably a neater way to do this, but this works
     clipboard = tk.Tk()
     clipboard.withdraw()
     clipboard.clipboard_clear()

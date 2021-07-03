@@ -1,4 +1,8 @@
-import os, shutil, binascii, codecs, configparser
+import os # making folders and renaming files
+import shutil # copying files
+import binascii # hex-ifying strings for TOBJ files
+import codecs # encoding TOBJ files
+import configparser # reading vehicle database files
 
 class Vehicle:
     def __init__(self, file_name, game):
@@ -9,8 +13,14 @@ class Vehicle:
         self.name = veh_ini["vehicle info"]["name"]
         self.trailer = veh_ini["vehicle info"].getboolean("trailer")
         self.mod = veh_ini["vehicle info"].getboolean("mod")
-        self.mod_author = veh_ini["vehicle info"]["mod author"]
-        self.mod_link = veh_ini["vehicle info"]["mod link"]
+        if self.mod:
+            self.mod_author = veh_ini["vehicle info"]["mod author"]
+        else:
+            self.mod_author = "SCS"
+        self.mod_link_workshop = veh_ini["vehicle info"]["mod link workshop"]
+        self.mod_link_forums = veh_ini["vehicle info"]["mod link forums"]
+        self.mod_link_trucky = veh_ini["vehicle info"]["mod link trucky"]
+        self.mod_link_author_site = veh_ini["vehicle info"]["mod link author site"]
         self.uses_accessories = veh_ini["vehicle info"].getboolean("uses accessories")
         if self.uses_accessories:
             self.accessories = veh_ini["vehicle info"]["accessories"].split(";")
@@ -28,6 +38,15 @@ class Vehicle:
             self.cabins.pop("separate paintjobs", None)
             for cabin in self.cabins:
                 self.cabins[cabin] = self.cabins[cabin].split(";")
+        # The canonical mod link is chosen with the priority of Steam Workshop > SCS Forums > Trucky Mod Hub > Mod author's own site
+        if self.mod_link_workshop != "":
+            self.mod_link = self.mod_link_workshop
+        elif self.mod_link_forums != "":
+            self.mod_link = self.mod_link_forums
+        elif self.mod_link_trucky != "":
+            self.mod_link = self.mod_link_trucky
+        else:
+            self.mod_link = self.mod_link_author_site
 
 
 
@@ -86,6 +105,10 @@ def generate_tobj(path):
     tobj_file = codecs.decode(tobj_string, "hex_codec")
     return tobj_file
 
+def bus_mod_door_hack(path):
+    door_workarounds = ["caio.millennium2", "iveco.evadys", "karosa.b95x", "karosa.c95x", "bollore.bluebus"]
+    return path in door_workarounds
+
 
 
 # loose files
@@ -118,21 +141,21 @@ def make_description(output_path, truck_list, truck_mod_list, trailer_list, trai
         for veh in truck_list + trailer_list:
             file.write("This paintjob supports the {}\n".format(veh.name))
         for veh in truck_mod_list + trailer_mod_list:
-            file.write("This paintjob supports {}'s {}\n".format(veh.mod_author, veh.name))
+            file.write("This paintjob supports {}'s {}\n".format(veh.mod_author, veh.name.split(" [")[0]))
     else:
         if len(truck_list) + len(truck_mod_list) > 0:
             file.write("Trucks supported:\n")
             for veh in truck_list:
-                file.write(veh.name+"\n")
+                file.write("- " + veh.name + "\n")
             for veh in truck_mod_list:
-                file.write("{}'s {}\n".format(veh.mod_author, veh.name))
+                file.write("- {}'s {}\n".format(veh.mod_author, veh.name.split(" [")[0]))
             file.write("\n")
         if len(trailer_list) + len(trailer_mod_list) > 0:
             file.write("Trailers supported:\n")
             for veh in trailer_list:
-                file.write(veh.name+"\n")
+                file.write("- " + veh.name + "\n")
             for veh in trailer_mod_list:
-                file.write("{}'s {}\n".format(veh.mod_author, veh.name))
+                file.write("- {}'s {}\n".format(veh.mod_author, veh.name.split(" [")[0]))
     file.close()
 
 def copy_versions_sii(output_path):
@@ -203,6 +226,8 @@ def make_settings_sui(output_path, veh, internal_name, ingame_name, ingame_price
     file.write("\tunlock: {}\n".format(unlock_level))
     file.write("\tairbrush: true\n")
     file.write("\ticon: \"{}_icon\"\n".format(internal_name))
+    if bus_mod_door_hack(veh.path): # workaround for the weirdness surrounding bus mods' doors
+        file.write("\tbase_color_locked: false\n")
     if veh.alt_uvset:
         file.write("\talternate_uvset: true\n")
     file.close()
