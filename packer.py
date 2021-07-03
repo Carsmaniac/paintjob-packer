@@ -24,7 +24,7 @@ GITHUB_LINK = "https://github.com/carsmaniac/paintjob-packer"
 MOD_LINK_PAGE_LINK = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
 ETS_TEMPLATE_LINK = "https://forum.scssoft.com/viewtopic.php?f=33&t=272386"
 ATS_TEMPLATE_LINK = "https://forum.scssoft.com/viewtopic.php?f=199&t=288778"
-VERSION_INFO_LINK = "https://raw.githubusercontent.com/Carsmaniac/paintjob-packer/new-gen-daf/library/version.ini"
+VERSION_INFO_LINK = "https://raw.githubusercontent.com/Carsmaniac/paintjob-packer/master/library/version.ini"
 LATEST_VERSION_DOWNLOAD_LINK = GITHUB_LINK + "/releases/latest"
 
 # set the path depending on how Paintjob Packer is bundled
