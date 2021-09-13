@@ -106,7 +106,7 @@ def generate_tobj(path):
     return tobj_file
 
 def bus_mod_door_hack(path):
-    door_workarounds = ["caio.millennium2", "iveco.evadys", "karosa.b95x", "karosa.c95x", "bollore.bluebus"]
+    door_workarounds = ["caio.millennium2", "iveco.evadys", "karosa.b95x", "karosa.c95x", "bollore.bluebus", "tourismo.new"]
     return path in door_workarounds
 
 
