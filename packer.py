@@ -6,6 +6,7 @@ import webbrowser # opening links in the web browser: forum thread, github page,
 import sys # determining OS, and quitting Paintjob Packer
 import configparser # reading vehicle database files and version info
 import os # making folders and getting all vehicle database files
+import shutil # copying files (checking write permission, all actual copying occurs in paintjob.py)
 import re # checking for invalid characters in mod/paintjob names
 import traceback # handling unexpected errors
 import zipfile # unzipping templates
@@ -734,6 +735,12 @@ class PackerApp:
                 if len(os.listdir(output_path)) > 0:
                     folder_clear = False # I don't want to be on the receiving end of an irate user who lost their important report the night before it was due, because they happened to store it in the paintjob packer folder
                     messagebox.showerror(title = "Output folder not clear", message = "A folder called \"Paintjob Packer Output\" already exists in the directory that you chose, and it contains files.\n\nPlease delete the \"Paintjob Packer Output\" folder to continue.")
+            try:
+                shutil.copyfile("library/placeholder files/empty.dds", save_directory + "/This file is unneeded, you can delete it.dds")
+                os.remove(save_directory + "/This file is unneeded, you can delete it.dds")
+            except PermissionError:
+                folder_clear = False
+                messagebox.showerror(title = "Cannot access output folder", message = "Paintjob Packer doesn't have permission to copy files to the directory that you chose.\n\nTry picking a different save directory, or running Paintjob Packer as an admin.")
             if folder_clear:
                 self.make_paintjob(output_path)
 
