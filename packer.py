@@ -530,6 +530,7 @@ class PackerApp:
 
         self.change_displayed_vehicle_dropdown()
         self.update_total_vehicles_supported()
+        self.panel_pack_selector.select(0)
 
     def toggle_unlock_level(self):
         if self.panel_ingame_default_variable.get():
@@ -569,8 +570,8 @@ class PackerApp:
             veh_ini.read("library/vehicles/{}/{}".format(game, file_name), encoding="utf-8")
             if "mod link workshop" not in veh_ini.options("vehicle info"): # 1.7
                 outdated_vehicles.append(file_name)
-            # if !("bus") TODO
-            # print("mod link workshop" in veh_ini.options("vehicle info"))
+            if "bus mod" not in veh_ini.options("vehicle info"): # 1.8
+                outdated_vehicles.append(file_name)
         for file_name in outdated_vehicles:
             os.remove("library/vehicles/{}/{}".format(game, file_name))
 
@@ -636,11 +637,40 @@ class PackerApp:
             self.panel_single_link.grid_forget()
 
     def update_total_vehicles_supported(self):
-        self.total_vehicles = 0
-        for veh in self.truck_list + self.truck_mod_list + self.bus_mod_list + self.trailer_list + self.trailer_mod_list:
+        self.total_trucks = 0
+        self.total_trailers = 0
+        self.total_buses = 0
+        for veh in self.truck_list + self.truck_mod_list:
             if "selected" in veh.check.state():
-                self.total_vehicles += 1
+                self.total_trucks += 1
+        for veh in self.trailer_list + self.trailer_mod_list:
+            if "selected" in veh.check.state():
+                self.total_trailers += 1
+        for veh in self.bus_mod_list:
+            if "selected" in veh.check.state():
+                self.total_buses += 1
+        self.total_vehicles = self.total_trucks + self.total_trailers + self.total_buses
         self.panel_vehicles_pack.configure(text = "Vehicles Supported ({})".format(self.total_vehicles))
+        if self.tab_game_variable.get() == "ets":
+            if self.total_trucks + self.total_trailers > 0:
+                self.panel_pack_selector.tab(3, state = "disabled")
+            else:
+                self.panel_pack_selector.tab(3, state = "normal")
+            if self.total_buses > 0:
+                self.panel_pack_selector.tab(0, state = "disabled")
+                self.panel_pack_selector.tab(1, state = "disabled")
+                self.panel_pack_selector.tab(2, state = "disabled")
+                self.panel_pack_selector.tab(4, state = "disabled")
+            else:
+                self.panel_pack_selector.tab(0, state = "normal")
+                self.panel_pack_selector.tab(1, state = "normal")
+                self.panel_pack_selector.tab(2, state = "normal")
+                self.panel_pack_selector.tab(4, state = "normal")
+        elif self.tab_game_variable.get() == "ats":
+            self.panel_pack_selector.tab(0, state = "normal")
+            self.panel_pack_selector.tab(1, state = "normal")
+            self.panel_pack_selector.tab(2, state = "normal")
+            self.panel_pack_selector.tab(4, state = "normal")
 
     def change_from_generate_to_main(self):
         self.generate_screen.grid_forget()
