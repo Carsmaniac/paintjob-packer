@@ -293,10 +293,14 @@ class PackerApp:
         self.panel_pack_selector.add(self.tab_trailers, text = "Trailers")
         self.tab_truck_mods = ttk.Frame(self.panel_pack_selector)
         self.panel_pack_selector.add(self.tab_truck_mods, text = "Truck Mods")
+        self.tab_bus_mods = ttk.Frame(self.panel_pack_selector)
+        self.panel_pack_selector.add(self.tab_bus_mods, text = "Bus Mods", state = "hidden")
         self.tab_trailer_mods = ttk.Frame(self.panel_pack_selector)
         self.panel_pack_selector.add(self.tab_trailer_mods, text = "Trailer Mods")
         self.panel_pack_link_truck = ttk.Label(self.tab_truck_mods, text = "Download links for all mods", foreground = "blue", cursor = self.cursor)
         self.panel_pack_link_truck.bind("<1>", self.open_mod_link_page)
+        self.panel_pack_link_bus = ttk.Label(self.tab_bus_mods, text = "Download links for all mods", foreground = "blue", cursor = self.cursor)
+        self.panel_pack_link_bus.bind("<1>", self.open_mod_link_page)
         self.panel_pack_link_trailer = ttk.Label(self.tab_trailer_mods, text = "Download links for all mods", foreground = "blue", cursor = self.cursor)
         self.panel_pack_link_trailer.bind("<1>", self.open_mod_link_page)
 
@@ -327,6 +331,15 @@ class PackerApp:
         self.scroll_canvas_truck_mods.configure(yscrollcommand = self.scroll_bar_truck_mods.set)
         self.scroll_canvas_truck_mods.grid(row = 0, column = 0, sticky = "nws")
         self.scroll_bar_truck_mods.grid(row = 0, column = 1, sticky = "nes")
+
+        self.scroll_canvas_bus_mods = tk.Canvas(self.tab_bus_mods, width = 300, height = 233, highlightthickness = 0)
+        self.scroll_bar_bus_mods = ttk.Scrollbar(self.tab_bus_mods, orient = "vertical", command = self.scroll_canvas_bus_mods.yview)
+        self.scroll_frame_bus_mods = ttk.Frame(self.scroll_canvas_bus_mods)
+        self.scroll_frame_bus_mods.bind("<Configure>", lambda e: self.scroll_canvas_bus_mods.configure(scrollregion = self.scroll_canvas_bus_mods.bbox("all")))
+        self.scroll_canvas_bus_mods.create_window((0, 0), window = self.scroll_frame_bus_mods, anchor = "nw")
+        self.scroll_canvas_bus_mods.configure(yscrollcommand = self.scroll_bar_bus_mods.set)
+        self.scroll_canvas_bus_mods.grid(row = 0, column = 0, sticky = "nws")
+        self.scroll_bar_bus_mods.grid(row = 0, column = 1, sticky = "nes")
 
         self.scroll_canvas_trailer_mods = tk.Canvas(self.tab_trailer_mods, width = 300, height = 233, highlightthickness = 0)
         self.scroll_bar_trailer_mods = ttk.Scrollbar(self.tab_trailer_mods, orient = "vertical", command = self.scroll_canvas_trailer_mods.yview)
@@ -463,10 +476,11 @@ class PackerApp:
         self.main_screen.grid_forget()
         self.setup_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
 
-        for veh in self.truck_list + self.truck_mod_list + self.trailer_list + self.trailer_mod_list:
+        for veh in self.truck_list + self.truck_mod_list + self.bus_mod_list + self.trailer_list + self.trailer_mod_list:
             veh.check.grid_forget()
 
         self.panel_pack_link_truck.grid_forget() # just in case it changes location
+        self.panel_pack_link_bus.grid_forget()
         self.panel_pack_link_trailer.grid_forget()
 
     def switch_to_main_screen(self):
@@ -482,28 +496,36 @@ class PackerApp:
     def load_main_screen_variables(self): # also grids and ungrids stuff depending on said variables
         if self.tab_game_variable.get() == "ats":
             self.currency = "dollars"
+            self.panel_pack_selector.tab(3, state = "hidden")
+            self.panel_single_type_dropdown.config(values = ["Truck", "Truck Mod", "Trailer", "Trailer Mod"])
         elif self.tab_game_variable.get() == "ets":
             self.currency = "euro"
+            self.panel_pack_selector.tab(3, state = "normal")
+            self.panel_single_type_dropdown.config(values = ["Truck", "Truck Mod", "Bus Mod", "Trailer", "Trailer Mod"])
 
         self.check_for_outdated_vehicles(self.tab_game_variable.get())
 
-        (self.truck_list, self.truck_mod_list, self.trailer_list, self.trailer_mod_list) = self.load_list_of_vehicles(self.tab_game_variable.get())
+        (self.truck_list, self.truck_mod_list, self.bus_mod_list, self.trailer_list, self.trailer_mod_list) = self.load_list_of_vehicles(self.tab_game_variable.get())
 
         for i in range(len(self.truck_list)):
             self.truck_list[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
         for i in range(len(self.truck_mod_list)):
             self.truck_mod_list[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
+        for i in range(len(self.bus_mod_list)):
+            self.bus_mod_list[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
         for i in range(len(self.trailer_list)):
             self.trailer_list[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
         for i in range(len(self.trailer_mod_list)):
             self.trailer_mod_list[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
 
         self.panel_pack_link_truck.grid(row = 1, column = 0, sticky = "w", padx = 5)
+        self.panel_pack_link_bus.grid(row = 1, column = 0, sticky = "w", padx = 5)
         self.panel_pack_link_trailer.grid(row = 1, column = 0, sticky = "w", padx = 5)
 
         self.scroll_canvas_trucks.yview_moveto(0)
         self.scroll_canvas_trailers.yview_moveto(0)
         self.scroll_canvas_truck_mods.yview_moveto(0)
+        self.scroll_canvas_bus_mods.yview_moveto(0)
         self.scroll_canvas_trailer_mods.yview_moveto(0)
 
         self.change_displayed_vehicle_dropdown()
@@ -532,7 +554,10 @@ class PackerApp:
             self.scroll_canvas_trailers.yview_moveto(0)
         elif current_tab == 2: # truck mods
             self.scroll_canvas_truck_mods.yview_scroll(int(-1 * (event.delta / 120)), "units")
-        elif current_tab == 3: # trailer mods
+        elif current_tab == 3: # bus mods
+            self.scroll_canvas_bus_mods.yview_scroll(int(-1 * (event.delta / 120)), "units")
+            self.scroll_canvas_bus_mods.yview_moveto(0)
+        elif current_tab == 4: # trailer mods
             self.scroll_canvas_trailer_mods.yview_scroll(int(-1 * (event.delta / 120)), "units")
             if self.tab_game_variable.get() == "ats":
                 self.scroll_canvas_trailer_mods.yview_moveto(0)
@@ -544,7 +569,7 @@ class PackerApp:
             veh_ini.read("library/vehicles/{}/{}".format(game, file_name), encoding="utf-8")
             if "mod link workshop" not in veh_ini.options("vehicle info"): # 1.7
                 outdated_vehicles.append(file_name)
-            # if !("bus")
+            # if !("bus") TODO
             # print("mod link workshop" in veh_ini.options("vehicle info"))
         for file_name in outdated_vehicles:
             os.remove("library/vehicles/{}/{}".format(game, file_name))
@@ -555,6 +580,7 @@ class PackerApp:
             complete_list.append(VehSelection(game, file_name))
         truck_list = []
         truck_mod_list = []
+        bus_mod_list = []
         trailer_list = []
         trailer_mod_list = []
         for veh in complete_list:
@@ -569,9 +595,14 @@ class PackerApp:
                     trailer_list.append(veh)
             else:
                 if veh.mod:
-                    veh.check = ttk.Checkbutton(self.scroll_frame_truck_mods, text = veh.name, command = lambda : self.update_total_vehicles_supported())
-                    veh.check.state(["!alternate","!selected"])
-                    truck_mod_list.append(veh)
+                    if veh.bus_mod:
+                        veh.check = ttk.Checkbutton(self.scroll_frame_bus_mods, text = veh.name, command = lambda : self.update_total_vehicles_supported())
+                        veh.check.state(["!alternate","!selected"])
+                        bus_mod_list.append(veh)
+                    else:
+                        veh.check = ttk.Checkbutton(self.scroll_frame_truck_mods, text = veh.name, command = lambda : self.update_total_vehicles_supported())
+                        veh.check.state(["!alternate","!selected"])
+                        truck_mod_list.append(veh)
                 else:
                     veh.check = ttk.Checkbutton(self.scroll_frame_trucks, text = veh.name, command = lambda : self.update_total_vehicles_supported())
                     veh.check.state(["!alternate","!selected"])
@@ -579,8 +610,9 @@ class PackerApp:
         truck_list.sort(key = lambda veh: veh.name)
         trailer_list.sort(key = lambda veh: veh.name)
         truck_mod_list.sort(key = lambda veh: veh.name)
+        bus_mod_list.sort(key = lambda veh: veh.name)
         trailer_mod_list.sort(key = lambda veh: veh.name)
-        return (truck_list, truck_mod_list, trailer_list, trailer_mod_list)
+        return (truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list)
 
     def change_displayed_vehicle_dropdown(self, *args):
         type = self.panel_single_type_variable.get()
@@ -590,20 +622,22 @@ class PackerApp:
             for veh in self.truck_list: new_values.append(veh.name)
         elif type == "Truck Mod":
             for veh in self.truck_mod_list: new_values.append(veh.name)
+        elif type == "Bus Mod":
+            for veh in self.bus_mod_list: new_values.append(veh.name)
         elif type == "Trailer":
             for veh in self.trailer_list: new_values.append(veh.name)
         elif type == "Trailer Mod":
             for veh in self.trailer_mod_list: new_values.append(veh.name)
         self.panel_single_vehicle_dropdown.config(values = new_values)
 
-        if type in ["Truck Mod", "Trailer Mod"]:
+        if type in ["Truck Mod", "Bus Mod", "Trailer Mod"]:
             self.panel_single_link.grid(row = 4, column = 0, pady = 5, padx = 5, sticky = "w")
         else:
             self.panel_single_link.grid_forget()
 
     def update_total_vehicles_supported(self):
         self.total_vehicles = 0
-        for veh in self.truck_list + self.truck_mod_list + self.trailer_list + self.trailer_mod_list:
+        for veh in self.truck_list + self.truck_mod_list + self.bus_mod_list + self.trailer_list + self.trailer_mod_list:
             if "selected" in veh.check.state():
                 self.total_vehicles += 1
         self.panel_vehicles_pack.configure(text = "Vehicles Supported ({})".format(self.total_vehicles))
@@ -702,7 +736,7 @@ class PackerApp:
 
         # check for incompatible vehicles
         veh_path_dict = {}
-        for veh in self.truck_list + self.truck_mod_list + self.trailer_list + self.trailer_mod_list:
+        for veh in self.truck_list + self.truck_mod_list + self.bus_mod_list + self.trailer_list + self.trailer_mod_list:
             if "selected" in veh.check.state():
                 if not veh.vehicle_path in veh_path_dict:
                     veh_path_dict[veh.vehicle_path] = []
@@ -715,9 +749,14 @@ class PackerApp:
 
         if inputs_verified:
             warning_vehicles = []
-            for veh in self.truck_mod_list:
-                if "selected" in veh.check.state() and veh.bus_door_workaround:
-                    warning_vehicles.append(veh.name)
+            if self.tab_paintjob_variable.get() == "pack":
+                for veh in self.bus_mod_list:
+                    if "selected" in veh.check.state() and veh.bus_door_workaround:
+                        warning_vehicles.append(veh.name)
+            elif self.tab_paintjob_variable.get() == "single":
+                for veh in self.bus_mod_list:
+                    if veh.name == self.panel_single_vehicle_variable.get() and veh.bus_door_workaround:
+                        warning_vehicles.append(veh.name)
             if len(warning_vehicles) > 0:
                 if len(warning_vehicles) == 1:
                     quantity_message = "This will affect the following vehicle:"
@@ -767,6 +806,10 @@ class PackerApp:
         for veh in self.truck_mod_list:
             if "selected" in veh.check.state():
                 truck_mod_list.append(veh)
+        bus_mod_list = []
+        for veh in self.bus_mod_list:
+            if "selected" in veh.check.state():
+                bus_mod_list.append(veh)
         trailer_list = []
         for veh in self.trailer_list:
             if "selected" in veh.check.state():
@@ -777,11 +820,11 @@ class PackerApp:
                 trailer_mod_list.append(veh)
 
         vehicle_list = []
-        for veh in truck_list + truck_mod_list + trailer_list + trailer_mod_list:
+        for veh in truck_list + truck_mod_list + bus_mod_list + trailer_list + trailer_mod_list:
             vehicle_list.append(pj.Vehicle(veh.file_name, self.tab_game_variable.get()))
 
         single_veh_name = self.panel_single_vehicle_variable.get()
-        for veh in self.truck_list + self.truck_mod_list + self.trailer_list + self.trailer_mod_list:
+        for veh in self.truck_list + self.truck_mod_list + self.bus_mod_list + self.trailer_list + self.trailer_mod_list:
             if veh.name == single_veh_name:
                 single_veh = pj.Vehicle(veh.file_name, self.tab_game_variable.get())
 
@@ -820,7 +863,10 @@ class PackerApp:
                     trailer_list.append(single_veh)
             else:
                 if single_veh.mod:
-                    truck_mod_list.append(single_veh)
+                    if single_veh.bus_mod:
+                        bus_mod_list.append(single_veh)
+                    else:
+                        truck_mod_list.append(single_veh)
                 else:
                     truck_list.append(single_veh)
             vehicle_list.append(single_veh)
@@ -851,7 +897,7 @@ class PackerApp:
 
         self.panel_progress_specific_variable.set("Mod manager description")
         self.panel_progress_specific_label.update()
-        pj.make_description(out_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs)
+        pj.make_description(out_path, truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs)
 
         pj.make_material_folder(out_path)
 
@@ -947,9 +993,9 @@ class PackerApp:
             pj.copy_workshop_image(output_path)
             self.panel_progress_specific_variable.set("Workshop readme")
             self.panel_progress_specific_label.update()
-            self.make_workshop_readme(output_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs, cabins_supported)
+            self.make_workshop_readme(output_path, truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs, cabins_supported)
 
-        self.make_readme_file(output_path, ingame_name, game, mod_name, truck_list+truck_mod_list, trailer_list+trailer_mod_list)
+        self.make_readme_file(output_path, ingame_name, game, mod_name, truck_list+truck_mod_list, bus_mod_list, trailer_list+trailer_mod_list)
 
         self.progress_value.set(self.progress_value.get()+1.0)
         self.panel_progress_category_variable.set("Mod generation complete!")
@@ -957,12 +1003,12 @@ class PackerApp:
         self.panel_progress_specific_label.update()
 
         if os.path.exists("library/paintjob tracker.txt") and num_of_paintjobs != "single" and mod_name != "123":
-            self.generate_paintjob_tracker_file(game, truck_list, truck_mod_list, trailer_list, trailer_mod_list, mod_name)
+            self.generate_paintjob_tracker_file(game, truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list, mod_name)
 
         exit_now = messagebox.showinfo(title = "Mod generation complete", message = "Your mod has been generated successfully! It's been placed in the directory you chose, inside a folder called Paintjob Packer Output.\n\nYour mod is not yet finished, refer to the text file inside the folder for instructions. There is also a guide on the GitHub page.\n\nThanks for using Paintjob Packer! :)")
         sys.exit()
 
-    def make_readme_file(self, output_path, paintjob_name, game, mod_name, truck_list, trailer_list):
+    def make_readme_file(self, output_path, paintjob_name, game, mod_name, truck_list, bus_list, trailer_list):
         file = open(output_path+"/How to complete your mod.txt", "w")
         file.write("Your mod has been generated and placed inside the \"{}\" folder.\n".format(mod_name))
         file.write("There are a few steps left to finish it off. You'll need to replace the files listed in this document.\n")
@@ -1011,9 +1057,11 @@ class PackerApp:
         file.write("All of the .dds files in:\n")
         if len(truck_list) == 1:
             file.write("vehicle/truck/upgrade/paintjob/{}/{}/\n".format(paintjob_name, truck_list[0].name))
-        elif len(truck_list) > 1:
+        elif len(bus_list) == 1:
+            file.write("vehicle/truck/upgrade/paintjob/{}/{}/\n".format(paintjob_name, bus_list[0].name))
+        elif len(truck_list) + len(bus_list) > 1:
             file.write("vehicle/truck/upgrade/paintjob/{}/<each vehicle>/\n".format(paintjob_name))
-        if len(truck_list) > 0 and len(trailer_list) > 0:
+        if len(truck_list + bus_list) > 0 and len(trailer_list) > 0:
             file.write("and\n")
         if len(trailer_list) == 1:
             file.write("vehicle/trailer_owned/upgrade/paintjob/{}/{}/\n".format(paintjob_name, trailer_list[0].name))
@@ -1021,7 +1069,7 @@ class PackerApp:
             file.write("vehicle/trailer_owned/upgrade/paintjob/{}/<each vehicle>/\n".format(paintjob_name))
         file.write("\n")
         file.write("These are the main files of your mod, determining what your paintjob will actually look like.\n")
-        if len(truck_list) + len(trailer_list) == 1:
+        if len(truck_list) + len(bus_list) + len(trailer_list) == 1:
             file.write("Replace or re-colour every DDS image in this folder.\n")
         else:
             file.write("Replace or re-colour every DDS image in these folders.\n")
@@ -1035,7 +1083,7 @@ class PackerApp:
             file.write("You can grab a complete template pack here: {}\n".format(ATS_TEMPLATE_LINK))
         file.close()
 
-    def make_workshop_readme(self, output_path, truck_list, truck_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs, cabins_supported):
+    def make_workshop_readme(self, output_path, truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs, cabins_supported):
         file = open(output_path+"/How to upload your mod to Steam Workshop.txt", "w")
         file.write("In order to upload your mod to Steam Workshop, you'll need to use the SCS Workshop Uploader, which only runs on Windows.\n")
         file.write("To download it, you'll need to own ETS 2 or ATS on Steam. Then go to View > Hidden Games, tick \"Tools\" in the dropdown on\n")
@@ -1064,7 +1112,7 @@ class PackerApp:
         if num_of_paintjobs == "single":
             for veh in truck_list + trailer_list:
                 file.write("This paintjob supports the {}\n".format(veh.name))
-            for veh in truck_mod_list + trailer_mod_list:
+            for veh in truck_mod_list + bus_mod_list + trailer_mod_list:
                 file.write("This paintjob supports {}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name.split(" [")[0]))
         else:
             if len(truck_list) + len(truck_mod_list) > 0:
@@ -1072,6 +1120,11 @@ class PackerApp:
                 for veh in truck_list:
                     file.write(veh.name+"\n")
                 for veh in truck_mod_list:
+                    file.write("{}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name.split(" [")[0]))
+                file.write("\n")
+            if len(bus_mod_list) > 0:
+                file.write("Buses supported:\n")
+                for veh in bus_mod_list:
                     file.write("{}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name.split(" [")[0]))
                 file.write("\n")
             if len(trailer_list) + len(trailer_mod_list) > 0:
@@ -1082,7 +1135,7 @@ class PackerApp:
                     file.write("{}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name.split(" [")[0]))
         file.close()
 
-    def generate_paintjob_tracker_file(self, game, truck_list, truck_mod_list, trailer_list, trailer_mod_list, mod_name):
+    def generate_paintjob_tracker_file(self, game, truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list, mod_name):
         # This function is made to work with Paintjob Tracker, a mod management program I wrote for my own use
         # For more info see my paintjob-tracker repo on GitHub
         file = open("library/paintjob tracker.txt", "r")
@@ -1100,7 +1153,7 @@ class PackerApp:
                     tracker["description"]["changelog"] += "\\n- Added {}".format(veh.name)
             tracker["pack info"]["trucks"] = ";".join(all_trucks)
             all_truck_mods = tracker["pack info"]["truck mods"].split(";")
-            for veh in truck_mod_list:
+            for veh in truck_mod_list + bus_mod_list:
                 if veh.file_name[:-4] not in all_truck_mods:
                     all_truck_mods.append(veh.file_name[:-4])
                     tracker["description"]["changelog"] += "\\n- Added {}'s {}".format(veh.mod_author, veh.name)
@@ -1128,7 +1181,7 @@ class PackerApp:
                 all_trucks.append(veh.file_name[:-4])
             tracker["pack info"]["trucks"] = ";".join(all_trucks)
             all_truck_mods = []
-            for veh in truck_mod_list:
+            for veh in truck_mod_list + bus_mod_list:
                 all_truck_mods.append(veh.file_name[:-4])
             tracker["pack info"]["truck mods"] = ";".join(all_truck_mods)
             all_trailers = []
@@ -1139,7 +1192,10 @@ class PackerApp:
             for veh in trailer_mod_list:
                 all_trailer_mods.append(veh.file_name[:-4])
             tracker["pack info"]["trailer mods"] = ";".join(all_trailer_mods)
-            tracker["pack info"]["bus pack"] = False
+            if len(bus_mod_list) > 0:
+                tracker["pack info"]["bus pack"] = True
+            else:
+                tracker["pack info"]["bus pack"] = False
             tracker["pack info"]["paintjobs"] = ""
             tracker["pack info"]["checklist stage"] = 0
 
