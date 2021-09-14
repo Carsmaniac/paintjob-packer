@@ -485,6 +485,8 @@ class PackerApp:
         elif self.tab_game_variable.get() == "ets":
             self.currency = "euro"
 
+        self.check_for_outdated_vehicles(self.tab_game_variable.get())
+
         (self.truck_list, self.truck_mod_list, self.trailer_list, self.trailer_mod_list) = self.load_list_of_vehicles(self.tab_game_variable.get())
 
         for i in range(len(self.truck_list)):
@@ -534,6 +536,18 @@ class PackerApp:
             self.scroll_canvas_trailer_mods.yview_scroll(int(-1 * (event.delta / 120)), "units")
             if self.tab_game_variable.get() == "ats":
                 self.scroll_canvas_trailer_mods.yview_moveto(0)
+
+    def check_for_outdated_vehicles(self, game):
+        outdated_vehicles = []
+        for file_name in os.listdir("library/vehicles/{}".format(game)):
+            veh_ini = configparser.ConfigParser(allow_no_value = True)
+            veh_ini.read("library/vehicles/{}/{}".format(game, file_name), encoding="utf-8")
+            if "mod link workshop" not in veh_ini.options("vehicle info"): # 1.7
+                outdated_vehicles.append(file_name)
+            # if !("bus")
+            # print("mod link workshop" in veh_ini.options("vehicle info"))
+        for file_name in outdated_vehicles:
+            os.remove("library/vehicles/{}/{}".format(game, file_name))
 
     def load_list_of_vehicles(self, game):
         complete_list = []
@@ -702,7 +716,7 @@ class PackerApp:
         if inputs_verified:
             warning_vehicles = []
             for veh in self.truck_mod_list:
-                if "selected" in veh.check.state() and pj.bus_mod_door_hack(veh.vehicle_path):
+                if "selected" in veh.check.state() and veh.bus_door_workaround:
                     warning_vehicles.append(veh.name)
             if len(warning_vehicles) > 0:
                 if len(warning_vehicles) == 1:
@@ -1215,7 +1229,7 @@ class VehSelection:
         self.mod_link_forums = veh_ini["vehicle info"]["mod link forums"]
         self.mod_link_trucky = veh_ini["vehicle info"]["mod link trucky"]
         self.mod_link_author_site = veh_ini["vehicle info"]["mod link author site"]
-        # The canonical mod link is chosen with the priority of Steam Workshop > SCS Forums > Trucky Mod Hub > Mod author's own site
+        # The canonical mod link is chosen with the priority of Steam Workshop > SCS Forums > TruckyMods > Mod author's own site
         if self.mod_link_workshop != "":
             self.mod_link = self.mod_link_workshop
         elif self.mod_link_forums != "":
@@ -1224,6 +1238,8 @@ class VehSelection:
             self.mod_link = self.mod_link_trucky
         else:
             self.mod_link = self.mod_link_author_site
+        self.bus_mod = veh_ini["vehicle info"].getboolean("bus mod")
+        self.bus_door_workaround = veh_ini["vehicle info"].getboolean("bus door workaround")
 
 def show_unhandled_error(error_type, error_message, error_traceback):
     clipboard = tk.Tk()

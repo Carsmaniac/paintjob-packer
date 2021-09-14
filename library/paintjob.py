@@ -22,6 +22,8 @@ class Vehicle:
         self.mod_link_trucky = veh_ini["vehicle info"]["mod link trucky"]
         self.mod_link_author_site = veh_ini["vehicle info"]["mod link author site"]
         self.uses_accessories = veh_ini["vehicle info"].getboolean("uses accessories")
+        self.bus_mod = veh_ini["vehicle info"].getboolean("bus mod")
+        self.bus_door_workaround = veh_ini["vehicle info"].getboolean("bus door workaround")
         if self.uses_accessories:
             self.accessories = veh_ini["vehicle info"]["accessories"].split(";")
             self.acc_dict = {}
@@ -104,10 +106,6 @@ def generate_tobj(path):
     tobj_string += convert_string_to_hex(path)
     tobj_file = codecs.decode(tobj_string, "hex_codec")
     return tobj_file
-
-def bus_mod_door_hack(path):
-    door_workarounds = ["caio.millennium2", "iveco.evadys", "karosa.b95x", "karosa.c95x", "bollore.bluebus", "tourismo.new"]
-    return path in door_workarounds
 
 
 
@@ -226,7 +224,7 @@ def make_settings_sui(output_path, veh, internal_name, ingame_name, ingame_price
     file.write("\tunlock: {}\n".format(unlock_level))
     file.write("\tairbrush: true\n")
     file.write("\ticon: \"{}_icon\"\n".format(internal_name))
-    if bus_mod_door_hack(veh.path): # workaround for the weirdness surrounding bus mods' doors
+    if veh.bus_door_workaround: # workaround for the weirdness surrounding bus mods' doors
         file.write("\tbase_color_locked: false\n")
     if veh.alt_uvset:
         file.write("\talternate_uvset: true\n")
