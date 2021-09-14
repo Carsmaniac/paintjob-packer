@@ -2,8 +2,6 @@
 
 ## Trucks
 
-* Bollore Bluebus by **Etrusan** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2411589278) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=293498)
-* Caio Millennium 2 PBC by **Cristhian** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1601416070)
 * DAF 95 ATi by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=268236) / [XBS's Site](https://www.xbsmods.tk/ets2)
 * DAF F241 by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=264917) / [XBS's Site](https://www.xbsmods.tk/ets2)
 * DAF NTT by **XBS** - [XBS's Site](https://www.xbsmods.tk/ets2)
@@ -11,15 +9,12 @@
 * Ford F-MAX by **SimulasyonTURK** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1915802227) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=274617)
 * Freightliner Argosy by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2131434074)
 * Freightliner FLB by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=867655192) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=228835)
-* Iveco Evadys Line by **Etrusan** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1986485167) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=291295)
 * Iveco Stralis by **Fernando SB** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=284965)
-* Karosa B95x by **Etrusan** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2059274297) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=291294)
-* Karosa C95x by **Etrusan** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2059274297) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=291294)
 * Kenworth K100E by **Overfloater** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1814887717) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=274886)
+* Mack R Series by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1465115042) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256935)
 * MAN TGA by **MADster** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=196526)
 * MAN TGS Euro 6 by **MADster** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=166544)
 * MAN TGX by **MADster** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=177409)
-* Mack R Series by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1465115042) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256935)
 * Mercedes-Benz Actros MP2 by **Dotec** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2333621047) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=289988)
 * Mercedes-Benz Actros MP2 Black Edition by **Dotec** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2335508587) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=285438)
 * Mercedes-Benz Actros MP3 by **Dotec** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2462431555) / [TruckyMods](https://truckymods.io/euro-truck-simulator-2/trucks/mercedes-benz-actros-mp3) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=294253)
@@ -28,10 +23,8 @@
 * Mercedes-Benz New Actros 2019 by **Actros 5 Crew** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=287117)
 * Mercedes-Benz New Actros SLT by **Thunderhawk** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=741673588)
 * Mercedes-Benz SK by **XBS** - [XBS's Site](https://www.xbsmods.tk/ets2)
-* Mercedes-Benz Tourismo by **OyuncuyusBis** - [TruckyMods](https://truckymods.io/euro-truck-simulator-2/bus/mb-new-tourismo-2018)
 * Renault Magnum Updates by **Knox_xss** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=194202)
 * Roman Diesel by **MADster** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=293953)
-* SISU M-series by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=257924) / [XBS's Site](https://www.xbsmods.tk/ets2)
 * Scania G by **RJL** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2466514780) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=299475)
 * Scania G Next Generation by **Eugene** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1764268887) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=247941)
 * Scania P Next Generation by **Eugene** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1764268887) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=247941)
@@ -42,14 +35,24 @@
 * Scania S T-Cab by **Azorax** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=294695)
 * Scania T by **RJL** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2466522174) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=299474)
 * Scania T 4-series by **RJL** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2466522174) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=299475)
-* SKSBUS e138i by **ridh** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2562917080)
-* Solaris Urbino by **Etrusan** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1893063436) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=291296)
+* SISU M-series by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=257924) / [XBS's Site](https://www.xbsmods.tk/ets2)
 * Volkswagen Meteor by **Cristhian** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2232719369)
 * Volvo FH 2009 Classic by **Pendragon** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=197804)
 * Volvo FH 2012 Classic by **Pendragon** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=197804)
 * Volvo FH 3rd Generation by **johnny244** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2355498395) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=290872)
 * Volvo FM by **Galimim** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=278044)
 * Volvo FMX by **Galimim** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=278044)
+
+## Buses
+
+* Bollore Bluebus by **Etrusan** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2411589278) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=293498)
+* Caio Millennium 2 PBC by **Cristhian** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1601416070)
+* Iveco Evadys Line by **Etrusan** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1986485167) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=291295)
+* Karosa B95x by **Etrusan** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2059274297) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=291294)
+* Karosa C95x by **Etrusan** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2059274297) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=291294)
+* Mercedes-Benz Tourismo by **OyuncuyusBis** - [TruckyMods](https://truckymods.io/euro-truck-simulator-2/bus/mb-new-tourismo-2018)
+* SKSBUS e138i by **ridh** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2562917080)
+* Solaris Urbino by **Etrusan** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1893063436) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=291296)
 
 ## Trailers
 
