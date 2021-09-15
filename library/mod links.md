@@ -101,6 +101,7 @@
 * Kenworth W900A by **bigdaddyt150** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2032655017)
 * Kenworth W900B by **GTM** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1378683697)
 * Kenworth W990 by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1781104022) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=274473)
+* Mack Pinnacle CHU613 by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2288125958) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=265785)
 * Mack Pinnacle CHU613 by **Redd** - [Steam Workshop](https://steamcommunity.com/workshop/filedetails/?id=1943894280)
 * Mack R Series by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1463066263) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256935)
 * Peterbilt 352 by **Geoff G.** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2435980341) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=282929)
