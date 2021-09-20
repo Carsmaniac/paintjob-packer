@@ -1238,6 +1238,7 @@ class PackerApp:
             tracker["images"] = {}
             tracker["images"]["header"] = ""
             tracker["images"]["showcase"] = ""
+            tracker["images"]["thumbnail"] = ""
 
             tracker["links"] = {}
             tracker["links"]["steam workshop"] = ""
