@@ -1186,7 +1186,7 @@ class PackerApp:
             for veh in truck_mod_list + bus_mod_list:
                 if veh.file_name[:-4] not in all_truck_mods:
                     all_truck_mods.append(veh.file_name[:-4])
-                    tracker["description"]["changelog"] += "\\n- Added {}'s {}".format(veh.mod_author, veh.name)
+                    tracker["description"]["changelog"] += "\\n- Added {}'s {}".format(veh.mod_author, veh.name.replace(" [{}]".format(veh.mod_author), ""))
             tracker["pack info"]["truck mods"] = ";".join(all_truck_mods)
             all_trailers = tracker["pack info"]["trailers"].split(";")
             for veh in trailer_list:
@@ -1198,7 +1198,7 @@ class PackerApp:
             for veh in trailer_mod_list:
                 if veh.file_name[:-4] not in all_trailer_mods:
                     all_trailer_mods.append(veh.file_name[:-4])
-                    tracker["description"]["changelog"] += "\\n- Added {}'s {}".format(veh.mod_author, veh.name)
+                    tracker["description"]["changelog"] += "\\n- Added {}'s {}".format(veh.mod_author, veh.name.replace(" [{}]".format(veh.mod_author), ""))
             tracker["pack info"]["trailer mods"] = ";".join(all_trailer_mods)
 
             with open("{}/{}.ini".format(tracker_directory, mod_name), "w") as configfile:
