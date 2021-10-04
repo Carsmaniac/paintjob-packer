@@ -137,9 +137,9 @@ def make_description(output_path, truck_list, truck_mod_list, bus_mod_list, trai
     file = open(output_path + "/Mod_Manager_Description.txt", "w")
     if num_of_paintjobs == "single":
         for veh in truck_list + trailer_list:
-            file.write("This paintjob supports the {}\n".format(veh.name))
+            file.write("This paint job supports the {}\n".format(veh.name))
         for veh in truck_mod_list + trailer_mod_list + bus_mod_list:
-            file.write("This paintjob supports {}'s {}\n".format(veh.mod_author, veh.name.split(" [")[0]))
+            file.write("This paint job supports {}'s {}\n".format(veh.mod_author, veh.name.split(" [")[0]))
     else:
         if len(truck_list) + len(truck_mod_list) > 0:
             file.write("Trucks supported:\n")

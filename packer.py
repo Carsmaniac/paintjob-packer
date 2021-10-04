@@ -15,7 +15,7 @@ import urllib.request # fetching version info from GitHub
 try:
     import library.paintjob as pj # copying and generating mod files
 except ModuleNotFoundError:
-    print("Paintjob Packer can't find its library files")
+    print("Paint Job Packer can't find its library files")
     print("Make sure that the \"library\" folder is in the same directory as packer.py, and it contains all of its files")
     input("Press enter to quit")
     sys.exit()
@@ -77,10 +77,10 @@ class PackerApp:
         self.tab_game = ttk.Frame(self.tab_selector)
         self.tab_selector.add(self.tab_game, text = " Game ")
         self.tab_paintjob = ttk.Frame(self.tab_selector)
-        self.tab_selector.add(self.tab_paintjob, text = " Paintjobs ")
+        self.tab_selector.add(self.tab_paintjob, text = " Paint Jobs ")
 
         # Welcome tab
-        self.tab_welcome_title = ttk.Label(self.tab_welcome, text = "Welcome to Paintjob Packer")
+        self.tab_welcome_title = ttk.Label(self.tab_welcome, text = "Welcome to Paint Job Packer")
         self.tab_welcome_title.grid(row = 0, column = 0, columnspan = 2, pady = 20)
         self.tab_welcome_image = ttk.Label(self.tab_welcome, image = self.image_packer)
         self.tab_welcome_image.grid(row = 1, column = 0, columnspan = 2)
@@ -101,7 +101,7 @@ class PackerApp:
             self.tab_welcome_update_info.grid(row = 4, column = 0, columnspan = 2)
             self.tab_welcome_update_info.bind("<1>", lambda e: webbrowser.open_new(LATEST_VERSION_DOWNLOAD_LINK))
         else:
-            self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "If this is your first time using Paintjob Packer, please read the guide on the GitHub page")
+            self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "If this is your first time using Paint Job Packer, please read the guide on the GitHub page")
             self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (25, 0))
             if sys.platform.startswith("darwin"):
                 self.tab_welcome_update_info = ttk.Label(self.tab_welcome, text = "Things might look a little wonky on macOS, but everything should still work")
@@ -139,22 +139,22 @@ class PackerApp:
         self.tab_game_button_next.grid(row = 4, column = 1, sticky = "se", pady = 10, padx = 10)
 
         # Paintjobs tab
-        self.tab_paintjob_title = ttk.Label(self.tab_paintjob, text = "How many paintjobs are you making?")
+        self.tab_paintjob_title = ttk.Label(self.tab_paintjob, text = "How many paint jobs are you making?")
         self.tab_paintjob_title.grid(row = 0, column = 0, columnspan = 2, pady = 20)
         self.tab_paintjob_image_single = ttk.Label(self.tab_paintjob, image = self.image_single_paintjob)
         self.tab_paintjob_image_single.grid(row = 1, column = 0, padx = 10)
         self.tab_paintjob_image_pack = ttk.Label(self.tab_paintjob, image = self.image_paintjob_pack)
         self.tab_paintjob_image_pack.grid(row = 1, column = 1, padx = 10)
         self.tab_paintjob_variable = tk.StringVar(None, "pack")
-        self.tab_paintjob_option_single = ttk.Radiobutton(self.tab_paintjob, text = "Single paintjob", value = "single", variable = self.tab_paintjob_variable)
+        self.tab_paintjob_option_single = ttk.Radiobutton(self.tab_paintjob, text = "Single paint job", value = "single", variable = self.tab_paintjob_variable)
         self.tab_paintjob_option_single.grid(row = 2, column = 0, pady = 10)
         self.tab_paintjob_image_single.bind("<1>", lambda e: self.tab_paintjob_variable.set("single"))
-        self.tab_paintjob_option_pack = ttk.Radiobutton(self.tab_paintjob, text = "Paintjob pack", value = "pack", variable = self.tab_paintjob_variable)
+        self.tab_paintjob_option_pack = ttk.Radiobutton(self.tab_paintjob, text = "Paint job pack", value = "pack", variable = self.tab_paintjob_variable)
         self.tab_paintjob_option_pack.grid(row = 2, column = 1, pady = 10)
         self.tab_paintjob_image_pack.bind("<1>", lambda e: self.tab_paintjob_variable.set("pack"))
-        self.tab_paintjob_desc_single = ttk.Label(self.tab_paintjob, text = "A single paintjob for a single vehicle\n", wraplength = 300)
+        self.tab_paintjob_desc_single = ttk.Label(self.tab_paintjob, text = "A single paint job for a single vehicle\n", wraplength = 300)
         self.tab_paintjob_desc_single.grid(row = 3, column = 0, padx = 10, sticky = "n")
-        self.tab_paintjob_desc_pack = ttk.Label(self.tab_paintjob, text = "One paintjob that supports multiple vehicles", wraplength = 300)
+        self.tab_paintjob_desc_pack = ttk.Label(self.tab_paintjob, text = "One paint job that supports multiple vehicles", wraplength = 300)
         self.tab_paintjob_desc_pack.grid(row = 3, column = 1, padx = 10, sticky = "n")
         self.tab_paintjob_button_prev = ttk.Button(self.tab_paintjob, text = "< Prev", command = lambda : self.tab_selector.select(1))
         self.tab_paintjob_button_prev.grid(row = 4, column = 0, padx = 10, pady = 10, sticky = "w")
@@ -167,7 +167,7 @@ class PackerApp:
         self.main_screen = ttk.Frame(self.container)
         self.panel_mod = ttk.LabelFrame(self.main_screen, text = "Mod Info")
         self.panel_mod.grid(row = 0, column = 0, sticky = "ew")
-        self.panel_ingame = ttk.LabelFrame(self.main_screen, text = "In-Game Paintjob Info")
+        self.panel_ingame = ttk.LabelFrame(self.main_screen, text = "In-Game Paint Job Info")
         self.panel_ingame.grid(row = 1, column = 0, sticky = "ew")
         self.panel_internal = ttk.LabelFrame(self.main_screen, text = "Internal (Hidden) Info and Other Settings")
         self.panel_internal.grid(row = 2, column = 0, sticky = "new")
@@ -184,7 +184,7 @@ class PackerApp:
         self.panel_mod_name_label.grid(row = 0, column = 0, padx = 5, sticky = "w")
         self.panel_mod_name_input = ttk.Entry(self.panel_mod, width = 30, textvariable = self.panel_mod_name_variable)
         self.panel_mod_name_input.grid(row = 0, column = 1, padx = 5, sticky = "w")
-        self.panel_mod_name_help = ttk.Button(self.panel_mod, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Mod Name", message = "The name of your mod, as it appears in the in-game mod manager\n\ne.g. Transit Co Paintjob Pack"))
+        self.panel_mod_name_help = ttk.Button(self.panel_mod, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Mod Name", message = "The name of your mod, as it appears in the in-game mod manager\n\ne.g. Transit Co Paint Job Pack"))
         self.panel_mod_name_help.grid(row = 0, column = 2, padx = (0, 5))
         self.panel_mod_version_variable = tk.StringVar(None, "1.0")
         self.panel_mod_version_label = ttk.Label(self.panel_mod, text = "Version:")
@@ -211,19 +211,19 @@ class PackerApp:
         self.panel_ingame_name_label.grid(row = 0, column = 0, padx = 5, sticky = "w")
         self.panel_ingame_name_input = ttk.Entry(self.panel_ingame, width = 30, textvariable = self.panel_ingame_name_variable)
         self.panel_ingame_name_input.grid(row = 0, column = 1, padx = 5, sticky = "w")
-        self.panel_ingame_name_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: In-Game Name", message = "The name of your paintjob as it appears in-game in the vehicle purchase/upgrade screen\n\ne.g. Transit Co"))
+        self.panel_ingame_name_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: In-Game Name", message = "The name of your paint job as it appears in-game in the vehicle purchase/upgrade screen\n\ne.g. Transit Co"))
         self.panel_ingame_name_help.grid(row = 0, column = 2, padx = (0, 5))
         self.panel_ingame_price_variable = tk.StringVar()
         self.panel_ingame_price_label = ttk.Label(self.panel_ingame, text = "Price:")
         self.panel_ingame_price_label.grid(row = 1, column = 0, padx = 5, sticky = "w")
         self.panel_ingame_price_input = ttk.Entry(self.panel_ingame, width = 7, textvariable = self.panel_ingame_price_variable)
         self.panel_ingame_price_input.grid(row = 1, column = 1, padx = 5, sticky = "w")
-        self.panel_ingame_price_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: In-Game Price", message = "How much your paintjob costs in-game, in {}.\n\ne.g. 6000".format(self.currency)))
+        self.panel_ingame_price_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: In-Game Price", message = "How much your paint job costs in-game, in {}.\n\ne.g. 6000".format(self.currency)))
         self.panel_ingame_price_help.grid(row = 1, column = 2, padx = (0, 5))
         self.panel_ingame_default_variable = tk.BooleanVar(None, True)
         self.panel_ingame_default_checkbox = ttk.Checkbutton(self.panel_ingame, text = "Unlocked by default", variable = self.panel_ingame_default_variable, command = lambda : self.toggle_unlock_level())
         self.panel_ingame_default_checkbox.grid(row = 2, column = 0, columnspan = 2, padx = 5, sticky = "w")
-        self.panel_ingame_default_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Unlocked By Default", message = "Whether or not your paintjob can be bought from level 0, for example on a brand new profile"))
+        self.panel_ingame_default_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Unlocked By Default", message = "Whether or not your paint job can be bought from level 0, for example on a brand new profile"))
         self.panel_ingame_default_help.grid(row = 2, column = 2, padx = (0, 5))
         self.panel_ingame_unlock_variable = tk.StringVar()
         self.panel_ingame_unlock_label = ttk.Label(self.panel_ingame, text = "Unlock level:")
@@ -231,7 +231,7 @@ class PackerApp:
         self.panel_ingame_unlock_input = ttk.Entry(self.panel_ingame, width = 5, textvariable = self.panel_ingame_unlock_variable)
         self.panel_ingame_unlock_input.grid(row = 3, column = 1, padx = 5, sticky = "w")
         self.panel_ingame_unlock_input.state(["disabled"]) # disabled by default, as the "unlocked by default" checkbox is checked by default
-        self.panel_ingame_unlock_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Unlock Level", message = "If not unlocked by default, what level your paintjob is made purchasable at\n\ne.g. 11"))
+        self.panel_ingame_unlock_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Unlock Level", message = "If not unlocked by default, what level your paint job is made purchasable at\n\ne.g. 11"))
         self.panel_ingame_unlock_help.grid(row = 3, column = 2, padx = (0, 5))
         self.panel_ingame_spacer_label = ttk.Label(self.panel_ingame, image = self.image_spacer_100)
         self.panel_ingame_spacer_label.grid(row = 4, column = 0)
@@ -244,7 +244,7 @@ class PackerApp:
         self.panel_internal_name_label.grid(row = 0, column = 0, padx = 5, sticky = "w")
         self.panel_internal_name_input = ttk.Entry(self.panel_internal, width = 15, textvariable = self.panel_internal_name_variable)
         self.panel_internal_name_input.grid(row = 0, column = 1, padx = 5, sticky = "w")
-        self.panel_internal_name_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Internal Name", message = "A unique name used by the game to identify your paintjob. Mod users will NOT see this name.\n\nMust be {} characters or fewer, and only contain letters, numbers and underscores.\n\nMust also be unique, if two different mods use the same internal name they will be incompatible with each other.\n\ne.g. transit_co".format(self.internal_name_length)))
+        self.panel_internal_name_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Internal Name", message = "A unique name used by the game to identify your paint job. Mod users will NOT see this name.\n\nMust be {} characters or fewer, and only contain letters, numbers and underscores.\n\nMust also be unique, if two different mods use the same internal name they will be incompatible with each other.\n\ne.g. transit_co".format(self.internal_name_length)))
         self.panel_internal_name_help.grid(row = 0, column = 2, padx = (0, 5))
         self.panel_internal_supported_variable = tk.StringVar(None, "Largest cabin only")
         self.panel_internal_supported_variable.trace("w", self.update_cabin_dropdowns)
@@ -252,15 +252,15 @@ class PackerApp:
         self.panel_internal_supported_label.grid(row = 4, column = 0, padx = (5, 0), sticky = "w")
         self.panel_internal_supported_dropdown = ttk.Combobox(self.panel_internal, state = "readonly", textvariable = self.panel_internal_supported_variable, values = ["Largest cabin only", "All cabins"], width = 20)
         self.panel_internal_supported_dropdown.grid(row = 4, column = 1, padx = 5, sticky = "w")
-        self.panel_internal_supported_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Supported Cabins", message = "Whether your paintjob supports only the largest cabin for each truck, or all cabins.\n\nNote that the 8x4 chassis uses a separate cabin in some cases, which would not be supported if you choose largest cabin only.\n\ne.g. If you're making a paintjob for the Scania S, a \"largest cabin only\" paintjob would only support the High Roof cabin, whereas an \"all cabins\" paintjob would support the Normal Roof and High Roof cabins, as well as the separate High Roof 8x4 cabin."))
+        self.panel_internal_supported_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Supported Cabins", message = "Whether your paint job supports only the largest cabin for each truck, or all cabins.\n\nNote that the 8x4 chassis uses a separate cabin in some cases, which would not be supported if you choose largest cabin only.\n\ne.g. If you're making a paint job for the Scania S, a \"largest cabin only\" paint job would only support the High Roof cabin, whereas an \"all cabins\" paint job would support the Normal Roof and High Roof cabins, as well as the separate High Roof 8x4 cabin."))
         self.panel_internal_supported_help.grid(row = 4, column = 2, padx = (0, 5))
-        self.panel_internal_handling_variable = tk.StringVar(None, "Combined paintjob")
+        self.panel_internal_handling_variable = tk.StringVar(None, "Combined paint job")
         self.panel_internal_handling_variable.trace("w", self.update_cabin_dropdowns)
         self.panel_internal_handling_label = ttk.Label(self.panel_internal, text = "Cabin handling:")
         # self.panel_internal_handling_label.grid(row = 5, column = 0, padx = 5, sticky = "w")
-        self.panel_internal_handling_dropdown = ttk.Combobox(self.panel_internal, state = "readonly", textvariable = self.panel_internal_handling_variable, values = ["Combined paintjob", "Separate paintjobs"], width = 20)
+        self.panel_internal_handling_dropdown = ttk.Combobox(self.panel_internal, state = "readonly", textvariable = self.panel_internal_handling_variable, values = ["Combined paint job", "Separate paint jobs"], width = 20)
         # self.panel_internal_handling_dropdown.grid(row = 5, column = 1, padx = 5, sticky = "w")
-        self.panel_internal_handling_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Cabin Handling", message = "Whether multiple cabins should be combined into a single paintjob, or separated into multiple paintjobs.\n\nA single combined paintjob requires less work and results in a smaller mod size, as you only need to make a single cabin texture for each truck. However, your design might not work across all the different cabin sizes, for example your design could look correct on large cabins, but be positioned incorrectly/stretched/cut off on smaller cabins.\n\nSeparate paintjobs allow you to tweak your design to work for each cabin, but require more work and result in a larger mod size, as you need to make separate textures for every cabin whether they need them or not."))
+        self.panel_internal_handling_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Cabin Handling", message = "Whether multiple cabins should be combined into a single paint job, or separated into multiple paint jobs.\n\nA single combined paint job requires less work and results in a smaller mod size, as you only need to make a single cabin texture for each truck. However, your design might not work across all the different cabin sizes, for example your design could look correct on large cabins, but be positioned incorrectly/stretched/cut off on smaller cabins.\n\nSeparate paint jobs allow you to tweak your design to work for each cabin, but require more work and result in a larger mod size, as you need to make separate textures for every cabin whether they need them or not."))
         # self.panel_internal_handling_help.grid(row = 5, column = 2, padx = (0, 5))
         self.panel_internal_spacer_label = ttk.Label(self.panel_internal, image = self.image_spacer_100)
         self.panel_internal_spacer_label.grid(row = 8, column = 0)
@@ -379,7 +379,7 @@ class PackerApp:
         self.panel_generating_templates_variable = tk.BooleanVar(None, False)
         self.panel_generating_templates_checkbox = ttk.Checkbutton(self.panel_generating, text = "Use templates instead of empty placeholders", variable = self.panel_generating_templates_variable)
         self.panel_generating_templates_checkbox.grid(row = 1, column = 0, padx = (5, 20), sticky = "w")
-        self.panel_generating_templates_help = ttk.Button(self.panel_generating, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Placeholder Templates", message = "Uses templates instead of empty placeholder files. If not selected, all .dds files will be empty white placeholder squares. If selected, all .dds files will be appropriate templates (4k for trucks, 4k/2k for trailers) instead of empty images. Note that some parts on certain vehicles will still use empty images, as they have no paintjob potential besides changing their colour.\n\nRequires templates to be installed for the game you're making a mod for. Not supported in portable verions."))
+        self.panel_generating_templates_help = ttk.Button(self.panel_generating, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Placeholder Templates", message = "Uses templates instead of empty placeholder files. If not selected, all .dds files will be empty white placeholder squares. If selected, all .dds files will be appropriate templates (4k for trucks, 4k/2k for trailers) instead of empty images. Note that some parts on certain vehicles will still use empty images, as they have no paint job potential besides changing their colour.\n\nRequires templates to be installed for the game you're making a mod for. Not supported in portable versions."))
         self.panel_generating_templates_help.grid(row = 1, column = 1, padx = (0, 5), pady = (0, 5))
         self.panel_generating.columnconfigure(0, weight = 1)
 
@@ -416,7 +416,7 @@ class PackerApp:
 
         # error popup
         self.error_screen = tk.Frame(self.container)
-        self.error_top_text = ttk.Label(self.error_screen, text = "Something went very wrong!\n\nPaintjob Packer ran into an\nunexpected error and can't continue", justify = "center")
+        self.error_top_text = ttk.Label(self.error_screen, text = "Something went very wrong!\n\nPaint Job Packer ran into an\nunexpected error and can't continue", justify = "center")
         self.error_top_text.grid(row = 0, column = 0, columnspan = 2, pady = 10)
         self.error_text = tk.Text(self.error_screen, height = 10, width = 50)
         self.error_text.grid(row = 1, column = 0, columnspan = 2, padx = 10)
@@ -432,7 +432,7 @@ class PackerApp:
         self.error_forums_link.bind("<1>", lambda e: webbrowser.open_new(FORUM_LINK))
         self.error_bottom_text = ttk.Label(self.error_screen, text = "Thank you, and sorry for the inconvenience!")
         self.error_bottom_text.grid(row = 5, column = 0, columnspan = 2)
-        self.error_exit_button = ttk.Button(self.error_screen, text = "Exit Paintjob Packer", command = sys.exit, width = 20)
+        self.error_exit_button = ttk.Button(self.error_screen, text = "Exit Paint Job Packer", command = sys.exit, width = 20)
         self.error_exit_button.grid(row = 6, column = 0, columnspan = 2, pady = 10)
 
         master.report_callback_exception = self.show_fancy_error # it's now safe to use the screen instead of the messagebox
@@ -465,7 +465,7 @@ class PackerApp:
             self.panel_internal_handling_dropdown.grid(row = 5, column = 1, padx = 5, sticky = "w")
             self.panel_internal_handling_help.grid(row = 5, column = 2, padx = (0, 5))
 
-            if self.panel_internal_handling_variable.get() == "Separate paintjobs":
+            if self.panel_internal_handling_variable.get() == "Separate paint jobs":
                 self.internal_name_length = 10
 
     def switch_to_setup_screen(self):
@@ -499,7 +499,7 @@ class PackerApp:
             self.panel_pack_selector.tab(3, state = "hidden")
             self.panel_single_type_dropdown.config(values = ["Truck", "Truck Mod", "Trailer", "Trailer Mod"])
         elif self.tab_game_variable.get() == "ets":
-            self.currency = "euro"
+            self.currency = "euros"
             self.panel_pack_selector.tab(3, state = "normal")
             self.panel_single_type_dropdown.config(values = ["Truck", "Truck Mod", "Bus Mod", "Trailer", "Trailer Mod"])
 
@@ -711,26 +711,26 @@ class PackerApp:
         # in-game paintjob info
         if len(self.panel_ingame_name_variable.get()) < 1:
             inputs_verified = False
-            all_errors.append(["No paintjob name", "Please enter a paintjob name"])
+            all_errors.append(["No paint job name", "Please enter a paint job name"])
         if pj.contains_illegal_characters_file_name(self.panel_ingame_name_variable.get()):
             inputs_verified = False
-            all_errors.append(["Invalid character in paintjob name", "Paintjob name cannot contain the following characters:\n< > : \" / \\ | ? *"])
+            all_errors.append(["Invalid character in paint job name", "Paint job name cannot contain the following characters:\n< > : \" / \\ | ? *"])
         if self.panel_ingame_name_variable.get()[-1:] == ".":
             inputs_verified = False
-            all_errors.append(["Paintjob name ends with full stop/period", "Paintjob name cannot end with \".\" (full stop/period)"])
+            all_errors.append(["Paint job name ends with full stop/period", "Paint job name cannot end with \".\" (full stop/period)"])
         if pj.contains_reserved_file_name(self.panel_ingame_name_variable.get()):
             inputs_verified = False
-            all_errors.append(["Invalid paintjob name", "Paintjob name cannot be any of the following, as they are reserved file names:\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
+            all_errors.append(["Invalid paint job name", "Paint job name cannot be any of the following, as they are reserved file names:\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
         if not pj.check_if_ascii(self.panel_ingame_name_variable.get()):
             inputs_verified = False
-            all_errors.append(["Non-ASCII characters in paintjob name", "Paintjob names can only consist of ASCII characters:\n\nabcdefghijklmnopqrstuvwxyz\nABCDEFGHIJKLMNOPQRSTUVWXYZ\n0123456789\n! @ # $ % ^ & ( ) - _ = + [ ] { } ; ' , ` ~"])
+            all_errors.append(["Non-ASCII characters in paint job name", "Paint job names can only consist of ASCII characters:\n\nabcdefghijklmnopqrstuvwxyz\nABCDEFGHIJKLMNOPQRSTUVWXYZ\n0123456789\n! @ # $ % ^ & ( ) - _ = + [ ] { } ; ' , ` ~"])
 
         if len(self.panel_ingame_price_variable.get()) < 1:
             inputs_verified = False
-            all_errors.append(["No paintjob price", "Please enter a paintjob price"])
+            all_errors.append(["No paint job price", "Please enter a paint job price"])
         if not re.match("^[0-9]*$", self.panel_ingame_price_variable.get()):
             inputs_verified = False
-            all_errors.append(["Invalid paintjob price", "Paintjob price must be a number, with no decimal points, currency signs, spaces or letters"])
+            all_errors.append(["Invalid paint job price", "Paint job price must be a number, with no decimal points, currency signs, spaces or letters"])
 
         if not self.panel_ingame_default_variable.get():
             if len(self.panel_ingame_unlock_variable.get()) < 1:
@@ -792,7 +792,7 @@ class PackerApp:
                     quantity_message = "This will affect the following vehicle:"
                 else:
                     quantity_message = "This will affect the following vehicles that you've selected:"
-                messagebox.showwarning(title = "Bus Mods", message = "Bus Mods\n\nBecause of limitations of the game, bus mods use a workaround in order for paintjobs to appear on their doors. This means that paintjob mods work a little strangely, and will not affect the vehicles' doors.\n\nAny paintjobs generated by Paintjob Packer for bus mods will have a colour picker, which will allow you to change the colour of the doors, however you'll be unable to apply patterns/logos/text/etc to them. {}\n\n{}\n\nIn order to make a paintjob for a bus mod that works properly, try replacing the texture files of an existing paintjob, instead of making a brand new one. If you choose to continue, expect some weirdness with your mod, and note that it cannot be fixed.".format(quantity_message, "\n".join(warning_vehicles)))
+                messagebox.showwarning(title = "Bus Mods", message = "Bus Mods\n\nBecause of limitations of the game, bus mods use a workaround in order for paint jobs to appear on their doors. This means that paint job mods work a little strangely, and will not affect the vehicles' doors.\n\nAny paint jobs generated by Paint Job Packer for bus mods will have a colour picker, which will allow you to change the colour of the doors, however you'll be unable to apply patterns/logos/text/etc to them. {}\n\n{}\n\nIn order to make a paint job for a bus mod that works properly, try replacing the texture files of an existing paint job, instead of making a brand new one. If you choose to continue, expect some weirdness with your mod, and note that it cannot be fixed.".format(quantity_message, "\n".join(warning_vehicles)))
             self.main_screen.grid_forget()
             self.generate_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
         else:
@@ -812,18 +812,18 @@ class PackerApp:
 
     def check_if_folder_clear(self, save_directory):
         if save_directory != "":
-            output_path = save_directory + "/Paintjob Packer Output"
+            output_path = save_directory + "/Paint Job Packer Output"
             folder_clear = True
             if os.path.exists(output_path):
                 if len(os.listdir(output_path)) > 0:
                     folder_clear = False # I don't want to be on the receiving end of an irate user who lost their important report the night before it was due, because they happened to store it in the paintjob packer folder
-                    messagebox.showerror(title = "Output folder not clear", message = "A folder called \"Paintjob Packer Output\" already exists in the directory that you chose, and it contains files.\n\nPlease delete the \"Paintjob Packer Output\" folder to continue.")
+                    messagebox.showerror(title = "Output folder not clear", message = "A folder called \"Paint Job Packer Output\" already exists in the directory that you chose, and it contains files.\n\nPlease delete the \"Paint Job Packer Output\" folder to continue.")
             try:
                 shutil.copyfile("library/placeholder files/empty.dds", save_directory + "/This file is unneeded, you can delete it.dds")
                 os.remove(save_directory + "/This file is unneeded, you can delete it.dds")
             except PermissionError:
                 folder_clear = False
-                messagebox.showerror(title = "Cannot access output folder", message = "Paintjob Packer doesn't have permission to copy files to the directory that you chose.\n\nTry picking a different save directory, or running Paintjob Packer as an admin.")
+                messagebox.showerror(title = "Cannot access output folder", message = "Paint Job Packer doesn't have permission to copy files to the directory that you chose.\n\nTry picking a different save directory, or running Paint Job Packer as an admin.")
             if folder_clear:
                 self.make_paintjob(output_path)
 
@@ -879,7 +879,7 @@ class PackerApp:
         cabin_handling = self.panel_internal_handling_variable.get()
 
         if cabins_supported == "Largest cabin only": # this shouldn't be needed, but it might be, so I'm doing it for safe measure
-            cabin_handling = "Combined paintjob"
+            cabin_handling = "Combined paint job"
 
         placeholder_templates = self.panel_generating_templates_variable.get()
 
@@ -931,7 +931,7 @@ class PackerApp:
 
         pj.make_material_folder(out_path)
 
-        self.panel_progress_specific_variable.set("Paintjob icon")
+        self.panel_progress_specific_variable.set("Paint job icon")
         self.panel_progress_specific_label.update()
         pj.copy_paintjob_icon(out_path, ingame_name)
 
@@ -952,11 +952,11 @@ class PackerApp:
                 template_zip = None
 
             pj.make_def_folder(out_path, veh)
-            self.panel_progress_specific_variable.set("Paintjob settings")
+            self.panel_progress_specific_variable.set("Paint job settings")
             self.panel_progress_specific_label.update()
             pj.make_settings_sui(out_path, veh, internal_name, ingame_name, ingame_price, unlock_level)
             pj.make_vehicle_folder(out_path, veh, ingame_name)
-            if cabin_handling == "Combined paintjob" or veh.type == "trailer_owned" or not veh.separate_paintjobs:
+            if cabin_handling == "Combined paint job" or veh.type == "trailer_owned" or not veh.separate_paintjobs:
                 one_paintjob = True
                 paintjob_name = internal_name
                 if veh.uses_accessories:
@@ -1035,7 +1035,7 @@ class PackerApp:
         if os.path.exists("library/paintjob tracker.txt") and num_of_paintjobs != "single" and mod_name != "123":
             self.generate_paintjob_tracker_file(game, truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list, mod_name)
 
-        exit_now = messagebox.showinfo(title = "Mod generation complete", message = "Your mod has been generated successfully! It's been placed in the directory you chose, inside a folder called Paintjob Packer Output.\n\nYour mod is not yet finished, refer to the text file inside the folder for instructions. There is also a guide on the GitHub page.\n\nThanks for using Paintjob Packer! :)")
+        exit_now = messagebox.showinfo(title = "Mod generation complete", message = "Your mod has been generated successfully! It's been placed in the directory you chose, inside a folder called Paint Job Packer Output.\n\nYour mod is not yet finished, refer to the text file inside the folder for instructions. There is also a guide on the GitHub page.\n\nThanks for using Paint Job Packer! :)")
         sys.exit()
 
     def make_readme_file(self, output_path, paintjob_name, game, mod_name, truck_list, bus_list, trailer_list):
@@ -1075,10 +1075,10 @@ class PackerApp:
         file.write("\n")
         file.write("\n")
         file.write("\n")
-        file.write("== In-game paintjob icon ==\n")
+        file.write("== In-game paint job icon ==\n")
         file.write("material/ui/accessory/{} Icon.dds\n".format(paintjob_name))
         file.write("\n")
-        file.write("A 256 x 64 DDS image that is shown in-game when you buy your paintjob.\n")
+        file.write("A 256 x 64 DDS image that is shown in-game when you buy your paint job.\n")
         file.write("Stick to the shape in the placeholder for your icon to match the others in-game.\n")
         file.write("\n")
         file.write("\n")
@@ -1098,7 +1098,7 @@ class PackerApp:
         elif len(trailer_list) > 1:
             file.write("vehicle/trailer_owned/upgrade/paintjob/{}/<each vehicle>/\n".format(paintjob_name))
         file.write("\n")
-        file.write("These are the main files of your mod, determining what your paintjob will actually look like.\n")
+        file.write("These are the main files of your mod, determining what your paint job will actually look like.\n")
         if len(truck_list) + len(bus_list) + len(trailer_list) == 1:
             file.write("Replace or re-colour every DDS image in this folder.\n")
         else:
@@ -1141,9 +1141,9 @@ class PackerApp:
         file.write("\n")
         if num_of_paintjobs == "single":
             for veh in truck_list + trailer_list:
-                file.write("This paintjob supports the {}\n".format(veh.name))
+                file.write("This paint job supports the {}\n".format(veh.name))
             for veh in truck_mod_list + bus_mod_list + trailer_mod_list:
-                file.write("This paintjob supports {}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name.split(" [")[0]))
+                file.write("This paint job supports {}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name.split(" [")[0]))
         else:
             if len(truck_list) + len(truck_mod_list) > 0:
                 file.write("Trucks supported:\n")
@@ -1203,7 +1203,7 @@ class PackerApp:
 
             with open("{}/{}.ini".format(tracker_directory, mod_name), "w") as configfile:
                 tracker.write(configfile)
-            print("Paintjob Tracker file at {}/{}.ini updated".format(tracker_directory, mod_name))
+            print("Paint Job Tracker file at {}/{}.ini updated".format(tracker_directory, mod_name))
         else:
             tracker["pack info"] = {}
             all_trucks = []
@@ -1250,7 +1250,7 @@ class PackerApp:
 
             with open("{}/{}.ini".format(tracker_directory, mod_name), "w") as configfile:
                 tracker.write(configfile)
-            print("Paintjob Tracker file written to {}/{}.ini".format(tracker_directory, mod_name))
+            print("Paint Job Tracker file written to {}/{}.ini".format(tracker_directory, mod_name))
 
     def check_new_version(self):
         print("Checking latest version on GitHub...")
@@ -1335,11 +1335,11 @@ def show_unhandled_error(error_type, error_message, error_traceback):
     clipboard.clipboard_append("{}: {}\n\nTraceback:\n{}".format(error_type.__name__, str(error_message), "\n".join(traceback.format_list(traceback.extract_tb(error_traceback)))))
     clipboard.update()
     clipboard.destroy()
-    messagebox.showerror(title = "Unhandled exception", message = "Something went very wrong and Paintjob Packer ran into an unexpected error.\n\nThe full error message has been copied to your clipboard, please send it to the developer on GitHub or the SCS Forums!")
+    messagebox.showerror(title = "Unhandled exception", message = "Something went very wrong and Paint Job Packer ran into an unexpected error.\n\nThe full error message has been copied to your clipboard, please send it to the developer on GitHub or the SCS Forums!")
 
 def main():
     root = tk.Tk()
-    root.title("Paintjob Packer v{}".format(version))
+    root.title("Paint Job Packer v{}".format(version))
     root.iconphoto(True, tk.PhotoImage(file = "library/packer images/icon.png"))
     root.resizable(False, False)
     root.report_callback_exception = show_unhandled_error
