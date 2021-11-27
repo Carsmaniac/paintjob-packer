@@ -60,10 +60,13 @@ class PackerApp:
 
         # load appropriate cursor for OS, used when mousing over links
         if sys.platform.startswith("win"):
+            self.os = "Windows"
             self.cursor = "hand2"
-        elif sys.platform.startswith("darwin"): # macOS
+        elif sys.platform.startswith("darwin"):
+            self.os = "macOS"
             self.cursor = "pointinghand"
         elif sys.platform.startswith("linux"):
+            self.os = "Linux"
             self.cursor = "hand2"
 
         self.total_vehicles = 0 # used in the vehicle selector when making a paintjob pack
@@ -1339,6 +1342,12 @@ def show_unhandled_error(error_type, error_message, error_traceback):
 
 def main():
     root = tk.Tk()
+    if sys.platform.startswith("win"):
+        ttk.Style().theme_use("vista")
+    elif sys.platform.startswith("darwin"):
+        ttk.Style().theme_use("aqua")
+    elif sys.platform.startswith("linux"):
+        ttk.Style().theme_use("clam") # The best looking of a bad bunch
     root.title("Paint Job Packer v{}".format(version))
     root.iconphoto(True, tk.PhotoImage(file = "library/packer images/icon.png"))
     root.resizable(False, False)
