@@ -821,7 +821,7 @@ class PackerApp:
             try:
                 shutil.copyfile("library/placeholder files/empty.dds", save_directory + "/This file is unneeded, you can delete it.dds")
                 os.remove(save_directory + "/This file is unneeded, you can delete it.dds")
-            except PermissionError:
+            except (PermissionError, FileNotFoundError):
                 folder_clear = False
                 messagebox.showerror(title = "Cannot access output folder", message = "Paint Job Packer doesn't have permission to copy files to the directory that you chose.\n\nTry picking a different save directory, or running Paint Job Packer as an admin.")
             if folder_clear:
