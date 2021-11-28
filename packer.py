@@ -964,7 +964,11 @@ class PackerApp:
                 paintjob_name = internal_name
                 if veh.uses_accessories:
                     if veh.type == "trailer_owned":
-                        main_dds_name = "Base Colour"
+                        if veh.name in veh.acc_dict:
+                            main_dds_name = veh.name
+                            veh.acc_dict.pop(veh.name)
+                        else:
+                            main_dds_name = "Base Colour"
                     elif veh.type == "truck":
                         main_dds_name = "Cabin"
                 else:
