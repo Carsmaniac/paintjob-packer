@@ -10,13 +10,15 @@ class Vehicle:
         veh_ini.read("library/vehicles/{}/{}".format(game, file_name), encoding="utf-8")
         self.path = veh_ini["vehicle info"]["vehicle path"]
         self.alt_uvset = veh_ini["vehicle info"].getboolean("alt uvset")
-        self.name = veh_ini["vehicle info"]["name"]
+        self.display_name = veh_ini["vehicle info"]["name"]
+        self.name = strip_diacritics(self.display_name)
         self.trailer = veh_ini["vehicle info"].getboolean("trailer")
         self.mod = veh_ini["vehicle info"].getboolean("mod")
         if self.mod:
-            self.mod_author = veh_ini["vehicle info"]["mod author"]
+            self.display_author = veh_ini["vehicle info"]["mod author"]
         else:
-            self.mod_author = "SCS"
+            self.display_author = "SCS"
+        self.mod_author = strip_diacritics(self.display_author)
         self.mod_link_workshop = veh_ini["vehicle info"]["mod link workshop"]
         self.mod_link_forums = veh_ini["vehicle info"]["mod link forums"]
         self.mod_link_trucky = veh_ini["vehicle info"]["mod link trucky"]
@@ -64,6 +66,16 @@ def convert_string_to_hex(string_input):
     string_output = binascii.hexlify(string_input)
     string_output = string_output.decode()
     return string_output
+
+def strip_diacritics(string_input):
+    # unidecode is the standard way to normalise text, but it's licensed under GPL
+    # More accurate replacements (e.g. ü to ue in German) are not universal, so diacritics are just stripped
+    ascii_string = string_input.replace("\u00dc", "U") # Ü
+    ascii_string = ascii_string.replace("\u00e4", "a") # ä
+    ascii_string = ascii_string.replace("\u00e9", "e") # é
+    ascii_string = ascii_string.replace("\u00f6", "o") # ö
+    ascii_string = ascii_string.replace("\u00fc", "u") # ü
+    return ascii_string
 
 def check_if_ascii(string_input):
     ascii_string = string_input.encode("ascii", errors="ignore").decode()
@@ -137,28 +149,28 @@ def make_description(output_path, truck_list, truck_mod_list, bus_mod_list, trai
     file = open(output_path + "/Mod_Manager_Description.txt", "w")
     if num_of_paintjobs == "single":
         for veh in truck_list + trailer_list:
-            file.write("This paint job supports the {}\n".format(veh.name))
+            file.write("This paint job supports the {}\n".format(veh.display_name))
         for veh in truck_mod_list + trailer_mod_list + bus_mod_list:
-            file.write("This paint job supports {}'s {}\n".format(veh.mod_author, veh.name.split(" [")[0]))
+            file.write("This paint job supports {}'s {}\n".format(veh.display_author, veh.display_name.split(" [")[0]))
     else:
         if len(truck_list) + len(truck_mod_list) > 0:
             file.write("Trucks supported:\n")
             for veh in truck_list:
-                file.write("- " + veh.name + "\n")
+                file.write("- " + veh.display_name + "\n")
             for veh in truck_mod_list:
-                file.write("- {}'s {}\n".format(veh.mod_author, veh.name.split(" [")[0]))
+                file.write("- {}'s {}\n".format(veh.display_author, veh.display_name.split(" [")[0]))
             file.write("\n")
         if len(bus_mod_list) > 0:
             file.write("Buses supported:\n")
             for veh in bus_mod_list:
-                file.write("- {}'s {}\n".format(veh.mod_author, veh.name.split(" [")[0]))
+                file.write("- {}'s {}\n".format(veh.display_author, veh.display_name.split(" [")[0]))
             file.write("\n")
         if len(trailer_list) + len(trailer_mod_list) > 0:
             file.write("Trailers supported:\n")
             for veh in trailer_list:
-                file.write("- " + veh.name + "\n")
+                file.write("- " + veh.display_name + "\n")
             for veh in trailer_mod_list:
-                file.write("- {}'s {}\n".format(veh.mod_author, veh.name.split(" [")[0]))
+                file.write("- {}'s {}\n".format(veh.display_author, veh.display_name.split(" [")[0]))
     file.close()
 
 def copy_versions_sii(output_path):

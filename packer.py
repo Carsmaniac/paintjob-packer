@@ -590,25 +590,25 @@ class PackerApp:
         for veh in complete_list:
             if veh.trailer:
                 if veh.mod:
-                    veh.check = ttk.Checkbutton(self.scroll_frame_trailer_mods, text = veh.name, command = lambda : self.update_total_vehicles_supported())
+                    veh.check = ttk.Checkbutton(self.scroll_frame_trailer_mods, text = veh.display_name, command = lambda : self.update_total_vehicles_supported())
                     veh.check.state(["!alternate","!selected"])
                     trailer_mod_list.append(veh)
                 else:
-                    veh.check = ttk.Checkbutton(self.scroll_frame_trailers, text = veh.name, command = lambda : self.update_total_vehicles_supported())
+                    veh.check = ttk.Checkbutton(self.scroll_frame_trailers, text = veh.display_name, command = lambda : self.update_total_vehicles_supported())
                     veh.check.state(["!alternate","!selected"])
                     trailer_list.append(veh)
             else:
                 if veh.mod:
                     if veh.bus_mod:
-                        veh.check = ttk.Checkbutton(self.scroll_frame_bus_mods, text = veh.name, command = lambda : self.update_total_vehicles_supported())
+                        veh.check = ttk.Checkbutton(self.scroll_frame_bus_mods, text = veh.display_name, command = lambda : self.update_total_vehicles_supported())
                         veh.check.state(["!alternate","!selected"])
                         bus_mod_list.append(veh)
                     else:
-                        veh.check = ttk.Checkbutton(self.scroll_frame_truck_mods, text = veh.name, command = lambda : self.update_total_vehicles_supported())
+                        veh.check = ttk.Checkbutton(self.scroll_frame_truck_mods, text = veh.display_name, command = lambda : self.update_total_vehicles_supported())
                         veh.check.state(["!alternate","!selected"])
                         truck_mod_list.append(veh)
                 else:
-                    veh.check = ttk.Checkbutton(self.scroll_frame_trucks, text = veh.name, command = lambda : self.update_total_vehicles_supported())
+                    veh.check = ttk.Checkbutton(self.scroll_frame_trucks, text = veh.display_name, command = lambda : self.update_total_vehicles_supported())
                     veh.check.state(["!alternate","!selected"])
                     truck_list.append(veh)
         truck_list.sort(key = lambda veh: veh.name)
@@ -623,15 +623,15 @@ class PackerApp:
         self.panel_single_vehicle_variable.set("")
         new_values = []
         if type == "Truck":
-            for veh in self.truck_list: new_values.append(veh.name)
+            for veh in self.truck_list: new_values.append(veh.display_name)
         elif type == "Truck Mod":
-            for veh in self.truck_mod_list: new_values.append(veh.name)
+            for veh in self.truck_mod_list: new_values.append(veh.display_name)
         elif type == "Bus Mod":
-            for veh in self.bus_mod_list: new_values.append(veh.name)
+            for veh in self.bus_mod_list: new_values.append(veh.display_name)
         elif type == "Trailer":
-            for veh in self.trailer_list: new_values.append(veh.name)
+            for veh in self.trailer_list: new_values.append(veh.display_name)
         elif type == "Trailer Mod":
-            for veh in self.trailer_mod_list: new_values.append(veh.name)
+            for veh in self.trailer_mod_list: new_values.append(veh.display_name)
         self.panel_single_vehicle_dropdown.config(values = new_values)
 
         if type in ["Truck Mod", "Bus Mod", "Trailer Mod"]:
@@ -785,11 +785,11 @@ class PackerApp:
             if self.tab_paintjob_variable.get() == "pack":
                 for veh in self.bus_mod_list:
                     if "selected" in veh.check.state() and veh.bus_door_workaround:
-                        warning_vehicles.append(veh.name)
+                        warning_vehicles.append(veh.display_name)
             elif self.tab_paintjob_variable.get() == "single":
                 for veh in self.bus_mod_list:
-                    if veh.name == self.panel_single_vehicle_variable.get() and veh.bus_door_workaround:
-                        warning_vehicles.append(veh.name)
+                    if veh.display_name == self.panel_single_vehicle_variable.get() and veh.bus_door_workaround:
+                        warning_vehicles.append(veh.display_name)
             if len(warning_vehicles) > 0:
                 if len(warning_vehicles) == 1:
                     quantity_message = "This will affect the following vehicle:"
@@ -858,7 +858,7 @@ class PackerApp:
 
         single_veh_name = self.panel_single_vehicle_variable.get()
         for veh in self.truck_list + self.truck_mod_list + self.bus_mod_list + self.trailer_list + self.trailer_mod_list:
-            if veh.name == single_veh_name:
+            if veh.display_name == single_veh_name:
                 single_veh = pj.Vehicle(veh.file_name, self.tab_game_variable.get())
 
         game = self.tab_game_variable.get()
@@ -944,7 +944,7 @@ class PackerApp:
 
         for veh in vehicle_list:
             self.progress_value.set(self.progress_value.get()+1.0)
-            self.panel_progress_category_variable.set(veh.name)
+            self.panel_progress_category_variable.set(veh.display_name)
 
             if placeholder_templates:
                 if os.path.exists("library/placeholder files/{} templates/{} [{}].zip".format(game, veh.path, veh.mod_author)):
@@ -1121,7 +1121,7 @@ class PackerApp:
         file.close()
 
     def make_workshop_readme(self, output_path, truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs, cabins_supported):
-        file = open(output_path+"/How to upload your mod to Steam Workshop.txt", "w")
+        file = open(output_path+"/How to upload your mod to Steam Workshop.txt", "w", encoding="utf-8")
         file.write("In order to upload your mod to Steam Workshop, you'll need to use the SCS Workshop Uploader, which only runs on Windows.\n")
         file.write("To download it, you'll need to own ETS 2 or ATS on Steam. Then go to View > Hidden Games, tick \"Tools\" in the dropdown on\n")
         file.write("the left, then scroll down to find the SCS Workshop Uploader.\n")
@@ -1148,28 +1148,28 @@ class PackerApp:
         file.write("\n")
         if num_of_paintjobs == "single":
             for veh in truck_list + trailer_list:
-                file.write("This paint job supports the {}\n".format(veh.name))
+                file.write("This paint job supports the {}\n".format(veh.display_name))
             for veh in truck_mod_list + bus_mod_list + trailer_mod_list:
-                file.write("This paint job supports {}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name.split(" [")[0]))
+                file.write("This paint job supports {}'s [url={}]{}[/url]\n".format(veh.display_author, veh.mod_link, veh.display_name.split(" [")[0]))
         else:
             if len(truck_list) + len(truck_mod_list) > 0:
                 file.write("Trucks supported:\n")
                 for veh in truck_list:
-                    file.write(veh.name+"\n")
+                    file.write(veh.display_name+"\n")
                 for veh in truck_mod_list:
-                    file.write("{}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name.split(" [")[0]))
+                    file.write("{}'s [url={}]{}[/url]\n".format(veh.display_author, veh.mod_link, veh.display_name.split(" [")[0]))
                 file.write("\n")
             if len(bus_mod_list) > 0:
                 file.write("Buses supported:\n")
                 for veh in bus_mod_list:
-                    file.write("{}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name.split(" [")[0]))
+                    file.write("{}'s [url={}]{}[/url]\n".format(veh.display_author, veh.mod_link, veh.display_name.split(" [")[0]))
                 file.write("\n")
             if len(trailer_list) + len(trailer_mod_list) > 0:
                 file.write("Trailers supported:\n")
                 for veh in trailer_list:
-                    file.write(veh.name+"\n")
+                    file.write(veh.display_name+"\n")
                 for veh in trailer_mod_list:
-                    file.write("{}'s [url={}]{}[/url]\n".format(veh.mod_author, veh.mod_link, veh.name.split(" [")[0]))
+                    file.write("{}'s [url={}]{}[/url]\n".format(veh.display_author, veh.mod_link, veh.display_name.split(" [")[0]))
         file.close()
 
     def generate_paintjob_tracker_file(self, game, truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list, mod_name):
@@ -1187,25 +1187,25 @@ class PackerApp:
             for veh in truck_list:
                 if veh.file_name[:-4] not in all_trucks:
                     all_trucks.append(veh.file_name[:-4])
-                    tracker["description"]["changelog"] += "\\n- Added {}".format(veh.name)
+                    tracker["description"]["changelog"] += "\\n- Added {}".format(veh.display_name)
             tracker["pack info"]["trucks"] = ";".join(all_trucks)
             all_truck_mods = tracker["pack info"]["truck mods"].split(";")
             for veh in truck_mod_list + bus_mod_list:
                 if veh.file_name[:-4] not in all_truck_mods:
                     all_truck_mods.append(veh.file_name[:-4])
-                    tracker["description"]["changelog"] += "\\n- Added {}'s {}".format(veh.mod_author, veh.name.replace(" [{}]".format(veh.mod_author), ""))
+                    tracker["description"]["changelog"] += "\\n- Added {}'s {}".format(veh.display_author, veh.display_name.replace(" [{}]".format(veh.mod_author), ""))
             tracker["pack info"]["truck mods"] = ";".join(all_truck_mods)
             all_trailers = tracker["pack info"]["trailers"].split(";")
             for veh in trailer_list:
                 if veh.file_name[:-4] not in all_trailers:
                     all_trailers.append(veh.file_name[:-4])
-                    tracker["description"]["changelog"] += "\\n- Added {}".format(veh.name)
+                    tracker["description"]["changelog"] += "\\n- Added {}".format(veh.display_name)
             tracker["pack info"]["trailers"] = ";".join(all_trailers)
             all_trailer_mods = tracker["pack info"]["trailer mods"].split(";")
             for veh in trailer_mod_list:
                 if veh.file_name[:-4] not in all_trailer_mods:
                     all_trailer_mods.append(veh.file_name[:-4])
-                    tracker["description"]["changelog"] += "\\n- Added {}'s {}".format(veh.mod_author, veh.name.replace(" [{}]".format(veh.mod_author), ""))
+                    tracker["description"]["changelog"] += "\\n- Added {}'s {}".format(veh.display_author, veh.display_name.replace(" [{}]".format(veh.mod_author), ""))
             tracker["pack info"]["trailer mods"] = ";".join(all_trailer_mods)
 
             with open("{}/{}.ini".format(tracker_directory, mod_name), "w") as configfile:
@@ -1313,10 +1313,12 @@ class VehSelection:
         veh_ini = configparser.ConfigParser(allow_no_value = True)
         veh_ini.read("library/vehicles/{}/{}".format(self.game, self.file_name), encoding="utf-8")
         self.vehicle_path = veh_ini["vehicle info"]["vehicle path"]
-        self.name = veh_ini["vehicle info"]["name"]
+        self.display_name = veh_ini["vehicle info"]["name"]
+        self.name = pj.strip_diacritics(self.display_name)
         self.trailer = veh_ini["vehicle info"].getboolean("trailer")
         self.mod = veh_ini["vehicle info"].getboolean("mod")
-        self.mod_author = veh_ini["vehicle info"]["mod author"]
+        self.display_author = veh_ini["vehicle info"]["mod author"]
+        self.mod_author = pj.strip_diacritics(self.display_author)
         if self.mod:
             self.name += " [" + self.mod_author + "]"
         self.mod_link_workshop = veh_ini["vehicle info"]["mod link workshop"]
