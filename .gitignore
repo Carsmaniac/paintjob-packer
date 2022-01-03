@@ -1,6 +1,5 @@
 
 *.pyc
 .DS_Store
-library/placeholder files/ats templates/
-library/placeholder files/ets templates/
+templates/
 library/paintjob tracker.txt

@@ -947,8 +947,8 @@ class PackerApp:
             self.panel_progress_category_variable.set(veh.display_name)
 
             if placeholder_templates:
-                if os.path.exists("library/placeholder files/{} templates/{} [{}].zip".format(game, veh.path, veh.mod_author)):
-                    template_zip = zipfile.ZipFile("library/placeholder files/{} templates/{} [{}].zip".format(game, veh.path, veh.mod_author))
+                if os.path.exists("templates/{} templates/{} [{}].zip".format(game, veh.path, veh.mod_author)):
+                    template_zip = zipfile.ZipFile("templates/{} templates/{} [{}].zip".format(game, veh.path, veh.mod_author))
                 else:
                     template_zip = None
             else:
