@@ -26,11 +26,16 @@ except ModuleNotFoundError:
 
 FORUM_LINK = "https://forum.scssoft.com/viewtopic.php?f=33&t=282956"
 GITHUB_LINK = "https://github.com/carsmaniac/paintjob-packer"
+SUPPORT_LINK = "https://ko-fi.com/carsmaniac"
 MOD_LINK_PAGE_LINK = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
 ETS_TEMPLATE_LINK = "https://forum.scssoft.com/viewtopic.php?f=33&t=272386"
 ATS_TEMPLATE_LINK = "https://forum.scssoft.com/viewtopic.php?f=199&t=288778"
 VERSION_INFO_LINK = "https://raw.githubusercontent.com/Carsmaniac/paintjob-packer/master/library/version.ini"
 LATEST_VERSION_DOWNLOAD_LINK = GITHUB_LINK + "/releases/latest"
+SUN_VALLEY_LINK = "https://github.com/rdbende/Sun-Valley-ttk-theme"
+DARKDETECT_LINK = "https://github.com/albertosottile/darkdetect"
+MIT_LICENCE_LINK = "https://opensource.org/licenses/MIT"
+BSD_LICENCE_LINK = "https://opensource.org/licenses/BSD-3-Clause"
 
 # set the path depending on how Paintjob Packer is bundled
 try:
@@ -100,9 +105,13 @@ class PackerApp:
 
         # Welcome tab
         self.tab_welcome_title = ttk.Label(self.tab_welcome, text = "Welcome to Paint Job Packer")
-        self.tab_welcome_title.grid(row = 0, column = 0, columnspan = 2, pady = 20)
+        self.tab_welcome_title.grid(row = 0, column = 0, columnspan = 2, pady = (20, 30))
         self.tab_welcome_image = ttk.Label(self.tab_welcome, image = self.image_packer)
         self.tab_welcome_image.grid(row = 1, column = 0, columnspan = 2)
+        self.tab_welcome_link_support = ttk.Button(self.tab_welcome, text = "Support development", command = lambda : webbrowser.open_new(SUPPORT_LINK))
+        self.tab_welcome_link_support.grid(row = 0, column = 0, padx = (10, 0), pady = 10, sticky = "nw")
+        self.tab_welcome_link_credits = ttk.Button(self.tab_welcome, text = "Credits and licence", command = lambda : self.credits_screen())
+        self.tab_welcome_link_credits.grid(row = 0, column = 1, padx = (0, 10), pady = 10, sticky = "ne")
         self.tab_welcome_link_forum = ttk.Label(self.tab_welcome, text = "Forum thread", foreground = self.blue, cursor = self.cursor)
         self.tab_welcome_link_forum.grid(row = 2, column = 0, pady = 20)
         self.tab_welcome_link_forum.bind("<1>", lambda e: webbrowser.open_new(FORUM_LINK))
@@ -120,14 +129,9 @@ class PackerApp:
             self.tab_welcome_update_info.grid(row = 4, column = 0, columnspan = 2)
             self.tab_welcome_update_info.bind("<1>", lambda e: webbrowser.open_new(LATEST_VERSION_DOWNLOAD_LINK))
         else:
-            self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "If this is your first time using Paint Job Packer, please read the guide on the GitHub page")
-            self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (25, 0))
-            if sys.platform.startswith("darwin"):
-                self.tab_welcome_update_info = ttk.Label(self.tab_welcome, text = "Things might look a little wonky on macOS, but everything should still work")
-                self.tab_welcome_update_info.grid(row = 4, column = 0, columnspan = 2)
-            elif sys.platform.startswith("linux"):
-                self.tab_welcome_update_info = ttk.Label(self.tab_welcome, text = "Things might look a little wonky on Linux, but everything should still work")
-                self.tab_welcome_update_info.grid(row = 4, column = 0, columnspan = 2)
+            self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "This software was created in Australia on Darramurragal Land, click here for more info", cursor = self.cursor)
+            self.tab_welcome_message.bind("<1>", lambda e: messagebox.showinfo(title = "Acknowledgement of Country", message = "Paint Job Packer was developed in Australia, a continent on which Aboriginal and Torres Strait Islander peoples have lived for tens of thousands of years, the oldest continuous culture in the world, spread across hundreds of distinct countries with different languages and customs.\n\nI acknowledge the Darramurragal people, the traditional owners of the land on which this software was created. I pay my respects to Elders past, present and emerging, the Knowledge Holders and caretakers of this Country, and extend that respect to the owners of all the lands on which Paint Job Packer is used.\n\nI acknowledge that this land has been a place of design and creativity for thousands of generations, and that sovereignty was never ceded. This always has been and always will be Aboriginal land."))
+            self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (20, 0))
         self.tab_welcome_button_prev = ttk.Label(self.tab_welcome, text = " ") # to keep everything centred
         self.tab_welcome_button_prev.grid(row = 5, column = 0, sticky = "sw")
         self.tab_welcome_button_next = ttk.Button(self.tab_welcome, text = "Next >", command = lambda : self.tab_selector.select(1))
@@ -477,6 +481,94 @@ class PackerApp:
         clipboard.clipboard_append(self.error_text.get("1.0", "end"))
         clipboard.update()
         clipboard.destroy()
+
+    def credits_screen(self, *args):
+        credits = tk.Tk()
+        credits.tk.call("source", "sun-valley.tcl")
+        try:
+            if darkdetect.isDark():
+                credits.tk.call("set_theme", "dark")
+                credits.blue = "#56C7FE"
+            else:
+                credits.tk.call("set_theme", "light")
+                credits.blue = "#006DD3"
+        except NameError:
+            credits.tk.call("set_theme", "light")
+            credits.blue = "#006DD3"
+        if sys.platform.startswith("darwin"):
+            credits.cursor = "pointinghand"
+        else:
+            credits.cursor = "hand2"
+        credits.title("Credits")
+        credits.resizable(False, False)
+        credits.lift()
+        credits.columnconfigure(0, weight = 1)
+        credits.columnconfigure(1, weight = 1)
+        credits.button = ttk.Button(credits, text = "Ok, cool", width = 10, command = lambda : credits.destroy())
+        credits.button.grid(row = 2, column = 0, columnspan = 2, pady = (0, 20))
+
+        credits.pjp_frame = tk.Frame(credits)
+        credits.pjp_frame.grid(row = 0, column = 0, columnspan = 2, pady = (0, 20))
+        credits.pjp_frame.columnconfigure(0, weight = 2)
+        credits.pjp_frame.columnconfigure(1, weight = 3)
+        credits.pjp_title = ttk.Label(credits.pjp_frame, text = "Paint Job Packer", justify = "center")
+        credits.pjp_title.grid(row = 0, column = 0, columnspan = 2, pady = (20, 0))
+        credits.pjp_link = ttk.Label(credits.pjp_frame, text = "GitHub page", justify = "center", foreground = credits.blue, cursor = credits.cursor)
+        credits.pjp_link.grid(row = 1, column = 0, columnspan = 2, pady = (5, 10))
+        credits.pjp_link.bind("<1>", lambda e: webbrowser.open_new(GITHUB_LINK))
+        credits.pjp_dev_title = ttk.Label(credits.pjp_frame, text = "Development:")
+        credits.pjp_dev_title.grid(row = 2, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
+        credits.pjp_dev_name = ttk.Label(credits.pjp_frame, text = "Carsmaniac")
+        credits.pjp_dev_name.grid(row = 2, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
+        credits.pjp_contributors_title = ttk.Label(credits.pjp_frame, text = "Contributors:")
+        credits.pjp_contributors_title.grid(row = 3, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
+        credits.pjp_contributors_names = ttk.Label(credits.pjp_frame, text = "djbusphotos\nkentuckyfriedmeerkat")
+        credits.pjp_contributors_names.grid(row = 3, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
+        # credits.pjp_supporters_title = ttk.Label(credits.pjp_frame, text = "Supporters:")
+        # credits.pjp_supporters_title.grid(row = 4, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
+        # credits.pjp_supporters_names = ttk.Label(credits.pjp_frame, text = "Name/nName")
+        # credits.pjp_supporters_names.grid(row = 4, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
+        credits.pjp_licence = ttk.Label(credits.pjp_frame, text = "Licensed under the MIT Licence", foreground = credits.blue, cursor = credits.cursor)
+        credits.pjp_licence.grid(row = 5, column = 0, columnspan = 2, padx = 20, pady = 5)
+        credits.pjp_licence.bind("<1>", lambda e: webbrowser.open_new(MIT_LICENCE_LINK))
+
+        credits.sunval_frame = tk.Frame(credits)
+        credits.sunval_frame.grid(row = 1, column = 0, pady = (0, 20), sticky = "nw")
+        credits.sunval_frame.columnconfigure(0, weight = 2)
+        credits.sunval_frame.columnconfigure(1, weight = 3)
+        credits.sunval_title = ttk.Label(credits.sunval_frame, text = "Sun Valley Theme", justify = "center")
+        credits.sunval_title.grid(row = 0, column = 0, columnspan = 2, pady = (20, 0))
+        credits.sunval_link = ttk.Label(credits.sunval_frame, text = "GitHub page", justify = "center", foreground = credits.blue, cursor = credits.cursor)
+        credits.sunval_link.grid(row = 1, column = 0, columnspan = 2, pady = (5, 10))
+        credits.sunval_link.bind("<1>", lambda e: webbrowser.open_new(SUN_VALLEY_LINK))
+        credits.sunval_dev_title = ttk.Label(credits.sunval_frame, text = "Development:")
+        credits.sunval_dev_title.grid(row = 2, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
+        credits.sunval_dev_name = ttk.Label(credits.sunval_frame, text = "rdbende")
+        credits.sunval_dev_name.grid(row = 2, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
+        credits.sunval_licence = ttk.Label(credits.sunval_frame, text = "Licensed under the MIT Licence", foreground = credits.blue, cursor = credits.cursor)
+        credits.sunval_licence.grid(row = 3, column = 0, columnspan = 2, padx = 20, pady = 5)
+        credits.sunval_licence.bind("<1>", lambda e: webbrowser.open_new(MIT_LICENCE_LINK))
+
+        credits.darkdetect_frame = tk.Frame(credits)
+        credits.darkdetect_frame.grid(row = 1, column = 1, pady = (0, 20), sticky = "ne")
+        credits.darkdetect_frame.columnconfigure(0, weight = 2)
+        credits.darkdetect_frame.columnconfigure(1, weight = 3)
+        credits.darkdetect_title = ttk.Label(credits.darkdetect_frame, text = "Darkdetect", justify = "center")
+        credits.darkdetect_title.grid(row = 0, column = 0, columnspan = 2, pady = (20, 0))
+        credits.darkdetect_link = ttk.Label(credits.darkdetect_frame, text = "GitHub page", justify = "center", foreground = credits.blue, cursor = credits.cursor)
+        credits.darkdetect_link.grid(row = 1, column = 0, columnspan = 2, pady = (5, 10))
+        credits.darkdetect_link.bind("<1>", lambda e: webbrowser.open_new(DARKDETECT_LINK))
+        credits.darkdetect_dev_title = ttk.Label(credits.darkdetect_frame, text = "Development:")
+        credits.darkdetect_dev_title.grid(row = 2, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
+        credits.darkdetect_dev_name = ttk.Label(credits.darkdetect_frame, text = "Alberto Sottile")
+        credits.darkdetect_dev_name.grid(row = 2, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
+        credits.darkdetect_contributors_title = ttk.Label(credits.darkdetect_frame, text = "Contributors:")
+        credits.darkdetect_contributors_title.grid(row = 3, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
+        credits.darkdetect_contributors_name = ttk.Label(credits.darkdetect_frame, text = "cboy343\nEric Larson\nHussain")
+        credits.darkdetect_contributors_name.grid(row = 3, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
+        credits.darkdetect_licence = ttk.Label(credits.darkdetect_frame, text = "Licensed under the 3-Clause BSD Licence", foreground = credits.blue, cursor = credits.cursor)
+        credits.darkdetect_licence.grid(row = 4, column = 0, columnspan = 2, padx = 20, pady = 5)
+        credits.darkdetect_licence.bind("<1>", lambda e: webbrowser.open_new(BSD_LICENCE_LINK))
 
     def update_cabin_dropdowns(self, *args):
         self.internal_name_length = 12
