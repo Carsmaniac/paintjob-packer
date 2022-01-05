@@ -11,6 +11,10 @@ import re # checking for invalid characters in mod/paintjob names
 import traceback # handling unexpected errors
 import zipfile # unzipping templates
 import urllib.request # fetching version info from GitHub
+try:
+    import darkdetect # detecting whether or not the system is in dark mode
+except ModuleNotFoundError:
+    print("Darkdetect is not installed (pip install darkdetect), defaulting to light mode")
 
 try:
     import library.paintjob as pj # copying and generating mod files
@@ -69,6 +73,18 @@ class PackerApp:
             self.os = "Linux"
             self.cursor = "hand2"
 
+        # choose a shade of blue that works with the light/dark theme
+        try:
+            if darkdetect.isDark():
+                self.blue = "#56C7FE"
+                self.red = "#F04040"
+            else:
+                self.blue = "#006DD3"
+                self.red = "#E81000"
+        except NameError:
+            self.blue = "#006DD3"
+            self.red = "#E81000"
+
         self.total_vehicles = 0 # used in the vehicle selector when making a paintjob pack
 
         # setup screen and immediate contents
@@ -87,16 +103,16 @@ class PackerApp:
         self.tab_welcome_title.grid(row = 0, column = 0, columnspan = 2, pady = 20)
         self.tab_welcome_image = ttk.Label(self.tab_welcome, image = self.image_packer)
         self.tab_welcome_image.grid(row = 1, column = 0, columnspan = 2)
-        self.tab_welcome_link_forum = ttk.Label(self.tab_welcome, text = "Forum thread", foreground = "blue", cursor = self.cursor)
+        self.tab_welcome_link_forum = ttk.Label(self.tab_welcome, text = "Forum thread", foreground = self.blue, cursor = self.cursor)
         self.tab_welcome_link_forum.grid(row = 2, column = 0, pady = 20)
         self.tab_welcome_link_forum.bind("<1>", lambda e: webbrowser.open_new(FORUM_LINK))
-        self.tab_welcome_link_github = ttk.Label(self.tab_welcome, text = "GitHub page", foreground = "blue", cursor = self.cursor)
+        self.tab_welcome_link_github = ttk.Label(self.tab_welcome, text = "GitHub page", foreground = self.blue, cursor = self.cursor)
         self.tab_welcome_link_github.grid(row = 2, column = 1, pady = 20)
         self.tab_welcome_link_github.bind("<1>", lambda e: webbrowser.open_new(GITHUB_LINK))
         new_ver = self.check_new_version()
         if (new_ver[1] != None):
-            self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "New version available! - v{} - Click here to go to download page".format(new_ver[0]), foreground = "red", cursor = self.cursor)
-            self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (25, 0))
+            self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "New version available! - v{} - Click here to go to download page".format(new_ver[0]), foreground = self.red, cursor = self.cursor)
+            self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (20, 0))
             self.tab_welcome_message.bind("<1>", lambda e: webbrowser.open_new(LATEST_VERSION_DOWNLOAD_LINK))
             self.tab_welcome_link_forum.configure(foreground = "black")
             self.tab_welcome_link_github.configure(foreground = "black")
@@ -276,7 +292,7 @@ class PackerApp:
         self.panel_single_vehicle_label.grid(row = 2, column = 0, padx = (10, 5), pady = (10, 0), sticky = "w")
         self.panel_single_vehicle_dropdown = ttk.Combobox(self.panel_vehicles_single, state = "readonly", textvariable = self.panel_single_vehicle_variable, values = [], width = 45)
         self.panel_single_vehicle_dropdown.grid(row = 3, column = 0, padx = (10, 10), pady = (5, 10), sticky = "w")
-        self.panel_single_link = ttk.Label(self.panel_vehicles_single, text = "Download links for all mods", foreground = "blue", cursor = self.cursor)
+        self.panel_single_link = ttk.Label(self.panel_vehicles_single, text = "Download links for all mods", foreground = self.blue, cursor = self.cursor)
         self.panel_single_link.bind("<1>", self.open_mod_link_page)
         # self.panel_single_link.grid(row = 4, column = 0, pady = 5, padx = 5, sticky = "w")
 
@@ -304,11 +320,11 @@ class PackerApp:
         self.tab_trailer_mods.columnconfigure(0, weight = 1)
         self.tab_trailer_mods.rowconfigure(0, weight = 1)
         self.panel_pack_selector.add(self.tab_trailer_mods, text = "Trailer Mods")
-        self.panel_pack_link_truck = ttk.Label(self.tab_truck_mods, text = "Download links for all mods", foreground = "blue", cursor = self.cursor)
+        self.panel_pack_link_truck = ttk.Label(self.tab_truck_mods, text = "Download links for all mods", foreground = self.blue, cursor = self.cursor)
         self.panel_pack_link_truck.bind("<1>", self.open_mod_link_page)
-        self.panel_pack_link_bus = ttk.Label(self.tab_bus_mods, text = "Download links for all mods", foreground = "blue", cursor = self.cursor)
+        self.panel_pack_link_bus = ttk.Label(self.tab_bus_mods, text = "Download links for all mods", foreground = self.blue, cursor = self.cursor)
         self.panel_pack_link_bus.bind("<1>", self.open_mod_link_page)
-        self.panel_pack_link_trailer = ttk.Label(self.tab_trailer_mods, text = "Download links for all mods", foreground = "blue", cursor = self.cursor)
+        self.panel_pack_link_trailer = ttk.Label(self.tab_trailer_mods, text = "Download links for all mods", foreground = self.blue, cursor = self.cursor)
         self.panel_pack_link_trailer.bind("<1>", self.open_mod_link_page)
         self.panel_vehicles_pack.rowconfigure(0, weight = 1)
 
@@ -361,7 +377,7 @@ class PackerApp:
         # buttons along the bottom
         self.panel_main_buttons_setup = ttk.Button(self.panel_main_buttons, text = "< Back to setup", command = lambda : self.switch_to_setup_screen(), width = 15)
         self.panel_main_buttons_setup.grid(row = 1, column = 0, pady = (5, 0), sticky = "w")
-        self.panel_main_buttons_feedback = ttk.Label(self.panel_main_buttons, text = "Leave feedback or get support", foreground = "blue", cursor = self.cursor)
+        self.panel_main_buttons_feedback = ttk.Label(self.panel_main_buttons, text = "Leave feedback or get support", foreground = self.blue, cursor = self.cursor)
         self.panel_main_buttons_feedback.grid(row = 1, column = 1, pady = (5, 0), padx = 10, sticky = "e")
         self.panel_main_buttons_feedback.bind("<1>", lambda e: webbrowser.open_new(FORUM_LINK))
         self.panel_main_buttons_generate = ttk.Button(self.panel_main_buttons, text = "Generate and save...", command = lambda : self.verify_all_inputs(), width = 20)
@@ -432,10 +448,10 @@ class PackerApp:
         self.error_copy_button.grid(row = 2, column = 0, columnspan = 2, pady = 10)
         self.error_mid_text = ttk.Label(self.error_screen, text = "Please send this error to the\ndeveloper on GitHub or the SCS Forums", justify = "center")
         self.error_mid_text.grid(row = 3, column = 0, columnspan = 2)
-        self.error_github_link = ttk.Label(self.error_screen, text = "GitHub page", foreground = "blue", cursor = self.cursor)
+        self.error_github_link = ttk.Label(self.error_screen, text = "GitHub page", foreground = self.blue, cursor = self.cursor)
         self.error_github_link.grid(row = 4, column = 0, pady = 10)
         self.error_github_link.bind("<1>", lambda e: webbrowser.open_new(GITHUB_LINK))
-        self.error_forums_link = ttk.Label(self.error_screen, text = "Forum thread", foreground = "blue", cursor = self.cursor)
+        self.error_forums_link = ttk.Label(self.error_screen, text = "Forum thread", foreground = self.blue, cursor = self.cursor)
         self.error_forums_link.grid(row = 4, column = 1, pady = 10)
         self.error_forums_link.bind("<1>", lambda e: webbrowser.open_new(FORUM_LINK))
         self.error_bottom_text = ttk.Label(self.error_screen, text = "Thank you, and sorry for the inconvenience!")
@@ -1362,14 +1378,14 @@ def show_unhandled_error(error_type, error_message, error_traceback):
 
 def main():
     root = tk.Tk()
-    # if sys.platform.startswith("win"):
-    #     ttk.Style().theme_use("vista")
-    # elif sys.platform.startswith("darwin"):
-    #     ttk.Style().theme_use("aqua")
-    # elif sys.platform.startswith("linux"):
-    #     ttk.Style().theme_use("clam") # The best looking of a bad bunch
     root.tk.call("source", "sun-valley.tcl")
-    root.tk.call("set_theme", "light")
+    try:
+        if darkdetect.isDark():
+            root.tk.call("set_theme", "dark")
+        else:
+            root.tk.call("set_theme", "light")
+    except NameError:
+        root.tk.call("set_theme", "light")
     root.title("Paint Job Packer v{}".format(version))
     root.iconphoto(True, tk.PhotoImage(file = "library/packer images/icon.png"))
     root.resizable(False, False)
