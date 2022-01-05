@@ -608,6 +608,12 @@ class PackerApp:
         self.panel_pack_link_bus.grid_forget()
         self.panel_pack_link_trailer.grid_forget()
 
+        self.scroll_bar_trucks.grid_forget()
+        self.scroll_bar_trailers.grid_forget()
+        self.scroll_bar_truck_mods.grid_forget()
+        self.scroll_bar_bus_mods.grid_forget()
+        self.scroll_bar_trailer_mods.grid_forget()
+
     def switch_to_main_screen(self):
         self.setup_screen.grid_forget()
         self.main_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
@@ -619,14 +625,26 @@ class PackerApp:
         self.update_cabin_dropdowns()
 
     def load_main_screen_variables(self): # also grids and ungrids stuff depending on said variables
+        self.scroll_bar_trucks.grid(row = 0, column = 1, pady = 5, sticky = "nes")
+        self.scroll_bar_trailers.grid(row = 0, column = 1, pady = 5, sticky = "nes")
+        self.scroll_bar_truck_mods.grid(row = 0, rowspan = 2, column = 1, pady = 5, sticky = "nes")
+        self.scroll_bar_bus_mods.grid(row = 0, rowspan = 2, column = 1, pady = 5, sticky = "nes")
+        self.scroll_bar_trailer_mods.grid(row = 0, rowspan = 2, column = 1, pady = 5, sticky = "nes")
+
         if self.tab_game_variable.get() == "ats":
             self.currency = "dollars"
             self.panel_pack_selector.tab(3, state = "hidden")
             self.panel_single_type_dropdown.config(values = ["Truck", "Truck Mod", "Trailer", "Trailer Mod"])
+            self.scroll_bar_trucks.grid_forget() # these lists don't need to scroll
+            self.scroll_bar_trailers.grid_forget()
+            self.scroll_bar_bus_mods.grid_forget()
+            self.scroll_bar_trailer_mods.grid_forget()
         elif self.tab_game_variable.get() == "ets":
             self.currency = "euros"
             self.panel_pack_selector.tab(3, state = "normal")
             self.panel_single_type_dropdown.config(values = ["Truck", "Truck Mod", "Bus Mod", "Trailer", "Trailer Mod"])
+            self.scroll_bar_trailers.grid_forget()
+            self.scroll_bar_bus_mods.grid_forget()
 
         self.check_for_outdated_vehicles(self.tab_game_variable.get())
 
