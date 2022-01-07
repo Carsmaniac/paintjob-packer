@@ -26,7 +26,7 @@ script_write.close()
 
 # Package into .exe and create installer, without templates
 PyInstaller.__main__.run(["../packer.py", "--onedir", "--windowed",
-    "--icon=../library/packer images/icon.ico", "--name=Paint Job Packer",
+    "--icon=../library/packer-images/icon-circle.ico", "--name=Paint Job Packer",
     "--add-data=../library;library"])
 os.system("\"{}\" inno-script.iss".format(INNO_SETUP_PATH))
 
@@ -38,7 +38,7 @@ os.remove("Paint Job Packer.spec")
 
 # Package into .exe and create installer, with templates
 PyInstaller.__main__.run(["../packer.py", "--onedir", "--windowed",
-    "--icon=../library/packer images/icon.ico", "--name=Paint Job Packer",
+    "--icon=../library/packer-images/icon-circle.ico", "--name=Paint Job Packer",
     "--add-data=../library;library", "--add-data=../templates;templates"])
 os.system("\"{}\" inno-script.iss".format(INNO_SETUP_PATH))
 

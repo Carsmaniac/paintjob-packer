@@ -12,13 +12,10 @@ version_ini.close()
 
 # Package into .exe and create installer, without templates
 PyInstaller.__main__.run(["../packer.py", "--onefile", "--windowed",
-    "--icon=../library/packer images/icon.ico", "--name=Paint Job Packer",
+    "--icon=../library/packer-images/icon-squircle.ico", "--name=Paint Job Packer",
     "--add-data=../library:library"])
 
-if (sys.platform == "darwin"):
-    shutil.make_archive("paint-job-packer-v{}-mac".format(version), "zip", "dist")
-else:
-    shutil.make_archive("paint-job-packer-v{}-linux".format(version), "zip", "dist")
+shutil.make_archive("paint-job-packer-v{}-mac".format(version), "zip", "dist")
 shutil.rmtree("build")
 shutil.rmtree("dist")
 os.remove("Paint Job Packer.spec")

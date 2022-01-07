@@ -59,13 +59,11 @@ class PackerApp:
         self.container = ttk.Frame(master)
         self.container.pack(fill = "both")
 
-        self.image_packer = tk.PhotoImage(file = "library/packer images/packer.png")
-        self.image_ats = tk.PhotoImage(file = "library/packer images/ats.png")
-        self.image_ets = tk.PhotoImage(file = "library/packer images/ets.png")
-        self.image_single_paintjob = tk.PhotoImage(file = "library/packer images/single paintjob.png")
-        self.image_paintjob_pack = tk.PhotoImage(file = "library/packer images/paintjob pack.png")
-        self.image_spacer_100 = tk.PhotoImage(file = "library/packer images/spacer 100.png")
-        self.image_spacer_200 = tk.PhotoImage(file = "library/packer images/spacer 200.png")
+        self.image_packer = tk.PhotoImage(file = "library/packer-images/packer.png")
+        self.image_ats = tk.PhotoImage(file = "library/packer-images/game-ats.png")
+        self.image_ets = tk.PhotoImage(file = "library/packer-images/game-ets.png")
+        self.image_single_paintjob = tk.PhotoImage(file = "library/packer-images/paint-job-single.png")
+        self.image_paintjob_pack = tk.PhotoImage(file = "library/packer-images/paint-job-pack.png")
 
         # load appropriate cursor for OS, used when mousing over links
         if sys.platform.startswith("win"):
@@ -504,7 +502,7 @@ class PackerApp:
         credits.lift()
         credits.columnconfigure(0, weight = 1)
         credits.columnconfigure(1, weight = 1)
-        credits.button = ttk.Button(credits, text = "Ok, cool", width = 10, command = lambda : credits.destroy())
+        credits.button = ttk.Button(credits, text = "Okay, cool", command = lambda : credits.destroy())
         credits.button.grid(row = 2, column = 0, columnspan = 2, pady = (0, 20))
 
         credits.pjp_frame = tk.Frame(credits)
@@ -1496,8 +1494,11 @@ def main():
             root.tk.call("set_theme", "light")
     except NameError:
         root.tk.call("set_theme", "light")
-    root.title("Paint Job Packer v{}".format(version))
-    root.iconphoto(True, tk.PhotoImage(file = "library/packer images/icon.png"))
+    root.title("Paint Job Packer")
+    if sys.platform.startswith("darwin"):
+        root.iconphoto(True, tk.PhotoImage(file = "library/packer-images/icon-squircle.png"))
+    else:
+        root.iconphoto(True, tk.PhotoImage(file = "library/packer-images/icon-circle.png"))
     root.resizable(False, False)
     root.report_callback_exception = show_unhandled_error
     packer = PackerApp(root)
