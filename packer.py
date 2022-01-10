@@ -963,7 +963,7 @@ class PackerApp:
             if "selected" in veh.check.state():
                 if not veh.vehicle_path in veh_path_dict:
                     veh_path_dict[veh.vehicle_path] = []
-                veh_path_dict[veh.vehicle_path].append(veh.name)
+                veh_path_dict[veh.vehicle_path].append(l("{VehicleNameAuthor}").format(vehicle_name = veh.display_name, mod_author = veh.display_author))
         for veh_path in veh_path_dict.keys():
             if len(veh_path_dict[veh_path]) > 1:
                 incompatible_vehicles = "\n".join(veh_path_dict[veh_path])
@@ -975,11 +975,11 @@ class PackerApp:
             if self.tab_paintjob_variable.get() == "pack":
                 for veh in self.bus_mod_list:
                     if "selected" in veh.check.state() and veh.bus_door_workaround:
-                        warning_vehicles.append(veh.display_name)
+                        warning_vehicles.append(l("{VehicleNameAuthor}").format(vehicle_name = veh.display_name, mod_author = veh.display_author))
             elif self.tab_paintjob_variable.get() == "single":
                 for veh in self.bus_mod_list:
                     if veh.display_name == self.panel_single_vehicle_variable.get() and veh.bus_door_workaround:
-                        warning_vehicles.append(veh.display_name)
+                        warning_vehicles.append(l("{VehicleNameAuthor}").format(vehicle_name = veh.display_name, mod_author = veh.display_author))
             if len(warning_vehicles) > 0:
                 if len(warning_vehicles) == 1:
                     quantity_message = l("{ErrorBusSingle}")
@@ -1012,7 +1012,7 @@ class PackerApp:
             if os.path.exists(output_path):
                 if len(os.listdir(output_path)) > 0:
                     folder_clear = False # I don't want to be on the receiving end of an irate user who lost their important report the night before it was due, because they happened to store it in the paintjob packer folder
-                    messagebox.showerror(title = l("{ErrorFolderClearTitle}"), message = l("{ErrorFolderClear1}\n\n{ErrorFolderClear2}"))
+                    messagebox.showerror(title = l("{ErrorFolderClearTitle}"), message = l("{ErrorFolderClear1}\n\n{ErrorFolderClear2}").format(folder_name = "\"Paint Job Packer Output\""))
             try:
                 shutil.copyfile("library/placeholder files/empty.dds", save_directory + "/empty.dds")
                 os.remove(save_directory + "/empty.dds")
