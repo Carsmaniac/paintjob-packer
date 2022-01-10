@@ -11,6 +11,7 @@ import re # checking for invalid characters in mod/paintjob names
 import traceback # handling unexpected errors
 import zipfile # unzipping templates
 import urllib.request # fetching version info from GitHub
+import locale # determining the default system language
 try:
     import darkdetect # detecting whether or not the system is in dark mode
 except ModuleNotFoundError:
@@ -90,7 +91,8 @@ class PackerApp:
 
         self.total_vehicles = 0 # used in the vehicle selector when making a paintjob pack
 
-        self.load_language_dictionary("en_GB")
+        # self.load_language_dictionary("en_GB")
+        self.load_system_language()
         l = self.get_localised_string # one-letter function name to make all the many calls of it (slightly more) readable
 
         # setup screen and immediate contents
@@ -107,12 +109,13 @@ class PackerApp:
         # Welcome tab
         self.tab_welcome_title = ttk.Label(self.tab_welcome, text = l("{TabWelcomeMessage}"))
         self.tab_welcome_title.grid(row = 0, column = 0, columnspan = 2, pady = (20, 30))
-        self.tab_welcome_image = ttk.Label(self.tab_welcome, image = self.image_packer)
-        self.tab_welcome_image.grid(row = 1, column = 0, columnspan = 2)
         self.tab_welcome_link_support = ttk.Button(self.tab_welcome, text = l("{LinkKofi}"), command = lambda : webbrowser.open_new(SUPPORT_LINK))
         self.tab_welcome_link_support.grid(row = 0, column = 0, padx = (10, 0), pady = 10, sticky = "nw")
+        # self.tab_language
         self.tab_welcome_link_credits = ttk.Button(self.tab_welcome, text = l("{About}"), command = lambda : self.credits_screen())
         self.tab_welcome_link_credits.grid(row = 0, column = 1, padx = (0, 10), pady = 10, sticky = "ne")
+        self.tab_welcome_image = ttk.Label(self.tab_welcome, image = self.image_packer)
+        self.tab_welcome_image.grid(row = 1, column = 0, columnspan = 2)
         self.tab_welcome_link_forum = ttk.Label(self.tab_welcome, text = l("{LinkForum}"), foreground = self.blue, cursor = self.cursor)
         self.tab_welcome_link_forum.grid(row = 2, column = 0, pady = 20)
         self.tab_welcome_link_forum.bind("<1>", lambda e: webbrowser.open_new(FORUM_LINK))
@@ -466,17 +469,36 @@ class PackerApp:
 
         master.report_callback_exception = self.show_fancy_error # it's now safe to use the screen instead of the messagebox
 
+    def load_system_language(self):
+        supported_langs = os.listdir("lang")
+        system_lang = locale.getdefaultlocale()[0]
+        if (system_lang + ".ini") in supported_langs:
+            # Use exact language
+            self.load_language_dictionary(system_lang)
+        else:
+            # Use other dialect
+            short_lang = None
+            for lang in supported_langs:
+                if lang.startswith(system_lang[:2]):
+                    short_lang = lang[:-4]
+            if short_lang != None:
+                self.load_language_dictionary(short_lang)
+            else:
+                # Default to English
+                self.load_language_dictionary("en_GB")
+
     def load_language_dictionary(self, language):
         language_ini = configparser.ConfigParser()
         language_ini.optionxform = str # Maintains capitals in key names
-        language_ini.read("lang/{}.ini".format(language.replace("_", "-")), encoding="utf-8")
+        language_ini.read("lang/{}.ini".format(language), encoding="utf-8")
         language_dict = {}
         for section in language_ini.sections():
             for item in language_ini.items(section):
-                if item[0] in language_dict:
-                    print("DUPLICATE: "+item[0])
-                    print("Old: "+language_dict[item[0]])
-                    print("New: "+item[1]+"\n")
+                # if item[0] in language_dict:
+                #     # Check for duplicate keys
+                #     print("DUPLICATE: "+item[0])
+                #     print("Old: "+language_dict[item[0]])
+                #     print("New: "+item[1]+"\n")
                 language_dict[item[0]] = item[1]
         self.language_dictionary = language_dict
 
