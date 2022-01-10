@@ -90,110 +90,113 @@ class PackerApp:
 
         self.total_vehicles = 0 # used in the vehicle selector when making a paintjob pack
 
+        self.load_language_dictionary("en_GB")
+        l = self.get_localised_string # one-letter function name to make all the many calls of it (slightly more) readable
+
         # setup screen and immediate contents
         self.setup_screen = ttk.Frame(self.container)
         self.tab_selector = ttk.Notebook(self.setup_screen)
         self.tab_selector.pack(fill = "both")
         self.tab_welcome = ttk.Frame(self.tab_selector)
-        self.tab_selector.add(self.tab_welcome, text = " Welcome ", sticky = "nsew")
+        self.tab_selector.add(self.tab_welcome, text = l("{TabWelcome}"), sticky = "nsew")
         self.tab_game = ttk.Frame(self.tab_selector)
-        self.tab_selector.add(self.tab_game, text = " Game ")
+        self.tab_selector.add(self.tab_game, text = l("{TabGame}"))
         self.tab_paintjob = ttk.Frame(self.tab_selector)
-        self.tab_selector.add(self.tab_paintjob, text = " Paint Jobs ")
+        self.tab_selector.add(self.tab_paintjob, text = l("{TabPaintJobs}"))
 
         # Welcome tab
-        self.tab_welcome_title = ttk.Label(self.tab_welcome, text = "Welcome to Paint Job Packer")
+        self.tab_welcome_title = ttk.Label(self.tab_welcome, text = l("{TabWelcomeMessage}"))
         self.tab_welcome_title.grid(row = 0, column = 0, columnspan = 2, pady = (20, 30))
         self.tab_welcome_image = ttk.Label(self.tab_welcome, image = self.image_packer)
         self.tab_welcome_image.grid(row = 1, column = 0, columnspan = 2)
-        self.tab_welcome_link_support = ttk.Button(self.tab_welcome, text = "Support development", command = lambda : webbrowser.open_new(SUPPORT_LINK))
+        self.tab_welcome_link_support = ttk.Button(self.tab_welcome, text = l("{LinkKofi}"), command = lambda : webbrowser.open_new(SUPPORT_LINK))
         self.tab_welcome_link_support.grid(row = 0, column = 0, padx = (10, 0), pady = 10, sticky = "nw")
-        self.tab_welcome_link_credits = ttk.Button(self.tab_welcome, text = "Credits and licence", command = lambda : self.credits_screen())
+        self.tab_welcome_link_credits = ttk.Button(self.tab_welcome, text = l("{About}"), command = lambda : self.credits_screen())
         self.tab_welcome_link_credits.grid(row = 0, column = 1, padx = (0, 10), pady = 10, sticky = "ne")
-        self.tab_welcome_link_forum = ttk.Label(self.tab_welcome, text = "Forum thread", foreground = self.blue, cursor = self.cursor)
+        self.tab_welcome_link_forum = ttk.Label(self.tab_welcome, text = l("{LinkForum}"), foreground = self.blue, cursor = self.cursor)
         self.tab_welcome_link_forum.grid(row = 2, column = 0, pady = 20)
         self.tab_welcome_link_forum.bind("<1>", lambda e: webbrowser.open_new(FORUM_LINK))
-        self.tab_welcome_link_github = ttk.Label(self.tab_welcome, text = "GitHub page", foreground = self.blue, cursor = self.cursor)
+        self.tab_welcome_link_github = ttk.Label(self.tab_welcome, text = l("{LinkGithub}"), foreground = self.blue, cursor = self.cursor)
         self.tab_welcome_link_github.grid(row = 2, column = 1, pady = 20)
         self.tab_welcome_link_github.bind("<1>", lambda e: webbrowser.open_new(GITHUB_LINK))
         new_ver = self.check_new_version()
         if (new_ver[1] != None):
-            self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "New version available! - v{} - Click here to go to download page".format(new_ver[0]), foreground = self.red, cursor = self.cursor)
+            self.tab_welcome_message = ttk.Label(self.tab_welcome, text = l("{UpdateNotice}").format(version_number = new_ver[0]), foreground = self.red, cursor = self.cursor)
             self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (20, 0))
             self.tab_welcome_message.bind("<1>", lambda e: webbrowser.open_new(LATEST_VERSION_DOWNLOAD_LINK))
             self.tab_welcome_link_forum.configure(foreground = "black")
             self.tab_welcome_link_github.configure(foreground = "black")
-            self.tab_welcome_update_info = ttk.Label(self.tab_welcome, text = "This update includes: " + new_ver[1], cursor = self.cursor)
+            self.tab_welcome_update_info = ttk.Label(self.tab_welcome, text = l("{UpdateDetails}").format(details = new_ver[1]), cursor = self.cursor)
             self.tab_welcome_update_info.grid(row = 4, column = 0, columnspan = 2)
             self.tab_welcome_update_info.bind("<1>", lambda e: webbrowser.open_new(LATEST_VERSION_DOWNLOAD_LINK))
         else:
-            self.tab_welcome_message = ttk.Label(self.tab_welcome, text = "This software was created in Australia on Darramurragal Land, click here for more info", cursor = self.cursor)
+            self.tab_welcome_message = ttk.Label(self.tab_welcome, text = l("{AcknowledgementNotice}"), cursor = self.cursor)
             self.tab_welcome_message.bind("<1>", lambda e: messagebox.showinfo(title = "Acknowledgement of Country", message = "Paint Job Packer was developed in Australia, a continent on which Aboriginal and Torres Strait Islander peoples have lived for tens of thousands of years, the oldest continuous culture in the world, spread across hundreds of distinct countries with different languages and customs.\n\nI acknowledge the Darramurragal people, the traditional owners of the land on which this software was created. I pay my respects to Elders past, present and emerging, the Knowledge Holders and caretakers of this Country, and extend that respect to the owners of all the lands on which Paint Job Packer is used.\n\nI acknowledge that this land has been a place of design and creativity for thousands of generations, and that sovereignty was never ceded. This always has been and always will be Aboriginal land."))
             self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (20, 0))
         self.tab_welcome_button_prev = ttk.Label(self.tab_welcome, text = " ") # to keep everything centred
         self.tab_welcome_button_prev.grid(row = 5, column = 0, sticky = "sw")
-        self.tab_welcome_button_next = ttk.Button(self.tab_welcome, text = "Next >", command = lambda : self.tab_selector.select(1))
+        self.tab_welcome_button_next = ttk.Button(self.tab_welcome, text = l("{Next} >"), command = lambda : self.tab_selector.select(1))
         self.tab_welcome_button_next.grid(row = 5, column = 1, sticky = "se", pady = 10, padx = 10)
         self.tab_welcome.rowconfigure(5, weight = 1)
         self.tab_welcome.columnconfigure(0, weight = 1)
         self.tab_welcome.columnconfigure(1, weight = 1)
 
         # Game tab
-        self.tab_game_title = ttk.Label(self.tab_game, text = "Which game are you making a mod for?")
+        self.tab_game_title = ttk.Label(self.tab_game, text = l("{TabGameMessage}"))
         self.tab_game_title.grid(row = 0, column = 0, columnspan = 2, pady = 20)
         self.tab_game_image_ats = ttk.Label(self.tab_game, image = self.image_ats)
         self.tab_game_image_ats.grid(row = 1, column = 0, padx = 10)
         self.tab_game_image_ets = ttk.Label(self.tab_game, image = self.image_ets)
         self.tab_game_image_ets.grid(row = 1, column = 1, padx = 10)
         self.tab_game_variable = tk.StringVar(None, "ats")
-        self.tab_game_option_ats = ttk.Radiobutton(self.tab_game, text = "American Truck Simulator", value = "ats", variable = self.tab_game_variable)
+        self.tab_game_option_ats = ttk.Radiobutton(self.tab_game, text = l("{GameATS}"), value = "ats", variable = self.tab_game_variable)
         self.tab_game_option_ats.grid(row = 2, column = 0, pady = 10)
         self.tab_game_image_ats.bind("<1>", lambda e: self.tab_game_variable.set("ats"))
-        self.tab_game_option_ets = ttk.Radiobutton(self.tab_game, text = "Euro Truck Simulator 2", value = "ets", variable = self.tab_game_variable)
+        self.tab_game_option_ets = ttk.Radiobutton(self.tab_game, text = l("{GameETS}"), value = "ets", variable = self.tab_game_variable)
         self.tab_game_option_ets.grid(row = 2, column = 1, pady = 10)
         self.tab_game_image_ets.bind("<1>", lambda e: self.tab_game_variable.set("ets"))
         self.tab_game_dummy_desc = ttk.Label(self.tab_game, text = "  \n") # to space things out evenly
         self.tab_game_dummy_desc.grid(row = 3, column = 0)
-        self.tab_game_button_prev = ttk.Button(self.tab_game, text = "< Prev", command = lambda : self.tab_selector.select(0))
+        self.tab_game_button_prev = ttk.Button(self.tab_game, text = l("< {Previous}"), command = lambda : self.tab_selector.select(0))
         self.tab_game_button_prev.grid(row = 4, column = 0, sticky = "sw", pady = 10, padx = 10)
         self.tab_game_button_next = ttk.Button(self.tab_game, text = "Next >", command = lambda : self.tab_selector.select(2))
         self.tab_game_button_next.grid(row = 4, column = 1, sticky = "se", pady = 10, padx = 10)
 
         # Paintjobs tab
-        self.tab_paintjob_title = ttk.Label(self.tab_paintjob, text = "How many paint jobs are you making?")
+        self.tab_paintjob_title = ttk.Label(self.tab_paintjob, text = l("{TabPaintJobsMessage}"))
         self.tab_paintjob_title.grid(row = 0, column = 0, columnspan = 2, pady = 20)
         self.tab_paintjob_image_single = ttk.Label(self.tab_paintjob, image = self.image_single_paintjob)
         self.tab_paintjob_image_single.grid(row = 1, column = 0, padx = 10)
         self.tab_paintjob_image_pack = ttk.Label(self.tab_paintjob, image = self.image_paintjob_pack)
         self.tab_paintjob_image_pack.grid(row = 1, column = 1, padx = 10)
         self.tab_paintjob_variable = tk.StringVar(None, "pack")
-        self.tab_paintjob_option_single = ttk.Radiobutton(self.tab_paintjob, text = "Single paint job", value = "single", variable = self.tab_paintjob_variable)
+        self.tab_paintjob_option_single = ttk.Radiobutton(self.tab_paintjob, text = l("{PaintJobSingle}"), value = "single", variable = self.tab_paintjob_variable)
         self.tab_paintjob_option_single.grid(row = 2, column = 0, pady = 10)
         self.tab_paintjob_image_single.bind("<1>", lambda e: self.tab_paintjob_variable.set("single"))
-        self.tab_paintjob_option_pack = ttk.Radiobutton(self.tab_paintjob, text = "Paint job pack", value = "pack", variable = self.tab_paintjob_variable)
+        self.tab_paintjob_option_pack = ttk.Radiobutton(self.tab_paintjob, text = l("{PaintJobPack}"), value = "pack", variable = self.tab_paintjob_variable)
         self.tab_paintjob_option_pack.grid(row = 2, column = 1, pady = 10)
         self.tab_paintjob_image_pack.bind("<1>", lambda e: self.tab_paintjob_variable.set("pack"))
-        self.tab_paintjob_desc_single = ttk.Label(self.tab_paintjob, text = "A single paint job for a single vehicle\n", wraplength = 300)
+        self.tab_paintjob_desc_single = ttk.Label(self.tab_paintjob, text = l("{PaintJobSingleDesc}\n"), wraplength = 300)
         self.tab_paintjob_desc_single.grid(row = 3, column = 0, padx = 10, sticky = "n")
-        self.tab_paintjob_desc_pack = ttk.Label(self.tab_paintjob, text = "One paint job that supports multiple vehicles", wraplength = 300)
+        self.tab_paintjob_desc_pack = ttk.Label(self.tab_paintjob, text = l("{PaintJobPackDesc}\n"), wraplength = 300)
         self.tab_paintjob_desc_pack.grid(row = 3, column = 1, padx = 10, sticky = "n")
-        self.tab_paintjob_button_prev = ttk.Button(self.tab_paintjob, text = "< Prev", command = lambda : self.tab_selector.select(1))
+        self.tab_paintjob_button_prev = ttk.Button(self.tab_paintjob, text = l("< {Previous}"), command = lambda : self.tab_selector.select(1))
         self.tab_paintjob_button_prev.grid(row = 4, column = 0, padx = 10, pady = 10, sticky = "w")
-        self.tab_paintjob_button_next = ttk.Button(self.tab_paintjob, text = "Continue", command = lambda : self.switch_to_main_screen())
+        self.tab_paintjob_button_next = ttk.Button(self.tab_paintjob, text = l("{Continue}"), command = lambda : self.switch_to_main_screen())
         self.tab_paintjob_button_next.grid(row = 4, column = 1, padx = 10, pady = 10, sticky = "e")
 
         self.setup_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
 
         # main screen and immediate contents
         self.main_screen = ttk.Frame(self.container)
-        self.panel_mod = ttk.LabelFrame(self.main_screen, text = "Mod Info")
+        self.panel_mod = ttk.LabelFrame(self.main_screen, text = l("{ModInfoPanelName}"))
         self.panel_mod.grid(row = 0, column = 0, sticky = "ew")
-        self.panel_ingame = ttk.LabelFrame(self.main_screen, text = "In-Game Paint Job Info")
+        self.panel_ingame = ttk.LabelFrame(self.main_screen, text = l("{InGamePaintJobInfoPanelName}"))
         self.panel_ingame.grid(row = 1, column = 0, pady = (5, 0), sticky = "ew")
-        self.panel_internal = ttk.LabelFrame(self.main_screen, text = "Internal (Hidden) Info and Other Settings")
+        self.panel_internal = ttk.LabelFrame(self.main_screen, text = l("{InternalInfoPanelName}"))
         self.panel_internal.grid(row = 2, column = 0, pady = (5, 0), sticky = "new")
-        self.panel_vehicles_pack = ttk.LabelFrame(self.main_screen, text = "Vehicles Supported (0)")
-        self.panel_vehicles_single = ttk.LabelFrame(self.main_screen, text = "Vehicle Supported")
+        self.panel_vehicles_pack = ttk.LabelFrame(self.main_screen, text = l("{VehiclesPanelNamePack}").format(number = "0"))
+        self.panel_vehicles_single = ttk.LabelFrame(self.main_screen, text = l("{VehiclesPanelNameSingle}"))
         self.panel_main_buttons = ttk.Frame(self.main_screen)
         self.panel_main_buttons.grid(row = 3, column = 0, columnspan = 2, pady = (5, 0), sticky = "ew")
         self.panel_main_buttons.columnconfigure(1, weight = 1)
@@ -201,100 +204,100 @@ class PackerApp:
 
         # Mod Info panel
         self.panel_mod_name_variable = tk.StringVar()
-        self.panel_mod_name_label = ttk.Label(self.panel_mod, text = "Name:")
+        self.panel_mod_name_label = ttk.Label(self.panel_mod, text = l("{ModName}"))
         self.panel_mod_name_label.grid(row = 0, column = 0, padx = (10, 5), pady = (5, 0), sticky = "w")
         self.panel_mod_name_input = ttk.Entry(self.panel_mod, width = 30, textvariable = self.panel_mod_name_variable)
         self.panel_mod_name_input.grid(row = 0, column = 1, padx = 5, pady = (5, 0), sticky = "w")
-        self.panel_mod_name_help = ttk.Button(self.panel_mod, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Mod Name", message = "The name of your mod, as it appears in the in-game mod manager\n\ne.g. Transit Co Paint Job Pack"))
+        self.panel_mod_name_help = ttk.Button(self.panel_mod, text = "?", width = 3, command = lambda : messagebox.showinfo(title = l(l("{HelpTitle}").format(topic = "{ModName}")), message = l("{ModNameHelp1}\n\n{ModNameExample}")))
         self.panel_mod_name_help.grid(row = 0, column = 2, padx = (0, 10), pady = (5, 0))
         self.panel_mod_version_variable = tk.StringVar(None, "1.0")
-        self.panel_mod_version_label = ttk.Label(self.panel_mod, text = "Version:")
+        self.panel_mod_version_label = ttk.Label(self.panel_mod, text = l("{ModVersion}"))
         self.panel_mod_version_label.grid(row = 1, column = 0, padx = (10, 5), pady = (5, 0), sticky = "w")
         self.panel_mod_version_input = ttk.Entry(self.panel_mod, width = 7, textvariable = self.panel_mod_version_variable)
         self.panel_mod_version_input.grid(row = 1, column = 1, padx = 5, pady = (5, 0), sticky = "w")
-        self.panel_mod_version_help = ttk.Button(self.panel_mod, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Mod Version", message = "The version of your mod, as it appears in the in-game mod manager\n\ne.g. 1.0"))
+        self.panel_mod_version_help = ttk.Button(self.panel_mod, text = "?", width = 3, command = lambda : messagebox.showinfo(title = l(l("{HelpTitle}").format(topic = "{ModVersion}")), message = l("{ModVersionHelp1}\n\n{ModVersionExample}")))
         self.panel_mod_version_help.grid(row = 1, column = 2, padx = (0, 10), pady = (5, 0))
         self.panel_mod_author_variable = tk.StringVar()
-        self.panel_mod_author_label = ttk.Label(self.panel_mod, text = "Author:")
+        self.panel_mod_author_label = ttk.Label(self.panel_mod, text = l("{ModAuthor}"))
         self.panel_mod_author_label.grid(row = 2, column = 0, padx = (10, 5), pady = (5, 10), sticky = "w")
         self.panel_mod_author_input = ttk.Entry(self.panel_mod, width = 30, textvariable = self.panel_mod_author_variable)
         self.panel_mod_author_input.grid(row = 2, column = 1, padx = 5, pady = (5, 10), sticky = "w")
-        self.panel_mod_author_help = ttk.Button(self.panel_mod, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Author", message = "The author of your mod, as it appears in the in-game mod manager\n\ne.g. Carsmaniac"))
+        self.panel_mod_author_help = ttk.Button(self.panel_mod, text = "?", width = 3, command = lambda : messagebox.showinfo(title = l(l("{HelpTitle}").format(topic = "{ModAuthor}")), message = l("{ModAuthorHelp1}\n\n{ModAuthorExample}")))
         self.panel_mod_author_help.grid(row = 2, column = 2, padx = (0, 10), pady = (5, 10))
         self.panel_mod.columnconfigure(0, minsize = 140)
         self.panel_mod.columnconfigure(1, minsize = 240)
 
         # In-Game Paintjob Info panel
         self.panel_ingame_name_variable = tk.StringVar()
-        self.panel_ingame_name_label = ttk.Label(self.panel_ingame, text = "Name:")
+        self.panel_ingame_name_label = ttk.Label(self.panel_ingame, text = l("{InGameName}"))
         self.panel_ingame_name_label.grid(row = 0, column = 0, padx = (10, 5), pady = (5, 0), sticky = "w")
         self.panel_ingame_name_input = ttk.Entry(self.panel_ingame, width = 30, textvariable = self.panel_ingame_name_variable)
         self.panel_ingame_name_input.grid(row = 0, column = 1, padx = 5, pady = (5, 0), sticky = "w")
-        self.panel_ingame_name_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: In-Game Name", message = "The name of your paint job as it appears in-game in the vehicle purchase/upgrade screen\n\ne.g. Transit Co"))
+        self.panel_ingame_name_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = l(l("{HelpTitle}").format(topic = "{InGameName}")), message = l("{InGameNameHelp1}\n\n{InGameNameExample}")))
         self.panel_ingame_name_help.grid(row = 0, column = 2, padx = (0, 5), pady = (5, 0))
         self.panel_ingame_price_variable = tk.StringVar()
-        self.panel_ingame_price_label = ttk.Label(self.panel_ingame, text = "Price:")
+        self.panel_ingame_price_label = ttk.Label(self.panel_ingame, text = l("{InGamePrice}"))
         self.panel_ingame_price_label.grid(row = 1, column = 0, padx = (10, 5), pady = (5, 0), sticky = "w")
         self.panel_ingame_price_input = ttk.Entry(self.panel_ingame, width = 7, textvariable = self.panel_ingame_price_variable)
         self.panel_ingame_price_input.grid(row = 1, column = 1, padx = 5, pady = (5, 0), sticky = "w")
-        self.panel_ingame_price_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: In-Game Price", message = "How much your paint job costs in-game, in {}.\n\ne.g. 6000".format(self.currency)))
+        self.panel_ingame_price_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = l(l("{HelpTitle}").format(topic = "{InGamePrice}")), message = l("{InGamePriceHelp1}\n\n{InGamePriceExample}").format(currency = self.currency)))
         self.panel_ingame_price_help.grid(row = 1, column = 2, padx = (0, 5), pady = (5, 0))
         self.panel_ingame_default_variable = tk.BooleanVar(None, True)
-        self.panel_ingame_default_checkbox = ttk.Checkbutton(self.panel_ingame, text = "Unlocked by default", variable = self.panel_ingame_default_variable, command = lambda : self.toggle_unlock_level())
+        self.panel_ingame_default_checkbox = ttk.Checkbutton(self.panel_ingame, text = l("{InGameDefault}"), variable = self.panel_ingame_default_variable, command = lambda : self.toggle_unlock_level())
         self.panel_ingame_default_checkbox.grid(row = 2, column = 0, columnspan = 2, padx = (10, 5), pady = (5, 0), sticky = "w")
-        self.panel_ingame_default_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Unlocked By Default", message = "Whether or not your paint job can be bought from level 0, for example on a brand new profile"))
+        self.panel_ingame_default_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = l(l("{HelpTitle}").format(topic = "{InGameDefault}")), message = l("{InGameDefaultHelp1}")))
         self.panel_ingame_default_help.grid(row = 2, column = 2, padx = (0, 5), pady = (5, 0))
         self.panel_ingame_unlock_variable = tk.StringVar()
-        self.panel_ingame_unlock_label = ttk.Label(self.panel_ingame, text = "Unlock level:")
+        self.panel_ingame_unlock_label = ttk.Label(self.panel_ingame, text = l("{InGameUnlock}"))
         self.panel_ingame_unlock_label.grid(row = 3, column = 0, padx = (10, 5), pady = (5, 10), sticky = "w")
         self.panel_ingame_unlock_input = ttk.Entry(self.panel_ingame, width = 5, textvariable = self.panel_ingame_unlock_variable)
         self.panel_ingame_unlock_input.grid(row = 3, column = 1, padx = 5, pady = (5, 10), sticky = "w")
         self.panel_ingame_unlock_input.state(["disabled"]) # disabled by default, as the "unlocked by default" checkbox is checked by default
-        self.panel_ingame_unlock_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Unlock Level", message = "If not unlocked by default, what level your paint job is made purchasable at\n\ne.g. 11"))
+        self.panel_ingame_unlock_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = l(l("{HelpTitle}").format(topic = "{InGameUnlock}")), message = l("{InGameUnlockHelp1}\n\n{InGameUnlockExample}")))
         self.panel_ingame_unlock_help.grid(row = 3, column = 2, padx = (0, 5), pady = (5, 10))
         self.panel_ingame.columnconfigure(0, minsize = 140)
         self.panel_ingame.columnconfigure(1, minsize = 240)
 
         # Internal Paintjob Info panel
         self.panel_internal_name_variable = tk.StringVar()
-        self.panel_internal_name_label = ttk.Label(self.panel_internal, text = "Internal name:")
+        self.panel_internal_name_label = ttk.Label(self.panel_internal, text = l("{InternalName}"))
         self.panel_internal_name_label.grid(row = 0, column = 0, padx = (10, 5), pady = (5, 0), sticky = "w")
         self.panel_internal_name_input = ttk.Entry(self.panel_internal, width = 15, textvariable = self.panel_internal_name_variable)
         self.panel_internal_name_input.grid(row = 0, column = 1, padx = 5, pady = (5, 0), sticky = "w")
-        self.panel_internal_name_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Internal Name", message = "A unique name used by the game to identify your paint job. Mod users will NOT see this name.\n\nMust be {} characters or fewer, and only contain letters, numbers and underscores.\n\nMust also be unique, if two different mods use the same internal name they will be incompatible with each other.\n\ne.g. transit_co".format(self.internal_name_length)))
+        self.panel_internal_name_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = l(l("{HelpTitle}").format(topic = "{InternalName}")), message = l("{InternalNameHelp1}\n\n{InternalNameHelp2}\n\n{InternalNameHelp3}\n\n{InternalNameExample}").format(name_length = self.internal_name_length)))
         self.panel_internal_name_help.grid(row = 0, column = 2, padx = (0, 5), pady = (5, 0))
-        self.panel_internal_supported_variable = tk.StringVar(None, "Largest cabin only")
+        self.panel_internal_supported_variable = tk.StringVar(None, l("{InternalSupportedLargest}"))
         self.panel_internal_supported_variable.trace("w", self.update_cabin_dropdowns)
-        self.panel_internal_supported_label = ttk.Label(self.panel_internal, text = "Supported cabins:")
+        self.panel_internal_supported_label = ttk.Label(self.panel_internal, text = l("{InternalSupported}"))
         self.panel_internal_supported_label.grid(row = 4, column = 0, padx = (10, 5), pady = (5, 10), sticky = "w")
-        self.panel_internal_supported_dropdown = ttk.Combobox(self.panel_internal, state = "readonly", textvariable = self.panel_internal_supported_variable, values = ["Largest cabin only", "All cabins"], width = 20)
+        self.panel_internal_supported_dropdown = ttk.Combobox(self.panel_internal, state = "readonly", textvariable = self.panel_internal_supported_variable, values = [l("{InternalSupportedLargest}"), l("{InternalSupportedAll}")], width = 27)
         self.panel_internal_supported_dropdown.grid(row = 4, column = 1, padx = 5, pady = (5, 10), sticky = "w")
-        self.panel_internal_supported_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Supported Cabins", message = "Whether your paint job supports only the largest cabin for each truck, or all cabins.\n\nNote that the 8x4 chassis uses a separate cabin in some cases, which would not be supported if you choose largest cabin only.\n\ne.g. If you're making a paint job for the Scania S, a \"largest cabin only\" paint job would only support the High Roof cabin, whereas an \"all cabins\" paint job would support the Normal Roof and High Roof cabins, as well as the separate High Roof 8x4 cabin."))
+        self.panel_internal_supported_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = l(l("{HelpTitle}").format(topic = "{InternalSupported}")), message = l("{InternalSupportedHelp1}\n\n{InternalSupportedHelp2}\n\n{InternalSupportedExample}")))
         self.panel_internal_supported_help.grid(row = 4, column = 2, padx = (0, 5), pady = (5, 10))
-        self.panel_internal_handling_variable = tk.StringVar(None, "Combined paint job")
+        self.panel_internal_handling_variable = tk.StringVar(None, l("{InternalHandlingCombined}"))
         self.panel_internal_handling_variable.trace("w", self.update_cabin_dropdowns)
-        self.panel_internal_handling_label = ttk.Label(self.panel_internal, text = "Cabin handling:")
+        self.panel_internal_handling_label = ttk.Label(self.panel_internal, text = l("{InternalHandling}"))
         # self.panel_internal_handling_label.grid(row = 5, column = 0, padx = (10, 5), pady = (5, 0), sticky = "w")
-        self.panel_internal_handling_dropdown = ttk.Combobox(self.panel_internal, state = "readonly", textvariable = self.panel_internal_handling_variable, values = ["Combined paint job", "Separate paint jobs"], width = 20)
+        self.panel_internal_handling_dropdown = ttk.Combobox(self.panel_internal, state = "readonly", textvariable = self.panel_internal_handling_variable, values = [l("{InternalHandlingCombined}"), l("{InternalHandlingSeparate}")], width = 27)
         # self.panel_internal_handling_dropdown.grid(row = 5, column = 1, padx = 5, pady = (5, 0), sticky = "w")
-        self.panel_internal_handling_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Cabin Handling", message = "Whether multiple cabins should be combined into a single paint job, or separated into multiple paint jobs.\n\nA single combined paint job requires less work and results in a smaller mod size, as you only need to make a single cabin texture for each truck. However, your design might not work across all the different cabin sizes, for example your design could look correct on large cabins, but be positioned incorrectly/stretched/cut off on smaller cabins.\n\nSeparate paint jobs allow you to tweak your design to work for each cabin, but require more work and result in a larger mod size, as you need to make separate textures for every cabin whether they need them or not."))
+        self.panel_internal_handling_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = l(l("{HelpTitle}").format(topic = "{InternalHandling}")), message = l("{InternalHandlingHelp1}\n\n{InternalHandlingHelp2}\n\n{InternalHandlingHelp3}")))
         # self.panel_internal_handling_help.grid(row = 5, column = 2, padx = (0, 5), pady = (5, 0))
         self.panel_internal.columnconfigure(0, minsize = 140)
         self.panel_internal.columnconfigure(1, minsize = 240)
 
         # Vehicle Supported panel (single paintjob)
-        self.panel_single_type_variable = tk.StringVar(None, "Truck")
+        self.panel_single_type_variable = tk.StringVar(None, l("{Truck}"))
         self.panel_single_type_variable.trace("w", self.change_displayed_vehicle_dropdown)
-        self.panel_single_type_label = ttk.Label(self.panel_vehicles_single, text = "Type:")
+        self.panel_single_type_label = ttk.Label(self.panel_vehicles_single, text = l("{VehiclesType}"))
         self.panel_single_type_label.grid(row = 0, column = 0, padx = (10, 5), pady = (5, 0), sticky = "w")
-        self.panel_single_type_dropdown = ttk.Combobox(self.panel_vehicles_single, state = "readonly", textvariable = self.panel_single_type_variable, values = ["Truck", "Truck Mod", "Trailer", "Trailer Mod"], width = 12)
+        self.panel_single_type_dropdown = ttk.Combobox(self.panel_vehicles_single, state = "readonly", textvariable = self.panel_single_type_variable, values = [l("{Truck}"), l("{TruckMod}"), l("{Trailer}"), l("{TrailerMod}")], width = 12)
         self.panel_single_type_dropdown.grid(row = 1, column = 0, padx = (10, 5), pady = (5, 0), sticky = "w")
         self.panel_single_vehicle_variable = tk.StringVar()
-        self.panel_single_vehicle_label = ttk.Label(self.panel_vehicles_single, text = "Vehicle:")
+        self.panel_single_vehicle_label = ttk.Label(self.panel_vehicles_single, text = l("{VehiclesVehicle}"))
         self.panel_single_vehicle_label.grid(row = 2, column = 0, padx = (10, 5), pady = (10, 0), sticky = "w")
         self.panel_single_vehicle_dropdown = ttk.Combobox(self.panel_vehicles_single, state = "readonly", textvariable = self.panel_single_vehicle_variable, values = [], width = 45)
         self.panel_single_vehicle_dropdown.grid(row = 3, column = 0, padx = (10, 10), pady = (5, 10), sticky = "w")
-        self.panel_single_link = ttk.Label(self.panel_vehicles_single, text = "Download links for all mods", foreground = self.blue, cursor = self.cursor)
+        self.panel_single_link = ttk.Label(self.panel_vehicles_single, text = l("{VehiclesDownloadLink}"), foreground = self.blue, cursor = self.cursor)
         self.panel_single_link.bind("<1>", self.open_mod_link_page)
         # self.panel_single_link.grid(row = 4, column = 0, pady = 5, padx = 5, sticky = "w")
 
@@ -305,28 +308,28 @@ class PackerApp:
         self.tab_trucks = ttk.Frame(self.panel_pack_selector)
         self.tab_trucks.columnconfigure(0, weight = 1)
         self.tab_trucks.rowconfigure(0, weight = 1)
-        self.panel_pack_selector.add(self.tab_trucks, text = "Trucks")
+        self.panel_pack_selector.add(self.tab_trucks, text = l("{Trucks}"))
         self.tab_trailers = ttk.Frame(self.panel_pack_selector)
         self.tab_trailers.columnconfigure(0, weight = 1)
         self.tab_trailers.rowconfigure(0, weight = 1)
-        self.panel_pack_selector.add(self.tab_trailers, text = "Trailers")
+        self.panel_pack_selector.add(self.tab_trailers, text = l("{Trailers}"))
         self.tab_truck_mods = ttk.Frame(self.panel_pack_selector)
         self.tab_truck_mods.columnconfigure(0, weight = 1)
         self.tab_truck_mods.rowconfigure(0, weight = 1)
-        self.panel_pack_selector.add(self.tab_truck_mods, text = "Truck Mods")
+        self.panel_pack_selector.add(self.tab_truck_mods, text = l("{TruckMods}"))
         self.tab_bus_mods = ttk.Frame(self.panel_pack_selector)
         self.tab_bus_mods.columnconfigure(0, weight = 1)
         self.tab_bus_mods.rowconfigure(0, weight = 1)
-        self.panel_pack_selector.add(self.tab_bus_mods, text = "Bus Mods", state = "hidden")
+        self.panel_pack_selector.add(self.tab_bus_mods, text = l("{BusMods}"), state = "hidden")
         self.tab_trailer_mods = ttk.Frame(self.panel_pack_selector)
         self.tab_trailer_mods.columnconfigure(0, weight = 1)
         self.tab_trailer_mods.rowconfigure(0, weight = 1)
-        self.panel_pack_selector.add(self.tab_trailer_mods, text = "Trailer Mods")
-        self.panel_pack_link_truck = ttk.Label(self.tab_truck_mods, text = "Download links for all mods", foreground = self.blue, cursor = self.cursor)
+        self.panel_pack_selector.add(self.tab_trailer_mods, text = l("{TrailerMods}"))
+        self.panel_pack_link_truck = ttk.Label(self.tab_truck_mods, text = l("{VehiclesDownloadLink}"), foreground = self.blue, cursor = self.cursor)
         self.panel_pack_link_truck.bind("<1>", self.open_mod_link_page)
-        self.panel_pack_link_bus = ttk.Label(self.tab_bus_mods, text = "Download links for all mods", foreground = self.blue, cursor = self.cursor)
+        self.panel_pack_link_bus = ttk.Label(self.tab_bus_mods, text = l("{VehiclesDownloadLink}"), foreground = self.blue, cursor = self.cursor)
         self.panel_pack_link_bus.bind("<1>", self.open_mod_link_page)
-        self.panel_pack_link_trailer = ttk.Label(self.tab_trailer_mods, text = "Download links for all mods", foreground = self.blue, cursor = self.cursor)
+        self.panel_pack_link_trailer = ttk.Label(self.tab_trailer_mods, text = l("{VehiclesDownloadLink}"), foreground = self.blue, cursor = self.cursor)
         self.panel_pack_link_trailer.bind("<1>", self.open_mod_link_page)
         self.panel_vehicles_pack.rowconfigure(0, weight = 1)
 
@@ -377,47 +380,47 @@ class PackerApp:
         self.scroll_bar_trailer_mods.grid(row = 0, rowspan = 2, column = 1, pady = 5, sticky = "nes")
 
         # buttons along the bottom
-        self.panel_main_buttons_setup = ttk.Button(self.panel_main_buttons, text = "< Back to setup", command = lambda : self.switch_to_setup_screen(), width = 15)
+        self.panel_main_buttons_setup = ttk.Button(self.panel_main_buttons, text = l("< {BackToSetup}"), command = lambda : self.switch_to_setup_screen(), width = 15)
         self.panel_main_buttons_setup.grid(row = 1, column = 0, pady = (5, 0), sticky = "w")
-        self.panel_main_buttons_feedback = ttk.Label(self.panel_main_buttons, text = "Leave feedback or get support", foreground = self.blue, cursor = self.cursor)
+        self.panel_main_buttons_feedback = ttk.Label(self.panel_main_buttons, text = l("{LeaveFeedback}"), foreground = self.blue, cursor = self.cursor)
         self.panel_main_buttons_feedback.grid(row = 1, column = 1, pady = (5, 0), padx = 10, sticky = "e")
         self.panel_main_buttons_feedback.bind("<1>", lambda e: webbrowser.open_new(FORUM_LINK))
-        self.panel_main_buttons_generate = ttk.Button(self.panel_main_buttons, text = "Generate and save...", command = lambda : self.verify_all_inputs(), width = 20)
+        self.panel_main_buttons_generate = ttk.Button(self.panel_main_buttons, text = l("{GenerateSave}"), command = lambda : self.verify_all_inputs(), width = 20)
         self.panel_main_buttons_generate.grid(row = 1, column = 2, pady = (5, 0), sticky = "e")
 
         # generate screen
         self.generate_screen = ttk.Frame(self.container)
-        self.panel_generating = ttk.LabelFrame(self.generate_screen, text = "Generating Options")
+        self.panel_generating = ttk.LabelFrame(self.generate_screen, text = l("{GeneratingOptions}"))
         self.panel_generating.grid(row = 0, column = 0, pady = (0, 5), sticky = "ew")
-        self.panel_directory = ttk.LabelFrame(self.generate_screen, text = "Save Directory")
+        self.panel_directory = ttk.LabelFrame(self.generate_screen, text = l("{SaveDirectory}"))
         self.panel_directory.grid(row = 1, column = 0, pady = (0, 5), sticky = "ew")
-        self.panel_progress = ttk.LabelFrame(self.generate_screen, text = "Progress")
+        self.panel_progress = ttk.LabelFrame(self.generate_screen, text = l("{GeneratingProgress}"))
         self.panel_progress.grid(row = 2, column = 0, pady = (0, 5), sticky = "ew")
         self.panel_gen_buttons = ttk.Frame(self.generate_screen)
         self.panel_gen_buttons.grid(row = 3, column = 0, sticky = "ew")
 
         # Generating Options panel
         self.panel_generating_workshop_variable = tk.BooleanVar(None, False)
-        self.panel_generating_workshop_checkbox = ttk.Checkbutton(self.panel_generating, text = "Generate files for Steam Workshop upload", variable = self.panel_generating_workshop_variable)
+        self.panel_generating_workshop_checkbox = ttk.Checkbutton(self.panel_generating, text = l("{GenerateWorkshop}"), variable = self.panel_generating_workshop_variable)
         self.panel_generating_workshop_checkbox.grid(row = 0, column = 0, padx = (10, 5), pady = (5, 0), sticky = "w")
-        self.panel_generating_workshop_help = ttk.Button(self.panel_generating, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Workshop Upload", message = "Generates additional files needed when uploading to Steam Workshop, including a workshop image, an uploading folder and a workshop description with working links to any modded vehicles you support.\n\nRequires the SCS Workshop Uploader, which only supports Windows."))
+        self.panel_generating_workshop_help = ttk.Button(self.panel_generating, text = "?", width = 3, command = lambda : messagebox.showinfo(title = l(l("{HelpTitle}").format(topic = "{GenerateWorkshop}")), message = l("{GenerateWorkshopHelp1}\n\n{GenerateWorkshopHelp2}")))
         self.panel_generating_workshop_help.grid(row = 0, column = 1, padx = (0, 5), pady = (5, 0))
         self.panel_generating_templates_variable = tk.BooleanVar(None, False)
-        self.panel_generating_templates_checkbox = ttk.Checkbutton(self.panel_generating, text = "Use templates instead of empty placeholders", variable = self.panel_generating_templates_variable)
+        self.panel_generating_templates_checkbox = ttk.Checkbutton(self.panel_generating, text = l("{GenerateTemplates}"), variable = self.panel_generating_templates_variable)
         self.panel_generating_templates_checkbox.grid(row = 1, column = 0, padx = (10, 20), pady = (5, 0), sticky = "w")
-        self.panel_generating_templates_help = ttk.Button(self.panel_generating, text = "?", width = 3, command = lambda : messagebox.showinfo(title = "Help: Placeholder Templates", message = "Uses templates instead of empty placeholder files. If not selected, all .dds files will be empty white placeholder squares. If selected, all .dds files will be appropriate templates (4k for trucks, 4k/2k for trailers) instead of empty images. Note that some parts on certain vehicles will still use empty images, as they have no paint job potential besides changing their colour.\n\nRequires templates to be installed for the game you're making a mod for. Not supported in portable versions."))
+        self.panel_generating_templates_help = ttk.Button(self.panel_generating, text = "?", width = 3, command = lambda : messagebox.showinfo(title = l(l("{HelpTitle}").format(topic = "{GenerateTemplates}")), message = l("{GenerateTemplatesHelp1}\n\n{GenerateTemplatesHelp2}")))
         self.panel_generating_templates_help.grid(row = 1, column = 1, padx = (0, 5), pady = 5)
         self.panel_generating.columnconfigure(0, weight = 1)
 
         # Save Directory panel
-        self.panel_directory_change_label = ttk.Label(self.panel_directory, text = "Current directory:")
+        self.panel_directory_change_label = ttk.Label(self.panel_directory, text = l("{CurrentDirectory}"))
         self.panel_directory_change_label.grid(row = 0, column = 0, columnspan = 2, padx = (10, 5), pady = (5, 0), sticky = "w")
-        self.panel_directory_change_button = ttk.Button(self.panel_directory, text = "Change...", width = 10, command = self.ask_save_location)
+        self.panel_directory_change_button = ttk.Button(self.panel_directory, text = l("{ChangeDirectory}"), width = 10, command = self.ask_save_location)
         self.panel_directory_change_button.grid(row = 0, column = 2, padx = (0, 5))
         self.panel_directory_current_variable = tk.StringVar(None, desktop_path.replace("\\", "/"))
         self.panel_directory_current_label = ttk.Label(self.panel_directory, textvariable = self.panel_directory_current_variable)
         self.panel_directory_current_label.grid(row = 1, column = 0, columnspan = 3, padx = (10, 5), pady = (5, 0), sticky = "w")
-        self.panel_directory_note_label = ttk.Label(self.panel_directory, text = "A subfolder will created in your chosen directory")
+        self.panel_directory_note_label = ttk.Label(self.panel_directory, text = l("{SubfolderCreated}"))
         self.panel_directory_note_label.grid(row = 2, column = 0, columnspan = 3, padx = 5, pady = 5)
         self.panel_directory.columnconfigure(0, weight = 1)
 
@@ -425,18 +428,18 @@ class PackerApp:
         self.progress_value = tk.DoubleVar(None, 0.0)
         self.panel_progress_bar = ttk.Progressbar(self.panel_progress, orient = "horizontal", mode = "determinate", variable = self.progress_value)
         self.panel_progress_bar.grid(row = 0, column = 0, padx = 10, pady = (15, 10), sticky = "ew")
-        self.panel_progress_category_variable = tk.StringVar(None, "Ready to generate mod")
+        self.panel_progress_category_variable = tk.StringVar(None, l("{ProgressReady}"))
         self.panel_progress_category_label = ttk.Label(self.panel_progress, textvariable = self.panel_progress_category_variable)
         self.panel_progress_category_label.grid(row = 1, column = 0, padx = 5, pady = (5, 0))
-        self.panel_progress_specific_variable = tk.StringVar(None, "Progress will appear here")
+        self.panel_progress_specific_variable = tk.StringVar(None, l("{ProgressAppearHere}"))
         self.panel_progress_specific_label = ttk.Label(self.panel_progress, textvariable = self.panel_progress_specific_variable)
         self.panel_progress_specific_label.grid(row = 2, column = 0, padx = 5, pady = 5)
         self.panel_progress.columnconfigure(0, weight = 1)
 
         # generating buttons
-        self.panel_gen_buttons_back = ttk.Button(self.panel_gen_buttons, text = "< Back", command = self.change_from_generate_to_main)
+        self.panel_gen_buttons_back = ttk.Button(self.panel_gen_buttons, text = l("< {Back}"), command = self.change_from_generate_to_main)
         self.panel_gen_buttons_back.grid(row = 0, column = 0, pady = (5, 0), sticky = "w")
-        self.panel_gen_buttons_generate = ttk.Button(self.panel_gen_buttons, text = "Generate", command = lambda : self.check_if_folder_clear(self.panel_directory_current_variable.get()))
+        self.panel_gen_buttons_generate = ttk.Button(self.panel_gen_buttons, text = l("{Generate}"), command = lambda : self.check_if_folder_clear(self.panel_directory_current_variable.get()))
         self.panel_gen_buttons_generate.grid(row = 0, column = 1, pady = (5, 0), sticky = "e")
         self.panel_gen_buttons.columnconfigure(0, weight = 1)
 
@@ -463,6 +466,25 @@ class PackerApp:
 
         master.report_callback_exception = self.show_fancy_error # it's now safe to use the screen instead of the messagebox
 
+    def load_language_dictionary(self, language):
+        language_ini = configparser.ConfigParser()
+        language_ini.optionxform = str # Maintains capitals in key names
+        language_ini.read("lang/{}.ini".format(language.replace("_", "-")), encoding="utf-8")
+        language_dict = {}
+        for section in language_ini.sections():
+            for item in language_ini.items(section):
+                if item[0] in language_dict:
+                    print("DUPLICATE: "+item[0])
+                    print("Old: "+language_dict[item[0]])
+                    print("New: "+item[1]+"\n")
+                language_dict[item[0]] = item[1]
+        self.language_dictionary = language_dict
+
+    def get_localised_string(self, string):
+        # Turn all {placeholder}s into {language_dict[placeholder]}s
+        string = string.replace("{", "{lang_dict[").replace("}", "]}")
+        return string.format(lang_dict = self.language_dictionary)
+
     def show_fancy_error(self, error_type, error_message, error_traceback):
         print("\a")
         self.setup_screen.grid_forget()
@@ -481,6 +503,8 @@ class PackerApp:
         clipboard.destroy()
 
     def credits_screen(self, *args):
+        l = self.get_localised_string
+
         credits = tk.Tk()
         credits.tk.call("source", "sun-valley.tcl")
         try:
@@ -497,12 +521,12 @@ class PackerApp:
             credits.cursor = "pointinghand"
         else:
             credits.cursor = "hand2"
-        credits.title("Credits")
+        credits.title(l("{About}"))
         credits.resizable(False, False)
         credits.lift()
         credits.columnconfigure(0, weight = 1)
         credits.columnconfigure(1, weight = 1)
-        credits.button = ttk.Button(credits, text = "Okay, cool", command = lambda : credits.destroy())
+        credits.button = ttk.Button(credits, text = l("{Okay}"), command = lambda : credits.destroy())
         credits.button.grid(row = 2, column = 0, columnspan = 2, pady = (0, 20))
 
         credits.pjp_frame = tk.Frame(credits)
@@ -511,14 +535,14 @@ class PackerApp:
         credits.pjp_frame.columnconfigure(1, weight = 3)
         credits.pjp_title = ttk.Label(credits.pjp_frame, text = "Paint Job Packer", justify = "center")
         credits.pjp_title.grid(row = 0, column = 0, columnspan = 2, pady = (20, 0))
-        credits.pjp_link = ttk.Label(credits.pjp_frame, text = "GitHub page", justify = "center", foreground = credits.blue, cursor = credits.cursor)
+        credits.pjp_link = ttk.Label(credits.pjp_frame, text = l("{LinkGithub}"), justify = "center", foreground = credits.blue, cursor = credits.cursor)
         credits.pjp_link.grid(row = 1, column = 0, columnspan = 2, pady = (5, 10))
         credits.pjp_link.bind("<1>", lambda e: webbrowser.open_new(GITHUB_LINK))
-        credits.pjp_dev_title = ttk.Label(credits.pjp_frame, text = "Development:")
+        credits.pjp_dev_title = ttk.Label(credits.pjp_frame, text = l("{AboutDeveloper}"))
         credits.pjp_dev_title.grid(row = 2, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
         credits.pjp_dev_name = ttk.Label(credits.pjp_frame, text = "Carsmaniac")
         credits.pjp_dev_name.grid(row = 2, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
-        credits.pjp_contributors_title = ttk.Label(credits.pjp_frame, text = "Contributors:")
+        credits.pjp_contributors_title = ttk.Label(credits.pjp_frame, text = l("{AboutContributors}"))
         credits.pjp_contributors_title.grid(row = 3, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
         credits.pjp_contributors_names = ttk.Label(credits.pjp_frame, text = "djbusphotos\nkentuckyfriedmeerkat")
         credits.pjp_contributors_names.grid(row = 3, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
@@ -526,7 +550,7 @@ class PackerApp:
         # credits.pjp_supporters_title.grid(row = 4, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
         # credits.pjp_supporters_names = ttk.Label(credits.pjp_frame, text = "Name/nName")
         # credits.pjp_supporters_names.grid(row = 4, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
-        credits.pjp_licence = ttk.Label(credits.pjp_frame, text = "Licensed under the MIT Licence", foreground = credits.blue, cursor = credits.cursor)
+        credits.pjp_licence = ttk.Label(credits.pjp_frame, text = l("{AboutMIT}"), foreground = credits.blue, cursor = credits.cursor)
         credits.pjp_licence.grid(row = 5, column = 0, columnspan = 2, padx = 20, pady = 5)
         credits.pjp_licence.bind("<1>", lambda e: webbrowser.open_new(MIT_LICENCE_LINK))
 
@@ -536,14 +560,14 @@ class PackerApp:
         credits.sunval_frame.columnconfigure(1, weight = 3)
         credits.sunval_title = ttk.Label(credits.sunval_frame, text = "Sun Valley Theme", justify = "center")
         credits.sunval_title.grid(row = 0, column = 0, columnspan = 2, pady = (20, 0))
-        credits.sunval_link = ttk.Label(credits.sunval_frame, text = "GitHub page", justify = "center", foreground = credits.blue, cursor = credits.cursor)
+        credits.sunval_link = ttk.Label(credits.sunval_frame, text = l("{LinkGithub}"), justify = "center", foreground = credits.blue, cursor = credits.cursor)
         credits.sunval_link.grid(row = 1, column = 0, columnspan = 2, pady = (5, 10))
         credits.sunval_link.bind("<1>", lambda e: webbrowser.open_new(SUN_VALLEY_LINK))
-        credits.sunval_dev_title = ttk.Label(credits.sunval_frame, text = "Development:")
+        credits.sunval_dev_title = ttk.Label(credits.sunval_frame, text = l("{AboutDeveloper}"))
         credits.sunval_dev_title.grid(row = 2, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
         credits.sunval_dev_name = ttk.Label(credits.sunval_frame, text = "rdbende")
         credits.sunval_dev_name.grid(row = 2, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
-        credits.sunval_licence = ttk.Label(credits.sunval_frame, text = "Licensed under the MIT Licence", foreground = credits.blue, cursor = credits.cursor)
+        credits.sunval_licence = ttk.Label(credits.sunval_frame, text = l("{AboutMIT}"), foreground = credits.blue, cursor = credits.cursor)
         credits.sunval_licence.grid(row = 3, column = 0, columnspan = 2, padx = 20, pady = 5)
         credits.sunval_licence.bind("<1>", lambda e: webbrowser.open_new(MIT_LICENCE_LINK))
 
@@ -553,22 +577,23 @@ class PackerApp:
         credits.darkdetect_frame.columnconfigure(1, weight = 3)
         credits.darkdetect_title = ttk.Label(credits.darkdetect_frame, text = "Darkdetect", justify = "center")
         credits.darkdetect_title.grid(row = 0, column = 0, columnspan = 2, pady = (20, 0))
-        credits.darkdetect_link = ttk.Label(credits.darkdetect_frame, text = "GitHub page", justify = "center", foreground = credits.blue, cursor = credits.cursor)
+        credits.darkdetect_link = ttk.Label(credits.darkdetect_frame, text = l("{LinkGithub}"), justify = "center", foreground = credits.blue, cursor = credits.cursor)
         credits.darkdetect_link.grid(row = 1, column = 0, columnspan = 2, pady = (5, 10))
         credits.darkdetect_link.bind("<1>", lambda e: webbrowser.open_new(DARKDETECT_LINK))
-        credits.darkdetect_dev_title = ttk.Label(credits.darkdetect_frame, text = "Development:")
+        credits.darkdetect_dev_title = ttk.Label(credits.darkdetect_frame, text = l("{AboutDeveloper}"))
         credits.darkdetect_dev_title.grid(row = 2, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
         credits.darkdetect_dev_name = ttk.Label(credits.darkdetect_frame, text = "Alberto Sottile")
         credits.darkdetect_dev_name.grid(row = 2, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
-        credits.darkdetect_contributors_title = ttk.Label(credits.darkdetect_frame, text = "Contributors:")
+        credits.darkdetect_contributors_title = ttk.Label(credits.darkdetect_frame, text = l("{AboutContributors}"))
         credits.darkdetect_contributors_title.grid(row = 3, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
         credits.darkdetect_contributors_name = ttk.Label(credits.darkdetect_frame, text = "cboy343\nEric Larson\nHussain")
         credits.darkdetect_contributors_name.grid(row = 3, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
-        credits.darkdetect_licence = ttk.Label(credits.darkdetect_frame, text = "Licensed under the 3-Clause BSD Licence", foreground = credits.blue, cursor = credits.cursor)
+        credits.darkdetect_licence = ttk.Label(credits.darkdetect_frame, text = l("{AboutBSD}"), foreground = credits.blue, cursor = credits.cursor)
         credits.darkdetect_licence.grid(row = 4, column = 0, columnspan = 2, padx = 20, pady = 5)
         credits.darkdetect_licence.bind("<1>", lambda e: webbrowser.open_new(BSD_LICENCE_LINK))
 
     def update_cabin_dropdowns(self, *args):
+        l = self.get_localised_string
         self.internal_name_length = 12
         self.panel_internal_supported_label.grid_forget()
         self.panel_internal_supported_dropdown.grid_forget()
@@ -576,11 +601,11 @@ class PackerApp:
         self.panel_internal_handling_label.grid_forget()
         self.panel_internal_handling_dropdown.grid_forget()
         self.panel_internal_handling_help.grid_forget()
-        if self.panel_internal_supported_variable.get() == "Largest cabin only":
+        if self.panel_internal_supported_variable.get() == l("{InternalSupportedLargest}"):
             self.panel_internal_supported_label.grid(row = 4, column = 0, padx = (10, 5), pady = (5, 10), sticky = "w")
             self.panel_internal_supported_dropdown.grid(row = 4, column = 1, padx = 5, pady = (5, 10), sticky = "w")
             self.panel_internal_supported_help.grid(row = 4, column = 2, padx = (0, 5), pady = (5, 10))
-        elif self.panel_internal_supported_variable.get() == "All cabins":
+        elif self.panel_internal_supported_variable.get() == l("{InternalSupportedAll}"):
             self.panel_internal_supported_label.grid(row = 4, column = 0, padx = (10, 5), pady = (5, 0), sticky = "w")
             self.panel_internal_supported_dropdown.grid(row = 4, column = 1, padx = 5, pady = (5, 0), sticky = "w")
             self.panel_internal_supported_help.grid(row = 4, column = 2, padx = (0, 5), pady = (5, 0))
@@ -588,7 +613,7 @@ class PackerApp:
             self.panel_internal_handling_dropdown.grid(row = 5, column = 1, padx = 5, pady = (5, 10), sticky = "w")
             self.panel_internal_handling_help.grid(row = 5, column = 2, padx = (0, 5), pady = (5, 10))
 
-            if self.panel_internal_handling_variable.get() == "Separate paint jobs":
+            if self.panel_internal_handling_variable.get() == l("{InternalHandlingSeparate}"):
                 self.internal_name_length = 10
 
     def switch_to_setup_screen(self):
@@ -623,6 +648,7 @@ class PackerApp:
         self.update_cabin_dropdowns()
 
     def load_main_screen_variables(self): # also grids and ungrids stuff depending on said variables
+        l = self.get_localised_string
         self.scroll_bar_trucks.grid(row = 0, column = 1, pady = 5, sticky = "nes")
         self.scroll_bar_trailers.grid(row = 0, column = 1, pady = 5, sticky = "nes")
         self.scroll_bar_truck_mods.grid(row = 0, rowspan = 2, column = 1, pady = 5, sticky = "nes")
@@ -632,7 +658,7 @@ class PackerApp:
         if self.tab_game_variable.get() == "ats":
             self.currency = "dollars"
             self.panel_pack_selector.tab(3, state = "hidden")
-            self.panel_single_type_dropdown.config(values = ["Truck", "Truck Mod", "Trailer", "Trailer Mod"])
+            self.panel_single_type_dropdown.config(values = [l("{Truck}"), l("{TruckMod}"), l("{Trailer}"), l("{TrailerMod}")])
             self.scroll_bar_trucks.grid_forget() # these lists don't need to scroll
             self.scroll_bar_trailers.grid_forget()
             self.scroll_bar_bus_mods.grid_forget()
@@ -640,7 +666,7 @@ class PackerApp:
         elif self.tab_game_variable.get() == "ets":
             self.currency = "euros"
             self.panel_pack_selector.tab(3, state = "normal")
-            self.panel_single_type_dropdown.config(values = ["Truck", "Truck Mod", "Bus Mod", "Trailer", "Trailer Mod"])
+            self.panel_single_type_dropdown.config(values = [l("{Truck}"), l("{TruckMod}"), l("{BusMod}"), l("{Trailer}"), l("{TrailerMod}")])
             self.scroll_bar_trailers.grid_forget()
             self.scroll_bar_bus_mods.grid_forget()
 
@@ -717,6 +743,7 @@ class PackerApp:
             os.remove("library/vehicles/{}/{}".format(game, file_name))
 
     def load_list_of_vehicles(self, game):
+        l = self.get_localised_string
         complete_list = []
         for file_name in os.listdir("library/vehicles/{}".format(game)):
             complete_list.append(VehSelection(game, file_name))
@@ -728,7 +755,7 @@ class PackerApp:
         for veh in complete_list:
             if veh.trailer:
                 if veh.mod:
-                    veh.check = ttk.Checkbutton(self.scroll_frame_trailer_mods, text = "{} by {}".format(veh.display_name, veh.display_author), command = lambda : self.update_total_vehicles_supported())
+                    veh.check = ttk.Checkbutton(self.scroll_frame_trailer_mods, text = l("{VehicleNameAuthor}").format(vehicle_name = veh.display_name, mod_author = veh.display_author), command = lambda : self.update_total_vehicles_supported())
                     veh.check.state(["!alternate","!selected"])
                     trailer_mod_list.append(veh)
                 else:
@@ -738,11 +765,11 @@ class PackerApp:
             else:
                 if veh.mod:
                     if veh.bus_mod:
-                        veh.check = ttk.Checkbutton(self.scroll_frame_bus_mods, text = "{} by {}".format(veh.display_name, veh.display_author), command = lambda : self.update_total_vehicles_supported())
+                        veh.check = ttk.Checkbutton(self.scroll_frame_bus_mods, text = l("{VehicleNameAuthor}").format(vehicle_name = veh.display_name, mod_author = veh.display_author), command = lambda : self.update_total_vehicles_supported())
                         veh.check.state(["!alternate","!selected"])
                         bus_mod_list.append(veh)
                     else:
-                        veh.check = ttk.Checkbutton(self.scroll_frame_truck_mods, text = "{} by {}".format(veh.display_name, veh.display_author), command = lambda : self.update_total_vehicles_supported())
+                        veh.check = ttk.Checkbutton(self.scroll_frame_truck_mods, text = l("{VehicleNameAuthor}").format(vehicle_name = veh.display_name, mod_author = veh.display_author), command = lambda : self.update_total_vehicles_supported())
                         veh.check.state(["!alternate","!selected"])
                         truck_mod_list.append(veh)
                 else:
@@ -757,27 +784,29 @@ class PackerApp:
         return (truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list)
 
     def change_displayed_vehicle_dropdown(self, *args):
+        l = self.get_localised_string
         type = self.panel_single_type_variable.get()
         self.panel_single_vehicle_variable.set("")
         new_values = []
-        if type == "Truck":
+        if type == l("{Truck}"):
             for veh in self.truck_list: new_values.append(veh.display_name)
-        elif type == "Truck Mod":
+        elif type == l("{TruckMod}"):
             for veh in self.truck_mod_list: new_values.append(veh.display_name)
-        elif type == "Bus Mod":
+        elif type == l("{BusMod}"):
             for veh in self.bus_mod_list: new_values.append(veh.display_name)
-        elif type == "Trailer":
+        elif type == l("{Trailer}"):
             for veh in self.trailer_list: new_values.append(veh.display_name)
-        elif type == "Trailer Mod":
+        elif type == l("{TrailerMod}"):
             for veh in self.trailer_mod_list: new_values.append(veh.display_name)
         self.panel_single_vehicle_dropdown.config(values = new_values)
 
-        if type in ["Truck Mod", "Bus Mod", "Trailer Mod"]:
+        if type in [l("{TruckMod}"), l("{BusMod}"), l("{TrailerMod}")]:
             self.panel_single_link.grid(row = 4, column = 0, pady = 5, padx = 5, sticky = "w")
         else:
             self.panel_single_link.grid_forget()
 
     def update_total_vehicles_supported(self):
+        l = self.get_localised_string
         self.total_trucks = 0
         self.total_trailers = 0
         self.total_buses = 0
@@ -791,7 +820,7 @@ class PackerApp:
             if "selected" in veh.check.state():
                 self.total_buses += 1
         self.total_vehicles = self.total_trucks + self.total_trailers + self.total_buses
-        self.panel_vehicles_pack.configure(text = "Vehicles Supported ({})".format(self.total_vehicles))
+        self.panel_vehicles_pack.configure(text = l("{VehiclesPanelNamePack}").format(number = self.total_vehicles))
         if self.tab_game_variable.get() == "ets":
             if self.total_trucks + self.total_trailers > 0:
                 self.panel_pack_selector.tab(3, state = "disabled")
@@ -818,92 +847,93 @@ class PackerApp:
         self.main_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
 
     def verify_all_inputs(self):
+        l = self.get_localised_string
         inputs_verified = True
         all_errors = []
 
         # mod info
         if len(self.panel_mod_name_variable.get()) < 1:
             inputs_verified = False
-            all_errors.append(["No mod name", "Please enter a mod name"])
+            all_errors.append([l("{ErrorVariableEmptyTitle}").format(variable = l("{ModName}")), l("{ErrorVariableEmpty}").format(variable = l("{ModName}"))])
         if pj.contains_illegal_characters_file_name(self.panel_mod_name_variable.get()):
             inputs_verified = False
-            all_errors.append(["Invalid character in mod name", "Mod name cannot contain the following characters:\n< > : \" / \\ | ? *"])
+            all_errors.append([l("{ErrorVariableCharacterTitle}").format(variable = l("{ModName}")), l("{ErrorVariableCharacter}").format(variable = l("{ModName}")) + "\n< > : \" / \\ | ? *"])
         if self.panel_mod_name_variable.get()[-1:] == ".":
             inputs_verified = False
-            all_errors.append(["Mod name ends with full stop/period", "Mod name cannot end with \".\" (full stop/period)"])
+            all_errors.append([l("{ErrorVariableFullStopTitle}").format(variable = l("{ModName}")), l("{ErrorVariableFullStop}").format(variable = l("{ModName}"))])
         if pj.contains_reserved_file_name(self.panel_mod_name_variable.get()):
             inputs_verified = False
-            all_errors.append(["Invalid mod name", "Mod name cannot be any of the following, as they are reserved file names:\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
+            all_errors.append([l("{ErrorVariableInvalidTitle}").format(variable = l("{ModName}")), l("{ErrorVariableInvalid}").format(variable = l("{ModName}")) + "\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
 
         if len(self.panel_mod_version_variable.get()) < 1:
             inputs_verified = False
-            all_errors.append(["No mod version", "Please enter a mod version"])
+            all_errors.append([l("{ErrorVariableEmptyTitle}").format(variable = l("{ModVersion}")), l("{ErrorVariableEmpty}").format(variable = l("{ModVersion}"))])
         if pj.contains_illegal_characters_sii(self.panel_mod_version_variable.get()):
             inputs_verified = False
-            all_errors.append(["Invalid character in mod version", "Mod version cannot contain the following characters:\n\" / \\"])
+            all_errors.append([l("{ErrorVariableCharacterTitle}").format(variable = l("{ModVersion}")), l("{ErrorVariableCharacter}").format(variable = l("{ModVersion}")) + "\n\" / \\"])
 
         if len(self.panel_mod_author_variable.get()) < 1:
             inputs_verified = False
-            all_errors.append(["No mod author", "Please enter a mod author"])
+            all_errors.append([l("{ErrorVariableEmptyTitle}").format(variable = l("{ModAuthor}")), l("{ErrorVariableEmpty}").format(variable = l("{ModAuthor}"))])
         if pj.contains_illegal_characters_sii(self.panel_mod_author_variable.get()):
             inputs_verified = False
-            all_errors.append(["Invalid character in mod author", "Mod author cannot contain the following characters:\n\" / \\"])
+            all_errors.append([l("{ErrorVariableCharacterTitle}").format(variable = l("{ModAuthor}")), l("{ErrorVariableCharacter}").format(variable = l("{ModAuthor}")) + "\n\" / \\"])
 
         # in-game paintjob info
         if len(self.panel_ingame_name_variable.get()) < 1:
             inputs_verified = False
-            all_errors.append(["No paint job name", "Please enter a paint job name"])
+            all_errors.append([l("{ErrorVariableEmptyTitle}").format(variable = l("{InGameName}")), l("{ErrorVariableEmpty}").format(variable = l("{InGameName}"))])
         if pj.contains_illegal_characters_file_name(self.panel_ingame_name_variable.get()):
             inputs_verified = False
-            all_errors.append(["Invalid character in paint job name", "Paint job name cannot contain the following characters:\n< > : \" / \\ | ? *"])
+            all_errors.append([l("{ErrorVariableCharacterTitle}").format(variable = l("{InGameName}")), l("{ErrorVariableCharacter}").format(variable = l("{InGameName}")) + "\n< > : \" / \\ | ? *"])
         if self.panel_ingame_name_variable.get()[-1:] == ".":
             inputs_verified = False
-            all_errors.append(["Paint job name ends with full stop/period", "Paint job name cannot end with \".\" (full stop/period)"])
+            all_errors.append([l("{ErrorVariableFullStopTitle}").format(variable = l("{InGameName}")), l("{ErrorVariableFullStop}").format(variable = l("{InGameName}"))])
         if pj.contains_reserved_file_name(self.panel_ingame_name_variable.get()):
             inputs_verified = False
-            all_errors.append(["Invalid paint job name", "Paint job name cannot be any of the following, as they are reserved file names:\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
+            all_errors.append([l("{ErrorVariableInvalidTitle}").format(variable = l("{InGameName}")), l("{ErrorVariableInvalid}").format(variable = l("{InGameName}")) + "\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
         if not pj.check_if_ascii(self.panel_ingame_name_variable.get()):
             inputs_verified = False
-            all_errors.append(["Non-ASCII characters in paint job name", "Paint job names can only consist of ASCII characters:\n\nabcdefghijklmnopqrstuvwxyz\nABCDEFGHIJKLMNOPQRSTUVWXYZ\n0123456789\n! @ # $ % ^ & ( ) - _ = + [ ] { } ; ' , ` ~"])
+            all_errors.append([l("{ErrorVariableASCIITitle}").format(variable = l("{InGameName}")), l("{ErrorVariableASCII}").format(variable = l("{InGameName}")) + "\nabcdefghijklmnopqrstuvwxyz\nABCDEFGHIJKLMNOPQRSTUVWXYZ\n0123456789\n! @ # $ % ^ & ( ) - _ = + [ ] { } ; ' , ` ~"])
 
         if len(self.panel_ingame_price_variable.get()) < 1:
             inputs_verified = False
-            all_errors.append(["No paint job price", "Please enter a paint job price"])
+            all_errors.append([l("{ErrorVariableEmptyTitle}").format(variable = l("{InGamePrice}")), l("{ErrorVariableEmpty}").format(variable = l("{InGamePrice}"))])
         if not re.match("^[0-9]*$", self.panel_ingame_price_variable.get()):
             inputs_verified = False
-            all_errors.append(["Invalid paint job price", "Paint job price must be a number, with no decimal points, currency signs, spaces or letters"])
+            all_errors.append([l("{ErrorVariableInvalidTitle}").format(variable = l("{InGamePrice}")), l("{ErrorVariableInvalidNumber}").format(variable = l("{InGamePrice}"))])
 
         if not self.panel_ingame_default_variable.get():
             if len(self.panel_ingame_unlock_variable.get()) < 1:
                 inputs_verified = False
-                all_errors.append(["No unlock level", "Please enter an unlock level"])
+                all_errors.append([l("{ErrorVariableEmptyTitle}").format(variable = l("{InGameUnlock}")), l("{ErrorVariableEmpty}").format(variable = l("{InGameUnlock}"))])
             if not re.match("^[0-9]*$", self.panel_ingame_unlock_variable.get()):
                 inputs_verified = False
-                all_errors.append(["Invalid unlock level", "Unlock level must be a number, with no other characters or spaces"])
+                all_errors.append([l("{ErrorVariableInvalidTitle}").format(variable = l("{InGameUnlock}")), l("{ErrorVariableInvalidNumber}").format(variable = l("{InGameUnlock}"))])
 
         # internal paintjob info
         if len(self.panel_internal_name_variable.get()) < 1:
             inputs_verified = False
-            all_errors.append(["No internal name", "Please enter an internal name"])
+            all_errors.append([l("{ErrorVariableEmptyTitle}").format(variable = l("{InternalName}")), l("{ErrorVariableEmpty}").format(variable = l("{InternalName}"))])
         if len(self.panel_internal_name_variable.get()) > self.internal_name_length:
             inputs_verified = False
-            all_errors.append(["Internal name too long", "Internal name too long, it must be {} characters or fewer".format(self.internal_name_length)])
+            all_errors.append([l("{ErrorInternalLongTitle}").format(variable = l("{InternalName}")), l("{ErrorInternalLong}").format(variable = l("{InternalName}"), length = self.internal_name_length)])
         if not re.match("^[0-9a-z\_]*$", self.panel_internal_name_variable.get()):
             inputs_verified = False
-            all_errors.append(["Invalid internal name", "Internal name must only contain lowercase letters, numbers and underscores"]) # I think uppercase letters might work, but no paintjobs in the base game/DLCs use them, so best practice to avoid them
+            all_errors.append([l("{ErrorVariableInvalidTitle}").format(variable = l("{InternalName}")), l("{ErrorVariableInvalidInternal}").format(variable = l("{InternalName}"))]) # I think uppercase letters might work, but no paintjobs in the base game/DLCs use them, so best practice to avoid them
         if pj.contains_reserved_file_name(self.panel_internal_name_variable.get()):
             inputs_verified = False
-            all_errors.append(["Invalid internal name", "Internal name cannot be any of the following, as they are reserved file names:\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
+            all_errors.append([l("{ErrorVariableInvalidTitle}").format(variable = l("{InternalName}")), l("{ErrorVariableInvalid}").format(variable = l("{InternalName}")) + "\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
 
         # vehicle selection
         if self.tab_paintjob_variable.get() == "pack":
             if self.total_vehicles < 1:
                 inputs_verified = False
-                all_errors.append(["No vehicles selected", "Please select at least one truck, trailer or mod"])
+                all_errors.append([l("{ErrorSelectVehiclePackTitle}"), l("{ErrorSelectVehiclePack}")])
         elif self.tab_paintjob_variable.get() == "single":
             if self.panel_single_vehicle_variable.get() == "":
                 inputs_verified = False
-                all_errors.append(["No vehicle selected", "Please select a vehicle to support"])
+                all_errors.append([l("{ErrorSelectVehicleSingleTitle}"), l("{ErrorSelectVehicleSingle}")])
 
         # check for incompatible vehicles
         veh_path_dict = {}
@@ -916,7 +946,7 @@ class PackerApp:
             if len(veh_path_dict[veh_path]) > 1:
                 incompatible_vehicles = "\n".join(veh_path_dict[veh_path])
                 inputs_verified = False
-                all_errors.append(["Incompatible vehicles", "The following vehicles are incompatible with each other:\n" + incompatible_vehicles])
+                all_errors.append([l("{ErrorIncompatibleTitle}"), l("{ErrorIncompatible}") + "\n" + incompatible_vehicles])
 
         if inputs_verified:
             warning_vehicles = []
@@ -930,45 +960,48 @@ class PackerApp:
                         warning_vehicles.append(veh.display_name)
             if len(warning_vehicles) > 0:
                 if len(warning_vehicles) == 1:
-                    quantity_message = "This will affect the following vehicle:"
+                    quantity_message = l("{ErrorBusSingle}")
                 else:
-                    quantity_message = "This will affect the following vehicles that you've selected:"
-                messagebox.showwarning(title = "Bus Mods", message = "Bus Mods\n\nBecause of limitations of the game, bus mods use a workaround in order for paint jobs to appear on their doors. This means that paint job mods work a little strangely, and will not affect the vehicles' doors.\n\nAny paint jobs generated by Paint Job Packer for bus mods will have a colour picker, which will allow you to change the colour of the doors, however you'll be unable to apply patterns/logos/text/etc to them. {}\n\n{}\n\nIn order to make a paint job for a bus mod that works properly, try replacing the texture files of an existing paint job, instead of making a brand new one. If you choose to continue, expect some weirdness with your mod, and note that it cannot be fixed.".format(quantity_message, "\n".join(warning_vehicles)))
+                    quantity_message = l("{ErrorBusMultiple}")
+                messagebox.showwarning(title = "Bus Mods", message = l("{BusMods}\n\n{ErrorBus1}\n\n{ErrorBus2}") + " {quantity}\n\n{bus_list}\n\n".format(quantity = quantity_message, bus_list = "\n".join(warning_vehicles)) + l("{ErrorBus3}"))
             self.main_screen.grid_forget()
             self.generate_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
         else:
             if len(all_errors) == 1:
-                messagebox.showerror(title = all_errors[0][0], message = all_errors[0][1])
+                messagebox.showerror(title = l("{ErrorSingle}").format(error_name = all_errors[0][0]), message = all_errors[0][1])
             elif len(all_errors) > 1:
                 total_message = ""
                 for error in all_errors:
-                    total_message += error[0]+":\n"
+                    total_message += error[0]+"\n"
                     total_message += error[1]+"\n\n"
-                messagebox.showerror(title = "{} errors".format(len(all_errors)), message = total_message)
+                messagebox.showerror(title = l("{ErrorMultiple}").format(number = len(all_errors)), message = total_message)
 
     def ask_save_location(self):
-        save_directory = filedialog.askdirectory(title = "Save Mod (subfolder will be created)", initialdir = self.panel_directory_current_variable.get())
+        l = self.get_localised_string
+        save_directory = filedialog.askdirectory(title = l("{SaveDialogueTitle}"), initialdir = self.panel_directory_current_variable.get())
         if save_directory != "":
             self.panel_directory_current_variable.set(save_directory)
 
     def check_if_folder_clear(self, save_directory):
+        l = self.get_localised_string
         if save_directory != "":
             output_path = save_directory + "/Paint Job Packer Output"
             folder_clear = True
             if os.path.exists(output_path):
                 if len(os.listdir(output_path)) > 0:
                     folder_clear = False # I don't want to be on the receiving end of an irate user who lost their important report the night before it was due, because they happened to store it in the paintjob packer folder
-                    messagebox.showerror(title = "Output folder not clear", message = "A folder called \"Paint Job Packer Output\" already exists in the directory that you chose, and it contains files.\n\nPlease delete the \"Paint Job Packer Output\" folder to continue.")
+                    messagebox.showerror(title = l("{ErrorFolderClearTitle}"), message = l("{ErrorFolderClear1}\n\n{ErrorFolderClear2}"))
             try:
-                shutil.copyfile("library/placeholder files/empty.dds", save_directory + "/This file is unneeded, you can delete it.dds")
-                os.remove(save_directory + "/This file is unneeded, you can delete it.dds")
+                shutil.copyfile("library/placeholder files/empty.dds", save_directory + "/empty.dds")
+                os.remove(save_directory + "/empty.dds")
             except (PermissionError, FileNotFoundError):
                 folder_clear = False
-                messagebox.showerror(title = "Cannot access output folder", message = "Paint Job Packer doesn't have permission to copy files to the directory that you chose.\n\nTry picking a different save directory, or running Paint Job Packer as an admin.")
+                messagebox.showerror(title = l("{ErrorFolderAccessTitle}"), message = l("{ErrorFolderAccess1}\n\n{ErrorFolderAccess2}"))
             if folder_clear:
                 self.make_paintjob(output_path)
 
     def make_paintjob(self, output_path):
+        l = self.get_localised_string
         truck_list = []
         for veh in self.truck_list:
             if "selected" in veh.check.state():
@@ -1016,10 +1049,18 @@ class PackerApp:
         num_of_paintjobs = self.tab_paintjob_variable.get()
         workshop_upload = self.panel_generating_workshop_variable.get()
 
-        cabins_supported = self.panel_internal_supported_variable.get()
-        cabin_handling = self.panel_internal_handling_variable.get()
+        # Convert variables to English for behind-the-scenes, to make things smoother
+        if self.panel_internal_supported_variable.get() == l("{InternalSupportedLargest}"):
+            cabins_supported = "Largest cabin only"
+        else:
+            cabins_supported = "All cabins"
+        if self.panel_internal_handling_variable.get() == l("{InternalHandlingCombined}"):
+            cabin_handling = "Combined paint job"
+        else:
+            cabin_handling = "Separate paint jobs"
 
-        if cabins_supported == "Largest cabin only": # this shouldn't be needed, but it might be, so I'm doing it for safe measure
+        if cabins_supported == "Largest cabin only":
+            # This shouldn't be needed, but it might be, so I'm doing it for safe measure
             cabin_handling = "Combined paint job"
 
         placeholder_templates = self.panel_generating_templates_variable.get()
