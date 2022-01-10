@@ -678,7 +678,7 @@ class PackerApp:
         self.scroll_bar_trailer_mods.grid(row = 0, rowspan = 2, column = 1, pady = 5, sticky = "nes")
 
         if self.tab_game_variable.get() == "ats":
-            self.currency = "dollars"
+            self.currency = l("{InGamePriceDollars}")
             self.panel_pack_selector.tab(3, state = "hidden")
             self.panel_single_type_dropdown.config(values = [l("{Truck}"), l("{TruckMod}"), l("{Trailer}"), l("{TrailerMod}")])
             self.scroll_bar_trucks.grid_forget() # these lists don't need to scroll
@@ -686,7 +686,7 @@ class PackerApp:
             self.scroll_bar_bus_mods.grid_forget()
             self.scroll_bar_trailer_mods.grid_forget()
         elif self.tab_game_variable.get() == "ets":
-            self.currency = "euros"
+            self.currency = l("{InGamePriceEuros}")
             self.panel_pack_selector.tab(3, state = "normal")
             self.panel_single_type_dropdown.config(values = [l("{Truck}"), l("{TruckMod}"), l("{BusMod}"), l("{Trailer}"), l("{TrailerMod}")])
             self.scroll_bar_trailers.grid_forget()
