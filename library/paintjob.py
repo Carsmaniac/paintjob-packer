@@ -124,7 +124,7 @@ def generate_tobj(path):
 # loose files
 
 def make_manifest_sii(output_path, mod_version, mod_name, mod_author, workshop_upload):
-    file = open(output_path + "/manifest.sii", "w")
+    file = open(output_path + "/manifest.sii", "w", encoding="utf-8")
     file.write("SiiNunit\n")
     file.write("{\n")
     file.write("mod_package: .package_name\n")
@@ -146,7 +146,7 @@ def copy_mod_manager_image(output_path):
     shutil.copyfile("library/placeholder files/mod_manager_image.jpg", output_path + "/Mod_Manager_Image.jpg")
 
 def make_description(output_path, truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs):
-    file = open(output_path + "/Mod_Manager_Description.txt", "w")
+    file = open(output_path + "/Mod_Manager_Description.txt", "w", encoding="utf-8")
     if num_of_paintjobs == "single":
         for veh in truck_list + trailer_list:
             file.write("This paint job supports the {}\n".format(veh.display_name))
@@ -214,7 +214,7 @@ def make_def_folder(output_path, veh):
     make_folder(output_path, "def/vehicle/{}/{}/paint_job{}".format(veh.type, veh.path, extra_path))
 
 def make_def_sii(output_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name, cab_internal_name=None):
-    file = open(output_path + "/def/vehicle/{}/{}/paint_job/{}.sii".format(veh.type, veh.path, paintjob_name), "w")
+    file = open(output_path + "/def/vehicle/{}/{}/paint_job/{}.sii".format(veh.type, veh.path, paintjob_name), "w", encoding="utf-8")
     file.write("SiiNunit\n")
     file.write("{\n")
     file.write("accessory_paint_job_data: {}.{}.paint_job\n".format(paintjob_name, veh.path))
@@ -235,7 +235,7 @@ def make_def_sii(output_path, veh, paintjob_name, internal_name, one_paintjob, i
     file.close()
 
 def make_settings_sui(output_path, veh, internal_name, ingame_name, ingame_price, unlock_level):
-    file = open(output_path + "/def/vehicle/{}/{}/paint_job/{}_settings.sui".format(veh.type, veh.path, internal_name), "w")
+    file = open(output_path + "/def/vehicle/{}/{}/paint_job/{}_settings.sui".format(veh.type, veh.path, internal_name), "w", encoding="utf-8")
     file.write("\tname: \"{}\"\n".format(ingame_name))
     file.write("\tprice: {}\n".format(ingame_price))
     file.write("\tunlock: {}\n".format(unlock_level))
@@ -248,7 +248,7 @@ def make_settings_sui(output_path, veh, internal_name, ingame_name, ingame_price
     file.close()
 
 def make_accessory_sii(output_path, veh, ingame_name, paintjob_name):
-    file = open(output_path + "/def/vehicle/{}/{}/paint_job/accessory/{}.sii".format(veh.type, veh.path, paintjob_name), "w")
+    file = open(output_path + "/def/vehicle/{}/{}/paint_job/accessory/{}.sii".format(veh.type, veh.path, paintjob_name), "w", encoding="utf-8")
     file.write("SiiNunit\n")
     file.write("{\n")
     ovr_counter = 0

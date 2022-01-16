@@ -1251,7 +1251,7 @@ class PackerApp:
         sys.exit()
 
     def make_readme_file(self, output_path, paintjob_name, game, mod_name, truck_list, bus_list, trailer_list):
-        file = open(output_path+"/How to complete your mod.txt", "w")
+        file = open(output_path+"/How to complete your mod.txt", "w", encoding="utf-8")
         file.write("Your mod has been generated and placed inside the \"{}\" folder.\n".format(mod_name))
         file.write("There are a few steps left to finish it off. You'll need to replace the files listed in this document.\n")
         file.write("\n")
