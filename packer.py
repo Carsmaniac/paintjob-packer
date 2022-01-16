@@ -568,12 +568,16 @@ class PackerApp:
         credits.pjp_contributors_title.grid(row = 3, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
         credits.pjp_contributors_names = ttk.Label(credits.pjp_frame, text = "djbusphotos\nkentuckyfriedmeerkat")
         credits.pjp_contributors_names.grid(row = 3, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
-        # credits.pjp_supporters_title = ttk.Label(credits.pjp_frame, text = "Supporters:")
-        # credits.pjp_supporters_title.grid(row = 4, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
+        credits.pjp_supporters_title = ttk.Label(credits.pjp_frame, text = l("{AboutTranslators}"))
+        credits.pjp_supporters_title.grid(row = 5, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
+        credits.pjp_supporters_names = ttk.Label(credits.pjp_frame, text = "Etrusan")
+        credits.pjp_supporters_names.grid(row = 5, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
+        # credits.pjp_supporters_title = ttk.Label(credits.pjp_frame, text = l("{AboutSupporters}"))
+        # credits.pjp_supporters_title.grid(row = 5, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
         # credits.pjp_supporters_names = ttk.Label(credits.pjp_frame, text = "Name/nName")
-        # credits.pjp_supporters_names.grid(row = 4, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
+        # credits.pjp_supporters_names.grid(row = 5, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
         credits.pjp_licence = ttk.Label(credits.pjp_frame, text = l("{AboutMIT}"), foreground = credits.blue, cursor = credits.cursor)
-        credits.pjp_licence.grid(row = 5, column = 0, columnspan = 2, padx = 20, pady = 5)
+        credits.pjp_licence.grid(row = 6, column = 0, columnspan = 2, padx = 20, pady = 5)
         credits.pjp_licence.bind("<1>", lambda e: webbrowser.open_new(MIT_LICENCE_LINK))
 
         credits.sunval_frame = tk.Frame(credits)
@@ -876,76 +880,76 @@ class PackerApp:
         # mod info
         if len(self.panel_mod_name_variable.get()) < 1:
             inputs_verified = False
-            all_errors.append([l("{ErrorVariableEmptyTitle}").format(variable = l("{ModName}")), l("{ErrorVariableEmpty}").format(variable = l("{ModName}"))])
+            all_errors.append([l("{ErrorModNameEmptyTitle}"), l("{ErrorModNameEmpty}")])
         if pj.contains_illegal_characters_file_name(self.panel_mod_name_variable.get()):
             inputs_verified = False
-            all_errors.append([l("{ErrorVariableCharacterTitle}").format(variable = l("{ModName}")), l("{ErrorVariableCharacter}").format(variable = l("{ModName}")) + "\n< > : \" / \\ | ? *"])
+            all_errors.append([l("{ErrorModNameCharacterTitle}"), l("{ErrorModNameCharacter}") + "\n< > : \" / \\ | ? *"])
         if self.panel_mod_name_variable.get()[-1:] == ".":
             inputs_verified = False
-            all_errors.append([l("{ErrorVariableFullStopTitle}").format(variable = l("{ModName}")), l("{ErrorVariableFullStop}").format(variable = l("{ModName}"))])
+            all_errors.append([l("{ErrorModNameFullStopTitle}"), l("{ErrorModNameFullStop}")])
         if pj.contains_reserved_file_name(self.panel_mod_name_variable.get()):
             inputs_verified = False
-            all_errors.append([l("{ErrorVariableInvalidTitle}").format(variable = l("{ModName}")), l("{ErrorVariableInvalid}").format(variable = l("{ModName}")) + "\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
+            all_errors.append([l("{ErrorModNameInvalidTitle}"), l("{ErrorModNameInvalid}") + "\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
 
         if len(self.panel_mod_version_variable.get()) < 1:
             inputs_verified = False
-            all_errors.append([l("{ErrorVariableEmptyTitle}").format(variable = l("{ModVersion}")), l("{ErrorVariableEmpty}").format(variable = l("{ModVersion}"))])
+            all_errors.append([l("{ErrorModVersionEmptyTitle}"), l("{ErrorModVersionEmpty}")])
         if pj.contains_illegal_characters_sii(self.panel_mod_version_variable.get()):
             inputs_verified = False
-            all_errors.append([l("{ErrorVariableCharacterTitle}").format(variable = l("{ModVersion}")), l("{ErrorVariableCharacter}").format(variable = l("{ModVersion}")) + "\n\" / \\"])
+            all_errors.append([l("{ErrorModVersionCharacterTitle}"), l("{ErrorModVersionCharacter}") + "\n\" / \\"])
 
         if len(self.panel_mod_author_variable.get()) < 1:
             inputs_verified = False
-            all_errors.append([l("{ErrorVariableEmptyTitle}").format(variable = l("{ModAuthor}")), l("{ErrorVariableEmpty}").format(variable = l("{ModAuthor}"))])
+            all_errors.append([l("{ErrorModAuthorEmptyTitle}"), l("{ErrorModAuthorEmpty}")])
         if pj.contains_illegal_characters_sii(self.panel_mod_author_variable.get()):
             inputs_verified = False
-            all_errors.append([l("{ErrorVariableCharacterTitle}").format(variable = l("{ModAuthor}")), l("{ErrorVariableCharacter}").format(variable = l("{ModAuthor}")) + "\n\" / \\"])
+            all_errors.append([l("{ErrorModAuthorCharacterTitle}"), l("{ErrorModAuthorCharacter}") + "\n\" / \\"])
 
         # in-game paintjob info
         if len(self.panel_ingame_name_variable.get()) < 1:
             inputs_verified = False
-            all_errors.append([l("{ErrorVariableEmptyTitle}").format(variable = l("{InGameName}")), l("{ErrorVariableEmpty}").format(variable = l("{InGameName}"))])
+            all_errors.append([l("{ErrorInGameNameEmptyTitle}"), l("{ErrorInGameNameEmpty}")])
         if pj.contains_illegal_characters_file_name(self.panel_ingame_name_variable.get()):
             inputs_verified = False
-            all_errors.append([l("{ErrorVariableCharacterTitle}").format(variable = l("{InGameName}")), l("{ErrorVariableCharacter}").format(variable = l("{InGameName}")) + "\n< > : \" / \\ | ? *"])
+            all_errors.append([l("{ErroInGameNameCharacterTitle}"), l("{ErrorInGameNameCharacter}") + "\n< > : \" / \\ | ? *"])
         if self.panel_ingame_name_variable.get()[-1:] == ".":
             inputs_verified = False
-            all_errors.append([l("{ErrorVariableFullStopTitle}").format(variable = l("{InGameName}")), l("{ErrorVariableFullStop}").format(variable = l("{InGameName}"))])
+            all_errors.append([l("{ErrorInGameNameFullStopTitle}"), l("{ErrorInGameNameFullStop}")])
         if pj.contains_reserved_file_name(self.panel_ingame_name_variable.get()):
             inputs_verified = False
-            all_errors.append([l("{ErrorVariableInvalidTitle}").format(variable = l("{InGameName}")), l("{ErrorVariableInvalid}").format(variable = l("{InGameName}")) + "\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
+            all_errors.append([l("{ErrorInGameNameInvalidTitle}"), l("{ErrorInGameNameInvalid}") + "\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
         if not pj.check_if_ascii(self.panel_ingame_name_variable.get()):
             inputs_verified = False
-            all_errors.append([l("{ErrorVariableASCIITitle}").format(variable = l("{InGameName}")), l("{ErrorVariableASCII}").format(variable = l("{InGameName}")) + "\nabcdefghijklmnopqrstuvwxyz\nABCDEFGHIJKLMNOPQRSTUVWXYZ\n0123456789\n! @ # $ % ^ & ( ) - _ = + [ ] { } ; ' , ` ~"])
+            all_errors.append([l("{ErrorInGameNameAsciiTitle}"), l("{ErrorInGameNameAscii}") + "\nabcdefghijklmnopqrstuvwxyz\nABCDEFGHIJKLMNOPQRSTUVWXYZ\n0123456789\n! @ # $ % ^ & ( ) - _ = + [ ] { } ; ' , ` ~"])
 
         if len(self.panel_ingame_price_variable.get()) < 1:
             inputs_verified = False
-            all_errors.append([l("{ErrorVariableEmptyTitle}").format(variable = l("{InGamePrice}")), l("{ErrorVariableEmpty}").format(variable = l("{InGamePrice}"))])
+            all_errors.append([l("{ErrorInGamePriceEmptyTitle}"), l("{ErrorInGamePriceEmpty}")])
         if not re.match("^[0-9]*$", self.panel_ingame_price_variable.get()):
             inputs_verified = False
-            all_errors.append([l("{ErrorVariableInvalidTitle}").format(variable = l("{InGamePrice}")), l("{ErrorVariableInvalidNumber}").format(variable = l("{InGamePrice}"))])
+            all_errors.append([l("{ErrorInGamePriceCharacterTitle}"), l("{ErrorInGamePriceCharacter}")])
 
         if not self.panel_ingame_default_variable.get():
             if len(self.panel_ingame_unlock_variable.get()) < 1:
                 inputs_verified = False
-                all_errors.append([l("{ErrorVariableEmptyTitle}").format(variable = l("{InGameUnlock}")), l("{ErrorVariableEmpty}").format(variable = l("{InGameUnlock}"))])
+                all_errors.append([l("{ErrorInGameUnlockEmptyTitle}"), l("{ErrorInGameUnlockEmpty}")])
             if not re.match("^[0-9]*$", self.panel_ingame_unlock_variable.get()):
                 inputs_verified = False
-                all_errors.append([l("{ErrorVariableInvalidTitle}").format(variable = l("{InGameUnlock}")), l("{ErrorVariableInvalidNumber}").format(variable = l("{InGameUnlock}"))])
+                all_errors.append([l("{ErrorInGameUnlockCharacterTitle}"), l("{ErrorInGameUnlockCharacter}")])
 
         # internal paintjob info
         if len(self.panel_internal_name_variable.get()) < 1:
             inputs_verified = False
-            all_errors.append([l("{ErrorVariableEmptyTitle}").format(variable = l("{InternalName}")), l("{ErrorVariableEmpty}").format(variable = l("{InternalName}"))])
+            all_errors.append([l("{ErrorInternalNameEmptyTitle}"), l("{ErrorInternalNameEmpty}")])
         if len(self.panel_internal_name_variable.get()) > self.internal_name_length:
             inputs_verified = False
-            all_errors.append([l("{ErrorInternalLongTitle}").format(variable = l("{InternalName}")), l("{ErrorInternalLong}").format(variable = l("{InternalName}"), length = self.internal_name_length)])
+            all_errors.append([l("{ErrorInternalNameLongTitle}"), l("{ErrorInternalNameLong}").format(length = self.internal_name_length)])
         if not re.match("^[0-9a-z\_]*$", self.panel_internal_name_variable.get()):
             inputs_verified = False
-            all_errors.append([l("{ErrorVariableInvalidTitle}").format(variable = l("{InternalName}")), l("{ErrorVariableInvalidInternal}").format(variable = l("{InternalName}"))]) # I think uppercase letters might work, but no paintjobs in the base game/DLCs use them, so best practice to avoid them
+            all_errors.append([l("{ErrorInternalNameCharacterTitle}"), l("{ErrorInternalNameCharacter}")]) # I think uppercase letters might work, but no paintjobs in the base game/DLCs use them, so best practice to avoid them
         if pj.contains_reserved_file_name(self.panel_internal_name_variable.get()):
             inputs_verified = False
-            all_errors.append([l("{ErrorVariableInvalidTitle}").format(variable = l("{InternalName}")), l("{ErrorVariableInvalid}").format(variable = l("{InternalName}")) + "\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
+            all_errors.append([l("{ErrorInternalNameInvalidTitle}"), l("{ErrorInternalNameInvalid}") + "\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
 
         # vehicle selection
         if self.tab_paintjob_variable.get() == "pack":
@@ -985,7 +989,7 @@ class PackerApp:
                     quantity_message = l("{ErrorBusSingle}")
                 else:
                     quantity_message = l("{ErrorBusMultiple}")
-                messagebox.showwarning(title = "Bus Mods", message = l("{BusMods}\n\n{ErrorBus1}\n\n{ErrorBus2}") + " {quantity}\n\n{bus_list}\n\n".format(quantity = quantity_message, bus_list = "\n".join(warning_vehicles)) + l("{ErrorBus3}"))
+                messagebox.showwarning(title = l("{BusMods}"), message = l("{ErrorBus1}\n\n{ErrorBus2}") + " {quantity}\n\n{bus_list}\n\n".format(quantity = quantity_message, bus_list = "\n".join(warning_vehicles)) + l("{ErrorBus3}"))
             self.main_screen.grid_forget()
             self.generate_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
         else:
@@ -996,7 +1000,7 @@ class PackerApp:
                 for error in all_errors:
                     total_message += error[0]+"\n"
                     total_message += error[1]+"\n\n"
-                messagebox.showerror(title = l("{ErrorMultiple}").format(number = len(all_errors)), message = total_message)
+                messagebox.showerror(title = l("{ErrorMultiple}"), message = total_message)
 
     def ask_save_location(self):
         l = self.get_localised_string
