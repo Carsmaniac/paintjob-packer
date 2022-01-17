@@ -1605,7 +1605,7 @@ def main(language = None):
             root.tk.call("set_theme", "light")
     except NameError:
         root.tk.call("set_theme", "light")
-    root.title("Paint Job Packer")
+    root.title("Paint Job Packer v" + version)
     if sys.platform.startswith("darwin"):
         root.iconphoto(True, tk.PhotoImage(file = "library/packer-images/icon-squircle.png"))
     else:
