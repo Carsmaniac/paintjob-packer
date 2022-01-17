@@ -27,7 +27,8 @@ script_write.close()
 # Package into .exe and create installer, without templates
 PyInstaller.__main__.run(["../packer.py", "--onedir", "--windowed",
     "--icon=../library/packer-images/icon-circle.ico", "--name=Paint Job Packer",
-    "--add-data=../library;library"])
+    "--add-data=../library:library", "--add-data=../theme:theme", "--add-data=../lang:lang",
+    "--add-data=../sun-valley.tcl:."])
 os.system("\"{}\" inno-script.iss".format(INNO_SETUP_PATH))
 
 shutil.make_archive("paint-job-packer-v{}-windows-no-templates".format(version), "zip", "output")
@@ -39,7 +40,7 @@ os.remove("Paint Job Packer.spec")
 # Package into .exe and create installer, with templates
 PyInstaller.__main__.run(["../packer.py", "--onedir", "--windowed",
     "--icon=../library/packer-images/icon-circle.ico", "--name=Paint Job Packer",
-    "--add-data=../library;library", "--add-data=../templates;templates"])
+        "--add-data=../sun-valley.tcl:.", "--add-data=../templates;templates"])
 os.system("\"{}\" inno-script.iss".format(INNO_SETUP_PATH))
 
 shutil.make_archive("paint-job-packer-v{}-windows-templates".format(version), "zip", "output")

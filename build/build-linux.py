@@ -13,7 +13,8 @@ version_ini.close()
 # Package into .exe and create installer, without templates
 PyInstaller.__main__.run(["../packer.py", "--onefile", "--windowed",
     "--icon=../library/packer-images/icon-circle.ico", "--name=Paint Job Packer",
-    "--add-data=../library:library"])
+    "--add-data=../library:library", "--add-data=../theme:theme", "--add-data=../lang:lang",
+    "--add-data=../sun-valley.tcl:."])
 
 shutil.make_archive("paint-job-packer-v{}-linux".format(version), "zip", "dist")
 shutil.rmtree("build")
