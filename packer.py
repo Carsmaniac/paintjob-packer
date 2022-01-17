@@ -28,6 +28,7 @@ except ModuleNotFoundError:
 FORUM_LINK = "https://forum.scssoft.com/viewtopic.php?f=33&t=282956"
 GITHUB_LINK = "https://github.com/carsmaniac/paintjob-packer"
 KOFI_LINK = "https://ko-fi.com/carsmaniac"
+CROWDIN_LINK = "https://crowdin.com/project/paint-job-packer"
 MOD_LINK_PAGE_LINK = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
 ETS_TEMPLATE_LINK = "https://forum.scssoft.com/viewtopic.php?f=33&t=272386"
 ATS_TEMPLATE_LINK = "https://forum.scssoft.com/viewtopic.php?f=199&t=288778"
@@ -569,16 +570,19 @@ class PackerApp:
         credits.pjp_contributors_title.grid(row = 3, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
         credits.pjp_contributors_names = ttk.Label(credits.pjp_frame, text = "djbusphotos\nkentuckyfriedmeerkat")
         credits.pjp_contributors_names.grid(row = 3, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
-        credits.pjp_supporters_title = ttk.Label(credits.pjp_frame, text = l("{AboutTranslators}"))
-        credits.pjp_supporters_title.grid(row = 5, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
-        credits.pjp_supporters_names = ttk.Label(credits.pjp_frame, text = "Etrusan")
-        credits.pjp_supporters_names.grid(row = 5, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
+        credits.pjp_translators_title = ttk.Label(credits.pjp_frame, text = l("{AboutTranslators}"))
+        credits.pjp_translators_title.grid(row = 5, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
+        credits.pjp_translators_names = ttk.Label(credits.pjp_frame, text = "Etrusan")
+        credits.pjp_translators_names.grid(row = 5, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
+        credits.pjp_translators_link = ttk.Label(credits.pjp_frame, text = l("{LinkTranslate}"), foreground = self.blue, cursor = self.cursor)
+        credits.pjp_translators_link.grid(row = 6, column = 1, columnspan = 1, padx = (0, 20), sticky = "nw")
+        credits.pjp_translators_link.bind("<1>", lambda e: webbrowser.open_new(CROWDIN_LINK))
         credits.pjp_supporters_title = ttk.Label(credits.pjp_frame, text = l("{AboutSupporters}"))
-        credits.pjp_supporters_title.grid(row = 6, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
+        # credits.pjp_supporters_title.grid(row = 7, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
         credits.pjp_supporters_names = ttk.Label(credits.pjp_frame, text = "Name\nName")
-        credits.pjp_supporters_names.grid(row = 6, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
+        # credits.pjp_supporters_names.grid(row = 7, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
         credits.pjp_licence = ttk.Label(credits.pjp_frame, text = l("{AboutMIT}"), foreground = credits.blue, cursor = credits.cursor)
-        credits.pjp_licence.grid(row = 7, column = 0, columnspan = 2, padx = 20, pady = 5)
+        credits.pjp_licence.grid(row = 8, column = 0, columnspan = 2, padx = 20, pady = 5)
         credits.pjp_licence.bind("<1>", lambda e: webbrowser.open_new(MIT_LICENCE_LINK))
 
         credits.sunval_frame = tk.Frame(credits)
