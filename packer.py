@@ -246,7 +246,7 @@ class PackerApp:
         self.panel_ingame_price_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = l(l("{HelpTitle}").format(topic = "{InGamePrice}")), message = l("{InGamePriceHelp1}\n\n{InGamePriceExample}").format(currency = self.currency)))
         self.panel_ingame_price_help.grid(row = 1, column = 2, padx = (0, 5), pady = (5, 0))
         self.panel_ingame_default_variable = tk.BooleanVar(None, True)
-        self.panel_ingame_default_checkbox = ttk.Checkbutton(self.panel_ingame, text = l("{InGameDefault}"), variable = self.panel_ingame_default_variable, command = lambda : self.toggle_unlock_level())
+        self.panel_ingame_default_checkbox = ttk.Checkbutton(self.panel_ingame, text = l(" {InGameDefault}"), variable = self.panel_ingame_default_variable, command = lambda : self.toggle_unlock_level())
         self.panel_ingame_default_checkbox.grid(row = 2, column = 0, columnspan = 2, padx = (10, 5), pady = (5, 0), sticky = "w")
         self.panel_ingame_default_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = l(l("{HelpTitle}").format(topic = "{InGameDefault}")), message = l("{InGameDefaultHelp1}")))
         self.panel_ingame_default_help.grid(row = 2, column = 2, padx = (0, 5), pady = (5, 0))
@@ -887,9 +887,15 @@ class PackerApp:
         if self.panel_mod_name_variable.get()[-1:] == ".":
             inputs_verified = False
             all_errors.append([l("{ErrorModNameFullStopTitle}"), l("{ErrorModNameFullStop}")])
+        if self.panel_mod_name_variable.get()[-1:] == " ":
+            inputs_verified = False
+            all_errors.append([l("{ErrorModNameSpaceTitle}"), l("{ErrorModNameSpace}")])
         if pj.contains_reserved_file_name(self.panel_mod_name_variable.get()):
             inputs_verified = False
             all_errors.append([l("{ErrorModNameInvalidTitle}"), l("{ErrorModNameInvalid}") + "\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
+
+        for character in ["\0", "\a", "\b", "\t", "\n", "\v", "\f", "\r", "\e"]:
+            self.panel_mod_name_variable.set(self.panel_mod_name_variable.get().replace(character, ""))
 
         if len(self.panel_mod_version_variable.get()) < 1:
             inputs_verified = False
@@ -915,12 +921,18 @@ class PackerApp:
         if self.panel_ingame_name_variable.get()[-1:] == ".":
             inputs_verified = False
             all_errors.append([l("{ErrorInGameNameFullStopTitle}"), l("{ErrorInGameNameFullStop}")])
+        if self.panel_ingame_name_variable.get()[-1:] == " ":
+            inputs_verified = False
+            all_errors.append([l("{ErrorInGameNameSpaceTitle}"), l("{ErrorInGameNameSpace}")])
         if pj.contains_reserved_file_name(self.panel_ingame_name_variable.get()):
             inputs_verified = False
             all_errors.append([l("{ErrorInGameNameInvalidTitle}"), l("{ErrorInGameNameInvalid}") + "\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
         if not pj.check_if_ascii(self.panel_ingame_name_variable.get()):
             inputs_verified = False
             all_errors.append([l("{ErrorInGameNameAsciiTitle}"), l("{ErrorInGameNameAscii}") + "\nabcdefghijklmnopqrstuvwxyz\nABCDEFGHIJKLMNOPQRSTUVWXYZ\n0123456789\n! @ # $ % ^ & ( ) - _ = + [ ] { } ; ' , ` ~"])
+
+        for character in ["\0", "\a", "\b", "\t", "\n", "\v", "\f", "\r", "\e"]:
+            self.panel_ingame_name_variable.set(self.panel_ingame_name_variable.get().replace(character, ""))
 
         if len(self.panel_ingame_price_variable.get()) < 1:
             inputs_verified = False
