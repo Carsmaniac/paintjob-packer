@@ -3,11 +3,11 @@ from tkinter import ttk # nicer-looking GUI elements
 from tkinter import messagebox # showing popup windows for warnings and errors
 from tkinter import filedialog # choosing save directory
 import webbrowser # opening links in the web browser: forum thread, github page, mod links
-import sys # determining OS, and quitting Paintjob Packer
-import configparser # reading vehicle database files and version info
+import sys # determining OS, and quitting Paint Job Packer
+import configparser # reading vehicle database files, version info and l10n dictionary
 import os # making folders and getting all vehicle database files
 import shutil # copying files (checking write permission, all actual copying occurs in paintjob.py)
-import re # checking for invalid characters in mod/paintjob names
+import re # checking for invalid characters in mod/paint job names
 import traceback # handling unexpected errors
 import zipfile # unzipping templates
 import urllib.request # fetching version info from GitHub
@@ -27,7 +27,7 @@ except ModuleNotFoundError:
 
 FORUM_LINK = "https://forum.scssoft.com/viewtopic.php?f=33&t=282956"
 GITHUB_LINK = "https://github.com/carsmaniac/paintjob-packer"
-SUPPORT_LINK = "https://ko-fi.com/carsmaniac"
+KOFI_LINK = "https://ko-fi.com/carsmaniac"
 MOD_LINK_PAGE_LINK = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
 ETS_TEMPLATE_LINK = "https://forum.scssoft.com/viewtopic.php?f=33&t=272386"
 ATS_TEMPLATE_LINK = "https://forum.scssoft.com/viewtopic.php?f=199&t=288778"
@@ -55,7 +55,7 @@ version = version_info["version info"]["installed version"]
 
 class PackerApp:
 
-    def __init__(self, master):
+    def __init__(self, master, language):
         # container to hold setup/main screen
         self.container = ttk.Frame(master)
         self.container.pack(fill = "both")
@@ -91,8 +91,9 @@ class PackerApp:
 
         self.total_vehicles = 0 # used in the vehicle selector when making a paintjob pack
 
-        # self.load_language_dictionary("en_GB")
-        self.load_system_language()
+        self.language = language
+        self.load_language_dictionary(self.language)
+        self.load_language_list()
         l = self.get_localised_string # one-letter function name to make all the many calls of it (slightly more) readable
 
         # setup screen and immediate contents
@@ -108,41 +109,45 @@ class PackerApp:
 
         # Welcome tab
         self.tab_welcome_title = ttk.Label(self.tab_welcome, text = l("{TabWelcomeMessage}"))
-        self.tab_welcome_title.grid(row = 0, column = 0, columnspan = 2, pady = (20, 30))
-        self.tab_welcome_link_support = ttk.Button(self.tab_welcome, text = l("{LinkKofi}"), command = lambda : webbrowser.open_new(SUPPORT_LINK))
-        self.tab_welcome_link_support.grid(row = 0, column = 0, padx = (10, 0), pady = 10, sticky = "nw")
-        # self.tab_language
+        self.tab_welcome_title.grid(row = 0, column = 0, columnspan = 3, pady = (20, 30))
+        self.tab_welcome_language_variable = tk.StringVar(None, l("{LanguageName}"))
+        self.tab_welcome_language_variable.trace("w", self.reload_with_language)
+        self.tab_welcome_language = ttk.Combobox(self.tab_welcome, state = "readonly", textvariable = self.tab_welcome_language_variable, values = self.language_names_list, width = 15)
+        self.tab_welcome_language.grid(row = 0, column = 0, padx = (10, 0), pady = 10, sticky = "nw")
         self.tab_welcome_link_credits = ttk.Button(self.tab_welcome, text = l("{About}"), command = lambda : self.credits_screen())
-        self.tab_welcome_link_credits.grid(row = 0, column = 1, padx = (0, 10), pady = 10, sticky = "ne")
+        self.tab_welcome_link_credits.grid(row = 0, column = 2, padx = (0, 10), pady = 10, sticky = "ne")
         self.tab_welcome_image = ttk.Label(self.tab_welcome, image = self.image_packer)
-        self.tab_welcome_image.grid(row = 1, column = 0, columnspan = 2)
+        self.tab_welcome_image.grid(row = 1, column = 0, columnspan = 3)
         self.tab_welcome_link_forum = ttk.Label(self.tab_welcome, text = l("{LinkForum}"), foreground = self.blue, cursor = self.cursor)
         self.tab_welcome_link_forum.grid(row = 2, column = 0, pady = 20)
         self.tab_welcome_link_forum.bind("<1>", lambda e: webbrowser.open_new(FORUM_LINK))
+        self.tab_welcome_link_kofi = ttk.Label(self.tab_welcome, text = l("{LinkKofi}"), foreground = self.blue, cursor = self.cursor)
+        self.tab_welcome_link_kofi.grid(row = 2, column = 1, pady = 20)
+        self.tab_welcome_link_kofi.bind("<1>", lambda e: webbrowser.open_new(KOFI_LINK))
         self.tab_welcome_link_github = ttk.Label(self.tab_welcome, text = l("{LinkGithub}"), foreground = self.blue, cursor = self.cursor)
-        self.tab_welcome_link_github.grid(row = 2, column = 1, pady = 20)
+        self.tab_welcome_link_github.grid(row = 2, column = 2, pady = 20)
         self.tab_welcome_link_github.bind("<1>", lambda e: webbrowser.open_new(GITHUB_LINK))
         new_ver = self.check_new_version()
         if (new_ver[1] != None):
             self.tab_welcome_message = ttk.Label(self.tab_welcome, text = l("{UpdateNotice}").format(version_number = new_ver[0]), foreground = self.red, cursor = self.cursor)
-            self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (20, 0))
+            self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 3, pady = (20, 0))
             self.tab_welcome_message.bind("<1>", lambda e: webbrowser.open_new(LATEST_VERSION_DOWNLOAD_LINK))
             self.tab_welcome_link_forum.configure(foreground = "black")
             self.tab_welcome_link_github.configure(foreground = "black")
             self.tab_welcome_update_info = ttk.Label(self.tab_welcome, text = l("{UpdateDetails}").format(details = new_ver[1]), cursor = self.cursor)
-            self.tab_welcome_update_info.grid(row = 4, column = 0, columnspan = 2)
+            self.tab_welcome_update_info.grid(row = 4, column = 0, columnspan = 3)
             self.tab_welcome_update_info.bind("<1>", lambda e: webbrowser.open_new(LATEST_VERSION_DOWNLOAD_LINK))
         else:
             self.tab_welcome_message = ttk.Label(self.tab_welcome, text = l("{AcknowledgementNotice}"), cursor = self.cursor)
             self.tab_welcome_message.bind("<1>", lambda e: messagebox.showinfo(title = "Acknowledgement of Country", message = "Paint Job Packer was developed in Australia, a continent on which Aboriginal and Torres Strait Islander peoples have lived for tens of thousands of years, the oldest continuous culture in the world, spread across hundreds of distinct countries with different languages and customs.\n\nI acknowledge the Darramurragal people, the traditional owners of the land on which this software was created. I pay my respects to Elders past, present and emerging, the Knowledge Holders and caretakers of this Country, and extend that respect to the owners of all the lands on which Paint Job Packer is used.\n\nI acknowledge that this land has been a place of design and creativity for thousands of generations, and that sovereignty was never ceded. This always has been and always will be Aboriginal land."))
-            self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 2, pady = (20, 0))
+            self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 3, pady = (20, 0))
         self.tab_welcome_button_prev = ttk.Label(self.tab_welcome, text = " ") # to keep everything centred
         self.tab_welcome_button_prev.grid(row = 5, column = 0, sticky = "sw")
         self.tab_welcome_button_next = ttk.Button(self.tab_welcome, text = l("{Next} >"), command = lambda : self.tab_selector.select(1))
-        self.tab_welcome_button_next.grid(row = 5, column = 1, sticky = "se", pady = 10, padx = 10)
+        self.tab_welcome_button_next.grid(row = 5, column = 2, sticky = "se", pady = 10, padx = 10)
         self.tab_welcome.rowconfigure(5, weight = 1)
         self.tab_welcome.columnconfigure(0, weight = 1)
-        self.tab_welcome.columnconfigure(1, weight = 1)
+        self.tab_welcome.columnconfigure(2, weight = 1)
 
         # Game tab
         self.tab_game_title = ttk.Label(self.tab_game, text = l("{TabGameMessage}"))
@@ -469,23 +474,17 @@ class PackerApp:
 
         master.report_callback_exception = self.show_fancy_error # it's now safe to use the screen instead of the messagebox
 
-    def load_system_language(self):
-        supported_langs = os.listdir("lang")
-        system_lang = locale.getdefaultlocale()[0]
-        if (system_lang + ".ini") in supported_langs:
-            # Use exact language
-            self.load_language_dictionary(system_lang)
-        else:
-            # Use other dialect
-            short_lang = None
-            for lang in supported_langs:
-                if lang.startswith(system_lang[:2]):
-                    short_lang = lang[:-4]
-            if short_lang != None:
-                self.load_language_dictionary(short_lang)
-            else:
-                # Default to English
-                self.load_language_dictionary("en_GB")
+    def load_language_list(self):
+        self.language_names_dictionary = {}
+        self.language_names_list = []
+        for lang_code in os.listdir("lang"):
+            lang_code = lang_code[:-4] # Remove .ini from end
+            new_lang = configparser.ConfigParser()
+            new_lang.read("lang/{}.ini".format(lang_code), encoding="utf-8")
+            self.language_names_dictionary[lang_code] = new_lang["General"]["languagename"]
+            self.language_names_list.append(new_lang["General"]["languagename"])
+        self.language_names_list.remove(self.language_names_dictionary[self.language])
+        self.language_names_list.insert(0, self.language_names_dictionary[self.language])
 
     def load_language_dictionary(self, language):
         language_ini = configparser.ConfigParser()
@@ -494,13 +493,15 @@ class PackerApp:
         language_dict = {}
         for section in language_ini.sections():
             for item in language_ini.items(section):
-                # if item[0] in language_dict:
-                #     # Check for duplicate keys
-                #     print("DUPLICATE: "+item[0])
-                #     print("Old: "+language_dict[item[0]])
-                #     print("New: "+item[1]+"\n")
                 language_dict[item[0]] = item[1]
         self.language_dictionary = language_dict
+
+    def reload_with_language(self, *args):
+        if self.tab_welcome_language_variable.get() != self.language_names_dictionary[self.language]:
+            print("Reloading in " + self.tab_welcome_language_variable.get())
+            for language_code in self.language_names_dictionary:
+                if self.language_names_dictionary[language_code] == self.tab_welcome_language_variable.get():
+                    restart_app(language_code)
 
     def get_localised_string(self, string):
         # Turn all {placeholder}s into {language_dict[placeholder]}s
@@ -548,7 +549,7 @@ class PackerApp:
         credits.lift()
         credits.columnconfigure(0, weight = 1)
         credits.columnconfigure(1, weight = 1)
-        credits.button = ttk.Button(credits, text = l("{Okay}"), command = lambda : credits.destroy())
+        credits.button = ttk.Button(credits, text = l("{Close}"), command = lambda : credits.destroy())
         credits.button.grid(row = 2, column = 0, columnspan = 2, pady = (0, 20))
 
         credits.pjp_frame = tk.Frame(credits)
@@ -572,12 +573,12 @@ class PackerApp:
         credits.pjp_supporters_title.grid(row = 5, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
         credits.pjp_supporters_names = ttk.Label(credits.pjp_frame, text = "Etrusan")
         credits.pjp_supporters_names.grid(row = 5, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
-        # credits.pjp_supporters_title = ttk.Label(credits.pjp_frame, text = l("{AboutSupporters}"))
-        # credits.pjp_supporters_title.grid(row = 5, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
-        # credits.pjp_supporters_names = ttk.Label(credits.pjp_frame, text = "Name/nName")
-        # credits.pjp_supporters_names.grid(row = 5, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
+        credits.pjp_supporters_title = ttk.Label(credits.pjp_frame, text = l("{AboutSupporters}"))
+        credits.pjp_supporters_title.grid(row = 6, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
+        credits.pjp_supporters_names = ttk.Label(credits.pjp_frame, text = "Name\nName")
+        credits.pjp_supporters_names.grid(row = 6, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
         credits.pjp_licence = ttk.Label(credits.pjp_frame, text = l("{AboutMIT}"), foreground = credits.blue, cursor = credits.cursor)
-        credits.pjp_licence.grid(row = 6, column = 0, columnspan = 2, padx = 20, pady = 5)
+        credits.pjp_licence.grid(row = 7, column = 0, columnspan = 2, padx = 20, pady = 5)
         credits.pjp_licence.bind("<1>", lambda e: webbrowser.open_new(MIT_LICENCE_LINK))
 
         credits.sunval_frame = tk.Frame(credits)
@@ -593,8 +594,12 @@ class PackerApp:
         credits.sunval_dev_title.grid(row = 2, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
         credits.sunval_dev_name = ttk.Label(credits.sunval_frame, text = "rdbende")
         credits.sunval_dev_name.grid(row = 2, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
+        credits.sunval_contributors_title = ttk.Label(credits.sunval_frame, text = l("{AboutContributors}"))
+        credits.sunval_contributors_title.grid(row = 3, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
+        credits.sunval_contributors_name = ttk.Label(credits.sunval_frame, text = "sumeshir26")
+        credits.sunval_contributors_name.grid(row = 3, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
         credits.sunval_licence = ttk.Label(credits.sunval_frame, text = l("{AboutMIT}"), foreground = credits.blue, cursor = credits.cursor)
-        credits.sunval_licence.grid(row = 3, column = 0, columnspan = 2, padx = 20, pady = 5)
+        credits.sunval_licence.grid(row = 4, column = 0, columnspan = 2, padx = 20, pady = 5)
         credits.sunval_licence.bind("<1>", lambda e: webbrowser.open_new(MIT_LICENCE_LINK))
 
         credits.darkdetect_frame = tk.Frame(credits)
@@ -1563,7 +1568,30 @@ def show_unhandled_error(error_type, error_message, error_traceback):
     clipboard.destroy()
     messagebox.showerror(title = "Unhandled exception", message = "Something went very wrong and Paint Job Packer ran into an unexpected error.\n\nThe full error message has been copied to your clipboard, please send it to the developer on GitHub or the SCS Forums!")
 
-def main():
+def load_system_language():
+    supported_langs = os.listdir("lang")
+    system_lang = locale.getdefaultlocale()[0]
+    if (system_lang + ".ini") in supported_langs:
+        # Use exact language
+        return system_lang
+    else:
+        # Use other dialect
+        short_lang = None
+        for lang in supported_langs:
+            if lang.startswith(system_lang[:2]):
+                short_lang = lang[:-4]
+        if short_lang != None:
+            return short_lang
+        else:
+            # Default to English
+            return "en_GB"
+
+def restart_app(language):
+    root.destroy()
+    main(language)
+
+def main(language = None):
+    global root
     root = tk.Tk()
     root.tk.call("source", "sun-valley.tcl")
     try:
@@ -1580,7 +1608,9 @@ def main():
         root.iconphoto(True, tk.PhotoImage(file = "library/packer-images/icon-circle.png"))
     root.resizable(False, False)
     root.report_callback_exception = show_unhandled_error
-    packer = PackerApp(root)
+    if language == None:
+        language = load_system_language()
+    packer = PackerApp(root, language)
     root.mainloop()
 
 if __name__ == "__main__":
