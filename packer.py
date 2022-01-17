@@ -1182,7 +1182,7 @@ class PackerApp:
                 self.panel_progress_specific_label.update()
                 if veh.alt_uvset:
                     main_dds_name = main_dds_name + " (alt uvset)"
-                if veh.type == "truck" and cabins_supported == "Largest cabin only":
+                if veh.type == "truck" and cabins_supported == "Largest cabin only" and veh.separate_paintjobs:
                     one_paintjob = False
                     for cab_size in veh.cabins:
                         if cab_size == "a":
@@ -1435,9 +1435,9 @@ class PackerApp:
                 all_trailer_mods.append(veh.file_name[:-4])
             tracker["pack info"]["trailer mods"] = ";".join(all_trailer_mods)
             if len(bus_mod_list) > 0:
-                tracker["pack info"]["bus pack"] = True
+                tracker["pack info"]["bus pack"] = "true"
             else:
-                tracker["pack info"]["bus pack"] = False
+                tracker["pack info"]["bus pack"] = "false"
             tracker["pack info"]["paintjobs"] = ""
             tracker["pack info"]["checklist stage"] = 0
 
