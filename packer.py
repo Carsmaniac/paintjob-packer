@@ -389,12 +389,12 @@ class PackerApp:
         self.scroll_bar_trailer_mods.grid(row = 0, rowspan = 2, column = 1, pady = 5, sticky = "nes")
 
         # buttons along the bottom
-        self.panel_main_buttons_setup = ttk.Button(self.panel_main_buttons, text = l("< {BackToSetup}"), command = lambda : self.switch_to_setup_screen(), width = 15)
+        self.panel_main_buttons_setup = ttk.Button(self.panel_main_buttons, text = l("< {BackToSetup}"), command = lambda : self.switch_to_setup_screen())
         self.panel_main_buttons_setup.grid(row = 1, column = 0, pady = (5, 0), sticky = "w")
         self.panel_main_buttons_feedback = ttk.Label(self.panel_main_buttons, text = l("{LeaveFeedback}"), foreground = self.blue, cursor = self.cursor)
         self.panel_main_buttons_feedback.grid(row = 1, column = 1, pady = (5, 0), padx = 10, sticky = "e")
         self.panel_main_buttons_feedback.bind("<1>", lambda e: webbrowser.open_new(FORUM_LINK))
-        self.panel_main_buttons_generate = ttk.Button(self.panel_main_buttons, text = l("{GenerateSave}"), command = lambda : self.verify_all_inputs(), width = 20)
+        self.panel_main_buttons_generate = ttk.Button(self.panel_main_buttons, text = l("{GenerateSave}"), command = lambda : self.verify_all_inputs())
         self.panel_main_buttons_generate.grid(row = 1, column = 2, pady = (5, 0), sticky = "e")
 
         # generate screen
@@ -424,13 +424,13 @@ class PackerApp:
         # Save Directory panel
         self.panel_directory_change_label = ttk.Label(self.panel_directory, text = l("{CurrentDirectory}"))
         self.panel_directory_change_label.grid(row = 0, column = 0, columnspan = 2, padx = (10, 5), pady = (5, 0), sticky = "w")
-        self.panel_directory_change_button = ttk.Button(self.panel_directory, text = l("{ChangeDirectory}"), width = 10, command = self.ask_save_location)
+        self.panel_directory_change_button = ttk.Button(self.panel_directory, text = l("{ChangeDirectory}"), command = self.ask_save_location)
         self.panel_directory_change_button.grid(row = 0, column = 2, padx = (0, 5))
         self.panel_directory_current_variable = tk.StringVar(None, desktop_path.replace("\\", "/"))
         self.panel_directory_current_label = ttk.Label(self.panel_directory, textvariable = self.panel_directory_current_variable)
         self.panel_directory_current_label.grid(row = 1, column = 0, columnspan = 3, padx = (10, 5), pady = (5, 0), sticky = "w")
         self.panel_directory_note_label = ttk.Label(self.panel_directory, text = l("{SubfolderCreated}"))
-        self.panel_directory_note_label.grid(row = 2, column = 0, columnspan = 3, padx = 5, pady = 5)
+        self.panel_directory_note_label.grid(row = 2, column = 0, columnspan = 3, padx = 5, pady = 10)
         self.panel_directory.columnconfigure(0, weight = 1)
 
         # Progress panel
