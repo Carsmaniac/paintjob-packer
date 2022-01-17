@@ -168,7 +168,7 @@ class PackerApp:
         self.tab_game_dummy_desc.grid(row = 3, column = 0)
         self.tab_game_button_prev = ttk.Button(self.tab_game, text = l("< {Previous}"), command = lambda : self.tab_selector.select(0))
         self.tab_game_button_prev.grid(row = 4, column = 0, sticky = "sw", pady = 10, padx = 10)
-        self.tab_game_button_next = ttk.Button(self.tab_game, text = "Next >", command = lambda : self.tab_selector.select(2))
+        self.tab_game_button_next = ttk.Button(self.tab_game, text = l("{Next} >"), command = lambda : self.tab_selector.select(2))
         self.tab_game_button_next.grid(row = 4, column = 1, sticky = "se", pady = 10, padx = 10)
 
         # Paintjobs tab
@@ -480,7 +480,7 @@ class PackerApp:
         self.language_names_list = []
         for lang_code in os.listdir("lang"):
             lang_code = lang_code[:-4] # Remove .ini from end
-            new_lang = configparser.ConfigParser()
+            new_lang = configparser.ConfigParser(inline_comment_prefixes=";")
             new_lang.read("lang/{}.ini".format(lang_code), encoding="utf-8")
             self.language_names_dictionary[lang_code] = new_lang["General"]["languagename"]
             self.language_names_list.append(new_lang["General"]["languagename"])
@@ -488,7 +488,7 @@ class PackerApp:
         self.language_names_list.insert(0, self.language_names_dictionary[self.language])
 
     def load_language_dictionary(self, language):
-        language_ini = configparser.ConfigParser()
+        language_ini = configparser.ConfigParser(inline_comment_prefixes=";")
         language_ini.optionxform = str # Maintains capitals in key names
         language_ini.read("lang/{}.ini".format(language), encoding="utf-8")
         language_dict = {}
@@ -790,7 +790,7 @@ class PackerApp:
         for veh in complete_list:
             if veh.trailer:
                 if veh.mod:
-                    veh.check = ttk.Checkbutton(self.scroll_frame_trailer_mods, text = l("{VehicleNameAuthor}").format(vehicle_name = veh.display_name, mod_author = veh.display_author), command = lambda : self.update_total_vehicles_supported())
+                    veh.check = ttk.Checkbutton(self.scroll_frame_trailer_mods, text = "{} ({})".format(veh.display_name, veh.display_author), command = lambda : self.update_total_vehicles_supported())
                     veh.check.state(["!alternate","!selected"])
                     trailer_mod_list.append(veh)
                 else:
@@ -800,11 +800,11 @@ class PackerApp:
             else:
                 if veh.mod:
                     if veh.bus_mod:
-                        veh.check = ttk.Checkbutton(self.scroll_frame_bus_mods, text = l("{VehicleNameAuthor}").format(vehicle_name = veh.display_name, mod_author = veh.display_author), command = lambda : self.update_total_vehicles_supported())
+                        veh.check = ttk.Checkbutton(self.scroll_frame_bus_mods, text = "{} ({})".format(veh.display_name, veh.display_author), command = lambda : self.update_total_vehicles_supported())
                         veh.check.state(["!alternate","!selected"])
                         bus_mod_list.append(veh)
                     else:
-                        veh.check = ttk.Checkbutton(self.scroll_frame_truck_mods, text = l("{VehicleNameAuthor}").format(vehicle_name = veh.display_name, mod_author = veh.display_author), command = lambda : self.update_total_vehicles_supported())
+                        veh.check = ttk.Checkbutton(self.scroll_frame_truck_mods, text = "{} ({})".format(veh.display_name, veh.display_author), command = lambda : self.update_total_vehicles_supported())
                         veh.check.state(["!alternate","!selected"])
                         truck_mod_list.append(veh)
                 else:
@@ -988,7 +988,7 @@ class PackerApp:
             if "selected" in veh.check.state():
                 if not veh.vehicle_path in veh_path_dict:
                     veh_path_dict[veh.vehicle_path] = []
-                veh_path_dict[veh.vehicle_path].append(l("{VehicleNameAuthor}").format(vehicle_name = veh.display_name, mod_author = veh.display_author))
+                veh_path_dict[veh.vehicle_path].append("{} ({})".format(veh.display_name, veh.display_author))
         for veh_path in veh_path_dict.keys():
             if len(veh_path_dict[veh_path]) > 1:
                 incompatible_vehicles = "\n".join(veh_path_dict[veh_path])
@@ -1000,11 +1000,11 @@ class PackerApp:
             if self.tab_paintjob_variable.get() == "pack":
                 for veh in self.bus_mod_list:
                     if "selected" in veh.check.state() and veh.bus_door_workaround:
-                        warning_vehicles.append(l("{VehicleNameAuthor}").format(vehicle_name = veh.display_name, mod_author = veh.display_author))
+                        warning_vehicles.append("{} ({})".format(veh.display_name, veh.display_author))
             elif self.tab_paintjob_variable.get() == "single":
                 for veh in self.bus_mod_list:
                     if veh.display_name == self.panel_single_vehicle_variable.get() and veh.bus_door_workaround:
-                        warning_vehicles.append(l("{VehicleNameAuthor}").format(vehicle_name = veh.display_name, mod_author = veh.display_author))
+                        warning_vehicles.append("{} ({})".format(veh.display_name, veh.display_author))
             if len(warning_vehicles) > 0:
                 if len(warning_vehicles) == 1:
                     quantity_message = l("{ErrorBusSingle}")
@@ -1492,7 +1492,7 @@ class PackerApp:
         latest_release_string = None
         try:
             # get current and latest versions
-            version_info_ini = urllib.request.urlopen(VERSION_INFO_LINK)
+            version_info_ini = urllib.request.urlopen(VERSION_INFO_LINK, timeout=3.156) # Don't wait longer than a nanocentury
             version_info = configparser.ConfigParser()
             version_info.read_string(version_info_ini.read().decode())
             installed_version = version.split(".")
