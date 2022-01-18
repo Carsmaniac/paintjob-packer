@@ -1595,20 +1595,23 @@ def show_unhandled_error(error_type, error_message, error_traceback):
 def load_system_language():
     supported_langs = os.listdir("lang")
     system_lang = locale.getdefaultlocale()[0]
-    if (system_lang + ".ini") in supported_langs:
-        # Use exact language
-        return system_lang
-    else:
-        # Use other dialect
-        short_lang = None
-        for lang in supported_langs:
-            if lang.startswith(system_lang[:2]):
-                short_lang = lang[:-4]
-        if short_lang != None:
-            return short_lang
+    if system_lang != None:
+        if (system_lang + ".ini") in supported_langs:
+            # Use exact language
+            return system_lang
         else:
-            # Default to English
-            return "en_GB"
+            # Use other dialect
+            short_lang = None
+            for lang in supported_langs:
+                if lang.startswith(system_lang[:2]):
+                    short_lang = lang[:-4]
+            if short_lang != None:
+                return short_lang
+            else:
+                # Default to English
+                return "en_US"
+    else:
+        return "en_US"
 
 def restart_app(language):
     root.destroy()
