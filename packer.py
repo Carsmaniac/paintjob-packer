@@ -57,6 +57,9 @@ version = version_info["version info"]["installed version"]
 class PackerApp:
 
     def __init__(self, master, language):
+        # new_ver exists between PackerApps so it doesn't need to be re-fetched every time the language is changed
+        global new_ver
+
         # container to hold setup/main screen
         self.container = ttk.Frame(master)
         self.container.pack(fill = "both")
@@ -128,7 +131,8 @@ class PackerApp:
         self.tab_welcome_link_github = ttk.Label(self.tab_welcome, text = l("{LinkGithub}"), foreground = self.blue, cursor = self.cursor)
         self.tab_welcome_link_github.grid(row = 2, column = 2, pady = 20)
         self.tab_welcome_link_github.bind("<1>", lambda e: webbrowser.open_new(GITHUB_LINK))
-        new_ver = self.check_new_version()
+        if "new_ver" not in globals():
+            new_ver = self.check_new_version()
         if (new_ver[1] != None):
             self.tab_welcome_message = ttk.Label(self.tab_welcome, text = l("{UpdateNotice}").format(version_number = new_ver[0]), foreground = self.red, cursor = self.cursor)
             self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 3, pady = (20, 0))
