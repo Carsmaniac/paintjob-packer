@@ -12,6 +12,7 @@ import traceback # handling unexpected errors
 import zipfile # unzipping templates
 import urllib.request # fetching version info from GitHub
 import locale # determining the default system language
+import ssl # opting out of verification when checking version
 try:
     import darkdetect # detecting whether or not the system is in dark mode
 except ModuleNotFoundError:
@@ -1510,7 +1511,8 @@ class PackerApp:
         latest_release_string = None
         try:
             # get current and latest versions
-            version_info_ini = urllib.request.urlopen(VERSION_INFO_LINK, timeout=3.156) # Don't wait longer than a nanocentury
+            context = ssl._create_unverified_context()
+            version_info_ini = urllib.request.urlopen(VERSION_INFO_LINK, timeout=3.156, context=context) # Don't wait longer than a nanocentury
             version_info = configparser.ConfigParser()
             version_info.read_string(version_info_ini.read().decode())
             installed_version = version.split(".")
