@@ -313,7 +313,11 @@ class PackerApp:
         # Vehicles Supported panel (paintjob pack)
         self.panel_pack_selector = ttk.Notebook(self.panel_vehicles_pack)
         self.panel_pack_selector.grid(row = 0, column = 0, sticky = "nsew", padx = 10, pady = (5, 10))
-        self.panel_pack_selector.bind_all("<MouseWheel>", self.mousewheel_scroll)
+        if self.os in ["Windows", "macOS"]:
+            self.panel_pack_selector.bind_all("<MouseWheel>", self.mousewheel_scroll)
+        elif self.os == "Linux":
+            self.panel_pack_selector.bind_all("<Button-4>", self.mousewheel_scroll)
+            self.panel_pack_selector.bind_all("<Button-5>", self.mousewheel_scroll)
         self.tab_trucks = ttk.Frame(self.panel_pack_selector)
         self.tab_trucks.columnconfigure(0, weight = 1)
         self.tab_trucks.rowconfigure(0, weight = 1)
@@ -747,21 +751,31 @@ class PackerApp:
             webbrowser.open_new(MOD_LINK_PAGE_LINK + "#american-truck-simulator")
 
     def mousewheel_scroll(self, event):
+        if self.os == "Windows":
+            scroll_amount = int(-1 * (event.delta / 120))
+        elif self.os == "macOS":
+            scroll_amount = int(-1 * event.delta)
+        elif self.os == "Linux":
+            if event.num == 4:
+                scroll_amount = -1
+            elif event.num == 5:
+                scroll_amount = 1
+
         current_tab = self.panel_pack_selector.index(self.panel_pack_selector.select())
         if current_tab == 0: # trucks
-            self.scroll_canvas_trucks.yview_scroll(int(-1 * (event.delta / 120)), "units") # will scroll too slowly on macOS, and maybe not at all on Linux
+            self.scroll_canvas_trucks.yview_scroll(scroll_amount, "units")
             if self.tab_game_variable.get() == "ats":
                 self.scroll_canvas_trucks.yview_moveto(0) # hack to prevent scrolling up past the content
         elif current_tab == 1: # trailers
-            self.scroll_canvas_trailers.yview_scroll(int(-1 * (event.delta / 120)), "units")
+            self.scroll_canvas_trailers.yview_scroll(scroll_amount, "units")
             self.scroll_canvas_trailers.yview_moveto(0)
         elif current_tab == 2: # truck mods
-            self.scroll_canvas_truck_mods.yview_scroll(int(-1 * (event.delta / 120)), "units")
+            self.scroll_canvas_truck_mods.yview_scroll(scroll_amount, "units")
         elif current_tab == 3: # bus mods
-            self.scroll_canvas_bus_mods.yview_scroll(int(-1 * (event.delta / 120)), "units")
+            self.scroll_canvas_bus_mods.yview_scroll(scroll_amount, "units")
             self.scroll_canvas_bus_mods.yview_moveto(0)
         elif current_tab == 4: # trailer mods
-            self.scroll_canvas_trailer_mods.yview_scroll(int(-1 * (event.delta / 120)), "units")
+            self.scroll_canvas_trailer_mods.yview_scroll(scroll_amount, "units")
             if self.tab_game_variable.get() == "ats":
                 self.scroll_canvas_trailer_mods.yview_moveto(0)
 
