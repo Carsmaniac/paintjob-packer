@@ -1,8 +1,8 @@
-import os # making folders and renaming files
-import shutil # copying files
-import binascii # hex-ifying strings for TOBJ files
-import codecs # encoding TOBJ files
-import configparser # reading vehicle database files
+import os # Making folders and renaming files
+import shutil # Copying files
+import binascii # Hex-ifying strings for TOBJ files
+import codecs # Encoding TOBJ files
+import configparser # Reading vehicle database files
 
 class Vehicle:
     def __init__(self, file_name, game):
@@ -121,7 +121,7 @@ def generate_tobj(path):
 
 
 
-# loose files
+# Loose files
 
 def make_manifest_sii(output_path, mod_version, mod_name, mod_author, workshop_upload):
     file = open(output_path + "/manifest.sii", "w", encoding="utf-8")
@@ -241,7 +241,7 @@ def make_settings_sui(output_path, veh, internal_name, ingame_name, ingame_price
     file.write("\tunlock: {}\n".format(unlock_level))
     file.write("\tairbrush: true\n")
     file.write("\ticon: \"{}_icon\"\n".format(internal_name))
-    if veh.bus_door_workaround: # workaround for the weirdness surrounding bus mods' doors
+    if veh.bus_door_workaround: # Workaround for the weirdness surrounding bus mods' doors
         file.write("\tbase_color_locked: false\n")
     if veh.alt_uvset:
         file.write("\talternate_uvset: true\n")
@@ -286,7 +286,7 @@ def copy_main_dds(output_path, veh, ingame_name, main_dds_name, template_zip):
                 template_zip.extract(main_dds_name+".dds", output_path+"/vehicle/{}/upgrade/paintjob/{}/{} [{}]".format(veh.type, ingame_name, veh.name, veh.mod_author))
             else:
                 template_zip.extract(main_dds_name+".dds", output_path+"/vehicle/{}/upgrade/paintjob/{}/{}".format(veh.type, ingame_name, veh.name))
-        elif veh.type == "truck": # largest cabin only paintjobs
+        elif veh.type == "truck": # Largest cabin only paint jobs
             if veh.alt_uvset:
                 largest_cabin_name = veh.cabins["a"][0][:-1]+", alt uvset).dds"
             else:

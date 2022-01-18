@@ -1,25 +1,25 @@
 import tkinter as tk # GUI system
-from tkinter import ttk # nicer-looking GUI elements
-from tkinter import messagebox # showing popup windows for warnings and errors
-from tkinter import filedialog # choosing save directory
-import webbrowser # opening links in the web browser: forum thread, github page, mod links
-import sys # determining OS, and quitting Paint Job Packer
-import configparser # reading vehicle database files, version info and l10n dictionary
-import os # making folders and getting all vehicle database files
-import shutil # copying files (checking write permission, all actual copying occurs in paintjob.py)
-import re # checking for invalid characters in mod/paint job names
-import traceback # handling unexpected errors
-import zipfile # unzipping templates
-import urllib.request # fetching version info from GitHub
-import locale # determining the default system language
-import ssl # opting out of verification when checking version
+from tkinter import ttk # Nicer-looking GUI elements
+from tkinter import messagebox # Showing popup windows for warnings and errors
+from tkinter import filedialog # Choosing save directory
+import webbrowser # Opening links in the web browser: forum thread, github page, mod links
+import sys # Determining OS, and quitting Paint Job Packer
+import configparser # Reading vehicle database files, version info and l10n dictionary
+import os # Making folders and getting all vehicle database files
+import shutil # Copying files (checking write permission, all actual copying occurs in paintjob.py)
+import re # Checking for invalid characters in mod/paint job names
+import traceback # Handling unexpected errors
+import zipfile # Unzipping templates
+import urllib.request # Fetching version info from GitHub
+import locale # Determining the default system language
+import ssl # Opting out of verification when checking version - see check_new_version()
 try:
-    import darkdetect # detecting whether or not the system is in dark mode
+    import darkdetect # Detecting whether or not the system is in dark mode
 except ModuleNotFoundError:
     print("Darkdetect is not installed (pip install darkdetect), defaulting to light mode")
 
 try:
-    import library.paintjob as pj # copying and generating mod files
+    import library.paintjob as pj # Copying and generating mod files
 except ModuleNotFoundError:
     print("Paint Job Packer can't find its library files")
     print("Make sure that the \"library\" folder is in the same directory as packer.py, and it contains all of its files")
@@ -40,12 +40,12 @@ DARKDETECT_LINK = "https://github.com/albertosottile/darkdetect"
 MIT_LICENCE_LINK = "https://opensource.org/licenses/MIT"
 BSD_LICENCE_LINK = "https://opensource.org/licenses/BSD-3-Clause"
 
-# set the path depending on how Paintjob Packer is bundled
+# Set the path depending on how Paint Job Packer is bundled
 try:
-    base_path = sys._MEIPASS # packaged into executable
+    base_path = sys._MEIPASS # Packaged into executable
     using_executable = True
 except AttributeError:
-    base_path = os.path.abspath(".") # loose .py
+    base_path = os.path.abspath(".") # Loose .py
     using_executable = False
 os.chdir(base_path)
 
@@ -64,7 +64,7 @@ class PackerApp:
         # new_ver exists between PackerApps so it doesn't need to be re-fetched every time the language is changed
         global new_ver
 
-        # container to hold setup/main screen
+        # Container to hold setup/main screen
         self.container = ttk.Frame(master)
         self.container.pack(fill = "both")
 
@@ -74,7 +74,7 @@ class PackerApp:
         self.image_single_paintjob = tk.PhotoImage(file = "library/packer-images/paint-job-single.png")
         self.image_paintjob_pack = tk.PhotoImage(file = "library/packer-images/paint-job-pack.png")
 
-        # load appropriate cursor for OS, used when mousing over links
+        # Load appropriate cursor for OS, used when mousing over links
         if sys.platform.startswith("win"):
             self.os = "Windows"
             self.cursor = "hand2"
@@ -85,7 +85,7 @@ class PackerApp:
             self.os = "Linux"
             self.cursor = "hand2"
 
-        # choose a shade of blue that works with the light/dark theme
+        # Choose a shade of blue that works with the light/dark theme
         try:
             if darkdetect.isDark():
                 self.blue = "#56C7FE"
@@ -97,14 +97,14 @@ class PackerApp:
             self.blue = "#006DD3"
             self.red = "#E81000"
 
-        self.total_vehicles = 0 # used in the vehicle selector when making a paintjob pack
+        self.total_vehicles = 0 # Used in the vehicle selector when making a paint job pack
 
         self.language = language
         self.load_language_dictionary(self.language)
         self.load_language_list()
-        l = self.get_localised_string # one-letter function name to make all the many calls of it (slightly more) readable
+        l = self.get_localised_string # One-letter function name to make all the many calls of it more readable
 
-        # setup screen and immediate contents
+        # Setup screen and immediate contents
         self.setup_screen = ttk.Frame(self.container)
         self.tab_selector = ttk.Notebook(self.setup_screen)
         self.tab_selector.pack(fill = "both")
@@ -150,7 +150,7 @@ class PackerApp:
             self.tab_welcome_message = ttk.Label(self.tab_welcome, text = l("{AcknowledgementNotice}"), cursor = self.cursor)
             self.tab_welcome_message.bind("<1>", lambda e: messagebox.showinfo(title = "Acknowledgement of Country", message = "Paint Job Packer was developed in Australia, a continent on which Aboriginal and Torres Strait Islander peoples have lived for tens of thousands of years, the oldest continuous culture in the world, spread across hundreds of distinct countries with different languages and customs.\n\nI acknowledge the Darramurragal people, the traditional owners of the land on which this software was created. I pay my respects to Elders past, present and emerging, the Knowledge Holders and caretakers of this Country, and extend that respect to the owners of all the lands on which Paint Job Packer is used.\n\nI acknowledge that this land has been a place of design and creativity for thousands of generations, and that sovereignty was never ceded. This always has been and always will be Aboriginal land."))
             self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 3, pady = (20, 0))
-        self.tab_welcome_button_prev = ttk.Label(self.tab_welcome, text = " ") # to keep everything centred
+        self.tab_welcome_button_prev = ttk.Label(self.tab_welcome, text = " ") # To keep everything centred
         self.tab_welcome_button_prev.grid(row = 5, column = 0, sticky = "sw")
         self.tab_welcome_button_next = ttk.Button(self.tab_welcome, text = l("{Next} >"), command = lambda : self.tab_selector.select(1))
         self.tab_welcome_button_next.grid(row = 5, column = 2, sticky = "se", pady = 10, padx = 10)
@@ -172,14 +172,14 @@ class PackerApp:
         self.tab_game_option_ets = ttk.Radiobutton(self.tab_game, text = l("{GameETS}"), value = "ets", variable = self.tab_game_variable)
         self.tab_game_option_ets.grid(row = 2, column = 1, pady = 10)
         self.tab_game_image_ets.bind("<1>", lambda e: self.tab_game_variable.set("ets"))
-        self.tab_game_dummy_desc = ttk.Label(self.tab_game, text = "  \n") # to space things out evenly
+        self.tab_game_dummy_desc = ttk.Label(self.tab_game, text = "  \n") # To space things out evenly
         self.tab_game_dummy_desc.grid(row = 3, column = 0)
         self.tab_game_button_prev = ttk.Button(self.tab_game, text = l("< {Previous}"), command = lambda : self.tab_selector.select(0))
         self.tab_game_button_prev.grid(row = 4, column = 0, sticky = "sw", pady = 10, padx = 10)
         self.tab_game_button_next = ttk.Button(self.tab_game, text = l("{Next} >"), command = lambda : self.tab_selector.select(2))
         self.tab_game_button_next.grid(row = 4, column = 1, sticky = "se", pady = 10, padx = 10)
 
-        # Paintjobs tab
+        # Paint Jobs tab
         self.tab_paintjob_title = ttk.Label(self.tab_paintjob, text = l("{TabPaintJobsMessage}"))
         self.tab_paintjob_title.grid(row = 0, column = 0, columnspan = 2, pady = 20)
         self.tab_paintjob_image_single = ttk.Label(self.tab_paintjob, image = self.image_single_paintjob)
@@ -204,7 +204,7 @@ class PackerApp:
 
         self.setup_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
 
-        # main screen and immediate contents
+        # Main screen and immediate contents
         self.main_screen = ttk.Frame(self.container)
         self.panel_mod = ttk.LabelFrame(self.main_screen, text = l("{ModInfoPanelName}"))
         self.panel_mod.grid(row = 0, column = 0, sticky = "ew")
@@ -217,7 +217,7 @@ class PackerApp:
         self.panel_main_buttons = ttk.Frame(self.main_screen)
         self.panel_main_buttons.grid(row = 3, column = 0, columnspan = 2, pady = (5, 0), sticky = "ew")
         self.panel_main_buttons.columnconfigure(1, weight = 1)
-        self.main_screen.rowconfigure(2, weight = 1) # keeps things tidy if too many mods get added
+        self.main_screen.rowconfigure(2, weight = 1) # Keeps things tidy if too many mods get added
 
         # Mod Info panel
         self.panel_mod_name_variable = tk.StringVar()
@@ -244,7 +244,7 @@ class PackerApp:
         self.panel_mod.columnconfigure(0, minsize = 170)
         self.panel_mod.columnconfigure(1, minsize = 290)
 
-        # In-Game Paintjob Info panel
+        # In-Game Paint Job Info panel
         self.panel_ingame_name_variable = tk.StringVar()
         self.panel_ingame_name_label = ttk.Label(self.panel_ingame, text = l("{InGameName}"))
         self.panel_ingame_name_label.grid(row = 0, column = 0, padx = (10, 5), pady = (5, 0), sticky = "w")
@@ -269,13 +269,13 @@ class PackerApp:
         self.panel_ingame_unlock_label.grid(row = 3, column = 0, padx = (10, 5), pady = (5, 10), sticky = "w")
         self.panel_ingame_unlock_input = ttk.Entry(self.panel_ingame, width = 7, textvariable = self.panel_ingame_unlock_variable)
         self.panel_ingame_unlock_input.grid(row = 3, column = 1, padx = 5, pady = (5, 10), sticky = "w")
-        self.panel_ingame_unlock_input.state(["disabled"]) # disabled by default, as the "unlocked by default" checkbox is checked by default
+        self.panel_ingame_unlock_input.state(["disabled"]) # Disabled by default, as the "unlocked by default" checkbox is checked by default
         self.panel_ingame_unlock_help = ttk.Button(self.panel_ingame, text = "?", width = 3, command = lambda : messagebox.showinfo(title = l(l("{HelpTitle}").format(topic = "{InGameUnlock}")), message = l("{InGameUnlockHelp1}\n\n{InGameUnlockExample}")))
         self.panel_ingame_unlock_help.grid(row = 3, column = 2, padx = (0, 5), pady = (5, 10))
         self.panel_ingame.columnconfigure(0, minsize = 170)
         self.panel_ingame.columnconfigure(1, minsize = 290)
 
-        # Internal Paintjob Info panel
+        # Internal Paint Job Info panel
         self.panel_internal_name_variable = tk.StringVar()
         self.panel_internal_name_label = ttk.Label(self.panel_internal, text = l("{InternalName}"))
         self.panel_internal_name_label.grid(row = 0, column = 0, padx = (10, 5), pady = (5, 0), sticky = "w")
@@ -299,10 +299,11 @@ class PackerApp:
         # self.panel_internal_handling_dropdown.grid(row = 5, column = 1, padx = 5, pady = (5, 0), sticky = "w")
         self.panel_internal_handling_help = ttk.Button(self.panel_internal, text = "?", width = 3, command = lambda : messagebox.showinfo(title = l(l("{HelpTitle}").format(topic = "{InternalHandling}")), message = l("{InternalHandlingHelp1}\n\n{InternalHandlingHelp2}\n\n{InternalHandlingHelp3}")))
         # self.panel_internal_handling_help.grid(row = 5, column = 2, padx = (0, 5), pady = (5, 0))
+        # All of the handling elements are gridded only when needed, in update_cabin_dropdowns()
         self.panel_internal.columnconfigure(0, minsize = 170)
         self.panel_internal.columnconfigure(1, minsize = 290)
 
-        # Vehicle Supported panel (single paintjob)
+        # Vehicle Supported panel (single paint job)
         self.panel_single_type_variable = tk.StringVar(None, l("{Truck}"))
         self.panel_single_type_variable.trace("w", self.change_displayed_vehicle_dropdown)
         self.panel_single_type_label = ttk.Label(self.panel_vehicles_single, text = l("{VehiclesType}"))
@@ -318,7 +319,7 @@ class PackerApp:
         self.panel_single_link.bind("<1>", self.open_mod_link_page)
         # self.panel_single_link.grid(row = 4, column = 0, pady = 5, padx = 5, sticky = "w")
 
-        # Vehicles Supported panel (paintjob pack)
+        # Vehicles Supported panel (paint job pack)
         self.panel_pack_selector = ttk.Notebook(self.panel_vehicles_pack)
         self.panel_pack_selector.grid(row = 0, column = 0, sticky = "nsew", padx = 10, pady = (5, 10))
         if self.os in ["Windows", "macOS"]:
@@ -400,7 +401,7 @@ class PackerApp:
         self.scroll_canvas_trailer_mods.grid(row = 0, column = 0, pady = 5, sticky = "nws")
         self.scroll_bar_trailer_mods.grid(row = 0, rowspan = 2, column = 1, pady = 5, sticky = "nes")
 
-        # buttons along the bottom
+        # Buttons along the bottom
         self.panel_main_buttons_setup = ttk.Button(self.panel_main_buttons, text = l("< {BackToSetup}"), command = lambda : self.switch_to_setup_screen())
         self.panel_main_buttons_setup.grid(row = 1, column = 0, pady = (5, 0), sticky = "w")
         self.panel_main_buttons_feedback = ttk.Label(self.panel_main_buttons, text = l("{LeaveFeedback}"), foreground = self.blue, cursor = self.cursor)
@@ -409,7 +410,7 @@ class PackerApp:
         self.panel_main_buttons_generate = ttk.Button(self.panel_main_buttons, text = l("{GenerateSave}"), command = lambda : self.verify_all_inputs())
         self.panel_main_buttons_generate.grid(row = 1, column = 2, pady = (5, 0), sticky = "e")
 
-        # generate screen
+        # Generate screen
         self.generate_screen = ttk.Frame(self.container)
         self.panel_generating = ttk.LabelFrame(self.generate_screen, text = l("{GeneratingOptions}"))
         self.panel_generating.grid(row = 0, column = 0, pady = (0, 5), sticky = "ew")
@@ -457,14 +458,14 @@ class PackerApp:
         self.panel_progress_specific_label.grid(row = 2, column = 0, padx = 5, pady = 5)
         self.panel_progress.columnconfigure(0, weight = 1)
 
-        # generating buttons
+        # Generating buttons
         self.panel_gen_buttons_back = ttk.Button(self.panel_gen_buttons, text = l("< {Back}"), command = self.change_from_generate_to_main)
         self.panel_gen_buttons_back.grid(row = 0, column = 0, pady = (5, 0), sticky = "w")
         self.panel_gen_buttons_generate = ttk.Button(self.panel_gen_buttons, text = l("{Generate}"), command = lambda : self.check_if_folder_clear(self.panel_directory_current_variable.get()))
         self.panel_gen_buttons_generate.grid(row = 0, column = 1, pady = (5, 0), sticky = "e")
         self.panel_gen_buttons.columnconfigure(0, weight = 1)
 
-        # error popup
+        # Error popup
         self.error_screen = tk.Frame(self.container)
         self.error_top_text = ttk.Label(self.error_screen, text = "Something went very wrong!\n\nPaint Job Packer ran into an\nunexpected error and can't continue", justify = "center")
         self.error_top_text.grid(row = 0, column = 0, columnspan = 2, pady = 10)
@@ -485,7 +486,7 @@ class PackerApp:
         self.error_exit_button = ttk.Button(self.error_screen, text = "Exit Paint Job Packer", command = sys.exit, width = 20)
         self.error_exit_button.grid(row = 6, column = 0, columnspan = 2, pady = 10)
 
-        master.report_callback_exception = self.show_fancy_error # it's now safe to use the screen instead of the messagebox
+        master.report_callback_exception = self.show_fancy_error # It's now safe to use the fancy error screen instead of the messagebox
 
     def load_language_list(self):
         self.language_names_dictionary = {}
@@ -674,7 +675,7 @@ class PackerApp:
         for veh in self.truck_list + self.truck_mod_list + self.bus_mod_list + self.trailer_list + self.trailer_mod_list:
             veh.check.grid_forget()
 
-        self.panel_pack_link_truck.grid_forget() # just in case it changes location
+        self.panel_pack_link_truck.grid_forget() # Just in case it changes location
         self.panel_pack_link_bus.grid_forget()
         self.panel_pack_link_trailer.grid_forget()
 
@@ -694,7 +695,7 @@ class PackerApp:
         self.load_main_screen_variables()
         self.update_cabin_dropdowns()
 
-    def load_main_screen_variables(self): # also grids and ungrids stuff depending on said variables
+    def load_main_screen_variables(self): # Also grids and ungrids elements depending on said variables
         l = self.get_localised_string
         self.scroll_bar_trucks.grid(row = 0, column = 1, pady = 5, sticky = "nes")
         self.scroll_bar_trailers.grid(row = 0, column = 1, pady = 5, sticky = "nes")
@@ -706,7 +707,7 @@ class PackerApp:
             self.currency = l("{InGamePriceDollars}")
             self.panel_pack_selector.tab(3, state = "hidden")
             self.panel_single_type_dropdown.config(values = [l("{Truck}"), l("{TruckMod}"), l("{Trailer}"), l("{TrailerMod}")])
-            self.scroll_bar_trucks.grid_forget() # these lists don't need to scroll
+            self.scroll_bar_trucks.grid_forget() # These lists don't need to scroll
             self.scroll_bar_trailers.grid_forget()
             self.scroll_bar_bus_mods.grid_forget()
             self.scroll_bar_trailer_mods.grid_forget()
@@ -770,19 +771,19 @@ class PackerApp:
                 scroll_amount = 1
 
         current_tab = self.panel_pack_selector.index(self.panel_pack_selector.select())
-        if current_tab == 0: # trucks
+        if current_tab == 0: # Trucks
             self.scroll_canvas_trucks.yview_scroll(scroll_amount, "units")
             if self.tab_game_variable.get() == "ats":
-                self.scroll_canvas_trucks.yview_moveto(0) # hack to prevent scrolling up past the content
-        elif current_tab == 1: # trailers
+                self.scroll_canvas_trucks.yview_moveto(0) # Hack to prevent scrolling up past the content
+        elif current_tab == 1: # Trailers
             self.scroll_canvas_trailers.yview_scroll(scroll_amount, "units")
             self.scroll_canvas_trailers.yview_moveto(0)
-        elif current_tab == 2: # truck mods
+        elif current_tab == 2: # Truck mods
             self.scroll_canvas_truck_mods.yview_scroll(scroll_amount, "units")
-        elif current_tab == 3: # bus mods
+        elif current_tab == 3: # Bus mods
             self.scroll_canvas_bus_mods.yview_scroll(scroll_amount, "units")
             self.scroll_canvas_bus_mods.yview_moveto(0)
-        elif current_tab == 4: # trailer mods
+        elif current_tab == 4: # Trailer mods
             self.scroll_canvas_trailer_mods.yview_scroll(scroll_amount, "units")
             if self.tab_game_variable.get() == "ats":
                 self.scroll_canvas_trailer_mods.yview_moveto(0)
@@ -908,7 +909,7 @@ class PackerApp:
         inputs_verified = True
         all_errors = []
 
-        # mod info
+        # Mod info
         if len(self.panel_mod_name_variable.get()) < 1:
             inputs_verified = False
             all_errors.append([l("{ErrorModNameEmptyTitle}"), l("{ErrorModNameEmpty}")])
@@ -942,7 +943,7 @@ class PackerApp:
             inputs_verified = False
             all_errors.append([l("{ErrorModAuthorCharacterTitle}"), l("{ErrorModAuthorCharacter}") + "\n\" / \\"])
 
-        # in-game paintjob info
+        # In-game paint job info
         if len(self.panel_ingame_name_variable.get()) < 1:
             inputs_verified = False
             all_errors.append([l("{ErrorInGameNameEmptyTitle}"), l("{ErrorInGameNameEmpty}")])
@@ -980,7 +981,7 @@ class PackerApp:
                 inputs_verified = False
                 all_errors.append([l("{ErrorInGameUnlockCharacterTitle}"), l("{ErrorInGameUnlockCharacter}")])
 
-        # internal paintjob info
+        # Internal paint job info
         if len(self.panel_internal_name_variable.get()) < 1:
             inputs_verified = False
             all_errors.append([l("{ErrorInternalNameEmptyTitle}"), l("{ErrorInternalNameEmpty}")])
@@ -989,12 +990,13 @@ class PackerApp:
             all_errors.append([l("{ErrorInternalNameLongTitle}"), l("{ErrorInternalNameLong}").format(length = self.internal_name_length)])
         if not re.match("^[0-9a-z\_]*$", self.panel_internal_name_variable.get()):
             inputs_verified = False
-            all_errors.append([l("{ErrorInternalNameCharacterTitle}"), l("{ErrorInternalNameCharacter}")]) # I think uppercase letters might work, but no paintjobs in the base game/DLCs use them, so best practice to avoid them
+            all_errors.append([l("{ErrorInternalNameCharacterTitle}"), l("{ErrorInternalNameCharacter}")])
+            # I think uppercase letters might work, but no paint jobs in the base game/DLCs use them, so best practice to avoid them
         if pj.contains_reserved_file_name(self.panel_internal_name_variable.get()):
             inputs_verified = False
             all_errors.append([l("{ErrorInternalNameInvalidTitle}"), l("{ErrorInternalNameInvalid}") + "\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
 
-        # vehicle selection
+        # Vehicle selection
         if self.tab_paintjob_variable.get() == "pack":
             if self.total_vehicles < 1:
                 inputs_verified = False
@@ -1004,7 +1006,7 @@ class PackerApp:
                 inputs_verified = False
                 all_errors.append([l("{ErrorSelectVehicleSingleTitle}"), l("{ErrorSelectVehicleSingle}")])
 
-        # check for incompatible vehicles
+        # Check for incompatible vehicles
         veh_path_dict = {}
         for veh in self.truck_list + self.truck_mod_list + self.bus_mod_list + self.trailer_list + self.trailer_mod_list:
             if "selected" in veh.check.state():
@@ -1058,7 +1060,8 @@ class PackerApp:
             folder_clear = True
             if os.path.exists(output_path):
                 if len(os.listdir(output_path)) > 0:
-                    folder_clear = False # I don't want to be on the receiving end of an irate user who lost their important report the night before it was due, because they happened to store it in the paintjob packer folder
+                    folder_clear = False
+                    # I don't want to be on the receiving end of an irate user who lost their important report the night before it was due, because they happened to store it in the Paint Job Packer folder
                     messagebox.showerror(title = l("{ErrorFolderClearTitle}"), message = l("{ErrorFolderClear1}\n\n{ErrorFolderClear2}").format(folder_name = "\"Paint Job Packer Output\""))
             try:
                 shutil.copyfile("library/placeholder files/empty.dds", save_directory + "/empty.dds")
@@ -1162,14 +1165,14 @@ class PackerApp:
         self.progress_value.set(0.0)
         things_to_load = len(vehicle_list) + 2 # + general files, complete
         if workshop_upload:
-            things_to_load += 1 # workshop image and description
+            things_to_load += 1 # Workshop image and description
         self.panel_progress_bar.configure(maximum = float(things_to_load))
 
         self.progress_value.set(self.progress_value.get()+1.0)
         self.panel_progress_category_variable.set("General mod files")
 
         self.panel_progress_specific_variable.set("Mod manifest")
-        self.panel_progress_specific_label.update() # all these update()s ensure the progress bar is updated in real time
+        self.panel_progress_specific_label.update() # All these update()s ensure the progress bar is updated in real time
         pj.make_manifest_sii(out_path, mod_version, mod_name, mod_author, workshop_upload)
 
         self.panel_progress_specific_variable.set("Mod manager image")
@@ -1231,7 +1234,7 @@ class PackerApp:
                         if cab_size == "a":
                             cab_internal_name = veh.cabins[cab_size][1]
                             if "/" in cab_internal_name:
-                                cab_internal_name = cab_internal_name.split("/") # for when multiple cabins can use the same template, e.g. Western Star 49X
+                                cab_internal_name = cab_internal_name.split("/") # For when multiple cabins can use the same template, e.g. Western Star 49X
                             pj.make_def_sii(out_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name, cab_internal_name)
                 else:
                     pj.make_def_sii(out_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name)
@@ -1246,14 +1249,14 @@ class PackerApp:
                     else:
                         one_paintjob = False
                         paintjob_name = internal_name + "_" + cab_size
-                        main_dds_name = veh.cabins[cab_size][0] # cabin in-game name
+                        main_dds_name = veh.cabins[cab_size][0] # Cabin in-game name
                         self.panel_progress_specific_variable.set(main_dds_name)
                         self.panel_progress_specific_label.update()
                         if veh.alt_uvset:
-                            main_dds_name = main_dds_name[:-1] + ", alt uvset)" # inserts "alt uvset" into the brackets in the cabin name
+                            main_dds_name = main_dds_name[:-1] + ", alt uvset)" # Inserts "alt uvset" into the brackets in the cabin name
                         cab_internal_name = veh.cabins[cab_size][1]
                         if "/" in cab_internal_name:
-                            cab_internal_name = cab_internal_name.split("/") # for when multiple cabins can use the same template, e.g. Western Star 49X
+                            cab_internal_name = cab_internal_name.split("/") # For when multiple cabins can use the same template, e.g. Western Star 49X
                         pj.make_def_sii(out_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name, cab_internal_name)
                         pj.copy_main_dds(out_path, veh, ingame_name, main_dds_name, template_zip)
                         pj.make_main_tobj(out_path, veh, ingame_name, main_dds_name)
@@ -1428,7 +1431,7 @@ class PackerApp:
         file.close()
         tracker_directory = file_lines[0].rstrip() + "/" + game
         tracker = configparser.ConfigParser(allow_no_value = True)
-        tracker.optionxform = str # preserves case
+        tracker.optionxform = str # Preserves case
         if os.path.exists("{}/{}.ini".format(tracker_directory, mod_name)):
             tracker.read("{}/{}.ini".format(tracker_directory, mod_name), encoding = "UTF-8")
             all_trucks = tracker["pack info"]["trucks"].split(";")
@@ -1513,7 +1516,7 @@ class PackerApp:
         update_message = None
         latest_release_string = None
         try:
-            # get current and latest versions
+            # Get current and latest versions
             context = ssl._create_unverified_context()
             version_info_ini = urllib.request.urlopen(VERSION_INFO_LINK, timeout=3.156, context=context) # Don't wait longer than a nanocentury
             version_info = configparser.ConfigParser()
@@ -1523,7 +1526,7 @@ class PackerApp:
             latest_release = latest_release_string.split(".")
             print("Latest release: " + latest_release_string)
 
-            # convert versions to integer lists
+            # Convert versions to integer lists
             if len(installed_version) < 3:
                 installed_version.append("0")
             if len(latest_release) < 3:
@@ -1532,7 +1535,7 @@ class PackerApp:
                 installed_version[i] = int(installed_version[i])
                 latest_release[i] = int(latest_release[i])
 
-            # check if latest release is newer than current install
+            # Check if latest release is newer than current install
             if latest_release[0] > installed_version[0]:
                 update_message = version_info["version info"]["major update"]
             elif latest_release[0] == installed_version[0]:
