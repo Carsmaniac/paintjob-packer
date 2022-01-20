@@ -51,8 +51,9 @@ os.chdir(base_path)
 
 desktop_path = os.path.expanduser("~/Desktop")
 
-# Set print encoding to UTF-8, in case the system's preferred encoding is ASCII
-sys.stdout.reconfigure(encoding="utf-8")
+if sys.platform.startswith("darwin") or not using_executable:
+    # Set print encoding to UTF-8, in case the system's preferred encoding is ASCII
+    sys.stdout.reconfigure(encoding="utf-8")
 
 version_info = configparser.ConfigParser()
 version_info.read("library/version.ini")
