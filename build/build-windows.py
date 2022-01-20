@@ -2,6 +2,9 @@ import os
 import shutil
 import PyInstaller.__main__
 
+if os.path.exists("../library/paintjob-tracker.txt"):
+    os.remove("../library/paintjob-tracker.txt")
+
 INNO_SETUP_PATH = "C:/Program Files (x86)/Inno Setup 6/ISCC.exe"
 
 # Get the current PJP version
