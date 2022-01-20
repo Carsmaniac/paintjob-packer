@@ -34,7 +34,7 @@ PyInstaller.__main__.run(["../packer.py", "--onedir", "--windowed",
     "--add-data=../sun-valley.tcl;."])
 os.system("\"{}\" inno-script.iss".format(INNO_SETUP_PATH))
 
-shutil.make_archive("paint-job-packer-v{}-windows-no-templates".format(version), "zip", "output")
+shutil.make_archive("Paint-Job-Packer-v{}-Windows".format(version), "zip", "output")
 shutil.rmtree("build")
 shutil.rmtree("dist")
 shutil.rmtree("output")
@@ -47,7 +47,7 @@ PyInstaller.__main__.run(["../packer.py", "--onedir", "--windowed",
     "--add-data=../sun-valley.tcl;.", "--add-data=../templates;templates"])
 os.system("\"{}\" inno-script.iss".format(INNO_SETUP_PATH))
 
-shutil.make_archive("paint-job-packer-v{}-windows-templates".format(version), "zip", "output")
+shutil.make_archive("Paint-Job-Packer-v{}-Windows-Templates".format(version), "zip", "output")
 shutil.rmtree("build")
 shutil.rmtree("dist")
 shutil.rmtree("output")

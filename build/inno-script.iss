@@ -21,7 +21,7 @@ AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
-OutputBaseFilename=paint-job-packer-v{#MyAppVersion}-setup
+OutputBaseFilename=Paint Job Packer v{#MyAppVersion} Installer
 Compression=lzma
 SolidCompression=yes
 

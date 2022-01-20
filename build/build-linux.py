@@ -19,7 +19,7 @@ PyInstaller.__main__.run(["../packer.py", "--onefile", "--windowed",
     "--add-data=../library:library", "--add-data=../theme:theme", "--add-data=../lang:lang",
     "--add-data=../sun-valley.tcl:."])
 
-shutil.make_archive("paint-job-packer-v{}-linux".format(version), "zip", "dist")
+shutil.make_archive("Paint-Job-Packer-v{}-Linux".format(version), "zip", "dist")
 shutil.rmtree("build")
 shutil.rmtree("dist")
 os.remove("Paint Job Packer.spec")
