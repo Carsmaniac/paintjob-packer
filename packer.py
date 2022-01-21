@@ -13,6 +13,7 @@ import zipfile # Unzipping templates
 import urllib.request # Fetching version info from GitHub
 import locale # Determining the default system language
 import ssl # Opting out of verification when checking version - see check_new_version()
+import threading # Multi-threading the update checking process
 try:
     import darkdetect # Detecting whether or not the system is in dark mode
 except ModuleNotFoundError:
@@ -137,17 +138,22 @@ class PackerApp:
         self.tab_welcome_link_github.grid(row = 2, column = 2, pady = 20)
         self.tab_welcome_link_github.bind("<1>", lambda e: webbrowser.open_new(GITHUB_LINK))
         if "new_ver" not in globals():
-            new_ver = self.check_new_version()
-        if (new_ver[1] != None):
+            # Only on initial startup, not when changing languages
+            self.thread_new_version()
+            new_ver = [None, None]
+        if new_ver[1] != None:
+            # Only when changing languages after the version check found a new version
             self.tab_welcome_message = ttk.Label(self.tab_welcome, text = l("{UpdateNotice}").format(version_number = new_ver[0]), foreground = self.red, cursor = self.cursor)
             self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 3, pady = (20, 0))
             self.tab_welcome_message.bind("<1>", lambda e: webbrowser.open_new(LATEST_VERSION_DOWNLOAD_LINK))
             self.tab_welcome_link_forum.configure(foreground = "black")
+            self.tab_welcome_link_kofi.configure(foreground = "black")
             self.tab_welcome_link_github.configure(foreground = "black")
             self.tab_welcome_update_info = ttk.Label(self.tab_welcome, text = l("{UpdateDetails}").format(details = new_ver[1]), cursor = self.cursor)
             self.tab_welcome_update_info.grid(row = 4, column = 0, columnspan = 3)
             self.tab_welcome_update_info.bind("<1>", lambda e: webbrowser.open_new(LATEST_VERSION_DOWNLOAD_LINK))
         else:
+            # Always on initial startup, and when changing languages after the version check did not find a new version
             self.tab_welcome_message = ttk.Label(self.tab_welcome, text = l("{AcknowledgementNotice}"), cursor = self.cursor)
             self.tab_welcome_message.bind("<1>", lambda e: messagebox.showinfo(title = "Acknowledgement of Country", message = "Paint Job Packer was developed in Australia, a continent on which Aboriginal and Torres Strait Islander peoples have lived for tens of thousands of years, the oldest continuous culture in the world, spread across hundreds of distinct countries with different languages and customs.\n\nI acknowledge the Darramurragal people, the traditional owners of the land on which this software was created. I pay my respects to Elders past, present and emerging, the Knowledge Holders and caretakers of this Country, and extend that respect to the owners of all the lands on which Paint Job Packer is used.\n\nI acknowledge that this land has been a place of design and creativity for thousands of generations, and that sovereignty was never ceded. This always has been and always will be Aboriginal land."))
             self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 3, pady = (20, 0))
@@ -1511,7 +1517,13 @@ class PackerApp:
                 tracker.write(configfile)
             print("Paint Job Tracker file written to {}/{}.ini".format(tracker_directory, mod_name))
 
+    def thread_new_version(self):
+        multi_thread_version_check = threading.Thread(target = self.check_new_version)
+        multi_thread_version_check.start()
+
     def check_new_version(self):
+        global new_ver
+        l = self.get_localised_string
         print("Checking latest version on GitHub...")
         print("Current version: " + version)
         update_message = None
@@ -1556,7 +1568,17 @@ class PackerApp:
         except TypeError:
             print("Couldn't compare version numbers, skipping (TypeError)")
 
-        return([latest_release_string, update_message])
+        if (update_message != None):
+            new_ver = [latest_release_string, update_message]
+            self.tab_welcome_message.configure(text = l("{UpdateNotice}").format(version_number = latest_release_string), foreground = self.red, cursor = self.cursor)
+            self.tab_welcome_message.bind("<1>", lambda e: webbrowser.open_new(LATEST_VERSION_DOWNLOAD_LINK))
+            self.tab_welcome_link_forum.configure(foreground = "black")
+            self.tab_welcome_link_kofi.configure(foreground = "black")
+            self.tab_welcome_link_github.configure(foreground = "black")
+            self.tab_welcome_update_info = ttk.Label(self.tab_welcome, text = l("{UpdateDetails}").format(details = update_message), cursor = self.cursor)
+            self.tab_welcome_update_info.grid(row = 4, column = 0, columnspan = 3)
+            self.tab_welcome_update_info.bind("<1>", lambda e: webbrowser.open_new(LATEST_VERSION_DOWNLOAD_LINK))
+        # else: new_ver remains [None, None]
 
 class VehSelection:
 
