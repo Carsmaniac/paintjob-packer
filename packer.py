@@ -28,7 +28,7 @@ except ModuleNotFoundError:
     sys.exit()
 
 FORUM_LINK = "https://forum.scssoft.com/viewtopic.php?f=33&t=282956"
-GITHUB_LINK = "https://github.com/carsmaniac/paintjob-packer"
+GITHUB_LINK = "https://github.com/Carsmaniac/paintjob-packer"
 KOFI_LINK = "https://ko-fi.com/carsmaniac"
 CROWDIN_LINK = "https://crowdin.com/project/paint-job-packer"
 MOD_LINK_PAGE_LINK = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/mod%20links.md"
@@ -40,6 +40,12 @@ SUN_VALLEY_LINK = "https://github.com/rdbende/Sun-Valley-ttk-theme"
 DARKDETECT_LINK = "https://github.com/albertosottile/darkdetect"
 MIT_LICENCE_LINK = "https://opensource.org/licenses/MIT"
 BSD_LICENCE_LINK = "https://opensource.org/licenses/BSD-3-Clause"
+
+# These will replace the old ones (and the repo will move) a while after v1.9 is released, when the installbase that's ONLY checking the old links is much smaller
+NEW_GITHUB_LINK = "https://github.com/Carsmaniac/paint-job-packer"
+NEW_MOD_LINK_PAGE_LINK = "https://github.com/Carsmaniac/paint-job-packer/blob/main/library/mod-links.md"
+NEW_VERSION_INFO_LINK = "https://raw.githubusercontent.com/Carsmaniac/paint-job-packer/main/library/version.ini"
+NEW_LATEST_VERSION_DOWNLOAD_LINK = "https://carsmani.ac/paint-job-packer#downloads"
 
 # Set the path depending on how Paint Job Packer is bundled
 try:
@@ -1522,63 +1528,89 @@ class PackerApp:
         multi_thread_version_check.start()
 
     def check_new_version(self):
-        global new_ver
+        global new_ver # Ensures this only runs once
+        global GITHUB_LINK, MOD_LINK_PAGE_LINK, VERSION_INFO_LINK, LATEST_VERSION_DOWNLOAD_LINK # To update links if the repo has moved
         l = self.get_localised_string
         print("Checking latest version on GitHub...")
         print("Current version: " + version)
-        update_message = None
-        latest_release_string = None
+
+        # Fetch version.ini from GitHub
+        fetched_new_version = False
+        context = ssl._create_unverified_context()
         try:
-            # Get current and latest versions
-            context = ssl._create_unverified_context()
-            version_info_ini = urllib.request.urlopen(VERSION_INFO_LINK, timeout=3.156, context=context) # Don't wait longer than a nanocentury
-            version_info = configparser.ConfigParser()
-            version_info.read_string(version_info_ini.read().decode())
-            installed_version = version.split(".")
-            latest_release_string = version_info["version info"]["latest release"]
-            latest_release = latest_release_string.split(".")
-            print("Latest release: " + latest_release_string)
+            # Try Carsmaniac/paintjob-packer/master
+            version_info_ini = urllib.request.urlopen(VERSION_INFO_LINK, timeout = 2, context=context)
+        except (urllib.error.URLError, urllib.error.HTTPError):
+            try:
+                # Try Carsmaniac/paint-job-packer/main
+                version_info_ini = urllib.request.urlopen(NEW_VERSION_INFO_LINK, timeout = 2, context=context)
+            except urllib.error.HTTPError:
+                print("Couldn't fetch new version, skipping (HTTPError)")
+            except urllib.error.URLError:
+                print("Couldn't fetch new version, skipping (URLError)")
+            else:
+                # The new link worked
+                fetched_new_version = True
+                # The repo has moved, so update the other links
+                GITHUB_LINK = NEW_GITHUB_LINK
+                MOD_LINK_PAGE_LINK = NEW_MOD_LINK_PAGE_LINK
+                VERSION_INFO_LINK = NEW_VERSION_INFO_LINK
+                LATEST_VERSION_DOWNLOAD_LINK = NEW_LATEST_VERSION_DOWNLOAD_LINK
+                # I guess those constants weren't so constant after all
+        else:
+            # The old link worked
+            fetched_new_version = True
 
-            # Convert versions to integer lists
-            if len(installed_version) < 3:
-                installed_version.append("0")
-            if len(latest_release) < 3:
-                latest_release.append("0")
-            for i in range(3):
-                installed_version[i] = int(installed_version[i])
-                latest_release[i] = int(latest_release[i])
+        if fetched_new_version:
+            try:
+                # Get current and latest versions
+                version_info = configparser.ConfigParser()
+                version_info.read_string(version_info_ini.read().decode())
+                installed_version = version.split(".")
+                latest_release_string = version_info["version info"]["latest release"]
+                latest_release = latest_release_string.split(".")
+                print("Latest release: " + latest_release_string)
 
-            # Check if latest release is newer than current install
-            if latest_release[0] > installed_version[0]:
-                update_message = version_info["version info"]["major update"]
-            elif latest_release[0] == installed_version[0]:
-                if latest_release[1] > installed_version[1]:
-                    update_message = version_info["version info"]["feature update"]
-                elif latest_release[1] == installed_version[1]:
-                    if latest_release[2] > installed_version[2]:
-                        update_message = version_info["version info"]["patch update"]
-            if update_message != None:
-                print("New version available! - " + update_message)
-        except urllib.error.HTTPError:
-            print("Couldn't fetch new version, skipping (HTTPError)")
-        except urllib.error.URLError:
-            print("Couldn't fetch new version, skipping (URLError)")
-        except ValueError:
-            print("Couldn't parse version number, skipping (ValueError)")
-        except TypeError:
-            print("Couldn't compare version numbers, skipping (TypeError)")
+                # Convert versions to integer lists
+                if len(installed_version) < 3:
+                    installed_version.append("0")
+                if len(latest_release) < 3:
+                    latest_release.append("0")
+                for i in range(3):
+                    installed_version[i] = int(installed_version[i])
+                    latest_release[i] = int(latest_release[i])
 
-        if (update_message != None):
-            new_ver = [latest_release_string, update_message]
-            self.tab_welcome_message.configure(text = l("{UpdateNotice}").format(version_number = latest_release_string), foreground = self.red, cursor = self.cursor)
-            self.tab_welcome_message.bind("<1>", lambda e: webbrowser.open_new(LATEST_VERSION_DOWNLOAD_LINK))
-            self.tab_welcome_link_forum.configure(foreground = "black")
-            self.tab_welcome_link_kofi.configure(foreground = "black")
-            self.tab_welcome_link_github.configure(foreground = "black")
-            self.tab_welcome_update_info = ttk.Label(self.tab_welcome, text = l("{UpdateDetails}").format(details = update_message), cursor = self.cursor)
-            self.tab_welcome_update_info.grid(row = 4, column = 0, columnspan = 3)
-            self.tab_welcome_update_info.bind("<1>", lambda e: webbrowser.open_new(LATEST_VERSION_DOWNLOAD_LINK))
-        # else: new_ver remains [None, None]
+                # Check if latest release is newer than current install
+                update_message = None
+                if latest_release[0] > installed_version[0]:
+                    update_message = version_info["version info"]["major update"]
+                elif latest_release[0] == installed_version[0]:
+                    if latest_release[1] > installed_version[1]:
+                        update_message = version_info["version info"]["feature update"]
+                    elif latest_release[1] == installed_version[1]:
+                        if latest_release[2] > installed_version[2]:
+                            update_message = version_info["version info"]["patch update"]
+
+                latest_version_string = "1.10"
+                update_message = "Amazing things, really, I promise"
+
+                # Update the welcome screen
+                if update_message != None:
+                    print("New version available! - " + update_message)
+                    new_ver = [latest_release_string, update_message]
+                    self.tab_welcome_message.configure(text = l("{UpdateNotice}").format(version_number = latest_release_string), foreground = self.red, cursor = self.cursor)
+                    self.tab_welcome_message.bind("<1>", lambda e: webbrowser.open_new(LATEST_VERSION_DOWNLOAD_LINK))
+                    self.tab_welcome_link_forum.configure(foreground = "black")
+                    self.tab_welcome_link_kofi.configure(foreground = "black")
+                    self.tab_welcome_link_github.configure(foreground = "black")
+                    self.tab_welcome_update_info = ttk.Label(self.tab_welcome, text = l("{UpdateDetails}").format(details = update_message), cursor = self.cursor)
+                    self.tab_welcome_update_info.grid(row = 4, column = 0, columnspan = 3)
+                    self.tab_welcome_update_info.bind("<1>", lambda e: webbrowser.open_new(LATEST_VERSION_DOWNLOAD_LINK))
+                # else: new_ver remains [None, None]
+            except ValueError:
+                print("Couldn't parse version number, skipping (ValueError)")
+            except TypeError:
+                print("Couldn't compare version numbers, skipping (TypeError)")
 
 class VehSelection:
 
