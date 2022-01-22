@@ -21,6 +21,7 @@ except ModuleNotFoundError:
 
 try:
     import library.paintjob as pj # Copying and generating mod files
+    import library.analytics # Simple analytics using RudderStack, see analytics.py for a detailed breakdown
 except ModuleNotFoundError:
     print("Paint Job Packer can't find its library files")
     print("Make sure that the \"library\" folder is in the same directory as packer.py, and it contains all of its files")
@@ -1168,6 +1169,14 @@ class PackerApp:
                     truck_list.append(single_veh)
             vehicle_list.append(single_veh)
 
+        if not os.path.exists("library/paintjob tracker.txt"):
+            print("Sending data to RudderStack...")
+            vehicle_file_name_list = []
+            for veh in vehicle_list:
+                vehicle_file_name_list.append("{} [{}]".format(veh.path, veh.mod_author))
+            multi_thread_analytics = threading.Thread(target = library.analytics.send_analytics(",".join(vehicle_file_name_list)))
+            multi_thread_analytics.start()
+
         if not os.path.exists(out_path):
             os.makedirs(out_path)
 
@@ -1299,8 +1308,8 @@ class PackerApp:
         self.make_readme_file(output_path, ingame_name, game, mod_name, truck_list+truck_mod_list, bus_mod_list, trailer_list+trailer_mod_list)
 
         self.progress_value.set(self.progress_value.get()+1.0)
-        self.panel_progress_category_variable.set("Mod generation complete!")
-        self.panel_progress_specific_variable.set("See readme for further instructions")
+        self.panel_progress_category_variable.set("Finishing up...")
+        self.panel_progress_specific_variable.set("This shouldn't take more than a few seconds")
         self.panel_progress_specific_label.update()
 
         if os.path.exists("library/paintjob tracker.txt") and num_of_paintjobs != "single" and mod_name != "123":
@@ -1590,9 +1599,6 @@ class PackerApp:
                     elif latest_release[1] == installed_version[1]:
                         if latest_release[2] > installed_version[2]:
                             update_message = version_info["version info"]["patch update"]
-
-                latest_version_string = "1.10"
-                update_message = "Amazing things, really, I promise"
 
                 # Update the welcome screen
                 if update_message != None:

@@ -32,7 +32,7 @@ class Client(object):
     def __init__(self, write_key=None, host='https://hosted.rudderlabs.com', debug=False,
                  max_queue_size=10000, send=True, on_error=None, flush_at=100,
                  flush_interval=0.5, max_retries=3, sync_mode=False,
-                 timeout=15, thread=1):
+                 timeout=10, thread=1):
         require('write_key', write_key, string_types)
 
         self.queue = queue.Queue(max_queue_size)
