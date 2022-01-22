@@ -39,6 +39,8 @@ VERSION_INFO_LINK = "https://raw.githubusercontent.com/Carsmaniac/paintjob-packe
 LATEST_VERSION_DOWNLOAD_LINK = GITHUB_LINK + "/releases/latest"
 SUN_VALLEY_LINK = "https://github.com/rdbende/Sun-Valley-ttk-theme"
 DARKDETECT_LINK = "https://github.com/albertosottile/darkdetect"
+RUDDERSTACK_LINK = "https://github.com/rudderlabs/rudder-sdk-python"
+ANALYTICS_SCRIPT_LINK = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/analytics.py"
 MIT_LICENCE_LINK = "https://opensource.org/licenses/MIT"
 BSD_LICENCE_LINK = "https://opensource.org/licenses/BSD-3-Clause"
 
@@ -47,6 +49,7 @@ NEW_GITHUB_LINK = "https://github.com/Carsmaniac/paint-job-packer"
 NEW_MOD_LINK_PAGE_LINK = "https://github.com/Carsmaniac/paint-job-packer/blob/main/library/mod-links.md"
 NEW_VERSION_INFO_LINK = "https://raw.githubusercontent.com/Carsmaniac/paint-job-packer/main/library/version.ini"
 NEW_LATEST_VERSION_DOWNLOAD_LINK = "https://carsmani.ac/paint-job-packer#downloads"
+NEW_ANALYTICS_SCRIPT_LINK = "https://github.com/Carsmaniac/paint-job-packer/blob/main/library/analytics.py"
 
 # Set the path depending on how Paint Job Packer is bundled
 try:
@@ -578,12 +581,23 @@ class PackerApp:
         credits.columnconfigure(0, weight = 1)
         credits.columnconfigure(1, weight = 1)
         credits.button = ttk.Button(credits, text = l("{Close}"), command = lambda : credits.destroy())
-        credits.button.grid(row = 2, column = 0, columnspan = 2, pady = (0, 20))
+        credits.button.grid(row = 3, column = 0, columnspan = 2, pady = (10, 15))
 
-        credits.pjp_frame = tk.Frame(credits)
-        credits.pjp_frame.grid(row = 0, column = 0, columnspan = 2, pady = (0, 20))
-        credits.pjp_frame.columnconfigure(0, weight = 2)
-        credits.pjp_frame.columnconfigure(1, weight = 3)
+        credits.tab_selector = ttk.Notebook(credits)
+        credits.tab_selector.grid(row = 0, column = 0, padx = 5, pady = 5)
+        credits.pjp_frame = ttk.Frame(credits.tab_selector)
+        credits.tab_selector.add(credits.pjp_frame, text = "Paint Job Packer")
+        credits.sunval_frame = ttk.Frame(credits.tab_selector)
+        credits.tab_selector.add(credits.sunval_frame, text = "Sun Valley Theme")
+        credits.darkdetect_frame = ttk.Frame(credits.tab_selector)
+        credits.tab_selector.add(credits.darkdetect_frame, text = "Darkdetect")
+        credits.rudder_frame = ttk.Frame(credits.tab_selector)
+        credits.tab_selector.add(credits.rudder_frame, text = "RudderStack Python SDK")
+        credits.analytics_frame = ttk.Frame(credits.tab_selector)
+        credits.tab_selector.add(credits.analytics_frame, text = l("{AnalyticsTitle}"))
+
+        credits.pjp_frame.columnconfigure(0, weight = 1)
+        credits.pjp_frame.columnconfigure(1, weight = 1)
         credits.pjp_title = ttk.Label(credits.pjp_frame, text = "Paint Job Packer", justify = "center")
         credits.pjp_title.grid(row = 0, column = 0, columnspan = 2, pady = (20, 0))
         credits.pjp_link = ttk.Label(credits.pjp_frame, text = l("{LinkGithub}"), justify = "center", foreground = credits.blue, cursor = credits.cursor)
@@ -609,11 +623,9 @@ class PackerApp:
         credits.pjp_supporters_names = ttk.Label(credits.pjp_frame, text = "Name\nName")
         # credits.pjp_supporters_names.grid(row = 7, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
         credits.pjp_licence = ttk.Label(credits.pjp_frame, text = l("{AboutMIT}"), foreground = credits.blue, cursor = credits.cursor)
-        credits.pjp_licence.grid(row = 8, column = 0, columnspan = 2, padx = 20, pady = 5)
+        credits.pjp_licence.grid(row = 8, column = 0, columnspan = 2, padx = 20, pady = 15)
         credits.pjp_licence.bind("<1>", lambda e: webbrowser.open_new(MIT_LICENCE_LINK))
 
-        credits.sunval_frame = tk.Frame(credits)
-        credits.sunval_frame.grid(row = 1, column = 0, pady = (0, 20), sticky = "nw")
         credits.sunval_frame.columnconfigure(0, weight = 2)
         credits.sunval_frame.columnconfigure(1, weight = 3)
         credits.sunval_title = ttk.Label(credits.sunval_frame, text = "Sun Valley Theme", justify = "center")
@@ -630,11 +642,9 @@ class PackerApp:
         credits.sunval_contributors_name = ttk.Label(credits.sunval_frame, text = "sumeshir26")
         credits.sunval_contributors_name.grid(row = 3, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
         credits.sunval_licence = ttk.Label(credits.sunval_frame, text = l("{AboutMIT}"), foreground = credits.blue, cursor = credits.cursor)
-        credits.sunval_licence.grid(row = 4, column = 0, columnspan = 2, padx = 20, pady = 5)
+        credits.sunval_licence.grid(row = 4, column = 0, columnspan = 2, padx = 20, pady = 15)
         credits.sunval_licence.bind("<1>", lambda e: webbrowser.open_new(MIT_LICENCE_LINK))
 
-        credits.darkdetect_frame = tk.Frame(credits)
-        credits.darkdetect_frame.grid(row = 1, column = 1, pady = (0, 20), sticky = "ne")
         credits.darkdetect_frame.columnconfigure(0, weight = 2)
         credits.darkdetect_frame.columnconfigure(1, weight = 3)
         credits.darkdetect_title = ttk.Label(credits.darkdetect_frame, text = "Darkdetect", justify = "center")
@@ -651,8 +661,55 @@ class PackerApp:
         credits.darkdetect_contributors_name = ttk.Label(credits.darkdetect_frame, text = "cboy343\nEric Larson\nHussain")
         credits.darkdetect_contributors_name.grid(row = 3, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
         credits.darkdetect_licence = ttk.Label(credits.darkdetect_frame, text = l("{AboutBSD}"), foreground = credits.blue, cursor = credits.cursor)
-        credits.darkdetect_licence.grid(row = 4, column = 0, columnspan = 2, padx = 20, pady = 5)
+        credits.darkdetect_licence.grid(row = 4, column = 0, columnspan = 2, padx = 20, pady = 15)
         credits.darkdetect_licence.bind("<1>", lambda e: webbrowser.open_new(BSD_LICENCE_LINK))
+
+        credits.rudder_frame.columnconfigure(0, weight = 1)
+        credits.rudder_frame.columnconfigure(3, weight = 1)
+        credits.rudder_title = ttk.Label(credits.rudder_frame, text = "RudderStack Python SDK", justify = "center")
+        credits.rudder_title.grid(row = 0, column = 0, columnspan = 4, pady = (20, 0))
+        credits.rudder_link = ttk.Label(credits.rudder_frame, text = l("{LinkGithub}"), justify = "center", foreground = credits.blue, cursor = credits.cursor)
+        credits.rudder_link.grid(row = 1, column = 0, columnspan = 4, pady = (5, 10))
+        credits.rudder_link.bind("<1>", lambda e: webbrowser.open_new(RUDDERSTACK_LINK))
+        credits.rudder_dev_title = ttk.Label(credits.rudder_frame, text = l("{AboutDeveloper}"))
+        credits.rudder_dev_title.grid(row = 2, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
+        credits.rudder_dev_name = ttk.Label(credits.rudder_frame, text = "RudderStack")
+        credits.rudder_dev_name.grid(row = 2, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
+        credits.rudder_contributors_title = ttk.Label(credits.rudder_frame, text = l("{AboutContributors}"))
+        credits.rudder_contributors_title.grid(row = 3, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
+        credits.rudder_contributors_name_1 = ttk.Label(credits.rudder_frame, text = "Adam Johnson\nAmey Varangaonkar\nAlex Louden\nAmir Abushared\nAndrew Thal\nAndrii Sherepa\nArnab\nBitdeli Chef\nCalvin French-Owen\ndailycoding\nDamian Cirotteau\nDi Wu\ndsjackins")
+        credits.rudder_contributors_name_1.grid(row = 3, column = 1, padx = (0, 15), pady = 5, sticky = "nw")
+        credits.rudder_contributors_name_2 = ttk.Label(credits.rudder_frame, text = "Eirik Martiniussen Sylliaas\nEmil Sadek\nFathy Boundjadj\nHadrien David\nIan Storm Taylor\nJeff Hu\nJustin Henck\nkehn\nKelly Lu\nNico Esteves\nNhi Nguyen\nPaul Kuruvilla\nPaul Oswald")
+        credits.rudder_contributors_name_2.grid(row = 3, column = 2, padx = 15, pady = 5, sticky = "nw")
+        credits.rudder_contributors_name_3 = ttk.Label(credits.rudder_frame, text = "pberganza\nPrateek Srivastava\nRyan\nSai Kumar B\nStefan Wójcik\nThomas Grainge\nTomasz Kolinko")
+        credits.rudder_contributors_name_3.grid(row = 3, column = 3, padx = 15, pady = 5, sticky = "nw")
+        credits.rudder_licence = ttk.Label(credits.rudder_frame, text = l("{AboutMIT}"), foreground = credits.blue, cursor = credits.cursor)
+        credits.rudder_licence.grid(row = 4, column = 0, columnspan = 4, padx = 20, pady = 15)
+        credits.rudder_licence.bind("<1>", lambda e: webbrowser.open_new(MIT_LICENCE_LINK))
+
+        credits.analytics_frame.columnconfigure(0, weight = 1)
+        credits.analytics_frame.columnconfigure(2, weight = 1)
+        credits.analytics_title = ttk.Label(credits.analytics_frame, text = l("{AnalyticsTitle}"), justify = "center")
+        credits.analytics_title.grid(row = 0, column = 0, columnspan = 3, pady = (20, 10))
+        credits.analytics_1 = ttk.Label(credits.analytics_frame, text = l("{Analytics1}"), justify = "left", wraplength = 500)
+        credits.analytics_1.grid(row = 1, column = 1, pady = (5, 15), padx = 20, sticky = "nw")
+        credits.analytics_2 = ttk.Label(credits.analytics_frame, text = l("{Analytics2}").format(version = version), justify = "left", wraplength = 500)
+        credits.analytics_2.grid(row = 2, column = 1, pady = 2, padx = 20, sticky = "nw")
+        credits.analytics_3 = ttk.Label(credits.analytics_frame, text = l("{Analytics3}").format(operating_system = self.os), justify = "left", wraplength = 500)
+        credits.analytics_3.grid(row = 3, column = 1, pady = 2, padx = 20, sticky = "nw")
+        credits.analytics_4 = ttk.Label(credits.analytics_frame, text = l("{Analytics4}").format(language = system_lang), justify = "left", wraplength = 500)
+        credits.analytics_4.grid(row = 4, column = 1, pady = 2, padx = 20, sticky = "nw")
+        credits.analytics_5 = ttk.Label(credits.analytics_frame, text = l("{Analytics5}"), justify = "left", wraplength = 500)
+        credits.analytics_5.grid(row = 5, column = 1, pady = (2, 15), padx = 20, sticky = "nw")
+        credits.analytics_6 = ttk.Label(credits.analytics_frame, text = l("{Analytics6}"), justify = "left", wraplength = 500)
+        credits.analytics_6.grid(row = 6, column = 1, pady = (5, 2), padx = 20, sticky = "nw")
+        credits.analytics_7 = ttk.Label(credits.analytics_frame, text = l("{Analytics7}"), justify = "left", wraplength = 500)
+        credits.analytics_7.grid(row = 7, column = 1, pady = (5, 15), padx = 20, sticky = "nw")
+        credits.analytics_8 = ttk.Label(credits.analytics_frame, text = l("{Analytics8}"), justify = "left", wraplength = 500, cursor = credits.cursor)
+        credits.analytics_8.grid(row = 8, column = 1, pady = (5, 2), padx = 20, sticky = "nw")
+        credits.analytics_8.bind("<1>", lambda e: webbrowser.open_new(ANALYTICS_SCRIPT_LINK))
+        credits.analytics_9 = ttk.Label(credits.analytics_frame, text = l("{Analytics9}"), justify = "left", wraplength = 500)
+        credits.analytics_9.grid(row = 9, column = 1, pady = (10, 20), padx = 20, sticky = "nw")
 
     def update_cabin_dropdowns(self, *args):
         l = self.get_localised_string
@@ -1538,7 +1595,7 @@ class PackerApp:
 
     def check_new_version(self):
         global new_ver # Ensures this only runs once
-        global GITHUB_LINK, MOD_LINK_PAGE_LINK, VERSION_INFO_LINK, LATEST_VERSION_DOWNLOAD_LINK # To update links if the repo has moved
+        global GITHUB_LINK, MOD_LINK_PAGE_LINK, VERSION_INFO_LINK, LATEST_VERSION_DOWNLOAD_LINK, ANALYTICS_SCRIPT_LINK # To update links if the repo has moved
         l = self.get_localised_string
         print("Checking latest version on GitHub...")
         print("Current version: " + version)
@@ -1565,6 +1622,7 @@ class PackerApp:
                 MOD_LINK_PAGE_LINK = NEW_MOD_LINK_PAGE_LINK
                 VERSION_INFO_LINK = NEW_VERSION_INFO_LINK
                 LATEST_VERSION_DOWNLOAD_LINK = NEW_LATEST_VERSION_DOWNLOAD_LINK
+                ANALYTICS_SCRIPT_LINK = NEW_ANALYTICS_SCRIPT_LINK
                 # I guess those constants weren't so constant after all
         else:
             # The old link worked
@@ -1663,6 +1721,7 @@ def show_unhandled_error(error_type, error_message, error_traceback):
     messagebox.showerror(title = "Unhandled exception", message = "Something went very wrong and Paint Job Packer ran into an unexpected error.\n\nThe full error message has been copied to your clipboard, please send it to the developer on GitHub or the SCS Forums!")
 
 def load_system_language():
+    global system_lang
     supported_langs = os.listdir("lang")
     system_lang = locale.getdefaultlocale()[0]
     if system_lang != None:
@@ -1681,6 +1740,7 @@ def load_system_language():
                 # Default to English
                 return "en_US"
     else:
+        system_lang = "Not detected"
         return "en_US"
 
 def restart_app(language):

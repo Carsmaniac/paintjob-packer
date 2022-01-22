@@ -74,6 +74,10 @@ system_language_info = getdefaultlocale()
 # We only need the default language, and since computers count from 0, we only need the 0th part of the language info
 system_language = system_language_info[0]
 
+# Sometimes getdefaultlocale can't access the system language, in which case we report that it couldn't be detected
+if system_language == None:
+    system_language = "Not detected"
+
 
 
 # 4. Which vehicle/s your mod supports
@@ -100,7 +104,7 @@ rudder.write_key = "241vjwkrtUxeaEmHwuzbTaohsnd"
 # We'll use a library called datetime
 from datetime import date
 
-# We can get today's date using a function called today()
+# We can get today's date using a function called today
 # It's formatted as YYYY-MM-DD
 todays_date = date.today()
 
