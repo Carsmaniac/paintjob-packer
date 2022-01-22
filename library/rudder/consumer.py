@@ -3,7 +3,10 @@ import monotonic
 import backoff
 import json
 
-from rudder_analytics.request import post, APIError, DatetimeSerializer
+if __name__ == "__main__":
+    from request import post, APIError, DatetimeSerializer
+else:
+    from .request import post, APIError, DatetimeSerializer
 
 try:
     from queue import Empty

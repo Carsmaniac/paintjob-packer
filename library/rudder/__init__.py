@@ -1,5 +1,9 @@
-from rudder_analytics.version import VERSION
-from rudder_analytics.client import Client
+if __name__ == "__main__":
+    from version import VERSION
+    from client import Client
+else:
+    from .version import VERSION
+    from .client import Client
 
 __version__ = VERSION
 

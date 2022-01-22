@@ -6,10 +6,16 @@ import atexit
 from dateutil.tz import tzutc
 from six import string_types
 
-from rudder_analytics.utils import guess_timezone, clean
-from rudder_analytics.consumer import Consumer
-from rudder_analytics.request import post
-from rudder_analytics.version import VERSION
+if __name__ == "__main__":
+    from utils import guess_timezone, clean
+    from consumer import Consumer
+    from request import post
+    from version import VERSION
+else:
+    from .utils import guess_timezone, clean
+    from .consumer import Consumer
+    from .request import post
+    from .version import VERSION
 
 try:
     import queue

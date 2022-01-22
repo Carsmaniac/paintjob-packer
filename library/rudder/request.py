@@ -4,8 +4,12 @@ import json
 from requests.auth import HTTPBasicAuth
 from requests import sessions
 
-from rudder_analytics.version import VERSION
-from rudder_analytics.utils import remove_trailing_slash
+if __name__ == "__main__":
+    from version import VERSION
+    from utils import remove_trailing_slash
+else:
+    from .version import VERSION
+    from .utils import remove_trailing_slash
 
 _session = sessions.Session()
 
