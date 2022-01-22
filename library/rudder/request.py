@@ -1,6 +1,5 @@
 from datetime import date, datetime
 from dateutil.tz import tzutc
-import logging
 import json
 from requests.auth import HTTPBasicAuth
 from requests import sessions
@@ -13,13 +12,11 @@ _session = sessions.Session()
 
 def post(write_key, host=None, timeout=15, **kwargs):
     """Post the `kwargs` to the API"""
-    log = logging.getLogger('rudder')
     body = kwargs
     body["sentAt"] = datetime.utcnow().replace(tzinfo=tzutc()).isoformat()
     url = remove_trailing_slash(host or 'https://hosted.rudderlabs.com') + '/v1/batch'
     auth = HTTPBasicAuth(write_key, '')
     data = json.dumps(body, cls=DatetimeSerializer)
-    log.debug('making request: %s', data)
     headers = {
         'Content-Type': 'application/json',
         'User-Agent': 'rudderstack-python/' + VERSION
@@ -29,12 +26,10 @@ def post(write_key, host=None, timeout=15, **kwargs):
                         headers=headers, timeout=timeout)
 
     if res.status_code == 200:
-        log.debug('data uploaded successfully')
         return res
 
     try:
         payload = res.json()
-        log.debug('received response: %s', payload)
         raise APIError(res.status_code, payload['code'], payload['message'])
     except ValueError:
         raise APIError(res.status_code, 'unknown', res.text)

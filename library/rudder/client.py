@@ -1,6 +1,5 @@
 from datetime import datetime
 from uuid import uuid4
-import logging
 import numbers
 import atexit
 
@@ -22,7 +21,6 @@ ID_TYPES = (numbers.Number, string_types)
 
 class Client(object):
     """Create a new Rudder client."""
-    log = logging.getLogger('rudder')
     anonymoys_id = str(uuid4())
 
     def __init__(self, write_key=None, host='https://hosted.rudderlabs.com', debug=False,
@@ -39,9 +37,6 @@ class Client(object):
         self.sync_mode = sync_mode
         self.host = host
         self.timeout = timeout
-
-        if debug:
-            self.log.setLevel(logging.DEBUG)
 
         if sync_mode:
             self.consumers = None
@@ -255,24 +250,21 @@ class Client(object):
         msg['anonymousId'] = stringify_id(msg.get('anonymousId', None))
 
         msg = clean(msg)
-        self.log.debug('queueing: %s', msg)
 
         # if send is False, return msg as if it was successfully queued
         if not self.send:
             return True, msg
 
         if self.sync_mode:
-            self.log.debug('enqueued with blocking %s.', msg['type'])
             post(self.write_key, self.host, timeout=self.timeout, batch=[msg])
 
             return True, msg
 
         try:
             self.queue.put(msg, block=False)
-            self.log.debug('enqueued %s.', msg['type'])
             return True, msg
         except queue.Full:
-            self.log.warning('rudder-analytics-python queue is full')
+            print("Analytics queue is full, skipping")
             return False, msg
 
     def flush(self):
@@ -281,7 +273,6 @@ class Client(object):
         size = queue.qsize()
         queue.join()
         # Note that this message may not be precise, because of threading.
-        self.log.debug('successfully flushed about %s items.', size)
 
     def join(self):
         """Ends the consumer thread once the queue is empty.

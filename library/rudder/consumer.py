@@ -1,4 +1,3 @@
-import logging
 from threading import Thread
 import monotonic
 import backoff
@@ -19,9 +18,6 @@ BATCH_SIZE_LIMIT = 475000
 
 
 class Consumer(Thread):
-    """Consumes the messages from the client's queue."""
-    log = logging.getLogger('rudder')
-
     def __init__(self, queue, write_key, flush_at=100, host=None,
                  on_error=None, flush_interval=0.5, retries=10, timeout=15):
         """Create a consumer thread."""
@@ -44,11 +40,8 @@ class Consumer(Thread):
 
     def run(self):
         """Runs the consumer."""
-        self.log.debug('consumer is running...')
         while self.running:
             self.upload()
-
-        self.log.debug('consumer exited.')
 
     def pause(self):
         """Pause the consumer."""
@@ -65,7 +58,7 @@ class Consumer(Thread):
             self.request(batch)
             success = True
         except Exception as e:
-            self.log.error('error uploading: %s', e)
+            print("Error uploading analytics data")
             success = False
             if self.on_error:
                 self.on_error(e, batch)
@@ -93,14 +86,12 @@ class Consumer(Thread):
                 item_size = len(json.dumps(
                     item, cls=DatetimeSerializer).encode())
                 if item_size > MAX_MSG_SIZE:
-                    self.log.error(
-                        'Item exceeds 32kb limit, dropping. (%s)', str(item))
+                    print("Analytics data > 32 KB, cannot upload")
                     continue
                 items.append(item)
                 total_size += item_size
                 if total_size >= BATCH_SIZE_LIMIT:
-                    self.log.debug(
-                        'hit batch size limit (size: %d)', total_size)
+                    print("Total analytics data > 500 KB, cannot upload")
                     break
             except Empty:
                 break

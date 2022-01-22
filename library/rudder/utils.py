@@ -1,12 +1,9 @@
 from dateutil.tz import tzlocal, tzutc
 from datetime import date, datetime
 from decimal import Decimal
-import logging
 import numbers
 
 import six
-
-log = logging.getLogger('rudder')
 
 
 def is_naive(dt):
@@ -68,11 +65,7 @@ def _clean_dict(dict_):
         try:
             data[k] = clean(v)
         except TypeError:
-            log.warning(
-                'Dictionary values must be serializeable to '
-                'JSON "%s" value %s of type %s is unsupported.',
-                k, v, type(v),
-            )
+            print("Could not parse the following analytics key:\n{}".format(k))
     return data
 
 
@@ -82,6 +75,6 @@ def _coerce_unicode(cmplx):
     except AttributeError as exception:
         item = ":".join(exception)
         item.decode("utf-8", "strict")
-        log.warning('Error decoding: %s', item)
+        print("Could not decode the following analytics data:\n{}".format(item))
         return None
     return item
