@@ -1624,7 +1624,10 @@ class VehSelection:
         self.name = pj.strip_diacritics(self.display_name)
         self.trailer = veh_ini["vehicle info"].getboolean("trailer")
         self.mod = veh_ini["vehicle info"].getboolean("mod")
-        self.display_author = veh_ini["vehicle info"]["mod author"]
+        if self.mod:
+            self.display_author = veh_ini["vehicle info"]["mod author"]
+        else:
+            self.display_author = "SCS"
         self.mod_author = pj.strip_diacritics(self.display_author)
         if self.mod:
             self.name += " [" + self.mod_author + "]"
