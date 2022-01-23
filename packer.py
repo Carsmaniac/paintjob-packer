@@ -14,6 +14,7 @@ import urllib.request # Fetching version info from GitHub
 import locale # Determining the default system language
 import ssl # Opting out of verification when checking version - see check_new_version()
 import threading # Multi-threading the update checking process
+from datetime import date # Including date on submitted error reports
 try:
     import darkdetect # Detecting whether or not the system is in dark mode
 except ModuleNotFoundError:
@@ -22,6 +23,7 @@ except ModuleNotFoundError:
 try:
     import library.paintjob as pj # Copying and generating mod files
     import library.analytics # Simple analytics using RudderStack, see analytics.py for a detailed breakdown
+    import library.rudder as rudder # Only for sending crash reports, analytics is handled solely by analytics.py
 except ModuleNotFoundError:
     print("Paint Job Packer can't find its library files")
     print("Make sure that the \"library\" folder is in the same directory as packer.py, and it contains all of its files")
@@ -484,24 +486,18 @@ class PackerApp:
 
         # Error popup
         self.error_screen = tk.Frame(self.container)
-        self.error_top_text = ttk.Label(self.error_screen, text = "Something went very wrong!\n\nPaint Job Packer ran into an\nunexpected error and can't continue", justify = "center")
-        self.error_top_text.grid(row = 0, column = 0, columnspan = 2, pady = 10)
-        self.error_text = tk.Text(self.error_screen, height = 10, width = 50)
-        self.error_text.grid(row = 1, column = 0, columnspan = 2, padx = 10)
-        self.error_copy_button = ttk.Button(self.error_screen, text = "Copy error to clipboard", command = self.copy_error, width = 30)
-        self.error_copy_button.grid(row = 2, column = 0, columnspan = 2, pady = 10)
-        self.error_mid_text = ttk.Label(self.error_screen, text = "Please send this error to the\ndeveloper on GitHub or the SCS Forums", justify = "center")
-        self.error_mid_text.grid(row = 3, column = 0, columnspan = 2)
-        self.error_github_link = ttk.Label(self.error_screen, text = "GitHub page", foreground = self.blue, cursor = self.cursor)
-        self.error_github_link.grid(row = 4, column = 0, pady = 10)
-        self.error_github_link.bind("<1>", lambda e: webbrowser.open_new(GITHUB_LINK))
-        self.error_forums_link = ttk.Label(self.error_screen, text = "Forum thread", foreground = self.blue, cursor = self.cursor)
-        self.error_forums_link.grid(row = 4, column = 1, pady = 10)
-        self.error_forums_link.bind("<1>", lambda e: webbrowser.open_new(FORUM_LINK))
-        self.error_bottom_text = ttk.Label(self.error_screen, text = "Thank you, and sorry for the inconvenience!")
-        self.error_bottom_text.grid(row = 5, column = 0, columnspan = 2)
-        self.error_exit_button = ttk.Button(self.error_screen, text = "Exit Paint Job Packer", command = sys.exit, width = 20)
-        self.error_exit_button.grid(row = 6, column = 0, columnspan = 2, pady = 10)
+        self.error_top_text = ttk.Label(self.error_screen, text = l("{FancyTitle}"), justify = "center")
+        self.error_top_text.grid(row = 0, column = 0, columnspan = 2, padx = 20, pady = (40, 20))
+        self.error_text = tk.Text(self.error_screen, height = 10, width = 65)
+        self.error_text.grid(row = 1, column = 0, columnspan = 2, padx = 20)
+        self.error_please_text = ttk.Label(self.error_screen, text = l("{FancyPlease}"), justify = "center")
+        self.error_please_text.grid(row = 2, column = 0, columnspan = 2, padx = 20, pady = (40, 0))
+        self.error_send_button = ttk.Button(self.error_screen, text = l("{FancySend}"), command = self.send_error)
+        self.error_send_button.grid(row = 3, column = 0, pady = 20, padx = 10, sticky = "ne")
+        self.error_dont_send_button = ttk.Button(self.error_screen, text = l("{FancyDontSend}"), command = lambda : sys.exit())
+        self.error_dont_send_button.grid(row = 3, column = 1, pady = 20, padx = 10, sticky = "nw")
+        self.error_sorry_text = ttk.Label(self.error_screen, text = l("{FancySorry}"))
+        self.error_sorry_text.grid(row = 4, column = 0, columnspan = 2, padx = 20, pady = (20, 40))
 
         master.report_callback_exception = self.show_fancy_error # It's now safe to use the fancy error screen instead of the messagebox
 
@@ -547,14 +543,27 @@ class PackerApp:
         self.error_screen.grid(row = 0, column = 0)
         self.error_text.delete("1.0", "end")
         self.error_text.insert("1.0", "{}: {}\n\nTraceback:\n{}".format(error_type.__name__, str(error_message), "\n".join(traceback.format_list(traceback.extract_tb(error_traceback)))))
+        self.error_text.insert("1.0", "Language: {}\n\n".format(self.language))
+        self.error_text.insert("1.0", "{}\nVersion {} ({})\n\n".format(date.today(), version, self.os))
 
-    def copy_error(self, *args):
-        clipboard = tk.Tk()
-        clipboard.withdraw()
-        clipboard.clipboard_clear()
-        clipboard.clipboard_append(self.error_text.get("1.0", "end"))
-        clipboard.update()
-        clipboard.destroy()
+    def send_error(self, *args):
+        self.error_send_button.configure(text = self.get_localised_string("{FancySending}"))
+        self.error_send_button.state(["disabled"])
+        self.error_send_button.update()
+        self.error_dont_send_button.state(["disabled"])
+        self.error_dont_send_button.update()
+        print("Sending crash report to RudderStack")
+        rudder.data_plane_url = "https://memickledieqb.dataplane.rudderstack.com"
+        rudder.write_key = "244bVTNEHqEcmD1WmFdju4c87e7"
+        rudder.track("123456", "Paint Job Packer Crash Report",
+        {
+            "Date": date.today(),
+            "Version": version,
+            "OS": self.os,
+            "Language": self.language,
+            "Report": self.error_text.get("6.0", "end").replace("\n", "///")
+        })
+        sys.exit()
 
     def credits_screen(self, *args):
         l = self.get_localised_string
@@ -1141,6 +1150,8 @@ class PackerApp:
                 folder_clear = False
                 messagebox.showerror(title = l("{ErrorFolderAccessTitle}"), message = l("{ErrorFolderAccess1}\n\n{ErrorFolderAccess2}"))
             if folder_clear:
+                # Disable the button to stop people clicking it a second time
+                self.panel_gen_buttons_generate.state(["disabled"])
                 self.make_paintjob(output_path)
 
     def make_paintjob(self, output_path):
