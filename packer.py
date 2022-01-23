@@ -1185,7 +1185,7 @@ class PackerApp:
                     # I don't want to be on the receiving end of an irate user who lost their important report the night before it was due, because they happened to store it in the Paint Job Packer folder
                     messagebox.showerror(title = l("{ErrorFolderClearTitle}"), message = l("{ErrorFolderClear1}\n\n{ErrorFolderClear2}").format(folder_name = "\"Paint Job Packer Output\""))
             try:
-                shutil.copyfile("library/placeholder files/empty.dds", save_directory + "/empty.dds")
+                shutil.copyfile("library/placeholder-files/empty.dds", save_directory + "/empty.dds")
                 os.remove(save_directory + "/empty.dds")
             except (PermissionError, FileNotFoundError):
                 folder_clear = False

@@ -143,7 +143,7 @@ def make_manifest_sii(output_path, mod_version, mod_name, mod_author, workshop_u
     file.close()
 
 def copy_mod_manager_image(output_path):
-    shutil.copyfile("library/placeholder files/mod_manager_image.jpg", output_path + "/Mod_Manager_Image.jpg")
+    shutil.copyfile("library/placeholder-files/mod-manager.jpg", output_path + "/Mod_Manager_Image.jpg")
 
 def make_description(output_path, truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs):
     file = open(output_path + "/Mod_Manager_Description.txt", "w", encoding="utf-8")
@@ -174,10 +174,10 @@ def make_description(output_path, truck_list, truck_mod_list, bus_mod_list, trai
     file.close()
 
 def copy_versions_sii(output_path):
-    shutil.copyfile("library/placeholder files/versions.sii", output_path + "/versions.sii")
+    shutil.copyfile("library/placeholder-files/versions.sii", output_path + "/versions.sii")
 
 def copy_workshop_image(output_path):
-    shutil.copyfile("library/placeholder files/Workshop image.jpg", output_path + "/Workshop image.jpg")
+    shutil.copyfile("library/placeholder-files/workshop.jpg", output_path + "/Workshop image.jpg")
 
 
 
@@ -187,7 +187,7 @@ def make_material_folder(output_path):
     make_folder(output_path, "material/ui/accessory/")
 
 def copy_paintjob_icon(output_path, ingame_name):
-    shutil.copyfile("library/placeholder files/paintjob_icon.dds", output_path + "/material/ui/accessory/{} Icon.dds".format(ingame_name))
+    shutil.copyfile("library/placeholder-files/icon.dds", output_path + "/material/ui/accessory/{} Icon.dds".format(ingame_name))
 
 def make_paintjob_icon_tobj(output_path, ingame_name):
     file = open(output_path + "/material/ui/accessory/{} Icon.tobj".format(ingame_name), "wb")
@@ -304,9 +304,9 @@ def copy_main_dds(output_path, veh, ingame_name, main_dds_name, template_zip):
 
     if copy_square:
         if veh.mod:
-            shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{} [{}]/{}.dds".format(veh.type, ingame_name, veh.name, veh.mod_author, main_dds_name))
+            shutil.copyfile("library/placeholder-files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{} [{}]/{}.dds".format(veh.type, ingame_name, veh.name, veh.mod_author, main_dds_name))
         else:
-            shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, main_dds_name))
+            shutil.copyfile("library/placeholder-files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, main_dds_name))
 
 def copy_accessory_dds(output_path, veh, ingame_name, game, template_zip):
     for acc_name in veh.acc_dict:
@@ -325,9 +325,9 @@ def copy_accessory_dds(output_path, veh, ingame_name, game, template_zip):
 
         if copy_square:
             if veh.mod:
-                shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{} [{}]/{}.dds".format(veh.type, ingame_name, veh.name, veh.mod_author, acc_name))
+                shutil.copyfile("library/placeholder-files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{} [{}]/{}.dds".format(veh.type, ingame_name, veh.name, veh.mod_author, acc_name))
             else:
-                shutil.copyfile("library/placeholder files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, acc_name))
+                shutil.copyfile("library/placeholder-files/empty.dds", output_path + "/vehicle/{}/upgrade/paintjob/{}/{}/{}.dds".format(veh.type, ingame_name, veh.name, acc_name))
 
 def make_main_tobj(output_path, veh, ingame_name, main_dds_name):
     if veh.mod:
