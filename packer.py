@@ -39,7 +39,7 @@ MOD_LINK_PAGE_LINK = "https://github.com/Carsmaniac/paintjob-packer/blob/master/
 ETS_TEMPLATE_LINK = "https://forum.scssoft.com/viewtopic.php?f=33&t=272386"
 ATS_TEMPLATE_LINK = "https://forum.scssoft.com/viewtopic.php?f=199&t=288778"
 VERSION_INFO_LINK = "https://raw.githubusercontent.com/Carsmaniac/paintjob-packer/master/library/version.ini"
-LATEST_VERSION_DOWNLOAD_LINK = GITHUB_LINK + "/releases/latest"
+LATEST_VERSION_DOWNLOAD_LINK = "https://carsmani.ac/paint-job-packer#downloads"
 SUN_VALLEY_LINK = "https://github.com/rdbende/Sun-Valley-ttk-theme"
 DARKDETECT_LINK = "https://github.com/albertosottile/darkdetect"
 RUDDERSTACK_LINK = "https://github.com/rudderlabs/rudder-sdk-python"
@@ -52,7 +52,6 @@ BSD_LICENCE_LINK = "https://opensource.org/licenses/BSD-3-Clause"
 NEW_GITHUB_LINK = "https://github.com/Carsmaniac/paint-job-packer"
 NEW_MOD_LINK_PAGE_LINK = "https://github.com/Carsmaniac/paint-job-packer/blob/main/library/mod-links.md"
 NEW_VERSION_INFO_LINK = "https://raw.githubusercontent.com/Carsmaniac/paint-job-packer/main/library/version.ini"
-NEW_LATEST_VERSION_DOWNLOAD_LINK = "https://carsmani.ac/paint-job-packer#downloads"
 NEW_ANALYTICS_SCRIPT_LINK = "https://github.com/Carsmaniac/paint-job-packer/blob/main/library/analytics.py"
 
 # Set the path depending on how Paint Job Packer is bundled
@@ -1278,7 +1277,7 @@ class PackerApp:
                     truck_list.append(single_veh)
             vehicle_list.append(single_veh)
 
-        if not os.path.exists("library/paintjob tracker.txt"):
+        if not os.path.exists("library/paint-job-tracker.txt"):
             print("Sending data to RudderStack...")
             vehicle_file_name_list = []
             for veh in vehicle_list:
@@ -1421,7 +1420,7 @@ class PackerApp:
         self.panel_progress_specific_variable.set("This shouldn't take more than a few seconds")
         self.panel_progress_specific_label.update()
 
-        if os.path.exists("library/paintjob tracker.txt") and num_of_paintjobs != "single" and mod_name != "123":
+        if os.path.exists("library/paint-job-tracker.txt") and num_of_paintjobs != "single" and mod_name != "123":
             self.generate_paintjob_tracker_file(game, truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list, mod_name)
 
         exit_now = messagebox.showinfo(title = "Mod generation complete", message = "Your mod has been generated successfully! It's been placed in the directory you chose, inside a folder called Paint Job Packer Output.\n\nYour mod is not yet finished, refer to the text file inside the folder for instructions. There is also a guide on the GitHub page.\n\nThanks for using Paint Job Packer! :)")
@@ -1557,7 +1556,7 @@ class PackerApp:
     def generate_paintjob_tracker_file(self, game, truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list, mod_name):
         # This function is made to work with Paintjob Tracker, a mod management program I wrote for my own use
         # For more info see my paintjob-tracker repo on GitHub
-        file = open("library/paintjob tracker.txt", "r")
+        file = open("library/paint-job-tracker.txt", "r")
         file_lines = file.readlines()
         file.close()
         tracker_directory = file_lines[0].rstrip() + "/" + game
@@ -1647,7 +1646,7 @@ class PackerApp:
 
     def check_new_version(self):
         global new_ver # Ensures this only runs once
-        global GITHUB_LINK, MOD_LINK_PAGE_LINK, VERSION_INFO_LINK, LATEST_VERSION_DOWNLOAD_LINK, ANALYTICS_SCRIPT_LINK # To update links if the repo has moved
+        global GITHUB_LINK, MOD_LINK_PAGE_LINK, VERSION_INFO_LINK, ANALYTICS_SCRIPT_LINK # To update links if the repo has moved
         l = self.get_localised_string
         print("Checking latest version on GitHub...")
         print("Current version: " + version)
@@ -1673,7 +1672,6 @@ class PackerApp:
                 GITHUB_LINK = NEW_GITHUB_LINK
                 MOD_LINK_PAGE_LINK = NEW_MOD_LINK_PAGE_LINK
                 VERSION_INFO_LINK = NEW_VERSION_INFO_LINK
-                LATEST_VERSION_DOWNLOAD_LINK = NEW_LATEST_VERSION_DOWNLOAD_LINK
                 ANALYTICS_SCRIPT_LINK = NEW_ANALYTICS_SCRIPT_LINK
                 # I guess those constants weren't so constant after all
         else:

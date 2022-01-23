@@ -2,8 +2,8 @@ import os
 import shutil
 import PyInstaller.__main__
 
-if os.path.exists("../library/paintjob-tracker.txt"):
-    os.remove("../library/paintjob-tracker.txt")
+if os.path.exists("../library/paint-job-tracker.txt"):
+    os.remove("../library/paint-job-tracker.txt")
 
 # Get the current PJP version
 version = ""

@@ -2,4 +2,4 @@
 *.pyc
 .DS_Store
 templates/
-library/paintjob tracker.txt
+library/paint-job-tracker.txt
