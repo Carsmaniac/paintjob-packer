@@ -6,7 +6,7 @@
 * DAF F241 by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=264917) / [XBS's Site](https://www.xbsmods.tk/ets2)
 * DAF NTT by **XBS** - [XBS's Site](https://www.xbsmods.tk/ets2)
 * DAF XF105 by **vad&k** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=223465)
-* Ford F-MAX by **SimulasyonTURK** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1915802227) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=274617)
+* Ford F-MAX by **Simülasyon TÜRK** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1915802227) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=274617)
 * Freightliner Argosy by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2131434074)
 * Freightliner FLB by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=867655192) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=228835)
 * Iveco Stralis by **Fernando SB** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=284965)
@@ -15,6 +15,8 @@
 * MAN TGA by **MADster** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=196526)
 * MAN TGS Euro 6 by **MADster** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=166544)
 * MAN TGX by **MADster** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=177409)
+* MAN TGX Euro 6 2015 by **Gloover** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=296252)
+* Mercedes-Benz 1632 NG by **Ekualizer** - [TruckyMods](https://truckymods.io/euro-truck-simulator-2/trucks/mercedes-1632-ng) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=305955)
 * Mercedes-Benz Actros MP2 by **Dotec** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2333621047) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=289988)
 * Mercedes-Benz Actros MP2 Black Edition by **Dotec** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2335508587) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=285438)
 * Mercedes-Benz Actros MP3 by **Dotec** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2462431555) / [TruckyMods](https://truckymods.io/euro-truck-simulator-2/trucks/mercedes-benz-actros-mp3) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=294253)
@@ -45,7 +47,7 @@
 
 ## Buses
 
-* Bollore Bluebus by **Etrusan** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2411589278) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=293498)
+* Bolloré Bluebus by **Etrusan** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2411589278) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=293498)
 * Caio Millennium 2 PBC by **Cristhian** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1601416070)
 * Iveco Evadys Line by **Etrusan** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1986485167) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=291295)
 * Karosa B95x by **Etrusan** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2059274297) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=291294)
@@ -66,10 +68,12 @@
 * Knapen K100 by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1709544505) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=270442)
 * Kraker Walkingfloor by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1431285928) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=233975)
 * Krone Mega Liner by **Sogard3** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=260235)
+* Kögel Cargo by **Dotec** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2617651195) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=303068)
+* Kögel Cargo Mega by **Dotec** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2617651195) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=303068)
 * MB Aerodynamic by **AM** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2091516269) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=268003)
 * Menci Cistern by **MD Modding** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=260010)
 * NTM Trailer by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1431253303) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=250206)
-* Narko Trailer by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2100157424) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=285206)
+* Närko Trailer by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2100157424) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=285206)
 * Pacton Reefer by **MD Modding** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=270164)
 * Schmitz Cargobull S.CS Huckepack by **MD Modding** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=231396)
 * Schmitz Cargobull S.CS Mega by **ONURKULL** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=293677)
@@ -79,7 +83,7 @@
 * VAK Trailer by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1443578012) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=256559)
 * Willig Fuel Cistern by **MD Modding** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=270307)
 
-# American Truck Simulator
+# American Truck Simulator 
 
 ## Trucks
 
@@ -88,13 +92,13 @@
 * Custom SCS Kenworth W900 by **NiZmO** - [SCS Forums](https://steamcommunity.com/sharedfiles/filedetails/?id=2448009922)
 * Freightliner Argosy by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2113006265)
 * Freightliner Coronado 122SD by **Big Joe** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=285445)
-* Freightliner FLB by **Harven** - [Steam Workshop](http://steamcommunity.com/sharedfiles/filedetails/?id=867643690) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=228835)
+* Freightliner FLB by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=867643690) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=228835)
 * Freightliner FLC by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=282638) / [XBS's Site](https://www.xbsmods.tk/ats)
 * Freightliner FLD by **Lucasi** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=288179)
-* International HX520 by  **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2559065735) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=302587)
+* International HX520 by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2559065735) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=302587)
 * International LT by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1832865824) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=272906)
 * Kenworth K100E by **Overfloater** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1815959194) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=274886)
-* Kenworth T610 by **GTM** - [Steam Workshop](http://steamcommunity.com/sharedfiles/filedetails/?id=1305493186) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=250790)
+* Kenworth T610 by **GTM** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1305493186) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=250790)
 * Kenworth T660 by **JorgeGamer44444** - [TruckyMods](https://truckymods.io/american-truck-simulator/trucks/kenworth-t660-2009)
 * Kenworth T800 by **GTM** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1387205658) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=254804)
 * Kenworth T880 by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1896118879) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=261407)
@@ -106,11 +110,11 @@
 * Mack R Series by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1463066263) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256935)
 * Peterbilt 352 by **Geoff G.** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2435980341) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=282929)
 * Peterbilt 379X by **bigdaddyt150** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2032768269)
-* Peterbilt 386 by **R.Modjeski** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=284614) / [TruckyMods](https://truckymods.io/american-truck-simulator/trucks/peterbilt-386)
+* Peterbilt 386 by **R.Modjeski** - [TruckyMods](https://truckymods.io/american-truck-simulator/trucks/peterbilt-386) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=284614)
 * Peterbilt 389 Modified by **Viper2** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=724654784) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=200096)
 * Peterbilt 567 by **GTM** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1410475763) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=255232)
 * Project 3XX by **HFG** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1835092596) / [TruckyMods](https://truckymods.io/american-truck-simulator/trucks/project-3xx) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256189) / [HFG's Site](https://halffastgaming.wixsite.com/halffast/downloads)
-* Scot A2HD by **Smarty** - [Steam Workshop](http://steamcommunity.com/sharedfiles/filedetails/?id=661658019) / [TruckyMods](https://truckymods.io/american-truck-simulator/trucks/scr-scot-a2hd-v2) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=201612) / [Smarty's Site](https://scr-rigs.com/index.php?act=ats_trk&p=1&dlid=262)
+* Scot A2HD by **Smarty** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=661658019) / [TruckyMods](https://truckymods.io/american-truck-simulator/trucks/scr-scot-a2hd-v2) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=201612) / [Smarty's Site](https://scr-rigs.com/index.php?act=ats_trk&p=1&dlid=262)
 * Volvo VNL 2018 by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1832939055) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256560)
 * Volvo VNR by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1833428947) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256338)
 * Western Star 4900FA by **YukonJack_AK** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=282025)
@@ -129,5 +133,5 @@
 
 ---
 
-* This mod list applies to both Paintjob Packer and my template packs, they support the same list of mods
-* Paintjob Packer only supports mods that are uploaded to reputable sites by their original authors and are freely available to download
+* This mod list applies to both Paint Job Packer and my template packs, they support the same list of mods
+* Paint Job Packer only supports mods that are uploaded to reutable sites by their original authors and are freely available to download
