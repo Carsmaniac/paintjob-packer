@@ -1416,14 +1416,14 @@ class PackerApp:
         self.make_readme_file(output_path, ingame_name, game, mod_name, truck_list+truck_mod_list, bus_mod_list, trailer_list+trailer_mod_list)
 
         self.progress_value.set(self.progress_value.get()+1.0)
-        self.panel_progress_category_variable.set("Finishing up...")
-        self.panel_progress_specific_variable.set("This shouldn't take more than a few seconds")
+        self.panel_progress_category_variable.set(l("{ProgressFinishing}"))
+        self.panel_progress_specific_variable.set(l("{ProgressSeconds}"))
         self.panel_progress_specific_label.update()
 
         if os.path.exists("library/paint-job-tracker.txt") and num_of_paintjobs != "single" and mod_name != "123":
             self.generate_paintjob_tracker_file(game, truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list, mod_name)
 
-        exit_now = messagebox.showinfo(title = "Mod generation complete", message = "Your mod has been generated successfully! It's been placed in the directory you chose, inside a folder called Paint Job Packer Output.\n\nYour mod is not yet finished, refer to the text file inside the folder for instructions. There is also a guide on the GitHub page.\n\nThanks for using Paint Job Packer! :)")
+        exit_now = messagebox.showinfo(title = l("{ProgressCompleteTitle}"), message = l("{ProgressComplete1}\n\n{ProgressComplete2}\n\n{ProgressComplete3}").format(folder_name = "Paint Job Packer Output"))
         sys.exit()
 
     def make_readme_file(self, output_path, paintjob_name, game, mod_name, truck_list, bus_list, trailer_list):
