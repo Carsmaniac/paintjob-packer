@@ -24,6 +24,7 @@ try:
     import library.paintjob as pj # Copying and generating mod files
     import library.analytics # Simple analytics using RudderStack, see analytics.py for a detailed breakdown
     import library.rudder as rudder # Only for sending crash reports, analytics is handled solely by analytics.py
+    import library.webhook as webhook # For notifying me of new crash reports
 except ModuleNotFoundError:
     print("Paint Job Packer can't find its library files")
     print("Make sure that the \"library\" folder is in the same directory as packer.py, and it contains all of its files")
@@ -42,6 +43,7 @@ LATEST_VERSION_DOWNLOAD_LINK = GITHUB_LINK + "/releases/latest"
 SUN_VALLEY_LINK = "https://github.com/rdbende/Sun-Valley-ttk-theme"
 DARKDETECT_LINK = "https://github.com/albertosottile/darkdetect"
 RUDDERSTACK_LINK = "https://github.com/rudderlabs/rudder-sdk-python"
+DISCORD_WEBHOOK_LINK = "https://github.com/lovvskillz/python-discord-webhook"
 ANALYTICS_SCRIPT_LINK = "https://github.com/Carsmaniac/paintjob-packer/blob/master/library/analytics.py"
 MIT_LICENCE_LINK = "https://opensource.org/licenses/MIT"
 BSD_LICENCE_LINK = "https://opensource.org/licenses/BSD-3-Clause"
@@ -552,17 +554,35 @@ class PackerApp:
         self.error_send_button.update()
         self.error_dont_send_button.state(["disabled"])
         self.error_dont_send_button.update()
-        print("Sending crash report to RudderStack")
-        rudder.data_plane_url = "https://memickledieqb.dataplane.rudderstack.com"
-        rudder.write_key = "244bVTNEHqEcmD1WmFdju4c87e7"
-        rudder.track("123456", "Paint Job Packer Crash Report",
-        {
-            "Date": date.today(),
-            "Version": version,
-            "OS": self.os,
-            "Language": self.language,
-            "Report": self.error_text.get("6.0", "end").replace("\n", "///")
-        })
+        print("Sending crash report to RudderStack...")
+        url1 = "https://discord.com/api/webhooks/"
+        url2 = 1869225424928931840
+        url3 = "/4fZ_MFVq2Hp5WDa1oMR3gaj*3AsgDVp*A8a_c_21TlawqH*t*ksrn90oC2JJ1Ocm-Uq5nJ875O_"
+        try:
+            # This is near-useless obfuscation, but it's better than nothing... right?
+            notifier = webhook.DiscordWebhook(url = url1 + str(url2 >> 1) + url3[:-7].replace("*", "P").replace("_", "d").replace("q", "6").replace("a", "I").replace("2", "G"),
+                                              content = "New crash report from version {} ({})".format(version, self.os))
+            response = notifier.execute()
+            rudder.data_plane_url = "https://memickledieqb.dataplane.rudderstack.com"
+            rudder.write_key = "244bVTNEHqEcmD1WmFdju4c87e7"
+            rudder.track("123456", "Paint Job Packer Crash Report",
+            {
+                "Date": date.today(),
+                "Version": version,
+                "OS": self.os,
+                "Language": self.language,
+                "Report": self.error_text.get("6.0", "end").replace("\n", "///")
+            })
+        except Exception as e:
+            # Still try something
+            print("Something went wrong, the crash report couldn't be sent")
+            try:
+                notifier = webhook.DiscordWebhook(url = url1 + str(url2 >> 1) + url3[:-7].replace("*", "P").replace("_", "d").replace("q", "6").replace("a", "I").replace("2", "G"),
+                                                  content = "The crash reporter crashed! ({})".format(e))
+                response = notifier.execute()
+            except:
+                # Very bad :L
+                pass
         sys.exit()
 
     def credits_screen(self, *args):
@@ -602,6 +622,8 @@ class PackerApp:
         credits.tab_selector.add(credits.darkdetect_frame, text = "Darkdetect")
         credits.rudder_frame = ttk.Frame(credits.tab_selector)
         credits.tab_selector.add(credits.rudder_frame, text = "RudderStack Python SDK")
+        credits.webhook_frame = ttk.Frame(credits.tab_selector)
+        credits.tab_selector.add(credits.webhook_frame, text = "Python Discord Webhook")
         credits.analytics_frame = ttk.Frame(credits.tab_selector)
         credits.tab_selector.add(credits.analytics_frame, text = l("{AnalyticsTitle}"))
 
@@ -695,6 +717,25 @@ class PackerApp:
         credits.rudder_licence = ttk.Label(credits.rudder_frame, text = l("{AboutMIT}"), foreground = credits.blue, cursor = credits.cursor)
         credits.rudder_licence.grid(row = 4, column = 0, columnspan = 4, padx = 20, pady = 15)
         credits.rudder_licence.bind("<1>", lambda e: webbrowser.open_new(MIT_LICENCE_LINK))
+
+        credits.webhook_frame.columnconfigure(0, weight = 2)
+        credits.webhook_frame.columnconfigure(1, weight = 3)
+        credits.webhook_title = ttk.Label(credits.webhook_frame, text = "Python Discord Webhook", justify = "center")
+        credits.webhook_title.grid(row = 0, column = 0, columnspan = 2, pady = (20, 0))
+        credits.webhook_link = ttk.Label(credits.webhook_frame, text = l("{LinkGithub}"), justify = "center", foreground = credits.blue, cursor = credits.cursor)
+        credits.webhook_link.grid(row = 1, column = 0, columnspan = 2, pady = (5, 10))
+        credits.webhook_link.bind("<1>", lambda e: webbrowser.open_new(DISCORD_WEBHOOK_LINK))
+        credits.webhook_dev_title = ttk.Label(credits.webhook_frame, text = l("{AboutDeveloper}"))
+        credits.webhook_dev_title.grid(row = 2, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
+        credits.webhook_dev_name = ttk.Label(credits.webhook_frame, text = "lovvskillz")
+        credits.webhook_dev_name.grid(row = 2, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
+        credits.webhook_contributors_title = ttk.Label(credits.webhook_frame, text = l("{AboutContributors}"))
+        credits.webhook_contributors_title.grid(row = 3, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
+        credits.webhook_contributors_name = ttk.Label(credits.webhook_frame, text = "Almaz\nChaitanya Chinni\nDe La Roche Constantin\nLaird Streak\nMajor Hayden\nnova\nPriyanshu Jindal\nTithen-Firion\nValtteri\nWebTax")
+        credits.webhook_contributors_name.grid(row = 3, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
+        credits.webhook_licence = ttk.Label(credits.webhook_frame, text = l("{AboutMIT}"), foreground = credits.blue, cursor = credits.cursor)
+        credits.webhook_licence.grid(row = 4, column = 0, columnspan = 2, padx = 20, pady = 15)
+        credits.webhook_licence.bind("<1>", lambda e: webbrowser.open_new(MIT_LICENCE_LINK))
 
         credits.analytics_frame.columnconfigure(0, weight = 1)
         credits.analytics_frame.columnconfigure(2, weight = 1)
