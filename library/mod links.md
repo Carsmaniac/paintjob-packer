@@ -2,8 +2,8 @@
 
 ## Trucks
 
-* DAF 95 ATi by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=268236) / [XBS's Site](https://www.xbsmods.tk/ets2)
-* DAF F241 by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=264917) / [XBS's Site](https://www.xbsmods.tk/ets2)
+* DAF 95 ATi by **XBS** - [XBS's Site](https://www.xbsmods.tk/ets2)
+* DAF F241 by **XBS** - [XBS's Site](https://www.xbsmods.tk/ets2)
 * DAF NTT by **XBS** - [XBS's Site](https://www.xbsmods.tk/ets2)
 * DAF XF105 by **vad&k** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=223465)
 * Ford F-MAX by **Simülasyon TÜRK** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1915802227) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=274617)
@@ -37,7 +37,7 @@
 * Scania S T-Cab by **Azorax** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=294695)
 * Scania T by **RJL** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2466522174) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=299474)
 * Scania T 4-series by **RJL** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2466522174) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=299475)
-* SISU M-series by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=257924) / [XBS's Site](https://www.xbsmods.tk/ets2)
+* SISU M-series by **XBS** - [XBS's Site](https://www.xbsmods.tk/ets2)
 * Volkswagen Meteor by **Cristhian** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2232719369)
 * Volvo FH 2009 Classic by **Pendragon** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=197804)
 * Volvo FH 2012 Classic by **Pendragon** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=197804)
@@ -83,7 +83,7 @@
 * VAK Trailer by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1443578012) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=256559)
 * Willig Fuel Cistern by **MD Modding** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=270307)
 
-# American Truck Simulator 
+# American Truck Simulator
 
 ## Trucks
 
