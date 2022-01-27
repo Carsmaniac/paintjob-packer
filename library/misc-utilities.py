@@ -1,9 +1,11 @@
-import sys, os, configparser
+import sys, os, configparser, zipfile
+from paintjob import strip_diacritics
 
 def menu():
     print("1. Create nested spreadsheet OR functions")
     print("2. Print list of vehicle paths")
     print("3. Generate mod-links.md")
+    print("4. Check vehicle database accessories")
     choice = input("\nEnter selection, or nothing to quit: ")
 
     if choice == "":
@@ -14,6 +16,8 @@ def menu():
         menu_2()
     elif choice == "3":
         menu_3()
+    elif choice == "4":
+        menu_4()
     else:
         cls()
         print("Try again\n")
@@ -73,6 +77,7 @@ def menu_2():
 
     print("\n\n")
     to_exit()
+
 def menu_3():
     cls()
     mod_links_text = ""
@@ -177,14 +182,74 @@ def menu_3():
         mod_links_text += ("\n* {} by **{}** - {}".format(veh["vehicle info"]["name"], veh["vehicle info"]["mod author"], " / ".join(links)))
 
     # Print end statement
-    mod_links_text += ("\n\n---\n\n* This mod list applies to both Paint Job Packer and my template packs, they support the same list of mods")
-    mod_links_text += ("\n* Paint Job Packer only supports mods that are uploaded to reutable sites by their original authors and are freely available to download")
+    mod_links_text += ("\n\n---\n\n* This mod list applies to both Paint Job Packer and my template packs, they support the same list of mods\n")
+    mod_links_text += ("* Paint Job Packer only supports mods that are uploaded to reutable sites by their original authors and are freely available to download\n")
 
     file = open("mod links.md", "w", encoding = "utf-8")
     file.write(mod_links_text)
     file.close()
 
     print("Saved new mod links.md\n")
+    to_exit()
+
+def menu_4():
+    cls()
+    untextured_accessories = input("List untextured accessories? (y/n) ").lower() == "y"
+    ini_name = input("List incorrectly named INIs? (y/n) ").lower() == "y"
+    print("\n")
+    for game in ["ats", "ets"]:
+        for file in os.listdir("vehicles/"+game):
+            veh = configparser.ConfigParser(allow_no_value = True)
+            veh.read("vehicles/{}/{}".format(game, file), encoding = "utf-8")
+
+            veh_author = veh["vehicle info"]["mod author"]
+            if veh_author == "":
+                veh_author = "SCS"
+            veh_name = "{} [{}]".format(veh["vehicle info"]["name"], veh_author)
+            if file[:-4] != "{} [{}]".format(veh["vehicle info"]["vehicle path"], strip_diacritics(veh_author)):
+                if ini_name:
+                    print("! {} should be named {}".format(file, "{} [{}]".format(veh["vehicle info"]["vehicle path"], strip_diacritics(veh_author))))
+
+            try:
+                templates = zipfile.ZipFile("../templates/{} templates/{} [{}].zip".format(game, veh["vehicle info"]["vehicle path"], strip_diacritics(veh_author)))
+            except FileNotFoundError:
+                print("X Template missing: {} [{}].zip".format(veh["vehicle info"]["vehicle path"], strip_diacritics(veh_author)))
+            else:
+                for acc in veh["vehicle info"]["accessories"].split(";"):
+                    if acc != "":
+                        if acc not in veh.sections():
+                            print("X Non-existent {} in {} accessories list".format(acc, veh_name))
+                        if acc+".dds" not in templates.namelist():
+                            if untextured_accessories:
+                                print("- {} accessory untextured ({})".format(acc, veh_name))
+
+                for acc in veh.sections():
+                    if acc not in ["vehicle info", "cabins", veh["vehicle info"]["name"]]:
+                        if acc not in veh["vehicle info"]["accessories"].split(";"):
+                            print("X {} not listed in {} accessories list".format(acc, veh_name))
+
+                if veh["vehicle info"].getboolean("trailer"):
+                    if not veh["vehicle info"].getboolean("uses accessories"):
+                        if veh["vehicle info"]["name"]+".dds" not in templates.namelist():
+                            print("X Missing texture: {}".format(veh["vehicle info"]["name"]))
+                else:
+                    if veh["cabins"].getboolean("separate paintjobs"):
+                        if len(veh["cabins"].keys()) < 3:
+                            print("X {} should not have separate paint jobs".format(veh_name))
+                        for cab in veh["cabins"].keys():
+                            if cab != "separate paintjobs":
+                                cab_name = veh["cabins"][cab].split(";")[0]
+                                if veh["vehicle info"].getboolean("alt uvset"):
+                                    cab_name = cab_name.replace(")", ", alt uvset)")
+                                if cab_name+".dds" not in templates.namelist():
+                                    print("X Missing texture: {} ({})".format(cab_name, veh_name))
+                    else:
+                        if veh["vehicle info"].getboolean("uses accessories"):
+                            if "Cabin.dds" not in templates.namelist():
+                                print("X Missing texture: Cabin ({})".format(veh_name))
+                        else:
+                            if veh["vehicle info"]["name"]+".dds" not in templates.namelist():
+                                print("X Missing texture: {}".format(veh["vehicle info"]["name"]))
     to_exit()
 
 def cls():

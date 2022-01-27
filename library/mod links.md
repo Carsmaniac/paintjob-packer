@@ -38,6 +38,7 @@
 * Scania T by **RJL** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2466522174) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=299474)
 * Scania T 4-series by **RJL** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2466522174) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=299475)
 * SISU M-series by **XBS** - [XBS's Site](https://www.xbsmods.tk/ets2)
+* SISU R- & C-series by **RJL** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2701730682) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=307199)
 * Volkswagen Meteor by **Cristhian** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2232719369)
 * Volvo FH 2009 Classic by **Pendragon** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=197804)
 * Volvo FH 2012 Classic by **Pendragon** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=197804)
@@ -48,6 +49,7 @@
 ## Buses
 
 * Bolloré Bluebus by **Etrusan** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2411589278) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=293498)
+* Caio Apache VIP I by **Cristhian** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2627378240)
 * Caio Millennium 2 PBC by **Cristhian** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1601416070)
 * Iveco Evadys Line by **Etrusan** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1986485167) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=291295)
 * Karosa B95x by **Etrusan** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2059274297) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=291294)
@@ -80,10 +82,10 @@
 * Schmitz Cargobull S.KO by **JUseeTV** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=294962)
 * Schmitz Cargobull Tipper Trailer by **MD Modding** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=252290)
 * Schmitz Cargobull Trailer by **MD Modding** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=252193)
+* SCS Fuel Cistern Reworked by **Kriistof** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2725478431)
 * VAK Trailer by **Kast** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1443578012) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=256559)
-* Willig Fuel Cistern by **MD Modding** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=270307)
 
-# American Truck Simulator
+# American Truck Simulator 
 
 ## Trucks
 
@@ -95,6 +97,8 @@
 * Freightliner FLB by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=867643690) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=228835)
 * Freightliner FLC by **XBS** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=282638) / [XBS's Site](https://www.xbsmods.tk/ats)
 * Freightliner FLD by **Lucasi** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=288179)
+* Freightliner Inspiration by **dmitry68** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=229591)
+* International 9800i by **FASTER CGO** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2698417437)
 * International HX520 by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2559065735) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=302587)
 * International LT by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1832865824) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=272906)
 * Kenworth K100E by **Overfloater** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1815959194) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=274886)
@@ -108,12 +112,14 @@
 * Mack Pinnacle CHU613 by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2288125958) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=265785)
 * Mack Pinnacle CHU613 by **Redd** - [Steam Workshop](https://steamcommunity.com/workshop/filedetails/?id=1943894280)
 * Mack R Series by **Harven** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1463066263) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256935)
-* Peterbilt 352 by **Geoff G.** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2435980341) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=282929)
+* Mack R Series Super-Liner by **DielingWu** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=304822) / [DielingWu's Site](https://dielingwu.gumroad.com/l/djlqa)
 * Peterbilt 379X by **bigdaddyt150** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2032768269)
+* Peterbilt 379X by **Chief86** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2639485237)
 * Peterbilt 386 by **R.Modjeski** - [TruckyMods](https://truckymods.io/american-truck-simulator/trucks/peterbilt-386) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=284614)
 * Peterbilt 389 Modified by **Viper2** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=724654784) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=200096)
 * Peterbilt 567 by **GTM** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1410475763) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=255232)
 * Project 3XX by **HFG** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1835092596) / [TruckyMods](https://truckymods.io/american-truck-simulator/trucks/project-3xx) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256189) / [HFG's Site](https://halffastgaming.wixsite.com/halffast/downloads)
+* Rezbilt 389 by **Allen Rezbilt** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2626143691)
 * Scot A2HD by **Smarty** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=661658019) / [TruckyMods](https://truckymods.io/american-truck-simulator/trucks/scr-scot-a2hd-v2) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=201612) / [Smarty's Site](https://scr-rigs.com/index.php?act=ats_trk&p=1&dlid=262)
 * Volvo VNL 2018 by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1832939055) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256560)
 * Volvo VNR by **Galimim** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1833428947) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256338)
@@ -124,9 +130,11 @@
 * 53 ft Container Ownable by **selonik** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=268432)
 * Custom 53 ft Trailer by **ChrisHusky** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=260285)
 * Dorsey 48 ft Reefer by **selonik** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=291506)
+* Featherlite NASCAR Hauler by **AlexP** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2634244257)
 * Fruehauf Dry Van 1951 by **selonik** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=282617)
 * Fruehauf FB 40 ft Reefer by **selonik** - [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=282742)
 * Fruehauf FB9 F2 Dryvan by **HFG** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2224171226) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=289490)
+* Kentucky Moving Van by **Krille** - [TruckyMods](https://truckymods.io/american-truck-simulator/trailers/rd-moving-van)
 * Ownable SCS Chemical Tanker by **DNA Transport** - [DNA Transport's Site](https://www.facebook.com/dnatransportats/posts/357706905678131)
 * Ownable SCS Fuel Tanker by **DNA Transport** - [DNA Transport's Site](https://www.facebook.com/dnatransportats/posts/357706905678131)
 * Trailmobile SuperVan 90 by **Smarty** - [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1165035373) / [TruckyMods](https://truckymods.io/american-truck-simulator/trailers/scr-trailmobile-supervan-90) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=237570) / [Smarty's Site](https://scr-rigs.com/index.php?act=ats_trl)
