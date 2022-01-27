@@ -53,3 +53,5 @@ shutil.rmtree("build")
 shutil.rmtree("dist")
 shutil.rmtree("output")
 os.remove("Paint Job Packer.spec")
+
+shutil.rmtree("../templates")
