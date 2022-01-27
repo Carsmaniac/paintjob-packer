@@ -113,7 +113,7 @@ def menu_3():
             links.append("[SCS Forums]({})".format(veh["vehicle info"]["mod link forums"]))
         if veh["vehicle info"]["mod link author site"] != "":
             links.append("[{}'s Site]({})".format(veh["vehicle info"]["mod author"], veh["vehicle info"]["mod link author site"]))
-        mod_links_text += ("\n* {} by **{}** - {}".format(veh["vehicle info"]["name"], veh["vehicle info"]["mod author"], " / ".join(links)))
+        mod_links_text += ("\n* {} by **{}** – {}".format(veh["vehicle info"]["name"], veh["vehicle info"]["mod author"], " / ".join(links)))
     mod_links_text += ("\n\n## Buses\n")
     for veh in ets_buses:
         links = []
@@ -125,7 +125,7 @@ def menu_3():
             links.append("[SCS Forums]({})".format(veh["vehicle info"]["mod link forums"]))
         if veh["vehicle info"]["mod link author site"] != "":
             links.append("[{}'s Site]({})".format(veh["vehicle info"]["mod author"], veh["vehicle info"]["mod link author site"]))
-        mod_links_text += ("\n* {} by **{}** - {}".format(veh["vehicle info"]["name"], veh["vehicle info"]["mod author"], " / ".join(links)))
+        mod_links_text += ("\n* {} by **{}** – {}".format(veh["vehicle info"]["name"], veh["vehicle info"]["mod author"], " / ".join(links)))
     mod_links_text += ("\n\n## Trailers\n")
     for veh in ets_trailers:
         links = []
@@ -137,7 +137,7 @@ def menu_3():
             links.append("[SCS Forums]({})".format(veh["vehicle info"]["mod link forums"]))
         if veh["vehicle info"]["mod link author site"] != "":
             links.append("[{}'s Site]({})".format(veh["vehicle info"]["mod author"], veh["vehicle info"]["mod link author site"]))
-        mod_links_text += ("\n* {} by **{}** - {}".format(veh["vehicle info"]["name"], veh["vehicle info"]["mod author"], " / ".join(links)))
+        mod_links_text += ("\n* {} by **{}** – {}".format(veh["vehicle info"]["name"], veh["vehicle info"]["mod author"], " / ".join(links)))
 
     # Get ATS vehicles
     ats_list = os.listdir("vehicles/ats")
@@ -167,7 +167,7 @@ def menu_3():
             links.append("[SCS Forums]({})".format(veh["vehicle info"]["mod link forums"]))
         if veh["vehicle info"]["mod link author site"] != "":
             links.append("[{}'s Site]({})".format(veh["vehicle info"]["mod author"], veh["vehicle info"]["mod link author site"]))
-        mod_links_text += ("\n* {} by **{}** - {}".format(veh["vehicle info"]["name"], veh["vehicle info"]["mod author"], " / ".join(links)))
+        mod_links_text += ("\n* {} by **{}** – {}".format(veh["vehicle info"]["name"], veh["vehicle info"]["mod author"], " / ".join(links)))
     mod_links_text += ("\n\n## Trailers\n")
     for veh in ats_trailers:
         links = []
@@ -179,7 +179,7 @@ def menu_3():
             links.append("[SCS Forums]({})".format(veh["vehicle info"]["mod link forums"]))
         if veh["vehicle info"]["mod link author site"] != "":
             links.append("[{}'s Site]({})".format(veh["vehicle info"]["mod author"], veh["vehicle info"]["mod link author site"]))
-        mod_links_text += ("\n* {} by **{}** - {}".format(veh["vehicle info"]["name"], veh["vehicle info"]["mod author"], " / ".join(links)))
+        mod_links_text += ("\n* {} by **{}** – {}".format(veh["vehicle info"]["name"], veh["vehicle info"]["mod author"], " / ".join(links)))
 
     # Print end statement
     mod_links_text += ("\n\n---\n\n* This mod list applies to both Paint Job Packer and my template packs, they support the same list of mods\n")
