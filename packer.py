@@ -560,7 +560,7 @@ class PackerApp:
         try:
             # This is near-useless obfuscation, but it's better than nothing... right?
             notifier = webhook.DiscordWebhook(url = url1 + str(url2 >> 1) + url3[:-7].replace("*", "P").replace("_", "d").replace("q", "6").replace("a", "I").replace("2", "G"),
-                                              content = "New crash report from version {} ({})".format(version, self.os))
+                                              content = "New crash report from version {} ({}):\n```{}\n\n...{}```\n".format(version, self.os, self.error_text.get("6.0", "end").split("\n")[0], self.error_text.get("6.0", "end")[-600:]))
             response = notifier.execute()
             rudder.data_plane_url = "https://memickledieqb.dataplane.rudderstack.com"
             rudder.write_key = "244bVTNEHqEcmD1WmFdju4c87e7"
