@@ -2,8 +2,9 @@ import os
 import shutil
 import PyInstaller.__main__
 
-if os.path.exists("../library/paint-job-tracker.txt"):
-    os.remove("../library/paint-job-tracker.txt")
+for file in ["../library/paint-job-tracker.txt", "../library/misc-utilities.py", "../library/mod links.md"]:
+    if os.path.exists(file):
+        os.remove(file)
 
 INNO_SETUP_PATH = "C:/Program Files (x86)/Inno Setup 6/ISCC.exe"
 
