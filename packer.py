@@ -954,11 +954,11 @@ class PackerApp:
                     veh.check = ttk.Checkbutton(self.scroll_frame_trucks, text = veh.display_name, command = lambda : self.update_total_vehicles_supported())
                     veh.check.state(["!alternate","!selected"])
                     truck_list.append(veh)
-        truck_list.sort(key = lambda veh: veh.name)
-        trailer_list.sort(key = lambda veh: veh.name)
-        truck_mod_list.sort(key = lambda veh: veh.name)
-        bus_mod_list.sort(key = lambda veh: veh.name)
-        trailer_mod_list.sort(key = lambda veh: veh.name)
+        truck_list.sort(key = lambda veh: veh.name.lower())
+        trailer_list.sort(key = lambda veh: veh.name.lower())
+        truck_mod_list.sort(key = lambda veh: veh.name.lower())
+        bus_mod_list.sort(key = lambda veh: veh.name.lower())
+        trailer_mod_list.sort(key = lambda veh: veh.name.lower())
         return (truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list)
 
     def change_displayed_vehicle_dropdown(self, *args):
