@@ -1563,7 +1563,7 @@ class PackerApp:
         tracker = configparser.ConfigParser(allow_no_value = True)
         tracker.optionxform = str # Preserves case
         if os.path.exists("{}/{}.ini".format(tracker_directory, mod_name)):
-            tracker.read("{}/{}.ini".format(tracker_directory, mod_name), encoding = "UTF-8")
+            tracker.read("{}/{}.ini".format(tracker_directory, mod_name), encoding = "utf-8")
             all_trucks = tracker["pack info"]["trucks"].split(";")
             for veh in truck_list:
                 if veh.file_name[:-4] not in all_trucks:
@@ -1636,7 +1636,7 @@ class PackerApp:
             tracker["links"]["sharemods"] = ""
             tracker["links"]["modsbase"] = ""
 
-            with open("{}/{}.ini".format(tracker_directory, mod_name), "w") as configfile:
+            with open("{}/{}.ini".format(tracker_directory, mod_name), "w", encoding="utf-8") as configfile:
                 tracker.write(configfile)
             print("Paint Job Tracker file written to {}/{}.ini".format(tracker_directory, mod_name))
 
