@@ -23,7 +23,6 @@ except ModuleNotFoundError:
 try:
     import library.paintjob as pj # Copying and generating mod files
     import library.analytics # Simple analytics using RudderStack, see analytics.py for a detailed breakdown
-    import library.rudder as rudder # Only for sending crash reports, analytics is handled solely by analytics.py
     import library.webhook as webhook # For notifying me of new crash reports
 except ModuleNotFoundError:
     print("Paint Job Packer can't find its library files")
@@ -553,35 +552,22 @@ class PackerApp:
         self.error_send_button.update()
         self.error_dont_send_button.state(["disabled"])
         self.error_dont_send_button.update()
-        print("Sending crash report to RudderStack...")
+        print("Sending crash report to Developer...")
         url1 = "https://discord.com/api/webhooks/"
         url2 = 1869225424928931840
         url3 = "/4fZ_MFVq2Hp5WDa1oMR3gaj*3AsgDVp*A8a_c_21TlawqH*t*ksrn90oC2JJ1Ocm-Uq5nJ875O_"
         try:
+            if len(self.error_text.get("6.0", "end")) < 600:
+                first_line = ""
+            else:
+                first_line = self.error_text.get("6.0", "end").split("\n")[0] + "\n\n..."
             # This is near-useless obfuscation, but it's better than nothing... right?
             notifier = webhook.DiscordWebhook(url = url1 + str(url2 >> 1) + url3[:-7].replace("*", "P").replace("_", "d").replace("q", "6").replace("a", "I").replace("2", "G"),
-                                              content = "New crash report from version {} ({}):\n```{}\n\n...{}```\n".format(version, self.os, self.error_text.get("6.0", "end").split("\n")[0], self.error_text.get("6.0", "end")[-600:]))
+                                              content = "New crash report from version {} ({}):\n```{}{}```\n".format(version, self.os, first_line, self.error_text.get("6.0", "end")[-600:]))
             response = notifier.execute()
-            rudder.data_plane_url = "https://memickledieqb.dataplane.rudderstack.com"
-            rudder.write_key = "244bVTNEHqEcmD1WmFdju4c87e7"
-            rudder.track("123456", "Paint Job Packer Crash Report",
-            {
-                "Date": date.today(),
-                "Version": version,
-                "OS": self.os,
-                "Language": self.language,
-                "Report": self.error_text.get("6.0", "end").replace("\n", "///")
-            })
         except Exception as e:
             # Still try something
             print("Something went wrong, the crash report couldn't be sent")
-            try:
-                notifier = webhook.DiscordWebhook(url = url1 + str(url2 >> 1) + url3[:-7].replace("*", "P").replace("_", "d").replace("q", "6").replace("a", "I").replace("2", "G"),
-                                                  content = "The crash reporter crashed! ({})".format(e))
-                response = notifier.execute()
-            except:
-                # Very bad :L
-                pass
         sys.exit()
 
     def credits_screen(self, *args):
