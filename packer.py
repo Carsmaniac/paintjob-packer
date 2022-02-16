@@ -1575,7 +1575,7 @@ class PackerApp:
                     tracker["description"]["changelog"] += "\\n- Added {}'s {}".format(veh.display_author, veh.display_name.replace(" [{}]".format(veh.mod_author), ""))
             tracker["pack info"]["trailer mods"] = ";".join(all_trailer_mods)
 
-            with open("{}/{}.ini".format(tracker_directory, mod_name), "w") as configfile:
+            with open("{}/{}.ini".format(tracker_directory, mod_name), "w", encoding = "utf-8") as configfile:
                 tracker.write(configfile)
             print("Paint Job Tracker file at {}/{}.ini updated".format(tracker_directory, mod_name))
         else:
