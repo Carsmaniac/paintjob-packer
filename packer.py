@@ -1055,7 +1055,7 @@ class PackerApp:
             all_errors.append([l("{ErrorInGameNameEmptyTitle}"), l("{ErrorInGameNameEmpty}")])
         if pj.contains_illegal_characters_file_name(self.panel_ingame_name_variable.get()):
             inputs_verified = False
-            all_errors.append([l("{ErroInGameNameCharacterTitle}"), l("{ErrorInGameNameCharacter}") + "\n< > : \" / \\ | ? *"])
+            all_errors.append([l("{ErrorInGameNameCharacterTitle}"), l("{ErrorInGameNameCharacter}") + "\n< > : \" / \\ | ? *"])
         if self.panel_ingame_name_variable.get()[-1:] == ".":
             inputs_verified = False
             all_errors.append([l("{ErrorInGameNameFullStopTitle}"), l("{ErrorInGameNameFullStop}")])
