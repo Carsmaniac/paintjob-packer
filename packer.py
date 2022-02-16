@@ -955,13 +955,13 @@ class PackerApp:
         if type == l("{Truck}"):
             for veh in self.truck_list: new_values.append(veh.display_name)
         elif type == l("{TruckMod}"):
-            for veh in self.truck_mod_list: new_values.append(veh.display_name)
+            for veh in self.truck_mod_list: new_values.append("{} [{}]".format(veh.display_name, veh.display_author))
         elif type == l("{BusMod}"):
-            for veh in self.bus_mod_list: new_values.append(veh.display_name)
+            for veh in self.bus_mod_list: new_values.append("{} [{}]".format(veh.display_name, veh.display_author))
         elif type == l("{Trailer}"):
             for veh in self.trailer_list: new_values.append(veh.display_name)
         elif type == l("{TrailerMod}"):
-            for veh in self.trailer_mod_list: new_values.append(veh.display_name)
+            for veh in self.trailer_mod_list: new_values.append("{} [{}]".format(veh.display_name, veh.display_author))
         self.panel_single_vehicle_dropdown.config(values = new_values)
 
         if type in [l("{TruckMod}"), l("{BusMod}"), l("{TrailerMod}")]:
@@ -1133,7 +1133,7 @@ class PackerApp:
                         warning_vehicles.append("{} ({})".format(veh.display_name, veh.display_author))
             elif self.tab_paintjob_variable.get() == "single":
                 for veh in self.bus_mod_list:
-                    if veh.display_name == self.panel_single_vehicle_variable.get() and veh.bus_door_workaround:
+                    if "{} [{}]".format(veh.display_name, veh.display_author) == self.panel_single_vehicle_variable.get() and veh.bus_door_workaround:
                         warning_vehicles.append("{} ({})".format(veh.display_name, veh.display_author))
             if len(warning_vehicles) > 0:
                 if len(warning_vehicles) == 1:
@@ -1207,9 +1207,14 @@ class PackerApp:
         for veh in truck_list + truck_mod_list + bus_mod_list + trailer_list + trailer_mod_list:
             vehicle_list.append(pj.Vehicle(veh.file_name, self.tab_game_variable.get()))
 
-        single_veh_name = self.panel_single_vehicle_variable.get()
+        single_veh_full_name = self.panel_single_vehicle_variable.get()
+        single_veh_name = single_veh_full_name.split("[")[0].rstrip()
+        if "[" in single_veh_full_name:
+            single_veh_author = single_veh_full_name.split("[")[1][:-1]
+        else:
+            single_veh_author = "SCS"
         for veh in self.truck_list + self.truck_mod_list + self.bus_mod_list + self.trailer_list + self.trailer_mod_list:
-            if veh.display_name == single_veh_name:
+            if veh.display_name == single_veh_name and veh.display_author == single_veh_author:
                 single_veh = pj.Vehicle(veh.file_name, self.tab_game_variable.get())
 
         game = self.tab_game_variable.get()
