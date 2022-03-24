@@ -185,10 +185,10 @@ class PackerApp:
         self.tab_game_image_ets = ttk.Label(self.tab_game, image = self.image_ets)
         self.tab_game_image_ets.grid(row = 1, column = 1, padx = 10)
         self.tab_game_variable = tk.StringVar(None, "ats")
-        self.tab_game_option_ats = ttk.Radiobutton(self.tab_game, text = l("{GameATS}"), value = "ats", variable = self.tab_game_variable)
+        self.tab_game_option_ats = ttk.Radiobutton(self.tab_game, text = "American Truck Simulator", value = "ats", variable = self.tab_game_variable)
         self.tab_game_option_ats.grid(row = 2, column = 0, pady = 10)
         self.tab_game_image_ats.bind("<1>", lambda e: self.tab_game_variable.set("ats"))
-        self.tab_game_option_ets = ttk.Radiobutton(self.tab_game, text = l("{GameETS}"), value = "ets", variable = self.tab_game_variable)
+        self.tab_game_option_ets = ttk.Radiobutton(self.tab_game, text = "Euro Truck Simulator 2", value = "ets", variable = self.tab_game_variable)
         self.tab_game_option_ets.grid(row = 2, column = 1, pady = 10)
         self.tab_game_image_ets.bind("<1>", lambda e: self.tab_game_variable.set("ets"))
         self.tab_game_dummy_desc = ttk.Label(self.tab_game, text = "  \n") # To space things out evenly
