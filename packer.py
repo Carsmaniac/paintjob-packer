@@ -166,7 +166,7 @@ class PackerApp:
             self.tab_welcome_update_info.bind("<1>", lambda e: webbrowser.open_new(LATEST_VERSION_DOWNLOAD_LINK))
         else:
             # Always on initial startup, and when changing languages after the version check did not find a new version
-            self.tab_welcome_message = ttk.Label(self.tab_welcome, text = l("{AcknowledgementNotice}"), cursor = self.cursor)
+            self.tab_welcome_message = ttk.Label(self.tab_welcome, text = l("{AcknowledgementNotice}"), cursor = self.cursor, wraplength = 600, justify = tk.CENTER)
             self.tab_welcome_message.bind("<1>", lambda e: messagebox.showinfo(title = "Acknowledgement of Country", message = "Paint Job Packer was developed in Australia, a continent on which Aboriginal and Torres Strait Islander peoples have lived for tens of thousands of years, the oldest continuous culture in the world, spread across hundreds of distinct countries with different languages and customs.\n\nI acknowledge the Darramurragal people, the traditional owners of the land on which this software was created. I pay my respects to Elders past, present and emerging, the Knowledge Holders and caretakers of this Country, and extend that respect to the owners of all the lands on which Paint Job Packer is used.\n\nI acknowledge that this land has been a place of design and creativity for thousands of generations, and that sovereignty was never ceded. This always has been and always will be Aboriginal land."))
             self.tab_welcome_message.grid(row = 3, column = 0, columnspan = 3, pady = (20, 0))
         self.tab_welcome_button_prev = ttk.Label(self.tab_welcome, text = " ") # To keep everything centred
@@ -212,9 +212,9 @@ class PackerApp:
         self.tab_paintjob_option_pack = ttk.Radiobutton(self.tab_paintjob, text = l("{PaintJobPack}"), value = "pack", variable = self.tab_paintjob_variable)
         self.tab_paintjob_option_pack.grid(row = 2, column = 1, pady = 10)
         self.tab_paintjob_image_pack.bind("<1>", lambda e: self.tab_paintjob_variable.set("pack"))
-        self.tab_paintjob_desc_single = ttk.Label(self.tab_paintjob, text = l("{PaintJobSingleDesc}\n"), wraplength = 300)
+        self.tab_paintjob_desc_single = ttk.Label(self.tab_paintjob, text = l("{PaintJobSingleDesc}\n"), wraplength = 300, justify = tk.CENTER)
         self.tab_paintjob_desc_single.grid(row = 3, column = 0, padx = 10, sticky = "n")
-        self.tab_paintjob_desc_pack = ttk.Label(self.tab_paintjob, text = l("{PaintJobPackDesc}\n"), wraplength = 300)
+        self.tab_paintjob_desc_pack = ttk.Label(self.tab_paintjob, text = l("{PaintJobPackDesc}\n"), wraplength = 300, justify = tk.CENTER)
         self.tab_paintjob_desc_pack.grid(row = 3, column = 1, padx = 10, sticky = "n")
         self.tab_paintjob_button_prev = ttk.Button(self.tab_paintjob, text = l("< {Previous}"), command = lambda : self.tab_selector.select(1))
         self.tab_paintjob_button_prev.grid(row = 4, column = 0, padx = 10, pady = 10, sticky = "w")
@@ -629,7 +629,7 @@ class PackerApp:
         credits.pjp_contributors_names.grid(row = 3, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
         credits.pjp_translators_title = ttk.Label(credits.pjp_frame, text = l("{AboutTranslators}"))
         credits.pjp_translators_title.grid(row = 5, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
-        credits.pjp_translators_names = ttk.Label(credits.pjp_frame, text = "Etrusan")
+        credits.pjp_translators_names = ttk.Label(credits.pjp_frame, text = "Angel Praxedis\nEtrusan\ngertjan038\nKebas53\nOle Løvland Stegane\nOleg Popenkov\nRasmus Schack")
         credits.pjp_translators_names.grid(row = 5, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
         credits.pjp_translators_link = ttk.Label(credits.pjp_frame, text = l("{LinkTranslate}"), foreground = self.blue, cursor = self.cursor)
         credits.pjp_translators_link.grid(row = 6, column = 1, columnspan = 1, padx = (0, 20), sticky = "nw")
