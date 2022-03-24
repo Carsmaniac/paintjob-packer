@@ -1178,7 +1178,22 @@ class PackerApp:
             if folder_clear:
                 # Disable the button to stop people clicking it a second time
                 self.panel_gen_buttons_generate.state(["disabled"])
-                self.make_paintjob(output_path)
+                try:
+                    self.make_paintjob(output_path)
+                except PermissionError:
+                    # Caused for some reason by copying the mod manager image
+                    try:
+                        shutil.rmtree(output_path)
+                    except:
+                        print("Could not delete output folder, some files may remain")
+                    messagebox.showerror(title = l("{ErrorFolderAccessTitle}"), message = l("{ErrorFolderAccess1}\n\n{ErrorFolderAccess2}"))
+                    # Reset everything on the generating screen
+                    self.panel_gen_buttons_generate.state(["!disabled"])
+                    self.progress_value.set(0.0)
+                    self.panel_progress_category_variable.set(l("{ProgressReady}"))
+                    self.panel_progress_specific_variable.set(l("{ProgressAppearHere}"))
+                    self.panel_progress_specific_label.update() # All these update()s ensure the progress bar is updated in real time
+
 
     def make_paintjob(self, output_path):
         l = self.get_localised_string
