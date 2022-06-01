@@ -1300,10 +1300,12 @@ class PackerApp:
 
             if not os.path.exists("library/paint-job-tracker.txt"):
                 print("Sending data to RudderStack...")
-                vehicle_file_name_list = []
+                code_ini = configparser.ConfigParser()
+                code_ini.read("library/vehicles/vehicle-codes.ini", encoding="UTF-8")
+                vehicle_codes = []
                 for veh in vehicle_list:
-                    vehicle_file_name_list.append("{} [{}]".format(veh.path, veh.mod_author))
-                multi_thread_analytics = threading.Thread(target = library.analytics.send_analytics(",".join(vehicle_file_name_list)))
+                    vehicle_codes.append(code_ini[game]["{} [{}]".format(veh.path, veh.mod_author)])
+                multi_thread_analytics = threading.Thread(target = library.analytics.send_analytics(",".join(vehicle_codes)))
                 multi_thread_analytics.start()
 
             if not os.path.exists(out_path):

@@ -85,7 +85,8 @@ if system_language == None:
 # If very few people are making paint jobs for modded vehicles, I should focus on making vanilla trucks/trailers as easy to skin as possible
 
 # The list of vehicles is built in the main script "packer.py" in the make_paintjob function, and sent to the analytics function as "vehicle_list"
-# Each vehicle in the list contains the vehicle's internal name and author, like this: scania.r_2016 [SCS],kenworth.k100e_of [Overfloater]
+# Each vehicle in the list is represented by a four digit number, like this: 5016,7022,7038
+# The numbers are listed in library/vehicles/vehicle-codes.ini
 
 
 
@@ -111,7 +112,7 @@ todays_date = date.today()
 
 
 # Finally we can send the data off using a function called send_analytics
-# "vehicle_list" is the list of vehicles that packer.py sends over
+# "vehicle_list" is the list of vehicle numbers that packer.py sends over
 def send_analytics(vehicle_list):
 
     # Data is sent to RudderStack using a function called track
