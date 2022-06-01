@@ -1193,244 +1193,263 @@ class PackerApp:
                     self.panel_progress_category_variable.set(l("{ProgressReady}"))
                     self.panel_progress_specific_variable.set(l("{ProgressAppearHere}"))
                     self.panel_progress_specific_label.update() # All these update()s ensure the progress bar is updated in real time
+                except PathTooLongError:
+                    try:
+                        shutil.rmtree(output_path)
+                    except:
+                        print("Could not delete output folder, some files may remain")
+                    messagebox.showerror(title = l("{ErrorFolderAccessTitle}"), message = l("TOOO LONG+{ErrorFolderAccess1}\n\n{ErrorFolderAccess2}"))
+                    # Reset everything on the generating screen
+                    self.panel_gen_buttons_generate.state(["!disabled"])
+                    self.progress_value.set(0.0)
+                    self.panel_progress_category_variable.set(l("{ProgressReady}"))
+                    self.panel_progress_specific_variable.set(l("{ProgressAppearHere}"))
+                    self.panel_progress_specific_label.update()
+                    self.ask_save_location()
+
 
 
     def make_paintjob(self, output_path):
-        l = self.get_localised_string
-        truck_list = []
-        for veh in self.truck_list:
-            if "selected" in veh.check.state():
-                truck_list.append(veh)
-        truck_mod_list = []
-        for veh in self.truck_mod_list:
-            if "selected" in veh.check.state():
-                truck_mod_list.append(veh)
-        bus_mod_list = []
-        for veh in self.bus_mod_list:
-            if "selected" in veh.check.state():
-                bus_mod_list.append(veh)
-        trailer_list = []
-        for veh in self.trailer_list:
-            if "selected" in veh.check.state():
-                trailer_list.append(veh)
-        trailer_mod_list = []
-        for veh in self.trailer_mod_list:
-            if "selected" in veh.check.state():
-                trailer_mod_list.append(veh)
+        try:
+            l = self.get_localised_string
+            truck_list = []
+            for veh in self.truck_list:
+                if "selected" in veh.check.state():
+                    truck_list.append(veh)
+            truck_mod_list = []
+            for veh in self.truck_mod_list:
+                if "selected" in veh.check.state():
+                    truck_mod_list.append(veh)
+            bus_mod_list = []
+            for veh in self.bus_mod_list:
+                if "selected" in veh.check.state():
+                    bus_mod_list.append(veh)
+            trailer_list = []
+            for veh in self.trailer_list:
+                if "selected" in veh.check.state():
+                    trailer_list.append(veh)
+            trailer_mod_list = []
+            for veh in self.trailer_mod_list:
+                if "selected" in veh.check.state():
+                    trailer_mod_list.append(veh)
 
-        vehicle_list = []
-        for veh in truck_list + truck_mod_list + bus_mod_list + trailer_list + trailer_mod_list:
-            vehicle_list.append(pj.Vehicle(veh.file_name, self.tab_game_variable.get()))
+            vehicle_list = []
+            for veh in truck_list + truck_mod_list + bus_mod_list + trailer_list + trailer_mod_list:
+                vehicle_list.append(pj.Vehicle(veh.file_name, self.tab_game_variable.get()))
 
-        single_veh_full_name = self.panel_single_vehicle_variable.get()
-        single_veh_name = single_veh_full_name.split("[")[0].rstrip()
-        if "[" in single_veh_full_name:
-            single_veh_author = single_veh_full_name.split("[")[1][:-1]
-        else:
-            single_veh_author = "SCS"
-        for veh in self.truck_list + self.truck_mod_list + self.bus_mod_list + self.trailer_list + self.trailer_mod_list:
-            if veh.display_name == single_veh_name and veh.display_author == single_veh_author:
-                single_veh = pj.Vehicle(veh.file_name, self.tab_game_variable.get())
-
-        game = self.tab_game_variable.get()
-
-        mod_name = self.panel_mod_name_variable.get()
-        mod_version = self.panel_mod_version_variable.get()
-        mod_author = self.panel_mod_author_variable.get()
-
-        ingame_name = self.panel_ingame_name_variable.get()
-        ingame_price = self.panel_ingame_price_variable.get()
-        if self.panel_ingame_default_variable.get():
-            unlock_level = 0
-        else:
-            unlock_level = self.panel_ingame_unlock_variable.get()
-
-        internal_name = self.panel_internal_name_variable.get()
-        num_of_paintjobs = self.tab_paintjob_variable.get()
-        workshop_upload = self.panel_generating_workshop_variable.get()
-
-        # Convert variables to English for behind-the-scenes, to make things smoother
-        if self.panel_internal_supported_variable.get() == l("{InternalSupportedLargest}"):
-            cabins_supported = "Largest cabin only"
-        else:
-            cabins_supported = "All cabins"
-        if self.panel_internal_handling_variable.get() == l("{InternalHandlingCombined}"):
-            cabin_handling = "Combined paint job"
-        else:
-            cabin_handling = "Separate paint jobs"
-
-        if cabins_supported == "Largest cabin only":
-            # This shouldn't be needed, but it might be, so I'm doing it for safe measure
-            cabin_handling = "Combined paint job"
-
-        placeholder_templates = self.panel_generating_templates_variable.get()
-
-        out_path = output_path+"/"+mod_name
-
-        if num_of_paintjobs == "single":
-            if single_veh.trailer:
-                if single_veh.mod:
-                    trailer_mod_list.append(single_veh)
-                else:
-                    trailer_list.append(single_veh)
+            single_veh_full_name = self.panel_single_vehicle_variable.get()
+            single_veh_name = single_veh_full_name.split("[")[0].rstrip()
+            if "[" in single_veh_full_name:
+                single_veh_author = single_veh_full_name.split("[")[1][:-1]
             else:
-                if single_veh.mod:
-                    if single_veh.bus_mod:
-                        bus_mod_list.append(single_veh)
+                single_veh_author = "SCS"
+            for veh in self.truck_list + self.truck_mod_list + self.bus_mod_list + self.trailer_list + self.trailer_mod_list:
+                if veh.display_name == single_veh_name and veh.display_author == single_veh_author:
+                    single_veh = pj.Vehicle(veh.file_name, self.tab_game_variable.get())
+
+            game = self.tab_game_variable.get()
+
+            mod_name = self.panel_mod_name_variable.get()
+            mod_version = self.panel_mod_version_variable.get()
+            mod_author = self.panel_mod_author_variable.get()
+
+            ingame_name = self.panel_ingame_name_variable.get()
+            ingame_price = self.panel_ingame_price_variable.get()
+            if self.panel_ingame_default_variable.get():
+                unlock_level = 0
+            else:
+                unlock_level = self.panel_ingame_unlock_variable.get()
+
+            internal_name = self.panel_internal_name_variable.get()
+            num_of_paintjobs = self.tab_paintjob_variable.get()
+            workshop_upload = self.panel_generating_workshop_variable.get()
+
+            # Convert variables to English for behind-the-scenes, to make things smoother
+            if self.panel_internal_supported_variable.get() == l("{InternalSupportedLargest}"):
+                cabins_supported = "Largest cabin only"
+            else:
+                cabins_supported = "All cabins"
+            if self.panel_internal_handling_variable.get() == l("{InternalHandlingCombined}"):
+                cabin_handling = "Combined paint job"
+            else:
+                cabin_handling = "Separate paint jobs"
+
+            if cabins_supported == "Largest cabin only":
+                # This shouldn't be needed, but it might be, so I'm doing it for safe measure
+                cabin_handling = "Combined paint job"
+
+            placeholder_templates = self.panel_generating_templates_variable.get()
+
+            out_path = output_path+"/"+mod_name
+
+            if num_of_paintjobs == "single":
+                if single_veh.trailer:
+                    if single_veh.mod:
+                        trailer_mod_list.append(single_veh)
                     else:
-                        truck_mod_list.append(single_veh)
+                        trailer_list.append(single_veh)
                 else:
-                    truck_list.append(single_veh)
-            vehicle_list.append(single_veh)
+                    if single_veh.mod:
+                        if single_veh.bus_mod:
+                            bus_mod_list.append(single_veh)
+                        else:
+                            truck_mod_list.append(single_veh)
+                    else:
+                        truck_list.append(single_veh)
+                vehicle_list.append(single_veh)
 
-        if not os.path.exists("library/paint-job-tracker.txt"):
-            print("Sending data to RudderStack...")
-            vehicle_file_name_list = []
-            for veh in vehicle_list:
-                vehicle_file_name_list.append("{} [{}]".format(veh.path, veh.mod_author))
-            multi_thread_analytics = threading.Thread(target = library.analytics.send_analytics(",".join(vehicle_file_name_list)))
-            multi_thread_analytics.start()
+            if not os.path.exists("library/paint-job-tracker.txt"):
+                print("Sending data to RudderStack...")
+                vehicle_file_name_list = []
+                for veh in vehicle_list:
+                    vehicle_file_name_list.append("{} [{}]".format(veh.path, veh.mod_author))
+                multi_thread_analytics = threading.Thread(target = library.analytics.send_analytics(",".join(vehicle_file_name_list)))
+                multi_thread_analytics.start()
 
-        if not os.path.exists(out_path):
-            os.makedirs(out_path)
+            if not os.path.exists(out_path):
+                os.makedirs(out_path)
 
-        if workshop_upload:
-            if not os.path.exists(output_path+"/Workshop uploading"):
-                os.makedirs(output_path+"/Workshop uploading")
+            if workshop_upload:
+                if not os.path.exists(output_path+"/Workshop uploading"):
+                    os.makedirs(output_path+"/Workshop uploading")
 
-        self.progress_value.set(0.0)
-        things_to_load = len(vehicle_list) + 2 # + general files, complete
-        if workshop_upload:
-            things_to_load += 1 # Workshop image and description
-        self.panel_progress_bar.configure(maximum = float(things_to_load))
+            self.progress_value.set(0.0)
+            things_to_load = len(vehicle_list) + 2 # + general files, complete
+            if workshop_upload:
+                things_to_load += 1 # Workshop image and description
+            self.panel_progress_bar.configure(maximum = float(things_to_load))
 
-        self.progress_value.set(self.progress_value.get()+1.0)
-        self.panel_progress_category_variable.set("General mod files")
-
-        self.panel_progress_specific_variable.set("Mod manifest")
-        self.panel_progress_specific_label.update() # All these update()s ensure the progress bar is updated in real time
-        pj.make_manifest_sii(out_path, mod_version, mod_name, mod_author, workshop_upload)
-
-        self.panel_progress_specific_variable.set("Mod manager image")
-        self.panel_progress_specific_label.update()
-        pj.copy_mod_manager_image(out_path)
-
-        self.panel_progress_specific_variable.set("Mod manager description")
-        self.panel_progress_specific_label.update()
-        pj.make_description(out_path, truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs)
-
-        pj.make_material_folder(out_path)
-
-        self.panel_progress_specific_variable.set("Paint job icon")
-        self.panel_progress_specific_label.update()
-        pj.copy_paintjob_icon(out_path, ingame_name)
-
-        pj.make_paintjob_icon_tobj(out_path, ingame_name)
-
-        pj.make_paintjob_icon_mat(out_path, internal_name, ingame_name)
-
-        for veh in vehicle_list:
             self.progress_value.set(self.progress_value.get()+1.0)
-            self.panel_progress_category_variable.set(veh.display_name)
+            self.panel_progress_category_variable.set("General mod files")
 
-            if placeholder_templates:
-                if os.path.exists("templates/{} templates/{} [{}].zip".format(game, veh.path, veh.mod_author)):
-                    template_zip = zipfile.ZipFile("templates/{} templates/{} [{}].zip".format(game, veh.path, veh.mod_author))
+            self.panel_progress_specific_variable.set("Mod manifest")
+            self.panel_progress_specific_label.update() # All these update()s ensure the progress bar is updated in real time
+            pj.make_manifest_sii(out_path, mod_version, mod_name, mod_author, workshop_upload)
+
+            self.panel_progress_specific_variable.set("Mod manager image")
+            self.panel_progress_specific_label.update()
+            pj.copy_mod_manager_image(out_path)
+
+            self.panel_progress_specific_variable.set("Mod manager description")
+            self.panel_progress_specific_label.update()
+            pj.make_description(out_path, truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs)
+
+            pj.make_material_folder(out_path)
+
+            self.panel_progress_specific_variable.set("Paint job icon")
+            self.panel_progress_specific_label.update()
+            pj.copy_paintjob_icon(out_path, ingame_name)
+
+            pj.make_paintjob_icon_tobj(out_path, ingame_name)
+
+            pj.make_paintjob_icon_mat(out_path, internal_name, ingame_name)
+
+            for veh in vehicle_list:
+                self.progress_value.set(self.progress_value.get()+1.0)
+                self.panel_progress_category_variable.set(veh.display_name)
+
+                if placeholder_templates:
+                    if os.path.exists("templates/{} templates/{} [{}].zip".format(game, veh.path, veh.mod_author)):
+                        template_zip = zipfile.ZipFile("templates/{} templates/{} [{}].zip".format(game, veh.path, veh.mod_author))
+                    else:
+                        template_zip = None
                 else:
                     template_zip = None
-            else:
-                template_zip = None
 
-            pj.make_def_folder(out_path, veh)
-            self.panel_progress_specific_variable.set("Paint job settings")
-            self.panel_progress_specific_label.update()
-            pj.make_settings_sui(out_path, veh, internal_name, ingame_name, ingame_price, unlock_level)
-            pj.make_vehicle_folder(out_path, veh, ingame_name)
-            if cabin_handling == "Combined paint job" or veh.type == "trailer_owned" or not veh.separate_paintjobs:
-                one_paintjob = True
-                paintjob_name = internal_name
-                if veh.uses_accessories:
-                    if veh.type == "trailer_owned":
-                        if veh.name in veh.acc_dict:
-                            main_dds_name = veh.name
-                            veh.acc_dict.pop(veh.name)
-                        else:
-                            main_dds_name = "Base Colour"
-                    elif veh.type == "truck":
-                        main_dds_name = "Cabin"
-                else:
-                    main_dds_name = veh.name
-                self.panel_progress_specific_variable.set(main_dds_name)
+                pj.make_def_folder(out_path, veh)
+                self.panel_progress_specific_variable.set("Paint job settings")
                 self.panel_progress_specific_label.update()
-                if veh.alt_uvset:
-                    main_dds_name = main_dds_name + " (alt uvset)"
-                if veh.type == "truck" and cabins_supported == "Largest cabin only" and veh.separate_paintjobs:
-                    one_paintjob = False
+                pj.make_settings_sui(out_path, veh, internal_name, ingame_name, ingame_price, unlock_level)
+                pj.make_vehicle_folder(out_path, veh, ingame_name)
+                if cabin_handling == "Combined paint job" or veh.type == "trailer_owned" or not veh.separate_paintjobs:
+                    one_paintjob = True
+                    paintjob_name = internal_name
+                    if veh.uses_accessories:
+                        if veh.type == "trailer_owned":
+                            if veh.name in veh.acc_dict:
+                                main_dds_name = veh.name
+                                veh.acc_dict.pop(veh.name)
+                            else:
+                                main_dds_name = "Base Colour"
+                        elif veh.type == "truck":
+                            main_dds_name = "Cabin"
+                    else:
+                        main_dds_name = veh.name
+                    self.panel_progress_specific_variable.set(main_dds_name)
+                    self.panel_progress_specific_label.update()
+                    if veh.alt_uvset:
+                        main_dds_name = main_dds_name + " (alt uvset)"
+                    if veh.type == "truck" and cabins_supported == "Largest cabin only" and veh.separate_paintjobs:
+                        one_paintjob = False
+                        for cab_size in veh.cabins:
+                            if cab_size == "a":
+                                cab_internal_name = veh.cabins[cab_size][1]
+                                if "/" in cab_internal_name:
+                                    cab_internal_name = cab_internal_name.split("/") # For when multiple cabins can use the same template, e.g. Western Star 49X
+                                pj.make_def_sii(out_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name, cab_internal_name)
+                    else:
+                        pj.make_def_sii(out_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name)
+                    pj.copy_main_dds(out_path, veh, ingame_name, main_dds_name, template_zip)
+                    pj.make_main_tobj(out_path, veh, ingame_name, main_dds_name)
+                    if veh.uses_accessories:
+                        pj.make_accessory_sii(out_path, veh, ingame_name, paintjob_name)
+                else:
                     for cab_size in veh.cabins:
-                        if cab_size == "a":
+                        if cabins_supported == "Largest cabin only" and cab_size != "a":
+                            pass
+                        else:
+                            one_paintjob = False
+                            paintjob_name = internal_name + "_" + cab_size
+                            main_dds_name = veh.cabins[cab_size][0] # Cabin in-game name
+                            self.panel_progress_specific_variable.set(main_dds_name)
+                            self.panel_progress_specific_label.update()
+                            if veh.alt_uvset:
+                                main_dds_name = main_dds_name[:-1] + ", alt uvset)" # Inserts "alt uvset" into the brackets in the cabin name
                             cab_internal_name = veh.cabins[cab_size][1]
                             if "/" in cab_internal_name:
                                 cab_internal_name = cab_internal_name.split("/") # For when multiple cabins can use the same template, e.g. Western Star 49X
                             pj.make_def_sii(out_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name, cab_internal_name)
-                else:
-                    pj.make_def_sii(out_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name)
-                pj.copy_main_dds(out_path, veh, ingame_name, main_dds_name, template_zip)
-                pj.make_main_tobj(out_path, veh, ingame_name, main_dds_name)
+                            pj.copy_main_dds(out_path, veh, ingame_name, main_dds_name, template_zip)
+                            pj.make_main_tobj(out_path, veh, ingame_name, main_dds_name)
+                            if veh.uses_accessories:
+                                pj.make_accessory_sii(out_path, veh, ingame_name, paintjob_name)
                 if veh.uses_accessories:
-                    pj.make_accessory_sii(out_path, veh, ingame_name, paintjob_name)
-            else:
-                for cab_size in veh.cabins:
-                    if cabins_supported == "Largest cabin only" and cab_size != "a":
-                        pass
-                    else:
-                        one_paintjob = False
-                        paintjob_name = internal_name + "_" + cab_size
-                        main_dds_name = veh.cabins[cab_size][0] # Cabin in-game name
-                        self.panel_progress_specific_variable.set(main_dds_name)
-                        self.panel_progress_specific_label.update()
-                        if veh.alt_uvset:
-                            main_dds_name = main_dds_name[:-1] + ", alt uvset)" # Inserts "alt uvset" into the brackets in the cabin name
-                        cab_internal_name = veh.cabins[cab_size][1]
-                        if "/" in cab_internal_name:
-                            cab_internal_name = cab_internal_name.split("/") # For when multiple cabins can use the same template, e.g. Western Star 49X
-                        pj.make_def_sii(out_path, veh, paintjob_name, internal_name, one_paintjob, ingame_name, main_dds_name, cab_internal_name)
-                        pj.copy_main_dds(out_path, veh, ingame_name, main_dds_name, template_zip)
-                        pj.make_main_tobj(out_path, veh, ingame_name, main_dds_name)
-                        if veh.uses_accessories:
-                            pj.make_accessory_sii(out_path, veh, ingame_name, paintjob_name)
-            if veh.uses_accessories:
-                self.panel_progress_specific_variable.set("Accessories")
+                    self.panel_progress_specific_variable.set("Accessories")
+                    self.panel_progress_specific_label.update()
+                    pj.copy_accessory_dds(out_path, veh, ingame_name, game, template_zip)
+                    pj.make_accessory_tobj(out_path, veh, ingame_name)
+
+                if template_zip != None:
+                    template_zip.close()
+
+            if workshop_upload:
+                self.progress_value.set(self.progress_value.get()+1.0)
+                self.panel_progress_category_variable.set("Workshop files")
                 self.panel_progress_specific_label.update()
-                pj.copy_accessory_dds(out_path, veh, ingame_name, game, template_zip)
-                pj.make_accessory_tobj(out_path, veh, ingame_name)
+                pj.copy_versions_sii(output_path+"/Workshop uploading")
+                self.panel_progress_specific_variable.set("Workshop image")
+                self.panel_progress_specific_label.update()
+                pj.copy_workshop_image(output_path)
+                self.panel_progress_specific_variable.set("Workshop readme")
+                self.panel_progress_specific_label.update()
+                self.make_workshop_readme(output_path, truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs, cabins_supported)
 
-            if template_zip != None:
-                template_zip.close()
+            self.make_readme_file(output_path, ingame_name, game, mod_name, truck_list+truck_mod_list, bus_mod_list, trailer_list+trailer_mod_list)
 
-        if workshop_upload:
             self.progress_value.set(self.progress_value.get()+1.0)
-            self.panel_progress_category_variable.set("Workshop files")
+            self.panel_progress_category_variable.set(l("{ProgressFinishing}"))
+            self.panel_progress_specific_variable.set(l("{ProgressSeconds}"))
             self.panel_progress_specific_label.update()
-            pj.copy_versions_sii(output_path+"/Workshop uploading")
-            self.panel_progress_specific_variable.set("Workshop image")
-            self.panel_progress_specific_label.update()
-            pj.copy_workshop_image(output_path)
-            self.panel_progress_specific_variable.set("Workshop readme")
-            self.panel_progress_specific_label.update()
-            self.make_workshop_readme(output_path, truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list, num_of_paintjobs, cabins_supported)
 
-        self.make_readme_file(output_path, ingame_name, game, mod_name, truck_list+truck_mod_list, bus_mod_list, trailer_list+trailer_mod_list)
+            if os.path.exists("library/paint-job-tracker.txt") and num_of_paintjobs != "single" and mod_name != "123":
+                self.generate_paintjob_tracker_file(game, truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list, mod_name)
 
-        self.progress_value.set(self.progress_value.get()+1.0)
-        self.panel_progress_category_variable.set(l("{ProgressFinishing}"))
-        self.panel_progress_specific_variable.set(l("{ProgressSeconds}"))
-        self.panel_progress_specific_label.update()
-
-        if os.path.exists("library/paint-job-tracker.txt") and num_of_paintjobs != "single" and mod_name != "123":
-            self.generate_paintjob_tracker_file(game, truck_list, truck_mod_list, bus_mod_list, trailer_list, trailer_mod_list, mod_name)
-
-        exit_now = messagebox.showinfo(title = l("{ProgressCompleteTitle}"), message = l("{ProgressComplete1}\n\n{ProgressComplete2}\n\n{ProgressComplete3}").format(folder_name = "Paint Job Packer Output"))
-        sys.exit()
+            exit_now = messagebox.showinfo(title = l("{ProgressCompleteTitle}"), message = l("{ProgressComplete1}\n\n{ProgressComplete2}\n\n{ProgressComplete3}").format(folder_name = "Paint Job Packer Output"))
+            sys.exit()
+        except FileNotFoundError:
+            # If a FileNotFoundError is raised at this point, it is most likely because the path is too long
+            # There may be some edge cases where it's caused by a missing library file or some other bizarre error
+            raise PathTooLongError
 
     def make_readme_file(self, output_path, paintjob_name, game, mod_name, truck_list, bus_list, trailer_list):
         file = open(output_path+"/How to complete your mod.txt", "w", encoding="utf-8")
@@ -1766,6 +1785,10 @@ class VehSelection:
             self.mod_link = self.mod_link_author_site
         self.bus_mod = veh_ini["vehicle info"].getboolean("bus mod")
         self.bus_door_workaround = veh_ini["vehicle info"].getboolean("bus door workaround")
+
+class PathTooLongError(Exception):
+    # A FileNotFoundError raised when a file path is over Windows' max path length, given this custom name to distinguish it from FileNotFoundErrors caused by different issues
+    pass
 
 def show_unhandled_error(error_type, error_message, error_traceback):
     clipboard = tk.Tk()
