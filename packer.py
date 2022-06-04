@@ -891,8 +891,6 @@ class PackerApp:
             self.scroll_canvas_bus_mods.yview_moveto(0)
         elif current_tab == 4: # Trailer mods
             self.scroll_canvas_trailer_mods.yview_scroll(scroll_amount, "units")
-            if self.tab_game_variable.get() == "ats":
-                self.scroll_canvas_trailer_mods.yview_moveto(0)
 
     def check_for_outdated_vehicles(self, game):
         outdated_vehicles = []
