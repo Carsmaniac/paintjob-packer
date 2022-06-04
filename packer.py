@@ -1124,6 +1124,7 @@ class PackerApp:
                 all_errors.append([l("{ErrorIncompatibleTitle}"), l("{ErrorIncompatible}") + "\n" + incompatible_vehicles])
 
         if inputs_verified:
+            # Show warning about bus mods
             warning_vehicles = []
             if self.tab_paintjob_variable.get() == "pack":
                 for veh in self.bus_mod_list:
@@ -1139,6 +1140,20 @@ class PackerApp:
                 else:
                     quantity_message = l("{ErrorBusMultiple}")
                 messagebox.showwarning(title = l("{BusMods}"), message = l("{ErrorBus1}\n\n{ErrorBus2}") + " {quantity}\n\n{bus_list}\n\n".format(quantity = quantity_message, bus_list = "\n".join(warning_vehicles)) + l("{ErrorBus3}"))
+
+            # Disable template checkbox if not installed
+            templates_present = False
+            for veh in self.truck_list + self.truck_mod_list + self.bus_mod_list + self.trailer_list + self.trailer_mod_list:
+                if "selected" in veh.check.state():
+                    if os.path.exists("templates/{} templates/{} [{}].zip".format(self.tab_game_variable.get(), veh.vehicle_path, veh.mod_author)):
+                        templates_present = True
+            if templates_present:
+                self.panel_generating_templates_checkbox.state(["!disabled"])
+            else:
+                self.panel_generating_templates_variable.set(False)
+                self.panel_generating_templates_checkbox.state(["disabled"])
+
+            # Switch screens
             self.main_screen.grid_forget()
             self.generate_screen.grid(row = 0, column = 0, padx = 10, pady = 10)
         else:
