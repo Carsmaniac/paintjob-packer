@@ -16,14 +16,15 @@
 * MAN TGS Euro 6 by **MADster** – [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=166544)
 * MAN TGX by **MADster** – [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=177409)
 * MAN TGX Euro 6 2015 by **Gloover** – [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=296252)
-* Mercedes-Benz 1632 NG by **Ekualizer** – [TruckyMods](https://truckymods.io/euro-truck-simulator-2/trucks/mercedes-1632-ng) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=305955)
 * Mercedes-Benz Actros MP2 by **Dotec** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2333621047) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=289988)
 * Mercedes-Benz Actros MP2 Black Edition by **Dotec** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2335508587) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=285438)
 * Mercedes-Benz Actros MP3 by **Dotec** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2462431555) / [TruckyMods](https://truckymods.io/euro-truck-simulator-2/trucks/mercedes-benz-actros-mp3) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=294253)
 * Mercedes-Benz Actros MP4 by **Galimim** – [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=276682)
 * Mercedes-Benz Arocs SLT by **Thunderhawk** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=741673588)
+* Mercedes-Benz LPS 1632 by **Mercedes_2632** – [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=308364)
 * Mercedes-Benz New Actros 2019 by **Actros 5 Crew** – [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=287117)
 * Mercedes-Benz New Actros SLT by **Thunderhawk** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=741673588)
+* Mercedes-Benz NG 1632 by **Ekualizer** – [TruckyMods](https://truckymods.io/euro-truck-simulator-2/trucks/mercedes-1632-ng) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=305955)
 * Mercedes-Benz SK by **XBS** – [XBS's Site](https://www.xbsmods.tk/ets2)
 * Renault Magnum Updates by **Knox_xss** – [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=194202)
 * Roman Diesel by **MADster** – [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=35&t=293953)
@@ -83,6 +84,8 @@
 * Schmitz Cargobull Tipper Trailer by **MD Modding** – [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=252290)
 * Schmitz Cargobull Trailer by **MD Modding** – [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=252193)
 * SCS Fuel Cistern Reworked by **Kriistof** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2725478431)
+* Talson TAG by **ONURKULL** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1431253303) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=250206)
+* Talson TGG by **ONURKULL** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1431253303) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=250206)
 * VAK Trailer by **Kast** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1443578012) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=256559)
 
 # American Truck Simulator 
@@ -123,6 +126,7 @@
 * Scot A2HD by **Smarty** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=661658019) / [TruckyMods](https://truckymods.io/american-truck-simulator/trucks/scr-scot-a2hd-v2) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=201612) / [Smarty's Site](https://scr-rigs.com/index.php?act=ats_trk&p=1&dlid=262)
 * Volvo VNL 2018 by **Galimim** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1832939055) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256560)
 * Volvo VNR by **Galimim** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1833428947) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=256338)
+* Western Star 4900EX by **Outlaw Transport** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2749967627) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=305574)
 * Western Star 4900FA by **YukonJack_AK** – [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=207&t=282025)
 
 ## Trailers
@@ -133,11 +137,13 @@
 * Featherlite NASCAR Hauler by **AlexP** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2634244257)
 * Fruehauf Dry Van 1951 by **selonik** – [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=282617)
 * Fruehauf FB 40 ft Reefer by **selonik** – [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=282742)
-* Fruehauf FB9 F2 Dryvan by **HFG** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2224171226) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=289490)
+* Fruehauf FB9 F2 Dryvan by **HFG** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2224171226) / [TruckyMods](https://truckymods.io/american-truck-simulator/trailers/fruehauf-dryvan-circa-1975) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=289490)
 * Kentucky Moving Van by **Krille** – [TruckyMods](https://truckymods.io/american-truck-simulator/trailers/rd-moving-van)
 * Ownable SCS Chemical Tanker by **DNA Transport** – [DNA Transport's Site](https://www.facebook.com/dnatransportats/posts/357706905678131)
 * Ownable SCS Fuel Tanker by **DNA Transport** – [DNA Transport's Site](https://www.facebook.com/dnatransportats/posts/357706905678131)
+* Timpte Super Seal by **Smarty** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2758819524) / [TruckyMods](https://truckymods.io/american-truck-simulator/trailers/scr-timpte-super-seal) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=253453) / [Smarty's Site](https://scr-rigs.com/index.php?act=ats_trl&p=1&dlid=275)
 * Trailmobile SuperVan 90 by **Smarty** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1165035373) / [TruckyMods](https://truckymods.io/american-truck-simulator/trailers/scr-trailmobile-supervan-90) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=208&t=237570) / [Smarty's Site](https://scr-rigs.com/index.php?act=ats_trl)
+* Utility 4000DX by **guidot** – [TruckyMods](https://truckymods.io/american-truck-simulator/trailers/utility-4000dx)
 
 ---
 
