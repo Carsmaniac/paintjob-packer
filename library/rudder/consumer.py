@@ -1,5 +1,8 @@
 from threading import Thread
-import monotonic
+try:
+    from monotonic import monotonic
+except ModuleNotFoundError:
+    from time import monotonic
 import backoff
 import json
 
@@ -77,11 +80,11 @@ class Consumer(Thread):
         queue = self.queue
         items = []
 
-        start_time = monotonic.monotonic()
+        start_time = monotonic()
         total_size = 0
 
         while len(items) < self.flush_at:
-            elapsed = monotonic.monotonic() - start_time
+            elapsed = monotonic() - start_time
             if elapsed >= self.flush_interval:
                 break
             try:
