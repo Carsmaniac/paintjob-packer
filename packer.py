@@ -1143,10 +1143,19 @@ class PackerApp:
 
             # Disable template checkbox if not installed
             templates_present = False
-            for veh in self.truck_list + self.truck_mod_list + self.bus_mod_list + self.trailer_list + self.trailer_mod_list:
-                if "selected" in veh.check.state():
-                    if os.path.exists("templates/{} templates/{} [{}].zip".format(self.tab_game_variable.get(), veh.vehicle_path, veh.mod_author)):
-                        templates_present = True
+            if self.tab_paintjob_variable.get() == "pack":
+                for veh in self.truck_list + self.truck_mod_list + self.bus_mod_list + self.trailer_list + self.trailer_mod_list:
+                    if "selected" in veh.check.state():
+                        if os.path.exists("templates/{} templates/{} [{}].zip".format(self.tab_game_variable.get(), veh.vehicle_path, veh.mod_author)):
+                            templates_present = True
+            elif self.tab_paintjob_variable.get() == "single":
+                search_name = self.panel_single_vehicle_variable.get()
+                if "[" not in search_name:
+                    search_name += " [SCS]" # The single paint job dropdown should probably have a corresponding VehSelection, not just a name that needs to be looked up
+                for veh in self.truck_list + self.truck_mod_list + self.bus_mod_list + self.trailer_list + self.trailer_mod_list:
+                    if "{} [{}]".format(veh.display_name, veh.display_author) == search_name:
+                        if os.path.exists("templates/{} templates/{} [{}].zip".format(self.tab_game_variable.get(), veh.vehicle_path, veh.mod_author)):
+                            templates_present = True
             if templates_present:
                 self.panel_generating_templates_checkbox.state(["!disabled"])
             else:
