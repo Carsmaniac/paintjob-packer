@@ -8,6 +8,26 @@
 
 
 
+# This part of the code has nothing to do with analytics, it just checks whether or not the program is packaged into an executable, or is a script being run using Python
+try:
+
+    # MEIPASS is a variable used by PyInstaller (the program I use to package Paint Job Packer) which tells the program where it is installed
+    from sys import _MEIPASS
+    base_path = _MEIPASS
+
+# If the program isn't packaged into an executable, MEIPASS won't exist, which will cause an error
+except:
+
+    # In this case, abspath (absolute path) gives us the location of the script instead
+    from os.path import abspath
+    base_path = abspath(".")
+
+# Whether we're using MEIPASS or abspath, we now need to chdir (change directory) to it, so that the version.ini file can be found in step 1
+from os import chdir
+chdir(base_path)
+
+
+
 # 1. Installed version
 # This lets me know how quickly a new update is downloaded, which helps tell me when I can remove old code online
 # For example, v1.7 introduced a new update checker, but the files that supported the old one in v1.6 couldn't be removed, so that older versions could still check
@@ -41,7 +61,7 @@ installed_version = installed_version_line[19:].rstrip()
 # If all of a sudden 20% of people are using Linux, it would make sense to offer them on Linux as well
 
 # We'll be using a Python library called "sys", which tells us some information about the system it's running on
-# "platform" a string (some text) describing which OS you're using
+# "platform" is a string (some text) describing which OS you're using
 from sys import platform
 
 # On Windows, the platform is win32
