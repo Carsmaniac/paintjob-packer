@@ -84,8 +84,8 @@
 * Schmitz Cargobull Tipper Trailer by **MD Modding** – [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=252290)
 * Schmitz Cargobull Trailer by **MD Modding** – [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=252193)
 * SCS Fuel Cistern Reworked by **Kriistof** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2725478431)
-* Talson TAG by **ONURKULL** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1431253303) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=250206)
-* Talson TGG by **ONURKULL** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1431253303) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=250206)
+* Talson TAG by **ONURKULL** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2759802385) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=295787)
+* Talson TGG by **ONURKULL** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=2759802385) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?t=295787)
 * VAK Trailer by **Kast** – [Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=1443578012) / [SCS Forums](https://forum.scssoft.com/viewtopic.php?f=36&t=256559)
 
 # American Truck Simulator 
