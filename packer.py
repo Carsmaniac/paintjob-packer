@@ -818,7 +818,6 @@ class PackerApp:
             self.scroll_bar_trucks.grid_forget() # These lists don't need to scroll
             self.scroll_bar_trailers.grid_forget()
             self.scroll_bar_bus_mods.grid_forget()
-            self.scroll_bar_trailer_mods.grid_forget()
         elif self.tab_game_variable.get() == "ets":
             self.currency = l("{InGamePriceEuros}")
             self.panel_pack_selector.tab(3, state = "normal")
