@@ -895,15 +895,18 @@ class PackerApp:
 
     def check_for_outdated_vehicles(self, game):
         outdated_vehicles = []
-        for file_name in os.listdir("library/vehicles/{}".format(game)):
-            veh_ini = configparser.ConfigParser(allow_no_value = True)
-            veh_ini.read("library/vehicles/{}/{}".format(game, file_name), encoding="utf-8")
-            if "mod link workshop" not in veh_ini.options("vehicle info"): # 1.7
-                outdated_vehicles.append(file_name)
-            if "bus mod" not in veh_ini.options("vehicle info"): # 1.8
-                outdated_vehicles.append(file_name)
-        for file_name in outdated_vehicles:
-            os.remove("library/vehicles/{}/{}".format(game, file_name))
+        try:
+            for file_name in os.listdir("library/vehicles/{}".format(game)):
+                veh_ini = configparser.ConfigParser(allow_no_value = True)
+                veh_ini.read("library/vehicles/{}/{}".format(game, file_name), encoding="utf-8")
+                if "mod link workshop" not in veh_ini.options("vehicle info"): # 1.7
+                    outdated_vehicles.append(file_name)
+                if "bus mod" not in veh_ini.options("vehicle info"): # 1.8
+                    outdated_vehicles.append(file_name)
+            for file_name in outdated_vehicles:
+                os.remove("library/vehicles/{}/{}".format(game, file_name))
+        except PermissionError:
+            messagebox.showerror(title = ("Can't access intall folder"), message = ("Paint Job Packer has found an old file it needs to delete, but it doesn't have permission to access its install directory, so it's likely about to crash. If it does, please let me know on the SCS Forums thread, and I can walk you through the solution.\n\nYou should probably never see this message, but if you do, I'm sorry!"))
 
     def load_list_of_vehicles(self, game):
         l = self.get_localised_string
