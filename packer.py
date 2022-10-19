@@ -1327,7 +1327,10 @@ class PackerApp:
                 code_ini.read("library/vehicles/vehicle-codes.ini", encoding="UTF-8")
                 vehicle_codes = []
                 for veh in vehicle_list:
-                    vehicle_codes.append(code_ini[game]["{} [{}]".format(veh.path, veh.mod_author)])
+                    try:
+                        vehicle_codes.append(code_ini[game]["{} [{}]".format(veh.path, veh.mod_author)])
+                    except KeyError:
+                        vehicle_codes.append("0000")
                 multi_thread_analytics = threading.Thread(target = library.analytics.send_analytics(",".join(vehicle_codes)))
                 multi_thread_analytics.start()
 
