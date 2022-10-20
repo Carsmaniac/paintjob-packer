@@ -1224,7 +1224,7 @@ class PackerApp:
                         shutil.rmtree(output_path)
                     except:
                         print("Could not delete output folder, some files may remain")
-                    messagebox.showerror(title = l("{ErrorFolderAccessTitle}"), message = l("TOOO LONG+{ErrorFolderAccess1}\n\n{ErrorFolderAccess2}"))
+                    messagebox.showerror(title = l("{ErrorLongPathTitle}"), message = l("{ErrorLongPath1}\n\n{ErrorLongPath2}\n\n{ErrorLongPath3}"))
                     # Reset everything on the generating screen
                     self.panel_gen_buttons_generate.state(["!disabled"])
                     self.progress_value.set(0.0)
@@ -1232,6 +1232,23 @@ class PackerApp:
                     self.panel_progress_specific_variable.set(l("{ProgressAppearHere}"))
                     self.panel_progress_specific_label.update()
                     self.ask_save_location()
+                except OSError as e:
+                    if e.errno == 23:
+                        # Not enough drive space
+                        try:
+                            shutil.rmtree(output_path)
+                        except:
+                            print("Could not delete output folder, some files may remain")
+                        messagebox.showerror(title = l("{ErrorNoSpaceTitle}"), message = l("{ErrorNoSpace1}\n\n{ErrorNoSpace2}"))
+                        # Reset everything on the generating screen
+                        self.panel_gen_buttons_generate.state(["!disabled"])
+                        self.progress_value.set(0.0)
+                        self.panel_progress_category_variable.set(l("{ProgressReady}"))
+                        self.panel_progress_specific_variable.set(l("{ProgressAppearHere}"))
+                        self.panel_progress_specific_label.update()
+                        self.ask_save_location()
+                    else:
+                        pass # I don't know what this crash is, leave it to the uncaught exception handler
 
 
 
