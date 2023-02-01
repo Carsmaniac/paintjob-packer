@@ -2,10 +2,9 @@ import sys, os, configparser, zipfile
 from paintjob import strip_diacritics
 
 def menu():
-    print("1. Create nested spreadsheet OR functions")
-    print("2. Print list of vehicle paths")
-    print("3. Generate mod-links.md")
-    print("4. Check vehicle database accessories")
+    print("1. Print list of vehicle paths")
+    print("2. Generate mod-links.md")
+    print("3. Check vehicle database accessories")
     choice = input("\nEnter selection, or nothing to quit: ")
 
     if choice == "":
@@ -16,55 +15,12 @@ def menu():
         menu_2()
     elif choice == "3":
         menu_3()
-    elif choice == "4":
-        menu_4()
     else:
         cls()
         print("Try again\n")
         menu()
 
 def menu_1():
-    cls()
-    ats_list = os.listdir("vehicles/ats")
-    ets_list = os.listdir("vehicles/ets")
-    ats_only_list = []
-    ets_only_list = []
-    both_list = []
-    for veh in ats_list:
-        if veh in ets_list:
-            both_list.append(veh[:-4])
-        else:
-            ats_only_list.append(veh[:-4])
-    for veh in ets_list:
-        if veh not in ats_list:
-            ets_only_list.append(veh[:-4])
-
-    cell_name = input("Enter cell to check for ATS vehicles: ")
-    nested_function = "="
-    nested_function += "OR(" * (len(ats_only_list) - 1)
-    nested_function += "ISNUMBER(SEARCH(\"{}\",{}))".format(ats_only_list[0], cell_name)
-    for i in range(len(ats_only_list) - 1):
-        nested_function += ",ISNUMBER(SEARCH(\"{}\",{})))".format(ats_only_list[i + 1], cell_name)
-    print("\n\n"+nested_function+"\n")
-
-    cell_name = input("\nEnter cell to check for ETS 2 vehicles: ")
-    nested_function = "="
-    nested_function += "OR(" * (len(ets_only_list) - 1)
-    nested_function += "ISNUMBER(SEARCH(\"{}\",{}))".format(ets_only_list[0], cell_name)
-    for i in range(len(ets_only_list) - 1):
-        nested_function += ",ISNUMBER(SEARCH(\"{}\",{})))".format(ets_only_list[i + 1], cell_name)
-    print("\n\n"+nested_function+"\n")
-
-    cell_name = input("\nEnter cell to check for both vehicles: ")
-    nested_function = "="
-    nested_function += "OR(" * (len(both_list) - 1)
-    nested_function += "ISNUMBER(SEARCH(\"{}\",{}))".format(both_list[0], cell_name)
-    for i in range(len(both_list) - 1):
-        nested_function += ",ISNUMBER(SEARCH(\"{}\",{})))".format(both_list[i + 1], cell_name)
-    print("\n\n"+nested_function+"\n\n")
-    to_exit()
-
-def menu_2():
     cls()
     ats_list = os.listdir("vehicles/ats")
     print("\n================ ATS Vehicles ================\n")
@@ -78,7 +34,7 @@ def menu_2():
     print("\n\n")
     to_exit()
 
-def menu_3():
+def menu_2():
     cls()
     mod_links_text = ""
 
@@ -112,7 +68,10 @@ def menu_3():
         if veh["vehicle info"]["mod link forums"] != "":
             links.append("[SCS Forums]({})".format(veh["vehicle info"]["mod link forums"]))
         if veh["vehicle info"]["mod link author site"] != "":
-            links.append("[{}'s Site]({})".format(veh["vehicle info"]["mod author"], veh["vehicle info"]["mod link author site"]))
+            if veh["vehicle info"]["mod author"][-1:].lower() == "s":
+                links.append("[{}' Site]({})".format(veh["vehicle info"]["mod author"], veh["vehicle info"]["mod link author site"]))
+            else:
+                links.append("[{}'s Site]({})".format(veh["vehicle info"]["mod author"], veh["vehicle info"]["mod link author site"]))
         mod_links_text += ("\n* {} by **{}** – {}".format(veh["vehicle info"]["name"], veh["vehicle info"]["mod author"], " / ".join(links)))
     mod_links_text += ("\n\n## Buses\n")
     for veh in ets_buses:
@@ -124,7 +83,10 @@ def menu_3():
         if veh["vehicle info"]["mod link forums"] != "":
             links.append("[SCS Forums]({})".format(veh["vehicle info"]["mod link forums"]))
         if veh["vehicle info"]["mod link author site"] != "":
-            links.append("[{}'s Site]({})".format(veh["vehicle info"]["mod author"], veh["vehicle info"]["mod link author site"]))
+            if veh["vehicle info"]["mod author"][-1:].lower() == "s":
+                links.append("[{}' Site]({})".format(veh["vehicle info"]["mod author"], veh["vehicle info"]["mod link author site"]))
+            else:
+                links.append("[{}'s Site]({})".format(veh["vehicle info"]["mod author"], veh["vehicle info"]["mod link author site"]))
         mod_links_text += ("\n* {} by **{}** – {}".format(veh["vehicle info"]["name"], veh["vehicle info"]["mod author"], " / ".join(links)))
     mod_links_text += ("\n\n## Trailers\n")
     for veh in ets_trailers:
@@ -136,7 +98,10 @@ def menu_3():
         if veh["vehicle info"]["mod link forums"] != "":
             links.append("[SCS Forums]({})".format(veh["vehicle info"]["mod link forums"]))
         if veh["vehicle info"]["mod link author site"] != "":
-            links.append("[{}'s Site]({})".format(veh["vehicle info"]["mod author"], veh["vehicle info"]["mod link author site"]))
+            if veh["vehicle info"]["mod author"][-1:].lower() == "s":
+                links.append("[{}' Site]({})".format(veh["vehicle info"]["mod author"], veh["vehicle info"]["mod link author site"]))
+            else:
+                links.append("[{}'s Site]({})".format(veh["vehicle info"]["mod author"], veh["vehicle info"]["mod link author site"]))
         mod_links_text += ("\n* {} by **{}** – {}".format(veh["vehicle info"]["name"], veh["vehicle info"]["mod author"], " / ".join(links)))
 
     # Get ATS vehicles
@@ -166,7 +131,10 @@ def menu_3():
         if veh["vehicle info"]["mod link forums"] != "":
             links.append("[SCS Forums]({})".format(veh["vehicle info"]["mod link forums"]))
         if veh["vehicle info"]["mod link author site"] != "":
-            links.append("[{}'s Site]({})".format(veh["vehicle info"]["mod author"], veh["vehicle info"]["mod link author site"]))
+            if veh["vehicle info"]["mod author"][-1:].lower() == "s":
+                links.append("[{}' Site]({})".format(veh["vehicle info"]["mod author"], veh["vehicle info"]["mod link author site"]))
+            else:
+                links.append("[{}'s Site]({})".format(veh["vehicle info"]["mod author"], veh["vehicle info"]["mod link author site"]))
         mod_links_text += ("\n* {} by **{}** – {}".format(veh["vehicle info"]["name"], veh["vehicle info"]["mod author"], " / ".join(links)))
     mod_links_text += ("\n\n## Trailers\n")
     for veh in ats_trailers:
@@ -178,7 +146,10 @@ def menu_3():
         if veh["vehicle info"]["mod link forums"] != "":
             links.append("[SCS Forums]({})".format(veh["vehicle info"]["mod link forums"]))
         if veh["vehicle info"]["mod link author site"] != "":
-            links.append("[{}'s Site]({})".format(veh["vehicle info"]["mod author"], veh["vehicle info"]["mod link author site"]))
+            if veh["vehicle info"]["mod author"][-1:].lower() == "s":
+                links.append("[{}' Site]({})".format(veh["vehicle info"]["mod author"], veh["vehicle info"]["mod link author site"]))
+            else:
+                links.append("[{}'s Site]({})".format(veh["vehicle info"]["mod author"], veh["vehicle info"]["mod link author site"]))
         mod_links_text += ("\n* {} by **{}** – {}".format(veh["vehicle info"]["name"], veh["vehicle info"]["mod author"], " / ".join(links)))
 
     # Print end statement
@@ -192,7 +163,7 @@ def menu_3():
     print("Saved new mod links.md\n")
     to_exit()
 
-def menu_4():
+def menu_3():
     cls()
     untextured_accessories = input("List untextured accessories? (y/n) ").lower() == "y"
     ini_name = input("List incorrectly named INIs? (y/n) ").lower() == "y"
