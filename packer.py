@@ -818,14 +818,11 @@ class PackerApp:
             self.currency = l("{InGamePriceDollars}")
             self.panel_pack_selector.tab(3, state = "hidden")
             self.panel_single_type_dropdown.config(values = [l("{Truck}"), l("{TruckMod}"), l("{Trailer}"), l("{TrailerMod}")])
-            self.scroll_bar_trucks.grid_forget() # These lists don't need to scroll
-            self.scroll_bar_trailers.grid_forget()
-            self.scroll_bar_bus_mods.grid_forget()
+            self.scroll_bar_bus_mods.grid_forget() # This list doesn't need to scroll
         elif self.tab_game_variable.get() == "ets":
             self.currency = l("{InGamePriceEuros}")
             self.panel_pack_selector.tab(3, state = "normal")
             self.panel_single_type_dropdown.config(values = [l("{Truck}"), l("{TruckMod}"), l("{BusMod}"), l("{Trailer}"), l("{TrailerMod}")])
-            self.scroll_bar_trailers.grid_forget()
             self.scroll_bar_bus_mods.grid_forget()
 
         self.check_for_outdated_vehicles(self.tab_game_variable.get())
@@ -883,11 +880,8 @@ class PackerApp:
         current_tab = self.panel_pack_selector.index(self.panel_pack_selector.select())
         if current_tab == 0: # Trucks
             self.scroll_canvas_trucks.yview_scroll(scroll_amount, "units")
-            if self.tab_game_variable.get() == "ats":
-                self.scroll_canvas_trucks.yview_moveto(0) # Hack to prevent scrolling up past the content
         elif current_tab == 1: # Trailers
             self.scroll_canvas_trailers.yview_scroll(scroll_amount, "units")
-            self.scroll_canvas_trailers.yview_moveto(0)
         elif current_tab == 2: # Truck mods
             self.scroll_canvas_truck_mods.yview_scroll(scroll_amount, "units")
         elif current_tab == 3: # Bus mods
