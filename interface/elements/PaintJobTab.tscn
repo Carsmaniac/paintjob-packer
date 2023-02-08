@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://interface/elements/VariableInput.tscn" type="PackedScene" id=1]
+[ext_resource path="res://interface/elements/PaintJobTab.gd" type="Script" id=2]
+
+[node name="PaintJobTab" type="Tabs"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 32.0
+margin_right = -4.0
+margin_bottom = -4.0
+script = ExtResource( 2 )
+
+[node name="SizeGuide" type="ColorRect" parent="."]
+visible = false
+margin_right = 1272.0
+margin_bottom = 684.0
+color = Color( 0.54902, 0.694118, 0.709804, 1 )
+
+[node name="InGameLabel" type="Label" parent="."]
+margin_left = 3.0
+margin_top = 2.0
+margin_right = 147.0
+margin_bottom = 16.0
+text = "In-Game Paint Job Info"
+
+[node name="Name" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1, 32 )
+input_name = "Name"
+input_type = "Text"
+
+[node name="Price" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1, 117 )
+input_name = "Price"
+input_type = "Text"
+
+[node name="UnlockedByDefault" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1, 202 )
+input_name = "Unlocked by default"
+input_type = "Checkbox"
+
+[node name="Unlock" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1, 278 )
+input_name = "Unlock level"
+input_type = "Text"
+
+[node name="InternalLabel" type="Label" parent="."]
+margin_left = 3.0
+margin_top = 393.0
+margin_right = 263.0
+margin_bottom = 407.0
+text = "Internal (Hidden) Info and Other Settings"
+
+[node name="InternalName" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1, 423 )
+input_name = "Internal name"
+input_type = "Text"
+
+[node name="CabinSupport" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1, 508 )
+input_name = "Cabin support"
+input_type = "Dropdown"

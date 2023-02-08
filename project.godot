@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Paint Job Packer"
-run/main_scene="res://interface/Main.tscn"
+run/main_scene="res://interface/MainScreen.tscn"
 config/icon="res://icon.png"
 
 [display]
