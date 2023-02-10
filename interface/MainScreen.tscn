@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://interface/elements/PaintJobTab.tscn" type="PackedScene" id=2]
-[ext_resource path="res://interface/elements/PaintJobTabContainer.gd" type="Script" id=3]
+[ext_resource path="res://interface/PaintJobTab.tscn" type="PackedScene" id=2]
+[ext_resource path="res://interface/PaintJobTabContainer.gd" type="Script" id=3]
 
 [node name="MainScreen" type="Node2D"]
 
@@ -60,6 +60,8 @@ margin_bottom = 664.0
 script = ExtResource( 3 )
 
 [node name="New Paint Job" parent="PaintJobTabContainer" instance=ExtResource( 2 )]
+margin_right = -4.0
+margin_bottom = -4.0
 
 [node name="+" parent="PaintJobTabContainer" instance=ExtResource( 2 )]
 visible = false

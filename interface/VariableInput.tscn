@@ -1,20 +1,20 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://interface/elements/VariableInput.gd" type="Script" id=1]
+[ext_resource path="res://interface/VariableInput.gd" type="Script" id=1]
 
 [node name="VariableInput" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="Label" type="Label" parent="."]
-margin_left = 2.0
+margin_left = 1.0
 margin_top = 10.0
-margin_right = 172.0
+margin_right = 171.0
 margin_bottom = 24.0
 text = "Input name"
 
 [node name="TextInput" type="LineEdit" parent="."]
 margin_top = 39.0
-margin_right = 252.0
+margin_right = 313.0
 margin_bottom = 63.0
 caret_blink = true
 caret_blink_speed = 0.5
@@ -26,20 +26,19 @@ margin_bottom = 63.0
 
 [node name="DropdownInput" type="OptionButton" parent="."]
 margin_top = 39.0
-margin_right = 252.0
+margin_right = 313.0
 margin_bottom = 63.0
 
 [node name="HelpButton" type="Button" parent="."]
-margin_left = 225.0
+margin_left = 287.0
 margin_top = 1.0
-margin_right = 250.0
+margin_right = 312.0
 margin_bottom = 26.0
 text = "?"
 
 [node name="WarningButton" type="Button" parent="."]
-visible = false
-margin_left = 259.0
-margin_top = 32.0
-margin_right = 284.0
-margin_bottom = 57.0
+margin_left = 247.0
+margin_top = 1.0
+margin_right = 272.0
+margin_bottom = 26.0
 text = "!"
