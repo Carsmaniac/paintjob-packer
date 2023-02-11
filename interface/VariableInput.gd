@@ -4,7 +4,7 @@ export var input_name: String
 export(String, "Text", "Dropdown", "Checkbox") var input_type
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready() -> void:
 	$Label.text = input_name
 	$WarningButton.visible = false
 	$TextInput.visible = false
