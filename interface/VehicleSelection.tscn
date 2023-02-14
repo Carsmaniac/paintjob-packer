@@ -7,7 +7,7 @@ script = ExtResource( 1 )
 
 [node name="BackgroundPanel" type="Panel" parent="."]
 margin_right = 337.0
-margin_bottom = 66.0
+margin_bottom = 62.0
 
 [node name="VehicleCheckbox" type="CheckBox" parent="."]
 margin_right = 337.0
@@ -16,57 +16,57 @@ text = "Vehicle Name"
 
 [node name="AuthorName" type="Label" parent="."]
 margin_left = 24.0
-margin_top = 25.0
+margin_top = 23.0
 margin_right = 337.0
-margin_bottom = 39.0
+margin_bottom = 37.0
 text = "by Author Name"
 
 [node name="CabinCheckbox1" type="CheckBox" parent="."]
-margin_top = 42.0
+margin_top = 38.0
 margin_right = 41.0
-margin_bottom = 66.0
+margin_bottom = 62.0
 text = "A"
 
 [node name="CabinCheckbox2" type="CheckBox" parent="."]
 margin_left = 48.0
-margin_top = 42.0
+margin_top = 38.0
 margin_right = 89.0
-margin_bottom = 66.0
+margin_bottom = 62.0
 text = "B"
 
 [node name="CabinCheckbox3" type="CheckBox" parent="."]
 margin_left = 96.0
-margin_top = 42.0
+margin_top = 38.0
 margin_right = 137.0
-margin_bottom = 66.0
+margin_bottom = 62.0
 text = "C"
 
 [node name="CabinCheckbox4" type="CheckBox" parent="."]
 margin_left = 144.0
-margin_top = 42.0
+margin_top = 38.0
 margin_right = 185.0
-margin_bottom = 66.0
+margin_bottom = 62.0
 text = "D"
 
 [node name="CabinCheckbox5" type="CheckBox" parent="."]
 margin_left = 192.0
-margin_top = 42.0
+margin_top = 38.0
 margin_right = 233.0
-margin_bottom = 66.0
+margin_bottom = 62.0
 text = "E"
 
 [node name="CabinCheckbox6" type="CheckBox" parent="."]
 margin_left = 240.0
-margin_top = 42.0
+margin_top = 38.0
 margin_right = 281.0
-margin_bottom = 66.0
+margin_bottom = 62.0
 text = "F"
 
 [node name="CabinCheckbox7" type="CheckBox" parent="."]
 margin_left = 288.0
-margin_top = 42.0
+margin_top = 38.0
 margin_right = 329.0
-margin_bottom = 66.0
+margin_bottom = 62.0
 text = "G"
 
 [connection signal="gui_input" from="BackgroundPanel" to="." method="_on_panel_gui_input"]

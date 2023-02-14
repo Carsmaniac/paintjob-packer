@@ -14,6 +14,10 @@ config/name="Paint Job Packer"
 run/main_scene="res://interface/MainScreen.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+VehicleDatabase="*res://scripts/VehicleDatabase.gd"
+
 [display]
 
 window/size/width=1280

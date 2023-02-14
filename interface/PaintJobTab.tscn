@@ -27,53 +27,53 @@ margin_bottom = 16.0
 text = "In-Game Paint Job Info"
 
 [node name="Name" parent="." instance=ExtResource( 1 )]
-position = Vector2( 2, 32 )
+position = Vector2( 2, 29 )
 input_name = "Name"
 input_type = "Text"
 
 [node name="Price" parent="." instance=ExtResource( 1 )]
-position = Vector2( 2, 117 )
+position = Vector2( 2, 104 )
 input_name = "Price"
 input_type = "Text"
 
-[node name="UnlockedByDefault" parent="." instance=ExtResource( 1 )]
-position = Vector2( 2, 202 )
-input_name = "Unlocked by default"
-input_type = "Checkbox"
-
 [node name="Unlock" parent="." instance=ExtResource( 1 )]
-position = Vector2( 2, 278 )
+position = Vector2( 2, 179 )
 input_name = "Unlock level"
-input_type = "Text"
+input_type = "CheckboxAndText"
 
 [node name="InternalLabel" type="Label" parent="."]
 margin_left = 3.0
-margin_top = 393.0
+margin_top = 322.0
 margin_right = 263.0
-margin_bottom = 407.0
-text = "Internal (Hidden) Info and Other Settings"
+margin_bottom = 336.0
+text = "Other Settings"
 
 [node name="InternalName" parent="." instance=ExtResource( 1 )]
-position = Vector2( 2, 423 )
+position = Vector2( 2, 349 )
 input_name = "Internal name"
 input_type = "Text"
 
 [node name="CabinSupport" parent="." instance=ExtResource( 1 )]
-position = Vector2( 2, 508 )
-input_name = "Split paint job"
+position = Vector2( 2, 424 )
+input_name = "Supported cabins"
+input_type = "Dropdown"
+
+[node name="SplitPaintJobs" parent="." instance=ExtResource( 1 )]
+position = Vector2( 2, 499 )
+input_name = "Split paint jobs"
 input_type = "Dropdown"
 
 [node name="InGameLabel2" type="Label" parent="."]
-margin_left = 328.0
+margin_left = 390.0
 margin_top = 2.0
-margin_right = 472.0
+margin_right = 534.0
 margin_bottom = 16.0
 text = "Vehicles Supported (5)"
 
 [node name="VehicleTabContainer" type="TabContainer" parent="."]
-margin_left = 329.0
+margin_left = 391.0
 margin_top = 25.0
-margin_right = 1020.0
+margin_right = 1084.0
 margin_bottom = 570.0
 
 [node name="Trucks" parent="VehicleTabContainer" instance=ExtResource( 3 )]

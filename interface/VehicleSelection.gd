@@ -26,14 +26,14 @@ func set_cabin_checkbox_visibility() -> void:
 		get_node("CabinCheckbox" + str(i + 1)).visible = false
 	
 	if cabin_row and author_row:
-		$BackgroundPanel.set_size(Vector2(337, 66))
+		$BackgroundPanel.set_size(Vector2(337, 62))
 	elif cabin_row or author_row:
-		$BackgroundPanel.set_size(Vector2(337, 47))
+		$BackgroundPanel.set_size(Vector2(337, 45))
 	else:
 		$BackgroundPanel.set_size(Vector2(337, 24))
 	
 	if cabin_row:
-		var y_pos: int = 42 if author_row else 23
+		var y_pos: int = 38 if author_row else 19
 		var x_pos: int = 0
 		for i in range(len(cabins_list)): # I need the index and the cabin, hence this abomination
 			var cabin_name = cabins_list[i]
