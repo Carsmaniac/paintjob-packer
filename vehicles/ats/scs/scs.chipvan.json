@@ -1,0 +1,53 @@
+{
+	"format_version": 1,
+	
+	"name": "SCS Chip Van",
+	"path": "scs.chipvan",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body": [
+			"body.van_48",
+			"body.m_floor_48",
+			"body.belly_van_48"
+		],
+		"Trailer Rear": [
+			"rear_body.simple"
+		],
+		"Trailer Front": [
+			"f_body.paint"
+		],
+		"Left Sideskirt - Aero": [
+			"chs_f_l.aero"
+		],
+		"Left Sideskirt - Painted": [
+			"chs_f_l.paint_45"
+		],
+		"Right Sideskirt - Aero": [
+			"chs_f_r.aero"
+		],
+		"Right Sideskirt - Painted": [
+			"chs_f_r.paint_45"
+		]
+	}
+}

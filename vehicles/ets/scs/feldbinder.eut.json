@@ -1,0 +1,91 @@
+{
+	"format_version": 1,
+	
+	"name": "Feldbinder EUT",
+	"path": "feldbinder.eut",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body (35)": [
+			"body.silo_35_3_g",
+			"body.silo_35_3_g2",
+			"body.silo_35_3_p",
+			"chassis.ch_3_35",
+			"chassis.ch_3_35_hook",
+			"rear_body.bp_35"
+		],
+		"Body (52)": [
+			"body.silo_52_3_g",
+			"body.silo_52_3_g2",
+			"body.silo_52_3_p",
+			"chassis.ch_3_52",
+			"rear_body.bp_52"
+		],
+		"Sideskirts": [
+			"chs_f_l.cage_p_35",
+			"chs_f_l.cagep_st_35",
+			"chs_f_l.cagep_bp_35",
+			"chs_f_r.cage_p_35",
+			"chs_f_r.cagep_st_35",
+			"chs_f_r.cagep_bp_35",
+			"chs_f_l.cage_p_52",
+			"chs_f_l.cagep_st_52",
+			"chs_f_l.cagep_bp_52",
+			"chs_f_r.cage_p_52",
+			"chs_f_r.cagep_st_52",
+			"chs_f_r.cagep_bp_52"
+		],
+		"Hoses": [
+			"l_body.t_1_p_35",
+			"l_body.t_1_p_352",
+			"l_body.t_2_p_35",
+			"l_body.t_2_p_352",
+			"l_body.t_3_p_35",
+			"l_body.t_3_p_352",
+			"r_body.t_1_p_35",
+			"r_body.t_1_p_352",
+			"r_body.t_2_p_35",
+			"r_body.t_2_p_352",
+			"r_body.t_3_p_35",
+			"r_body.t_3_p_352",
+			"l_body.t_1_p_52",
+			"l_body.t_1_p_522",
+			"l_body.t_2_p_52",
+			"l_body.t_2_p_522",
+			"l_body.t_3_p_52",
+			"l_body.t_3_p_522",
+			"r_body.t_1_p_52",
+			"r_body.t_1_p_522",
+			"r_body.t_2_p_52",
+			"r_body.t_2_p_522",
+			"r_body.t_3_p_52",
+			"r_body.t_3_p_522"
+		],
+		"Rear Bumper": [
+			"r_bumper.excl_paint"
+		],
+		"Rear Fenders": [
+			"r_fender.paint"
+		]
+	}
+}

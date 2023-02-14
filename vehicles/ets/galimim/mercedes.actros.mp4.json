@@ -1,0 +1,36 @@
+{
+	"format_version": 1,
+	
+	"name": "Mercedes-Benz Actros MP4",
+	"path": "mercedes.actros.mp4",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Galimim",
+	"mod_links": {
+		"workshop": "",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=35&t=276682",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "SteamSpace L-Cab 2.30 m",
+			"internal_name": ["streamspace"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

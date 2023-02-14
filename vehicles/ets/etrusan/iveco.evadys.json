@@ -1,0 +1,36 @@
+{
+	"format_version": 1,
+	
+	"name": "Iveco Evadys Line",
+	"path": "iveco.evadys",
+	
+	"trailer": false,
+	"bus": true,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Etrusan",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=1986485167",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=35&t=291295",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": true,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "13 m",
+			"internal_name": ["021_13"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

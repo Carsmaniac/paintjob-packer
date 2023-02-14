@@ -1,0 +1,42 @@
+{
+	"format_version": 1,
+	
+	"name": "Mercedes-Benz New Actros SLT",
+	"path": "mercedes.actros2014.wtd",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Thunderhawk",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=741673588",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "GigaSpace",
+			"internal_name": ["giga_w"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "BigSpace",
+			"internal_name": ["bigs_w"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

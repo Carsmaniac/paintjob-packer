@@ -1,0 +1,72 @@
+{
+	"format_version": 1,
+	
+	"name": "Peterbilt 389 Modified",
+	"path": "peterbilt.389v2",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Viper2",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=724654784",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=207&t=200096",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "72-inch Ultracab Sleeper",
+			"internal_name": ["sucub"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "63-inch Stand Up Sleeper Ultra Cab",
+			"internal_name": ["shrbg"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "63-inch Stand Up Sleeper",
+			"internal_name": ["sfrbg"]
+		},
+		{
+			"code": "d",
+			"designation": "Cabin D",
+			"name": "63-inch Flat Top Sleeper",
+			"internal_name": ["sfrlg"]
+		},
+		{
+			"code": "e",
+			"designation": "Cabin E",
+			"name": "36-inch Flat Top Sleeper",
+			"internal_name": ["sfrsh"]
+		},
+		{
+			"code": "f",
+			"designation": "Cabin F",
+			"name": "DayCab Ultra Cab",
+			"internal_name": ["dchr"]
+		},
+		{
+			"code": "g",
+			"designation": "Cabin G",
+			"name": "DayCab",
+			"internal_name": ["dcfr"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

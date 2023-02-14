@@ -1,0 +1,36 @@
+{
+	"format_version": 1,
+	
+	"name": "Freightliner Inspiration",
+	"path": "freightliner.inspiration",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "dmitry68",
+	"mod_links": {
+		"workshop": "",
+		"forums": "https://forum.scssoft.com/viewtopic.php?t=229591",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "72-inch Raised Roof",
+			"internal_name": ["r_roof"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

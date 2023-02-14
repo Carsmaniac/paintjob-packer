@@ -1,0 +1,75 @@
+{
+	"format_version": 1,
+	
+	"name": "Kraker Walkingfloor",
+	"path": "kraker",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Kast",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=1431285928",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=36&t=233975",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body - CF-ISO": [
+			"body.body_iso"
+		],
+		"Body - CF-200": [
+			"body.body"
+		],
+		"Body (B-Double)": [
+			"body.body_link"
+		],
+		"Body - CF-502": [
+			"body.body502"
+		],
+		"Body - CF-502 6.2 m Doors": [
+			"body.body502_2"
+		],
+		"Body - CF-503": [
+			"body.body503"
+		],
+		"Chassis Front": [
+			"chs_f_l.pallet_paint"
+		],
+		"Custom License Plate": [
+			"r_bumper.zepro_lp",
+			"r_bumper.standard_lp",
+			"r_bumper.dolly_lp",
+			"r_bumper.vbg_lp",
+			"r_bumper.blink_lp"
+		],
+		"Rear Mudflaps": [
+			"r_mudflap.paint"
+		],
+		"Fenders": [
+			"fenders_a.parlok_p",
+			"fenders_a.parlok_small_p",
+			"fenders_a.domar_p",
+			"fenders_a.domar_small_p",
+			"fenders_b.parlok_p",
+			"fenders_b.parlok_small_p",
+			"fenders_b.domar_p",
+			"fenders_b.domar_small_p",
+			"fenders_c.parlok_p",
+			"fenders_c.domar_p",
+			"fenders_d.parlok_p",
+			"fenders_d.domar_p"
+		]
+	}
+}

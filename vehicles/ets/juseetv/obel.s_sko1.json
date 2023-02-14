@@ -1,0 +1,39 @@
+{
+	"format_version": 1,
+	
+	"name": "Schmitz Cargobull S.KO",
+	"path": "obel.s_sko1",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "JUseeTV",
+	"mod_links": {
+		"workshop": "",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=36&t=294962",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Schmitz Cargobull S.KO": [
+			"everything"
+		],
+		"Rear Mudflaps": [
+			"r_mudflap.paint",
+			"w_mudflap.paint",
+			"w_mudflap1.paint",
+			"w_mudflap2.paint"
+		]
+	}
+}

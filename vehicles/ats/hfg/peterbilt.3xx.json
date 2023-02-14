@@ -1,0 +1,60 @@
+{
+	"format_version": 1,
+	
+	"name": "Project 3XX",
+	"path": "peterbilt.3xx",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "HFG",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=1835092596",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=207&t=256189",
+		"trucky": "https://truckymods.io/american-truck-simulator/trucks/project-3xx",
+		"author": "https://halffastgaming.wixsite.com/halffast/downloads"
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "63-inch Sleeper",
+			"internal_name": ["standard"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "60-inch Flattop Sleeper",
+			"internal_name": ["sixty"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "48-inch Sleeper",
+			"internal_name": ["duty"]
+		},
+		{
+			"code": "d",
+			"designation": "Cabin D",
+			"name": "36-inch Sleeper",
+			"internal_name": ["thirtysix"]
+		},
+		{
+			"code": "e",
+			"designation": "Cabin E",
+			"name": "Day Cab",
+			"internal_name": ["day"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

@@ -1,0 +1,83 @@
+{
+	"format_version": 1,
+	
+	"name": "Schwarzmüller Refrigerated",
+	"path": "schwmuller.reefer",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body": [
+			"body.reefer"
+		],
+		"Rear Bumper": [
+			"r_bumper.rbumper1p",
+			"r_bumper.rbumper2p"
+		],
+		"Sideskirts - Pallet Box": [
+			"chs_f_l.pallet2p",
+			"chs_f_r.pallet2p"
+		],
+		"Sideskirts - Painted Box": [
+			"chs_f_l.sp2_b1p",
+			"chs_f_r.sp2_b1p",
+			"chs_r_l.b1p",
+			"chs_r_l.b1p_b2",
+			"chs_r_l.b1p_b3",
+			"chs_r_l.b1p_b4",
+			"chs_r_l.b1p_et",
+			"chs_r_l.b1p_t",
+			"chs_r_r.b1p",
+			"chs_r_r.b1p_et",
+			"chs_r_r.b1p_t"
+		],
+		"Left Sideskirts - Side Skirt": [
+			"chs_f_l.sp2p",
+			"chs_f_l.sp2p_b1",
+			"chs_f_l.sp2p_b1p",
+			"chs_f_l.sp2p_b2",
+			"chs_f_l.sp2p_b3",
+			"chs_f_l.sp2p_b4",
+			"chs_f_l.sp2p_et",
+			"chs_f_l.sp2p_t"
+		],
+		"Left Sideskirts - Simple Side Skirt": [
+			"chs_f_l.sp1p"
+		],
+		"Right Sideskirts - Side Skirt": [
+			"chs_f_r.sp2p",
+			"chs_f_r.sp2p_b1",
+			"chs_f_r.sp2p_b1p",
+			"chs_f_r.sp2p_b2",
+			"chs_f_r.sp2p_b3",
+			"chs_f_r.sp2p_b4",
+			"chs_f_r.sp2p_et",
+			"chs_f_r.sp2p_t"
+		],
+		"Right Sideskirts - Simple Side Skirt": [
+			"chs_f_r.sp1p"
+		],
+		"Trailer Front - Cool Master Paint": [
+			"f_body.reeferp"
+		]
+	}
+}

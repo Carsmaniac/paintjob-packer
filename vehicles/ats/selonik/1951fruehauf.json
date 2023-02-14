@@ -1,0 +1,30 @@
+{
+	"format_version": 1,
+	
+	"name": "Fruehauf Dry Van 1951",
+	"path": "1951fruehauf",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "selonik",
+	"mod_links": {
+		"workshop": "",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=208&t=282617",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

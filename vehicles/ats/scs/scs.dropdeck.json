@@ -1,0 +1,39 @@
+{
+	"format_version": 1,
+	
+	"name": "SCS Drop Deck (Sliding Tarp)",
+	"path": "scs.dropdeck",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Sliding Tarp (48 ft)": [
+			"body.curtain_48"
+		],
+		"Sliding Tarp (53 ft)": [
+			"body.curtain_53"
+		],
+		"Trailer Front - Wind Deflector": [
+			"f_body.wind_def"
+		]
+	}
+}

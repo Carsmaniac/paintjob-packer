@@ -1,0 +1,59 @@
+{
+	"format_version": 1,
+	
+	"name": "DAF XF105",
+	"path": "daf.xf",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Super Space",
+			"internal_name": ["super_s_cab"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Space Cab Plus",
+			"internal_name": ["s_cab_plus"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "Space",
+			"internal_name": ["space_cab"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Rear Bumper": [
+			"r_bumper.paint",
+			"r_bumper.chrome",
+			"r_bumper.steel"
+		],
+		"Chassis Cover": [
+			"r_chs_cover.ch_4x2_et_p",
+			"r_chs_cover.ch_4x2_p",
+			"r_chs_cover.ch_6x2_p",
+			"r_chs_cover.ch_6x4_p"
+		]
+	}
+}

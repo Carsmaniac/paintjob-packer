@@ -1,0 +1,110 @@
+{
+	"format_version": 1,
+	
+	"name": "Freightliner Cascadia",
+	"path": "freightliner.cascadia2019",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "72-inch Sleeper RR",
+			"internal_name": ["s72_rr"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "72-inch Sleeper XT",
+			"internal_name": ["s72_xt"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "48-inch Sleeper",
+			"internal_name": ["s48"]
+		},
+		{
+			"code": "d",
+			"designation": "Cabin D",
+			"name": "Day Cab",
+			"internal_name": ["day"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Bumper": [
+			"bumper.aero_pt",
+			"bumper.aero_pt20",
+			"bumper.fog_aero_pt",
+			"bumper.fog_a_pt20",
+			"bumper.fog_std_pt",
+			"bumper.std_pt"
+		],
+		"Cabin Deflectors (Cabin B)": [
+			"cabdefl.s72_xt_a",
+			"cabdefl.s72_xt_ax"
+		],
+		"Cabin Deflectors - Aero (Cabin C)": [
+			"cabdefl.s48_aero"
+		],
+		"Cabin Deflectors - Aero (Cabin D)": [
+			"cabdefl.day_aero"
+		],
+		"Cabin Deflectors - Standard (Cabin D)": [
+			"cabdefl.day_std"
+		],
+		"Corner Deflectors": [
+			"cor_def.aero"
+		],
+		"Sideskirts - Aluminium or Chrome Tank": [
+			"sideskirt.lng200_e",
+			"sideskirt.lng200_eal",
+			"sideskirt.lng240_e",
+			"sideskirt.lng240_eal",
+			"sideskirt.mid200_e",
+			"sideskirt.mid200_eal",
+			"sideskirt.mid220_e",
+			"sideskirt.mid220_eal",
+			"sideskirt.shr120_e",
+			"sideskirt.shr120_eal",
+			"sideskirt.shr160_e",
+			"sideskirt.shr160_eal"
+		],
+		"Sideskirts - Paint": [
+			"sideskirt.lng200_pt",
+			"sideskirt.lng240_pt",
+			"sideskirt.mid200_pt",
+			"sideskirt.mid220_pt",
+			"sideskirt.shr160_pt"
+		],
+		"Sideskirts - Aero Painted (Cabin A)": [
+			"sideskirt.lng200_pt_a",
+			"sideskirt.lng240_pt_a"
+		],
+		"Sideskirts - Aero Painted (Cabin C)": [
+			"sideskirt.mid200_pt_a",
+			"sideskirt.mid220_pt_a"
+		],
+		"Sun Visor": [
+			"sunshield.stock"
+		]
+	}
+}

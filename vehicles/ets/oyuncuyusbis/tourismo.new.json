@@ -1,0 +1,36 @@
+{
+	"format_version": 1,
+	
+	"name": "Mercedes-Benz Tourismo",
+	"path": "tourismo.new",
+	
+	"trailer": false,
+	"bus": true,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "OyuncuyusBis",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "https://truckymods.io/euro-truck-simulator-2/bus/mb-new-tourismo-2018",
+		"author": ""
+	},
+	
+	"colour_picker": true,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Standard",
+			"internal_name": ["standard"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

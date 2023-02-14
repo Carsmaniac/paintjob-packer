@@ -1,0 +1,98 @@
+{
+	"format_version": 1,
+	
+	"name": "DAF XF105",
+	"path": "daf.xf",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "vad&k",
+	"mod_links": {
+		"workshop": "",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=35&t=223465",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Super Space",
+			"internal_name": ["super_s_cab", "super_s_cab2", "super_s_cab3", "rsuper_s_cab"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Space Cab Plus",
+			"internal_name": ["s_cab_plus", "s_cab_plus", "rs_cab_plus"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "Space",
+			"internal_name": ["space_cab", "space_cab2", "space_cab3", "rspace_cab"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Rear Bumper": [
+			"r_bumper.paint",
+			"r_bumper.paint_d",
+			"r_bumper.chrome",
+			"r_bumper.steel",
+			"r_bumper.paintable",
+			"r_bumper.paintable_l",
+			"r_bumper.paintable_s",
+			"r_bumper.tuning_p"
+		],
+		"Chassis Cover": [
+			"r_chs_cover.ch_4x2_et_p",
+			"r_chs_cover.ch_4x2_p",
+			"r_chs_cover.ch_6x2_p",
+			"r_chs_cover.ch_6x4_p",
+			"r_chs_cover.paint_slab",
+			"r_chs_cover.paint_slab_f"
+		],
+		"Sideskirts": [
+			"sideskirt.shape3",
+			"sideskirt.shape3_full",
+			"sideskirt.shape4",
+			"sideskirt.shape7k",
+			"sideskirt.shape8",
+			"sideskirt.shape8_full",
+			"sideskirt.6x2_paint",
+			"sideskirt.6x2_tool_pt",
+			"sideskirt.6x4_paint",
+			"rigid_acc.t_box"
+		],
+		"Roof Accessories": [
+			"r_grill.01_paint",
+			"r_grill.02_paint",
+			"r_grill.03_paint",
+			"r_grill.04_paint",
+			"r_grill.05_paint",
+			"r_grill.06_paint",
+			"lightbox.lightbox_4",
+			"r_hatch.minicool2"
+		],
+		"Rigid Body": [
+			"body.body_curtain",
+			"body.body_dry_s",
+			"body.body_dry_van",
+			"body.body_m_floor",
+			"body.dry_s_ins",
+			"body.dry_s_ref",
+			"body.dry_van_ins",
+			"body.dry_van_ref"
+		]
+	}
+}

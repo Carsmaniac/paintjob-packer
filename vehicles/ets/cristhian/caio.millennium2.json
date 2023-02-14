@@ -1,0 +1,42 @@
+{
+	"format_version": 1,
+	
+	"name": "Caio Millennium 2 PBC",
+	"path": "caio.millennium2",
+	
+	"trailer": false,
+	"bus": true,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Cristhian",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=1601416070",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": true,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Piso Alto",
+			"internal_name": ["cabine_1"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "PBC",
+			"internal_name": ["cabine"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

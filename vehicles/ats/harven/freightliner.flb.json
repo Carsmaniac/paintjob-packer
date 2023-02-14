@@ -1,0 +1,42 @@
+{
+	"format_version": 1,
+	
+	"name": "Freightliner FLB",
+	"path": "freightliner.flb",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Harven",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=867643690",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=207&t=228835",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Low Cab with Window",
+			"internal_name": ["lowcabw"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Low Cab",
+			"internal_name": ["lowcab"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

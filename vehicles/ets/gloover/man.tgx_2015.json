@@ -1,0 +1,60 @@
+{
+	"format_version": 1,
+	
+	"name": "MAN TGX Euro 6 2015",
+	"path": "man.tgx_2015",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Gloover",
+	"mod_links": {
+		"workshop": "",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=35&t=296252",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Cabin XXL",
+			"internal_name": ["xxl_cab"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Cabin XLX",
+			"internal_name": ["xlx_cab"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "XL",
+			"internal_name": ["xl_cab"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Sideskirts (4x)": [
+			"sideskirt.stock_4x2",
+			"sideskirt.stock_4x2l",
+			"sideskirt.stock_paint",
+			"sideskirt.stock_paintl",
+			"sideskirt.paint_4x2",
+			"sideskirt.paint_4x2l"
+		],
+		"Sideskirts (6x)": [
+			"sideskirt.stock_6x22",
+			"sideskirt.paint_6x22"
+		]
+	}
+}

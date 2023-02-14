@@ -1,0 +1,88 @@
+{
+	"format_version": 1,
+	
+	"name": "Mercedes-Benz New Actros",
+	"path": "mercedes.actros2014",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "GigaSpace",
+			"internal_name": ["gigaspace"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "BigSpace",
+			"internal_name": ["bigspace"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "StreamSpace",
+			"internal_name": ["streamspace"]
+		},
+		{
+			"code": "8",
+			"designation": "Cabin 8x4",
+			"name": "GigaSpace",
+			"internal_name": ["gs_8x4"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Rear Bumper": [
+			"r_bumper.4x2v1",
+			"r_bumper.4x2v2",
+			"r_bumper.4x2v3",
+			"r_bumper.6x24v1",
+			"r_bumper.6x24v2",
+			"r_bumper.6x24v3",
+			"r_bumper.6x2v1",
+			"r_bumper.6x2v2",
+			"r_bumper.6x2v3"
+		],
+		"Chassis Cover": [
+			"r_chs_cover.4x2p",
+			"r_chs_cover.6x24p",
+			"r_chs_cover.6x2p"
+		],
+		"Rear Fender": [
+			"r_fender.4x2p",
+			"r_fender.6x24p",
+			"r_fender.6x2p",
+			"r_fender.8x4p",
+			"r_fendr_top.4x2p",
+			"r_fendr_top.6x24p",
+			"r_fendr_top.6x2p",
+			"r_fendr_top.8x4p"
+		],
+		"Stoneguard": [
+			"s_guard.type3"
+		],
+		"Sun Visor": [
+			"sunshld.paint01",
+			"sunshld.paint02",
+			"sunshld.paint03"
+		]
+	}
+}

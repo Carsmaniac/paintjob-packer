@@ -1,0 +1,62 @@
+{
+	"format_version": 1,
+	
+	"name": "SCS Dumper",
+	"path": "scs.dumper",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body - Aluminium": [
+			"body.al9"
+		],
+		"Body - Aluminium (Long)": [
+			"body.al10"
+		],
+		"Body - Steel": [
+			"body.steel9"
+		],
+		"Body - Steel (Long)": [
+			"body.steel10"
+		],
+		"Sideskirts": [
+			"chs_f_l.ch_box_sidsk",
+			"chs_f_l.paint_box",
+			"chs_f_l.p_box_cage",
+			"chs_f_l.p_box_sidsk",
+			"chs_f_l.pl_box_sidsk",
+			"chs_f_l.side01_sh_t",
+			"chs_f_l.sideskirt_01",
+			"chs_f_r.ch_box_sidsk",
+			"chs_f_r.paint_box",
+			"chs_f_r.p_box_cage",
+			"chs_f_r.p_box_sidsk",
+			"chs_f_r.pl_box_sidsk",
+			"chs_f_r.side01_sh_t",
+			"chs_f_r.sideskirt_01"
+		],
+		"Rear Fender": [
+			"r_fender.paint_2",
+			"r_fender.paint_3"
+		]
+	}
+}

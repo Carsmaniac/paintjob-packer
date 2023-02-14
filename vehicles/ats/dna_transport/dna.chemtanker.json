@@ -1,0 +1,30 @@
+{
+	"format_version": 1,
+	
+	"name": "Ownable SCS Chemical Tanker",
+	"path": "dna.chemtanker",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "DNA Transport",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": "https://www.facebook.com/dnatransportats/posts/357706905678131"
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

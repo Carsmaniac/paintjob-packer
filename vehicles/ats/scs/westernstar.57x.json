@@ -1,0 +1,65 @@
+{
+	"format_version": 1,
+	
+	"name": "Western Star 57X",
+	"path": "westernstar.57x",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "72-inch Sleeper",
+			"internal_name": ["s72_rr"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Day Cab",
+			"internal_name": ["day"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Bumper": [
+			"bumper.paint"
+		],
+		"Cabin Deflector - Standard": [
+			"cabdefl.day_std"
+		],
+		"Cabin Deflector - Aero": [
+			"cabdefl.day_aero"
+		],
+		"Cabin Deflector - Aero II": [
+			"cabdefl.day_aero2"
+		],
+		"Sideskirts - Paint": [
+			"sideskirt.lng20_pt",
+			"sideskirt.lng24_pt",
+			"sideskirt.lng_hlf_pt",
+			"sideskirt.shr_pt"
+		],
+		"Sideskirts - Duty": [
+			"sideskirt.lng_fnd_pt",
+			"sideskirt.shr12_fnd_pt",
+			"sideskirt.shr16_fnd_pt"
+		]
+	}
+}

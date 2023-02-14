@@ -1,0 +1,95 @@
+{
+	"format_version": 1,
+	
+	"name": "Mack R Series",
+	"path": "mack.rhpl",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Harven",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=1465115042",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=207&t=256935",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "R600 Day Cab Double Lamps",
+			"internal_name": ["r600dayd"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "R600 Day Cab Single Lamps",
+			"internal_name": ["r600day"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Cabin Deflectors": [
+			"cabdefl.deflector",
+			"cabdefl.scoops"
+		],
+		"Front Intake": [
+			"grill.fullpaint",
+			"grill.painted"
+		],
+		"Headlights": [
+			"lamps.double",
+			"lamps.double_chr",
+			"lamps.single",
+			"lamps.single_chr"
+		],
+		"Air Filter Brackets": [
+			"lbracket.bracketp",
+			"rbracket.bracketp"
+		],
+		"Main Mirrors": [
+			"mirror.painted",
+			"mirror.painteds"
+		],
+		"Sun Visor": [
+			"sunshield.sunshield1"
+		],
+		"Mudflaps": [
+			"mudflaps.painted",
+			"mudflaps.paintedf"
+		],
+		"Rear Fenders": [
+			"mudguard.fullp",
+			"mudguard.quarterp"
+		],
+		"Fuel Tank Straps": [
+			"straps.bigp",
+			"straps.roundp",
+			"straps.squarechr",
+			"straps.squarep"
+		],
+		"Front Bumper": [
+			"bumper.bull_p",
+			"bumper.cust_p",
+			"bumper.heavy_p",
+			"bumper.stock_p"
+		],
+		"Rear Bumper": [
+			"r_bumper.customp"
+		],
+		"Fuel Tanks": [
+			"tanks.bigp",
+			"tanks.roundp",
+			"tanks.squarep"
+		]
+	}
+}

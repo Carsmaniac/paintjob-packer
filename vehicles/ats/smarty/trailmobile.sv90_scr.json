@@ -1,0 +1,61 @@
+{
+	"format_version": 1,
+	
+	"name": "Trailmobile SuperVan 90",
+	"path": "trailmobile.sv90_scr",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Smarty",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=1165035373",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=208&t=237570",
+		"trucky": "https://truckymods.io/american-truck-simulator/trailers/scr-trailmobile-supervan-90",
+		"author": "https://scr-rigs.com/index.php?act=ats_trl"
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body (28 feet)": [
+			"body.28_panel"
+		],
+		"Body (32 feet)": [
+			"body.32_panel"
+		],
+		"Body (36 feet)": [
+			"body.36_panel"
+		],
+		"Body (40 feet)": [
+			"body.40_panel"
+		],
+		"Body (45 feet)": [
+			"body.45_panel"
+		],
+		"Body (48 feet)": [
+			"body.48_panel"
+		],
+		"Trailer Front": [
+			"f_body.std",
+			"f_body.std_r",
+			"f_body.tk_hk430",
+			"f_body.tk_hk430_r"
+		],
+		"Trailer Rear": [
+			"rear_body.swing",
+			"rear_body.swing_dbl",
+			"rear_body.swingt",
+			"rear_body.swingt_dbl",
+			"rear_body.roll"
+		]
+	}
+}

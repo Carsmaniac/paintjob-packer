@@ -1,0 +1,63 @@
+{
+	"format_version": 1,
+	
+	"name": "Karosa C95x",
+	"path": "karosa.c95x",
+	
+	"trailer": false,
+	"bus": true,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Etrusan",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=2059274297",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=35&t=291294",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": true,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "C954E",
+			"internal_name": ["c954e"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "C954",
+			"internal_name": ["c954"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Front Bumper": [
+			"f_bumper.klasik"
+		],
+		"Front": [
+			"f_intake_cab.stara_plast",
+			"f_intake_cab.stara_bila",
+			"f_intake_cab.nova_plast",
+			"f_intake_cab.nova_bila",
+			"f_intake_cab.nova_plna",
+			"f_wnd_frame.95x"
+		],
+		"Rear": [
+			"r_bumper.paint",
+			"r_bumper.paint_e",
+			"r_panel.95x",
+			"r_panel.95xe"
+		],
+		"Wheel Arches": [
+			"f_fender.paint",
+			"r_fender.paint"
+		]
+	}
+}

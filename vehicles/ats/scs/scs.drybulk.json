@@ -1,0 +1,42 @@
+{
+	"format_version": 1,
+	
+	"name": "SCS Dry Bulk",
+	"path": "scs.drybulk",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body (22 ft)": [
+			"body.hopper_22"
+		],
+		"Body (32 ft)": [
+			"body.hopper_32"
+		],
+		"Body (42 ft)": [
+			"body.hopper_42"
+		],
+		"Body (48 ft)": [
+			"body.hopper_48"
+		]
+	}
+}

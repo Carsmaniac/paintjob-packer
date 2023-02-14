@@ -1,0 +1,48 @@
+{
+	"format_version": 1,
+	
+	"name": "DAF NTT",
+	"path": "daf.ntt",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "XBS",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": "https://www.xbsmods.tk/ets2"
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Custom Sleeper",
+			"internal_name": ["cab_c"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Cab Sleeper",
+			"internal_name": ["cab_b"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "Duty",
+			"internal_name": ["cab_a"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

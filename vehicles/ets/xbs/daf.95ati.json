@@ -1,0 +1,82 @@
+{
+	"format_version": 1,
+	
+	"name": "DAF 95 ATi",
+	"path": "daf.95ati",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "XBS",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": "https://www.xbsmods.tk/ets2"
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Super Space 500",
+			"internal_name": ["super_sc500"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Super Space",
+			"internal_name": ["super_s_cab"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "Space Cab",
+			"internal_name": ["space_cab"]
+		},
+		{
+			"code": "d",
+			"designation": "Cabin D",
+			"name": "TopSleeper Cab",
+			"internal_name": ["top_cab"]
+		},
+		{
+			"code": "e",
+			"designation": "Cabin E",
+			"name": "Sleeper Cab",
+			"internal_name": ["sleeper_cab"]
+		},
+		{
+			"code": "f",
+			"designation": "Cabin F",
+			"name": "Day Cab",
+			"internal_name": ["day_cab"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Sideskirts (4x)": [
+			"sideskirt.paint_4x2"
+		],
+		"Sideskirts (4x, Cabin A)": [
+			"sideskirt.skirt_4x2"
+		],
+		"Sideskirts (6x Rigid)": [
+			"sideskirt.skirt_rgd_02"
+		],
+		"Lower Grille Guard": [
+			"b_grill.shape4",
+			"b_grill.shape5"
+		],
+		"Equipment Rack": [
+			"f_body.shape2"
+		]
+	}
+}

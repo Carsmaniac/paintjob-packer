@@ -1,0 +1,42 @@
+{
+	"format_version": 1,
+	
+	"name": "Freightliner FLD",
+	"path": "freightliner.fld",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "FASTER CGO",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/workshop/filedetails/?id=2875335212",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Raised Roof",
+			"internal_name": ["highroof"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Mid Roof",
+			"internal_name": ["lowroof"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

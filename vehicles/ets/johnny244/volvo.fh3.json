@@ -1,0 +1,42 @@
+{
+	"format_version": 1,
+	
+	"name": "Volvo FH 3rd Generation",
+	"path": "volvo.fh3",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "johnny244",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=2355498395",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=35&t=290872",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Globetrotter XXL",
+			"internal_name": ["l3h3"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Globetrotter XL",
+			"internal_name": ["l2h3"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

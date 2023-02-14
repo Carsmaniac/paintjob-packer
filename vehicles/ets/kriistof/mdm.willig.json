@@ -1,0 +1,30 @@
+{
+	"format_version": 1,
+	
+	"name": "SCS Fuel Cistern Reworked",
+	"path": "mdm.willig",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Kriistof",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=2725478431",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

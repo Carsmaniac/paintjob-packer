@@ -1,0 +1,36 @@
+{
+	"format_version": 1,
+	
+	"name": "Caio Apache VIP I",
+	"path": "caio.apache_vip_1",
+	
+	"trailer": false,
+	"bus": true,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Cristhian",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=2627378240",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "I",
+			"internal_name": ["normal"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

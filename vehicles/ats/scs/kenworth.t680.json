@@ -1,0 +1,48 @@
+{
+	"format_version": 1,
+	
+	"name": "Kenworth T680",
+	"path": "kenworth.t680",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": true,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Hi Rise Sleeper",
+			"internal_name": ["exclusive"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Mid Roof Sleeper",
+			"internal_name": ["standard"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "Duty Day Cabin",
+			"internal_name": ["duty"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

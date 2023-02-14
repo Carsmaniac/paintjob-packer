@@ -1,0 +1,69 @@
+{
+	"format_version": 1,
+	
+	"name": "NTM Trailer",
+	"path": "ntm",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Kast",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=1431253303",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=36&t=250206",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body - 4.4 m": [
+			"body.4_4_box"
+		],
+		"Body - 4 m": [
+			"body.4_box"
+		],
+		"Fenders": [
+			"fenders_a.parlok",
+			"fenders_a.parlok_ref",
+			"fenders_b.parlok",
+			"fenders_b.parlok_ref",
+			"fenders_c.parlok",
+			"fenders_c.parlok_ref"
+		],
+		"Chassis Front": [
+			"ntm_f_l.paint_box",
+			"ntm_f_l.paint_cover",
+			"ntm_f_r.paint_box",
+			"ntm_f_r.paint_cover"
+		],
+		"Fuel Tank": [
+			"fueltank.fueltank"
+		],
+		"Rear Bumper": [
+			"r_bumper.standard",
+			"r_bumper.custom"
+		],
+		"Custom License Plate": [
+			"custom_lp.custom_lp",
+			"custom_lp.custom_lp2",
+			"custom_lp.custom_lp3",
+			"custom_lp.custom_lp4",
+			"custom_lp.custom_lp_2",
+			"custom_lp.custom_lp_5",
+			"custom_lp.custom_lp5"
+		],
+		"Rear Mudflaps": [
+			"r_mudflap.paint"
+		]
+	}
+}

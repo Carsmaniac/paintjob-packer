@@ -1,0 +1,43 @@
+{
+	"format_version": 1,
+	
+	"name": "Lode King Prestige",
+	"path": "lodeking.prestige",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body (Single)": [
+			"body.hopper_45",
+			"f_body.paint_45",
+			"rear_body.paint_45"
+		],
+		"Body (B-Double)": [
+			"body.hopper_28",
+			"body.hopper_30",
+			"f_body.paint_28",
+			"f_body.paint_30",
+			"rear_body.paint_28",
+			"rear_body.paint_30"
+		]
+	}
+}

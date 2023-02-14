@@ -1,0 +1,36 @@
+{
+	"format_version": 1,
+	
+	"name": "Renault Magnum Updates",
+	"path": "renault.magnum",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Knox_xss",
+	"mod_links": {
+		"workshop": "",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=35&t=194202",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Excellence",
+			"internal_name": ["solo", "solo_b", "solo_m", "rigid", "rigid_m"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

@@ -1,0 +1,30 @@
+{
+	"format_version": 1,
+	
+	"name": "Schmitz Cargobull Trailer",
+	"path": "mdm_pack",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "MD Modding",
+	"mod_links": {
+		"workshop": "",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=36&t=252193",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

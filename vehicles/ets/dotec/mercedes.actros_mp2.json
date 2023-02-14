@@ -1,0 +1,180 @@
+{
+	"format_version": 1,
+	
+	"name": "Mercedes-Benz Actros MP2",
+	"path": "mercedes.actros_mp2",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Dotec",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=2333621047",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=35&t=289988",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "MegaSpace",
+			"internal_name": ["megaspace"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "L High Roof",
+			"internal_name": ["l_cabin"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "L Low Roof",
+			"internal_name": ["l_cabin_low"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Side Stripe": [
+			"s_strip.climair_p"
+		],
+		"Door Handles": [
+			"doorhndl.shape2"
+		],
+		"Front Bumper": [
+			"f_bumper.shape3",
+			"f_bumper.shape2",
+			"f_bumper.slt_shape2",
+			"f_bumper.bshape3",
+			"f_bumper.bshape2",
+			"f_bumper.bslt_shape2",
+			"f_light_mid.paint"
+		],
+		"Front Grille and Front Logo": [
+			"f_inlay_cab.shape2",
+			"f_inlay_cab.shape3",
+			"f_logo.shape2",
+			"f_inlay_cab.bshape2",
+			"f_logo.shape5"
+		],
+		"Front Mask Bottom": [
+			"f_intake_chs.shape2",
+			"f_intake_chs.bshape2"
+		],
+		"Rear Mask": [
+			"f_intake_cab.shape2"
+		],
+		"Front Mask Ribs": [
+			"f_intk_b_cab.shape2",
+			"f_intk_b_cab.bshape2"
+		],
+		"Windshield Frame": [
+			"f_wnd_frame.shape3",
+			"f_wnd_frame.shape4",
+			"f_wnd_frame.cshape3",
+			"f_wnd_frame.cshape4"
+		],
+		"Rear Fender": [
+			"r_fender.shape2",
+			"r_fendr_top.shape2",
+			"r_fender.shape2_6x4",
+			"r_fendr_top.shape2_6x4",
+			"r_fender.shape2_8x4",
+			"r_fendr_top.shape2_8x4",
+			"r_fender.shape4_8x4",
+			"r_fender.shape4_6x4"
+		],
+		"Air Filter": [
+			"filter.shape2",
+			"filter.shape2_6x4",
+			"filter.bshape2",
+			"filter.bshape2_6x4",
+			"filter.cshape2",
+			"filter.cshape2_6x4"
+		],
+		"Mirrors": [
+			"f_mirror.shape2",
+			"mirror.shape2",
+			"mirror.shape3",
+			"s_mirror.shape2"
+		],
+		"Sideskirts": [
+			"sideskirt.shape4",
+			"sideskirt.shape5",
+			"sideskirt.bshape4",
+			"sideskirt.bshape5",
+			"sideskirt.shape4_low",
+			"sideskirt.shape5_low",
+			"sideskirt.blow4",
+			"sideskirt.blow5"
+		],
+		"Sun Visor": [
+			"sunshield.shape2",
+			"sunshield.cshape2"
+		],
+		"Roof Deflectors": [
+			"r_deflector.shape2",
+			"r_deflector.shape2_6x4",
+			"r_deflector.shape3",
+			"r_deflector.shape3_6x4",
+			"r_deflector.bshape2",
+			"r_deflector.bshape2_6x4",
+			"r_deflector.bshape3",
+			"r_deflector.bshape3_6x4",
+			"r_deflector.bshape4",
+			"r_deflector.bshape5",
+			"r_deflector.blow2_6x4",
+			"r_deflector.blow3_6x4",
+			"r_deflector.blow5",
+			"r_deflector.bshape2_low",
+			"r_deflector.bshape3_low",
+			"r_deflector.low2_6x4",
+			"r_deflector.low3_6x4",
+			"r_deflector.shape2_low",
+			"r_deflector.shape3_low"
+		],
+		"Lower Grille Guard": [
+			"b_grill.shape2"
+		],
+		"Bull Bar": [
+			"f_grill.bullbar2",
+			"f_grill.bullbar4",
+			"f_grill.midbar2",
+			"f_grill.bbullbar2",
+			"f_grill.bbullbar4"
+		],
+		"Light Bar": [
+			"r_grill.shape2",
+			"r_grill.shape4",
+			"r_grill.shape6"
+		],
+		"Sideskirt Bars": [
+			"sideskrt_bar.shape2"
+		],
+		"Front Mudflaps": [
+			"f_mudflap.shape2",
+			"f_mudflap.shape4"
+		],
+		"Headlight Protection": [
+			"protection.heavy_paint"
+		],
+		"Air Conditioner": [
+			"ac.shape2"
+		],
+		"Door Steps": [
+			"doorstep.paint",
+			"doorstep.bpaint",
+			"doorstep.paint_low",
+			"cab_doorstep.paint"
+		]
+	}
+}

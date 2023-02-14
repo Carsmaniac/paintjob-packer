@@ -1,0 +1,48 @@
+{
+	"format_version": 1,
+	
+	"name": "Kenworth W900",
+	"path": "kenworth.w900",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "AeroCab Sleeper",
+			"internal_name": ["exclusive"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Studio Sleeper",
+			"internal_name": ["standard"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "Day Cab",
+			"internal_name": ["duty"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

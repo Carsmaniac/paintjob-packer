@@ -1,0 +1,36 @@
+{
+	"format_version": 1,
+	
+	"name": "Solaris Urbino",
+	"path": "solaris.urbino",
+	
+	"trailer": false,
+	"bus": true,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Etrusan",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=1893063436",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=35&t=291296",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "III. 2 Doors",
+			"internal_name": ["12_2d"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

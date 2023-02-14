@@ -1,0 +1,36 @@
+{
+	"format_version": 1,
+	
+	"name": "Mack R Series Super-Liner",
+	"path": "mack.supervd",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "DielingWu",
+	"mod_links": {
+		"workshop": "",
+		"forums": "https://forum.scssoft.com/viewtopic.php?t=304822",
+		"trucky": "",
+		"author": "https://dielingwu.gumroad.com/l/djlqa"
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Superliner Day Cab",
+			"internal_name": ["superday", "superdayf", "superday70", "superday70f"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

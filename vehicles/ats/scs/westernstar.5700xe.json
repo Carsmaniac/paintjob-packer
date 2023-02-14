@@ -1,0 +1,66 @@
+{
+	"format_version": 1,
+	
+	"name": "Western Star 5700XE",
+	"path": "westernstar.5700xe",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "82-inch Sleeper",
+			"internal_name": ["s82"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "54-inch Sleeper",
+			"internal_name": ["s54"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "Day Cab",
+			"internal_name": ["day"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Bumper": [
+			"bumper.duty",
+			"bumper.stock",
+			"bumper.highway"
+		],
+		"Sideskirts": [
+			"f_fender.stock",
+			"sideskirt.day",
+			"sideskirt.s54",
+			"sideskirt.s82"
+		],
+		"Sun Visor": [
+			"sunshield.stock_day",
+			"sunshield.stock_slp"
+		],
+		"Cabin Deflector (Cabin A)": [
+			"cabdefl.s82"
+		]
+	}
+}

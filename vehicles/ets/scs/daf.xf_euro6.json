@@ -1,0 +1,60 @@
+{
+	"format_version": 1,
+	
+	"name": "DAF XF",
+	"path": "daf.xf_euro6",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Super Space",
+			"internal_name": ["superspace"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Space Aero",
+			"internal_name": ["spacespoiler"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "Space",
+			"internal_name": ["space"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Rear Bumper": [
+			"r_bumper.paint",
+			"r_bumper.paint_6",
+			"r_bumper.chrome",
+			"r_bumper.chrome_6",
+			"r_bumper.steel",
+			"r_bumper.steel_6"
+		],
+		"Chassis Cover": [
+			"r_chs_cover.ch_4x2_p",
+			"r_chs_cover.ch_6x4_p"
+		]
+	}
+}

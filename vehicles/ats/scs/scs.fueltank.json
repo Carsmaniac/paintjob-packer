@@ -1,0 +1,50 @@
+{
+	"format_version": 1,
+	
+	"name": "SCS Fuel Tank",
+	"path": "scs.fueltank",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body (28 ft)": [
+			"chassis.ch_28",
+			"chassis.ch_28_d",
+			"chassis.ch_28_hook"
+		],
+		"Body (32 ft)": [
+			"chassis.ch_32",
+			"chassis.ch_32_bd"
+		],
+		"Body (43 ft)": [
+			"chassis.ch_43_hook",
+			"chassis.ch_43_r"
+		],
+		"Body (48 ft)": [
+			"chassis.ch_48_3a"
+		],
+		"Body (53 ft)": [
+			"chassis.ch_53_4a",
+			"chassis.ch_53_4s"
+		]
+	}
+}

@@ -1,0 +1,42 @@
+{
+	"format_version": 1,
+	
+	"name": "Mack Pinnacle CHU613",
+	"path": "mack.chu613",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Redd",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/workshop/filedetails/?id=1943894280",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "48-inch Flat Top Sleeper with Spoiler",
+			"internal_name": ["exclusive"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "48-inch Flat Top Sleeper",
+			"internal_name": ["standard"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

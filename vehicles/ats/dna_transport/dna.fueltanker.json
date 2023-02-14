@@ -1,0 +1,42 @@
+{
+	"format_version": 1,
+	
+	"name": "Ownable SCS Fuel Tanker",
+	"path": "dna.fueltanker",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "DNA Transport",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": "https://www.facebook.com/dnatransportats/posts/357706905678131"
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body": [
+			"body.single",
+			"body.bodypaint"
+		],
+		"Body (Double)": [
+			"body.pup",
+			"body.puppaint"
+		],
+		"Body (Long)": [
+			"body.single_l",
+			"body.single_lp"
+		]
+	}
+}

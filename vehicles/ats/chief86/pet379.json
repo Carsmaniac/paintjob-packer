@@ -1,0 +1,36 @@
+{
+	"format_version": 1,
+	
+	"name": "Peterbilt 379X",
+	"path": "pet379",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Chief86",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=2639485237",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "72 inch Ultracab",
+			"internal_name": ["at"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

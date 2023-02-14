@@ -1,0 +1,81 @@
+{
+	"format_version": 1,
+	
+	"name": "International HX520",
+	"path": "intnational.hx520h",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Harven",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=2559065735",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=207&t=302587",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": true,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "73-inch High Rise Sleeper",
+			"internal_name": ["73hirise"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "56-inch High Rise Sleeper",
+			"internal_name": ["56hirise"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "Day Cab",
+			"internal_name": ["daycab"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Air Filters": [
+			"filters.painted",
+			"filters.lightbarsp"
+		],
+		"Front Bumper": [
+			"bumper.square2",
+			"bumper.tapered2",
+			"towpin.nonep",
+			"towpin.nonetp",
+			"towpin.towpinp",
+			"foglamps.nonep",
+			"foglamps.nonetp",
+			"foglamps.foglampsp"
+		],
+		"Fuel Tanks": [
+			"sideskirt.100p",
+			"sideskirt.100sp",
+			"sideskirt.120p",
+			"sideskirt.120sp",
+			"sideskirt.140p",
+			"sideskirt.140sp",
+			"sideskirt.day_100p",
+			"sideskirt.day_120p",
+			"sideskirt.day_150p"
+		],
+		"Mudguards": [
+			"mudguard.quarterp",
+			"mudguard.quarterlp",
+			"mudguard.halfp"
+		],
+		"Sun Visor": [
+			"sunshield.standard"
+		]
+	}
+}

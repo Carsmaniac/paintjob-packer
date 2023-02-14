@@ -1,0 +1,43 @@
+{
+	"format_version": 1,
+	
+	"name": "SCS Food Tank",
+	"path": "scs.foodtank",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body (28 feet)": [
+			"body.tank_28",
+			"body.tank_28_d"
+		],
+		"Body (43 feet)": [
+			"body.tank_43"
+		],
+		"Body (48 feet)": [
+			"body.tank_48"
+		],
+		"Body (53 feet)": [
+			"body.tank_53"
+		]
+	}
+}

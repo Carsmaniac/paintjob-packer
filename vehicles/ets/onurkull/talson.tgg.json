@@ -1,0 +1,57 @@
+{
+	"format_version": 1,
+	
+	"name": "Talson TGG",
+	"path": "talson.tgg",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "ONURKULL",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=2759802385",
+		"forums": "https://forum.scssoft.com/viewtopic.php?t=295787",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body": [
+			"body.tgg",
+			"frame.paint",
+			"r_bumper.paint",
+			"r_bumper.paint_s",
+			"r_bumper.stock_p",
+			"r_frame.paint"
+		],
+		"Sideskirts": [
+			"chs_f_l.all_p",
+			"chs_f_l.cage_p",
+			"chs_f_l.cage_p_b",
+			"chs_f_l.cage_p_t",
+			"chs_f_l.cage_l_p",
+			"chs_f_l.cage_lp_t",
+			"chs_f_l.pbox_paint",
+			"chs_f_r.all_p",
+			"chs_f_r.cage_p",
+			"chs_f_r.cage_p_b",
+			"chs_f_r.cage_p_t",
+			"chs_f_r.cage_l_p",
+			"chs_f_r.cage_lp_t",
+			"chs_f_r.pbox_paint"
+		],
+		"License Plate": [
+			"l_plate.skin"
+		]
+	}
+}

@@ -1,0 +1,54 @@
+{
+	"format_version": 1,
+	
+	"name": "Rezbilt 389",
+	"path": "rezbilt.389",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Allen Rezbilt",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=2626143691",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": true,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Ultra Cab Sleeper",
+			"internal_name": ["exclusive"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Low Roof Sleeper",
+			"internal_name": ["standard"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "Low Roof Short Sleeper",
+			"internal_name": ["short"]
+		},
+		{
+			"code": "d",
+			"designation": "Cabin D",
+			"name": "Day Cab",
+			"internal_name": ["duty"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

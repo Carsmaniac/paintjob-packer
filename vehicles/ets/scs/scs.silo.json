@@ -1,0 +1,48 @@
+{
+	"format_version": 1,
+	
+	"name": "SCS Silo",
+	"path": "scs.silo",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body (5 m)": [
+			"body.silo5",
+			"f_body.ladder_pt",
+			"l_body.tubes_pt_5",
+			"r_body.tubes_pt_5"
+		],
+		"Body (8 m)": [
+			"body.silo8",
+			"l_body.tubes_pt_8",
+			"r_body.tubes_pt_8",
+			"rear_body.paint_8"
+		],
+		"Body (10 m)": [
+			"body.silo10",
+			"l_body.tubes_pt_10",
+			"r_body.tubes_pt_10",
+			"rear_body.paint_10"
+		]
+	}
+}

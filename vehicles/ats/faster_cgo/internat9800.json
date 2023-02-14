@@ -1,0 +1,42 @@
+{
+	"format_version": 1,
+	
+	"name": "International 9800i",
+	"path": "internat9800",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "FASTER CGO",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=2698417437",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "High Roof",
+			"internal_name": ["standard"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Flat Top",
+			"internal_name": ["low"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

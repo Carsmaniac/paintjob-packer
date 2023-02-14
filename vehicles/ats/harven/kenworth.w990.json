@@ -1,0 +1,48 @@
+{
+	"format_version": 1,
+	
+	"name": "Kenworth W990",
+	"path": "kenworth.w990",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Harven",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=1781104022",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=207&t=274473",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "76-inch Mid-Roof Aerodyne Sleeper",
+			"internal_name": ["76sleeper"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "40-inch Flat Top Sleeper",
+			"internal_name": ["40sleeper"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "Day Cab",
+			"internal_name": ["daycab"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

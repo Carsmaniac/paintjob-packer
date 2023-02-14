@@ -1,0 +1,71 @@
+{
+	"format_version": 1,
+	
+	"name": "Chereau Trailer",
+	"path": "chereau",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "MD Modding",
+	"mod_links": {
+		"workshop": "",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=36&t=259133",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body": [
+			"body.stock",
+			"body.paint",
+			"chassis.chassis",
+			"chassis.chassis2",
+			"chassis.chassis3",
+			"chassis.chassis4"
+		],
+		"Sideskirts": [
+			"chs_f_l.mdm_2",
+			"chs_f_l.mdm_3",
+			"chs_f_r.mdm_2",
+			"chs_f_r.mdm_3",
+			"chs_r_l.mdm_2",
+			"chs_r_l.mdm_3",
+			"chs_r_l.mdm_6",
+			"chs_r_l.mdm_8",
+			"chs_r_r.mdm_2p",
+			"chs_r_r.mdm_4p",
+			"chs_r_r.mdm_6p",
+			"chs_f_l.mdm_5",
+			"chs_f_r.mdm_5",
+			"chs_r_l.mdm_10",
+			"chs_r_r.mdm_8p"
+		],
+		"Rear Fenders": [
+			"r_fender.paint",
+			"r_fender.paint_m"
+		],
+		"Rear Mudflaps": [
+			"r_mudflap.mdm_1"
+		],
+		"Rear Bumper": [
+			"r_bumper.1metal_p",
+			"r_bumper.1paint",
+			"r_bumper.1paint_m",
+			"r_bumper.2paint"
+		],
+		"Air Tank": [
+			"tank.paint"
+		]
+	}
+}

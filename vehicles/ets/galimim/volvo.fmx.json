@@ -1,0 +1,48 @@
+{
+	"format_version": 1,
+	
+	"name": "Volvo FMX",
+	"path": "volvo.fmx",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Galimim",
+	"mod_links": {
+		"workshop": "",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=35&t=278044",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Globetrotter Cab",
+			"internal_name": ["hslp"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Sleeper Cab",
+			"internal_name": ["slp"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "Day Cab",
+			"internal_name": ["day"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

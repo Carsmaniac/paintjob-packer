@@ -1,0 +1,39 @@
+{
+	"format_version": 1,
+	
+	"name": "Bolloré Bluebus",
+	"path": "bollore.bluebus",
+	
+	"trailer": false,
+	"bus": true,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Etrusan",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=2411589278",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=35&t=293498",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Three Doors",
+			"internal_name": ["body_12_3", "body_12_3_t"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Mirrors": [
+			"mirror.paint"
+		]
+	}
+}

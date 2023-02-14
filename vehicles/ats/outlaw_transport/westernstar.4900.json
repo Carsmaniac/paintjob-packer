@@ -1,0 +1,48 @@
+{
+	"format_version": 1,
+	
+	"name": "Western Star 4900EX",
+	"path": "westernstar.4900",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Outlaw Transport",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=2749967627",
+		"forums": "https://forum.scssoft.com/viewtopic.php?t=305574",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "82-inch Stratosphere",
+			"internal_name": ["strato"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "68-inch Stratosphere",
+			"internal_name": ["standard"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "68-inch Flat-Top",
+			"internal_name": ["fltp"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

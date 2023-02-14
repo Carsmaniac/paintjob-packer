@@ -1,0 +1,30 @@
+{
+	"format_version": 1,
+	
+	"name": "Custom 53 ft Trailer",
+	"path": "cts.box",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "ChrisHusky",
+	"mod_links": {
+		"workshop": "",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=208&t=260285",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

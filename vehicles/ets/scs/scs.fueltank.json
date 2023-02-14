@@ -1,0 +1,55 @@
+{
+	"format_version": 1,
+	
+	"name": "SCS Fuel Tank",
+	"path": "scs.fueltank",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body (2 Axles)": [
+			"body.tank_ch2",
+			"l_body.hose_12",
+			"l_body.hose_22",
+			"r_body.hose_12",
+			"r_body.hose_22"
+		],
+		"Body (3 Axles)": [
+			"body.tank_ch3",
+			"l_body.hose_13",
+			"l_body.hose_23",
+			"r_body.hose_13",
+			"r_body.hose_23"
+		],
+		"Chassis Front": [
+			"chs_f_l.paint_box",
+			"chs_f_r.paint_box"
+		],
+		"Chassis Rear": [
+			"chs_r_l.paint_box",
+			"chs_r_r.paint_box"
+		],
+		"Rear Bumper": [
+			"r_bumper.paint"
+		]
+	}
+}

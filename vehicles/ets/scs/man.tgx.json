@@ -1,0 +1,48 @@
+{
+	"format_version": 1,
+	
+	"name": "MAN TGX",
+	"path": "man.tgx",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "XXL",
+			"internal_name": ["xxl_cab"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "XLX",
+			"internal_name": ["xlx_cab"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "XL",
+			"internal_name": ["xl_cab"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

@@ -1,0 +1,61 @@
+{
+	"format_version": 1,
+	
+	"name": "Feldbinder TSA LM",
+	"path": "feldbinder.tsalm",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body": [
+			"body.32_3_1",
+			"body.32_3_2"
+		],
+		"Sideskirts": [
+			"chs_f_l.cage_p_32",
+			"chs_f_l.cagep_bp_32",
+			"chs_f_l.cagep_st_32",
+			"chs_f_r.cage_p_32",
+			"chs_f_r.cagep_bp_32",
+			"chs_f_r.cagep_st_32",
+			"chs_r_r.bp"
+		],
+		"Hoses": [
+			"l_body.t_1_p",
+			"l_body.t_2_p",
+			"l_body.t_2_p2",
+			"l_body.t_bp",
+			"r_body.t_1_p",
+			"r_body.t_2_p",
+			"r_body.t_2_p2",
+			"r_body.t_bp"
+		],
+		"Rear Bumper": [
+			"r_bumper.excl_paint",
+			"r_bumper.excl_paint2"
+		],
+		"Rear Fenders": [
+			"r_fender.paint",
+			"r_fender.six_wheelp"
+		]
+	}
+}

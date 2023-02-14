@@ -1,0 +1,99 @@
+{
+	"format_version": 1,
+	
+	"name": "SCS Box Trailer",
+	"path": "scs.box",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body (28 feet)": [
+			"body.dryvan_28",
+			"body.insulated_28",
+			"body.reefer_28"
+		],
+		"Body (32 feet)": [
+			"body.dryvan_32",
+			"body.insulated_32",
+			"body.reefer_32"
+		],
+		"Body (45 feet)": [
+			"body.dryvan_45",
+			"body.insulated_45",
+			"body.reefer_45"
+		],
+		"Body (48 feet)": [
+			"body.dryvan_48",
+			"body.insulated_48",
+			"body.reefer_48"
+		],
+		"Body (53 feet)": [
+			"body.dryvan_53",
+			"body.insulated_53",
+			"body.reefer_53"
+		],
+		"Trailer Front": [
+			"f_body.paint",
+			"f_body.ch_unit",
+			"f_body.cooler",
+			"f_body.king"
+		],
+		"Trailer Front - Wind Deflector": [
+			"f_body.wind_def"
+		],
+		"Trailer Rear - Standard Door": [
+			"rear_body.simple",
+			"rear_body.simple_a"
+		],
+		"Trailer Rear - Roll Up Door": [
+			"rear_body.roll_up",
+			"rear_body.roll_up_g"
+		],
+		"Left Sideskirt - Aero": [
+			"chs_f_l.aero"
+		],
+		"Left Sideskirt - 28 ft": [
+			"chs_f_l.paint_28",
+			"chs_f_l.paint_28h"
+		],
+		"Left Sideskirt - 45 & 48 ft": [
+			"chs_f_l.paint_45",
+			"chs_f_l.paint_45h"
+		],
+		"Left Sideskirt - 53 ft": [
+			"chs_f_l.paint_53",
+			"chs_f_l.paint_53h"
+		],
+		"Right Sideskirt - Aero": [
+			"chs_f_r.aero"
+		],
+		"Right Sideskirt - 28 ft": [
+			"chs_f_r.paint_28"
+		],
+		"Right Sideskirt - 45 & 48 ft": [
+			"chs_f_r.paint_45"
+		],
+		"Right Sideskirt - 53 ft": [
+			"chs_f_r.paint_53"
+		]
+	}
+}

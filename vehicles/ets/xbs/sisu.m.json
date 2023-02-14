@@ -1,0 +1,90 @@
+{
+	"format_version": 1,
+	
+	"name": "SISU M-series",
+	"path": "sisu.m",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "XBS",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": "https://www.xbsmods.tk/ets2"
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "High Cab",
+			"internal_name": ["hightroof"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Sleeper Cab",
+			"internal_name": ["sleeper"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "Day Cab",
+			"internal_name": ["daycab"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Sideskirts - Side Skirt": [
+			"sideskirt.shape1",
+			"sideskirt.shape2"
+		],
+		"Sideskirts - Home-Made": [
+			"sideskirt.shape3",
+			"sideskirt.shape4"
+		],
+		"Side Equip (Air Tank Cover)": [
+			"s_equip.shape3"
+		],
+		"Rear Fender": [
+			"r_fender.mon",
+			"r_fender.fdr_4x2",
+			"r_fender.fdr_6x2"
+		],
+		"Lower Grille Guard": [
+			"b_grill.shape3",
+			"b_grill.shape4",
+			"b_grill.shape1"
+		],
+		"Fuel Tank": [
+			"tank.paint"
+		],
+		"Sun Visor": [
+			"sunshld.shape1"
+		],
+		"Light Bar - Roof Deflector": [
+			"r_grill.shape1",
+			"r_grill.shape2"
+		],
+		"Light Bar": [
+			"r_grill.shape3",
+			"r_grill.shape4",
+			"r_grill.shape5"
+		],
+		"Bull Bar": [
+			"f_grill.shape4"
+		],
+		"Headache Racks": [
+			"b_guard.shape2"
+		]
+	}
+}

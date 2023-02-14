@@ -1,0 +1,36 @@
+{
+	"format_version": 1,
+	
+	"name": "Ford F-MAX",
+	"path": "ford.fmax",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Simülasyon TÜRK",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=1915802227",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=35&t=274617",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Space",
+			"internal_name": ["fmax"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

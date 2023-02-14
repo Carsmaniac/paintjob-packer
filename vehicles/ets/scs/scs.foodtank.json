@@ -1,0 +1,61 @@
+{
+	"format_version": 1,
+	
+	"name": "SCS Food Tank",
+	"path": "scs.foodtank",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body (2 Axles)": [
+			"body.tank_8_p",
+			"body.tank_8_ch"
+		],
+		"Body (3 Axles)": [
+			"body.tank_10_p",
+			"body.tank_10_ch"
+		],
+		"Trailer Rear": [
+			"rear_body.paint",
+			"rear_body.chrome"
+		],
+		"Trailer Front": [
+			"f_body.paint",
+			"f_body.chrome"
+		],
+		"Rear Bumper": [
+			"r_bumper.led"
+		],
+		"Front Sideskirts": [
+			"chs_f_l.side01_sh",
+			"chs_f_l.side01_sh_t",
+			"chs_f_r.side01_sh",
+			"chs_f_r.side01_sh_t"
+		],
+		"Sideskirts - Painted Boxes": [
+			"chs_f_l.paint_box",
+			"chs_f_r.paint_box",
+			"chs_r_l.paint_box",
+			"chs_r_r.paint_box"
+		]
+	}
+}

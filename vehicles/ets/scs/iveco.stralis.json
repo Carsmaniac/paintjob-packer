@@ -1,0 +1,48 @@
+{
+	"format_version": 1,
+	
+	"name": "Iveco Stralis",
+	"path": "iveco.stralis",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Active Space Super",
+			"internal_name": ["as_higher"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Active Super",
+			"internal_name": ["at_higher"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "Active Space",
+			"internal_name": ["at"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

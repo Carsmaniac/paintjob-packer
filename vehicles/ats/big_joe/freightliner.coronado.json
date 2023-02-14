@@ -1,0 +1,54 @@
+{
+	"format_version": 1,
+	
+	"name": "Freightliner Coronado 122SD",
+	"path": "freightliner.coronado",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Big Joe",
+	"mod_links": {
+		"workshop": "",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=207&t=285445",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "70 Raised Roof",
+			"internal_name": ["cabb", "cabba", "cabbb"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "70 Midrise XT",
+			"internal_name": ["caba", "cabaa", "cabab"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "70 Midroof",
+			"internal_name": ["cabc", "cabca", "cabcb"]
+		},
+		{
+			"code": "d",
+			"designation": "Cabin D",
+			"name": "Daycab",
+			"internal_name": ["cabd", "cabda", "cabdb"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

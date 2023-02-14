@@ -1,0 +1,36 @@
+{
+	"format_version": 1,
+	
+	"name": "Mercedes-Benz Actros MP2 Black Edition",
+	"path": "mercedes.actros_1861",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Dotec",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=2335508587",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=35&t=285438",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "MegaSpace",
+			"internal_name": ["megaspace"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

@@ -1,0 +1,139 @@
+{
+	"format_version": 1,
+	
+	"name": "SCS Box Trailer",
+	"path": "scs.box",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body - Curtainsider (B-Double)": [
+			"body.curtain_78bd"
+		],
+		"Body - Curtainsider (Double)": [
+			"body.curtain_78"
+		],
+		"Body - Curtainsider (Long)": [
+			"body.curtain_136",
+			"f_body.door_c",
+			"f_body.wall_c"
+		],
+		"Body - Dry Freighter (B-Double)": [
+			"body.dry_van_78bd",
+			"body.ins_78bd",
+			"body.reefer_78bd",
+			"body.dry_vs_78bd",
+			"body.ins_s_78bd",
+			"body.reefers_78bd",
+			"body.m_floor_78bd"
+		],
+		"Body - Dry Freighter (Double)": [
+			"body.dry_van_78",
+			"body.ins_78",
+			"body.reefer_78",
+			"body.dry_vans_78",
+			"body.ins_s_78",
+			"body.reefers_78",
+			"body.m_floor_78"
+		],
+		"Body - Dry Freighter (Long)": [
+			"body.dry_van_136",
+			"body.ins_136",
+			"body.reefer_136",
+			"body.dry_vans_136",
+			"body.ins_s_136",
+			"body.reefers_136",
+			"body.m_floor_136",
+			"body.m_floor_136r",
+			"f_body.door_dv",
+			"f_body.door_dvsd",
+			"f_body.ladder",
+			"f_body.ladder_bd"
+		],
+		"Trailer Rear - Wind Deflector": [
+			"rear_body.wind_def"
+		],
+		"Trailer Front": [
+			"f_body.th_box_p_mf",
+			"f_body.th_box_paint",
+			"f_body.f_toolbox"
+		],
+		"Rear Bumper": [
+			"r_bumper.paint",
+			"r_bumper.paint_bd",
+			"r_bumper.paint_d"
+		],
+		"Front Sideskirts": [
+			"chs_f_l.sideskirt_01",
+			"chs_f_r.sideskirt_01"
+		],
+		"Front Sideskirts - Pallet Box": [
+			"chs_f_l.palletbox",
+			"chs_f_r.palletbox"
+		],
+		"Rear Sideskirts": [
+			"chs_r_l.sideskirt_01",
+			"chs_r_r.sideskirt_01"
+		],
+		"Rear Sideskirts - Pallet Box": [
+			"chs_r_l.palletbox",
+			"chs_r_r.palletbox"
+		],
+		"Other Sideskirts and Painted Boxes": [
+			"chs_f_l.sideskirt_02",
+			"chs_f_r.sideskirt_02",
+			"chs_f_l.sideskirt_2d",
+			"chs_f_r.sideskirt_2d",
+			"chs_f_l.sideskirt_03",
+			"chs_f_r.sideskirt_03",
+			"chs_f_l.sideskirt_1d",
+			"chs_f_r.sideskirt_1d",
+			"chs_f_l.p_box_cage",
+			"chs_f_l.paint_box",
+			"chs_f_l.paint_box_d",
+			"chs_f_r.p_box_cage",
+			"chs_f_r.paint_box",
+			"chs_f_r.paint_box_d",
+			"chs_f_l.p_box_doubl",
+			"chs_f_r.p_box_doubl",
+			"chs_m_l.sideskirt_bd",
+			"chs_m_l.sideskirt_d",
+			"chs_m_r.sideskirt_bd",
+			"chs_m_r.sideskirt_d",
+			"chs_m_l.sideskirt",
+			"chs_m_r.sideskirt",
+			"chs_m_l.paint_box_bd",
+			"chs_m_l.paint_box_d",
+			"chs_m_l.paint_box_m",
+			"chs_m_r.paint_box_bd",
+			"chs_m_r.paint_box_d",
+			"chs_m_r.paint_box_m",
+			"chs_r_l.sideskirt_02",
+			"chs_r_r.sideskirt_02",
+			"chs_r_l.paint_box",
+			"chs_r_l.paint_box_d",
+			"chs_r_r.paint_box",
+			"chs_r_r.paint_box_d",
+			"chs_f_l.t_box"
+		]
+	}
+}

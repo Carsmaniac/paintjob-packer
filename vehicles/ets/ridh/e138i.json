@@ -1,0 +1,36 @@
+{
+	"format_version": 1,
+	
+	"name": "SKSBUS e138i",
+	"path": "e138i",
+	
+	"trailer": false,
+	"bus": true,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "ridh",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=2562917080",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Single Deck",
+			"internal_name": ["cabin_sd"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

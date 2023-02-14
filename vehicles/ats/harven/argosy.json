@@ -1,0 +1,54 @@
+{
+	"format_version": 1,
+	
+	"name": "Freightliner Argosy",
+	"path": "argosy",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Harven",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=2113006265",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Raised Roof",
+			"internal_name": ["raised_roof"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Low Roof with Spoiler",
+			"internal_name": ["spoiler_roof"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "Low Roof with Deflectors",
+			"internal_name": ["low_roof2"]
+		},
+		{
+			"code": "d",
+			"designation": "Cabin D",
+			"name": "Low Roof",
+			"internal_name": ["low_roof"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

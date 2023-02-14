@@ -1,0 +1,60 @@
+{
+	"format_version": 1,
+	
+	"name": "Scania R",
+	"path": "scania.rs",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "RJL",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=2466514780",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=35&t=299473",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Longline",
+			"internal_name": ["longline"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Topline Extended",
+			"internal_name": ["toplinexc"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "Topline",
+			"internal_name": ["topline"]
+		},
+		{
+			"code": "d",
+			"designation": "Cabin D",
+			"name": "Highline",
+			"internal_name": ["highline"]
+		},
+		{
+			"code": "e",
+			"designation": "Cabin E",
+			"name": "Normal",
+			"internal_name": ["normal"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

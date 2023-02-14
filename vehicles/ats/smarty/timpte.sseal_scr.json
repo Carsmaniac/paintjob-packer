@@ -1,0 +1,70 @@
+{
+	"format_version": 1,
+	
+	"name": "Timpte Super Seal",
+	"path": "timpte.sseal_scr",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Smarty",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=2758819524",
+		"forums": "https://forum.scssoft.com/viewtopic.php?t=253453",
+		"trucky": "https://truckymods.io/american-truck-simulator/trailers/scr-timpte-super-seal",
+		"author": "https://scr-rigs.com/index.php?act=ats_trl&p=1&dlid=275"
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body": [
+			"body.42",
+			"body.42_126",
+			"body.42_p126",
+			"body.42_pnt",
+			"body.42_s",
+			"body.42_s126",
+			"body.42_sp126",
+			"body.42_spnt",
+			"body.45",
+			"body.45_126",
+			"body.45_p126",
+			"body.45_pnt",
+			"body.45_s",
+			"body.45_s126",
+			"body.45_sp126",
+			"body.45_spnt"
+		],
+		"Trailer Front": [
+			"f_body.std_tks",
+			"f_body.std_tks_126",
+			"f_body.std_tksii",
+			"f_body.chr_tks",
+			"f_body.chr_tks_126",
+			"f_body.chr_tksii"
+		],
+		"Trailer Rear": [
+			"rear_body.swing",
+			"rear_body.sw_4h",
+			"rear_body.sw_4hp",
+			"rear_body.swing_126",
+			"rear_body.swing_chr",
+			"rear_body.swing_chr2",
+			"rear_body.swing_pnt",
+			"rear_body.swing_p126"
+		],
+		"Rear Bumper": [
+			"r_bumper.rnd2",
+			"r_bumper.rect"
+		]
+	}
+}

@@ -1,0 +1,30 @@
+{
+	"format_version": 1,
+	
+	"name": "Kentucky Moving Van",
+	"path": "kentucky.moving",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Krille",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "https://truckymods.io/american-truck-simulator/trailers/rd-moving-van",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

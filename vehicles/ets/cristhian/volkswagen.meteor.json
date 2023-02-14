@@ -1,0 +1,67 @@
+{
+	"format_version": 1,
+	
+	"name": "Volkswagen Meteor",
+	"path": "volkswagen.meteor",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "Cristhian",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=2232719369",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "High Sleeper",
+			"internal_name": ["xlx_cab"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Sleeper",
+			"internal_name": ["xl_cab"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Mirrors": [
+			"mirror.paint"
+		],
+		"Sun Visor": [
+			"sunshld.paint_xlx",
+			"sunshld.paint_xl"
+		],
+		"Sideskirts (6x2)": [
+			"sideskirt.paint_6x2_2",
+			"sideskirt.stock_6x2_2"
+		],
+		"Sideskirts (6x4)": [
+			"sideskirt.paint_6x4",
+			"sideskirt.stock_6x4"
+		],
+		"Rear Fender": [
+			"r_fender.paint_6x2_2",
+			"r_fender.paint_6x4",
+			"r_fendr_top.paint_6x2_2",
+			"r_fendr_top.paint_6x4"
+		],
+		"Lower Grille Guard": [
+			"b_grill.shape6p",
+			"b_grill.shape7p"
+		]
+	}
+}

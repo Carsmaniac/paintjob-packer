@@ -1,0 +1,48 @@
+{
+	"format_version": 1,
+	
+	"name": "Kenworth T800",
+	"path": "kenworth.t800_gtm",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "GTM",
+	"mod_links": {
+		"workshop": "https://steamcommunity.com/sharedfiles/filedetails/?id=1387205658",
+		"forums": "https://forum.scssoft.com/viewtopic.php?f=207&t=254804",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "AeroCab Sleeper",
+			"internal_name": ["exclusive"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Studio Sleeper",
+			"internal_name": ["standard"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "Day Cab",
+			"internal_name": ["duty"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

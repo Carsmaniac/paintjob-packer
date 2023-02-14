@@ -1,0 +1,62 @@
+{
+	"format_version": 1,
+	
+	"name": "Krone Paper Liner",
+	"path": "krone.paperliner",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body": [
+			"body.curtain_136"
+		],
+		"Rear Bumper": [
+			"r_bumper.bumper02p"
+		],
+		"Front Sideskirts - Side Skirt": [
+			"chs_f_l.side02p",
+			"chs_f_l.side02sp",
+			"chs_f_l.side02tp",
+			"chs_f_l.side02tsp",
+			"chs_f_r.side02p",
+			"chs_f_r.side02sp",
+			"chs_f_r.side02tp",
+			"chs_f_r.side02tsp"
+		],
+		"Front Sideskirts - Simple Side Skirt": [
+			"chs_f_l.side01p",
+			"chs_f_r.side01p"
+		],
+		"Front Sideskirts - Pallet Box": [
+			"chs_f_l.pallet01p",
+			"chs_f_r.pallet01p"
+		],
+		"Rear Sideskirts (Left) - Pallet Box": [
+			"chs_r_l.pallet01p",
+			"chs_r_l.pallet01sp"
+		],
+		"Rear Sideskirts (Right) - Pallet Box": [
+			"chs_r_r.pallet01p",
+			"chs_r_r.pallet01sp"
+		]
+	}
+}

@@ -1,0 +1,54 @@
+{
+	"format_version": 1,
+	
+	"name": "DAF F241",
+	"path": "daf.f241",
+	
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": true,
+	"mod_author": "XBS",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": "https://www.xbsmods.tk/ets2"
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Space Cab",
+			"internal_name": ["cab_d"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Sleeper Cab",
+			"internal_name": ["cab_c"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "Topsleeper Cab",
+			"internal_name": ["cab_b"]
+		},
+		{
+			"code": "d",
+			"designation": "Cabin D",
+			"name": "Day Cab",
+			"internal_name": ["cab_a"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

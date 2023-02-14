@@ -1,0 +1,86 @@
+{
+	"format_version": 1,
+	
+	"name": "Krone Profi Liner",
+	"path": "krone.profiliner",
+	
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body - Profi Liner": [
+			"body.curtain_136"
+		],
+		"Body - Load Carrier (Double)": [
+			"body.curtain_78"
+		],
+		"Rear Bumper - Paint": [
+			"r_bumper.bumper01p",
+			"r_bumper.bumperd01p"
+		],
+		"Rear Bumper - Paint II": [
+			"r_bumper.bumper02p"
+		],
+		"Rear Bumper (Load Carrier)": [
+			"r_bumper.lc_bumper01p"
+		],
+		"Mid Sideskirts": [
+			"chs_m_l.lc_side01p",
+			"chs_m_r.lc_side01p"
+		],
+		"Front Sideskirts - Side Skirt + Box": [
+			"chs_f_l.lc_side02sp",
+			"chs_f_r.lc_side02sp"
+		],
+		"Front Sideskirts - Side Skirt": [
+			"chs_f_l.side02p",
+			"chs_f_l.side02sp",
+			"chs_f_l.side02tp",
+			"chs_f_l.side02tsp",
+			"chs_f_r.side02p",
+			"chs_f_r.side02sp",
+			"chs_f_r.side02tp",
+			"chs_f_r.side02tsp"
+		],
+		"Front Sideskirts - Simple (Load Carrier)": [
+			"chs_f_l.lc_side01p",
+			"chs_f_r.lc_side01p"
+		],
+		"Front Sideskirts - Simple Side Skirt": [
+			"chs_f_l.side01p",
+			"chs_f_r.side01p"
+		],
+		"Front Sideskirts - Pallet Box": [
+			"chs_f_l.pallet01p",
+			"chs_f_r.pallet01p"
+		],
+		"Rear Sideskirts (Left) - Pallet Box": [
+			"chs_r_l.lc_pallet01p",
+			"chs_r_l.pallet01p",
+			"chs_r_l.pallet01sp"
+		],
+		"Rear Sideskirts (Right) - Pallet Box": [
+			"chs_r_r.lc_pallet01p",
+			"chs_r_r.pallet01p",
+			"chs_r_r.pallet01sp"
+		]
+	}
+}
