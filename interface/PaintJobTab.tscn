@@ -73,7 +73,7 @@ text = "Vehicles Supported (5)"
 [node name="VehicleTabContainer" type="TabContainer" parent="."]
 margin_left = 391.0
 margin_top = 25.0
-margin_right = 1084.0
+margin_right = 1079.0
 margin_bottom = 570.0
 
 [node name="Trucks" parent="VehicleTabContainer" instance=ExtResource( 3 )]

@@ -1,10 +1,39 @@
 extends Node
 	
 var vehicle_list: Array
+var trucks: Array
+var trailers: Array
+var truck_mods: Array
+var trailer_mods: Array
+var bus_mods: Array
+var car_mods: Array
+
+var vehicle_format_version: int = 1
 
 
 func _ready() -> void:
 	vehicle_list = _load_vehicle_list("ets")
+	trailers = []
+	truck_mods = []
+	trailer_mods = []
+	bus_mods = []
+	car_mods = []
+
+	for vehicle in vehicle_list:
+		if vehicle["mod"]:
+			if vehicle["trailer"]:
+				trailer_mods.append(vehicle)
+			elif vehicle["bus"]:
+				bus_mods.append(vehicle)
+			elif vehicle["car"]:
+				car_mods.append(vehicle)
+			else:
+				truck_mods.append(vehicle)
+		else:
+			if vehicle["trailer"]:
+				trailers.append(vehicle)
+			else:
+				trucks.append(vehicle)
 	
 
 func _load_vehicle_list(game: String) -> Array:
@@ -12,7 +41,10 @@ func _load_vehicle_list(game: String) -> Array:
 	for file_name in get_filelist("res://vehicles/" + game):
 		var vehicle_dict: Dictionary = _load_vehicle_file(file_name)
 		if vehicle_dict != {}:
-			vehicle_list.append(vehicle_dict)
+			if vehicle_dict["format_version"] == vehicle_format_version:
+				vehicle_list.append(vehicle_dict)
+			else:
+				pass # For future use, when the format changes
 	return vehicle_list
 
 
