@@ -11,14 +11,22 @@ var car_mods: Array
 var vehicle_format_version: int = 1
 
 
-func _ready() -> void:
-	vehicle_list = _load_vehicle_list("ets")
+func load_vehicle_lists() -> void:
+	vehicle_list = []
+	for file_name in get_filelist("res://vehicles/" + "ets"):
+		var vehicle_dict: Dictionary = _load_vehicle_file(file_name)
+		if vehicle_dict != {}:
+			if vehicle_dict["format_version"] == vehicle_format_version:
+				vehicle_list.append(vehicle_dict)
+			else:
+				pass # For future use, when the format changes
+
+	trucks = []
 	trailers = []
 	truck_mods = []
 	trailer_mods = []
 	bus_mods = []
 	car_mods = []
-
 	for vehicle in vehicle_list:
 		if vehicle["mod"]:
 			if vehicle["trailer"]:
@@ -34,18 +42,6 @@ func _ready() -> void:
 				trailers.append(vehicle)
 			else:
 				trucks.append(vehicle)
-	
-
-func _load_vehicle_list(game: String) -> Array:
-	vehicle_list = []
-	for file_name in get_filelist("res://vehicles/" + game):
-		var vehicle_dict: Dictionary = _load_vehicle_file(file_name)
-		if vehicle_dict != {}:
-			if vehicle_dict["format_version"] == vehicle_format_version:
-				vehicle_list.append(vehicle_dict)
-			else:
-				pass # For future use, when the format changes
-	return vehicle_list
 
 
 func _load_vehicle_file(file_path: String) -> Dictionary:

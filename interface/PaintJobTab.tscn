@@ -2,7 +2,7 @@
 
 [ext_resource path="res://interface/VariableInput.tscn" type="PackedScene" id=1]
 [ext_resource path="res://interface/PaintJobTab.gd" type="Script" id=2]
-[ext_resource path="res://interface/VehicleTab.tscn" type="PackedScene" id=3]
+[ext_resource path="res://interface/VehicleTabContainer.gd" type="Script" id=4]
 
 [node name="PaintJobTab" type="Tabs"]
 anchor_right = 1.0
@@ -75,5 +75,4 @@ margin_left = 391.0
 margin_top = 25.0
 margin_right = 1079.0
 margin_bottom = 570.0
-
-[node name="Trucks" parent="VehicleTabContainer" instance=ExtResource( 3 )]
+script = ExtResource( 4 )

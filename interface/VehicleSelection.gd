@@ -20,7 +20,7 @@ func init(vehicle: Dictionary, show_cabins: bool, show_author: bool) -> Control:
 	cabin_row = show_cabins
 
 	vehicle_checkbox.text = vehicle["name"]
-	author_name_label.text = "     (" + vehicle["mod_author"] + ")"
+	author_name_label.text = "      (" + vehicle["mod_author"] + ")"
 	author_name_label.visible = author_row
 	if show_cabins:
 		var cabins_list: Array = vehicle["cabins"]
