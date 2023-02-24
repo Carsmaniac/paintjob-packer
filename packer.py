@@ -634,7 +634,7 @@ class PackerApp:
         credits.pjp_translators_names_1.grid(row = 5, column = 1, padx = (0, 15), pady = 5, sticky = "nw")
         credits.pjp_translators_names_2 = ttk.Label(credits.pjp_frame, text = "Kebas53\nLeving PT\nOle Løvland Stegane\nOleg Popenkov\nPikeeej\nPiotrek Ślusarz\nRactic Group\nRehnskiold850\nScrooge62")
         credits.pjp_translators_names_2.grid(row = 5, column = 2, padx = 15, pady = 5, sticky = "nw")
-        credits.pjp_translators_names_3 = ttk.Label(credits.pjp_frame, text = "Sr_GustavoTv\nTomislav Tomic\nTuxinator")
+        credits.pjp_translators_names_3 = ttk.Label(credits.pjp_frame, text = "Sr_GustavoTv\nTrevor Wu\nTomislav Tomic\nTuxinator")
         credits.pjp_translators_names_3.grid(row = 5, column = 3, padx = 15, pady = 5, sticky = "nw")
         credits.pjp_translators_link = ttk.Label(credits.pjp_frame, text = l("{LinkTranslate}"), foreground = self.blue, cursor = self.cursor)
         credits.pjp_translators_link.grid(row = 6, column = 1, columnspan = 3, padx = (0, 20), sticky = "nw")
