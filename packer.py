@@ -87,6 +87,8 @@ class PackerApp:
         self.image_ets = tk.PhotoImage(file = "library/packer-images/game-ets.png")
         self.image_single_paintjob = tk.PhotoImage(file = "library/packer-images/paint-job-single.png")
         self.image_paintjob_pack = tk.PhotoImage(file = "library/packer-images/paint-job-pack.png")
+        self.image_search_white = tk.PhotoImage(file = "library/packer-images/search-white.png")
+        self.image_search_black = tk.PhotoImage(file = "library/packer-images/search-black.png")
 
         # Load appropriate cursor for OS, used when mousing over links
         if sys.platform.startswith("win"):
@@ -347,24 +349,24 @@ class PackerApp:
             self.panel_pack_selector.bind_all("<Button-4>", self.mousewheel_scroll)
             self.panel_pack_selector.bind_all("<Button-5>", self.mousewheel_scroll)
         self.tab_trucks = ttk.Frame(self.panel_pack_selector)
-        self.tab_trucks.columnconfigure(0, weight = 1)
-        self.tab_trucks.rowconfigure(0, weight = 1)
+        self.tab_trucks.columnconfigure(1, weight = 1)
+        self.tab_trucks.rowconfigure(1, weight = 1)
         self.panel_pack_selector.add(self.tab_trucks, text = l("{Trucks}"))
         self.tab_trailers = ttk.Frame(self.panel_pack_selector)
-        self.tab_trailers.columnconfigure(0, weight = 1)
-        self.tab_trailers.rowconfigure(0, weight = 1)
+        self.tab_trailers.columnconfigure(1, weight = 1)
+        self.tab_trailers.rowconfigure(1, weight = 1)
         self.panel_pack_selector.add(self.tab_trailers, text = l("{Trailers}"))
         self.tab_truck_mods = ttk.Frame(self.panel_pack_selector)
-        self.tab_truck_mods.columnconfigure(0, weight = 1)
-        self.tab_truck_mods.rowconfigure(0, weight = 1)
+        self.tab_truck_mods.columnconfigure(1, weight = 1)
+        self.tab_truck_mods.rowconfigure(1, weight = 1)
         self.panel_pack_selector.add(self.tab_truck_mods, text = l("{TruckMods}"))
         self.tab_bus_mods = ttk.Frame(self.panel_pack_selector)
-        self.tab_bus_mods.columnconfigure(0, weight = 1)
-        self.tab_bus_mods.rowconfigure(0, weight = 1)
+        self.tab_bus_mods.columnconfigure(1, weight = 1)
+        self.tab_bus_mods.rowconfigure(1, weight = 1)
         self.panel_pack_selector.add(self.tab_bus_mods, text = l("{BusMods}"), state = "hidden")
         self.tab_trailer_mods = ttk.Frame(self.panel_pack_selector)
-        self.tab_trailer_mods.columnconfigure(0, weight = 1)
-        self.tab_trailer_mods.rowconfigure(0, weight = 1)
+        self.tab_trailer_mods.columnconfigure(1, weight = 1)
+        self.tab_trailer_mods.rowconfigure(1, weight = 1)
         self.panel_pack_selector.add(self.tab_trailer_mods, text = l("{TrailerMods}"))
         self.panel_pack_link_truck = ttk.Label(self.tab_truck_mods, text = l("{VehiclesDownloadLink}"), foreground = self.blue, cursor = self.cursor)
         self.panel_pack_link_truck.bind("<1>", self.open_mod_link_page)
@@ -374,6 +376,49 @@ class PackerApp:
         self.panel_pack_link_trailer.bind("<1>", self.open_mod_link_page)
         self.panel_vehicles_pack.rowconfigure(0, weight = 1)
 
+        # Search boxes in the Vehicles Supported panel
+        try:
+            if darkdetect.isDark():
+                self.search_image = self.image_search_white
+            else:
+                self.search_image = self.image_search_black
+        except NameError:
+            self.search_image = self.image_search_black
+        self.truck_search_icon = ttk.Label(self.tab_trucks, image = self.search_image)
+        self.truck_search_icon.grid(row = 0, column = 0, sticky = "w", padx = (10, 5), pady = (5, 0))
+        self.truck_search_variable = tk.StringVar(None, "")
+        self.truck_search_variable.trace("w", self.update_vehicle_checkboxes)
+        self.truck_search_box = ttk.Entry(self.tab_trucks, width = 30, textvariable = self.truck_search_variable)
+        self.truck_search_box.grid(row = 0, column = 1, sticky = "w", padx = 5, pady = (5, 0))
+
+        self.truck_mod_search_icon = ttk.Label(self.tab_truck_mods, image = self.search_image)
+        self.truck_mod_search_icon.grid(row = 0, column = 0, sticky = "w", padx = (10, 5), pady = (5, 0))
+        self.truck_mod_search_variable = tk.StringVar(None, "")
+        self.truck_mod_search_variable.trace("w", self.update_vehicle_checkboxes)
+        self.truck_mod_search_box = ttk.Entry(self.tab_truck_mods, width = 30, textvariable = self.truck_mod_search_variable)
+        self.truck_mod_search_box.grid(row = 0, column = 1, sticky = "w", padx = 5, pady = (5, 0))
+
+        self.bus_mod_search_icon = ttk.Label(self.tab_bus_mods, image = self.search_image)
+        self.bus_mod_search_icon.grid(row = 0, column = 0, sticky = "w", padx = (10, 5), pady = (5, 0))
+        self.bus_mod_search_variable = tk.StringVar(None, "")
+        self.bus_mod_search_variable.trace("w", self.update_vehicle_checkboxes)
+        self.bus_mod_search_box = ttk.Entry(self.tab_bus_mods, width = 30, textvariable = self.bus_mod_search_variable)
+        self.bus_mod_search_box.grid(row = 0, column = 1, sticky = "w", padx = 5, pady = (5, 0))
+
+        self.trailer_search_icon = ttk.Label(self.tab_trailers, image = self.search_image)
+        self.trailer_search_icon.grid(row = 0, column = 0, sticky = "w", padx = (10, 5), pady = (5, 0))
+        self.trailer_search_variable = tk.StringVar(None, "")
+        self.trailer_search_variable.trace("w", self.update_vehicle_checkboxes)
+        self.trailer_search_box = ttk.Entry(self.tab_trailers, width = 30, textvariable = self.trailer_search_variable)
+        self.trailer_search_box.grid(row = 0, column = 1, sticky = "w", padx = 5, pady = (5, 0))
+
+        self.trailer_mod_search_icon = ttk.Label(self.tab_trailer_mods, image = self.search_image)
+        self.trailer_mod_search_icon.grid(row = 0, column = 0, sticky = "w", padx = (10, 5), pady = (5, 0))
+        self.trailer_mod_search_variable = tk.StringVar(None, "")
+        self.trailer_mod_search_variable.trace("w", self.update_vehicle_checkboxes)
+        self.trailer_mod_search_box = ttk.Entry(self.tab_trailer_mods, width = 30, textvariable = self.trailer_mod_search_variable)
+        self.trailer_mod_search_box.grid(row = 0, column = 1, sticky = "w", padx = 5, pady = (5, 0))
+
         # Scrollable lists in Vehicles Supported panel
         self.scroll_canvas_trucks = tk.Canvas(self.tab_trucks, highlightthickness = 0)
         self.scroll_bar_trucks = ttk.Scrollbar(self.tab_trucks, orient = "vertical", command = self.scroll_canvas_trucks.yview)
@@ -381,8 +426,8 @@ class PackerApp:
         self.scroll_frame_trucks.bind("<Configure>", lambda e: self.scroll_canvas_trucks.configure(scrollregion = self.scroll_canvas_trucks.bbox("all")))
         self.scroll_canvas_trucks.create_window((0, 0), window = self.scroll_frame_trucks, anchor = "nw")
         self.scroll_canvas_trucks.configure(yscrollcommand = self.scroll_bar_trucks.set)
-        self.scroll_canvas_trucks.grid(row = 0, column = 0, pady = 5, sticky = "nws")
-        self.scroll_bar_trucks.grid(row = 0, column = 1, pady = 5, sticky = "nes")
+        self.scroll_canvas_trucks.grid(row = 1, column = 0, columnspan = 2, pady = 5, sticky = "news")
+        self.scroll_bar_trucks.grid(row = 0, rowspan = 2, column = 1, pady = 5, sticky = "nes")
 
         self.scroll_canvas_trailers = tk.Canvas(self.tab_trailers, highlightthickness = 0)
         self.scroll_bar_trailers = ttk.Scrollbar(self.tab_trailers, orient = "vertical", command = self.scroll_canvas_trailers.yview)
@@ -390,8 +435,8 @@ class PackerApp:
         self.scroll_frame_trailers.bind("<Configure>", lambda e: self.scroll_canvas_trailers.configure(scrollregion = self.scroll_canvas_trailers.bbox("all")))
         self.scroll_canvas_trailers.create_window((0, 0), window = self.scroll_frame_trailers, anchor = "nw")
         self.scroll_canvas_trailers.configure(yscrollcommand = self.scroll_bar_trailers.set)
-        self.scroll_canvas_trailers.grid(row = 0, column = 0, pady = 5, sticky = "nws")
-        self.scroll_bar_trailers.grid(row = 0, column = 1, pady = 5, sticky = "nes")
+        self.scroll_canvas_trailers.grid(row = 1, column = 0, columnspan = 2, pady = 5, sticky = "nws")
+        self.scroll_bar_trailers.grid(row = 0, rowspan = 2, column = 1, pady = 5, sticky = "nes")
 
         self.scroll_canvas_truck_mods = tk.Canvas(self.tab_truck_mods, highlightthickness = 0)
         self.scroll_bar_truck_mods = ttk.Scrollbar(self.tab_truck_mods, orient = "vertical", command = self.scroll_canvas_truck_mods.yview)
@@ -399,8 +444,8 @@ class PackerApp:
         self.scroll_frame_truck_mods.bind("<Configure>", lambda e: self.scroll_canvas_truck_mods.configure(scrollregion = self.scroll_canvas_truck_mods.bbox("all")))
         self.scroll_canvas_truck_mods.create_window((0, 0), window = self.scroll_frame_truck_mods, anchor = "nw")
         self.scroll_canvas_truck_mods.configure(yscrollcommand = self.scroll_bar_truck_mods.set)
-        self.scroll_canvas_truck_mods.grid(row = 0, column = 0, pady = 5, sticky = "nws")
-        self.scroll_bar_truck_mods.grid(row = 0, rowspan = 2, column = 1, pady = 5, sticky = "nes")
+        self.scroll_canvas_truck_mods.grid(row = 1, column = 0, columnspan = 2, pady = 5, sticky = "nws")
+        self.scroll_bar_truck_mods.grid(row = 0, rowspan = 3, column = 1, pady = 5, sticky = "nes")
 
         self.scroll_canvas_bus_mods = tk.Canvas(self.tab_bus_mods, highlightthickness = 0)
         self.scroll_bar_bus_mods = ttk.Scrollbar(self.tab_bus_mods, orient = "vertical", command = self.scroll_canvas_bus_mods.yview)
@@ -408,8 +453,8 @@ class PackerApp:
         self.scroll_frame_bus_mods.bind("<Configure>", lambda e: self.scroll_canvas_bus_mods.configure(scrollregion = self.scroll_canvas_bus_mods.bbox("all")))
         self.scroll_canvas_bus_mods.create_window((0, 0), window = self.scroll_frame_bus_mods, anchor = "nw")
         self.scroll_canvas_bus_mods.configure(yscrollcommand = self.scroll_bar_bus_mods.set)
-        self.scroll_canvas_bus_mods.grid(row = 0, column = 0, pady = 5, sticky = "nws")
-        self.scroll_bar_bus_mods.grid(row = 0, rowspan = 2, column = 1, pady = 5, sticky = "nes")
+        self.scroll_canvas_bus_mods.grid(row = 1, column = 0, columnspan = 2, pady = 5, sticky = "nws")
+        self.scroll_bar_bus_mods.grid(row = 0, rowspan = 3, column = 1, pady = 5, sticky = "nes")
 
         self.scroll_canvas_trailer_mods = tk.Canvas(self.tab_trailer_mods, highlightthickness = 0)
         self.scroll_bar_trailer_mods = ttk.Scrollbar(self.tab_trailer_mods, orient = "vertical", command = self.scroll_canvas_trailer_mods.yview)
@@ -417,8 +462,8 @@ class PackerApp:
         self.scroll_frame_trailer_mods.bind("<Configure>", lambda e: self.scroll_canvas_trailer_mods.configure(scrollregion = self.scroll_canvas_trailer_mods.bbox("all")))
         self.scroll_canvas_trailer_mods.create_window((0, 0), window = self.scroll_frame_trailer_mods, anchor = "nw")
         self.scroll_canvas_trailer_mods.configure(yscrollcommand = self.scroll_bar_trailer_mods.set)
-        self.scroll_canvas_trailer_mods.grid(row = 0, column = 0, pady = 5, sticky = "nws")
-        self.scroll_bar_trailer_mods.grid(row = 0, rowspan = 2, column = 1, pady = 5, sticky = "nes")
+        self.scroll_canvas_trailer_mods.grid(row = 1, column = 0, columnspan = 2, pady = 5, sticky = "nws")
+        self.scroll_bar_trailer_mods.grid(row = 0, rowspan = 3, column = 1, pady = 5, sticky = "nes")
 
         # Buttons along the bottom
         self.panel_main_buttons_setup = ttk.Button(self.panel_main_buttons, text = l("< {BackToSetup}"), command = lambda : self.switch_to_setup_screen())
@@ -808,11 +853,11 @@ class PackerApp:
 
     def load_main_screen_variables(self): # Also grids and ungrids elements depending on said variables
         l = self.get_localised_string
-        self.scroll_bar_trucks.grid(row = 0, column = 1, pady = 5, sticky = "nes")
-        self.scroll_bar_trailers.grid(row = 0, column = 1, pady = 5, sticky = "nes")
-        self.scroll_bar_truck_mods.grid(row = 0, rowspan = 2, column = 1, pady = 5, sticky = "nes")
-        self.scroll_bar_bus_mods.grid(row = 0, rowspan = 2, column = 1, pady = 5, sticky = "nes")
-        self.scroll_bar_trailer_mods.grid(row = 0, rowspan = 2, column = 1, pady = 5, sticky = "nes")
+        self.scroll_bar_trucks.grid(row = 0, rowspan = 2, column = 1, pady = 5, sticky = "nes")
+        self.scroll_bar_trailers.grid(row = 0, rowspan = 2, column = 1, pady = 5, sticky = "nes")
+        self.scroll_bar_truck_mods.grid(row = 0, rowspan = 3, column = 1, pady = 5, sticky = "nes")
+        self.scroll_bar_bus_mods.grid(row = 0, rowspan = 3, column = 1, pady = 5, sticky = "nes")
+        self.scroll_bar_trailer_mods.grid(row = 0, rowspan = 3, column = 1, pady = 5, sticky = "nes")
 
         if self.tab_game_variable.get() == "ats":
             self.currency = l("{InGamePriceDollars}")
@@ -829,20 +874,16 @@ class PackerApp:
 
         (self.truck_list, self.truck_mod_list, self.bus_mod_list, self.trailer_list, self.trailer_mod_list) = self.load_list_of_vehicles(self.tab_game_variable.get())
 
-        for i in range(len(self.truck_list)):
-            self.truck_list[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
-        for i in range(len(self.truck_mod_list)):
-            self.truck_mod_list[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
-        for i in range(len(self.bus_mod_list)):
-            self.bus_mod_list[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
-        for i in range(len(self.trailer_list)):
-            self.trailer_list[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
-        for i in range(len(self.trailer_mod_list)):
-            self.trailer_mod_list[i].check.grid(row = i, column = 0, sticky = "w", padx = 5)
+        self.truck_search_variable.set("")
+        self.truck_mod_search_variable.set("")
+        self.bus_mod_search_variable.set("")
+        self.trailer_search_variable.set("")
+        self.trailer_mod_search_variable.set("")
+        self.update_vehicle_checkboxes(self)
 
-        self.panel_pack_link_truck.grid(row = 1, column = 0, sticky = "w", padx = 8, pady = (0, 5))
-        self.panel_pack_link_bus.grid(row = 1, column = 0, sticky = "w", padx = 8, pady = (0, 5))
-        self.panel_pack_link_trailer.grid(row = 1, column = 0, sticky = "w", padx = 8, pady = (0, 5))
+        self.panel_pack_link_truck.grid(row = 2, column = 0, columnspan = 2, sticky = "w", padx = 8, pady = (0, 5))
+        self.panel_pack_link_bus.grid(row = 2, column = 0, columnspan = 2, sticky = "w", padx = 8, pady = (0, 5))
+        self.panel_pack_link_trailer.grid(row = 2, column = 0, columnspan = 2, sticky = "w", padx = 8, pady = (0, 5))
 
         self.scroll_canvas_trucks.yview_moveto(0)
         self.scroll_canvas_trailers.yview_moveto(0)
@@ -853,6 +894,35 @@ class PackerApp:
         self.change_displayed_vehicle_dropdown()
         self.update_total_vehicles_supported()
         self.panel_pack_selector.select(0)
+
+    def update_vehicle_checkboxes(self, *args):
+        for veh in self.truck_list + self.truck_mod_list + self.bus_mod_list + self.trailer_list + self.trailer_mod_list:
+            try:
+                veh.check.grid_forget()
+            except Exception:
+                print("whoops")
+
+        truck_search_term = self.truck_search_variable.get().lower()
+        truck_mod_search_term = self.truck_mod_search_variable.get().lower()
+        bus_mod_search_term = self.bus_mod_search_variable.get().lower()
+        trailer_search_term = self.trailer_search_variable.get().lower()
+        trailer_mod_search_term = self.trailer_mod_search_variable.get().lower()
+
+        for i in range(len(self.truck_list)):
+            if truck_search_term in self.truck_list[i].name.lower():
+                self.truck_list[i].check.grid(row = i + 1, column = 0, columnspan = 2, sticky = "w", padx = 5)
+        for i in range(len(self.truck_mod_list)):
+            if truck_mod_search_term in self.truck_mod_list[i].name.lower() or truck_mod_search_term in self.truck_mod_list[i].mod_author.lower():
+                self.truck_mod_list[i].check.grid(row = i + 1, column = 0, columnspan = 2, sticky = "w", padx = 5)
+        for i in range(len(self.bus_mod_list)):
+            if bus_mod_search_term in self.bus_mod_list[i].name.lower() or bus_mod_search_term in self.bus_mod_list[i].mod_author.lower():
+                self.bus_mod_list[i].check.grid(row = i + 1, column = 0, columnspan = 2, sticky = "w", padx = 5)
+        for i in range(len(self.trailer_list)):
+            if trailer_search_term in self.trailer_list[i].name.lower():
+                self.trailer_list[i].check.grid(row = i + 1, column = 0, columnspan = 2, sticky = "w", padx = 5)
+        for i in range(len(self.trailer_mod_list)):
+            if trailer_mod_search_term in self.trailer_mod_list[i].name.lower() or trailer_mod_search_term in self.trailer_mod_list[i].mod_author.lower():
+                self.trailer_mod_list[i].check.grid(row = i + 1, column = 0, columnspan = 2, sticky = "w", padx = 5)
 
     def toggle_unlock_level(self):
         if self.panel_ingame_default_variable.get():
