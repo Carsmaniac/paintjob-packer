@@ -949,16 +949,30 @@ class PackerApp:
 
         current_tab = self.panel_pack_selector.index(self.panel_pack_selector.select())
         if current_tab == 0: # Trucks
-            self.scroll_canvas_trucks.yview_scroll(scroll_amount, "units")
+            if self.scroll_frame_trucks.winfo_height() <= self.scroll_canvas_trucks.winfo_height():
+                self.scroll_canvas_trucks.yview_moveto(0)
+            else:
+                self.scroll_canvas_trucks.yview_scroll(scroll_amount, "units")
         elif current_tab == 1: # Trailers
-            self.scroll_canvas_trailers.yview_scroll(scroll_amount, "units")
+            if self.scroll_frame_trailers.winfo_height() <= self.scroll_canvas_trailers.winfo_height():
+                self.scroll_canvas_trailers.yview_moveto(0)
+            else:
+                self.scroll_canvas_trailers.yview_scroll(scroll_amount, "units")
         elif current_tab == 2: # Truck mods
-            self.scroll_canvas_truck_mods.yview_scroll(scroll_amount, "units")
+            if self.scroll_frame_truck_mods.winfo_height() <= self.scroll_canvas_truck_mods.winfo_height():
+                self.scroll_canvas_truck_mods.yview_moveto(0)
+            else:
+                self.scroll_canvas_truck_mods.yview_scroll(scroll_amount, "units")
         elif current_tab == 3: # Bus mods
-            self.scroll_canvas_bus_mods.yview_scroll(scroll_amount, "units")
-            self.scroll_canvas_bus_mods.yview_moveto(0)
+            if self.scroll_frame_bus_mods.winfo_height() <= self.scroll_canvas_bus_mods.winfo_height():
+                self.scroll_canvas_bus_mods.yview_moveto(0)
+            else:
+                self.scroll_canvas_bus_mods.yview_scroll(scroll_amount, "units")
         elif current_tab == 4: # Trailer mods
-            self.scroll_canvas_trailer_mods.yview_scroll(scroll_amount, "units")
+            if self.scroll_frame_trailer_mods.winfo_height() <= self.scroll_canvas_trailer_mods.winfo_height():
+                self.scroll_canvas_trailer_mods.yview_moveto(0)
+            else:
+                self.scroll_canvas_trailer_mods.yview_scroll(scroll_amount, "units")
 
     def check_for_outdated_vehicles(self, game):
         outdated_vehicles = []
