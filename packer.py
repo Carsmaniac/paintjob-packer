@@ -671,7 +671,7 @@ class PackerApp:
         credits.pjp_dev_name.grid(row = 2, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
         credits.pjp_contributors_title = ttk.Label(credits.pjp_frame, text = l("{AboutContributors}"))
         credits.pjp_contributors_title.grid(row = 3, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
-        credits.pjp_contributors_names = ttk.Label(credits.pjp_frame, text = "djbusphotos\nkentuckyfriedmeerkat")
+        credits.pjp_contributors_names = ttk.Label(credits.pjp_frame, text = "djbusphotos\nkentuckyfriedmeerkat\nsamilaung")
         credits.pjp_contributors_names.grid(row = 3, column = 1, padx = (0, 20), pady = 5, sticky = "nw")
         credits.pjp_translators_title = ttk.Label(credits.pjp_frame, text = l("{AboutTranslators}"))
         credits.pjp_translators_title.grid(row = 5, column = 0, padx = (20, 10), pady = 5, sticky = "ne")
