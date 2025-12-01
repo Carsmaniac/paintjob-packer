@@ -1195,18 +1195,39 @@ class PackerApp:
                 inputs_verified = False
                 all_errors.append([l("{ErrorSelectVehicleSingleTitle}"), l("{ErrorSelectVehicleSingle}")])
 
-        # Check for incompatible vehicles
+        # Check for genuinely incompatible vehicles
+        # Relaxed so multiple SCS/base variants sharing a vehicle path (e.g. FH6 + FH6 Aero)
+        # are allowed, while still blocking conflicting mod combinations that use the same path.
         veh_path_dict = {}
         for veh in self.truck_list + self.truck_mod_list + self.bus_mod_list + self.trailer_list + self.trailer_mod_list:
             if "selected" in veh.check.state():
-                if not veh.vehicle_path in veh_path_dict:
-                    veh_path_dict[veh.vehicle_path] = []
-                veh_path_dict[veh.vehicle_path].append("{} ({})".format(veh.display_name, veh.display_author))
-        for veh_path in veh_path_dict.keys():
-            if len(veh_path_dict[veh_path]) > 1:
-                incompatible_vehicles = "\n".join(veh_path_dict[veh_path])
+                key = (veh.vehicle_path, veh.mod, veh.display_author)
+                if key not in veh_path_dict:
+                    veh_path_dict[key] = []
+                veh_path_dict[key].append("{} ({})".format(veh.display_name, veh.display_author))
+
+        # Group by vehicle_path only when there are conflicting mod/base sources for that path
+        path_conflicts = {}
+        for (veh_path, is_mod, author), names in veh_path_dict.items():
+            if veh_path not in path_conflicts:
+                path_conflicts[veh_path] = set()
+            # Use a simple label so base SCS and modded entries can be distinguished
+            label = "mod:{}".format(author) if is_mod else "base:SCS"
+            path_conflicts[veh_path].add(label)
+
+        for veh_path, sources in path_conflicts.items():
+            # If only one source (all base, or all from the same mod author), allow it
+            if len(sources) <= 1:
+                continue
+
+            # Otherwise, report them as incompatible
+            incompatible_vehicles = []
+            for key, names in veh_path_dict.items():
+                if key[0] == veh_path:
+                    incompatible_vehicles.extend(names)
+            if len(incompatible_vehicles) > 1:
                 inputs_verified = False
-                all_errors.append([l("{ErrorIncompatibleTitle}"), l("{ErrorIncompatible}") + "\n" + incompatible_vehicles])
+                all_errors.append([l("{ErrorIncompatibleTitle}"), l("{ErrorIncompatible}") + "\n" + "\n".join(incompatible_vehicles)])
 
         if inputs_verified:
             # Show warning about bus mods
