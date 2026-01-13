@@ -1177,7 +1177,7 @@ class PackerApp:
         if len(self.panel_internal_name_variable.get()) > self.internal_name_length:
             inputs_verified = False
             all_errors.append([l("{ErrorInternalNameLongTitle}"), l("{ErrorInternalNameLong}").format(length = self.internal_name_length)])
-        if not re.match(r"^[0-9a-z\_]*$", self.panel_internal_name_variable.get()):
+        if not re.match(r"^[0-9a-z_]*$", self.panel_internal_name_variable.get()):
             inputs_verified = False
             all_errors.append([l("{ErrorInternalNameCharacterTitle}"), l("{ErrorInternalNameCharacter}")])
             # I think uppercase letters might work, but no paint jobs in the base game/DLCs use them, so best practice to avoid them
