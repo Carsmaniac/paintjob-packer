@@ -1115,7 +1115,7 @@ class PackerApp:
             inputs_verified = False
             all_errors.append([l("{ErrorModNameInvalidTitle}"), l("{ErrorModNameInvalid}") + "\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"])
 
-        for character in ["\0", "\a", "\b", "\t", "\n", "\v", "\f", "\r", "\e"]:
+        for character in ["\0", "\a", "\b", "\t", "\n", "\v", "\f", "\r", "\x1b"]:
             self.panel_mod_name_variable.set(self.panel_mod_name_variable.get().replace(character, ""))
 
         if len(self.panel_mod_version_variable.get()) < 1:
@@ -1152,7 +1152,7 @@ class PackerApp:
             inputs_verified = False
             all_errors.append([l("{ErrorInGameNameAsciiTitle}"), l("{ErrorInGameNameAscii}") + "\nabcdefghijklmnopqrstuvwxyz\nABCDEFGHIJKLMNOPQRSTUVWXYZ\n0123456789\n! @ # $ % ^ & ( ) - _ = + [ ] { } ; ' , ` ~"])
 
-        for character in ["\0", "\a", "\b", "\t", "\n", "\v", "\f", "\r", "\e"]:
+        for character in ["\0", "\a", "\b", "\t", "\n", "\v", "\f", "\r", "\x1b"]:
             self.panel_ingame_name_variable.set(self.panel_ingame_name_variable.get().replace(character, ""))
 
         if len(self.panel_ingame_price_variable.get()) < 1:
@@ -1177,7 +1177,7 @@ class PackerApp:
         if len(self.panel_internal_name_variable.get()) > self.internal_name_length:
             inputs_verified = False
             all_errors.append([l("{ErrorInternalNameLongTitle}"), l("{ErrorInternalNameLong}").format(length = self.internal_name_length)])
-        if not re.match("^[0-9a-z\_]*$", self.panel_internal_name_variable.get()):
+        if not re.match(r"^[0-9a-z\_]*$", self.panel_internal_name_variable.get()):
             inputs_verified = False
             all_errors.append([l("{ErrorInternalNameCharacterTitle}"), l("{ErrorInternalNameCharacter}")])
             # I think uppercase letters might work, but no paint jobs in the base game/DLCs use them, so best practice to avoid them
