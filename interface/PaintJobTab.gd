@@ -6,8 +6,6 @@ func _ready() -> void:
 	var __ = $Name/TextInput.connect("text_changed", Callable(get_parent(), "rename_tab"))
 	__ = $CabinSupport/DropdownInput.connect("item_selected", _on_cabin_dropdown_change)
 	__ = $SplitPaintJobs/DropdownInput.connect("item_selected", Callable($InternalName, "validate_text_input"))
-	for selection in get_vehicle_selections():
-		__ = selection.find_child("VehicleCheckbox").connect("pressed", update_vehicles_selected_number)
 
 func get_vehicle_selections() -> Array:
 	var selections: Array = []
