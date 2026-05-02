@@ -105,13 +105,13 @@ A single paint job per truck required less work and results in a smaller mod siz
 Split paint jobs allow you to tweak your design to work for each cabin size, but require more work and result in a larger mod size, as you need to make separate textures for every cabin whether they need them or not."
 input_type = "dropdown_split"
 
-[node name="InGameLabel2" type="Label" parent="." unique_id=37915328]
+[node name="SelectedLabel" type="Label" parent="." unique_id=37915328]
 layout_mode = 0
 offset_left = 399.0
 offset_top = 9.0
 offset_right = 571.0
 offset_bottom = 32.0
-text = "Vehicles Supported (5)"
+text = "Vehicles Supported (0)"
 
 [node name="VehicleTabContainer" type="TabContainer" parent="." unique_id=112539841]
 layout_mode = 0
