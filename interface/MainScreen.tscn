@@ -9,20 +9,6 @@ layout_mode = 3
 anchors_preset = 0
 theme = ExtResource("1_mvc2l")
 
-[node name="SizeGuide" type="ColorRect" parent="." unique_id=1019915258]
-visible = false
-layout_mode = 0
-offset_right = 1280.0
-offset_bottom = 720.0
-
-[node name="ContentGuide" type="PanelContainer" parent="." unique_id=134828688]
-visible = false
-layout_mode = 0
-offset_left = 12.0
-offset_top = 54.0
-offset_right = 1267.0
-offset_bottom = 667.0
-
 [node name="LanguageDropdown" type="OptionButton" parent="." unique_id=1575201954]
 layout_mode = 0
 offset_left = 14.0

@@ -14,15 +14,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2")
 
-[node name="SizeGuide" type="ColorRect" parent="." unique_id=535956494]
-visible = false
-layout_mode = 0
-offset_left = -3.0
-offset_top = -5.0
-offset_right = 1246.0
-offset_bottom = 579.0
-color = Color(0.54902, 0.694118, 0.709804, 1)
-
 [node name="InGameLabel" type="Label" parent="." unique_id=157070453]
 layout_mode = 0
 offset_left = 12.0
