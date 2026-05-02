@@ -1,9 +1,10 @@
-extends Node2D
+extends Control
 
-export var input_name: String
-export(String, "Text", "Dropdown", "CheckboxAndText") var input_type
+@export var input_name: String
+@export_enum("text_string", "text_number", "text_alphanumeric", "dropdown_cabin", "dropdown_split", "checkbox") var input_type: String
+var warning: String
 
-# Called when the node enters the scene tree for the first time.
+
 func _ready() -> void:
 	$Label.text = input_name
 	$WarningButton.visible = false
@@ -11,18 +12,71 @@ func _ready() -> void:
 	$DropdownInput.visible = false
 	$CheckboxInput.visible = false
 	
-	if input_type == "Text":
+	$WarningButton.connect("pressed", show_warnings)
+	
+	if "text" in input_type:
 		$TextInput.visible = true
-	elif input_type == "Dropdown":
+		if input_type == "text_number":
+			$TextInput.size[0] = 100
+		$TextInput.connect("text_changed", validate_text_input)
+	elif "dropdown" in input_type:
 		$DropdownInput.visible = true
-	elif input_type == "CheckboxAndText":
+		if input_type == "dropdown_cabin":
+			$DropdownInput.add_item("Largest cabin only")
+			$DropdownInput.add_item("All cabins")
+			$DropdownInput.add_item("Selected cabins")
+		else:
+			$DropdownInput.add_item("Don't split, one per truck")
+			$DropdownInput.add_item("Split, one per cabin")
+	elif input_type == "checkbox":
 		$CheckboxInput.visible = true
 		$TextInput.visible = true
-		$TextInput.rect_position = Vector2(0, 70)
-		$HelpButton.rect_position = Vector2(321, 69)
-		$WarningButton.rect_position = Vector2(321, 36)
+		$TextInput.position = Vector2(0, 70)
+		$HelpButton.position = Vector2(321, 69)
+		$WarningButton.position = Vector2(321, 36)
+		
 
+func validate_text_input(__) -> void:
+	var string: String = $TextInput.text
+	if input_type == "text_number":
+		if string != "" and not string.is_valid_int():
+			warning = "Must be a number with no decimal point or other characters."
+			$WarningButton.visible = true
+		else:
+			$WarningButton.visible = false
+			
+	elif input_type == "text_alphanumeric":
+		var not_alphanumeric: bool = false
+		for letter in string:
+			if letter not in "abcdefghijklmnopqrstuvwxyz0123456789_":
+				not_alphanumeric = true
+		var max_length: int = 12
+		if get_node("../SplitPaintJobs/DropdownInput").selected == 1:
+			max_length = 10
+		
+		if string != "":
+			if not_alphanumeric:
+				warning = "Must consist of only lowercase letters, numbers and underscores.\n\nPermitted characters:\nabcdefghijklmnopqrstuvwxyz0123456789_"
+				$WarningButton.visible = true
+			elif len(string) > max_length:
+				warning = "Must be %s characters or fewer." % max_length
+				$WarningButton.visible = true
+			# TODO: detect non-unique internal names
+			# elif not_unique:
+			#     warning = "Must be unique, cannot be the same as the internal name of any other paint job."
+			#     $WarningButton.visible = true
+			else:
+				$WarningButton.visible = false
+		else:
+			$WarningButton.visible = false
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	
+func show_warnings() -> void:
+	var popup: Node = get_parent().get_parent().get_parent().get_node("AcceptDialogue")
+	popup.title = "Warning"
+	popup.dialog_text = warning
+	popup.size.y = 0
+	popup.ok_button_text = "Okay"
+	popup.popup_centered()
+	
+	

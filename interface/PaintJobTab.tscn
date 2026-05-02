@@ -1,78 +1,111 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene format=3 uid="uid://b84ho7fa58hvj"]
 
-[ext_resource path="res://interface/VariableInput.tscn" type="PackedScene" id=1]
-[ext_resource path="res://interface/PaintJobTab.gd" type="Script" id=2]
-[ext_resource path="res://interface/VehicleTabContainer.gd" type="Script" id=4]
+[ext_resource type="PackedScene" uid="uid://bkkg8mcxaxrdm" path="res://interface/VariableInput.tscn" id="1"]
+[ext_resource type="Script" uid="uid://cluddbataqyfw" path="res://interface/PaintJobTab.gd" id="2"]
+[ext_resource type="Script" uid="uid://ci2baftvihbv6" path="res://interface/VehicleTabContainer.gd" id="4"]
 
-[node name="PaintJobTab" type="Tabs"]
+[node name="PaintJobTab" type="TabBar" unique_id=526224984]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-script = ExtResource( 2 )
+offset_left = 4.0
+offset_top = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2")
 
-[node name="SizeGuide" type="ColorRect" parent="."]
+[node name="SizeGuide" type="ColorRect" parent="." unique_id=535956494]
 visible = false
-margin_left = -3.0
-margin_top = -5.0
-margin_right = 1246.0
-margin_bottom = 579.0
-color = Color( 0.54902, 0.694118, 0.709804, 1 )
+layout_mode = 0
+offset_left = -3.0
+offset_top = -5.0
+offset_right = 1246.0
+offset_bottom = 579.0
+color = Color(0.54902, 0.694118, 0.709804, 1)
 
-[node name="InGameLabel" type="Label" parent="."]
-margin_left = 3.0
-margin_top = 2.0
-margin_right = 147.0
-margin_bottom = 16.0
+[node name="InGameLabel" type="Label" parent="." unique_id=157070453]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 9.0
+offset_right = 186.0
+offset_bottom = 32.0
 text = "In-Game Paint Job Info"
 
-[node name="Name" parent="." instance=ExtResource( 1 )]
-position = Vector2( 2, 29 )
+[node name="Name" parent="." unique_id=264099359 instance=ExtResource("1")]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 36.0
+offset_right = 11.0
+offset_bottom = 36.0
 input_name = "Name"
-input_type = "Text"
+input_type = "text_string"
 
-[node name="Price" parent="." instance=ExtResource( 1 )]
-position = Vector2( 2, 104 )
+[node name="Price" parent="." unique_id=1366954901 instance=ExtResource("1")]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 111.0
+offset_right = 11.0
+offset_bottom = 111.0
 input_name = "Price"
-input_type = "Text"
+input_type = "text_number"
 
-[node name="Unlock" parent="." instance=ExtResource( 1 )]
-position = Vector2( 2, 179 )
+[node name="Unlock" parent="." unique_id=573177043 instance=ExtResource("1")]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 186.0
+offset_right = 11.0
+offset_bottom = 186.0
 input_name = "Unlock level"
-input_type = "CheckboxAndText"
+input_type = "text_number"
 
-[node name="InternalLabel" type="Label" parent="."]
-margin_left = 3.0
-margin_top = 322.0
-margin_right = 263.0
-margin_bottom = 336.0
+[node name="InternalLabel" type="Label" parent="." unique_id=1336872857]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 292.0
+offset_right = 272.0
+offset_bottom = 315.0
 text = "Other Settings"
 
-[node name="InternalName" parent="." instance=ExtResource( 1 )]
-position = Vector2( 2, 349 )
+[node name="InternalName" parent="." unique_id=371417409 instance=ExtResource("1")]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 319.0
+offset_right = 11.0
+offset_bottom = 319.0
 input_name = "Internal name"
-input_type = "Text"
+input_type = "text_alphanumeric"
 
-[node name="CabinSupport" parent="." instance=ExtResource( 1 )]
-position = Vector2( 2, 424 )
+[node name="CabinSupport" parent="." unique_id=443377221 instance=ExtResource("1")]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 394.0
+offset_right = 11.0
+offset_bottom = 394.0
 input_name = "Supported cabins"
-input_type = "Dropdown"
+input_type = "dropdown_cabin"
 
-[node name="SplitPaintJobs" parent="." instance=ExtResource( 1 )]
-position = Vector2( 2, 499 )
+[node name="SplitPaintJobs" parent="." unique_id=815995416 instance=ExtResource("1")]
+visible = false
+layout_mode = 0
+offset_left = 11.0
+offset_top = 469.0
+offset_right = 11.0
+offset_bottom = 469.0
 input_name = "Split paint jobs"
-input_type = "Dropdown"
+input_type = "dropdown_split"
 
-[node name="InGameLabel2" type="Label" parent="."]
-margin_left = 390.0
-margin_top = 2.0
-margin_right = 534.0
-margin_bottom = 16.0
+[node name="InGameLabel2" type="Label" parent="." unique_id=37915328]
+layout_mode = 0
+offset_left = 399.0
+offset_top = 9.0
+offset_right = 571.0
+offset_bottom = 32.0
 text = "Vehicles Supported (5)"
 
-[node name="VehicleTabContainer" type="TabContainer" parent="."]
-margin_left = 391.0
-margin_top = 25.0
-margin_right = 950.0
-margin_bottom = 570.0
-script = ExtResource( 4 )
+[node name="VehicleTabContainer" type="TabContainer" parent="." unique_id=112539841]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 40.0
+offset_right = 997.0
+offset_bottom = 548.0
+script = ExtResource("4")

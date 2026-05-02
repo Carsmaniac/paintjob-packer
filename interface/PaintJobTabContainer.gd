@@ -8,7 +8,7 @@ func _on_tab_changed(index: int) -> void:
 	if get_tab_control(index).name == "+":
 		rename_tab("New Paint Job", index)
 		if get_tab_count() < max_tabs:
-			var tab_inst := TabScene.instance()
+			var tab_inst := TabScene.instantiate()
 			add_child(tab_inst)
 			get_tab_control(get_tab_count() - 1).name = "+"
 

@@ -1,7 +1,8 @@
 extends Control
+class_name VehicleSelection
 
-export var vehicle_name: String
-export var author_name: String
+@export var vehicle_name: String
+@export var author_name: String
 
 var vehicle_checkbox: Node
 var cabins_container: Node
@@ -23,7 +24,7 @@ func init(vehicle: Dictionary, show_cabins: bool, show_author: bool) -> Control:
 			for i in range(len(cabins_list)):
 				var cabin_checkbox := CheckBox.new()
 				cabin_checkbox.text = cabins_list[i]["designation"].substr(6)
-				cabin_checkbox.hint_tooltip = "{0} ({1})".format([
+				cabin_checkbox.tooltip_text = "{0} ({1})".format([
 						cabins_list[i]["designation"], cabins_list[i]["name"]])
 				cabin_checkbox.focus_mode = FOCUS_NONE
 				cabins_container.add_child(cabin_checkbox)
@@ -33,7 +34,7 @@ func init(vehicle: Dictionary, show_cabins: bool, show_author: bool) -> Control:
 
 func _on_panel_gui_input(event: InputEvent) -> void:
 	if (event is InputEventMouseButton) and event.pressed and event.button_index == 1:
-		vehicle_checkbox.pressed = !vehicle_checkbox.pressed
+		vehicle_checkbox.button_pressed = !vehicle_checkbox.pressed
 
 
 func _set_cabin_checkbox_visibility(show_cabins: bool) -> void:

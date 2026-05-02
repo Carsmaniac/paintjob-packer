@@ -17,7 +17,7 @@ func _ready():
 	
 	for tab in list_dict.keys():
 		if len(list_dict[tab]) > 0:
-			var tab_node: Node = VehicleTab.instance()
+			var tab_node: Node = VehicleTab.instantiate()
 			tab_node.name = tab
 			tab_node.init(list_dict[tab], true)
 			add_child(tab_node)

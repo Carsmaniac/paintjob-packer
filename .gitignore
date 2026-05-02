@@ -21,3 +21,4 @@ data_*/
 mono_crash.*.json
 
 .vscode/launch.json
+/addons/Todo_Manager

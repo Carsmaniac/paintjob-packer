@@ -1,29 +1,35 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene format=3 uid="uid://d2l1u4i0arrtf"]
 
-[ext_resource path="res://interface/VehicleTab.gd" type="Script" id=2]
+[ext_resource type="Script" uid="uid://4wt2hr75cr6" path="res://interface/VehicleTab.gd" id="2"]
 
-[node name="VehicleTab" type="Tabs"]
+[node name="VehicleTab" type="TabBar" unique_id=1498229300]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 32.0
-margin_right = -4.0
-margin_bottom = -4.0
-script = ExtResource( 2 )
+offset_left = 4.0
+offset_top = 32.0
+offset_right = -4.0
+offset_bottom = -4.0
+script = ExtResource("2")
 
-[node name="WidthGuide" type="ColorRect" parent="."]
+[node name="WidthGuide" type="ColorRect" parent="." unique_id=1027816056]
 visible = false
-margin_top = -3.0
-margin_right = 684.0
-margin_bottom = 572.0
+layout_mode = 0
+offset_top = -3.0
+offset_right = 684.0
+offset_bottom = 572.0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=2128503990]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-scroll_horizontal_enabled = false
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 3
+scroll_hint_mode = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-margin_right = 1272.0
-margin_bottom = 200.0
-rect_min_size = Vector2( 1272, 200 )
-rect_clip_content = true
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=80254336]
+clip_contents = true
+custom_minimum_size = Vector2(1272, 200)
+layout_mode = 2
