@@ -16,8 +16,10 @@ func init(vehicle: Dictionary, show_cabins: bool, show_author: bool) -> Control:
 	vehicle_dict = vehicle
 
 	vehicle_checkbox.text = vehicle["name"]
-	get_node("%AuthorName").text = "(" + vehicle["mod_author"] + ")"
-	get_node("%AuthorNameRow").visible = show_author
+	if show_author:
+		vehicle_checkbox.text += "\n(%s)" % vehicle["mod_author"]
+		#get_node("%AuthorName").text = "(" + vehicle["mod_author"] + ")"
+		#get_node("%AuthorNameRow").visible = show_author
 	if show_cabins:
 		var cabins_list: Array = vehicle["cabins"]
 		if len(cabins_list) > 0:

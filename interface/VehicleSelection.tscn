@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://di2446gffbmiw" path="res://interface/VehicleSelection.gd" id="1"]
 
 [node name="VehicleSelection" type="PanelContainer" unique_id=2145266285]
-custom_minimum_size = Vector2(550, 50)
+custom_minimum_size = Vector2(650, 50)
 offset_right = 550.0
 offset_bottom = 58.0
 size_flags_horizontal = 0
@@ -18,33 +18,11 @@ custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="LeftColumn" type="VBoxContainer" parent="TwoColumns/LeftColumnPadding" unique_id=1798883912]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-mouse_filter = 2
-
-[node name="VehicleCheckbox" type="CheckBox" parent="TwoColumns/LeftColumnPadding/LeftColumn" unique_id=357224761]
+[node name="VehicleCheckbox" type="CheckBox" parent="TwoColumns/LeftColumnPadding" unique_id=357224761]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(340, 0)
 layout_mode = 2
 text = "Vehicle Name"
-clip_text = true
-
-[node name="AuthorNameRow" type="HBoxContainer" parent="TwoColumns/LeftColumnPadding/LeftColumn" unique_id=1367650077]
-unique_name_in_owner = true
-layout_mode = 2
-mouse_filter = 2
-
-[node name="AuthorSpacing" type="Control" parent="TwoColumns/LeftColumnPadding/LeftColumn/AuthorNameRow" unique_id=113133512]
-custom_minimum_size = Vector2(17, 0)
-layout_mode = 2
-mouse_filter = 2
-
-[node name="AuthorName" type="Label" parent="TwoColumns/LeftColumnPadding/LeftColumn/AuthorNameRow" unique_id=1939287109]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(250, 18)
-layout_mode = 2
-text = "(Author Name)"
 clip_text = true
 
 [node name="RightColumnPadding" type="CenterContainer" parent="TwoColumns" unique_id=1200277899]
