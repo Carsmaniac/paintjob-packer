@@ -1,7 +1,9 @@
 extends Control
 
 @export var input_name: String
+@export_multiline var help_text: String
 @export_enum("text_string", "text_number", "text_alphanumeric", "dropdown_cabin", "dropdown_split", "checkbox") var input_type: String
+
 var warning: String
 
 
@@ -13,6 +15,7 @@ func _ready() -> void:
 	$CheckboxInput.visible = false
 	
 	$WarningButton.connect("pressed", show_warnings)
+	$HelpButton.connect("pressed", show_help)
 	
 	if "text" in input_type:
 		$TextInput.visible = true
@@ -79,4 +82,12 @@ func show_warnings() -> void:
 	popup.ok_button_text = "Okay"
 	popup.popup_centered()
 	
+func show_help() -> void:
+	var popup: Node = get_parent().get_parent().get_parent().get_node("AcceptDialogue")
+	popup.title = "Help"
+	popup.dialog_text = help_text
+	# TODO: Set help_text for price based on game selected
+	popup.size.y = 0
+	popup.ok_button_text = "Okay"
+	popup.popup_centered()
 	

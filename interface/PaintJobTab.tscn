@@ -38,6 +38,9 @@ offset_top = 36.0
 offset_right = 11.0
 offset_bottom = 36.0
 input_name = "Name"
+help_text = "Your paint job's name, shown at the upgrade shop in-game.
+
+e.g. Transit Co"
 input_type = "text_string"
 
 [node name="Price" parent="." unique_id=1366954901 instance=ExtResource("1")]
@@ -47,6 +50,9 @@ offset_top = 111.0
 offset_right = 11.0
 offset_bottom = 111.0
 input_name = "Price"
+help_text = "How much your paint job costs in-game, in euro.
+
+e.g. 6000"
 input_type = "text_number"
 
 [node name="Unlock" parent="." unique_id=573177043 instance=ExtResource("1")]
@@ -56,6 +62,9 @@ offset_top = 186.0
 offset_right = 11.0
 offset_bottom = 186.0
 input_name = "Unlock level"
+help_text = "If checked, your paint job can be purchased from level 0, such as on a brand new profile.
+
+If not checked, what level your paint job is purchasable from."
 input_type = "checkbox"
 
 [node name="InternalLabel" type="Label" parent="." unique_id=1336872857]
@@ -73,6 +82,9 @@ offset_top = 367.0
 offset_right = 11.0
 offset_bottom = 367.0
 input_name = "Internal name"
+help_text = "A unique name used by the game to identify your paint job. Mod users will NOT see this name.
+
+e.g. transit_co"
 input_type = "text_alphanumeric"
 
 [node name="CabinSupport" parent="." unique_id=443377221 instance=ExtResource("1")]
@@ -82,6 +94,9 @@ offset_top = 442.0
 offset_right = 11.0
 offset_bottom = 442.0
 input_name = "Supported cabins"
+help_text = "Whether your paint job supports only the largest cabin for each truck, or all cabins.
+
+e.g. If you're making a paint job for the Scania S, a \"largest cabin only\" paint job would only support the High Roof cabin, whereas an \"all cabins\" paint job would also support the Normal Roof and High Roof 8x4 cabins."
 input_type = "dropdown_cabin"
 
 [node name="SplitPaintJobs" parent="." unique_id=815995416 instance=ExtResource("1")]
@@ -92,6 +107,11 @@ offset_top = 517.0
 offset_right = 11.0
 offset_bottom = 517.0
 input_name = "Split paint jobs"
+help_text = "Whether to make a single paint job for each truck, or to split it up and make one for each cabin.
+
+A single paint job per truck required less work and results in a smaller mod size, as you only need to make a single cabin texture for each truck. However, your design might not work across all the different cabin sizes, for example your design could look correct on large cabins, but be positioned incorrectly/stretched/cut off on smaller cabins.
+
+Split paint jobs allow you to tweak your design to work for each cabin size, but require more work and result in a larger mod size, as you need to make separate textures for every cabin whether they need them or not."
 input_type = "dropdown_split"
 
 [node name="InGameLabel2" type="Label" parent="." unique_id=37915328]

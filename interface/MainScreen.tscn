@@ -38,18 +38,18 @@ popup/item_1/id = 1
 
 [node name="ThemeButton" type="Button" parent="." unique_id=414611501]
 layout_mode = 0
-offset_left = 1160.0
-offset_top = 15.0
-offset_right = 1185.0
-offset_bottom = 40.0
+offset_left = 922.0
+offset_top = 18.0
+offset_right = 947.0
+offset_bottom = 58.0
 text = "T"
 
 [node name="AboutButton" type="Button" parent="." unique_id=445933954]
 layout_mode = 0
-offset_left = 1202.0
-offset_top = 15.0
-offset_right = 1265.0
-offset_bottom = 40.0
+offset_left = 964.0
+offset_top = 18.0
+offset_right = 1027.0
+offset_bottom = 58.0
 text = "About"
 
 [node name="PrevButton" type="Button" parent="." unique_id=850231818]
@@ -62,17 +62,17 @@ text = "Previous"
 
 [node name="NextButton" type="Button" parent="." unique_id=1588963484]
 layout_mode = 0
-offset_left = 1197.0
-offset_top = 741.0
-offset_right = 1265.0
-offset_bottom = 781.0
+offset_left = 958.0
+offset_top = 742.0
+offset_right = 1026.0
+offset_bottom = 782.0
 text = "Next"
 
 [node name="PaintJobTabContainer" type="TabContainer" parent="." unique_id=953752903]
 layout_mode = 0
 offset_left = 15.0
 offset_top = 64.0
-offset_right = 1264.0
+offset_right = 1030.0
 offset_bottom = 719.0
 current_tab = 0
 script = ExtResource("3")
