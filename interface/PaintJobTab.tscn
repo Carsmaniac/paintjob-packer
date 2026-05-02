@@ -56,31 +56,31 @@ offset_top = 186.0
 offset_right = 11.0
 offset_bottom = 186.0
 input_name = "Unlock level"
-input_type = "text_number"
+input_type = "checkbox"
 
 [node name="InternalLabel" type="Label" parent="." unique_id=1336872857]
 layout_mode = 0
 offset_left = 12.0
-offset_top = 292.0
+offset_top = 340.0
 offset_right = 272.0
-offset_bottom = 315.0
+offset_bottom = 363.0
 text = "Other Settings"
 
 [node name="InternalName" parent="." unique_id=371417409 instance=ExtResource("1")]
 layout_mode = 0
 offset_left = 11.0
-offset_top = 319.0
+offset_top = 367.0
 offset_right = 11.0
-offset_bottom = 319.0
+offset_bottom = 367.0
 input_name = "Internal name"
 input_type = "text_alphanumeric"
 
 [node name="CabinSupport" parent="." unique_id=443377221 instance=ExtResource("1")]
 layout_mode = 0
 offset_left = 11.0
-offset_top = 394.0
+offset_top = 442.0
 offset_right = 11.0
-offset_bottom = 394.0
+offset_bottom = 442.0
 input_name = "Supported cabins"
 input_type = "dropdown_cabin"
 
@@ -88,9 +88,9 @@ input_type = "dropdown_cabin"
 visible = false
 layout_mode = 0
 offset_left = 11.0
-offset_top = 469.0
+offset_top = 517.0
 offset_right = 11.0
-offset_bottom = 469.0
+offset_bottom = 517.0
 input_name = "Split paint jobs"
 input_type = "dropdown_split"
 
@@ -106,6 +106,6 @@ text = "Vehicles Supported (5)"
 layout_mode = 0
 offset_left = 400.0
 offset_top = 40.0
-offset_right = 997.0
-offset_bottom = 548.0
+offset_right = 998.0
+offset_bottom = 609.0
 script = ExtResource("4")

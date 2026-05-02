@@ -55,17 +55,17 @@ text = "About"
 [node name="PrevButton" type="Button" parent="." unique_id=850231818]
 layout_mode = 0
 offset_left = 14.0
-offset_top = 671.0
+offset_top = 741.0
 offset_right = 104.0
-offset_bottom = 711.0
+offset_bottom = 781.0
 text = "Previous"
 
 [node name="NextButton" type="Button" parent="." unique_id=1588963484]
 layout_mode = 0
 offset_left = 1197.0
-offset_top = 671.0
+offset_top = 741.0
 offset_right = 1265.0
-offset_bottom = 711.0
+offset_bottom = 781.0
 text = "Next"
 
 [node name="PaintJobTabContainer" type="TabContainer" parent="." unique_id=953752903]
@@ -73,7 +73,7 @@ layout_mode = 0
 offset_left = 15.0
 offset_top = 64.0
 offset_right = 1264.0
-offset_bottom = 658.0
+offset_bottom = 719.0
 current_tab = 0
 script = ExtResource("3")
 
