@@ -1,4 +1,4 @@
-extends TabBar
+extends Control
 
 var vehicles_selected: Array = []
 
@@ -34,3 +34,5 @@ func update_vehicles_selected_number() -> void:
 		if selection.find_child("VehicleCheckbox").button_pressed:
 			total_vehicles += 1
 	$SelectedLabel.text = "Vehicles Supported (%s)" % total_vehicles
+
+# TODO: Disable unlock level when unlocked by default

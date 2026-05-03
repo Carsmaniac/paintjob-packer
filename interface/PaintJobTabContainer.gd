@@ -4,13 +4,33 @@ var max_tabs: int = 5
 const TabScene := preload("res://interface/PaintJobTab.tscn")
 
 
+func _ready() -> void:
+	get_tab_bar().tab_close_display_policy = TabBar.CLOSE_BUTTON_SHOW_NEVER
+	get_tab_bar().connect("tab_close_pressed", remove_tab)
+	
+func remove_tab(tab_index: int) -> void:
+	if len(get_children()) > 2:
+		remove_child(get_child(tab_index))
+	if get_children()[-1].name != "+":
+		var tab_inst := TabScene.instantiate()
+		add_child(tab_inst)
+		get_tab_control(get_tab_count() - 1).name = "+" 
+	if len(get_children()) > 2:
+		get_tab_bar().tab_close_display_policy = TabBar.CLOSE_BUTTON_SHOW_ACTIVE_ONLY
+	else:
+		get_tab_bar().tab_close_display_policy = TabBar.CLOSE_BUTTON_SHOW_NEVER
+
 func _on_tab_changed(index: int) -> void:
 	if get_tab_control(index).name == "+":
 		rename_tab("New Paint Job", index)
 		if get_tab_count() < max_tabs:
 			var tab_inst := TabScene.instantiate()
 			add_child(tab_inst)
-			get_tab_control(get_tab_count() - 1).name = "+"
+			get_tab_control(get_tab_count() - 1).name = "+" 
+			if len(get_children()) > 2:
+				get_tab_bar().tab_close_display_policy = TabBar.CLOSE_BUTTON_SHOW_ACTIVE_ONLY
+			else:
+				get_tab_bar().tab_close_display_policy = TabBar.CLOSE_BUTTON_SHOW_NEVER
 
 
 func _get_tab_names() -> Array:

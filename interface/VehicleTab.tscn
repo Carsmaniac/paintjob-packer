@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://4wt2hr75cr6" path="res://interface/VehicleTab.gd" id="2"]
 
-[node name="VehicleTab" type="TabBar" unique_id=1498229300]
+[node name="VehicleTab" type="Control" unique_id=889032061]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

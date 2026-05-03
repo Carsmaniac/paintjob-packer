@@ -1,6 +1,6 @@
-extends TabBar
+extends Control
 
-const VehicleSelection := preload("res://interface/VehicleSelection.tscn")
+const EachVehicleSelection := preload("res://interface/VehicleSelection.tscn")
 
 
 func init(vehicle_list: Array, show_cabins: bool):
@@ -9,7 +9,7 @@ func init(vehicle_list: Array, show_cabins: bool):
 		show_cabins = false
 
 	for vehicle in vehicle_list:
-		var selection: Node = VehicleSelection.instantiate().init(vehicle, show_cabins, show_author)
+		var selection: Node = EachVehicleSelection.instantiate().init(vehicle, show_cabins, show_author)
 		get_node("ScrollContainer/VBoxContainer").add_child(selection)
 
 
