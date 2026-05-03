@@ -1,4 +1,4 @@
-[gd_resource type="Theme" format=3 uid="uid://2i35ywbubie7"]
+[gd_resource type="Theme" format=3 uid="uid://t8gshn41l055"]
 
 [ext_resource type="FontFile" uid="uid://dsyy3robl8238" path="res://Montserrat-Bold.ttf" id="1"]
 [ext_resource type="Texture2D" uid="uid://byp74fs4r5ro5" path="res://icons.svg" id="2"]
@@ -796,7 +796,7 @@ Tree/styles/selected_focus = SubResource("66")
 Tree/styles/title_button_hover = null
 Tree/styles/title_button_normal = null
 Tree/styles/title_button_pressed = null
-VBoxContainer/constants/separation = 20
+VBoxContainer/constants/separation = 5
 VScrollBar/icons/decrement = null
 VScrollBar/icons/decrement_highlight = null
 VScrollBar/icons/increment = null

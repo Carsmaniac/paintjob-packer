@@ -35,12 +35,12 @@ func _ready() -> void:
 		$CheckboxInput.visible = true
 		$CheckboxInput.button_pressed = true
 		$TextInput.visible = true
-		$TextInput.position = Vector2(0, 70)
+		$TextInput.position = Vector2(0, 80)
 		$TextInput.size[0] = 100
 		$TextInput.connect("text_changed", validate_text_input)
 		$TextInput.editable = false
-		$HelpButton.position = Vector2(321, 69)
-		$WarningButton.position = Vector2(351, 69)
+		$HelpButton.position = Vector2(321, 80)
+		$WarningButton.position = Vector2(351, 80)
 		
 
 func validate_text_input(__) -> void:

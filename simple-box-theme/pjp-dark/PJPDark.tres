@@ -1,7 +1,7 @@
 [gd_resource type="Theme" format=3 uid="uid://2i35ywbubie7"]
 
 [ext_resource type="FontFile" uid="uid://dsyy3robl8238" path="res://Montserrat-Bold.ttf" id="1"]
-[ext_resource type="Texture2D" uid="uid://byp74fs4r5ro5" path="res://icons.svg" id="2"]
+[ext_resource type="Texture2D" uid="uid://dhkitgydrvvtx" path="res://simple-box-theme/pjp-dark/PJPDark.svg" id="2_50bkx"]
 
 [sub_resource type="FontFile" id="47"]
 fallbacks = Array[Font]([ExtResource("1")])
@@ -93,19 +93,19 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="AtlasTexture" id="6"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(23, 31, 17, 21)
 
 [sub_resource type="AtlasTexture" id="7"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(43, 34, 15, 17)
 
 [sub_resource type="AtlasTexture" id="8"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(61, 35, 15, 16)
 
 [sub_resource type="AtlasTexture" id="9"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(4, 30, 16, 21)
 
 [sub_resource type="StyleBoxEmpty" id="10"]
@@ -137,19 +137,19 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="AtlasTexture" id="48"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(3, 54, 73, 40)
 
 [sub_resource type="AtlasTexture" id="51"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(3, 96, 73, 40)
 
 [sub_resource type="AtlasTexture" id="49"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(77, 54, 73, 39)
 
 [sub_resource type="AtlasTexture" id="50"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(77, 96, 73, 39)
 
 [sub_resource type="StyleBoxFlat" id="13"]
@@ -198,15 +198,15 @@ content_margin_bottom = 10.0
 color = Color(0.36, 0.36, 0.36, 1)
 
 [sub_resource type="AtlasTexture" id="18"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(4, 4, 17, 22)
 
 [sub_resource type="AtlasTexture" id="19"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(44, 4, 17, 22)
 
 [sub_resource type="AtlasTexture" id="20"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(24, 4, 17, 22)
 
 [sub_resource type="StyleBoxFlat" id="21"]
@@ -282,7 +282,7 @@ corner_radius_bottom_left = 5
 [sub_resource type="StyleBoxEmpty" id="71"]
 
 [sub_resource type="AtlasTexture" id="55"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(128, 46, 17, 8)
 
 [sub_resource type="StyleBoxFlat" id="56"]
@@ -342,23 +342,23 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="AtlasTexture" id="59"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(23, 30, 18, 22)
 
 [sub_resource type="AtlasTexture" id="60"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(43, 34, 16, 18)
 
 [sub_resource type="AtlasTexture" id="61"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(61, 34, 16, 18)
 
 [sub_resource type="AtlasTexture" id="62"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(103, 36, 15, 16)
 
 [sub_resource type="AtlasTexture" id="63"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(3, 29, 18, 22)
 
 [sub_resource type="StyleBoxFlat" id="64"]
@@ -505,15 +505,15 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="AtlasTexture" id="38"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(80, 36, 13, 12)
 
 [sub_resource type="AtlasTexture" id="39"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(105, 36, 13, 15)
 
 [sub_resource type="AtlasTexture" id="65"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(127, 36, 13, 18)
 
 [sub_resource type="StyleBoxFlat" id="40"]
@@ -542,15 +542,15 @@ color = Color(0.36, 0.36, 0.36, 1)
 vertical = true
 
 [sub_resource type="AtlasTexture" id="43"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(64, 8, 23, 16)
 
 [sub_resource type="AtlasTexture" id="44"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(116, 8, 23, 16)
 
 [sub_resource type="AtlasTexture" id="45"]
-atlas = ExtResource("2")
+atlas = ExtResource("2_50bkx")
 region = Rect2(90, 8, 23, 16)
 
 [sub_resource type="StyleBoxFlat" id="46"]
@@ -796,7 +796,7 @@ Tree/styles/selected_focus = SubResource("66")
 Tree/styles/title_button_hover = null
 Tree/styles/title_button_normal = null
 Tree/styles/title_button_pressed = null
-VBoxContainer/constants/separation = 20
+VBoxContainer/constants/separation = 10
 VScrollBar/icons/decrement = null
 VScrollBar/icons/decrement_highlight = null
 VScrollBar/icons/increment = null
