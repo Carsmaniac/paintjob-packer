@@ -6,6 +6,7 @@ func _ready() -> void:
 	var __ = $Name/TextInput.connect("text_changed", Callable(get_parent(), "rename_tab"))
 	__ = $CabinSupport/DropdownInput.connect("item_selected", _on_cabin_dropdown_change)
 	__ = $SplitPaintJobs/DropdownInput.connect("item_selected", Callable($InternalName, "validate_text_input"))
+	__ = $Unlock/CheckboxInput.connect("toggled", enable_disable_unlock_level)
 
 func get_vehicle_selections() -> Array:
 	var selections: Array = []
@@ -35,4 +36,5 @@ func update_vehicles_selected_number() -> void:
 			total_vehicles += 1
 	$SelectedLabel.text = "Vehicles Supported (%s)" % total_vehicles
 
-# TODO: Disable unlock level when unlocked by default
+func enable_disable_unlock_level(unlock_default: bool) -> void:
+	$Unlock/TextInput.editable = !unlock_default

@@ -33,15 +33,19 @@ func _ready() -> void:
 			$DropdownInput.add_item("Split, one per cabin")
 	elif input_type == "checkbox":
 		$CheckboxInput.visible = true
+		$CheckboxInput.button_pressed = true
 		$TextInput.visible = true
 		$TextInput.position = Vector2(0, 70)
+		$TextInput.size[0] = 100
+		$TextInput.connect("text_changed", validate_text_input)
+		$TextInput.editable = false
 		$HelpButton.position = Vector2(321, 69)
-		$WarningButton.position = Vector2(321, 36)
+		$WarningButton.position = Vector2(351, 69)
 		
 
 func validate_text_input(__) -> void:
 	var string: String = $TextInput.text
-	if input_type == "text_number":
+	if input_type in ["text_number", "checkbox"]:
 		if string != "" and not string.is_valid_int():
 			warning = "Must be a number with no decimal point or other characters."
 			$WarningButton.visible = true
