@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c032als0ywamf"]
 
-[ext_resource type="Theme" uid="uid://2i35ywbubie7" path="res://SimpleBox.tres" id="1_mvc2l"]
+[ext_resource type="Theme" uid="uid://2i35ywbubie7" path="res://simple-box-theme/pjp-dark/PJPDark.tres" id="1_mvc2l"]
 [ext_resource type="PackedScene" uid="uid://b84ho7fa58hvj" path="res://interface/PaintJobTab.tscn" id="2"]
 [ext_resource type="Script" uid="uid://c1xlgjtjgg8d6" path="res://interface/PaintJobTabContainer.gd" id="3"]
 
