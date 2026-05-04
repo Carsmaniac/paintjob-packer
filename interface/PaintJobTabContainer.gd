@@ -11,11 +11,15 @@ func _ready() -> void:
 	
 func _load_tabs() -> void:
 	for child in get_children():
-		var vehicle_tab_container: Node = child.find_child("VehicleTabContainer")
-		for vehicle_tab in vehicle_tab_container.get_children():
-			vehicle_tab_container.remove_child(vehicle_tab)
-		vehicle_tab_container._load_tabs()
-		child.update_vehicles_selected_number()
+		load_vehicles_for_tab(child)
+		
+
+func load_vehicles_for_tab(tab: Node) -> void:
+	var vehicle_tab_container: Node = tab.find_child("VehicleTabContainer")
+	for vehicle_tab in vehicle_tab_container.get_children():
+		vehicle_tab_container.remove_child(vehicle_tab)
+	vehicle_tab_container._load_tabs()
+	tab.update_vehicles_selected_number()
 	
 	
 func remove_tab(tab_index: int) -> void:
@@ -35,6 +39,7 @@ func _on_tab_changed(index: int) -> void:
 		rename_tab("New Paint Job", index)
 		if get_tab_count() < max_tabs:
 			var tab_inst := TabScene.instantiate()
+			load_vehicles_for_tab(tab_inst)
 			add_child(tab_inst)
 			get_tab_control(get_tab_count() - 1).name = "+" 
 			if len(get_children()) > 2:
