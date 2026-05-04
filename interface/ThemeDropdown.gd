@@ -9,7 +9,7 @@ func _ready() -> void:
 
 
 func change_theme(choice_index) -> void:
-	if choice_index == 0:
-		get_parent().theme = simplebox_theme
-	elif choice_index == 1:
-		get_parent().theme = pjpdark_theme
+	if choice_index == 2:
+		get_tree().current_scene.theme = simplebox_theme
+	elif choice_index == 0:
+		get_tree().current_scene.theme = pjpdark_theme

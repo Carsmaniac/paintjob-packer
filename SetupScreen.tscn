@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://chtkqdfc7flig"]
+
+[ext_resource type="Texture2D" uid="uid://bjkfsimu8b716" path="res://interface/game-ets.png" id="1_o6s8p"]
+[ext_resource type="Texture2D" uid="uid://bm100hqguo7qa" path="res://interface/game-ats.png" id="2_l318v"]
+[ext_resource type="Theme" uid="uid://2i35ywbubie7" path="res://simple-box-theme/pjp-dark/PJPDark.tres" id="3_1isay"]
+
+[node name="SetupScreen" type="Control" unique_id=1936622943]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_1isay")
+
+[node name="Panel" type="Panel" parent="." unique_id=548289295]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 73.0
+offset_right = 1027.0
+offset_bottom = 719.0
+
+[node name="PictureATS" type="TextureRect" parent="." unique_id=1714808707]
+layout_mode = 0
+offset_left = 182.5
+offset_top = 358.0
+offset_right = 482.5
+offset_bottom = 658.0
+mouse_default_cursor_shape = 2
+texture = ExtResource("2_l318v")
+
+[node name="PictureETS" type="TextureRect" parent="." unique_id=1002526015]
+layout_mode = 0
+offset_left = 596.5
+offset_top = 358.0
+offset_right = 896.5
+offset_bottom = 658.0
+mouse_default_cursor_shape = 2
+texture = ExtResource("1_o6s8p")
+
+[node name="Title" type="Label" parent="." unique_id=147659293]
+layout_mode = 0
+offset_left = 115.0
+offset_top = 146.0
+offset_right = 925.0
+offset_bottom = 201.0
+theme_override_font_sizes/font_size = 34
+text = "Welcome to Paint Job Packer"
+horizontal_alignment = 1
+
+[node name="GameQuestion" type="Label" parent="." unique_id=542103112]
+layout_mode = 0
+offset_left = 193.0
+offset_top = 285.0
+offset_right = 847.0
+offset_bottom = 318.0
+theme_override_font_sizes/font_size = 24
+text = "Which game are you making a mod for?"
+horizontal_alignment = 1
+
+[node name="AcknowledgementOfCountry" type="Label" parent="." unique_id=1386306666]
+layout_mode = 0
+offset_left = 242.0
+offset_top = 195.0
+offset_right = 798.0
+offset_bottom = 240.0
+theme_override_font_sizes/font_size = 12
+text = "This software was created on unceded Darramurragal Land in Sydney, Australia"
+horizontal_alignment = 1
+
+[node name="VersionText" type="Label" parent="." unique_id=1383723736]
+layout_mode = 0
+offset_left = 908.0
+offset_top = 85.0
+offset_right = 1015.0
+offset_bottom = 118.0
+theme_override_font_sizes/font_size = 12
+text = "Version 2.0"
+horizontal_alignment = 2

@@ -11,9 +11,9 @@ var car_mods: Array[Dictionary]
 var vehicle_format_version: int = 1
 
 
-func load_vehicle_lists() -> void:
+func load_vehicle_lists(game: String) -> void:
 	vehicle_list = []
-	for file_name in get_file_list("res://vehicles/" + "ets"):
+	for file_name in get_file_list("res://vehicles/" + game):
 		var vehicle_dict: Dictionary = load_vehicle_file(file_name)
 		if vehicle_dict != {}:
 			if vehicle_dict["format_version"] == vehicle_format_version:

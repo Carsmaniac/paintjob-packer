@@ -4,8 +4,10 @@ const VehicleTab := preload("res://interface/VehicleTab.tscn")
 var game: String = "ets"
 
 
-func _ready():
-	VehicleDatabase.load_vehicle_lists()
+func _load_tabs():
+	for child in get_children():
+		remove_child(child)
+	
 	var list_dict = {
 		"Trucks": VehicleDatabase.trucks, 
 		"Trailers": VehicleDatabase.trailers, 

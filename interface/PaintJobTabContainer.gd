@@ -8,6 +8,16 @@ func _ready() -> void:
 	get_tab_bar().tab_close_display_policy = TabBar.CLOSE_BUTTON_SHOW_NEVER
 	get_tab_bar().connect("tab_close_pressed", remove_tab)
 	
+	
+func _load_tabs() -> void:
+	for child in get_children():
+		var vehicle_tab_container: Node = child.find_child("VehicleTabContainer")
+		for vehicle_tab in vehicle_tab_container.get_children():
+			vehicle_tab_container.remove_child(vehicle_tab)
+		vehicle_tab_container._load_tabs()
+		child.update_vehicles_selected_number()
+	
+	
 func remove_tab(tab_index: int) -> void:
 	if len(get_children()) > 2:
 		remove_child(get_child(tab_index))

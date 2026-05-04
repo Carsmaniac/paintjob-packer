@@ -11,7 +11,8 @@ config_version=5
 [application]
 
 config/name="Paint Job Packer"
-run/main_scene="res://interface/MainScreen.tscn"
+config/version="2.0"
+run/main_scene="uid://qogjjbkt12ds"
 config/features=PackedStringArray("4.6")
 config/icon="res://icon.png"
 

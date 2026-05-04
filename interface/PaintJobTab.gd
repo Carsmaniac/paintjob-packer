@@ -8,6 +8,7 @@ func _ready() -> void:
 	__ = $SplitPaintJobs/DropdownInput.connect("item_selected", Callable($InternalName, "validate_text_input"))
 	__ = $Unlock/CheckboxInput.connect("toggled", enable_disable_unlock_level)
 
+
 func get_vehicle_selections() -> Array:
 	var selections: Array = []
 	for tab in $VehicleTabContainer.get_children():
