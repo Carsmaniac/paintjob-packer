@@ -15,6 +15,7 @@ func _ready() -> void:
 	$CheckboxInput.visible = false
 	
 	$WarningButton.connect("pressed", show_warnings)
+	#$HelpButton.tooltip_text = help_text
 	$HelpButton.connect("pressed", show_help)
 	
 	if "text" in input_type:

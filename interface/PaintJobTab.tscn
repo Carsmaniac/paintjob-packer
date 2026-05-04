@@ -119,5 +119,5 @@ layout_mode = 0
 offset_left = 400.0
 offset_top = 40.0
 offset_right = 998.0
-offset_bottom = 609.0
+offset_bottom = 608.0
 script = ExtResource("4")

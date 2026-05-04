@@ -2,7 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://bjkfsimu8b716" path="res://interface/game-ets.png" id="1_o6s8p"]
 [ext_resource type="Texture2D" uid="uid://bm100hqguo7qa" path="res://interface/game-ats.png" id="2_l318v"]
-[ext_resource type="Theme" uid="uid://2i35ywbubie7" path="res://simple-box-theme/pjp-dark/PJPDark.tres" id="3_1isay"]
 
 [node name="SetupScreen" type="Control" unique_id=1936622943]
 layout_mode = 3
@@ -11,7 +10,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_1isay")
 
 [node name="Panel" type="Panel" parent="." unique_id=548289295]
 layout_mode = 0
