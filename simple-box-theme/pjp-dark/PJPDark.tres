@@ -706,6 +706,7 @@ ProgressBar/fonts/font = SubResource("47")
 ProgressBar/styles/background = SubResource("28")
 ProgressBar/styles/fill = SubResource("29")
 TabContainer/colors/font_disabled_color = Color(0.36, 0.36, 0.36, 1)
+TabContainer/colors/font_hovered_color = Color(0.78, 0.78, 0.78, 1)
 TabContainer/colors/font_selected_color = Color(1, 1, 1, 1)
 TabContainer/colors/font_unselected_color = Color(1, 1, 1, 1)
 TabContainer/constants/h_separation = 4
