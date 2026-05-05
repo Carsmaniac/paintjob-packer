@@ -2,7 +2,7 @@ extends Control
 
 @export var input_name: String
 @export_multiline var help_text: String
-@export_enum("text_string", "text_number", "text_alphanumeric", "dropdown_cabin", "dropdown_split", "checkbox") var input_type: String
+@export_enum("paint_job_name", "price", "internal_name", "cabin_support", "split_cabins", "unlock_level") var input_type: String
 
 var warning: String
 
@@ -18,42 +18,39 @@ func _ready() -> void:
 	#$HelpButton.tooltip_text = help_text
 	$HelpButton.connect("pressed", show_help)
 	
-	if "text" in input_type:
+	if input_type in ["paint_job_name", "internal_name", "price"]:
 		$TextInput.visible = true
-		if input_type == "text_number":
+		if input_type == "price":
 			$TextInput.size[0] = 100
-		$TextInput.connect("text_changed", validate_text_input)
-	elif "dropdown" in input_type:
+		#$TextInput.connect("text_changed", validate_text_input)
+	elif input_type in ["cabin_support", "split_cabins"]:
 		$DropdownInput.visible = true
-		if input_type == "dropdown_cabin":
+		if input_type == "cabin_support":
 			$DropdownInput.add_item("Largest cabin only")
 			$DropdownInput.add_item("All cabins")
 			$DropdownInput.add_item("Selected cabins")
 		else:
 			$DropdownInput.add_item("Don't split, one per truck")
 			$DropdownInput.add_item("Split, one per cabin")
-	elif input_type == "checkbox":
+	elif input_type == "unlock_level":
 		$CheckboxInput.visible = true
 		$CheckboxInput.button_pressed = true
-		$TextInput.visible = true
+		$TextInput.visible = false
 		$TextInput.position = Vector2(0, 80)
 		$TextInput.size[0] = 100
 		$TextInput.connect("text_changed", validate_text_input)
-		$TextInput.editable = false
-		$HelpButton.position = Vector2(321, 80)
-		$WarningButton.position = Vector2(351, 80)
 		
 
 func validate_text_input(__) -> void:
 	var string: String = $TextInput.text
-	if input_type in ["text_number", "checkbox"]:
+	if input_type in ["price", "unlock_level"]:
 		if string != "" and not string.is_valid_int():
 			warning = "Must be a number with no decimal point or other characters."
 			$WarningButton.visible = true
 		else:
 			$WarningButton.visible = false
 			
-	elif input_type == "text_alphanumeric":
+	elif input_type == "internal_name":
 		var not_alphanumeric: bool = false
 		for letter in string:
 			if letter not in "abcdefghijklmnopqrstuvwxyz0123456789_":

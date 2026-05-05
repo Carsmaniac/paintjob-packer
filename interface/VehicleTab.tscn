@@ -11,6 +11,8 @@ offset_left = 4.0
 offset_top = 32.0
 offset_right = -4.0
 offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("2")
 
 [node name="WidthGuide" type="ColorRect" parent="." unique_id=1027816056]
@@ -28,9 +30,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 3
-scroll_hint_mode = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer" unique_id=80254336]
 clip_contents = true
-custom_minimum_size = Vector2(1272, 200)
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2

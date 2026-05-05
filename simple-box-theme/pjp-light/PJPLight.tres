@@ -342,7 +342,7 @@ corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ib5nn"]
-bg_color = Color(0.8, 0.8, 0.8, 1)
+bg_color = Color(0.7, 0.7, 0.7, 1)
 
 [sub_resource type="AtlasTexture" id="59"]
 atlas = ExtResource("2_bo5fd")
@@ -593,7 +593,7 @@ expand_margin_bottom = 5.0
 [resource]
 default_font = ExtResource("1_0ihf6")
 Button/colors/font_color = Color(0.19, 0.19, 0.19, 1)
-Button/colors/font_disabled_color = Color(1, 0.976471, 0.823529, 0.2)
+Button/colors/font_disabled_color = Color(0.1882353, 0.1882353, 0.1882353, 0.2)
 Button/colors/font_hover_color = Color(0.49, 0.49, 0.49, 1)
 Button/colors/font_pressed_color = Color(0.49, 0.49, 0.49, 1)
 Button/constants/h_separation = 2
@@ -683,7 +683,7 @@ MenuButton/styles/hover = SubResource("69")
 MenuButton/styles/normal = SubResource("70")
 MenuButton/styles/pressed = SubResource("71")
 OptionButton/colors/font_color = Color(0.08, 0.08, 0.08, 1)
-OptionButton/colors/font_disabled_color = Color(1, 0.976471, 0.823529, 0.2)
+OptionButton/colors/font_disabled_color = Color(0.078431375, 0.078431375, 0.078431375, 0.2)
 OptionButton/colors/font_hover_color = Color(0.08, 0.08, 0.08, 1)
 OptionButton/colors/font_pressed_color = Color(0.08, 0.08, 0.08, 1)
 OptionButton/constants/arrow_margin = 2

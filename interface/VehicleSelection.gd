@@ -46,6 +46,7 @@ func _on_panel_gui_input(event: InputEvent) -> void:
 func _set_cabin_checkbox_visibility(show_cabins: bool) -> void:
 	cabins_container.visible = show_cabins
 	
+	
 func sync_checkboxes(enabled: bool, vehicle: bool) -> void:
 	if len($%CabinsContainer.get_children()) > 0:
 		if vehicle:

@@ -34,6 +34,7 @@ func remove_tab(tab_index: int) -> void:
 	else:
 		get_tab_bar().tab_close_display_policy = TabBar.CLOSE_BUTTON_SHOW_NEVER
 
+
 func _on_tab_changed(index: int) -> void:
 	if get_tab_control(index).name == "+":
 		rename_tab("New Paint Job", index)
