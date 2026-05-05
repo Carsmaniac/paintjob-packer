@@ -1,8 +1,8 @@
 extends Control
 class_name VehicleSelection
 
-@export var vehicle_name: String
-@export var author_name: String
+var vehicle_name: String
+var author_name: String
 
 var vehicle_checkbox: Node
 var cabins_container: Node
@@ -17,6 +17,9 @@ func init(vehicle: Dictionary, show_cabins: bool, show_author: bool) -> Control:
 		cabins_container.remove_child(placeholder)
 		placeholder.queue_free()
 	vehicle_dict = vehicle
+	
+	author_name = vehicle_dict["file_path"].split("/")[0]
+	vehicle_name = vehicle_dict["file_path"].split("/")[1]
 
 	vehicle_checkbox.text = vehicle["name"]
 	if show_author:

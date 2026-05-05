@@ -20,6 +20,7 @@ config/icon="uid://vgkd6qio0prp"
 [autoload]
 
 VehicleDatabase="*res://scripts/VehicleDatabase.gd"
+PJPProject="*uid://bshluigindewa"
 
 [display]
 
