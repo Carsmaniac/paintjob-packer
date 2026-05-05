@@ -15,7 +15,7 @@ config/description="Mod making tool for Euro Truck Simulator 2 and American Truc
 config/version="2.0"
 run/main_scene="uid://qogjjbkt12ds"
 config/features=PackedStringArray("4.6")
-config/icon="res://icon.png"
+config/icon="uid://vgkd6qio0prp"
 
 [autoload]
 
