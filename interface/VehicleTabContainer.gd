@@ -1,10 +1,9 @@
 extends TabContainer
 
 const VehicleTab := preload("res://interface/VehicleTab.tscn")
-var game: String = "ets"
 
 
-func _load_tabs():
+func load_tabs():
 	for child in get_children():
 		remove_child(child)
 	

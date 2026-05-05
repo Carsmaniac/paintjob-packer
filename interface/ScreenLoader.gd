@@ -11,6 +11,7 @@ func _ready() -> void:
 	#$SetupScreen/PictureETS.connect("gui_input", thing.bind("ets"))
 	$SetupScreen/VersionText.text = "Version " + ProjectSettings.get_setting("application/config/version")
 	$SaveButton.connect("pressed", PJPProject.save)
+	$LoadButton.connect("pressed", PJPProject.load)
 
 
 #func thing(input_event: InputEvent, game):
@@ -30,7 +31,7 @@ func _switch_screen(next: bool, startup: bool = false, ) -> void:
 	if startup:
 		current_screen_index = 1 # TODO: Ensure 0
 		VehicleDatabase.load_vehicle_lists("ets")
-		$MainScreen/PaintJobTabContainer._load_tabs()
+		$MainScreen/PaintJobTabContainer.load_tabs()
 	
 	screens[current_screen_index].visible = true
 	if current_screen_index == 0:

@@ -7,9 +7,18 @@ const TabScene := preload("res://interface/PaintJobTab.tscn")
 func _ready() -> void:
 	get_tab_bar().tab_close_display_policy = TabBar.CLOSE_BUTTON_SHOW_NEVER
 	get_tab_bar().connect("tab_close_pressed", remove_tab)
+	add_tab("New Paint Job")
+	add_tab("+")
+	current_tab = 0
+	
+func add_tab(tab_name: String) -> void:
+	var new_tab := TabScene.instantiate()
+	load_vehicles_for_tab(new_tab)
+	add_child(new_tab)
+	rename_tab(tab_name, len(get_children()) - 1)
 	
 	
-func _load_tabs() -> void:
+func load_tabs() -> void:
 	for child in get_children():
 		load_vehicles_for_tab(child)
 		
@@ -18,7 +27,7 @@ func load_vehicles_for_tab(tab: Node) -> void:
 	var vehicle_tab_container: Node = tab.find_child("VehicleTabContainer")
 	for vehicle_tab in vehicle_tab_container.get_children():
 		vehicle_tab_container.remove_child(vehicle_tab)
-	vehicle_tab_container._load_tabs()
+	vehicle_tab_container.load_tabs()
 	tab.update_vehicles_selected_number()
 	
 	
@@ -36,17 +45,18 @@ func remove_tab(tab_index: int) -> void:
 
 
 func _on_tab_changed(index: int) -> void:
-	if get_tab_control(index).name == "+":
-		rename_tab("New Paint Job", index)
-		if get_tab_count() < max_tabs:
-			var tab_inst := TabScene.instantiate()
-			load_vehicles_for_tab(tab_inst)
-			add_child(tab_inst)
-			get_tab_control(get_tab_count() - 1).name = "+" 
-			if len(get_children()) > 2:
-				get_tab_bar().tab_close_display_policy = TabBar.CLOSE_BUTTON_SHOW_ACTIVE_ONLY
-			else:
-				get_tab_bar().tab_close_display_policy = TabBar.CLOSE_BUTTON_SHOW_NEVER
+	if index != -1:
+		if get_tab_control(index).name == "+":
+			rename_tab("New Paint Job", index)
+			if get_tab_count() < max_tabs:
+				var tab_inst := TabScene.instantiate()
+				load_vehicles_for_tab(tab_inst)
+				tab_inst.name = "+" 
+				add_child.call_deferred(tab_inst)
+				if len(get_children()) > 2:
+					get_tab_bar().tab_close_display_policy = TabBar.CLOSE_BUTTON_SHOW_ACTIVE_ONLY
+				else:
+					get_tab_bar().tab_close_display_policy = TabBar.CLOSE_BUTTON_SHOW_NEVER
 
 
 func _get_tab_names() -> Array:

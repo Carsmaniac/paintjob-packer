@@ -18,6 +18,7 @@ func init(vehicle: Dictionary, show_cabins: bool, show_author: bool) -> Control:
 		placeholder.queue_free()
 	vehicle_dict = vehicle
 	
+	name = vehicle_dict["file_path"]
 	author_name = vehicle_dict["file_path"].split("/")[0]
 	vehicle_name = vehicle_dict["file_path"].split("/")[1]
 
@@ -30,6 +31,7 @@ func init(vehicle: Dictionary, show_cabins: bool, show_author: bool) -> Control:
 			for i in range(len(cabins_list)):
 				var cabin_checkbox := CheckBox.new()
 				cabin_checkbox.text = cabins_list[i]["designation"].substr(6)
+				cabin_checkbox.name = cabin_checkbox.text
 				cabin_checkbox.tooltip_text = "{0} ({1})".format([
 						cabins_list[i]["designation"], cabins_list[i]["name"]])
 				cabin_checkbox.focus_mode = FOCUS_NONE
