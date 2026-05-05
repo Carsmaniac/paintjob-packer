@@ -15,14 +15,13 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("4_a38eb")
+theme = ExtResource("7_a38eb")
 script = ExtResource("2_wnf8p")
 
 [node name="BackgroundColour" type="ColorRect" parent="." unique_id=154655389]
 layout_mode = 0
 offset_right = 1040.0
 offset_bottom = 800.0
-color = Color(0.29803923, 0.29803923, 0.29803923, 1)
 
 [node name="MainScreen" parent="." unique_id=679194180 instance=ExtResource("2_lmi3l")]
 visible = false

@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://chtkqdfc7flig"]
 
-[ext_resource type="Texture2D" uid="uid://bjkfsimu8b716" path="res://interface/game-ets.png" id="1_o6s8p"]
-[ext_resource type="Texture2D" uid="uid://bm100hqguo7qa" path="res://interface/game-ats.png" id="2_l318v"]
+[ext_resource type="Texture2D" uid="uid://2xkrd1bv77g2" path="res://circle.png" id="1_cq6rj"]
 
 [node name="SetupScreen" type="Control" unique_id=1936622943]
 layout_mode = 3
@@ -18,24 +17,6 @@ offset_top = 73.0
 offset_right = 1027.0
 offset_bottom = 785.0
 
-[node name="PictureATS" type="TextureRect" parent="." unique_id=1714808707]
-layout_mode = 0
-offset_left = 182.5
-offset_top = 358.0
-offset_right = 482.5
-offset_bottom = 658.0
-mouse_default_cursor_shape = 2
-texture = ExtResource("2_l318v")
-
-[node name="PictureETS" type="TextureRect" parent="." unique_id=1002526015]
-layout_mode = 0
-offset_left = 596.5
-offset_top = 358.0
-offset_right = 896.5
-offset_bottom = 658.0
-mouse_default_cursor_shape = 2
-texture = ExtResource("1_o6s8p")
-
 [node name="Title" type="Label" parent="." unique_id=147659293]
 layout_mode = 0
 offset_left = 115.0
@@ -46,14 +27,14 @@ theme_override_font_sizes/font_size = 34
 text = "Welcome to Paint Job Packer"
 horizontal_alignment = 1
 
-[node name="GameQuestion" type="Label" parent="." unique_id=542103112]
+[node name="StartQuestion" type="Label" parent="." unique_id=542103112]
 layout_mode = 0
 offset_left = 193.0
 offset_top = 285.0
 offset_right = 847.0
 offset_bottom = 318.0
 theme_override_font_sizes/font_size = 24
-text = "Which game are you making a mod for?"
+text = "What would you like to do today?"
 horizontal_alignment = 1
 
 [node name="AcknowledgementOfCountry" type="Label" parent="." unique_id=1386306666]
@@ -81,3 +62,37 @@ offset_top = 97.0
 offset_right = 1010.0
 offset_bottom = 137.0
 text = "About"
+
+[node name="CreateImage" type="TextureRect" parent="." unique_id=1119799198]
+layout_mode = 0
+offset_left = 187.0
+offset_top = 363.0
+offset_right = 462.0
+offset_bottom = 638.0
+texture = ExtResource("1_cq6rj")
+expand_mode = 1
+
+[node name="LoadImage" type="TextureRect" parent="." unique_id=1354408409]
+layout_mode = 0
+offset_left = 582.0
+offset_top = 363.0
+offset_right = 857.0
+offset_bottom = 638.0
+texture = ExtResource("1_cq6rj")
+expand_mode = 1
+
+[node name="CreateButton" type="Button" parent="." unique_id=885370677]
+layout_mode = 0
+offset_left = 210.0
+offset_top = 660.0
+offset_right = 438.0
+offset_bottom = 700.0
+text = "Create a new project"
+
+[node name="LoadButton" type="Button" parent="." unique_id=284199124]
+layout_mode = 0
+offset_left = 606.0
+offset_top = 660.0
+offset_right = 834.0
+offset_bottom = 700.0
+text = "Load an existing project"
