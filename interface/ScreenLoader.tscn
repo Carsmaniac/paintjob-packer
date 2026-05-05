@@ -47,9 +47,9 @@ popup/item_1/id = 1
 
 [node name="ThemeDropdown" type="OptionButton" parent="." unique_id=1269022841]
 layout_mode = 0
-offset_left = 763.0
+offset_left = 837.0
 offset_top = 19.0
-offset_right = 952.0
+offset_right = 1026.0
 offset_bottom = 54.0
 selected = 0
 item_count = 7
@@ -76,29 +76,37 @@ simplebox_theme = ExtResource("1_i1h0y")
 pjpdark_theme = ExtResource("4_a38eb")
 pjplight_theme = ExtResource("7_a38eb")
 
-[node name="AboutButton" type="Button" parent="." unique_id=673702337]
-layout_mode = 0
-offset_left = 964.0
-offset_top = 19.0
-offset_right = 1027.0
-offset_bottom = 59.0
-text = "About"
-
 [node name="PrevButton" type="Button" parent="." unique_id=952650051]
 layout_mode = 0
-offset_left = 14.0
-offset_top = 741.0
-offset_right = 104.0
-offset_bottom = 781.0
+offset_left = 32.0
+offset_top = 727.0
+offset_right = 122.0
+offset_bottom = 767.0
 text = "Previous"
 
 [node name="NextButton" type="Button" parent="." unique_id=1978448322]
 layout_mode = 0
-offset_left = 958.0
-offset_top = 742.0
-offset_right = 1026.0
-offset_bottom = 782.0
+offset_left = 940.0
+offset_top = 728.0
+offset_right = 1008.0
+offset_bottom = 768.0
 text = "Next"
+
+[node name="SaveButton" type="Button" parent="." unique_id=145162302]
+layout_mode = 0
+offset_left = 203.0
+offset_top = 21.0
+offset_right = 271.0
+offset_bottom = 61.0
+text = "Save"
+
+[node name="LoadButton" type="Button" parent="." unique_id=1271456416]
+layout_mode = 0
+offset_left = 285.0
+offset_top = 21.0
+offset_right = 353.0
+offset_bottom = 61.0
+text = "Load"
 
 [connection signal="pressed" from="PrevButton" to="." method="_switch_screen" binds= [false]]
 [connection signal="pressed" from="NextButton" to="." method="_switch_screen" binds= [true]]
