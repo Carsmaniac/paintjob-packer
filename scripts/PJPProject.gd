@@ -25,7 +25,7 @@ func confirm_return() -> void:
 	var confirm_window := AcceptDialog.new()
 	confirm_window.ok_button_text = "Confirm"
 	confirm_window.add_cancel_button("Nevermind")
-	confirm_window.title = "Return to start?"
+	confirm_window.title = "Return to Start?"
 	confirm_window.dialog_text = "You will lose all unsaved progress if you return to the start.\n\nAre you sure you want to continue?\n"
 	confirm_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
 	confirm_window.get_ok_button().connect("pressed", return_to_start)
@@ -44,7 +44,7 @@ func confirm_load() -> void:
 		var confirm_window := AcceptDialog.new()
 		confirm_window.ok_button_text = "Confirm"
 		confirm_window.add_cancel_button("Nevermind")
-		confirm_window.title = "Load project?"
+		confirm_window.title = "Load Project?"
 		confirm_window.dialog_text = "You will lose all unsaved progress if you load a project.\n\nAre you sure you want to continue?\n"
 		confirm_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
 		confirm_window.get_ok_button().connect("pressed", load)
@@ -70,8 +70,40 @@ func new() -> void:
 		get_node("../ScreenLoader").switch_screen(true)
 
 
-func save() -> void:
-	# TODO: make save dialogue, get file path
+func save_dialogue() -> void:
+	# TODO: explain save is not for mods
+	var save_window := FileDialog.new()
+	save_window.title = ("Save Project")
+	save_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
+	save_window.use_native_dialog = true
+	save_window.add_filter("*.pjpproject", "Paint Job Packer project")
+	#save_window.file_mode = FileDialog.FILE_MODE_OPEN_DIR TODO: for export
+	save_window.connect("file_selected", verify_save_file_path)
+	get_node("../ScreenLoader").add_child(save_window)
+	save_window.popup_file_dialog()
+
+
+func verify_save_file_path(file_path: String) -> void:
+	if file_path.substr(len(file_path) - 11) == ".pjpproject":
+		save(file_path)
+	else:
+		var suggested_path: Array = file_path.split("/")
+		var suggested_file_name_array: Array = Array(suggested_path.pop_back().split("."))
+		if "." in file_path:
+			suggested_file_name_array.pop_back()
+		var suggested_file_name: String = ".".join(suggested_file_name_array) + ".pjpproject"
+		var invalid_window := AcceptDialog.new()
+		invalid_window.title = "Not a Valid Project File"
+		invalid_window.dialog_text = "Selected file is not a Paint Job Packer project file.\n\nWould you like to save as %s instead?\n" % suggested_file_name
+		invalid_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
+		invalid_window.ok_button_text = "Yes"
+		invalid_window.add_cancel_button("No")
+		invalid_window.get_ok_button().connect("pressed", save.bind("/".join(suggested_path) + "/" + suggested_file_name))
+		get_node("../ScreenLoader").add_child(invalid_window)
+		invalid_window.popup_centered()
+
+
+func save(file_path: String) -> void:
 	var save_dict: Dictionary = {}
 	save_dict["a"] = "Hello! This is a save file. If you edit it, bad things might happen and Paint Job Packer might crash. Continue at your own risk :)"
 	
@@ -106,7 +138,7 @@ func save() -> void:
 			paint_jobs.append(paint_job_dict)
 	save_dict["paint_jobs"] = paint_jobs
 	
-	FileAccess.open("/home/emjay/Desktop/test.json", FileAccess.WRITE).store_line(JSON.stringify(save_dict))
+	FileAccess.open(file_path, FileAccess.WRITE).store_line(JSON.stringify(save_dict, "\t"))
 
 
 func load() -> void:
