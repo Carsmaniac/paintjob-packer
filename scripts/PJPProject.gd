@@ -21,6 +21,24 @@ func get_list_from_tab(paint_job: Node, tab_index: int) -> PackedStringArray:
 	return vehicle_list
 
 
+func new() -> void:
+	get_node("../ScreenLoader").switch_game("ets")
+	var paint_job_tab_container: Node = get_node("../ScreenLoader/MainScreen/PaintJobTabContainer")
+	var paint_jobs: Array[Node] = paint_job_tab_container.get_children()
+	paint_jobs.reverse()
+	for child in paint_jobs:
+		paint_job_tab_container.remove_child(child)
+	paint_job_tab_container.add_tab("New Paint Job")
+	paint_job_tab_container.add_tab("+")
+	var mod_screen: Node = get_node("../ScreenLoader/ModInfoScreen")
+	mod_screen.find_child("Name").find_child("TextInput").text = ""
+	mod_screen.find_child("Author").find_child("TextInput").text = ""
+	mod_screen.find_child("Version").find_child("TextInput").text = ""
+	mod_screen.find_child("Description").find_child("TextBox").text = ""
+	if get_node("../ScreenLoader").current_screen_index == 0:
+		get_node("../ScreenLoader").switch_screen(true)
+
+
 func save() -> void:
 	# TODO: make save dialogue, get file path
 	var save_dict: Dictionary = {}
@@ -116,3 +134,6 @@ func load() -> void:
 				var vehicle_selection: Node = bus_mod_tab.find_child(vehicle.replace(".", "_").replace("/", "_"), true, false)
 				for cab in paint_job["bus_mods"][vehicle]:
 					vehicle_selection.find_child(cab, true, false).button_pressed = true
+					
+	if get_node("../ScreenLoader").current_screen_index == 0:
+		get_node("../ScreenLoader").switch_screen(true)

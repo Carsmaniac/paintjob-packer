@@ -30,9 +30,9 @@ horizontal_alignment = 1
 [node name="StartQuestion" type="Label" parent="Panel" unique_id=542103112]
 layout_mode = 0
 offset_left = 180.0
-offset_top = 212.0
+offset_top = 196.0
 offset_right = 834.0
-offset_bottom = 246.0
+offset_bottom = 230.0
 theme_override_font_sizes/font_size = 24
 text = "What would you like to do today?"
 horizontal_alignment = 1
@@ -66,33 +66,35 @@ text = "About"
 [node name="CreateImage" type="TextureRect" parent="Panel" unique_id=1119799198]
 layout_mode = 0
 offset_left = 174.0
-offset_top = 290.0
+offset_top = 274.0
 offset_right = 449.0
-offset_bottom = 565.0
+offset_bottom = 549.0
+mouse_default_cursor_shape = 2
 texture = ExtResource("1_cq6rj")
 expand_mode = 1
 
 [node name="LoadImage" type="TextureRect" parent="Panel" unique_id=1354408409]
 layout_mode = 0
 offset_left = 569.0
-offset_top = 290.0
+offset_top = 274.0
 offset_right = 844.0
-offset_bottom = 565.0
+offset_bottom = 549.0
+mouse_default_cursor_shape = 2
 texture = ExtResource("1_cq6rj")
 expand_mode = 1
 
 [node name="CreateButton" type="Button" parent="Panel" unique_id=885370677]
 layout_mode = 0
 offset_left = 197.0
-offset_top = 587.0
+offset_top = 571.0
 offset_right = 425.0
-offset_bottom = 627.0
+offset_bottom = 611.0
 text = "Create a new project"
 
 [node name="LoadButton" type="Button" parent="Panel" unique_id=284199124]
 layout_mode = 0
 offset_left = 593.0
-offset_top = 587.0
+offset_top = 571.0
 offset_right = 821.0
-offset_bottom = 627.0
+offset_bottom = 611.0
 text = "Load an existing project"

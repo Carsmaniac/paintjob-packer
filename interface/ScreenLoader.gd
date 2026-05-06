@@ -13,22 +13,32 @@ func _ready() -> void:
 	$SetupScreen/Panel/VersionText.text = "Version " + ProjectSettings.get_setting("application/config/version")
 	$SaveButton.connect("pressed", PJPProject.save)
 	$LoadButton.connect("pressed", PJPProject.load)
+	$SetupScreen/Panel/CreateButton.connect("pressed", PJPProject.new)
+	$SetupScreen/Panel/LoadButton.connect("pressed", PJPProject.load)
+	$SetupScreen/Panel/CreateImage.connect("gui_input", maybe_click.bind("new"))
+	$SetupScreen/Panel/LoadImage.connect("gui_input", maybe_click.bind("load"))
 	$ModInfoScreen/Panel/ATSButton.connect("pressed", switch_game.bind("ats"))
 	$ModInfoScreen/Panel/ETSButton.connect("pressed", switch_game.bind("ets"))
-	$ModInfoScreen/Panel/ATSImage.connect("gui_input", thing.bind("ats"))
-	$ModInfoScreen/Panel/ETSImage.connect("gui_input", thing.bind("ets"))
+	$ModInfoScreen/Panel/ATSImage.connect("gui_input", maybe_click.bind("ats"))
+	$ModInfoScreen/Panel/ETSImage.connect("gui_input", maybe_click.bind("ets"))
 	
 
-func thing(input_event: InputEvent, game: String):
+func maybe_click(input_event: InputEvent, button: String):
 	if input_event is InputEventMouseButton and input_event.button_index == 1 and input_event.pressed:
-		switch_game(game)
+		if button in ["ats", "ets"]:
+			switch_game(button)
+		elif button == "new":
+			PJPProject.new()
+		elif button == "load":
+			PJPProject.load()
 
 
 func switch_game(game: String) -> void:
 	# TODO: confirmation dialogue because will lose unsaved information
-	VehicleDatabase.load_vehicle_lists(game)
-	$MainScreen/PaintJobTabContainer.load_tabs()
-	loaded_game = game
+	if loaded_game != game:
+		VehicleDatabase.load_vehicle_lists(game)
+		$MainScreen/PaintJobTabContainer.load_tabs()
+		loaded_game = game
 	if game == "ets":
 		$ModInfoScreen/Panel/ETSButton.button_pressed = true
 		$ModInfoScreen/Panel/ATSButton.button_pressed = false
@@ -45,7 +55,7 @@ func switch_screen(next: bool, startup: bool = false) -> void:
 	else:
 		current_screen_index -= 1
 	if startup:
-		current_screen_index = 1 # TODO: Ensure 0
+		current_screen_index = 0 # TODO: Ensure 0
 	
 	screens[current_screen_index].visible = true
 	if current_screen_index == 0:
