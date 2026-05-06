@@ -26,7 +26,14 @@ func save() -> void:
 	var save_dict: Dictionary = {}
 	save_dict["a"] = "Hello! This is a save file. If you edit it, bad things might happen and Paint Job Packer might crash. Continue at your own risk :)"
 	
-	var mod_info: Dictionary = {mod_name = "", author = "", version = "", description = "", game = "ets"}
+	var mod_screen: Node = get_node("../ScreenLoader/ModInfoScreen")
+	var mod_info: Dictionary = {
+		mod_name = mod_screen.find_child("Name").find_child("TextInput").text,
+		author = mod_screen.find_child("Author").find_child("TextInput").text,
+		version = mod_screen.find_child("Version").find_child("TextInput").text,
+		description = mod_screen.find_child("Description").find_child("TextBox").text,
+		game = get_node("../ScreenLoader").loaded_game
+	}
 	save_dict["mod_info"] = mod_info
 	
 	var paint_jobs: Array[Dictionary] = []
@@ -43,9 +50,10 @@ func save() -> void:
 				trucks = get_dict_from_tab(paint_job, 0),
 				trailers = get_list_from_tab(paint_job, 1),
 				truck_mods = get_dict_from_tab(paint_job, 2),
-				trailer_mods = get_list_from_tab(paint_job, 3),
-				bus_mods = get_dict_from_tab(paint_job, 4)
+				trailer_mods = get_list_from_tab(paint_job, 3)
 			}
+			if mod_info["game"] == "ets":
+				paint_job_dict["bus_mods"] = get_dict_from_tab(paint_job, 4)
 			paint_jobs.append(paint_job_dict)
 	save_dict["paint_jobs"] = paint_jobs
 	
@@ -61,6 +69,13 @@ func load() -> void:
 			loaded_dict = json_data.data
 		
 	VehicleDatabase.load_vehicle_lists(loaded_dict["mod_info"]["game"])
+	
+	var mod_screen: Node = get_node("../ScreenLoader/ModInfoScreen")
+	mod_screen.find_child("Name").find_child("TextInput").text = loaded_dict["mod_info"]["mod_name"]
+	mod_screen.find_child("Author").find_child("TextInput").text = loaded_dict["mod_info"]["author"]
+	mod_screen.find_child("Version").find_child("TextInput").text = loaded_dict["mod_info"]["version"]
+	mod_screen.find_child("Description").find_child("TextBox").text = loaded_dict["mod_info"]["description"]
+	get_node("../ScreenLoader").switch_game(loaded_dict["mod_info"]["game"])
 	
 	var paint_job_tab_container: Node = get_node("../ScreenLoader/MainScreen/PaintJobTabContainer")
 	for child in paint_job_tab_container.get_children():
@@ -95,8 +110,9 @@ func load() -> void:
 		for vehicle in paint_job["trailer_mods"]:
 			var vehicle_selection: Node = trailer_mod_tab.find_child(vehicle.replace(".", "_").replace("/", "_"), true, false)
 			vehicle_selection.find_child("VehicleCheckbox").button_pressed = true
-		var bus_mod_tab: Node = paint_job_node.get_node("VehicleTabContainer/Bus Mods")
-		for vehicle in paint_job["bus_mods"]:
-			var vehicle_selection: Node = bus_mod_tab.find_child(vehicle.replace(".", "_").replace("/", "_"), true, false)
-			for cab in paint_job["bus_mods"][vehicle]:
-				vehicle_selection.find_child(cab, true, false).button_pressed = true
+		if loaded_dict["mod_info"]["game"] == "ets":
+			var bus_mod_tab: Node = paint_job_node.get_node("VehicleTabContainer/Bus Mods")
+			for vehicle in paint_job["bus_mods"]:
+				var vehicle_selection: Node = bus_mod_tab.find_child(vehicle.replace(".", "_").replace("/", "_"), true, false)
+				for cab in paint_job["bus_mods"][vehicle]:
+					vehicle_selection.find_child(cab, true, false).button_pressed = true

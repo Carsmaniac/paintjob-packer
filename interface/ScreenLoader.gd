@@ -1,27 +1,43 @@
 extends Control
-@onready var screens = [$SetupScreen, $MainScreen]
-var current_screen_index = 0
-@onready var prev_button = $PrevButton
-@onready var next_button = $NextButton
+@onready var screens: Array[Node] = [$SetupScreen, $ModInfoScreen, $MainScreen]
+var current_screen_index: int = 0
+@onready var prev_button: Node = $PrevButton
+@onready var next_button: Node = $NextButton
+@onready var save_button: Node = $SaveButton
+
+var loaded_game: String
 
 
 func _ready() -> void:
-	_switch_screen(true, true)
-	#$SetupScreen/PictureATS.connect("gui_input", thing.bind("ats"))
-	#$SetupScreen/PictureETS.connect("gui_input", thing.bind("ets"))
-	$SetupScreen/VersionText.text = "Version " + ProjectSettings.get_setting("application/config/version")
+	switch_screen(true, true)
+	$SetupScreen/Panel/VersionText.text = "Version " + ProjectSettings.get_setting("application/config/version")
 	$SaveButton.connect("pressed", PJPProject.save)
 	$LoadButton.connect("pressed", PJPProject.load)
+	$ModInfoScreen/Panel/ATSButton.connect("pressed", switch_game.bind("ats"))
+	$ModInfoScreen/Panel/ETSButton.connect("pressed", switch_game.bind("ets"))
+	$ModInfoScreen/Panel/ATSImage.connect("gui_input", thing.bind("ats"))
+	$ModInfoScreen/Panel/ETSImage.connect("gui_input", thing.bind("ets"))
+	
+
+func thing(input_event: InputEvent, game: String):
+	if input_event is InputEventMouseButton and input_event.button_index == 1 and input_event.pressed:
+		switch_game(game)
 
 
-#func thing(input_event: InputEvent, game):
-	#if input_event is InputEventMouseButton and input_event.button_index == 1 and input_event.pressed:
-		#VehicleDatabase.load_vehicle_lists(game)
-		#$MainScreen/PaintJobTabContainer._load_tabs()
-		#_switch_screen(true)
+func switch_game(game: String) -> void:
+	# TODO: confirmation dialogue because will lose unsaved information
+	VehicleDatabase.load_vehicle_lists(game)
+	$MainScreen/PaintJobTabContainer.load_tabs()
+	loaded_game = game
+	if game == "ets":
+		$ModInfoScreen/Panel/ETSButton.button_pressed = true
+		$ModInfoScreen/Panel/ATSButton.button_pressed = false
+	else:
+		$ModInfoScreen/Panel/ETSButton.button_pressed = false
+		$ModInfoScreen/Panel/ATSButton.button_pressed = true
 
 
-func _switch_screen(next: bool, startup: bool = false, ) -> void:
+func switch_screen(next: bool, startup: bool = false) -> void:
 	for screen in screens:
 		screen.visible = false
 	if next:
@@ -30,16 +46,17 @@ func _switch_screen(next: bool, startup: bool = false, ) -> void:
 		current_screen_index -= 1
 	if startup:
 		current_screen_index = 1 # TODO: Ensure 0
-		VehicleDatabase.load_vehicle_lists("ets")
-		$MainScreen/PaintJobTabContainer.load_tabs()
 	
 	screens[current_screen_index].visible = true
 	if current_screen_index == 0:
 		prev_button.disabled = true
 		next_button.disabled = true
+		save_button.disabled = true
 	elif current_screen_index == len(screens) - 1:
 		prev_button.disabled = false
 		next_button.disabled = true
+		save_button.disabled = false
 	else:
 		prev_button.disabled = false
 		next_button.disabled = false
+		save_button.disabled = false

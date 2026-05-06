@@ -23,6 +23,13 @@ offset_bottom = 70.0
 caret_blink = true
 caret_blink_interval = 0.5
 
+[node name="TextBox" type="TextEdit" parent="." unique_id=286282919]
+layout_mode = 0
+offset_top = 39.0
+offset_right = 313.0
+offset_bottom = 213.0
+wrap_mode = 1
+
 [node name="CheckboxInput" type="CheckBox" parent="." unique_id=1502634629]
 layout_mode = 0
 offset_top = 36.0

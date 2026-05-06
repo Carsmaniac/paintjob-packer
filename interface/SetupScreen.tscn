@@ -17,82 +17,82 @@ offset_top = 73.0
 offset_right = 1027.0
 offset_bottom = 785.0
 
-[node name="Title" type="Label" parent="." unique_id=147659293]
+[node name="Title" type="Label" parent="Panel" unique_id=147659293]
 layout_mode = 0
-offset_left = 115.0
-offset_top = 146.0
-offset_right = 925.0
-offset_bottom = 201.0
+offset_left = 102.0
+offset_top = 73.0
+offset_right = 912.0
+offset_bottom = 128.0
 theme_override_font_sizes/font_size = 34
 text = "Welcome to Paint Job Packer"
 horizontal_alignment = 1
 
-[node name="StartQuestion" type="Label" parent="." unique_id=542103112]
+[node name="StartQuestion" type="Label" parent="Panel" unique_id=542103112]
 layout_mode = 0
-offset_left = 193.0
-offset_top = 285.0
-offset_right = 847.0
-offset_bottom = 318.0
+offset_left = 180.0
+offset_top = 212.0
+offset_right = 834.0
+offset_bottom = 246.0
 theme_override_font_sizes/font_size = 24
 text = "What would you like to do today?"
 horizontal_alignment = 1
 
-[node name="AcknowledgementOfCountry" type="Label" parent="." unique_id=1386306666]
+[node name="AcknowledgementOfCountry" type="Label" parent="Panel" unique_id=1386306666]
 layout_mode = 0
-offset_left = 242.0
-offset_top = 195.0
-offset_right = 798.0
-offset_bottom = 240.0
+offset_left = 229.0
+offset_top = 122.0
+offset_right = 785.0
+offset_bottom = 167.0
 theme_override_font_sizes/font_size = 12
 text = "This software was created on unceded Darramurragal Land in Sydney, Australia"
 horizontal_alignment = 1
 
-[node name="VersionText" type="Label" parent="." unique_id=1383723736]
+[node name="VersionText" type="Label" parent="Panel" unique_id=1383723736]
 layout_mode = 0
-offset_left = 30.0
-offset_top = 93.0
-offset_right = 137.0
-offset_bottom = 126.0
+offset_left = 17.0
+offset_top = 20.0
+offset_right = 124.0
+offset_bottom = 53.0
 text = "Version 2.0"
 
-[node name="AboutButton" type="Button" parent="." unique_id=1421973815]
+[node name="AboutButton" type="Button" parent="Panel" unique_id=1421973815]
 layout_mode = 0
-offset_left = 947.0
-offset_top = 97.0
-offset_right = 1010.0
-offset_bottom = 137.0
+offset_left = 934.0
+offset_top = 24.0
+offset_right = 997.0
+offset_bottom = 64.0
 text = "About"
 
-[node name="CreateImage" type="TextureRect" parent="." unique_id=1119799198]
+[node name="CreateImage" type="TextureRect" parent="Panel" unique_id=1119799198]
 layout_mode = 0
-offset_left = 187.0
-offset_top = 363.0
-offset_right = 462.0
-offset_bottom = 638.0
+offset_left = 174.0
+offset_top = 290.0
+offset_right = 449.0
+offset_bottom = 565.0
 texture = ExtResource("1_cq6rj")
 expand_mode = 1
 
-[node name="LoadImage" type="TextureRect" parent="." unique_id=1354408409]
+[node name="LoadImage" type="TextureRect" parent="Panel" unique_id=1354408409]
 layout_mode = 0
-offset_left = 582.0
-offset_top = 363.0
-offset_right = 857.0
-offset_bottom = 638.0
+offset_left = 569.0
+offset_top = 290.0
+offset_right = 844.0
+offset_bottom = 565.0
 texture = ExtResource("1_cq6rj")
 expand_mode = 1
 
-[node name="CreateButton" type="Button" parent="." unique_id=885370677]
+[node name="CreateButton" type="Button" parent="Panel" unique_id=885370677]
 layout_mode = 0
-offset_left = 210.0
-offset_top = 660.0
-offset_right = 438.0
-offset_bottom = 700.0
+offset_left = 197.0
+offset_top = 587.0
+offset_right = 425.0
+offset_bottom = 627.0
 text = "Create a new project"
 
-[node name="LoadButton" type="Button" parent="." unique_id=284199124]
+[node name="LoadButton" type="Button" parent="Panel" unique_id=284199124]
 layout_mode = 0
-offset_left = 606.0
-offset_top = 660.0
-offset_right = 834.0
-offset_bottom = 700.0
+offset_left = 593.0
+offset_top = 587.0
+offset_right = 821.0
+offset_bottom = 627.0
 text = "Load an existing project"

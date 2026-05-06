@@ -2,7 +2,8 @@ extends Control
 
 @export var input_name: String
 @export_multiline var help_text: String
-@export_enum("paint_job_name", "price", "internal_name", "cabin_support", "split_cabins", "unlock_level") var input_type: String
+@export_enum("paint_job_name", "price", "internal_name", "cabin_support", 
+		"split_cabins", "unlock_level", "mod_name", "author_name", "version", "description") var input_type: String
 
 var warning: String
 
@@ -13,16 +14,16 @@ func _ready() -> void:
 	$TextInput.visible = false
 	$DropdownInput.visible = false
 	$CheckboxInput.visible = false
+	$TextBox.visible = false
 	
 	$WarningButton.connect("pressed", show_warnings)
 	#$HelpButton.tooltip_text = help_text
 	$HelpButton.connect("pressed", show_help)
 	
-	if input_type in ["paint_job_name", "internal_name", "price"]:
+	if input_type in ["paint_job_name", "internal_name", "price", "mod_name", "author_name", "version"]:
 		$TextInput.visible = true
-		if input_type == "price":
+		if input_type in ["price", "version"]:
 			$TextInput.size[0] = 100
-		#$TextInput.connect("text_changed", validate_text_input)
 	elif input_type in ["cabin_support", "split_cabins"]:
 		$DropdownInput.visible = true
 		if input_type == "cabin_support":
@@ -39,6 +40,8 @@ func _ready() -> void:
 		$TextInput.position = Vector2(0, 80)
 		$TextInput.size[0] = 100
 		$TextInput.connect("text_changed", validate_text_input)
+	elif input_type == "description":
+		$TextBox.visible = true
 		
 
 func validate_text_input(__) -> void:

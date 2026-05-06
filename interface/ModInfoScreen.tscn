@@ -1,0 +1,122 @@
+[gd_scene format=3 uid="uid://ber04fmjjbd4e"]
+
+[ext_resource type="PackedScene" uid="uid://bkkg8mcxaxrdm" path="res://interface/VariableInput.tscn" id="1_gm1yk"]
+[ext_resource type="Texture2D" uid="uid://2xkrd1bv77g2" path="res://circle.png" id="2_hcx6m"]
+
+[node name="ModInfoScreen" type="Control" unique_id=1936622943]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="." unique_id=548289295]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 73.0
+offset_right = 1027.0
+offset_bottom = 785.0
+
+[node name="ModInfoLabel" type="Label" parent="Panel" unique_id=1418096420]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 30.0
+offset_right = 202.0
+offset_bottom = 53.0
+text = "Mod Manager Info"
+
+[node name="Name" parent="Panel" unique_id=266219902 instance=ExtResource("1_gm1yk")]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 67.0
+offset_right = 28.0
+offset_bottom = 67.0
+input_name = "Mod Name"
+help_text = "Your paint job's name, shown at the upgrade shop in-game.
+
+e.g. Transit Co"
+input_type = "mod_name"
+
+[node name="Author" parent="Panel" unique_id=473766507 instance=ExtResource("1_gm1yk")]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 158.0
+offset_right = 28.0
+offset_bottom = 158.0
+input_name = "Author"
+help_text = "How much your paint job costs in-game, in euro.
+
+e.g. 6000"
+input_type = "author_name"
+
+[node name="Version" parent="Panel" unique_id=1966072170 instance=ExtResource("1_gm1yk")]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 249.0
+offset_right = 28.0
+offset_bottom = 249.0
+input_name = "Version"
+help_text = "If checked, your paint job can be purchased from level 0, such as on a brand new profile.
+
+If not checked, what level your paint job is purchasable from."
+input_type = "version"
+
+[node name="Description" parent="Panel" unique_id=1167826409 instance=ExtResource("1_gm1yk")]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 332.0
+offset_right = 28.0
+offset_bottom = 332.0
+input_name = "Description"
+help_text = "If checked, your paint job can be purchased from level 0, such as on a brand new profile.
+
+If not checked, what level your paint job is purchasable from."
+input_type = "description"
+
+[node name="GameChoiceLabel" type="Label" parent="Panel" unique_id=918912563]
+layout_mode = 0
+offset_left = 482.0
+offset_top = 150.0
+offset_right = 932.0
+offset_bottom = 173.0
+text = "Which game is your mod for?"
+horizontal_alignment = 1
+
+[node name="ATSImage" type="TextureRect" parent="Panel" unique_id=1839613996]
+layout_mode = 0
+offset_left = 482.0
+offset_top = 201.0
+offset_right = 677.0
+offset_bottom = 396.0
+mouse_default_cursor_shape = 2
+texture = ExtResource("2_hcx6m")
+expand_mode = 1
+
+[node name="ETSImage" type="TextureRect" parent="Panel" unique_id=1119799198]
+layout_mode = 0
+offset_left = 737.0
+offset_top = 201.0
+offset_right = 932.0
+offset_bottom = 396.0
+mouse_default_cursor_shape = 2
+texture = ExtResource("2_hcx6m")
+expand_mode = 1
+
+[node name="ATSButton" type="Button" parent="Panel" unique_id=645151474]
+layout_mode = 0
+offset_left = 466.0
+offset_top = 442.0
+offset_right = 694.0
+offset_bottom = 482.0
+toggle_mode = true
+text = "American Truck Simulator"
+
+[node name="ETSButton" type="Button" parent="Panel" unique_id=885370677]
+layout_mode = 0
+offset_left = 721.0
+offset_top = 442.0
+offset_right = 949.0
+offset_bottom = 482.0
+toggle_mode = true
+text = "Euro Truck Simulator 2"
