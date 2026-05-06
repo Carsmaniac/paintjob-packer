@@ -72,19 +72,24 @@ func new() -> void:
 
 func save_dialogue() -> void:
 	# TODO: explain save is not for mods
-	var save_window := FileDialog.new()
+	#var save_window := FileDialog.new()
+	var save_window := NativeFileDialog.new()
 	save_window.title = ("Save Project")
-	save_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
-	save_window.use_native_dialog = true
+	#save_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
+	#save_window.use_native_dialog = true
 	save_window.add_filter("*.pjpproject", "Paint Job Packer project")
-	save_window.file_filter_toggle_enabled = false
+	#save_window.file_filter_toggle_enabled = false
 	#save_window.file_mode = FileDialog.FILE_MODE_OPEN_DIR TODO: for export
 	save_window.connect("file_selected", verify_save_file_path)
 	get_node("../ScreenLoader").add_child(save_window)
-	save_window.popup_file_dialog()
+	#save_window.popup_file_dialog()
+	save_window.show()
 
 
 func verify_save_file_path(file_path: String) -> void:
+	# TODO: check for overwrite if new name
+	if "." not in file_path:
+		file_path += ".pjpproject"
 	if file_path.substr(len(file_path) - 11) == ".pjpproject":
 		save(file_path)
 	else:
@@ -107,6 +112,7 @@ func verify_save_file_path(file_path: String) -> void:
 func save(file_path: String) -> void:
 	var save_dict: Dictionary = {}
 	save_dict["a"] = "Hello! This is a save file. If you edit it, bad things might happen and Paint Job Packer might crash. Continue at your own risk :)"
+	save_dict["save_data_version"] = 1 # In case it changes in the future
 	
 	var mod_screen: Node = get_node("../ScreenLoader/ModInfoScreen")
 	var mod_info: Dictionary = {
