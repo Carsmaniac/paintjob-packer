@@ -88,14 +88,14 @@ func save_dialogue() -> void:
 
 func verify_save_file_path(file_path: String) -> void:
 	# TODO: check for overwrite if new name
-	if "." not in file_path:
+	if "." not in file_path.split("/")[-1]:
 		file_path += ".pjpproject"
 	if file_path.substr(len(file_path) - 11) == ".pjpproject":
 		save(file_path)
 	else:
 		var suggested_path: Array = file_path.split("/")
 		var suggested_file_name_array: Array = Array(suggested_path.pop_back().split("."))
-		if "." in file_path:
+		if "." in file_path.split("/")[-1]:
 			suggested_file_name_array.pop_back()
 		var suggested_file_name: String = ".".join(suggested_file_name_array) + ".pjpproject"
 		var invalid_window := AcceptDialog.new()
