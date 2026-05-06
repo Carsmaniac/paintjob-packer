@@ -21,8 +21,39 @@ func get_list_from_tab(paint_job: Node, tab_index: int) -> PackedStringArray:
 	return vehicle_list
 
 
+func confirm_return() -> void:
+	var confirm_window := AcceptDialog.new()
+	confirm_window.ok_button_text = "Confirm"
+	confirm_window.add_cancel_button("Nevermind")
+	confirm_window.title = "Return to start?"
+	confirm_window.dialog_text = "You will lose all unsaved progress if you return to the start.\n\nAre you sure you want to continue?\n"
+	confirm_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
+	confirm_window.get_ok_button().connect("pressed", return_to_start)
+	get_node("../ScreenLoader").add_child(confirm_window)
+	confirm_window.popup_centered()
+
+
+func return_to_start() -> void:
+	get_node("../ScreenLoader").switch_screen(false)
+
+
+func confirm_load() -> void:
+	if get_node("../ScreenLoader").current_screen_index == 0:
+		self.load()
+	else:
+		var confirm_window := AcceptDialog.new()
+		confirm_window.ok_button_text = "Confirm"
+		confirm_window.add_cancel_button("Nevermind")
+		confirm_window.title = "Load project?"
+		confirm_window.dialog_text = "You will lose all unsaved progress if you load a project.\n\nAre you sure you want to continue?\n"
+		confirm_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
+		confirm_window.get_ok_button().connect("pressed", load)
+		get_node("../ScreenLoader").add_child(confirm_window)
+		confirm_window.popup_centered()
+
+
 func new() -> void:
-	get_node("../ScreenLoader").switch_game("ets")
+	get_node("../ScreenLoader").switch_game("none")
 	var paint_job_tab_container: Node = get_node("../ScreenLoader/MainScreen/PaintJobTabContainer")
 	var paint_jobs: Array[Node] = paint_job_tab_container.get_children()
 	paint_jobs.reverse()

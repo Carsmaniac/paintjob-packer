@@ -12,7 +12,7 @@ func _ready() -> void:
 	switch_screen(true, true)
 	$SetupScreen/Panel/VersionText.text = "Version " + ProjectSettings.get_setting("application/config/version")
 	$SaveButton.connect("pressed", PJPProject.save)
-	$LoadButton.connect("pressed", PJPProject.load)
+	#$LoadButton.connect("pressed", PJPProject.confirm_load)
 	$SetupScreen/Panel/CreateButton.connect("pressed", PJPProject.new)
 	$SetupScreen/Panel/LoadButton.connect("pressed", PJPProject.load)
 	$SetupScreen/Panel/CreateImage.connect("gui_input", maybe_click.bind("new"))
@@ -34,7 +34,6 @@ func maybe_click(input_event: InputEvent, button: String):
 
 
 func switch_game(game: String) -> void:
-	# TODO: confirmation dialogue because will lose unsaved information
 	if loaded_game != game:
 		VehicleDatabase.load_vehicle_lists(game)
 		$MainScreen/PaintJobTabContainer.load_tabs()
@@ -42,9 +41,17 @@ func switch_game(game: String) -> void:
 	if game == "ets":
 		$ModInfoScreen/Panel/ETSButton.button_pressed = true
 		$ModInfoScreen/Panel/ATSButton.button_pressed = false
-	else:
+		if not next_button.is_connected("pressed", switch_screen.bind("true")):
+			next_button.connect("pressed", switch_screen.bind(true))
+	elif game == "ats":
 		$ModInfoScreen/Panel/ETSButton.button_pressed = false
 		$ModInfoScreen/Panel/ATSButton.button_pressed = true
+		if not next_button.is_connected("pressed", switch_screen.bind("true")):
+			next_button.connect("pressed", switch_screen.bind(true))
+	elif game == "none":
+		$ModInfoScreen/Panel/ETSButton.button_pressed = false
+		$ModInfoScreen/Panel/ATSButton.button_pressed = false
+		next_button.disconnect("pressed", switch_screen.bind(true))
 
 
 func switch_screen(next: bool, startup: bool = false) -> void:
@@ -61,12 +68,25 @@ func switch_screen(next: bool, startup: bool = false) -> void:
 	if current_screen_index == 0:
 		prev_button.disabled = true
 		next_button.disabled = true
+		next_button.text = "Next"
 		save_button.disabled = true
-	elif current_screen_index == len(screens) - 1:
+		if not $LoadButton.is_connected("pressed", PJPProject.confirm_load):
+			$LoadButton.connect("pressed", PJPProject.confirm_load)
+	elif current_screen_index == 1:
 		prev_button.disabled = false
-		next_button.disabled = true
-		save_button.disabled = false
-	else:
-		prev_button.disabled = false
+		if prev_button.is_connected("pressed", switch_screen.bind(false)):
+			prev_button.disconnect("pressed", switch_screen.bind(false))
+		if not prev_button.is_connected("pressed", PJPProject.confirm_return):
+			prev_button.connect("pressed", PJPProject.confirm_return)
 		next_button.disabled = false
+		next_button.text = "Next"
+		save_button.disabled = false
+	elif current_screen_index == 2:
+		prev_button.disabled = false
+		if prev_button.is_connected("pressed", PJPProject.confirm_return):
+			prev_button.disconnect("pressed", PJPProject.confirm_return)
+		if not prev_button.is_connected("pressed", switch_screen.bind(false)):
+			prev_button.connect("pressed", switch_screen.bind(false))
+		next_button.disabled = false
+		next_button.text = "Export"
 		save_button.disabled = false

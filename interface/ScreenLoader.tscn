@@ -97,5 +97,4 @@ offset_right = 353.0
 offset_bottom = 61.0
 text = "Load"
 
-[connection signal="pressed" from="PrevButton" to="." method="switch_screen" binds= [false, false]]
 [connection signal="pressed" from="NextButton" to="." method="switch_screen" binds= [true, false]]
