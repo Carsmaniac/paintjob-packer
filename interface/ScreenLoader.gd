@@ -13,7 +13,7 @@ func _ready() -> void:
 	$SetupScreen/Panel/VersionText.text = "Version " + ProjectSettings.get_setting("application/config/version")
 	$SaveButton.connect("pressed", PJPProject.save_dialogue)
 	$SetupScreen/Panel/CreateButton.connect("pressed", PJPProject.new)
-	$SetupScreen/Panel/LoadButton.connect("pressed", PJPProject.load)
+	$SetupScreen/Panel/LoadButton.connect("pressed", PJPProject.load_dialogue)
 	$SetupScreen/Panel/CreateImage.connect("gui_input", maybe_click.bind("new"))
 	$SetupScreen/Panel/LoadImage.connect("gui_input", maybe_click.bind("load"))
 	$ModInfoScreen/Panel/ATSButton.connect("pressed", switch_game.bind("ats"))
@@ -29,7 +29,7 @@ func maybe_click(input_event: InputEvent, button: String):
 		elif button == "new":
 			PJPProject.new()
 		elif button == "load":
-			PJPProject.load()
+			PJPProject.load_dialogue()
 
 
 func switch_game(game: String) -> void:
@@ -42,11 +42,13 @@ func switch_game(game: String) -> void:
 		$ModInfoScreen/Panel/ATSButton.button_pressed = false
 		if not next_button.is_connected("pressed", switch_screen.bind("true")):
 			next_button.connect("pressed", switch_screen.bind(true))
+		save_button.disabled = false
 	elif game == "ats":
 		$ModInfoScreen/Panel/ETSButton.button_pressed = false
 		$ModInfoScreen/Panel/ATSButton.button_pressed = true
 		if not next_button.is_connected("pressed", switch_screen.bind("true")):
 			next_button.connect("pressed", switch_screen.bind(true))
+		save_button.disabled = false
 	elif game == "none":
 		$ModInfoScreen/Panel/ETSButton.button_pressed = false
 		$ModInfoScreen/Panel/ATSButton.button_pressed = false
@@ -79,7 +81,8 @@ func switch_screen(next: bool, startup: bool = false) -> void:
 			prev_button.connect("pressed", PJPProject.confirm_return)
 		next_button.disabled = false
 		next_button.text = "Next"
-		save_button.disabled = false
+		if loaded_game != "none":
+			save_button.disabled = false
 	elif current_screen_index == 2:
 		prev_button.disabled = false
 		if prev_button.is_connected("pressed", PJPProject.confirm_return):
