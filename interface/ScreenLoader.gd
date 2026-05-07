@@ -95,5 +95,8 @@ func switch_screen(next: bool, startup: bool = false) -> void:
 		if not prev_button.is_connected("pressed", switch_screen.bind(false)):
 			prev_button.connect("pressed", switch_screen.bind(false))
 		next_button.disabled = false
+		next_button.visible = true
 		next_button.text = "Export"
 		save_button.disabled = false
+	elif current_screen_index == 3:
+		next_button.visible = false

@@ -129,7 +129,9 @@ horizontal_alignment = 1
 autowrap_mode = 2
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1037700436]
-position = Vector2(522, 446)
+position = Vector2(16, 19)
+show_rect = false
 
+[connection signal="pressed" from="Panel/BrowseButton" to="." method="choose_path"]
 [connection signal="item_selected" from="Panel/PlaceholderDropdown" to="." method="change_image"]
-[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="on_visible"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="update_values"]
