@@ -1,5 +1,5 @@
 extends Control
-@onready var screens: Array[Node] = [$SetupScreen, $ModInfoScreen, $MainScreen]
+@onready var screens: Array[Node] = [$SetupScreen, $ModInfoScreen, $MainScreen, $ExportScreen]
 var current_screen_index: int = 0
 @onready var prev_button: Node = $PrevButton
 @onready var next_button: Node = $NextButton
@@ -37,22 +37,26 @@ func switch_game(game: String) -> void:
 		VehicleDatabase.load_vehicle_lists(game)
 		$MainScreen/PaintJobTabContainer.load_tabs()
 		loaded_game = game
+	$ExportScreen.change_image($ExportScreen/Panel/PlaceholderDropdown.selected)
 	if game == "ets":
 		$ModInfoScreen/Panel/ETSButton.button_pressed = true
 		$ModInfoScreen/Panel/ATSButton.button_pressed = false
 		if not next_button.is_connected("pressed", switch_screen.bind("true")):
 			next_button.connect("pressed", switch_screen.bind(true))
 		save_button.disabled = false
+		next_button.disabled = false
 	elif game == "ats":
 		$ModInfoScreen/Panel/ETSButton.button_pressed = false
 		$ModInfoScreen/Panel/ATSButton.button_pressed = true
 		if not next_button.is_connected("pressed", switch_screen.bind("true")):
 			next_button.connect("pressed", switch_screen.bind(true))
 		save_button.disabled = false
+		next_button.disabled = false
 	elif game == "none":
 		$ModInfoScreen/Panel/ETSButton.button_pressed = false
 		$ModInfoScreen/Panel/ATSButton.button_pressed = false
 		next_button.disconnect("pressed", switch_screen.bind(true))
+		next_button.disabled = true
 
 
 func switch_screen(next: bool, startup: bool = false) -> void:
@@ -79,9 +83,10 @@ func switch_screen(next: bool, startup: bool = false) -> void:
 			prev_button.disconnect("pressed", switch_screen.bind(false))
 		if not prev_button.is_connected("pressed", PJPProject.confirm_return):
 			prev_button.connect("pressed", PJPProject.confirm_return)
-		next_button.disabled = false
+		next_button.disabled = true
 		next_button.text = "Next"
 		if loaded_game != "none":
+			next_button.disabled = false
 			save_button.disabled = false
 	elif current_screen_index == 2:
 		prev_button.disabled = false

@@ -77,18 +77,18 @@ input_type = "description"
 [node name="GameChoiceLabel" type="Label" parent="Panel" unique_id=918912563]
 layout_mode = 0
 offset_left = 482.0
-offset_top = 150.0
+offset_top = 118.0
 offset_right = 932.0
-offset_bottom = 173.0
+offset_bottom = 141.0
 text = "Which game is your mod for?"
 horizontal_alignment = 1
 
 [node name="ATSImage" type="TextureRect" parent="Panel" unique_id=1839613996]
 layout_mode = 0
 offset_left = 482.0
-offset_top = 201.0
+offset_top = 192.0
 offset_right = 677.0
-offset_bottom = 396.0
+offset_bottom = 445.0
 mouse_default_cursor_shape = 2
 texture = ExtResource("2_hcx6m")
 expand_mode = 1
@@ -96,9 +96,9 @@ expand_mode = 1
 [node name="ETSImage" type="TextureRect" parent="Panel" unique_id=1119799198]
 layout_mode = 0
 offset_left = 737.0
-offset_top = 201.0
+offset_top = 192.0
 offset_right = 932.0
-offset_bottom = 396.0
+offset_bottom = 445.0
 mouse_default_cursor_shape = 2
 texture = ExtResource("2_hcx6m")
 expand_mode = 1
@@ -106,17 +106,17 @@ expand_mode = 1
 [node name="ATSButton" type="Button" parent="Panel" unique_id=645151474]
 layout_mode = 0
 offset_left = 466.0
-offset_top = 442.0
+offset_top = 506.0
 offset_right = 694.0
-offset_bottom = 482.0
+offset_bottom = 546.0
 toggle_mode = true
 text = "American Truck Simulator"
 
 [node name="ETSButton" type="Button" parent="Panel" unique_id=885370677]
 layout_mode = 0
 offset_left = 721.0
-offset_top = 442.0
+offset_top = 506.0
 offset_right = 949.0
-offset_bottom = 482.0
+offset_bottom = 546.0
 toggle_mode = true
 text = "Euro Truck Simulator 2"

@@ -24,6 +24,7 @@ caret_blink = true
 caret_blink_interval = 0.5
 
 [node name="TextBox" type="TextEdit" parent="." unique_id=286282919]
+visible = false
 layout_mode = 0
 offset_top = 39.0
 offset_right = 313.0

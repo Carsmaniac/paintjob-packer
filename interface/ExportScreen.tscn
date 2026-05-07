@@ -1,0 +1,135 @@
+[gd_scene format=3 uid="uid://chk5cp55kybmk"]
+
+[ext_resource type="Script" uid="uid://bbgkakjt05mgs" path="res://interface/ExportScreen.gd" id="1_4lqfk"]
+[ext_resource type="Texture2D" uid="uid://2xkrd1bv77g2" path="res://circle.png" id="1_vnvp6"]
+
+[node name="ExportScreen" type="Control" unique_id=1936622943]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4lqfk")
+
+[node name="Panel" type="Panel" parent="." unique_id=548289295]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 73.0
+offset_right = 1027.0
+offset_bottom = 785.0
+
+[node name="ModExportLabel" type="Label" parent="Panel" unique_id=1418096420]
+layout_mode = 0
+offset_left = 420.0
+offset_top = 60.0
+offset_right = 594.0
+offset_bottom = 83.0
+text = "Mod Export Options"
+horizontal_alignment = 1
+
+[node name="BrowseButton" type="Button" parent="Panel" unique_id=1580491184]
+layout_mode = 0
+offset_left = 380.0
+offset_top = 115.0
+offset_right = 634.0
+offset_bottom = 157.0
+text = "Choose export location"
+
+[node name="LocationLabel" type="Label" parent="Panel" unique_id=757773364]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 171.0
+offset_right = 958.0
+offset_bottom = 199.0
+theme_override_font_sizes/font_size = 14
+text = "Selected location: /Users/emjay.fish/Desktop/My Amazing Mod"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="WarningLabel" type="Label" parent="Panel" unique_id=83355862]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 203.0
+offset_right = 958.0
+offset_bottom = 235.0
+text = "My Amazing Mod folder will be created"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="PlaceholderDropdown" type="OptionButton" parent="Panel" unique_id=1805094865]
+layout_mode = 0
+offset_left = 360.0
+offset_top = 259.0
+offset_right = 656.0
+offset_bottom = 290.0
+selected = 0
+item_count = 2
+popup/item_0/text = "Use empty placeholders"
+popup/item_0/id = 0
+popup/item_1/text = "Use templates"
+popup/item_1/id = 1
+
+[node name="PlaceholderImageATS" type="TextureRect" parent="Panel" unique_id=1485041110]
+visible = false
+layout_mode = 0
+offset_left = 342.0
+offset_top = 305.0
+offset_right = 676.0
+offset_bottom = 482.0
+texture = ExtResource("1_vnvp6")
+expand_mode = 1
+
+[node name="TemplateImageATS" type="TextureRect" parent="Panel" unique_id=1582430745]
+visible = false
+layout_mode = 0
+offset_left = 342.0
+offset_top = 305.0
+offset_right = 676.0
+offset_bottom = 482.0
+texture = ExtResource("1_vnvp6")
+expand_mode = 1
+
+[node name="PlaceholderImageETS" type="TextureRect" parent="Panel" unique_id=19869500]
+visible = false
+layout_mode = 0
+offset_left = 342.0
+offset_top = 305.0
+offset_right = 676.0
+offset_bottom = 482.0
+texture = ExtResource("1_vnvp6")
+expand_mode = 1
+
+[node name="TemplateImageETS" type="TextureRect" parent="Panel" unique_id=1547099476]
+visible = false
+layout_mode = 0
+offset_left = 342.0
+offset_top = 305.0
+offset_right = 676.0
+offset_bottom = 482.0
+texture = ExtResource("1_vnvp6")
+expand_mode = 1
+
+[node name="ExportButton" type="Button" parent="Panel" unique_id=1650769393]
+layout_mode = 0
+offset_left = 380.0
+offset_top = 527.0
+offset_right = 634.0
+offset_bottom = 569.0
+text = "Export"
+
+[node name="StatusLabel" type="Label" parent="Panel" unique_id=210497185]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 586.0
+offset_right = 958.0
+offset_bottom = 670.0
+text = "Selected location: /Users/emjay.fish/Desktop/My Amazing Mod"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1037700436]
+position = Vector2(522, 446)
+
+[connection signal="item_selected" from="Panel/PlaceholderDropdown" to="." method="change_image"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="on_visible"]
