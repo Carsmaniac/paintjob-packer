@@ -72,18 +72,16 @@ func new() -> void:
 
 func save_dialogue() -> void:
 	# TODO: explain save is not for mods
-	#var save_window := FileDialog.new()
-	var save_window := NativeFileDialog.new()
+	var save_window := FileDialog.new()
 	save_window.title = ("Save Project")
-	#save_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
-	#save_window.use_native_dialog = true
+	save_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
+	save_window.use_native_dialog = true
 	save_window.add_filter("*.pjpproject", "Paint Job Packer project")
-	#save_window.file_filter_toggle_enabled = false
-	#save_window.file_mode = FileDialog.FILE_MODE_OPEN_DIR TODO: for export
+	save_window.file_filter_toggle_enabled = false
+	save_window.file_mode = FileDialog.FILE_MODE_SAVE_FILE
 	save_window.connect("file_selected", verify_save_file_path)
 	get_node("../ScreenLoader").add_child(save_window)
-	#save_window.popup_file_dialog()
-	save_window.show()
+	save_window.popup_file_dialog()
 
 
 func verify_save_file_path(file_path: String) -> void:
@@ -150,20 +148,34 @@ func save(file_path: String) -> void:
 
 func load_dialogue() -> void:
 	# TODO: explain save is not for mods
-	#var load_window := FileDialog.new()
-	var load_window := NativeFileDialog.new()
+	var load_window := FileDialog.new()
 	load_window.title = ("Load Project")
-	#load_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
-	#load_window.use_native_dialog = true
+	load_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
+	load_window.use_native_dialog = true
 	load_window.add_filter("*.pjpproject", "Paint Job Packer project")
-	#load_window.file_filter_toggle_enabled = false
-	#load_window.overwrite_warning_enabled = false
-	#load_window.file_mode = FileDialog.FILE_MODE_OPEN_FILE
-	load_window.file_mode = NativeFileDialog.FILE_MODE_OPEN_FILE
+	load_window.file_filter_toggle_enabled = false
+	load_window.overwrite_warning_enabled = false
+	load_window.file_mode = FileDialog.FILE_MODE_OPEN_FILE
 	load_window.connect("file_selected", verify_loaded_file)
 	get_node("../ScreenLoader").add_child(load_window)
-	#load_window.popup_file_dialog()
-	load_window.show()
+	load_window.popup_file_dialog()
+	
+	
+func load_test() -> void:
+	# TODO: explain save is not for mods
+	var load_window := FileDialog.new()
+	#var load_window := NativeFileDialog.new()
+	load_window.title = ("Load Project")
+	load_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
+	load_window.use_native_dialog = true
+	load_window.add_filter("*.pjpproject", "Paint Job Packer project")
+	load_window.file_filter_toggle_enabled = false
+	load_window.overwrite_warning_enabled = false
+	load_window.file_mode = FileDialog.FILE_MODE_OPEN_FILE
+	load_window.connect("file_selected", verify_loaded_file)
+	get_node("../ScreenLoader").add_child(load_window)
+	load_window.popup_file_dialog()
+	#load_window.show()
 
 
 func verify_loaded_file(file_path: String) -> void:
