@@ -14,7 +14,7 @@ config/name="Paint Job Packer"
 config/description="Mod making tool for Euro Truck Simulator 2 and American Truck Simulator"
 config/version="2.0"
 run/main_scene="uid://qogjjbkt12ds"
-config/features=PackedStringArray("4.6")
+config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="uid://vgkd6qio0prp"
 
 [autoload]
@@ -47,5 +47,7 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_environment="res://default_env.tres"
