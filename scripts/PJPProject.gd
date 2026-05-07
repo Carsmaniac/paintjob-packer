@@ -70,6 +70,18 @@ func new() -> void:
 		get_node("../ScreenLoader").switch_screen(true)
 
 
+func save_inform() -> void:
+	var popup := AcceptDialog.new()
+	popup.title = "Not Exporting Mod"
+	popup.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
+	popup.dialog_text = "This function is for saving your Paint Job Packer project to come back to later, NOT for exporting your mod.\n\nTo export your mod, press Export from the In-Game Paint Job Info screen.\n"
+	popup.size.y = 0
+	popup.ok_button_text = "Okay"
+	popup.connect("confirmed", save_dialogue)
+	self.add_child(popup)
+	popup.popup_centered()
+
+
 func save_dialogue() -> void:
 	# TODO: explain save is not for mods
 	var save_window := FileDialog.new()

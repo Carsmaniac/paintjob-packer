@@ -11,7 +11,7 @@ var loaded_game: String
 func _ready() -> void:
 	switch_screen(true, true)
 	$SetupScreen/Panel/VersionText.text = "Version " + ProjectSettings.get_setting("application/config/version")
-	$SaveButton.connect("pressed", PJPProject.save_dialogue)
+	$SaveButton.connect("pressed", PJPProject.save_inform)
 	$SetupScreen/Panel/CreateButton.connect("pressed", PJPProject.new)
 	$SetupScreen/Panel/LoadButton.connect("pressed", PJPProject.load_dialogue)
 	$SetupScreen/Panel/CreateImage.connect("gui_input", maybe_click.bind("new"))
