@@ -1,4 +1,5 @@
 extends Control
+class_name VariableInput
 
 @export var input_name: String
 @export_multiline var help_text: String
@@ -81,19 +82,23 @@ func validate_text_input(__) -> void:
 
 	
 func show_warnings() -> void:
-	var popup: Node = get_node("../../../AcceptDialogue")
+	var popup := AcceptDialog.new()
 	popup.title = "Warning"
 	popup.dialog_text = warning
 	popup.size.y = 0
 	popup.ok_button_text = "Okay"
+	popup.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
+	self.add_child(popup)
 	popup.popup_centered()
 
 
 func show_help() -> void:
-	var popup: Node = get_node("../../../AcceptDialogue")
+	var popup := AcceptDialog.new()
 	popup.title = "Help"
 	popup.dialog_text = help_text + "\n"
 	# TODO: Set help_text for price based on game selected
 	popup.size.y = 0
 	popup.ok_button_text = "Okay"
+	popup.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
+	self.add_child(popup)
 	popup.popup_centered()

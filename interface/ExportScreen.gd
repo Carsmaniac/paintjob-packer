@@ -31,7 +31,7 @@ func change_image(dropdown_index: int) -> void:
 		get_node("Panel/TemplateImageETS").visible = true
 
 
-func choose_path():
+func choose_path() -> void:
 	var export_window := FileDialog.new()
 	export_window.title = "Export Mod"
 	export_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
@@ -42,7 +42,7 @@ func choose_path():
 	export_window.popup_file_dialog()
 
 
-func verify_path(file_path: String):
+func verify_path(file_path: String) -> void:
 	mod_name = get_node("../ModInfoScreen/Panel/Name/TextInput").text
 	if file_path != "":
 		if not DirAccess.dir_exists_absolute(file_path + "/" + mod_name):
@@ -62,7 +62,7 @@ func verify_path(file_path: String):
 		update_values()
 
 
-func change_warning():
+func change_warning() -> void:
 	if current_path == "":
 		get_node("Panel/LocationLabel").text = "Please select a location to export your mod"
 	else:
@@ -73,7 +73,7 @@ func change_warning():
 		get_node("Panel/WarningLabel").text = ""
 
 
-func change_status(new_message: String = ""):
+func change_status(new_message: String = "") -> void:
 	if new_message == "":
 		if valid_folder:
 			status_array = PackedStringArray(["Ready to export mod :)", "", ""])
@@ -83,5 +83,5 @@ func change_status(new_message: String = ""):
 			get_node("Panel/ExportButton").disabled = true
 	else:
 		var __ = status_array.insert(0, new_message)
-		status_array.remove_at(2)
+		status_array.remove_at(3)
 	get_node("Panel/StatusLabel").text = "\n".join(status_array)

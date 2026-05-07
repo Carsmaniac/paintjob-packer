@@ -1,11 +1,9 @@
 [gd_scene format=3 uid="uid://qogjjbkt12ds"]
 
-[ext_resource type="Theme" uid="uid://t8gshn41l055" path="res://SimpleBox.tres" id="1_i1h0y"]
 [ext_resource type="PackedScene" uid="uid://c032als0ywamf" path="res://interface/MainScreen.tscn" id="2_lmi3l"]
 [ext_resource type="Script" uid="uid://da3e7k0a1i50y" path="res://interface/ScreenLoader.gd" id="2_wnf8p"]
 [ext_resource type="Script" uid="uid://cy6kpcyr0cngc" path="res://interface/ThemeDropdown.gd" id="3_lom2f"]
 [ext_resource type="PackedScene" uid="uid://chtkqdfc7flig" path="res://interface/SetupScreen.tscn" id="3_wnf8p"]
-[ext_resource type="Theme" uid="uid://2i35ywbubie7" path="res://simple-box-theme/pjp-dark/PJPDark.tres" id="4_a38eb"]
 [ext_resource type="PackedScene" uid="uid://ber04fmjjbd4e" path="res://interface/ModInfoScreen.tscn" id="4_ldyqi"]
 [ext_resource type="PackedScene" uid="uid://chk5cp55kybmk" path="res://interface/ExportScreen.tscn" id="5_q8r4r"]
 [ext_resource type="Theme" uid="uid://c0qgosfcvjugb" path="res://simple-box-theme/pjp-light/PJPLight.tres" id="7_a38eb"]
@@ -65,9 +63,9 @@ popup/item_0/id = 1
 popup/item_1/text = "Light Mode"
 popup/item_1/id = 6
 script = ExtResource("3_lom2f")
-simplebox_theme = ExtResource("1_i1h0y")
-pjpdark_theme = ExtResource("4_a38eb")
-pjplight_theme = ExtResource("7_a38eb")
+
+[node name="ThemeTimer" type="Timer" parent="." unique_id=516298091]
+autostart = true
 
 [node name="PrevButton" type="Button" parent="." unique_id=952650051]
 layout_mode = 0
@@ -101,4 +99,5 @@ offset_right = 353.0
 offset_bottom = 61.0
 text = "Load"
 
+[connection signal="timeout" from="ThemeTimer" to="ThemeDropdown" method="switch_warning_theme"]
 [connection signal="pressed" from="NextButton" to="." method="switch_screen" binds= [true, false]]
