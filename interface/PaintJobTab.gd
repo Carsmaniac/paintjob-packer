@@ -31,6 +31,7 @@ func _on_cabin_dropdown_change(tab_index) -> void:
 			$SplitPaintJobs.visible = true
 		else:
 			$SplitPaintJobs.visible = false
+			$SplitPaintJobs/DropdownInput.selected = 0
 	
 	
 func update_vehicles_selected_number() -> void:

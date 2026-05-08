@@ -21,6 +21,7 @@ config/icon="uid://vgkd6qio0prp"
 
 VehicleDatabase="*res://scripts/VehicleDatabase.gd"
 PJPProject="*uid://bshluigindewa"
+Validation="*uid://bcltfemgtip76"
 
 [display]
 

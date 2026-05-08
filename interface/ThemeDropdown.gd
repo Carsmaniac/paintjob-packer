@@ -5,7 +5,7 @@ var pjp_light_theme: Theme
 
 var pjp_dark_warning_theme: Theme
 var pjp_light_warning_theme: Theme
-var warning_theme_displayed = false
+var warning_theme_displayed: bool = false
 
 var dark_themes: Array[Theme]
 var light_themes: Array[Theme]
