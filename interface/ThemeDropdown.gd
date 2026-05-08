@@ -24,6 +24,13 @@ func _ready() -> void:
 	
 	dark_themes = [pjp_dark_theme]
 	light_themes = [pjp_light_theme]
+	
+	if DisplayServer.is_dark_mode():
+		change_theme(0)
+		self.selected = 0
+	else:
+		change_theme(1)
+		self.selected = 1
 
 
 func change_theme(choice_index) -> void:
