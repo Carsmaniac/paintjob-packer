@@ -6,7 +6,7 @@ class_name VariableInput
 @export_enum("paint_job_name", "price", "internal_name", "cabin_support", 
 		"split_cabins", "unlock_level", "mod_name", "author_name", "version", "description") var input_type: String
 
-var warning: String
+var warnings: Array[PackedStringArray] = []
 
 
 func _ready() -> void:
@@ -42,48 +42,12 @@ func _ready() -> void:
 		$NumberInput.position = Vector2(0, 80)
 	elif input_type == "description":
 		$TextBox.visible = true
-		
 
-func validate_text_input(__) -> void:
-	# TODO: replace this function with validation system
-	var string: String = $TextInput.text
-	if input_type in ["price", "unlock_level"]:
-		if string != "" and not string.is_valid_int():
-			warning = "Must be a number with no decimal point or other characters."
-			$WarningButton.visible = true
-		else:
-			$WarningButton.visible = false
-			
-	elif input_type == "internal_name":
-		var not_alphanumeric: bool = false
-		for letter in string:
-			if letter not in "abcdefghijklmnopqrstuvwxyz0123456789_":
-				not_alphanumeric = true
-		var max_length: int = 12
-		if get_node("../SplitPaintJobs/DropdownInput").selected == 1:
-			max_length = 10
-		
-		if string != "":
-			if not_alphanumeric:
-				warning = "Must consist of only lowercase letters, numbers and underscores.\n\nPermitted characters:\nabcdefghijklmnopqrstuvwxyz0123456789_"
-				$WarningButton.visible = true
-			elif len(string) > max_length:
-				warning = "Must be %s characters or fewer." % max_length
-				$WarningButton.visible = true
-			# TODO: detect non-unique internal names
-			# elif not_unique:
-			#     warning = "Must be unique, cannot be the same as the internal name of any other paint job."
-			#     $WarningButton.visible = true
-			else:
-				$WarningButton.visible = false
-		else:
-			$WarningButton.visible = false
 
-	
 func show_warnings() -> void:
 	var popup := AcceptDialog.new()
 	popup.title = "Warning"
-	popup.dialog_text = warning
+	popup.dialog_text = "warning"
 	popup.size.y = 0
 	popup.ok_button_text = "Okay"
 	popup.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")

@@ -31,6 +31,15 @@ offset_right = 313.0
 offset_bottom = 213.0
 wrap_mode = 1
 
+[node name="NumberInput" type="SpinBox" parent="." unique_id=1668907309]
+layout_mode = 0
+offset_top = 39.0
+offset_right = 126.0
+offset_bottom = 70.0
+max_value = 10000.0
+rounded = true
+allow_greater = true
+
 [node name="CheckboxInput" type="CheckBox" parent="." unique_id=1502634629]
 layout_mode = 0
 offset_top = 36.0
