@@ -44,6 +44,11 @@ func load_vehicle_lists(game: String) -> void:
 			else:
 				trucks.append(vehicle)
 
+	truck_mods.sort_custom(func(a, b): return a["name"] < b["name"])
+	trailer_mods.sort_custom(func(a, b): return a["name"] < b["name"])
+	bus_mods.sort_custom(func(a, b): return a["name"] < b["name"])
+	car_mods.sort_custom(func(a, b): return a["name"] < b["name"])
+
 
 func load_vehicle_file(file_path: String) -> Dictionary:
 	var file := FileAccess.open(file_path, FileAccess.READ)
