@@ -16,15 +16,16 @@ func _ready() -> void:
 	$DropdownInput.visible = false
 	$CheckboxInput.visible = false
 	$TextBox.visible = false
+	$NumberInput.visible = false
 	
 	$WarningButton.connect("pressed", show_warnings)
 	#$HelpButton.tooltip_text = help_text
 	$HelpButton.connect("pressed", show_help)
 	
-	if input_type in ["paint_job_name", "internal_name", "price", "mod_name", "author_name", "version"]:
+	if input_type in ["paint_job_name", "internal_name", "mod_name", "author_name"]:
 		$TextInput.visible = true
-		if input_type in ["price", "version"]:
-			$TextInput.size[0] = 100
+	elif input_type in ["price", "version"]:
+			$NumberInput.visible = true
 	elif input_type in ["cabin_support", "split_cabins"]:
 		$DropdownInput.visible = true
 		if input_type == "cabin_support":
@@ -37,10 +38,8 @@ func _ready() -> void:
 	elif input_type == "unlock_level":
 		$CheckboxInput.visible = true
 		$CheckboxInput.button_pressed = true
-		$TextInput.visible = false
-		$TextInput.position = Vector2(0, 80)
-		$TextInput.size[0] = 100
-		$TextInput.connect("text_changed", validate_text_input)
+		$NumberInput.visible = true
+		$NumberInput.position = Vector2(0, 80)
 	elif input_type == "description":
 		$TextBox.visible = true
 		
