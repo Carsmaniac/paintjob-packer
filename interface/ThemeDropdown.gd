@@ -62,6 +62,5 @@ func set_warning_theme(new_theme: Theme) -> void:
 		if child is VariableInput:
 			child.find_child("WarningButton").theme = new_theme
 	for child in get_node("../MainScreen/PaintJobTabContainer").get_children():
-		for grandchild in child.get_children():
-			if grandchild is VariableInput:
-				grandchild.find_child("WarningButton").theme = new_theme
+		for warning_button in child.find_children("WarningButton"):
+			warning_button.theme = new_theme

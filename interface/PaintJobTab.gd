@@ -2,6 +2,8 @@ extends Control
 
 var vehicles_selected: Array = []
 
+var warning: String
+
 
 func _ready() -> void:
 	var __ = $Name/TextInput.connect("text_changed", Callable(get_parent(), "rename_tab"))
