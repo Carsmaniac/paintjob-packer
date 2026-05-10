@@ -53,10 +53,17 @@ func _on_tab_changed(index: int) -> void:
 				load_vehicles_for_tab(tab_inst)
 				tab_inst.name = "+" 
 				add_child.call_deferred(tab_inst)
-				if len(get_children()) > 2:
-					get_tab_bar().tab_close_display_policy = TabBar.CLOSE_BUTTON_SHOW_ACTIVE_ONLY
-				else:
-					get_tab_bar().tab_close_display_policy = TabBar.CLOSE_BUTTON_SHOW_NEVER
+				call_deferred("toggle_close_buttons")
+		if get_node("../..").current_screen_index == 2:
+			if len(get_tab_control(index).get_node("VehicleTabContainer").get_children()) == 0:
+				load_vehicles_for_tab(get_tab_control(index))
+
+
+func toggle_close_buttons():
+	if len(get_children()) > 2:
+		get_tab_bar().tab_close_display_policy = TabBar.CLOSE_BUTTON_SHOW_ACTIVE_ONLY
+	else:
+		get_tab_bar().tab_close_display_policy = TabBar.CLOSE_BUTTON_SHOW_NEVER
 
 
 func _get_tab_names() -> Array:
