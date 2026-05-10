@@ -85,6 +85,10 @@ func switch_screen(next: bool, startup: bool = false) -> void:
 			prev_button.connect("pressed", PJPProject.confirm_return)
 		next_button.disabled = true
 		next_button.text = "Next"
+		if not next_button.is_connected("pressed", switch_screen.bind(true)):
+			next_button.connect("pressed", switch_screen.bind(true))
+		if next_button.is_connected("pressed", Validation.validate_all_inputs):
+			next_button.disconnect("pressed", Validation.validate_all_inputs)
 		if loaded_game != "none":
 			next_button.disabled = false
 			save_button.disabled = false
@@ -97,6 +101,10 @@ func switch_screen(next: bool, startup: bool = false) -> void:
 		next_button.disabled = false
 		next_button.visible = true
 		next_button.text = "Export"
+		if next_button.is_connected("pressed", switch_screen.bind(true)):
+			next_button.disconnect("pressed", switch_screen.bind(true))
+		if not next_button.is_connected("pressed", Validation.validate_all_inputs):
+			next_button.connect("pressed", Validation.validate_all_inputs)
 		save_button.disabled = false
 	elif current_screen_index == 3:
 		next_button.visible = false

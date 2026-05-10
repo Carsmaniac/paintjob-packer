@@ -67,18 +67,19 @@ popup/item_1/id = 6
 script = ExtResource("3_lom2f")
 
 [node name="ThemeTimer" type="Timer" parent="." unique_id=516298091]
+wait_time = 0.5
 
 [node name="PrevButton" type="Button" parent="." unique_id=952650051]
 layout_mode = 0
 offset_left = 32.0
 offset_top = 727.0
-offset_right = 122.0
+offset_right = 149.0
 offset_bottom = 767.0
 text = "Previous"
 
 [node name="NextButton" type="Button" parent="." unique_id=1978448322]
 layout_mode = 0
-offset_left = 940.0
+offset_left = 916.0
 offset_top = 728.0
 offset_right = 1008.0
 offset_bottom = 768.0

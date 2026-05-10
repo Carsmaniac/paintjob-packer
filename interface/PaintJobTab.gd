@@ -1,8 +1,6 @@
 extends Control
 
-var vehicles_selected: Array = []
-
-var warning: String
+var warnings: Array = []
 
 
 func _ready() -> void:
@@ -44,48 +42,31 @@ func update_vehicles_selected_number() -> void:
 	$SelectedLabel.text = "Vehicles Supported (%s)" % total_vehicles
 
 
+func show_hide_warning_button() -> void:
+	if len(warnings) > 0:
+		$WarningButton.visible = true
+	else:
+		$WarningButton.visible = false
+
+
+func show_warnings() -> void:
+	var popup := AcceptDialog.new()
+	popup.title = "Warning"
+	var dialogue_text = ""
+	for warning in warnings:
+		dialogue_text += "%s\n%s\n\n" % [warning[0], warning[1]]
+	dialogue_text = dialogue_text.substr(0, len(dialogue_text) - 1)
+	popup.dialog_text = dialogue_text
+	popup.size.y = 0
+	popup.ok_button_text = "Okay"
+	popup.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
+	self.add_child(popup)
+	popup.popup_centered()
+
+
 func enable_disable_unlock_level(unlock_default: bool) -> void:
-	$Unlock/TextInput.visible = !unlock_default
+	$Unlock/NumberInput.visible = !unlock_default
 	if unlock_default:
 		$Unlock/HelpButton.position = Vector2(321, 39)
 	else:
 		$Unlock/HelpButton.position = Vector2(321, 80)
-
-
-func validate_field(field_contents: String, field_type: String) -> String:
-	
-	return ""
-
-#func validate_text_input(__) -> void:
-	#var string: String = $TextInput.text
-	#if input_type in ["text_number", "checkbox"]:
-		#if string != "" and not string.is_valid_int():
-			#warning = "Must be a number with no decimal point or other characters."
-			#$WarningButton.visible = true
-		#else:
-			#$WarningButton.visible = false
-			#
-	#elif input_type == "text_alphanumeric":
-		#var not_alphanumeric: bool = false
-		#for letter in string:
-			#if letter not in "abcdefghijklmnopqrstuvwxyz0123456789_":
-				#not_alphanumeric = true
-		#var max_length: int = 12
-		#if get_node("../SplitPaintJobs/DropdownInput").selected == 1:
-			#max_length = 10
-		#
-		#if string != "":
-			#if not_alphanumeric:
-				#warning = "Must consist of only lowercase letters, numbers and underscores.\n\nPermitted characters:\nabcdefghijklmnopqrstuvwxyz0123456789_"
-				#$WarningButton.visible = true
-			#elif len(string) > max_length:
-				#warning = "Must be %s characters or fewer." % max_length
-				#$WarningButton.visible = true
-			## TODO: detect non-unique internal names
-			## elif not_unique:
-			##     warning = "Must be unique, cannot be the same as the internal name of any other paint job."
-			##     $WarningButton.visible = true
-			#else:
-				#$WarningButton.visible = false
-		#else:
-			#$WarningButton.visible = false
