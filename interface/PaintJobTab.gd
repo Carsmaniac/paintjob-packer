@@ -39,7 +39,7 @@ func update_vehicles_selected_number() -> void:
 	for selection in get_vehicle_selections():
 		if selection.find_child("VehicleCheckbox").button_pressed:
 			total_vehicles += 1
-	$SelectedLabel.text = "Vehicles Supported (%s)" % total_vehicles
+	$SelectedLabel.text = tr("PJOB_VEHICLES") % total_vehicles
 
 
 func show_hide_warning_button() -> void:
@@ -51,14 +51,14 @@ func show_hide_warning_button() -> void:
 
 func show_warnings() -> void:
 	var popup := AcceptDialog.new()
-	popup.title = "Warning"
+	popup.title = tr("WARNING_TITLE")
 	var dialogue_text = ""
 	for warning in warnings:
 		dialogue_text += "%s\n%s\n\n" % [warning[0], warning[1]]
 	dialogue_text = dialogue_text.substr(0, len(dialogue_text) - 1)
 	popup.dialog_text = dialogue_text
 	popup.size.y = 0
-	popup.ok_button_text = "Okay"
+	popup.ok_button_text = tr("BUTTON_OKAY")
 	popup.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
 	self.add_child(popup)
 	popup.popup_centered()

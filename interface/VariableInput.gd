@@ -10,7 +10,7 @@ var warnings: Array = []
 
 
 func _ready() -> void:
-	$Label.text = input_name
+	$Label.text = tr(input_name)
 	$WarningButton.visible = false
 	$TextInput.visible = false
 	$DropdownInput.visible = false
@@ -31,18 +31,29 @@ func _ready() -> void:
 	elif input_type in ["cabin_support", "split_cabins"]:
 		$DropdownInput.visible = true
 		if input_type == "cabin_support":
-			$DropdownInput.add_item("Largest cabin only")
-			$DropdownInput.add_item("All cabins")
-			$DropdownInput.add_item("Selected cabins")
+			$DropdownInput.add_item(tr("CABIN_LARGEST"))
+			$DropdownInput.add_item(tr("CABIN_ALL"))
+			$DropdownInput.add_item(tr("CABIN_SELECTED"))
 		else:
-			$DropdownInput.add_item("Don't split, one per truck")
-			$DropdownInput.add_item("Split, one per cabin")
+			$DropdownInput.add_item(tr("CABIN_DSPLIT"))
+			$DropdownInput.add_item(tr("CABIN_SPLIT"))
 	elif input_type == "unlock_level":
 		$CheckboxInput.visible = true
 		$CheckboxInput.button_pressed = true
 		$NumberInput.position = Vector2(0, 80)
 	elif input_type == "description":
 		$TextBox.visible = true
+
+
+func update_localisation() -> void:
+	$Label.text = tr(input_name)
+	if input_type == "cabin_support":
+		$DropdownInput.set_item_text(0, tr("CABIN_LARGEST"))
+		$DropdownInput.set_item_text(1, tr("CABIN_ALL"))
+		$DropdownInput.set_item_text(2, tr("CABIN_SELECTED"))
+	elif input_type == "split_cabins":
+		$DropdownInput.set_item_text(0, tr("CABIN_DSPLIT"))
+		$DropdownInput.set_item_text(1, tr("CABIN_SPLIT"))
 
 
 func show_hide_warning_button() -> void:
@@ -54,14 +65,14 @@ func show_hide_warning_button() -> void:
 
 func show_warnings() -> void:
 	var popup := AcceptDialog.new()
-	popup.title = "Warning"
+	popup.title = tr("WARNING_TITLE")
 	var dialogue_text = ""
 	for warning in warnings:
 		dialogue_text += "%s\n%s\n\n" % [warning[0], warning[1]]
 	dialogue_text = dialogue_text.substr(0, len(dialogue_text) - 1)
 	popup.dialog_text = dialogue_text
 	popup.size.y = 0
-	popup.ok_button_text = "Okay"
+	popup.ok_button_text = tr("BUTTON_OKAY")
 	popup.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
 	self.add_child(popup)
 	popup.popup_centered()
@@ -69,11 +80,11 @@ func show_warnings() -> void:
 
 func show_help() -> void:
 	var popup := AcceptDialog.new()
-	popup.title = "Help"
+	popup.title = tr("WARNING_HELP")
 	popup.dialog_text = help_text + "\n"
 	# TODO: Set help_text for price based on game selected
 	popup.size.y = 0
-	popup.ok_button_text = "Okay"
+	popup.ok_button_text = tr("BUTTON_OKAY")
 	popup.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
 	self.add_child(popup)
 	popup.popup_centered()

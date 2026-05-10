@@ -59,7 +59,7 @@ func new() -> void:
 	paint_jobs.reverse()
 	for child in paint_jobs:
 		paint_job_tab_container.remove_child(child)
-	paint_job_tab_container.add_tab("New Paint Job")
+	paint_job_tab_container.add_tab(tr("TAB_NEW"))
 	paint_job_tab_container.add_tab("+")
 	var mod_screen: Node = get_node("../ScreenLoader/ModInfoScreen")
 	mod_screen.find_child("Name").find_child("TextInput").text = ""

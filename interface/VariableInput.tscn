@@ -45,7 +45,7 @@ layout_mode = 0
 offset_top = 36.0
 offset_right = 313.0
 offset_bottom = 60.0
-text = "Unlocked by default"
+text = "PJOB_UNLOCKD"
 
 [node name="DropdownInput" type="OptionButton" parent="." unique_id=787947751]
 layout_mode = 0

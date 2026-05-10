@@ -7,7 +7,7 @@ const TabScene := preload("res://interface/PaintJobTab.tscn")
 func _ready() -> void:
 	get_tab_bar().tab_close_display_policy = TabBar.CLOSE_BUTTON_SHOW_NEVER
 	get_tab_bar().connect("tab_close_pressed", remove_tab)
-	add_tab("New Paint Job")
+	add_tab(tr("TAB_NEW"))
 	add_tab("+")
 	current_tab = 0
 	
@@ -47,7 +47,7 @@ func remove_tab(tab_index: int) -> void:
 func _on_tab_changed(index: int) -> void:
 	if index != -1:
 		if get_tab_control(index).name == "+":
-			rename_tab("New Paint Job", index)
+			rename_tab(tr("TAB_NEW"), index)
 			if get_tab_count() < max_tabs:
 				var tab_inst := TabScene.instantiate()
 				load_vehicles_for_tab(tab_inst)
@@ -75,7 +75,7 @@ func _get_tab_names() -> Array:
 
 func rename_tab(new_name: String, index: int=current_tab) -> void:
 	if new_name == "":
-		new_name = "New Paint Job"
+		new_name = tr("TAB_NEW")
 	var tab_names: Array = _get_tab_names()
 	if new_name in tab_names:
 		for i in range(max_tabs):

@@ -24,7 +24,7 @@ offset_left = 28.0
 offset_top = 30.0
 offset_right = 202.0
 offset_bottom = 53.0
-text = "Mod Manager Info"
+text = "MOD_TITLE"
 
 [node name="Name" parent="Panel" unique_id=266219902 instance=ExtResource("1_gm1yk")]
 layout_mode = 0
@@ -32,7 +32,7 @@ offset_left = 28.0
 offset_top = 67.0
 offset_right = 28.0
 offset_bottom = 67.0
-input_name = "Mod Name"
+input_name = "MOD_NAME"
 help_text = "Your paint job's name, shown at the upgrade shop in-game.
 
 e.g. Transit Co"
@@ -44,7 +44,7 @@ offset_left = 28.0
 offset_top = 158.0
 offset_right = 28.0
 offset_bottom = 158.0
-input_name = "Author"
+input_name = "MOD_AUTHOR"
 help_text = "How much your paint job costs in-game, in euro.
 
 e.g. 6000"
@@ -56,7 +56,7 @@ offset_left = 28.0
 offset_top = 249.0
 offset_right = 28.0
 offset_bottom = 249.0
-input_name = "Version"
+input_name = "MOD_VERSION"
 help_text = "If checked, your paint job can be purchased from level 0, such as on a brand new profile.
 
 If not checked, what level your paint job is purchasable from."
@@ -68,7 +68,7 @@ offset_left = 28.0
 offset_top = 332.0
 offset_right = 28.0
 offset_bottom = 332.0
-input_name = "Description"
+input_name = "MOD_DESCRIPTION"
 help_text = "If checked, your paint job can be purchased from level 0, such as on a brand new profile.
 
 If not checked, what level your paint job is purchasable from."
@@ -80,7 +80,7 @@ offset_left = 482.0
 offset_top = 118.0
 offset_right = 932.0
 offset_bottom = 141.0
-text = "Which game is your mod for?"
+text = "MOD_QUESTION"
 horizontal_alignment = 1
 
 [node name="ATSImage" type="TextureRect" parent="Panel" unique_id=1839613996]
@@ -110,7 +110,8 @@ offset_top = 506.0
 offset_right = 694.0
 offset_bottom = 546.0
 toggle_mode = true
-text = "American Truck Simulator"
+text = "GAME_ATS"
+clip_text = true
 
 [node name="ETSButton" type="Button" parent="Panel" unique_id=885370677]
 layout_mode = 0
@@ -119,4 +120,5 @@ offset_top = 506.0
 offset_right = 949.0
 offset_bottom = 546.0
 toggle_mode = true
-text = "Euro Truck Simulator 2"
+text = "GAME_ETS"
+clip_text = true

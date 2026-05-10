@@ -31,12 +31,16 @@ window/size/resizable=false
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/native_dialogs/plugin.cfg")
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg")
 
 [gui]
 
 timers/tooltip_delay_sec=0.0
 common/drop_mouse_on_gui_input_disabled=true
+
+[internationalization]
+
+locale/translations=PackedStringArray("res://l10n/lang.ee.translation", "res://l10n/lang.en_GB.translation", "res://l10n/lang.en.translation")
 
 [locale]
 

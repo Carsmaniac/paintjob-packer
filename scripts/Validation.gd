@@ -17,24 +17,24 @@ func validate_all_inputs() -> void:
 	mod_name.warnings = []
 	if mod_name_text == "":
 		mod_screen_valid = false
-		mod_name.warnings.append(PackedStringArray(["Mod name is blank", "Mod name cannot be blank, please enter a mod name"]))
-		warnings.append("Mod name is blank")
+		mod_name.warnings.append(PackedStringArray([tr("WARN_MNAME_BLANKS"), tr("WARN_MNAME_BLANK")]))
+		warnings.append(tr("WARN_MNAME_BLANKS"))
 	if has_invalid_file_character(mod_name_text):
 		mod_screen_valid = false
-		mod_name.warnings.append(PackedStringArray(["Mod name contains invalid character", "Mod name cannot contain the following characters:\n< > : \" / \\ | ? *"]))
-		warnings.append("Mod name contains invalid characters")
+		mod_name.warnings.append(PackedStringArray([tr("WARN_MNAME_INVALS"), tr("WARN_MNAME_INVAL") + "\n< > : \" / \\ | ? *"]))
+		warnings.append(tr("WARN_MNAME_INVALS"))
 	if ends_in_full_stop(mod_name_text):
 		mod_screen_valid = false
-		mod_name.warnings.append(PackedStringArray(["Mod name ends with a full stop", "Mod name cannot end with a full stop ( . )"]))
-		warnings.append("Mod name ends with a full stop")
+		mod_name.warnings.append(PackedStringArray([tr("WARN_MNAME_FULLS"), tr("WARN_MNAME_FULL") + " ( . )"]))
+		warnings.append(tr("WARN_MNAME_FULLS"))
 	if ends_in_space(mod_name_text):
 		mod_screen_valid = false
-		mod_name.warnings.append(PackedStringArray(["Mod name ends with a space", "Mod name cannot end with a space"]))
-		warnings.append("Mod name ends with a space")
+		mod_name.warnings.append(PackedStringArray([tr("WARN_MNAME_SPCS"), tr("WARN_MNAME_SPC")]))
+		warnings.append(tr("WARN_MNAME_SPCS"))
 	if is_reserved_file_name(mod_name_text):
 		mod_screen_valid = false
-		mod_name.warnings.append(PackedStringArray(["Mod name is a reserved file name", "Mod name cannot be any of the following:\n CON, PRN, AUX, NUL, COM1-9, LPT1-9"]))
-		warnings.append("Mod name is a reserved file name")
+		mod_name.warnings.append(PackedStringArray([tr("WARN_MNAME_RESERS"), tr("WARN_MNAME_RESER") + "\n CON, PRN, AUX, NUL, COM1-9, LPT1-9"]))
+		warnings.append(tr("WARN_MNAME_RESERS"))
 	mod_name.show_hide_warning_button()
 	
 	var mod_author: Node = mod_screen.get_node("Panel/Author")
@@ -177,10 +177,10 @@ func validate_all_inputs() -> void:
 	
 	if len(warnings) > 0:
 		var popup := AcceptDialog.new()
-		popup.title = "Warning"
+		popup.title = tr("WARNING_TITLE")
 		popup.dialog_text = "The following errors need to be fixed before continuing:\n\n%s\n" % "\n".join(warnings)
 		popup.size.y = 0
-		popup.ok_button_text = "Okay"
+		popup.ok_button_text = tr("BUTTON_OKAY")
 		popup.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
 		self.add_child(popup)
 		popup.popup_centered()
