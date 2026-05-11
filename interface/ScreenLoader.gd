@@ -14,8 +14,10 @@ func _ready() -> void:
 	$SaveButton.connect("pressed", PJPProject.save_inform)
 	$SetupScreen/Panel/CreateButton.connect("pressed", PJPProject.new)
 	$SetupScreen/Panel/LoadButton.connect("pressed", PJPProject.load_dialogue)
+	$SetupScreen/Panel/AboutButton.connect("pressed", switch_screen.bind(false))
 	$SetupScreen/Panel/CreateImage.connect("gui_input", maybe_click.bind("new"))
 	$SetupScreen/Panel/LoadImage.connect("gui_input", maybe_click.bind("load"))
+	$AboutScreen/OkayButton.connect("pressed", switch_screen.bind(true))
 	$ModInfoScreen/Panel/ATSButton.connect("pressed", switch_game.bind("ats"))
 	$ModInfoScreen/Panel/ETSButton.connect("pressed", switch_game.bind("ets"))
 	$ModInfoScreen/Panel/ATSImage.connect("gui_input", maybe_click.bind("ats"))
@@ -62,6 +64,7 @@ func switch_game(game: String) -> void:
 func switch_screen(next: bool, startup: bool = false) -> void:
 	for screen in screens:
 		screen.visible = false
+		$AboutScreen.visible = false
 	if next:
 		current_screen_index += 1
 	else:
@@ -69,12 +72,22 @@ func switch_screen(next: bool, startup: bool = false) -> void:
 	if startup:
 		current_screen_index = 0
 	
-	screens[current_screen_index].visible = true
-	if current_screen_index == 0:
+	if current_screen_index == -1:
+		$AboutScreen.visible = true
+	else:
+		screens[current_screen_index].visible = true
+	if current_screen_index == -1:
+		prev_button.visible = false
+		next_button.visible = false
+		$LoadButton.disabled = true
+	elif current_screen_index == 0:
 		prev_button.disabled = true
+		prev_button.visible = true
 		next_button.disabled = true
+		next_button.visible = true
 		next_button.text = tr("BUTTON_NEXT")
 		save_button.disabled = true
+		$LoadButton.disabled = false
 		if not $LoadButton.is_connected("pressed", PJPProject.confirm_load):
 			$LoadButton.connect("pressed", PJPProject.confirm_load)
 	elif current_screen_index == 1:

@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://c032als0ywamf" path="res://interface/MainScreen.tscn" id="2_lmi3l"]
 [ext_resource type="Script" uid="uid://da3e7k0a1i50y" path="res://interface/ScreenLoader.gd" id="2_wnf8p"]
 [ext_resource type="Script" uid="uid://cy6kpcyr0cngc" path="res://interface/ThemeDropdown.gd" id="3_lom2f"]
+[ext_resource type="PackedScene" uid="uid://biv6yh7kfq5do" path="res://interface/AboutScreen.tscn" id="3_q8r4r"]
 [ext_resource type="PackedScene" uid="uid://chtkqdfc7flig" path="res://interface/SetupScreen.tscn" id="3_wnf8p"]
 [ext_resource type="PackedScene" uid="uid://ber04fmjjbd4e" path="res://interface/ModInfoScreen.tscn" id="4_ldyqi"]
 [ext_resource type="PackedScene" uid="uid://chk5cp55kybmk" path="res://interface/ExportScreen.tscn" id="5_q8r4r"]
@@ -25,6 +26,10 @@ layout_mode = 0
 offset_right = 1040.0
 offset_bottom = 800.0
 color = Color(0.29803923, 0.29803923, 0.29803923, 1)
+
+[node name="AboutScreen" parent="." unique_id=633265906 instance=ExtResource("3_q8r4r")]
+visible = false
+layout_mode = 1
 
 [node name="MainScreen" parent="." unique_id=679194180 instance=ExtResource("2_lmi3l")]
 layout_mode = 0

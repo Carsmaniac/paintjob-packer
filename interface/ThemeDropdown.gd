@@ -64,3 +64,4 @@ func set_warning_theme(new_theme: Theme) -> void:
 	for child in get_node("../MainScreen/PaintJobTabContainer").get_children():
 		for warning_button in child.find_children("WarningButton"):
 			warning_button.theme = new_theme
+	get_node("../SetupScreen/Panel/UpdateChecker/UpdateButton").theme = new_theme

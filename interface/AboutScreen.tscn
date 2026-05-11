@@ -1,0 +1,121 @@
+[gd_scene format=3 uid="uid://biv6yh7kfq5do"]
+
+[ext_resource type="Script" uid="uid://biyatkh6667d" path="res://interface/AboutScreen.gd" id="1_jecae"]
+
+[node name="AboutScreen" type="Control" unique_id=633265906]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jecae")
+
+[node name="AboutTabContainer" type="TabContainer" parent="." unique_id=293578296]
+layout_mode = 0
+offset_left = 111.0
+offset_top = 108.0
+offset_right = 929.0
+offset_bottom = 727.0
+current_tab = 0
+
+[node name="Contributors" type="Control" parent="AboutTabContainer" unique_id=995781834]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="PJP1Heading" type="Label" parent="AboutTabContainer/Contributors" unique_id=1461756827]
+layout_mode = 0
+offset_left = 242.0
+offset_top = 103.0
+offset_right = 582.0
+offset_bottom = 126.0
+text = "Paint Job Packer Contributors"
+horizontal_alignment = 1
+
+[node name="ContributorsTitle" type="Label" parent="AboutTabContainer/Contributors" unique_id=1365849646]
+layout_mode = 0
+offset_left = 99.0
+offset_top = 210.0
+offset_right = 208.0
+offset_bottom = 516.0
+text = "Developer:
+
+Contributors:
+
+Translators:"
+horizontal_alignment = 2
+autowrap_mode = 3
+
+[node name="Contributors1" type="Label" parent="AboutTabContainer/Contributors" unique_id=1635576308]
+layout_mode = 0
+offset_left = 233.0
+offset_top = 210.0
+offset_right = 392.0
+offset_bottom = 467.0
+text = "Carsmaniac
+"
+autowrap_mode = 3
+
+[node name="Contributors2" type="Label" parent="AboutTabContainer/Contributors" unique_id=2082677231]
+layout_mode = 0
+offset_left = 393.0
+offset_top = 210.0
+offset_right = 555.0
+offset_bottom = 508.0
+autowrap_mode = 3
+
+[node name="Contributors3" type="Label" parent="AboutTabContainer/Contributors" unique_id=1011051633]
+layout_mode = 0
+offset_left = 553.0
+offset_top = 210.0
+offset_right = 732.0
+offset_bottom = 520.0
+autowrap_mode = 3
+
+[node name="ContributionLink" type="Label" parent="AboutTabContainer/Contributors" unique_id=2138893553]
+layout_mode = 0
+offset_left = 233.0
+offset_top = 262.0
+offset_right = 710.0
+offset_bottom = 288.0
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+text = "Want to contribute to Paint Job Packer on GitHub? Click here!"
+autowrap_mode = 3
+
+[node name="TranslationLink" type="Label" parent="AboutTabContainer/Contributors" unique_id=754468672]
+layout_mode = 0
+offset_left = 233.0
+offset_top = 314.0
+offset_right = 724.0
+offset_bottom = 340.0
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+text = "Want to help translate Paint Job Packer on Weblate? Click here!"
+autowrap_mode = 3
+
+[node name="Acknowledgement of Country" type="Control" parent="AboutTabContainer" unique_id=407968040]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Acknowledgement" type="Label" parent="AboutTabContainer/Acknowledgement of Country" unique_id=939840885]
+layout_mode = 0
+offset_left = 82.0
+offset_top = 167.0
+offset_right = 738.0
+offset_bottom = 414.0
+text = "I acknowledge the traditional owners of the land on which Paint Job Packer was developed, the Darramurragal People, and the Gadigal People of the Eora nation, the Knowledge Holders and caretakers of this land. I acknowledge that sovereignty was never ceded. This always has been and always will be Aboriginal land.
+
+I acknowledge that land rights have not been restored, that Indigenous Australians are not treated fairly by our justice system, and that we have a long way to go towards true reconciliation. "
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="OkayButton" type="Button" parent="." unique_id=780966066]
+layout_mode = 0
+offset_left = 456.0
+offset_top = 599.0
+offset_right = 586.0
+offset_bottom = 653.0
+text = "BUTTON_OKAY"
+clip_text = true

@@ -14,7 +14,9 @@ BUTTON_CONTINUE,Continue
 BUTTON_NEVERMIND,Nevermind
 BUTTON_YES,Yes
 BUTTON_NO,No
+BUTTON_UPDATE,Update
 SETUP_VERSION,Version %s
+SETUP_UPDATE,New version available!
 SETUP_CREATE,Create a new project
 SETUP_LOAD,Load an existing project
 SETUP_WELCOME,Welcome to Paint Job Packer
