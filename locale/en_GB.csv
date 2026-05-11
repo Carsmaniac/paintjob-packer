@@ -1,0 +1,65 @@
+GAME_ATS,American Truck Simulator
+GAME_ETS,Euro Truck Simulator 2
+BUTTON_SAVE,Save
+BUTTON_LOAD,Load
+BUTTON_PREVIOUS,Previous
+BUTTON_NEXT,Next
+BUTTON_ABOUT,About
+BUTTON_EXPORT,Export
+BUTTON_ADVANCED,Advanced
+BUTTON_OKAY,Okay
+BUTTON_CONFIRM,Confirm
+BUTTON_NEVERMIND,Nevermind
+SETUP_VERSION,Version %s
+SETUP_CREATE,Create a new project
+SETUP_LOAD,Load an existing project
+SETUP_WELCOME,Welcome to Paint Job Packer
+SETUP_QUESTION,What would you like to do today?
+MOD_TITLE,Mod Manager Info
+MOD_NAME,Mod Name
+MOD_AUTHOR,Author
+MOD_VERSION,Version
+MOD_DESCRIPTION,Description
+MOD_QUESTION,Which game is your mod for?
+CABIN_LARGEST,Largest cabin only
+CABIN_ALL,All cabins
+CABIN_SELECTED,Selected cabins
+CABIN_DSPLIT,"Don't split, one per truck"
+CABIN_SPLIT,"Split, one per cabin"
+PJOB_TITLE,In-Game Paint Job Info
+PJOB_NAME,Name
+PJOB_PRICE,Price
+PJOB_UNLOCK,Unlock level
+PJOB_UNLOCKD,Unlocked by default
+PJOB_VEHICLES,Vehicles Supported (%s)
+INTERNAL_TITLE,Other Settings
+INTERNAL_NAME,Internal name
+INTERNAL_CABIN,Supported cabins
+INTERNAL_PJOB,Split paint jobs
+TAB_TRUCKS,Trucks
+TAB_TRAILERS,Trailers
+TAB_BUSES,Buses
+TAB_CARS,Cars
+TAB_TRUCK_MODS,Truck Mods
+TAB_TRAILER_MODS,Trailer Mods
+TAB_BUS_MODS,Bus Mods
+TAB_CAR_MODS,Car Mods
+TAB_NEW,New Paint Job
+EXPORT_TITLE,Mod Export Options
+EXPORT_CHOOSE,Choose export location
+EXPORT_PL_SELECT,Please select a location to export your mod
+EXPORT_PL_CHOOSE,Please choose a valid export folder to continue
+EXPORT_EMPTY,Use empty placeholders
+EXPORT_TEMPLATES,Use templates
+WARN_MNAME_BLANK,"Mod name cannot be blank, please enter a mod name"
+WARN_MNAME_BLANKS,Mod name is blank
+WARN_MNAME_INVAL,Mod name cannot contain the following characters:
+WARN_MNAME_INVALS,Mod name contains invalid characters
+WARN_MNAME_FULL,Mod name cannot end with a full stop
+WARN_MNAME_FULLS,Mod name ends with a full stop
+WARN_MNAME_SPC,Mod name cannot end with a space
+WARN_MNAME_SPCS,Mod name ends with a space
+WARN_MNAME_RESER,Mod name cannot be any of the following:
+WARN_MNAME_RESERS,Mod name is a reserved file name
+WARNING_HELP,Help
+WARNING_TITLE,Warning
