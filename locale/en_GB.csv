@@ -56,7 +56,7 @@ WARN_MNAME_BLANK,"Mod name cannot be blank, please enter a mod name"
 WARN_MNAME_BLANKS,Mod name is blank
 WARN_MNAME_INVAL,Mod name cannot contain the following characters:
 WARN_MNAME_INVALS,Mod name contains invalid characters
-WARN_MNAME_FULL,Mod name cannot end with a full stop
+WARN_MNAME_FULL,Mod name cannot end with a full stop ( . )
 WARN_MNAME_FULLS,Mod name ends with a full stop
 WARN_MNAME_SPC,Mod name cannot end with a space
 WARN_MNAME_SPCS,Mod name ends with a space
@@ -64,3 +64,45 @@ WARN_MNAME_RESER,Mod name cannot be any of the following:
 WARN_MNAME_RESERS,Mod name is a reserved file name
 WARNING_HELP,Help
 WARNING_TITLE,Warning
+WARN_MAUTH_BLANK,"Mod author cannot be blank, please enter a mod author"
+WARN_MAUTH_BLANKS,Mod author is blank
+WARN_MAUTH_INVAL,Mod author cannot contain the following characters:
+WARN_MAUTH_INVALS,Mod author contains invalid characters
+WARN_MVER_BLANK,"Mod version cannot be blank, please enter a mod version"
+WARN_MVER_BLANKS,Mod version is blank
+WARN_MVER_INVAL,Mod version cannot contain the following characters:
+WARN_MVER_INVALS,Mod version contains invalid characters
+WARN_MDESC_BLANK,"Mod description cannot be blank, please enter a mod description"
+WARN_MDESC_BLANKS,Mod description is blank
+WARN_PNAME_BLANK,"Paint job name cannot be blank, please enter a paint job name"
+WARN_PNAME_BLANKS,Paint job name is blank
+WARN_PNAME_INVAL,Paint job name cannot contain the following characters:
+WARN_PNAME_INVALS,Paint job name contains invalid characters
+WARN_PNAME_FULL,Paint job name cannot end with a full stop ( . )
+WARN_PNAME_FULLS,Paint job name ends with a full stop
+WARN_PNAME_SPC,Paint job name cannot end with a space
+WARN_PNAME_SPCS,Paint job name ends with a space
+WARN_PNAME_RESER,Paint job name cannot be any of the following:
+WARN_PNAME_RESERS,Paint job name is a reserved file name
+WARN_PNAME_ASCII,Paint job name can only contain ASCII characters:
+WARN_PNAME_ASCIIS,Paint job name is not ASCII
+WARN_INAME_BLANK,"Internal name cannot be blank, please enter an internal name"
+WARN_INAME_BLANKS,Internal name is blank
+WARN_INAME_BLANKW,Paint job internal name is blank
+WARN_INAME_LONG10,Internal name cannot be longer than 10 characters
+WARN_INAME_LONG12,Internal name cannot be longer than 12 characters
+WARN_INAME_LONGS,Internal name is too long
+WARN_INAME_LONGW,Paint job internal name is too long
+WARN_INAME_ALPHA,"Internal name can only contain the following characters, with no spaces:"
+WARN_INAME_ALPHAS,Internal name is not alphanumeric
+WARN_INAME_ALPHAW,Paint job internal name is not alphanumeric
+WARN_INAME_RESER,Internal name cannot be any of the following:
+WARN_INAME_RESERS,Internal name is a reserved file name
+WARN_INAME_RESERW,Paint job internal name is a reserved file name
+WARN_VEH_NONE,"Please select at least one truck, trailer or mod for your paint job to support"
+WARN_VEH_NONES,No vehicles selected
+WARN_VEH_INCOM,Incompatible vehicles
+WARN_INAME_CONF,The following paint jobs have the same internal names:
+WARN_INAME_CONFS,Conflicting internal names
+WARN_INAME_CONFW,Conflicting paint job internal names
+WARN_TEXT,The following errors need to be fixed before continuing:
