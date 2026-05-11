@@ -25,7 +25,7 @@ offset_left = 420.0
 offset_top = 60.0
 offset_right = 594.0
 offset_bottom = 83.0
-text = "Mod Export Options"
+text = "EXPORT_TITLE"
 horizontal_alignment = 1
 
 [node name="BrowseButton" type="Button" parent="Panel" unique_id=1580491184]
@@ -34,7 +34,7 @@ offset_left = 380.0
 offset_top = 115.0
 offset_right = 634.0
 offset_bottom = 157.0
-text = "Choose export location"
+text = "EXPORT_CHOOSE"
 
 [node name="LocationLabel" type="Label" parent="Panel" unique_id=757773364]
 layout_mode = 0
@@ -43,7 +43,7 @@ offset_top = 171.0
 offset_right = 958.0
 offset_bottom = 199.0
 theme_override_font_sizes/font_size = 14
-text = "Selected location: /Users/emjay.fish/Desktop/My Amazing Mod"
+text = "EXPORT_SELECT"
 horizontal_alignment = 1
 autowrap_mode = 2
 
@@ -53,7 +53,7 @@ offset_left = 56.0
 offset_top = 203.0
 offset_right = 958.0
 offset_bottom = 235.0
-text = "My Amazing Mod folder will be created"
+text = "EXPORT_CREATE"
 horizontal_alignment = 1
 autowrap_mode = 2
 
@@ -65,9 +65,9 @@ offset_right = 656.0
 offset_bottom = 290.0
 selected = 0
 item_count = 2
-popup/item_0/text = "Use empty placeholders"
+popup/item_0/text = "EXPORT_EMPTY"
 popup/item_0/id = 0
-popup/item_1/text = "Use templates"
+popup/item_1/text = "EXPORT_TEMPLATES"
 popup/item_1/id = 1
 
 [node name="PlaceholderImageATS" type="TextureRect" parent="Panel" unique_id=1485041110]
@@ -116,7 +116,7 @@ offset_left = 380.0
 offset_top = 527.0
 offset_right = 634.0
 offset_bottom = 569.0
-text = "Export"
+text = "BUTTON_EXPORT"
 
 [node name="StatusLabel" type="Label" parent="Panel" unique_id=210497185]
 layout_mode = 0
@@ -124,7 +124,7 @@ offset_left = 56.0
 offset_top = 586.0
 offset_right = 958.0
 offset_bottom = 670.0
-text = "Selected location: /Users/emjay.fish/Desktop/My Amazing Mod"
+text = "EXPORT_SELECT"
 horizontal_alignment = 1
 autowrap_mode = 2
 

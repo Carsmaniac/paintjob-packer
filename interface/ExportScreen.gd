@@ -1,7 +1,7 @@
 extends Control
 
 
-var status_array: PackedStringArray = ["Please choose a valid export folder", "", ""]
+var status_array: PackedStringArray = [tr("EXPORT_SELECT"), "", ""]
 var valid_folder: bool = false
 var mod_name: String
 var current_path: String = ""
@@ -33,7 +33,7 @@ func change_image(dropdown_index: int) -> void:
 
 func choose_path() -> void:
 	var export_window := FileDialog.new()
-	export_window.title = "Export Mod"
+	export_window.title = tr("EXPORT_TTILE")
 	export_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
 	export_window.use_native_dialog = true
 	export_window.file_mode = FileDialog.FILE_MODE_OPEN_DIR
@@ -52,11 +52,11 @@ func verify_path(file_path: String) -> void:
 			valid_folder = false
 			current_path = ""
 			var popup := AcceptDialog.new()
-			popup.title = "Folder Exists"
+			popup.title = tr("EXPORT_EXISTST")
 			popup.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
-			popup.dialog_text = "The folder %s/%s already exists.\n\nPlease choose a different location, or delete the %s folder.\n" % [file_path, mod_name, mod_name]
+			popup.dialog_text = tr("EXPORT_EXISTS") % [file_path, mod_name] + "\n\n" + tr("EXPORT_EXISTS2") % mod_name + "\n"
 			popup.size.y = 0
-			popup.ok_button_text = "Okay"
+			popup.ok_button_text = tr("BUTTON_OKAY")
 			self.add_child(popup)
 			popup.popup_centered()
 		update_values()
@@ -64,11 +64,11 @@ func verify_path(file_path: String) -> void:
 
 func change_warning() -> void:
 	if current_path == "":
-		get_node("Panel/LocationLabel").text = "Please select a location to export your mod"
+		get_node("Panel/LocationLabel").text = tr("EXPORT_SELECT")
 	else:
-		get_node("Panel/LocationLabel").text = "Selected location: " + current_path + "/" + mod_name
+		get_node("Panel/LocationLabel").text = tr("EXPORT_FOLDER") % (current_path + "/" + mod_name)
 	if valid_folder:
-		get_node("Panel/WarningLabel").text = mod_name + " folder will be created"
+		get_node("Panel/WarningLabel").text = tr("EXPORT_CREATE") % mod_name
 	else:
 		get_node("Panel/WarningLabel").text = ""
 
@@ -76,12 +76,17 @@ func change_warning() -> void:
 func change_status(new_message: String = "") -> void:
 	if new_message == "":
 		if valid_folder:
-			status_array = PackedStringArray(["Ready to export mod :)", "", ""])
+			status_array = PackedStringArray([tr("EXPORT_READY"), "", ""])
 			get_node("Panel/ExportButton").disabled = false
 		else:
-			status_array = PackedStringArray(["Please choose a valid export folder to continue", "", ""])
+			status_array = PackedStringArray([tr("EXPORT_SELECT"), "", ""])
 			get_node("Panel/ExportButton").disabled = true
 	else:
 		var __ = status_array.insert(0, new_message)
 		status_array.remove_at(3)
 	get_node("Panel/StatusLabel").text = "\n".join(status_array)
+
+
+func update_localisation() -> void:
+	change_status()
+	change_warning()

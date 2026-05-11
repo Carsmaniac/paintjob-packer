@@ -32,3 +32,4 @@ func change_language(index: int) -> void:
 			if grandchild is VariableInput:
 				grandchild.update_localisation()
 	get_node("..").update_localisation()
+	get_node("../ExportScreen").update_localisation()

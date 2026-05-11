@@ -63,9 +63,9 @@ offset_right = 1026.0
 offset_bottom = 54.0
 selected = 0
 item_count = 2
-popup/item_0/text = "Dark Mode"
+popup/item_0/text = "THEME_DARK"
 popup/item_0/id = 1
-popup/item_1/text = "Light Mode"
+popup/item_1/text = "THEME_LIGHT"
 popup/item_1/id = 6
 script = ExtResource("3_lom2f")
 

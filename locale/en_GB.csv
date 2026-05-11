@@ -1,4 +1,4 @@
-keys,en_GB
+LOCALE,en_GB
 GAME_ATS,American Truck Simulator
 GAME_ETS,Euro Truck Simulator 2
 BUTTON_SAVE,Save
@@ -10,7 +10,10 @@ BUTTON_EXPORT,Export
 BUTTON_ADVANCED,Advanced
 BUTTON_OKAY,Okay
 BUTTON_CONFIRM,Confirm
+BUTTON_CONTINUE,Continue
 BUTTON_NEVERMIND,Nevermind
+BUTTON_YES,Yes
+BUTTON_NO,No
 SETUP_VERSION,Version %s
 SETUP_CREATE,Create a new project
 SETUP_LOAD,Load an existing project
@@ -46,12 +49,6 @@ TAB_TRAILER_MODS,Trailer Mods
 TAB_BUS_MODS,Bus Mods
 TAB_CAR_MODS,Car Mods
 TAB_NEW,New Paint Job
-EXPORT_TITLE,Mod Export Options
-EXPORT_CHOOSE,Choose export location
-EXPORT_PL_SELECT,Please select a location to export your mod
-EXPORT_PL_CHOOSE,Please choose a valid export folder to continue
-EXPORT_EMPTY,Use empty placeholders
-EXPORT_TEMPLATES,Use templates
 WARN_MNAME_BLANK,"Mod name cannot be blank, please enter a mod name"
 WARN_MNAME_BLANKS,Mod name is blank
 WARN_MNAME_INVAL,Mod name cannot contain the following characters:
@@ -99,10 +96,38 @@ WARN_INAME_ALPHAW,Paint job internal name is not alphanumeric
 WARN_INAME_RESER,Internal name cannot be any of the following:
 WARN_INAME_RESERS,Internal name is a reserved file name
 WARN_INAME_RESERW,Paint job internal name is a reserved file name
-WARN_VEH_NONE,"Please select at least one truck, trailer or mod for your paint job to support"
-WARN_VEH_NONES,No vehicles selected
-WARN_VEH_INCOM,Incompatible vehicles
 WARN_INAME_CONF,The following paint jobs have the same internal names:
 WARN_INAME_CONFS,Conflicting internal names
 WARN_INAME_CONFW,Conflicting paint job internal names
+WARN_VEH_NONE,"Please select at least one truck, trailer or mod for your paint job to support"
+WARN_VEH_NONES,No vehicles selected
+WARN_VEH_INCOM,Incompatible vehicles
 WARN_TEXT,The following errors need to be fixed before continuing:
+CONFIRM_STARTT,Return to Start?
+CONFIRM_START,You will lose all unsaved progress if you return to the start.
+CONFIRM_TEXT,Are you sure you want to continue?
+CONFIRM_LOADT,Load Project?
+CONFIRM_LOAD,You will lose all unsaved progress if you load a project.
+CONFIRM_SAVET,Not Exporting Mod
+CONFIRM_SAVE,"This function is for saving your Paint Job Packer project to come back to later, NOT for exporting your mod."
+CONFIRM_SAVEE,"To export your mod, press Export from the In-Game Paint Job Info screen."
+SAVE_TITLE,Save Project
+SAVE_INVALT,Not a Valid Project File
+SAVE_INVAL,Selected file is not a Paint Job Packer project file.
+SAVE_INVALQ,Would you like to save as %s instead?
+LOAD_TITLE,Load Project
+LOAD_INVAL,Please select a .pjpproject file.
+EXPORT_TITLE,Mod Export Options
+EXPORT_CHOOSE,Choose export location
+EXPORT_SELECT,Please select a location to export your mod
+EXPORT_FOLDER,Selected location: %s
+EXPORT_CREATE,%s folder will be created
+EXPORT_EMPTY,Use empty placeholders
+EXPORT_TEMPLATES,Use templates
+EXPORT_TITLE,Export Mod
+EXPORT_EXISTST,Folder Exists
+EXPORT_EXISTS,The folder %s/%s already exists.
+EXPORT_EXISTS2,"Please choose a different location, or delete the %s folder."
+EXPORT_READY,Ready to export mod :)
+THEME_DARK,Dark Mode
+THEME_LIGHT,Light Mode

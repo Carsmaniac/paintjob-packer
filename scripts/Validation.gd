@@ -43,12 +43,12 @@ func validate_all_inputs() -> void:
 	if mod_author_text == "":
 		# TODO: double check if this actually can be blank
 		mod_screen_valid = false
-		mod_author.warnings.append(PackedStringArray(["Mod author is blank", "Mod author cannot be blank, please enter a mod author"]))
-		warnings.append("Mod author is blank")
+		mod_author.warnings.append(PackedStringArray([tr("WARN_MAUTH_BLANKS"), tr("WARN_MAUTH_BLANK")]))
+		warnings.append(tr("WARN_MAUTH_BLANKS"))
 	if has_invalid_sii_character(mod_author_text):
 		mod_screen_valid = false
-		mod_author.warnings.append(PackedStringArray(["Mod author contains invalid characters", "Mod author cannot contain the following characters:\n\" / \\"]))
-		warnings.append("Mod author contains invalid characters")
+		mod_author.warnings.append(PackedStringArray([tr("WARN_MAUTH_INVALS"), tr("WARN_MAUTH_INVAL") + "\n\" / \\"]))
+		warnings.append(tr("WARN_MAUTH_INVALS"))
 	mod_author.show_hide_warning_button()
 	
 	var mod_version: Node = mod_screen.get_node("Panel/Version")
@@ -56,12 +56,12 @@ func validate_all_inputs() -> void:
 	mod_version.warnings = []
 	if mod_version_text == "":
 		mod_screen_valid = false
-		mod_version.warnings.append(PackedStringArray(["Mod version is blank", "Mod version cannot be blank, please enter a mod version"]))
-		warnings.append("Mod version is blank")
+		mod_version.warnings.append(PackedStringArray([tr("WARN_MVER_BLANKS"), tr("WARN_MVER_BLANK")]))
+		warnings.append(tr("WARN_MVER_BLANKS"))
 	if has_invalid_sii_character(mod_version_text):
 		mod_screen_valid = false
-		mod_version.warnings.append(PackedStringArray(["Mod version contains invalid characters", "Mod version cannot contain the following characters:\n\" / \\"]))
-		warnings.append("Mod version contains invalid characters")
+		mod_version.warnings.append(PackedStringArray([tr("WARN_MVER_INVALS"), tr("WARN_MVER_INVAL") + "\n\" / \\"]))
+		warnings.append(tr("WARN_MVER_INVALS"))
 	mod_version.show_hide_warning_button()
 	
 	var mod_description = mod_screen.get_node("Panel/Description")
@@ -69,8 +69,8 @@ func validate_all_inputs() -> void:
 	mod_description.warnings = []
 	if mod_description_text == "":
 		mod_screen_valid = false
-		mod_description.warnings.append(PackedStringArray(["Mod description is blank", "Mod description cannot be blank, please enter a mod description"]))
-		warnings.append("Mod description is blank")
+		mod_description.warnings.append(PackedStringArray([tr("WARN_MDESC_BLANKS"), tr("WARN_MDESC_BLANK")]))
+		warnings.append(tr("WARN_MDESC_BLANKS"))
 	mod_description.show_hide_warning_button()
 	
 	for paint_job in paint_jobs:
@@ -81,33 +81,33 @@ func validate_all_inputs() -> void:
 			if paint_job_name_text == "":
 				if paint_job not in invalid_paint_jobs:
 					invalid_paint_jobs.append(paint_job)
-				paint_job_name.warnings.append(PackedStringArray(["Paint job name is blank", "Paint job name cannot be blank, please enter a paint job name"]))
-				warnings.append("Paint job name is blank")
+				paint_job_name.warnings.append(PackedStringArray([tr("WARN_PNAME_BLANKS"), tr("WARN_PNAME_BLANK")]))
+				warnings.append(tr("WARN_PNAME_BLANKS"))
 			if has_invalid_file_character(paint_job_name_text):
 				if paint_job not in invalid_paint_jobs:
 					invalid_paint_jobs.append(paint_job)
-				paint_job_name.warnings.append(PackedStringArray(["Paint job name contains invalid characters", "Paint job name cannot contain the following characters:\n< > : \" / \\ | ? *"]))
-				warnings.append("Paint job name contains invalid characters")
+				paint_job_name.warnings.append(PackedStringArray([tr("WARN_PNAME_INVALS"), tr("WARN_PNAME_INVAL") + "\n< > : \" / \\ | ? *"]))
+				warnings.append(tr("WARN_PNAME_INVALS"))
 			if ends_in_full_stop(paint_job_name_text):
 				if paint_job not in invalid_paint_jobs:
 					invalid_paint_jobs.append(paint_job)
-				paint_job_name.warnings.append(PackedStringArray(["Paint job name ends with a full stop", "Paint job name cannot end with a full stop ( . )"]))
-				warnings.append("Paint job name ends with a full stop")
+				paint_job_name.warnings.append(PackedStringArray([tr("WARN_PNAME_FULLS"), tr("WARN_PNAME_FULL")]))
+				warnings.append(tr("WARN_PNAME_FULLS"))
 			if ends_in_space(paint_job_name_text):
 				if paint_job not in invalid_paint_jobs:
 					invalid_paint_jobs.append(paint_job)
-				paint_job_name.warnings.append(PackedStringArray(["Paint job name ends with a space", "Paint job name cannot end with a space"]))
-				warnings.append("Paint job name ends with a space")
+				paint_job_name.warnings.append(PackedStringArray([tr("WARN_PNAME_SPCS"), tr("WARN_PNAME_SPC")]))
+				warnings.append(tr("WARN_PNAME_SPCS"))
 			if is_reserved_file_name(paint_job_name_text):
 				if paint_job not in invalid_paint_jobs:
 					invalid_paint_jobs.append(paint_job)
-				paint_job_name.warnings.append(PackedStringArray(["Paint job name is a reserved file name", "Paint job name cannot be any of the following:\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"]))
-				warnings.append("Paint job name is a reserved file name")
+				paint_job_name.warnings.append(PackedStringArray([tr("WARN_PNAME_RESERS"), tr("WARN_PNAME_RESER") + "\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"]))
+				warnings.append(tr("WARN_PNAME_RESERS"))
 			if not is_ascii(paint_job_name_text):
 				if paint_job not in invalid_paint_jobs:
 					invalid_paint_jobs.append(paint_job)
-				paint_job_name.warnings.append(PackedStringArray(["Paint job name is not ASCII", "Paint job name can only contain ASCII characters:\nabcdefghijklmnopqrstuvwxyz\nABCDEFGHIJKLMNOPQRSTUVWXYZ\n0123456789\n! @ # $ % ^ & ( ) - _ = + [ ] { } ; ' , ` ~"]))
-				warnings.append("Paint job name is not ASCII")
+				paint_job_name.warnings.append(PackedStringArray([tr("WARN_PNAME_ASCIIS"), tr("WARN_PNAME_ASCII") + "\nabcdefghijklmnopqrstuvwxyz\nABCDEFGHIJKLMNOPQRSTUVWXYZ\n0123456789\n! @ # $ % ^ & ( ) - _ = + [ ] { } ; ' , ` ~"]))
+				warnings.append(tr("WARN_PNAME_ASCIIS"))
 			paint_job_name.find_child("TextInput").text = remove_escape_characters(paint_job_name_text)
 			paint_job_name.show_hide_warning_button()
 			
@@ -122,34 +122,34 @@ func validate_all_inputs() -> void:
 			if internal_name_text == "":
 				if paint_job not in invalid_paint_jobs:
 					invalid_paint_jobs.append(paint_job)
-				internal_name.warnings.append(PackedStringArray(["Internal name is blank", "Internal name cannot be blank, please enter an internal name"]))
-				warnings.append("Paint job internal name is blank")
+				internal_name.warnings.append(PackedStringArray([tr("WARN_INAME_BLANKS"), tr("WARN_INAME_BLANK")]))
+				warnings.append(tr("WARN_INAME_BLANKW"))
 			if internal_name_too_long(paint_job):
 				if paint_job not in invalid_paint_jobs:
 					invalid_paint_jobs.append(paint_job)
 				if paint_job.get_node("SplitPaintJobs").find_child("DropdownInput").selected == 0:
-					internal_name.warnings.append(PackedStringArray(["Internal name is too long", "Internal name cannot be longer than 12 characters"]))
+					internal_name.warnings.append(PackedStringArray([tr("WARN_INAME_LONGS"), tr("WARN_INAME_LONG12")]))
 				else:
-					internal_name.warnings.append(PackedStringArray(["Internal name is too long", "Internal name cannot be longer than 10 characters"]))
-				warnings.append("Paint job internal name is too long")
+					internal_name.warnings.append(PackedStringArray([tr("WARN_INAME_LONGS"), tr("WARN_INAME_LONG10")]))
+				warnings.append(tr("WARN_INAME_LONGW"))
 			if not is_alphanumeric(internal_name_text):
 				if paint_job not in invalid_paint_jobs:
 					invalid_paint_jobs.append(paint_job)
-				internal_name.warnings.append(PackedStringArray(["Internal name is not alphanumeric", "Internal name can only contain the following characters, with no spaces:\nabcdefghijkjlmnopqrstuvwxyz\n0123456789_"]))
-				warnings.append("Paint job internal name is not alphanumeric")
+				internal_name.warnings.append(PackedStringArray([tr("WARN_INAME_ALPHAS"), tr("WARN_INAME_ALPHA") + "\nabcdefghijkjlmnopqrstuvwxyz\n0123456789_"]))
+				warnings.append(tr("WARN_INAME_ALPHAW"))
 			if is_reserved_file_name(internal_name_text):
 				if paint_job not in invalid_paint_jobs:
 					invalid_paint_jobs.append(paint_job)
-				internal_name.warnings.append(PackedStringArray(["Internal name is a reserved file name", "Internal name cannot be any of the following:\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"]))
-				warnings.append("Paint job internal name is a reserved file name")
+				internal_name.warnings.append(PackedStringArray([tr("WARN_INAME_RESERS"), tr("WARN_INAME_RESER") + "\nCON, PRN, AUX, NUL, COM1-9, LPT1-9"]))
+				warnings.append(tr("WARN_INAME_RESERW"))
 			internal_name.show_hide_warning_button()
 			
 			paint_job.warnings = []
 			if no_vehicles_selected(paint_job):
 				if paint_job not in invalid_paint_jobs:
 					invalid_paint_jobs.append(paint_job)
-				paint_job.warnings.append(PackedStringArray(["No vehicles selected", "Please select at least one truck, trailer or mod for your paint job to support"]))
-				warnings.append("No vehicles selected")
+				paint_job.warnings.append(PackedStringArray([tr("WARN_VEH_NONES"), tr("WARN_VEH_NONE")]))
+				warnings.append(tr("WARN_VEH_NONES"))
 			var incompat_vehicles: Array[PackedStringArray] = incompatible_vehicles(paint_job)
 			if len(incompat_vehicles) > 0:
 				if paint_job not in invalid_paint_jobs:
@@ -157,8 +157,8 @@ func validate_all_inputs() -> void:
 				var incompat_string: PackedStringArray = []
 				for pair in incompat_vehicles:
 					incompat_string.append(" and ".join(pair))
-				paint_job.warnings.append(PackedStringArray(["Incompatible vehicles", "\n".join(incompat_string)]))
-				warnings.append("Incompatible vehicles")
+				paint_job.warnings.append(PackedStringArray([tr("WARN_VEH_INCOM"), "\n".join(incompat_string)]))
+				warnings.append(tr("WARN_VEH_INCOM"))
 			paint_job.show_hide_warning_button()
 	
 	var non_unique_names: Array[PackedStringArray] = non_unique_internal_names(paint_jobs)
@@ -169,8 +169,8 @@ func validate_all_inputs() -> void:
 			duplicate_names += " and ".join(names) + "\n"
 		duplicate_names = duplicate_names.substr(0, len(duplicate_names) - 1)
 		# paint_jobs[0] is the scapegoat here, it really doesn't deserve all this
-		paint_jobs[0].get_node("InternalName").warnings.append(PackedStringArray(["Conflicting internal names", "The following paint jobs have the same internal names:\n" + duplicate_names]))
-		warnings.append("Conflicting paint job internal names")
+		paint_jobs[0].get_node("InternalName").warnings.append(PackedStringArray([tr("WARN_INAME_CONFS"), tr("WARN_INAME_CONF") + "\n" + duplicate_names]))
+		warnings.append(tr("WARN_INAME_CONFW"))
 		if paint_jobs[0] not in invalid_paint_jobs:
 			invalid_paint_jobs.append(paint_jobs[0])
 		paint_jobs[0].get_node("InternalName").show_hide_warning_button()
@@ -178,7 +178,7 @@ func validate_all_inputs() -> void:
 	if len(warnings) > 0:
 		var popup := AcceptDialog.new()
 		popup.title = tr("WARNING_TITLE")
-		popup.dialog_text = "The following errors need to be fixed before continuing:\n\n%s\n" % "\n".join(warnings)
+		popup.dialog_text = tr("WARN_TEXT") + "\n\n%s\n" % "\n".join(warnings)
 		popup.size.y = 0
 		popup.ok_button_text = tr("BUTTON_OKAY")
 		popup.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")

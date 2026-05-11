@@ -23,10 +23,10 @@ func get_list_from_tab(paint_job: Node, tab_index: int) -> PackedStringArray:
 
 func confirm_return() -> void:
 	var confirm_window := AcceptDialog.new()
-	confirm_window.ok_button_text = "Confirm"
-	confirm_window.add_cancel_button("Nevermind")
-	confirm_window.title = "Return to Start?"
-	confirm_window.dialog_text = "You will lose all unsaved progress if you return to the start.\n\nAre you sure you want to continue?\n"
+	confirm_window.ok_button_text = tr("BUTTON_CONFIRM")
+	confirm_window.add_cancel_button(tr("BUTTON_NEVERMIND"))
+	confirm_window.title = tr("CONFIRM_STARTT")
+	confirm_window.dialog_text = "%s\n\n%s\n" % [tr("CONFIRM_START"), tr("CONFIRM_TEXT")]
 	confirm_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
 	confirm_window.get_ok_button().connect("pressed", return_to_start)
 	get_node("../ScreenLoader").add_child(confirm_window)
@@ -42,10 +42,10 @@ func confirm_load() -> void:
 		self.load_dialogue()
 	else:
 		var confirm_window := AcceptDialog.new()
-		confirm_window.ok_button_text = "Continue"
-		confirm_window.add_cancel_button("Nevermind")
-		confirm_window.title = "Load Project?"
-		confirm_window.dialog_text = "You will lose all unsaved progress if you load a project.\n\nAre you sure you want to continue?\n"
+		confirm_window.ok_button_text = tr("BUTTON_CONTINUE")
+		confirm_window.add_cancel_button(tr("BUTTON_NEVERMIND"))
+		confirm_window.title = tr("CONFIRM_LOADT")
+		confirm_window.dialog_text = "%s\n\n%s\n" % [tr("CONFIRM_LOAD"), tr("CONFIRM_TEXT")]
 		confirm_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
 		confirm_window.get_ok_button().connect("pressed", load_dialogue)
 		get_node("../ScreenLoader").add_child(confirm_window)
@@ -72,20 +72,19 @@ func new() -> void:
 
 func save_inform() -> void:
 	var popup := AcceptDialog.new()
-	popup.title = "Not Exporting Mod"
+	popup.title = tr("CONFIRM_SAVET")
 	popup.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
-	popup.dialog_text = "This function is for saving your Paint Job Packer project to come back to later, NOT for exporting your mod.\n\nTo export your mod, press Export from the In-Game Paint Job Info screen.\n"
+	popup.dialog_text = "%s\n\n%s\n" % [tr("CONFIRM_SAVE"), tr("CONFIRM_SAVEE")]
 	popup.size.y = 0
-	popup.ok_button_text = "Okay"
+	popup.ok_button_text = tr("BUTTON_OKAY")
 	popup.connect("confirmed", save_dialogue)
 	self.add_child(popup)
 	popup.popup_centered()
 
 
 func save_dialogue() -> void:
-	# TODO: explain save is not for mods
 	var save_window := FileDialog.new()
-	save_window.title = ("Save Project")
+	save_window.title = tr("SAVE_TITLE")
 	save_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
 	save_window.use_native_dialog = true
 	save_window.add_filter("*.pjpproject", "Paint Job Packer project")
@@ -109,11 +108,11 @@ func verify_save_file_path(file_path: String) -> void:
 			suggested_file_name_array.pop_back()
 		var suggested_file_name: String = ".".join(suggested_file_name_array) + ".pjpproject"
 		var invalid_window := AcceptDialog.new()
-		invalid_window.title = "Not a Valid Project File"
-		invalid_window.dialog_text = "Selected file is not a Paint Job Packer project file.\n\nWould you like to save as %s instead?\n" % suggested_file_name
+		invalid_window.title = tr("SAVE_INVALT")
+		invalid_window.dialog_text = "%s\n\n%s\n" % [tr("SAVE_INVAL"), tr("SAVE_INVALQ") % suggested_file_name]
 		invalid_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
-		invalid_window.ok_button_text = "Yes"
-		invalid_window.add_cancel_button("No")
+		invalid_window.ok_button_text = tr("BUTTON_YES")
+		invalid_window.add_cancel_button(tr("BUTTON_NO"))
 		invalid_window.get_ok_button().connect("pressed", save.bind("/".join(suggested_path) + "/" + suggested_file_name))
 		get_node("../ScreenLoader").add_child(invalid_window)
 		invalid_window.popup_centered()
@@ -151,7 +150,7 @@ func save(file_path: String) -> void:
 				trailer_mods = get_list_from_tab(paint_job, 3)
 			}
 			if mod_info["game"] == "ets":
-				paint_job_dict["bus_mods"] = get_dict_from_tab(paint_job, 4)
+				paint_job_dict["bus_mods"] = get_dict_from_tab(paint_job, 4) # TODO: don't hardcode this to ets
 			paint_jobs.append(paint_job_dict)
 	save_dict["paint_jobs"] = paint_jobs
 	
@@ -159,9 +158,8 @@ func save(file_path: String) -> void:
 
 
 func load_dialogue() -> void:
-	# TODO: explain save is not for mods
 	var load_window := FileDialog.new()
-	load_window.title = ("Load Project")
+	load_window.title = (tr("LOAD_TITLE"))
 	load_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
 	load_window.use_native_dialog = true
 	load_window.add_filter("*.pjpproject", "Paint Job Packer project")
@@ -171,23 +169,6 @@ func load_dialogue() -> void:
 	load_window.connect("file_selected", verify_loaded_file)
 	get_node("../ScreenLoader").add_child(load_window)
 	load_window.popup_file_dialog()
-	
-	
-func load_test() -> void:
-	# TODO: explain save is not for mods
-	var load_window := FileDialog.new()
-	#var load_window := NativeFileDialog.new()
-	load_window.title = ("Load Project")
-	load_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
-	load_window.use_native_dialog = true
-	load_window.add_filter("*.pjpproject", "Paint Job Packer project")
-	load_window.file_filter_toggle_enabled = false
-	load_window.overwrite_warning_enabled = false
-	load_window.file_mode = FileDialog.FILE_MODE_OPEN_FILE
-	load_window.connect("file_selected", verify_loaded_file)
-	get_node("../ScreenLoader").add_child(load_window)
-	load_window.popup_file_dialog()
-	#load_window.show()
 
 
 func verify_loaded_file(file_path: String) -> void:
@@ -196,14 +177,13 @@ func verify_loaded_file(file_path: String) -> void:
 		self.load(file_path)
 	else:
 		var invalid_window := AcceptDialog.new()
-		invalid_window.title = "Not a Valid Project File"
-		invalid_window.dialog_text = "Selected file is not a Paint Job Packer project file.\n\nPlease select a .pjpproject file.\n"
+		invalid_window.title = tr("SAVE_INVALT")
+		invalid_window.dialog_text = "%s\n\n%s\n" % [tr("SAVE_INVAL"), tr("LOAD_INVAL")]
 		invalid_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
 		get_node("../ScreenLoader").add_child(invalid_window)
 
 
 func load(file_path: String) -> void:
-	# TODO: make load dialogue
 	var loaded_dict: Dictionary
 	var json_data := JSON.new()
 	if json_data.parse(FileAccess.get_file_as_string(file_path)) == OK:
