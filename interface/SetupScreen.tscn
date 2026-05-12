@@ -63,7 +63,7 @@ offset_left = 17.0
 offset_top = 39.0
 offset_right = 275.0
 offset_bottom = 62.0
-text = "New version available!"
+text = "SETUP_UPDATE"
 
 [node name="UpdateButton" type="Button" parent="Panel/UpdateChecker" unique_id=309684427]
 custom_minimum_size = Vector2(25, 31)
@@ -77,7 +77,7 @@ offset_right = -141.0
 offset_bottom = 47.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Update"
+text = "BUTTON_UPDATE"
 
 [node name="AboutButton" type="Button" parent="Panel" unique_id=1421973815]
 layout_mode = 0

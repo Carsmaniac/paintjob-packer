@@ -8,7 +8,7 @@ func _ready() -> void:
 	$AboutTabContainer/Contributors/ContributionLink.connect("gui_input", open_github_link)
 	$AboutTabContainer/Contributors/TranslationLink.connect("gui_input", open_weblate_link)
 	get_node("../SetupScreen/Panel/UpdateChecker/UpdateButton").connect("pressed", open_update_link)
-	fetch_version_json()
+	#fetch_version_json()
 
 
 func open_github_link(input_event: InputEvent) -> void:
@@ -31,7 +31,7 @@ func fetch_version_json() -> void:
 	http_request.connect("request_completed", process_version_json)
 	var _error = http_request.request("https://carsmani.ac/paint-job-packer.json")
 
-func process_version_json(result:int , response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
+func process_version_json(_result:int , _response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
 	var json := JSON.new()
 	json.parse(body.get_string_from_utf8())
 	var json_data = json.get_data()

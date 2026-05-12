@@ -23,3 +23,4 @@ mono_crash.*.json
 .vscode/launch.json
 /addons/Todo_Manager
 /addons/native_dialogs
+templates.zip

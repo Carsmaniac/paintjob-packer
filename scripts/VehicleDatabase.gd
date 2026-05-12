@@ -16,8 +16,12 @@ func load_vehicle_lists(game: String) -> void:
 	for file_name in get_file_list("res://vehicles/" + game):
 		var vehicle_dict: Dictionary = load_vehicle_file(file_name)
 		if vehicle_dict != {}:
-			vehicle_dict["file_path"] = file_name.substr(19, len(file_name) - 24) # <res...>author/make.model<.json>
 			if vehicle_dict["format_version"] == vehicle_format_version:
+				vehicle_dict["file_path"] = file_name.substr(19, len(file_name) - 24) # <res...>author/make.model<.json>
+				if vehicle_dict["trailer"]:
+					vehicle_dict["type"] = "trailer_owned"
+				else:
+					vehicle_dict["type"] = "truck" # TODO: check if this needs to be updated once coaches & road trip release
 				vehicle_list.append(vehicle_dict)
 			else:
 				pass # For future use, when the format changes

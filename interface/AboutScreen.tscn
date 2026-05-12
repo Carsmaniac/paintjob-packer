@@ -75,9 +75,9 @@ autowrap_mode = 3
 [node name="ContributionLink" type="Label" parent="AboutTabContainer/Contributors" unique_id=2138893553]
 layout_mode = 0
 offset_left = 233.0
-offset_top = 262.0
+offset_top = 254.0
 offset_right = 710.0
-offset_bottom = 288.0
+offset_bottom = 280.0
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 text = "Want to contribute to Paint Job Packer on GitHub? Click here!"
@@ -86,9 +86,9 @@ autowrap_mode = 3
 [node name="TranslationLink" type="Label" parent="AboutTabContainer/Contributors" unique_id=754468672]
 layout_mode = 0
 offset_left = 233.0
-offset_top = 314.0
+offset_top = 298.0
 offset_right = 724.0
-offset_bottom = 340.0
+offset_bottom = 324.0
 mouse_filter = 1
 mouse_default_cursor_shape = 2
 text = "Want to help translate Paint Job Packer on Weblate? Click here!"
