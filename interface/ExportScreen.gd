@@ -110,7 +110,8 @@ func export_mod() -> void:
 		"paint_jobs": []
 	}
 	for paint_job_tab in get_node("../MainScreen/PaintJobTabContainer").get_children():
-		if paint_job_tab is not TabBar:
+		if paint_job_tab.name != "+":
+			print(paint_job_tab)
 			var paint_job_dict: Dictionary = {
 				"paint_job_name": paint_job_tab.get_node("Name/TextInput").text,
 				"price": int(paint_job_tab.get_node("Price/NumberInput").value),

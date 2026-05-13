@@ -133,5 +133,8 @@ EXPORT_EXISTST,Folder Exists
 EXPORT_EXISTS,The folder %s/%s already exists.
 EXPORT_EXISTS2,"Please choose a different location, or delete the %s folder."
 EXPORT_READY,Ready to export mod :)
+EXPORT_DONET,Export Complete
+EXPORT_DONE,Your mod has been exported to:
+EXPORT_DONE2,Thanks for using Paint Job Packer! Press okay to exit
 THEME_DARK,Dark Mode
 THEME_LIGHT,Light Mode

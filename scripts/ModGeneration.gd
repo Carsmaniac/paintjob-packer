@@ -96,7 +96,7 @@ func copy_paint_job_icon(paint_job_name: String) -> void:
 
 
 func make_paint_job_icon_tobj(paint_job_name: String, internal_name: String) -> void:
-	make_tobj("/%s/Icon.dds" % paint_job_name, "material/ui/accessory/%s_icon.tobj" % internal_name)
+	make_tobj("%s/Icon.dds" % paint_job_name, "material/ui/accessory/%s_icon.tobj" % internal_name)
 
 
 func make_paint_job_icon_mat(internal_name: String) -> void:
@@ -228,3 +228,16 @@ func make_mod(mod_dict: Dictionary, new_output_path: String) -> void:
 				make_def_sii(vehicle["vehicle_dict"], paint_job["paint_job_name"], paint_job["internal_name"], indiv["indiv_name"], indiv["cabins"], indiv["output_dds_name"])
 				copy_main_dds(mod_dict["game"], vehicle["vehicle_dict"], paint_job["paint_job_name"], indiv["source_dds_name"], indiv["output_dds_name"])
 				make_main_tobj(paint_job["paint_job_name"], vehicle["vehicle_dict"], indiv["source_dds_name"], indiv["output_dds_name"])
+	var popup := AcceptDialog.new()
+	popup.title = tr("EXPORT_DONET")
+	popup.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
+	popup.dialog_text = tr("EXPORT_DONE") + "\n%s\n\n" % (output_path) + tr("EXPORT_DONE2")
+	popup.size.y = 0
+	popup.ok_button_text = tr("BUTTON_OKAY")
+	popup.get_ok_button().connect("pressed", quit)
+	self.add_child(popup)
+	popup.popup_centered()
+
+
+func quit() -> void:
+	get_tree().quit()
