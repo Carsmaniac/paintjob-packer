@@ -41,7 +41,6 @@ func validate_all_inputs() -> void:
 	var mod_author_text: String = mod_author.find_child("TextInput").text
 	mod_author.warnings = []
 	if mod_author_text == "":
-		# TODO: double check if this actually can be blank
 		mod_screen_valid = false
 		mod_author.warnings.append(PackedStringArray([tr("WARN_MAUTH_BLANKS"), tr("WARN_MAUTH_BLANK")]))
 		warnings.append(tr("WARN_MAUTH_BLANKS"))
@@ -64,14 +63,14 @@ func validate_all_inputs() -> void:
 		warnings.append(tr("WARN_MVER_INVALS"))
 	mod_version.show_hide_warning_button()
 	
-	var mod_description = mod_screen.get_node("Panel/Description")
-	var mod_description_text = mod_description.find_child("TextBox").text
-	mod_description.warnings = []
-	if mod_description_text == "":
-		mod_screen_valid = false
-		mod_description.warnings.append(PackedStringArray([tr("WARN_MDESC_BLANKS"), tr("WARN_MDESC_BLANK")]))
-		warnings.append(tr("WARN_MDESC_BLANKS"))
-	mod_description.show_hide_warning_button()
+	#var mod_description = mod_screen.get_node("Panel/Description")
+	#var mod_description_text = mod_description.find_child("TextBox").text
+	#mod_description.warnings = []
+	#if mod_description_text == "":
+		#mod_screen_valid = false
+		#mod_description.warnings.append(PackedStringArray([tr("WARN_MDESC_BLANKS"), tr("WARN_MDESC_BLANK")]))
+		#warnings.append(tr("WARN_MDESC_BLANKS"))
+	#mod_description.show_hide_warning_button()
 	
 	for paint_job in paint_jobs:
 		if paint_job.name != "+":

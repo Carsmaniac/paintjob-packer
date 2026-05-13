@@ -110,73 +110,77 @@ func export_mod() -> void:
 		"paint_jobs": []
 	}
 	for paint_job_tab in get_node("../MainScreen/PaintJobTabContainer").get_children():
-		var paint_job_dict: Dictionary = {
-			"paint_job_name": paint_job_tab.get_node("Name/TextInput").text,
-			"price": int(paint_job_tab.get_node("Price/NumberInput").value),
-			"unlock_level": int(paint_job_tab.get_node("Unlock/NumberInput").value),
-			"internal_name": paint_job_tab.get_node("InternalName/TextInput").text,
-			"vehicles": []
-		}
-		if paint_job_tab.get_node("CabinSupport/DropdownInput").selected == 0:
-			paint_job_dict["cabins"] = "largest"
-		elif paint_job_tab.get_node("CabinSupport/DropdownInput").selected == 1:
-			paint_job_dict["cabins"] = "all"
-		elif paint_job_tab.get_node("CabinSupport/DropdownInput").selected == 2:
-			paint_job_dict["cabins"] = "selected"
-		if paint_job_tab.get_node("SplitPaintJobs/DropdownInput").selected == 0:
-			paint_job_dict["split"] = false
-		else:
-			paint_job_dict["split"] = true
-		for vehicle_tab in paint_job_tab.get_node("VehicleTabContainer").get_children():
-			for vehicle_selection in vehicle_tab.get_node("ScrollContainer/VBoxContainer").get_children():
-				if vehicle_selection.find_child("VehicleCheckbox").button_pressed:
-					var vehicle_dict: Dictionary = {
-						"vehicle_dict": vehicle_selection.vehicle_dict,
-						"indivs": []
-					}
-					var selected_cabin_dicts: Array[Dictionary]
-					if not vehicle_selection.vehicle_dict["trailer"]:
-						var selected_cabins: PackedStringArray
-						for cabin in vehicle_selection.find_child("CabinsContainer").get_children():
-							if cabin.button_pressed:
-								selected_cabins.append("Cabin " + cabin.text)
-						for cabin_dict in vehicle_selection.vehicle_dict["cabins"]:
-							if cabin_dict["designation"] in selected_cabins:
-								selected_cabin_dicts.append(cabin_dict)
-					if paint_job_dict["split"] and not vehicle_selection.vehicle_dict["trailer"]:
-						for cabin_dict in selected_cabin_dicts:
+		if paint_job_tab is not TabBar:
+			var paint_job_dict: Dictionary = {
+				"paint_job_name": paint_job_tab.get_node("Name/TextInput").text,
+				"price": int(paint_job_tab.get_node("Price/NumberInput").value),
+				"unlock_level": int(paint_job_tab.get_node("Unlock/NumberInput").value),
+				"internal_name": paint_job_tab.get_node("InternalName/TextInput").text,
+				"vehicles": []
+			}
+			if paint_job_tab.get_node("CabinSupport/DropdownInput").selected == 0:
+				paint_job_dict["cabins"] = "largest"
+			elif paint_job_tab.get_node("CabinSupport/DropdownInput").selected == 1:
+				paint_job_dict["cabins"] = "all"
+			elif paint_job_tab.get_node("CabinSupport/DropdownInput").selected == 2:
+				paint_job_dict["cabins"] = "selected"
+			if paint_job_tab.get_node("SplitPaintJobs/DropdownInput").selected == 0:
+				paint_job_dict["split"] = false
+			else:
+				paint_job_dict["split"] = true
+			for vehicle_tab in paint_job_tab.get_node("VehicleTabContainer").get_children():
+				for vehicle_selection in vehicle_tab.get_node("ScrollContainer/VBoxContainer").get_children():
+					if vehicle_selection.find_child("VehicleCheckbox").button_pressed:
+						var vehicle_dict: Dictionary = {
+							"vehicle_dict": vehicle_selection.vehicle_dict,
+							"indivs": []
+						}
+						var selected_cabin_dicts: Array[Dictionary]
+						if not vehicle_selection.vehicle_dict["trailer"]:
+							var selected_cabins: PackedStringArray
+							for cabin in vehicle_selection.find_child("CabinsContainer").get_children():
+								if cabin.button_pressed:
+									selected_cabins.append("Cabin " + cabin.text)
+							for cabin_dict in vehicle_selection.vehicle_dict["cabins"]:
+								if cabin_dict["designation"] in selected_cabins:
+									selected_cabin_dicts.append(cabin_dict)
+						if paint_job_dict["split"] and not vehicle_selection.vehicle_dict["trailer"]:
+							for cabin_dict in selected_cabin_dicts:
+								var indiv_dict: Dictionary = {
+									"cabins": [cabin_dict]
+								}
+								vehicle_dict["indivs"].append(indiv_dict)
+						else:
 							var indiv_dict: Dictionary = {
-								"cabins": [cabin_dict]
+								"cabins": selected_cabin_dicts
 							}
 							vehicle_dict["indivs"].append(indiv_dict)
-					else:
-						var indiv_dict: Dictionary = {
-							"cabins": selected_cabin_dicts
-						}
-						vehicle_dict["indivs"].append(indiv_dict)
-					for indiv_dict in vehicle_dict["indivs"]:
-						var source_main_dds: String
-						var output_main_dds: String
-						if vehicle_selection.vehicle_dict["trailer"]:
-							if vehicle_selection.vehicle_dict["uses_accessories"]:
-								source_main_dds = "Base"
-								output_main_dds = source_main_dds
+						for indiv_dict in vehicle_dict["indivs"]:
+							if paint_job_dict["split"]:
+								indiv_dict["indiv_name"] = paint_job_dict["internal_name"] + "_" + indiv_dict["cabins"][0]["code"]
 							else:
-								source_main_dds = vehicle_selection.vehicle_dict["name"]
-								output_main_dds = source_main_dds
-						else:
-							if paint_job_dict["split"] and vehicle_dict["vehicle_dict"]["separate_paint_jobs"]:
-								source_main_dds = "%s (%s)" % [indiv_dict["cabins"][0]["designation"], indiv_dict["cabins"][0]["name"]]
-								output_main_dds = source_main_dds
-							else:
-								source_main_dds = "%s (%s)" % [vehicle_dict["vehicle_dict"]["cabins"][0]["designation"], vehicle_dict["vehicle_dict"]["cabins"][0]["name"]]
+								indiv_dict["indiv_name"] = paint_job_dict["internal_name"]
+							var source_main_dds: String
+							var output_main_dds: String
+							if vehicle_selection.vehicle_dict["trailer"]:
 								if vehicle_selection.vehicle_dict["uses_accessories"]:
-									output_main_dds = "Cabin"
+									source_main_dds = "Base"
+									output_main_dds = source_main_dds
 								else:
-									output_main_dds = vehicle_selection.vehicle_dict["name"]
-						indiv_dict["source_main_dds"] = source_main_dds
-						indiv_dict["output_main_dds"] = output_main_dds
-					paint_job_dict["vehicles"].append(vehicle_dict)
-		mod_dict["paint_jobs"].append(paint_job_dict)
-	#ModGeneration.make_mod(mod_dict)
-	print(mod_dict)
+									source_main_dds = vehicle_selection.vehicle_dict["name"]
+									output_main_dds = source_main_dds
+							else:
+								if paint_job_dict["split"] and vehicle_dict["vehicle_dict"]["separate_paint_jobs"]:
+									source_main_dds = "%s (%s)" % [indiv_dict["cabins"][0]["designation"], indiv_dict["cabins"][0]["name"]]
+									output_main_dds = source_main_dds
+								else:
+									source_main_dds = "%s (%s)" % [vehicle_dict["vehicle_dict"]["cabins"][0]["designation"], vehicle_dict["vehicle_dict"]["cabins"][0]["name"]]
+									if vehicle_selection.vehicle_dict["uses_accessories"]:
+										output_main_dds = "Cabin"
+									else:
+										output_main_dds = vehicle_selection.vehicle_dict["name"]
+							indiv_dict["source_dds_name"] = source_main_dds
+							indiv_dict["output_dds_name"] = output_main_dds
+						paint_job_dict["vehicles"].append(vehicle_dict)
+			mod_dict["paint_jobs"].append(paint_job_dict)
+	ModGeneration.make_mod(mod_dict, current_path + "/" + mod_name + "/")

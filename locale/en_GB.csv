@@ -98,7 +98,7 @@ WARN_INAME_ALPHAW,Paint job internal name is not alphanumeric
 WARN_INAME_RESER,Internal name cannot be any of the following:
 WARN_INAME_RESERS,Internal name is a reserved file name
 WARN_INAME_RESERW,Paint job internal name is a reserved file name
-WARN_INAME_CONF,The following paint jobs have the same internal names:
+WARN_INAME_CONF,The following paint jobs have the same internal name:
 WARN_INAME_CONFS,Conflicting internal names
 WARN_INAME_CONFW,Conflicting paint job internal names
 WARN_VEH_NONE,"Please select at least one truck, trailer or mod for your paint job to support"

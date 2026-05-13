@@ -1,6 +1,6 @@
 extends Node
 
-var output_path: String = "/home/emjay/Desktop/test/"
+var output_path: String
 var template_zip := ZIPReader.new()
 var using_templates: bool = true
 
@@ -16,11 +16,6 @@ func _ready() -> void:
 			var _error = template_zip.open("res://templates.zip")
 		else:
 			using_templates = false
-	#extract_file("ets/scs/daf.xf/Cabin A (Super Space).dds", "test.dds")
-	var dict: Dictionary = {"file_path": "scs/scania.streamline", "name": "Scania Streamline", "mod": false}
-	make_vehicle_folder(dict, "paint_job_name")
-	copy_main_dds("ets", dict, "paint_job_name", "Cabin A (Topline)")
-	make_main_tobj("paint_job_name", dict, "Cabin A (Topline)")
 
 
 func make_folder(path: String) -> void:
@@ -86,6 +81,10 @@ func make_material_folder() -> void:
 	make_folder("material/ui/accessory")
 
 
+func make_paint_job_folder(paint_job_name: String) -> void:
+	make_folder(paint_job_name)
+
+
 func copy_paint_job_icon(paint_job_name: String) -> void:
 	var placeholder_folder := DirAccess.open("res://placeholders")
 	placeholder_folder.copy("res://placeholders/icon.dds", "%s%s/Icon.dds" % [output_path, paint_job_name])
@@ -111,15 +110,16 @@ func make_def_folder(vehicle_dict: Dictionary) -> void:
 		make_folder("def/vehicle/%s/%s/paint_job" % [vehicle_dict["type"], vehicle_dict["path"]])
 
 
-func make_def_sii(vehicle_dict: Dictionary, paint_job_name: String, internal_name: String, indiv_name: String, cabin_internal_names: PackedStringArray, main_dds_name: String) -> void:
+func make_def_sii(vehicle_dict: Dictionary, paint_job_name: String, internal_name: String, indiv_name: String, cabins: Array, main_dds_name: String) -> void:
 	var file := FileAccess.open(output_path + "def/vehicle/%s/%s/paint_job/%s.sii" % [vehicle_dict["type"], vehicle_dict["path"], indiv_name], FileAccess.WRITE)
 	file.store_line("SiiNunit")
 	file.store_line("{")
 	file.store_line("accessory_paint_job_data: %s.%s.paint_job" % [indiv_name, vehicle_dict["path"]])
 	file.store_line("{")
 	file.store_line("@include \"%s_settings.sui\"" % internal_name)
-	for cabin in cabin_internal_names:
-		file.store_line("\tsuitable_for[]: \"%s.%s.cabin" % [cabin, vehicle_dict["path"]])
+	if vehicle_dict["separate_paint_jobs"]:
+		for cabin in cabins:
+			file.store_line("\tsuitable_for[]: \"%s.%s.cabin" % [cabin["internal_name"], vehicle_dict["path"]])
 	if vehicle_dict["mod"]:
 		file.store_line("\tpaint_job_mask: \"/%s/%s [%s]/%s.tobj" % [paint_job_name, vehicle_dict["name"], vehicle_dict["mod_author"], main_dds_name])
 	else:
@@ -167,46 +167,57 @@ func make_vehicle_folder(vehicle_dict: Dictionary, paint_job_name: String) -> vo
 		make_folder("%s/%s" % [paint_job_name, vehicle_dict["name"]])
 
 
-func copy_main_dds(game: String, vehicle_dict: Dictionary, paint_job_name: String, main_dds_name: String) -> void:
+func copy_main_dds(game: String, vehicle_dict: Dictionary, paint_job_name: String, source_dds_name: String, output_dds_name: String) -> void:
 	if vehicle_dict["mod"]:
-		extract_file("%s/%s/%s.dds" % [game, vehicle_dict["file_path"], main_dds_name], "%s/%s [%s]/%s.dds"% [paint_job_name, vehicle_dict["name"], vehicle_dict["mod_author"], main_dds_name])
+		extract_file("%s/%s/%s.dds" % [game, vehicle_dict["file_path"], source_dds_name], "%s/%s [%s]/%s.dds"% [paint_job_name, vehicle_dict["name"], vehicle_dict["mod_author"], output_dds_name])
 	else:
-		extract_file("%s/%s/%s.dds" % [game, vehicle_dict["file_path"], main_dds_name], "%s/%s/%s.dds"% [paint_job_name, vehicle_dict["name"], main_dds_name])
+		extract_file("%s/%s/%s.dds" % [game, vehicle_dict["file_path"], source_dds_name], "%s/%s/%s.dds"% [paint_job_name, vehicle_dict["name"], output_dds_name])
 
 
-func make_main_tobj(paint_job_name: String, vehicle_dict: Dictionary, main_dds_name: String) -> void:
-	make_tobj("%s/%s/%s.dds"% [paint_job_name, vehicle_dict["name"], main_dds_name], "%s/%s/%s.tobj"% [paint_job_name, vehicle_dict["name"], main_dds_name])
+func make_main_tobj(paint_job_name: String, vehicle_dict: Dictionary, source_dds_name: String, output_dds_name: String) -> void:
+	if vehicle_dict["mod"]:
+		make_tobj("%s/%s [%s]/%s.dds"% [paint_job_name, vehicle_dict["name"], vehicle_dict["mod_author"], source_dds_name], "%s/%s [%s]/%s.tobj"% [paint_job_name, vehicle_dict["name"], vehicle_dict["mod_author"], output_dds_name])
+	else:
+		make_tobj("%s/%s/%s.dds"% [paint_job_name, vehicle_dict["name"], output_dds_name], "%s/%s/%s.tobj"% [paint_job_name, vehicle_dict["name"], output_dds_name])
 
 
-func make_mod(mod_dict: Dictionary) -> void:
-	make_manifest_sii("mod_version", "mod_name", "mod_author")
-	make_description_file("mod_description")
+func copy_accessory_dds(game: String, vehicle_dict: Dictionary, paint_job_name: String) -> void:
+	for accessory_group in vehicle_dict["accessories"]:
+		if vehicle_dict["mod"]:
+			extract_file("%s/%s/%s.dds" % [game, vehicle_dict["file_path"], accessory_group], "%s/%s [%s]/%s.dds" % [paint_job_name, vehicle_dict["name"], vehicle_dict["mod_author"], accessory_group])
+		else:
+			extract_file("%s/%s/%s.dds" % [game, vehicle_dict["file_path"], accessory_group], "%s/%s/%s.dds" % [paint_job_name, vehicle_dict["name"], accessory_group])
+
+
+func make_accessory_tobj(vehicle_dict: Dictionary, paint_job_name: String) -> void:
+	pass
+	for accessory_group in vehicle_dict["accessories"]:
+		if vehicle_dict["mod"]:
+			make_tobj("%s/%s [%s]/%s.dds" % [paint_job_name, vehicle_dict["name"], vehicle_dict["mod_author"], accessory_group], "%s/%s [%s]/%s.tobj" % [paint_job_name, vehicle_dict["name"], vehicle_dict["mod_author"], accessory_group])
+		else:
+			make_tobj("%s/%s/%s.dds" % [paint_job_name, vehicle_dict["name"], accessory_group], "%s/%s/%s.tobj" % [paint_job_name, vehicle_dict["name"], accessory_group])
+
+
+func make_mod(mod_dict: Dictionary, new_output_path: String) -> void:
+	output_path = new_output_path
+	make_folder("")
+	make_manifest_sii(mod_dict["mod_version"], mod_dict["mod_name"], mod_dict["mod_author"])
+	make_description_file(mod_dict["mod_description"])
 	make_material_folder()
-	for paint_job in []:
-		copy_paint_job_icon("paint_job_name")
-		make_paint_job_icon_tobj("paint_job_name", "internal_name")
-		make_paint_job_icon_mat("internal_name")
-		for vehicle in []:
-			make_def_folder({"vehicle_dict":""})
-			make_settings_sui({"vehicle_dict":""}, "internal_name", "paint_job_name", 6000, 0)
-			make_vehicle_folder({"vehicle_dict":""}, "paint_job_name")
-			for indiv_paint_job in []:
-				var main_dds_name: String
-				if vehicle["trailer"]:
-					if vehicle["uses_accessories"]:
-						main_dds_name = "Base"
-					else:
-						main_dds_name = vehicle["name"]
-				else:
-					if len(vehicle["cabins"]) > 1:
-						main_dds_name = "%s (%s)" % [vehicle["cabins"][0]["designation"], vehicle["cabins"][0]["name"]]
-					else:
-						if vehicle["uses_accessories"]:
-							main_dds_name = "Cabin"
-						else:
-							main_dds_name = vehicle["name"]
-				
-				if vehicle["uses_accessories"]:
-					make_accessory_sii({"vehicle_dict": ""}, "paint_job_name", "indiv_name")
-				make_def_sii({"vehicle_dict":""}, "paint_job_name", "internal_name", "indiv_name", ["cabin_names"], main_dds_name)
-				
+	for paint_job in mod_dict["paint_jobs"]:
+		make_paint_job_folder(paint_job["paint_job_name"])
+		copy_paint_job_icon(paint_job["paint_job_name"])
+		make_paint_job_icon_tobj(paint_job["paint_job_name"], paint_job["internal_name"])
+		make_paint_job_icon_mat(paint_job["internal_name"])
+		for vehicle in paint_job["vehicles"]:
+			make_def_folder(vehicle["vehicle_dict"])
+			make_settings_sui(vehicle["vehicle_dict"], paint_job["internal_name"], paint_job["paint_job_name"], paint_job["price"], paint_job["unlock_level"])
+			make_vehicle_folder(vehicle["vehicle_dict"], paint_job["paint_job_name"])
+			for indiv in vehicle["indivs"]:
+				if vehicle["vehicle_dict"]["uses_accessories"]:
+					make_accessory_sii(vehicle["vehicle_dict"], paint_job["paint_job_name"], indiv["indiv_name"])
+					copy_accessory_dds(mod_dict["game"], vehicle["vehicle_dict"], paint_job["paint_job_name"])
+					make_accessory_tobj(vehicle["vehicle_dict"], paint_job["paint_job_name"])
+				make_def_sii(vehicle["vehicle_dict"], paint_job["paint_job_name"], paint_job["internal_name"], indiv["indiv_name"], indiv["cabins"], indiv["output_dds_name"])
+				copy_main_dds(mod_dict["game"], vehicle["vehicle_dict"], paint_job["paint_job_name"], indiv["source_dds_name"], indiv["output_dds_name"])
+				make_main_tobj(paint_job["paint_job_name"], vehicle["vehicle_dict"], indiv["source_dds_name"], indiv["output_dds_name"])
