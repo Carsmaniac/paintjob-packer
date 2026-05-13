@@ -121,6 +121,7 @@ func switch_screen(next: bool, startup: bool = false) -> void:
 		save_button.disabled = false
 	elif current_screen_index == 3:
 		next_button.visible = false
+		get_node("ExportScreen").try_desktop_folder()
 
 func update_localisation() -> void:
 	next_button.text = tr("BUTTON_NEXT")

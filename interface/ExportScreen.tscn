@@ -134,4 +134,5 @@ show_rect = false
 
 [connection signal="pressed" from="Panel/BrowseButton" to="." method="choose_path"]
 [connection signal="item_selected" from="Panel/PlaceholderDropdown" to="." method="change_image"]
+[connection signal="pressed" from="Panel/ExportButton" to="." method="export_mod"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="update_values"]
