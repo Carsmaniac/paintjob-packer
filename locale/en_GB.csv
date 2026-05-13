@@ -85,6 +85,8 @@ WARN_PNAME_RESER,Paint job name cannot be any of the following:
 WARN_PNAME_RESERS,Paint job name is a reserved file name
 WARN_PNAME_ASCII,Paint job name can only contain ASCII characters:
 WARN_PNAME_ASCIIS,Paint job name is not ASCII
+WARN_PRICE_ZERO,Price cannot be zero
+WARN_PRICE_ZEROS,Price is zero
 WARN_INAME_BLANK,"Internal name cannot be blank, please enter an internal name"
 WARN_INAME_BLANKS,Internal name is blank
 WARN_INAME_BLANKW,Paint job internal name is blank

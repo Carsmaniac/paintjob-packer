@@ -45,9 +45,9 @@ func string_to_hex(input: String) -> String:
 
 func make_tobj(dds_path: String, path: String) -> void:
 	var tobj_string: String = "010AB170000000000000000000000000000000000100020002000303030002020001000000010000"
-	tobj_string += int_to_hex(len(dds_path))
+	tobj_string += int_to_hex(len(dds_path) + 1)
 	tobj_string += "00000000000000"
-	tobj_string += string_to_hex(dds_path)
+	tobj_string += string_to_hex("/" + dds_path)
 	var file := FileAccess.open(output_path + path, FileAccess.WRITE)
 	if len(tobj_string) % 2 == 0:
 		for i in range(len(tobj_string) / 2.0):
@@ -62,7 +62,7 @@ func make_manifest_sii(mod_version: String, mod_name: String, mod_author: String
 	file.store_line("{")
 	file.store_line("\tpackage_version: \"%s\"" % mod_version)
 	file.store_line("\tdisplay_name: \"%s\"" % mod_name)
-	file.store_line("\tauthor_name: \"%s\"" % mod_author)
+	file.store_line("\tauthor: \"%s\"" % mod_author)
 	file.store_line("")
 	file.store_line("\tcategory[]: \"paint_job\"")
 	file.store_line("")
@@ -75,6 +75,11 @@ func make_manifest_sii(mod_version: String, mod_name: String, mod_author: String
 func make_description_file(mod_description: String) -> void:
 	var file = FileAccess.open(output_path + "Description.txt", FileAccess.WRITE)
 	file.store_line(mod_description)
+
+
+func copy_mod_image() -> void:
+	var placeholder_folder := DirAccess.open("res://placeholders")
+	placeholder_folder.copy("res://placeholders/mod-manager.jpg", "%sImage.jpg" % output_path)
 
 
 func make_material_folder() -> void:
@@ -119,11 +124,12 @@ func make_def_sii(vehicle_dict: Dictionary, paint_job_name: String, internal_nam
 	file.store_line("@include \"%s_settings.sui\"" % internal_name)
 	if vehicle_dict["separate_paint_jobs"]:
 		for cabin in cabins:
-			file.store_line("\tsuitable_for[]: \"%s.%s.cabin" % [cabin["internal_name"], vehicle_dict["path"]])
+			for cabin_internal in cabin["internal_name"]:
+				file.store_line("\tsuitable_for[]: \"%s.%s.cabin\"" % [cabin_internal, vehicle_dict["path"]])
 	if vehicle_dict["mod"]:
-		file.store_line("\tpaint_job_mask: \"/%s/%s [%s]/%s.tobj" % [paint_job_name, vehicle_dict["name"], vehicle_dict["mod_author"], main_dds_name])
+		file.store_line("\tpaint_job_mask: \"/%s/%s [%s]/%s.tobj\"" % [paint_job_name, vehicle_dict["name"], vehicle_dict["mod_author"], main_dds_name])
 	else:
-		file.store_line("\tpaint_job_mask: \"/%s/%s/%s.tobj" % [paint_job_name, vehicle_dict["name"], main_dds_name])
+		file.store_line("\tpaint_job_mask: \"/%s/%s/%s.tobj\"" % [paint_job_name, vehicle_dict["name"], main_dds_name])
 	file.store_line("}")
 	file.store_line("}")
 
@@ -154,7 +160,7 @@ func make_accessory_sii(vehicle_dict: Dictionary, paint_job_name: String, indiv_
 		else:
 			file.store_line("\tpaint_job_mask: \"/%s/%s/%s.tobj\"" % [paint_job_name, vehicle_dict["name"], acc_group])
 		for acc in vehicle_dict["accessories"][acc_group]:
-			file.store_line("acc_list[]: \"%s\"" % acc)
+			file.store_line("\tacc_list[]: \"%s\"" % acc)
 		file.store_line("}")
 		ovr_counter += 1
 	file.store_line("}")
@@ -203,6 +209,7 @@ func make_mod(mod_dict: Dictionary, new_output_path: String) -> void:
 	make_folder("")
 	make_manifest_sii(mod_dict["mod_version"], mod_dict["mod_name"], mod_dict["mod_author"])
 	make_description_file(mod_dict["mod_description"])
+	copy_mod_image()
 	make_material_folder()
 	for paint_job in mod_dict["paint_jobs"]:
 		make_paint_job_folder(paint_job["paint_job_name"])

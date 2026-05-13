@@ -110,6 +110,16 @@ func validate_all_inputs() -> void:
 			paint_job_name.find_child("TextInput").text = remove_escape_characters(paint_job_name_text)
 			paint_job_name.show_hide_warning_button()
 			
+			var price = paint_job.get_node("Price")
+			var price_value = price.find_child("NumberInput").value
+			price.warnings = []
+			if price_value == 0:
+				if paint_job not in invalid_paint_jobs:
+					invalid_paint_jobs.append(paint_job)
+				price.warnings.append(PackedStringArray([tr("WARN_PRICE_ZEROS"), tr("WARN_PRICE_ZERO")]))
+				warnings.append(tr("WARN_PRICE_ZEROS"))
+			price.show_hide_warning_button()
+			
 			if paint_job.get_node("Unlock").find_child("NumberInput").value == 0:
 				paint_job.get_node("Unlock").find_child("CheckboxInput").button_pressed = true
 			elif paint_job.get_node("Unlock").find_child("CheckboxInput").button_pressed == true:
