@@ -1,6 +1,7 @@
 extends Node
 
 var output_path: String
+var workshop_path: String
 var template_zip := ZIPReader.new()
 var using_templates: bool = true
 
@@ -54,14 +55,25 @@ func make_tobj(dds_path: String, path: String) -> void:
 			file.store_8(("0x" + tobj_string.substr(i * 2, 2)).hex_to_int())
 
 
-func make_manifest_sii(mod_version: String, mod_name: String, mod_author: String) -> void:
+func make_workshop_folder() -> void:
+	make_folder("Workshop Uploading")
+
+
+func copy_workshop_files() -> void:
+	var placeholder_folder := DirAccess.open("res://placeholders")
+	placeholder_folder.copy("res://placeholders/workshop.jpg", workshop_path + "Workshop Image.jpg")
+	placeholder_folder.copy("res://placeholders/versions.sii", workshop_path + "versions.sii")
+
+
+func make_manifest_sii(mod_version: String, mod_name: String, mod_author: String, workshop: bool) -> void:
 	var file = FileAccess.open(output_path + "manifest.sii", FileAccess.WRITE)
 	file.store_line("SiiNunit")
 	file.store_line("{")
 	file.store_line("mod_package: .package_name")
 	file.store_line("{")
 	file.store_line("\tpackage_version: \"%s\"" % mod_version)
-	file.store_line("\tdisplay_name: \"%s\"" % mod_name)
+	if workshop:
+		file.store_line("\tdisplay_name: \"%s\"" % mod_name)
 	file.store_line("\tauthor: \"%s\"" % mod_author)
 	file.store_line("")
 	file.store_line("\tcategory[]: \"paint_job\"")
@@ -206,8 +218,13 @@ func make_accessory_tobj(vehicle_dict: Dictionary, paint_job_name: String) -> vo
 
 func make_mod(mod_dict: Dictionary, new_output_path: String) -> void:
 	output_path = new_output_path
+	if mod_dict["workshop"]:
+		workshop_path = new_output_path + "Workshop Uploading/"
+		make_workshop_folder()
+		copy_workshop_files()
+		output_path = new_output_path + mod_dict["mod_name"] + "/"
 	make_folder("")
-	make_manifest_sii(mod_dict["mod_version"], mod_dict["mod_name"], mod_dict["mod_author"])
+	make_manifest_sii(mod_dict["mod_version"], mod_dict["mod_name"], mod_dict["mod_author"], mod_dict["workshop"])
 	make_description_file(mod_dict["mod_description"])
 	copy_mod_image()
 	make_material_folder()

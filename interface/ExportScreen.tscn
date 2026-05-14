@@ -60,9 +60,9 @@ autowrap_mode = 2
 [node name="PlaceholderDropdown" type="OptionButton" parent="Panel" unique_id=1805094865]
 layout_mode = 0
 offset_left = 360.0
-offset_top = 259.0
+offset_top = 251.0
 offset_right = 656.0
-offset_bottom = 290.0
+offset_bottom = 282.0
 selected = 0
 item_count = 2
 popup/item_0/text = "EXPORT_EMPTY"
@@ -71,12 +71,11 @@ popup/item_1/text = "EXPORT_TEMPLATES"
 popup/item_1/id = 1
 
 [node name="PlaceholderImageATS" type="TextureRect" parent="Panel" unique_id=1485041110]
-visible = false
 layout_mode = 0
 offset_left = 342.0
-offset_top = 305.0
+offset_top = 291.0
 offset_right = 676.0
-offset_bottom = 482.0
+offset_bottom = 468.0
 texture = ExtResource("1_vnvp6")
 expand_mode = 1
 
@@ -84,9 +83,9 @@ expand_mode = 1
 visible = false
 layout_mode = 0
 offset_left = 342.0
-offset_top = 305.0
+offset_top = 291.0
 offset_right = 676.0
-offset_bottom = 482.0
+offset_bottom = 468.0
 texture = ExtResource("1_vnvp6")
 expand_mode = 1
 
@@ -94,9 +93,9 @@ expand_mode = 1
 visible = false
 layout_mode = 0
 offset_left = 342.0
-offset_top = 305.0
+offset_top = 291.0
 offset_right = 676.0
-offset_bottom = 482.0
+offset_bottom = 468.0
 texture = ExtResource("1_vnvp6")
 expand_mode = 1
 
@@ -104,26 +103,39 @@ expand_mode = 1
 visible = false
 layout_mode = 0
 offset_left = 342.0
-offset_top = 305.0
+offset_top = 291.0
 offset_right = 676.0
-offset_bottom = 482.0
+offset_bottom = 468.0
 texture = ExtResource("1_vnvp6")
 expand_mode = 1
+
+[node name="WorkshopDropdown" type="OptionButton" parent="Panel" unique_id=662421930]
+layout_mode = 0
+offset_left = 317.0
+offset_top = 481.0
+offset_right = 699.0
+offset_bottom = 512.0
+selected = 0
+item_count = 2
+popup/item_0/text = "WSHOP_LOCAL"
+popup/item_0/id = 0
+popup/item_1/text = "WSHOP_WSHOP"
+popup/item_1/id = 1
 
 [node name="ExportButton" type="Button" parent="Panel" unique_id=1650769393]
 layout_mode = 0
 offset_left = 380.0
-offset_top = 527.0
+offset_top = 551.0
 offset_right = 634.0
-offset_bottom = 569.0
+offset_bottom = 593.0
 text = "BUTTON_EXPORT"
 
 [node name="StatusLabel" type="Label" parent="Panel" unique_id=210497185]
 layout_mode = 0
 offset_left = 56.0
-offset_top = 586.0
+offset_top = 610.0
 offset_right = 958.0
-offset_bottom = 670.0
+offset_bottom = 694.0
 text = "EXPORT_SELECT"
 horizontal_alignment = 1
 autowrap_mode = 2

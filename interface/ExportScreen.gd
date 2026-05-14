@@ -109,6 +109,10 @@ func export_mod() -> void:
 		"game": get_node("..").loaded_game,
 		"paint_jobs": []
 	}
+	if get_node("Panel/WorkshopDropdown").selected == 0:
+		mod_dict["workshop"] = false
+	else:
+		mod_dict["workshop"] = true
 	for paint_job_tab in get_node("../MainScreen/PaintJobTabContainer").get_children():
 		if paint_job_tab.name != "+":
 			print(paint_job_tab)

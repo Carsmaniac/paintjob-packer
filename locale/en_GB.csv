@@ -138,3 +138,5 @@ EXPORT_DONE,Your mod has been exported to:
 EXPORT_DONE2,Thanks for using Paint Job Packer! Press okay to exit
 THEME_DARK,Dark Mode
 THEME_LIGHT,Light Mode
+WSHOP_LOCAL,Do not generate Steam Workshop files
+WSHOP_WSHOP,Generate Steam Workshop files
