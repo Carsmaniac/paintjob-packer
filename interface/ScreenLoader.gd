@@ -1,5 +1,5 @@
 extends Control
-@onready var screens: Array[Node] = [$SetupScreen, $ModInfoScreen, $MainScreen, $ExportScreen]
+@onready var screens: Array[Node] = [$SetupScreen, $ModInfoScreen, $MainScreen, $ExportScreen, $AdvancedScreen]
 var current_screen_index: int = 0
 @onready var prev_button: Node = $PrevButton
 @onready var next_button: Node = $NextButton
@@ -61,16 +61,19 @@ func switch_game(game: String) -> void:
 		next_button.disabled = true
 
 
-func switch_screen(next: bool, startup: bool = false) -> void:
+func switch_screen(next: bool, startup: bool = false, to_screen: int = -5) -> void:
 	for screen in screens:
 		screen.visible = false
 		$AboutScreen.visible = false
-	if next:
-		current_screen_index += 1
+	if to_screen == -5:
+		if next:
+			current_screen_index += 1
+		else:
+			current_screen_index -= 1
+		if startup:
+			current_screen_index = 0
 	else:
-		current_screen_index -= 1
-	if startup:
-		current_screen_index = 0
+		current_screen_index = to_screen
 	
 	if current_screen_index == -1:
 		$AboutScreen.visible = true
@@ -107,6 +110,7 @@ func switch_screen(next: bool, startup: bool = false) -> void:
 			save_button.disabled = false
 	elif current_screen_index == 2:
 		prev_button.disabled = false
+		prev_button.visible = true
 		if prev_button.is_connected("pressed", PJPProject.confirm_return):
 			prev_button.disconnect("pressed", PJPProject.confirm_return)
 		if not prev_button.is_connected("pressed", switch_screen.bind(false)):
@@ -122,6 +126,10 @@ func switch_screen(next: bool, startup: bool = false) -> void:
 	elif current_screen_index == 3:
 		next_button.visible = false
 		get_node("ExportScreen").try_desktop_folder()
+	elif current_screen_index == 4:
+		next_button.visible = false
+		prev_button.visible = false
+		
 
 func update_localisation() -> void:
 	next_button.text = tr("BUTTON_NEXT")

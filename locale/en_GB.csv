@@ -134,3 +134,17 @@ THEME_DARK,Dark Mode
 THEME_LIGHT,Light Mode
 WSHOP_LOCAL,Do not generate Steam Workshop files
 WSHOP_WSHOP,Generate Steam Workshop files
+ADVANC_TITLE,Advanced Settings
+CHANGE_TITLE,Changeable Colours
+CHANGE_NONE,No changeable colours
+CHANGE_ONE,One changeable colour
+CHANGE_TWO,Two changeable colours
+CHANGE_THREE,Three changeable colours
+CHANGE_FIRST,First colour
+CHANGE_SECOND,Second colour
+CHANGE_THIRD,Third colour
+CHANGE_TEMPLATE,Template colour:
+CHANGE_DEFAULT,Default colour:
+METAL_TITLE,Metallic Paint Job
+METAL_NO,Non-metallic paint job
+METAL_YES,Metallic paint job

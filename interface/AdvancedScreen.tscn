@@ -1,0 +1,408 @@
+[gd_scene format=3 uid="uid://brubeeutvyrgd"]
+
+[ext_resource type="Theme" uid="uid://2i35ywbubie7" path="res://simple-box-theme/pjp-dark/PJPDark.tres" id="1_8o033"]
+[ext_resource type="Script" uid="uid://cluw8kdp14ct6" path="res://interface/AdvancedScreen.gd" id="2_kob1g"]
+
+[node name="AdvancedScreen" type="Control" unique_id=633265906]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_8o033")
+script = ExtResource("2_kob1g")
+
+[node name="Panel" type="Panel" parent="." unique_id=1103811956]
+layout_mode = 0
+offset_left = 111.0
+offset_top = 97.0
+offset_right = 929.0
+offset_bottom = 785.0
+
+[node name="AdvancedTitle" type="Label" parent="Panel" unique_id=71738436]
+layout_mode = 0
+offset_top = 33.0
+offset_right = 818.0
+offset_bottom = 56.0
+text = "ADVANC_TITLE"
+horizontal_alignment = 1
+
+[node name="PaintJobName" type="Label" parent="Panel" unique_id=323518690]
+layout_mode = 0
+offset_top = 57.0
+offset_right = 818.0
+offset_bottom = 80.0
+text = "Cool Paint Job"
+horizontal_alignment = 1
+
+[node name="ChangeableTitle" type="Label" parent="Panel" unique_id=16046203]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 96.0
+offset_right = 274.0
+offset_bottom = 119.0
+text = "CHANGE_TITLE"
+
+[node name="ChangeableDropdown" type="OptionButton" parent="Panel" unique_id=1968106120]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 129.0
+offset_right = 444.0
+offset_bottom = 162.0
+selected = 0
+item_count = 4
+popup/item_0/text = "CHANGE_NONE"
+popup/item_0/id = 0
+popup/item_1/text = "CHANGE_ONE"
+popup/item_1/id = 1
+popup/item_2/text = "CHANGE_TWO"
+popup/item_2/id = 2
+popup/item_3/text = "CHANGE_THREE"
+popup/item_3/id = 3
+
+[node name="ChangeableControls" type="VBoxContainer" parent="Panel" unique_id=1168749258]
+layout_mode = 0
+offset_left = 69.0
+offset_top = 177.0
+offset_right = 724.0
+offset_bottom = 323.0
+theme_override_constants/separation = 16
+
+[node name="Changeable1" type="HBoxContainer" parent="Panel/ChangeableControls" unique_id=1322921279]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Panel/ChangeableControls/Changeable1" unique_id=2135093947]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "First colour"
+
+[node name="TemplateLabel" type="Label" parent="Panel/ChangeableControls/Changeable1" unique_id=184496963]
+layout_mode = 2
+text = "Template colour:"
+
+[node name="Spacer" type="Control" parent="Panel/ChangeableControls/Changeable1" unique_id=268636714]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="TemplateButton" type="ColorPickerButton" parent="Panel/ChangeableControls/Changeable1" unique_id=1304850615]
+custom_minimum_size = Vector2(50, 35)
+layout_mode = 2
+color = Color(1, 0, 0, 1)
+edit_alpha = false
+edit_intensity = false
+
+[node name="Spacer2" type="Control" parent="Panel/ChangeableControls/Changeable1" unique_id=901744599]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="DefaultLabel" type="Label" parent="Panel/ChangeableControls/Changeable1" unique_id=2005225333]
+layout_mode = 2
+text = "Default colour:"
+
+[node name="Spacer3" type="Control" parent="Panel/ChangeableControls/Changeable1" unique_id=209512921]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="DefaultButton" type="ColorPickerButton" parent="Panel/ChangeableControls/Changeable1" unique_id=1038097089]
+custom_minimum_size = Vector2(50, 35)
+layout_mode = 2
+edit_alpha = false
+edit_intensity = false
+
+[node name="Spacer4" type="Control" parent="Panel/ChangeableControls/Changeable1" unique_id=481272548]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="HelpButton" type="Button" parent="Panel/ChangeableControls/Changeable1" unique_id=2049421569]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+text = "?"
+
+[node name="Changeable2" type="HBoxContainer" parent="Panel/ChangeableControls" unique_id=935934842]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Panel/ChangeableControls/Changeable2" unique_id=1548946909]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Second colour"
+
+[node name="TemplateLabel" type="Label" parent="Panel/ChangeableControls/Changeable2" unique_id=573570736]
+layout_mode = 2
+text = "Template colour:"
+
+[node name="Spacer" type="Control" parent="Panel/ChangeableControls/Changeable2" unique_id=542292927]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="TemplateButton" type="ColorPickerButton" parent="Panel/ChangeableControls/Changeable2" unique_id=1162905329]
+custom_minimum_size = Vector2(50, 35)
+layout_mode = 2
+color = Color(0, 1, 0, 1)
+edit_alpha = false
+edit_intensity = false
+
+[node name="Spacer2" type="Control" parent="Panel/ChangeableControls/Changeable2" unique_id=1938552335]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="DefaultLabel" type="Label" parent="Panel/ChangeableControls/Changeable2" unique_id=1264648081]
+layout_mode = 2
+text = "Default colour:"
+
+[node name="Spacer3" type="Control" parent="Panel/ChangeableControls/Changeable2" unique_id=354604809]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="DefaultButton" type="ColorPickerButton" parent="Panel/ChangeableControls/Changeable2" unique_id=2062034321]
+custom_minimum_size = Vector2(50, 35)
+layout_mode = 2
+edit_alpha = false
+edit_intensity = false
+
+[node name="Spacer4" type="Control" parent="Panel/ChangeableControls/Changeable2" unique_id=1481704107]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="HelpButton" type="Button" parent="Panel/ChangeableControls/Changeable2" unique_id=1407123293]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+text = "?"
+
+[node name="Changeable3" type="HBoxContainer" parent="Panel/ChangeableControls" unique_id=652397435]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Panel/ChangeableControls/Changeable3" unique_id=377319508]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Third colour"
+
+[node name="TemplateLabel" type="Label" parent="Panel/ChangeableControls/Changeable3" unique_id=820998666]
+layout_mode = 2
+text = "Template colour:"
+
+[node name="Spacer" type="Control" parent="Panel/ChangeableControls/Changeable3" unique_id=40369267]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="TemplateButton" type="ColorPickerButton" parent="Panel/ChangeableControls/Changeable3" unique_id=1336608190]
+custom_minimum_size = Vector2(50, 35)
+layout_mode = 2
+color = Color(0, 0, 1, 1)
+edit_alpha = false
+edit_intensity = false
+
+[node name="Spacer2" type="Control" parent="Panel/ChangeableControls/Changeable3" unique_id=2088312410]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="DefaultLabel" type="Label" parent="Panel/ChangeableControls/Changeable3" unique_id=292686506]
+layout_mode = 2
+text = "Default colour:"
+
+[node name="Spacer3" type="Control" parent="Panel/ChangeableControls/Changeable3" unique_id=1598441357]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="DefaultButton" type="ColorPickerButton" parent="Panel/ChangeableControls/Changeable3" unique_id=1272508969]
+custom_minimum_size = Vector2(50, 35)
+layout_mode = 2
+edit_alpha = false
+edit_intensity = false
+
+[node name="Spacer4" type="Control" parent="Panel/ChangeableControls/Changeable3" unique_id=323892184]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="HelpButton" type="Button" parent="Panel/ChangeableControls/Changeable3" unique_id=354592581]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+text = "?"
+
+[node name="MetallicTitle" type="Label" parent="Panel" unique_id=1004752160]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 354.0
+offset_right = 274.0
+offset_bottom = 377.0
+text = "METAL_TITLE"
+
+[node name="MetallicDropdown" type="OptionButton" parent="Panel" unique_id=1710549727]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 387.0
+offset_right = 444.0
+offset_bottom = 420.0
+selected = 0
+item_count = 2
+popup/item_0/text = "METAL_NO"
+popup/item_0/id = 0
+popup/item_1/text = "METAL_YES"
+popup/item_1/id = 1
+
+[node name="MetallicControls" type="VBoxContainer" parent="Panel" unique_id=1520202507]
+layout_mode = 0
+offset_left = 69.0
+offset_top = 435.0
+offset_right = 724.0
+offset_bottom = 581.0
+theme_override_constants/separation = 16
+
+[node name="Changeable1" type="HBoxContainer" parent="Panel/MetallicControls" unique_id=1655836064]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Panel/MetallicControls/Changeable1" unique_id=608365992]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "First colour"
+
+[node name="TemplateLabel" type="Label" parent="Panel/MetallicControls/Changeable1" unique_id=1448476192]
+layout_mode = 2
+text = "Template colour:"
+
+[node name="Spacer" type="Control" parent="Panel/MetallicControls/Changeable1" unique_id=694203679]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="TemplateButton" type="ColorPickerButton" parent="Panel/MetallicControls/Changeable1" unique_id=1509962740]
+custom_minimum_size = Vector2(50, 35)
+layout_mode = 2
+color = Color(1, 0, 0, 1)
+edit_alpha = false
+edit_intensity = false
+
+[node name="Spacer2" type="Control" parent="Panel/MetallicControls/Changeable1" unique_id=629995156]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="DefaultLabel" type="Label" parent="Panel/MetallicControls/Changeable1" unique_id=1880076552]
+layout_mode = 2
+text = "Default colour:"
+
+[node name="Spacer3" type="Control" parent="Panel/MetallicControls/Changeable1" unique_id=1762416313]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="DefaultButton" type="ColorPickerButton" parent="Panel/MetallicControls/Changeable1" unique_id=764610289]
+custom_minimum_size = Vector2(50, 35)
+layout_mode = 2
+edit_alpha = false
+edit_intensity = false
+
+[node name="Spacer4" type="Control" parent="Panel/MetallicControls/Changeable1" unique_id=1448067081]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="HelpButton" type="Button" parent="Panel/MetallicControls/Changeable1" unique_id=324356444]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+text = "?"
+
+[node name="Changeable2" type="HBoxContainer" parent="Panel/MetallicControls" unique_id=1682989264]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Panel/MetallicControls/Changeable2" unique_id=526839172]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Second colour"
+
+[node name="TemplateLabel" type="Label" parent="Panel/MetallicControls/Changeable2" unique_id=1947422903]
+layout_mode = 2
+text = "Template colour:"
+
+[node name="Spacer" type="Control" parent="Panel/MetallicControls/Changeable2" unique_id=275357651]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="TemplateButton" type="ColorPickerButton" parent="Panel/MetallicControls/Changeable2" unique_id=1066319459]
+custom_minimum_size = Vector2(50, 35)
+layout_mode = 2
+color = Color(0, 1, 0, 1)
+edit_alpha = false
+edit_intensity = false
+
+[node name="Spacer2" type="Control" parent="Panel/MetallicControls/Changeable2" unique_id=320851805]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="DefaultLabel" type="Label" parent="Panel/MetallicControls/Changeable2" unique_id=518945368]
+layout_mode = 2
+text = "Default colour:"
+
+[node name="Spacer3" type="Control" parent="Panel/MetallicControls/Changeable2" unique_id=1781938188]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="DefaultButton" type="ColorPickerButton" parent="Panel/MetallicControls/Changeable2" unique_id=685531917]
+custom_minimum_size = Vector2(50, 35)
+layout_mode = 2
+edit_alpha = false
+edit_intensity = false
+
+[node name="Spacer4" type="Control" parent="Panel/MetallicControls/Changeable2" unique_id=310621036]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="HelpButton" type="Button" parent="Panel/MetallicControls/Changeable2" unique_id=505737749]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+text = "?"
+
+[node name="Changeable3" type="HBoxContainer" parent="Panel/MetallicControls" unique_id=1647766446]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="Panel/MetallicControls/Changeable3" unique_id=1842016488]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "Third colour"
+
+[node name="TemplateLabel" type="Label" parent="Panel/MetallicControls/Changeable3" unique_id=1478348089]
+layout_mode = 2
+text = "Template colour:"
+
+[node name="Spacer" type="Control" parent="Panel/MetallicControls/Changeable3" unique_id=668984328]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="TemplateButton" type="ColorPickerButton" parent="Panel/MetallicControls/Changeable3" unique_id=1037724241]
+custom_minimum_size = Vector2(50, 35)
+layout_mode = 2
+color = Color(0, 0, 1, 1)
+edit_alpha = false
+edit_intensity = false
+
+[node name="Spacer2" type="Control" parent="Panel/MetallicControls/Changeable3" unique_id=38367138]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="DefaultLabel" type="Label" parent="Panel/MetallicControls/Changeable3" unique_id=3790551]
+layout_mode = 2
+text = "Default colour:"
+
+[node name="Spacer3" type="Control" parent="Panel/MetallicControls/Changeable3" unique_id=844769055]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="DefaultButton" type="ColorPickerButton" parent="Panel/MetallicControls/Changeable3" unique_id=2023952741]
+custom_minimum_size = Vector2(50, 35)
+layout_mode = 2
+edit_alpha = false
+edit_intensity = false
+
+[node name="Spacer4" type="Control" parent="Panel/MetallicControls/Changeable3" unique_id=1991663056]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="HelpButton" type="Button" parent="Panel/MetallicControls/Changeable3" unique_id=1637631137]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+text = "?"
+
+[node name="OkayButton" type="Button" parent="Panel" unique_id=780966066]
+layout_mode = 0
+offset_left = 345.0
+offset_top = 618.0
+offset_right = 475.0
+offset_bottom = 656.0
+text = "BUTTON_OKAY"
+clip_text = true

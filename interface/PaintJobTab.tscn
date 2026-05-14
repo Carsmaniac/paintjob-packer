@@ -145,7 +145,6 @@ grow_vertical = 2
 text = "!"
 
 [node name="AdvancedButton" type="Button" parent="." unique_id=985484368]
-visible = false
 layout_mode = 0
 offset_left = 771.0
 offset_top = 628.0

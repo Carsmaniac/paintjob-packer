@@ -9,6 +9,7 @@ func _ready() -> void:
 	__ = $SplitPaintJobs/DropdownInput.connect("item_selected", Callable($InternalName, "validate_text_input"))
 	__ = $Unlock/CheckboxInput.connect("toggled", enable_disable_unlock_level)
 	__ = $SearchBar.connect("text_changed", filter_vehicles)
+	__ = $AdvancedButton.connect("pressed", switch_to_advanced)
 
 
 func get_vehicle_selections() -> Array:
@@ -18,6 +19,10 @@ func get_vehicle_selections() -> Array:
 				if selection is VehicleSelection:
 					selections.append(selection)
 	return selections
+
+
+func switch_to_advanced() -> void:
+	get_node("../../..").switch_screen(true, false, 4)
 
 
 func _on_cabin_dropdown_change(tab_index) -> void:

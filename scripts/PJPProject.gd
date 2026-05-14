@@ -119,6 +119,7 @@ func verify_save_file_path(file_path: String) -> void:
 
 
 func save(file_path: String) -> void:
+	# TODO: save advanced info
 	var save_dict: Dictionary = {}
 	save_dict["a"] = "Hello! This is a save file. If you edit it, bad things might happen and Paint Job Packer might crash. Continue at your own risk :)"
 	save_dict["save_data_version"] = 1 # In case it changes in the future

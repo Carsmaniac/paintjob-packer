@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://ber04fmjjbd4e" path="res://interface/ModInfoScreen.tscn" id="4_ldyqi"]
 [ext_resource type="PackedScene" uid="uid://chk5cp55kybmk" path="res://interface/ExportScreen.tscn" id="5_q8r4r"]
 [ext_resource type="Script" uid="uid://dko10nbv5god8" path="res://interface/LanguageDropdown.gd" id="7_ldyqi"]
+[ext_resource type="PackedScene" uid="uid://brubeeutvyrgd" path="res://interface/AdvancedScreen.tscn" id="8_imstj"]
 
 [node name="ScreenLoader" type="Control" unique_id=1942051723]
 layout_mode = 3
@@ -43,6 +44,10 @@ visible = false
 layout_mode = 1
 
 [node name="SetupScreen" parent="." unique_id=816446239 instance=ExtResource("3_wnf8p")]
+visible = false
+layout_mode = 1
+
+[node name="AdvancedScreen" parent="." unique_id=1074656815 instance=ExtResource("8_imstj")]
 visible = false
 layout_mode = 1
 
