@@ -63,16 +63,10 @@ WARN_MNAME_RESER,Mod name cannot be any of the following:
 WARN_MNAME_RESERS,Mod name is a reserved file name
 WARNING_HELP,Help
 WARNING_TITLE,Warning
-WARN_MAUTH_BLANK,"Mod author cannot be blank, please enter a mod author"
-WARN_MAUTH_BLANKS,Mod author is blank
 WARN_MAUTH_INVAL,Mod author cannot contain the following characters:
 WARN_MAUTH_INVALS,Mod author contains invalid characters
-WARN_MVER_BLANK,"Mod version cannot be blank, please enter a mod version"
-WARN_MVER_BLANKS,Mod version is blank
 WARN_MVER_INVAL,Mod version cannot contain the following characters:
 WARN_MVER_INVALS,Mod version contains invalid characters
-WARN_MDESC_BLANK,"Mod description cannot be blank, please enter a mod description"
-WARN_MDESC_BLANKS,Mod description is blank
 WARN_PNAME_BLANK,"Paint job name cannot be blank, please enter a paint job name"
 WARN_PNAME_BLANKS,Paint job name is blank
 WARN_PNAME_INVAL,Paint job name cannot contain the following characters:

@@ -40,10 +40,10 @@ func validate_all_inputs() -> void:
 	var mod_author: Node = mod_screen.get_node("Panel/Author")
 	var mod_author_text: String = mod_author.find_child("TextInput").text
 	mod_author.warnings = []
-	if mod_author_text == "":
-		mod_screen_valid = false
-		mod_author.warnings.append(PackedStringArray([tr("WARN_MAUTH_BLANKS"), tr("WARN_MAUTH_BLANK")]))
-		warnings.append(tr("WARN_MAUTH_BLANKS"))
+	#if mod_author_text == "":
+		#mod_screen_valid = false
+		#mod_author.warnings.append(PackedStringArray([tr("WARN_MAUTH_BLANKS"), tr("WARN_MAUTH_BLANK")]))
+		#warnings.append(tr("WARN_MAUTH_BLANKS"))
 	if has_invalid_sii_character(mod_author_text):
 		mod_screen_valid = false
 		mod_author.warnings.append(PackedStringArray([tr("WARN_MAUTH_INVALS"), tr("WARN_MAUTH_INVAL") + "\n\" / \\"]))
@@ -53,10 +53,10 @@ func validate_all_inputs() -> void:
 	var mod_version: Node = mod_screen.get_node("Panel/Version")
 	var mod_version_text: String = mod_version.find_child("TextInput").text
 	mod_version.warnings = []
-	if mod_version_text == "":
-		mod_screen_valid = false
-		mod_version.warnings.append(PackedStringArray([tr("WARN_MVER_BLANKS"), tr("WARN_MVER_BLANK")]))
-		warnings.append(tr("WARN_MVER_BLANKS"))
+	#if mod_version_text == "":
+		#mod_screen_valid = false
+		#mod_version.warnings.append(PackedStringArray([tr("WARN_MVER_BLANKS"), tr("WARN_MVER_BLANK")]))
+		#warnings.append(tr("WARN_MVER_BLANKS"))
 	if has_invalid_sii_character(mod_version_text):
 		mod_screen_valid = false
 		mod_version.warnings.append(PackedStringArray([tr("WARN_MVER_INVALS"), tr("WARN_MVER_INVAL") + "\n\" / \\"]))
