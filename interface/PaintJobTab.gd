@@ -8,6 +8,7 @@ func _ready() -> void:
 	__ = $CabinSupport/DropdownInput.connect("item_selected", _on_cabin_dropdown_change)
 	__ = $SplitPaintJobs/DropdownInput.connect("item_selected", Callable($InternalName, "validate_text_input"))
 	__ = $Unlock/CheckboxInput.connect("toggled", enable_disable_unlock_level)
+	__ = $SearchBar.connect("text_changed", filter_vehicles)
 
 
 func get_vehicle_selections() -> Array:
@@ -40,6 +41,19 @@ func update_vehicles_selected_number() -> void:
 		if selection.find_child("VehicleCheckbox").button_pressed:
 			total_vehicles += 1
 	$SelectedLabel.text = tr("PJOB_VEHICLES") % total_vehicles
+
+
+func filter_vehicles(filter_string: String) -> void:
+	for selection in get_vehicle_selections():
+		if filter_string != "":
+			if filter_string.to_lower() in selection.vehicle_name.to_lower() or \
+				filter_string.to_lower() in selection.author_name.to_lower() or \
+				filter_string.to_lower() in selection.vehicle_display_name.to_lower():
+				selection.visible = true
+			else:
+				selection.visible = false
+		else:
+			selection.visible = true
 
 
 func show_hide_warning_button() -> void:

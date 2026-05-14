@@ -3,6 +3,7 @@ class_name VehicleSelection
 
 var vehicle_name: String
 var author_name: String
+var vehicle_display_name: String
 
 var vehicle_checkbox: Node
 var cabins_container: Node
@@ -21,6 +22,7 @@ func init(vehicle: Dictionary, show_cabins: bool, show_author: bool) -> Control:
 	name = vehicle_dict["file_path"]
 	author_name = vehicle_dict["file_path"].split("/")[0]
 	vehicle_name = vehicle_dict["file_path"].split("/")[1]
+	vehicle_display_name = vehicle_dict["name"]
 
 	vehicle_checkbox.text = vehicle["name"]
 	if show_author:

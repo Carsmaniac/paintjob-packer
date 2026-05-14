@@ -114,10 +114,17 @@ offset_right = 571.0
 offset_bottom = 32.0
 text = "PJOB_VEHICLES"
 
+[node name="SearchBar" type="LineEdit" parent="." unique_id=45462170]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 37.0
+offset_right = 758.0
+offset_bottom = 68.0
+
 [node name="VehicleTabContainer" type="TabContainer" parent="." unique_id=112539841]
 layout_mode = 0
 offset_left = 400.0
-offset_top = 40.0
+offset_top = 88.0
 offset_right = 998.0
 offset_bottom = 608.0
 script = ExtResource("4")
