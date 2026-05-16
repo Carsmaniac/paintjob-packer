@@ -7,7 +7,7 @@ BUTTON_PREVIOUS,Previous
 BUTTON_NEXT,Next
 BUTTON_ABOUT,About
 BUTTON_EXPORT,Export
-BUTTON_ADVANCED,Advanced
+BUTTON_COLOURS,Colours
 BUTTON_OKAY,Okay
 BUTTON_CONFIRM,Confirm
 BUTTON_CONTINUE,Continue
@@ -130,21 +130,15 @@ EXPORT_READY,Ready to export mod :)
 EXPORT_DONET,Export Complete
 EXPORT_DONE,Your mod has been exported to:
 EXPORT_DONE2,Thanks for using Paint Job Packer! Press okay to exit
+HELLO_TRANSLATOR,Hello translator, I hope you're having a nice day. Thank you for helping! You don't need to translate this string, I just wanted to say thanks!
 THEME_DARK,Dark Mode
 THEME_LIGHT,Light Mode
 WSHOP_LOCAL,Do not generate Steam Workshop files
 WSHOP_WSHOP,Generate Steam Workshop files
-ADVANC_TITLE,Advanced Settings
 CHANGE_TITLE,Changeable Colours
-CHANGE_NONE,No changeable colours
-CHANGE_ONE,One changeable colour
-CHANGE_TWO,Two changeable colours
-CHANGE_THREE,Three changeable colours
-CHANGE_FIRST,First colour
-CHANGE_SECOND,Second colour
-CHANGE_THIRD,Third colour
-CHANGE_TEMPLATE,Template colour:
 CHANGE_DEFAULT,Default colour:
-METAL_TITLE,Metallic Paint Job
-METAL_NO,Non-metallic paint job
-METAL_YES,Metallic paint job
+CHANGE_RED,Red
+CHANGE_GREEN,Green
+CHANGE_BLUE,Blue
+CHANGE_ENABLE,Enabled
+CHANGE_USER,User changeable

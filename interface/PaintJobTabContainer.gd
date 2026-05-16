@@ -57,6 +57,7 @@ func _on_tab_changed(index: int) -> void:
 		if get_node("../..").current_screen_index == 2:
 			if len(get_tab_control(index).get_node("VehicleTabContainer").get_children()) == 0:
 				load_vehicles_for_tab(get_tab_control(index))
+		get_tab_control(index).enable_disable_prev_next()
 
 
 func toggle_close_buttons():

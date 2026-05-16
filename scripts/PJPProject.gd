@@ -139,9 +139,9 @@ func save(file_path: String) -> void:
 		if paint_job.name != "+":
 			var paint_job_dict: Dictionary = {
 				paint_job_name = paint_job.find_child("Name").find_child("TextInput").text,
-				price = paint_job.find_child("Price").find_child("TextInput").text,
+				price = paint_job.find_child("Price").find_child("NumberInput").value,
 				unlocked_by_default = paint_job.find_child("Unlock").find_child("CheckboxInput").button_pressed,
-				unlock_level = paint_job.find_child("Unlock").find_child("TextInput").text,
+				unlock_level = paint_job.find_child("Unlock").find_child("NumberInput").value,
 				internal_name = paint_job.find_child("InternalName").find_child("TextInput").text,
 				cabin_support = paint_job.find_child("CabinSupport").find_child("DropdownInput").selected,
 				split_cabins = paint_job.find_child("SplitPaintJobs").find_child("DropdownInput").selected,
@@ -152,6 +152,20 @@ func save(file_path: String) -> void:
 			}
 			if mod_info["game"] == "ets":
 				paint_job_dict["bus_mods"] = get_dict_from_tab(paint_job, 4) # TODO: don't hardcode this to ets
+			paint_job_dict["advanced"] = {
+				base_colour = var_to_str(paint_job.get_node("AdvancedTab/BaseColour").color),
+				base_colour_unlocked = paint_job.get_node("AdvancedTab/BaseChangeable").button_pressed,
+				changeable_enabled = paint_job.get_node("AdvancedTab/ChangeableEnabled").button_pressed,
+				changeable1_enabled = paint_job.get_node("AdvancedTab/ChangeableControls/Changeable1/EnableCheckbox").button_pressed,
+				changeable1_colour = var_to_str(paint_job.get_node("AdvancedTab/ChangeableControls/Changeable1/Enabled/ColourButton").color),
+				changeable1_unlocked = paint_job.get_node("AdvancedTab/ChangeableControls/Changeable1/Enabled/ChangeableCheckbox").button_pressed,
+				changeable2_enabled = paint_job.get_node("AdvancedTab/ChangeableControls/Changeable2/EnableCheckbox").button_pressed,
+				changeable2_colour = var_to_str(paint_job.get_node("AdvancedTab/ChangeableControls/Changeable2/Enabled/ColourButton").color),
+				changeable2_unlocked = paint_job.get_node("AdvancedTab/ChangeableControls/Changeable2/Enabled/ChangeableCheckbox").button_pressed,
+				changeable3_enabled = paint_job.get_node("AdvancedTab/ChangeableControls/Changeable3/EnableCheckbox").button_pressed,
+				changeable3_colour = var_to_str(paint_job.get_node("AdvancedTab/ChangeableControls/Changeable3/Enabled/ColourButton").color),
+				changeable3_unlocked = paint_job.get_node("AdvancedTab/ChangeableControls/Changeable3/Enabled/ChangeableCheckbox").button_pressed
+			}
 			paint_jobs.append(paint_job_dict)
 	save_dict["paint_jobs"] = paint_jobs
 	
@@ -207,14 +221,27 @@ func load(file_path: String) -> void:
 		paint_job_tab_container.add_tab(paint_job["paint_job_name"])
 		var paint_job_node: Node = paint_job_tab_container.get_child(len(paint_job_tab_container.get_children()) - 1)
 		paint_job_node.find_child("Name").find_child("TextInput").text = paint_job["paint_job_name"]
-		paint_job_node.find_child("Price").find_child("TextInput").text = paint_job["price"]
+		paint_job_node.find_child("Price").find_child("NumberInput").value = paint_job["price"]
 		paint_job_node.find_child("Unlock").find_child("CheckboxInput").button_pressed = paint_job["unlocked_by_default"]
-		paint_job_node.find_child("Unlock").find_child("TextInput").text = paint_job["unlock_level"]
+		paint_job_node.find_child("Unlock").find_child("NumberInput").value = paint_job["unlock_level"]
 		paint_job_node.find_child("InternalName").find_child("TextInput").text = paint_job["internal_name"]
 		paint_job_node.find_child("CabinSupport").find_child("DropdownInput").selected = paint_job["cabin_support"]
 		paint_job_node.find_child("SplitPaintJobs").find_child("DropdownInput").selected = paint_job["split_cabins"]
 		paint_job_node._on_cabin_dropdown_change(paint_job["cabin_support"])
 		
+		paint_job_node.get_node("AdvancedTab/BaseColour").color = str_to_var(paint_job["advanced"]["base_colour"])
+		paint_job_node.get_node("AdvancedTab/BaseChangeable").button_pressed = paint_job["advanced"]["base_colour_unlocked"]
+		paint_job_node.get_node("AdvancedTab/ChangeableEnabled").button_pressed = paint_job["advanced"]["changeable_enabled"]
+		paint_job_node.get_node("AdvancedTab/ChangeableControls/Changeable1/EnableCheckbox").button_pressed = paint_job["advanced"]["changeable1_enabled"]
+		paint_job_node.get_node("AdvancedTab/ChangeableControls/Changeable1/Enabled/ColourButton").color = str_to_var(paint_job["advanced"]["changeable1_colour"])
+		paint_job_node.get_node("AdvancedTab/ChangeableControls/Changeable1/Enabled/ChangeableCheckbox").button_pressed = paint_job["advanced"]["changeable1_unlocked"]
+		paint_job_node.get_node("AdvancedTab/ChangeableControls/Changeable2/EnableCheckbox").button_pressed = paint_job["advanced"]["changeable2_enabled"]
+		paint_job_node.get_node("AdvancedTab/ChangeableControls/Changeable2/Enabled/ColourButton").color = str_to_var(paint_job["advanced"]["changeable2_colour"])
+		paint_job_node.get_node("AdvancedTab/ChangeableControls/Changeable2/Enabled/ChangeableCheckbox").button_pressed = paint_job["advanced"]["changeable2_unlocked"]
+		paint_job_node.get_node("AdvancedTab/ChangeableControls/Changeable3/EnableCheckbox").button_pressed = paint_job["advanced"]["changeable3_enabled"]
+		paint_job_node.get_node("AdvancedTab/ChangeableControls/Changeable3/Enabled/ColourButton").color = str_to_var(paint_job["advanced"]["changeable3_colour"])
+		paint_job_node.get_node("AdvancedTab/ChangeableControls/Changeable3/Enabled/ChangeableCheckbox").button_pressed = paint_job["advanced"]["changeable3_unlocked"]
+
 		var truck_tab: Node = paint_job_node.get_node("VehicleTabContainer/Trucks")
 		for vehicle in paint_job["trucks"]:
 			var vehicle_selection: Node = truck_tab.find_child(vehicle.replace(".", "_").replace("/", "_"), true, false)

@@ -1,0 +1,274 @@
+[gd_scene format=3 uid="uid://dme18bmwlo3vq"]
+
+[ext_resource type="Theme" uid="uid://2i35ywbubie7" path="res://simple-box-theme/pjp-dark/PJPDark.tres" id="1_ipa5j"]
+[ext_resource type="Script" uid="uid://cluw8kdp14ct6" path="res://interface/AdvancedTab.gd" id="1_urcvw"]
+
+[node name="AdvancedTab" type="Control" unique_id=1384706168]
+layout_mode = 3
+anchors_preset = 0
+theme = ExtResource("1_ipa5j")
+script = ExtResource("1_urcvw")
+metadata/_tab_index = 0
+
+[node name="AdvancedTitle" type="Label" parent="." unique_id=1505794518]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 42.0
+offset_right = 912.0
+offset_bottom = 65.0
+text = "BUTTON_COLOURS"
+horizontal_alignment = 1
+
+[node name="PaintJobName" type="Label" parent="." unique_id=987770824]
+layout_mode = 0
+offset_left = 94.0
+offset_top = 66.0
+offset_right = 912.0
+offset_bottom = 89.0
+horizontal_alignment = 1
+
+[node name="BaseTitle" type="Label" parent="." unique_id=721861040]
+layout_mode = 0
+offset_left = 161.0
+offset_top = 120.0
+offset_right = 368.0
+offset_bottom = 143.0
+text = "Base Colour"
+
+[node name="BaseDefault" type="Label" parent="." unique_id=1446900602]
+layout_mode = 0
+offset_left = 161.0
+offset_top = 166.0
+offset_right = 276.0
+offset_bottom = 185.0
+text = "CHANGE_DEFAULT"
+
+[node name="BaseColour" type="ColorPickerButton" parent="." unique_id=520403227]
+custom_minimum_size = Vector2(50, 35)
+layout_mode = 0
+offset_left = 305.0
+offset_top = 157.0
+offset_right = 355.0
+offset_bottom = 195.0
+color = Color(0.37775686, 0.34263512, 0.89209753, 1)
+edit_alpha = false
+edit_intensity = false
+
+[node name="BaseChangeable" type="CheckBox" parent="." unique_id=368277956]
+layout_mode = 0
+offset_left = 364.0
+offset_top = 156.0
+offset_right = 528.0
+offset_bottom = 194.0
+text = "CHANGE_USER"
+
+[node name="BaseHelp" type="Button" parent="." unique_id=1204781466]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 0
+offset_left = 555.0
+offset_top = 156.0
+offset_right = 580.0
+offset_bottom = 194.0
+text = "?"
+
+[node name="ChangeableTitle2" type="Label" parent="." unique_id=767308425]
+layout_mode = 0
+offset_left = 161.0
+offset_top = 264.0
+offset_right = 368.0
+offset_bottom = 287.0
+text = "CHANGE_TITLE"
+
+[node name="ChangeableEnabled" type="CheckBox" parent="." unique_id=1906615873]
+layout_mode = 0
+offset_left = 162.0
+offset_top = 302.0
+offset_right = 260.0
+offset_bottom = 337.0
+text = "CHANGE_ENABLE"
+
+[node name="ChangeableHelp" type="Button" parent="." unique_id=2102316171]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 0
+offset_left = 310.0
+offset_top = 303.0
+offset_right = 335.0
+offset_bottom = 341.0
+text = "?"
+
+[node name="ChangeableControls" type="VBoxContainer" parent="." unique_id=877279490]
+visible = false
+layout_mode = 0
+offset_left = 163.0
+offset_top = 409.0
+offset_right = 903.0
+offset_bottom = 555.0
+theme_override_constants/separation = 16
+
+[node name="Changeable1" type="HBoxContainer" parent="ChangeableControls" unique_id=219960229]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="ChangeableControls/Changeable1" unique_id=1646411661]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "CHANGE_RED"
+
+[node name="Spacer" type="Control" parent="ChangeableControls/Changeable1" unique_id=1500021236]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="EnableCheckbox" type="CheckBox" parent="ChangeableControls/Changeable1" unique_id=1099668794]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "CHANGE_ENABLE"
+
+[node name="Enabled" type="HBoxContainer" parent="ChangeableControls/Changeable1" unique_id=1103226317]
+visible = false
+layout_mode = 2
+
+[node name="DefaultLabel" type="Label" parent="ChangeableControls/Changeable1/Enabled" unique_id=1632544522]
+layout_mode = 2
+text = "CHANGE_DEFAULT"
+
+[node name="Spacer3" type="Control" parent="ChangeableControls/Changeable1/Enabled" unique_id=463508679]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="ColourButton" type="ColorPickerButton" parent="ChangeableControls/Changeable1/Enabled" unique_id=1427899659]
+custom_minimum_size = Vector2(50, 35)
+layout_mode = 2
+color = Color(0.57254905, 0.25882354, 0, 1)
+edit_alpha = false
+edit_intensity = false
+
+[node name="Spacer4" type="Control" parent="ChangeableControls/Changeable1/Enabled" unique_id=814077136]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="ChangeableCheckbox" type="CheckBox" parent="ChangeableControls/Changeable1/Enabled" unique_id=135517780]
+layout_mode = 2
+text = "CHANGE_USER"
+
+[node name="Spacer5" type="Control" parent="ChangeableControls/Changeable1/Enabled" unique_id=549374504]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="HelpButton" type="Button" parent="ChangeableControls/Changeable1" unique_id=1102015930]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+text = "?"
+
+[node name="Changeable2" type="HBoxContainer" parent="ChangeableControls" unique_id=711912096]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="ChangeableControls/Changeable2" unique_id=744119615]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "CHANGE_GREEN"
+
+[node name="Spacer" type="Control" parent="ChangeableControls/Changeable2" unique_id=253005346]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="EnableCheckbox" type="CheckBox" parent="ChangeableControls/Changeable2" unique_id=2073654430]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "CHANGE_ENABLE"
+
+[node name="Enabled" type="HBoxContainer" parent="ChangeableControls/Changeable2" unique_id=1880107535]
+visible = false
+layout_mode = 2
+
+[node name="DefaultLabel" type="Label" parent="ChangeableControls/Changeable2/Enabled" unique_id=598228750]
+layout_mode = 2
+text = "CHANGE_DEFAULT"
+
+[node name="Spacer3" type="Control" parent="ChangeableControls/Changeable2/Enabled" unique_id=1522199003]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="ColourButton" type="ColorPickerButton" parent="ChangeableControls/Changeable2/Enabled" unique_id=132434440]
+custom_minimum_size = Vector2(50, 35)
+layout_mode = 2
+color = Color(0, 0.59607846, 0.34117648, 1)
+edit_alpha = false
+edit_intensity = false
+
+[node name="Spacer4" type="Control" parent="ChangeableControls/Changeable2/Enabled" unique_id=132878076]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="ChangeableCheckbox" type="CheckBox" parent="ChangeableControls/Changeable2/Enabled" unique_id=176347112]
+layout_mode = 2
+text = "CHANGE_USER"
+
+[node name="Spacer5" type="Control" parent="ChangeableControls/Changeable2/Enabled" unique_id=1937094669]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="HelpButton" type="Button" parent="ChangeableControls/Changeable2" unique_id=739222297]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+text = "?"
+
+[node name="Changeable3" type="HBoxContainer" parent="ChangeableControls" unique_id=416045184]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="ChangeableControls/Changeable3" unique_id=1082276586]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "CHANGE_BLUE"
+
+[node name="Spacer" type="Control" parent="ChangeableControls/Changeable3" unique_id=1893796732]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="EnableCheckbox" type="CheckBox" parent="ChangeableControls/Changeable3" unique_id=1204751836]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+text = "CHANGE_ENABLE"
+
+[node name="Enabled" type="HBoxContainer" parent="ChangeableControls/Changeable3" unique_id=495606826]
+visible = false
+layout_mode = 2
+
+[node name="DefaultLabel" type="Label" parent="ChangeableControls/Changeable3/Enabled" unique_id=1809795790]
+layout_mode = 2
+text = "CHANGE_DEFAULT"
+
+[node name="Spacer3" type="Control" parent="ChangeableControls/Changeable3/Enabled" unique_id=634159118]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="ColourButton" type="ColorPickerButton" parent="ChangeableControls/Changeable3/Enabled" unique_id=1551992362]
+custom_minimum_size = Vector2(50, 35)
+layout_mode = 2
+color = Color(0.2784314, 0, 0.45882353, 1)
+edit_alpha = false
+edit_intensity = false
+
+[node name="Spacer4" type="Control" parent="ChangeableControls/Changeable3/Enabled" unique_id=1113808435]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="ChangeableCheckbox" type="CheckBox" parent="ChangeableControls/Changeable3/Enabled" unique_id=1732677840]
+layout_mode = 2
+text = "CHANGE_USER"
+
+[node name="Spacer5" type="Control" parent="ChangeableControls/Changeable3/Enabled" unique_id=306459406]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+
+[node name="HelpButton" type="Button" parent="ChangeableControls/Changeable3" unique_id=2018458214]
+custom_minimum_size = Vector2(25, 0)
+layout_mode = 2
+text = "?"
+
+[node name="OkayButton" type="Button" parent="." unique_id=636970789]
+layout_mode = 0
+offset_left = 439.0
+offset_top = 629.0
+offset_right = 569.0
+offset_bottom = 667.0
+text = "BUTTON_OKAY"
+clip_text = true

@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bkkg8mcxaxrdm" path="res://interface/VariableInput.tscn" id="1"]
 [ext_resource type="Script" uid="uid://cluddbataqyfw" path="res://interface/PaintJobTab.gd" id="2"]
 [ext_resource type="Script" uid="uid://ci2baftvihbv6" path="res://interface/VehicleTabContainer.gd" id="4"]
+[ext_resource type="PackedScene" uid="uid://dme18bmwlo3vq" path="res://interface/AdvancedTab.tscn" id="4_y8xsb"]
 
 [node name="PaintJobTab" type="Control" unique_id=1825590139]
 layout_mode = 3
@@ -146,10 +147,15 @@ text = "!"
 
 [node name="AdvancedButton" type="Button" parent="." unique_id=985484368]
 layout_mode = 0
-offset_left = 771.0
+offset_left = 783.0
 offset_top = 628.0
 offset_right = 885.0
 offset_bottom = 668.0
-text = "Advanced"
+text = "BUTTON_COLOURS"
+clip_text = true
+
+[node name="AdvancedTab" parent="." unique_id=1384706168 instance=ExtResource("4_y8xsb")]
+visible = false
+layout_mode = 0
 
 [connection signal="pressed" from="WarningButton" to="." method="show_warnings"]

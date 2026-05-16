@@ -21,8 +21,8 @@ func get_vehicle_selections() -> Array:
 	return selections
 
 
-func switch_to_advanced() -> void:
-	get_node("../../..").switch_screen(true, false, 4)
+#func switch_to_advanced() -> void:
+	#get_node("../../..").switch_screen(true, false, 4)
 
 
 func _on_cabin_dropdown_change(tab_index) -> void:
@@ -38,8 +38,8 @@ func _on_cabin_dropdown_change(tab_index) -> void:
 		else:
 			$SplitPaintJobs.visible = false
 			$SplitPaintJobs/DropdownInput.selected = 0
-	
-	
+
+
 func update_vehicles_selected_number() -> void:
 	var total_vehicles: int = 0
 	for selection in get_vehicle_selections():
@@ -89,3 +89,35 @@ func enable_disable_unlock_level(unlock_default: bool) -> void:
 		$Unlock/HelpButton.position = Vector2(321, 39)
 	else:
 		$Unlock/HelpButton.position = Vector2(321, 80)
+
+
+func switch_to_advanced() -> void:
+	# This is disgusting
+	for node in [$InGameLabel, $Name, $Price, $Unlock, $InternalLabel, $InternalName, 
+	$CabinSupport, $SplitPaintJobs, $SelectedLabel, $SearchBar, $VehicleTabContainer, 
+	$WarningButton, $AdvancedButton]:
+		node.visible = false
+	$AdvancedTab.visible = true
+	$AdvancedTab.show_hide_changeables()
+	$AdvancedTab/PaintJobName.text = name
+	enable_disable_prev_next()
+
+
+func switch_from_advanced() -> void:
+	for node in [$InGameLabel, $Name, $Price, $Unlock, $InternalLabel, $InternalName, 
+	$CabinSupport, $SplitPaintJobs, $SelectedLabel, $SearchBar, $VehicleTabContainer, 
+	$WarningButton, $AdvancedButton]:
+		node.visible = true
+	$AdvancedTab.visible = false
+	show_hide_warning_button()
+	_on_cabin_dropdown_change($CabinSupport/DropdownInput.selected)
+	enable_disable_prev_next()
+
+
+func enable_disable_prev_next() -> void:
+	if $AdvancedTab.visible:
+		get_node("../../../NextButton").disabled = true
+		get_node("../../../PrevButton").disabled = true
+	else:
+		get_node("../../../NextButton").disabled = false
+		get_node("../../../PrevButton").disabled = false
