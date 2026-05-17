@@ -272,3 +272,9 @@ offset_right = 569.0
 offset_bottom = 667.0
 text = "BUTTON_OKAY"
 clip_text = true
+
+[connection signal="pressed" from="BaseHelp" to="." method="show_help" binds= ["base"]]
+[connection signal="pressed" from="ChangeableHelp" to="." method="show_help" binds= ["change"]]
+[connection signal="pressed" from="ChangeableControls/Changeable1/HelpButton" to="." method="show_help" binds= ["1"]]
+[connection signal="pressed" from="ChangeableControls/Changeable2/HelpButton" to="." method="show_help" binds= ["2"]]
+[connection signal="pressed" from="ChangeableControls/Changeable3/HelpButton" to="." method="show_help" binds= ["3"]]

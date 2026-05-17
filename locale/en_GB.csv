@@ -129,13 +129,12 @@ EXPORT_EMPTY,Use empty placeholders
 EXPORT_TEMPLATES,Use templates
 EXPORT_TITLE,Export Mod
 EXPORT_EXISTST,Folder Exists
-EXPORT_EXISTS,The folder %s/%s already exists.
+EXPORT_EXISTS,The folder %s already exists.
 EXPORT_EXISTS2,"Please choose a different location, or delete the %s folder."
 EXPORT_READY,Ready to export mod :)
 EXPORT_DONET,Export Complete
 EXPORT_DONE,Your mod has been exported to:
 EXPORT_DONE2,Thanks for using Paint Job Packer! Press okay to exit
-HELLO_TRANSLATOR,Hello translator, I hope you're having a nice day. Thank you for helping! You don't need to translate this string, I just wanted to say thanks!
 THEME_DARK,Dark Mode
 THEME_LIGHT,Light Mode
 WSHOP_LOCAL,Do not generate Steam Workshop files
@@ -147,3 +146,18 @@ CHANGE_GREEN,Green
 CHANGE_BLUE,Blue
 CHANGE_ENABLE,Enabled
 CHANGE_USER,User changeable
+HELP_MNAME,"Your mod's name, in the mod manager"
+HELP_MAUTH,"Your mod's author, in the mod manager"
+HELP_MVER,"Your mod's version, in the mod manager"
+HELP_MDESC,"Your mod's description, in the mod manager"
+HELP_PNAME,"Your paint job's name, shown at the upgrade shop in-game"
+HELP_PRICE,How much your paint job costs at the in-game upgrade shop
+HELP_UNLOCK,"What level users can purchase your paint job from, or whether it is unlocked by default on a new profile"
+HELP_INAME,A unique name used by the game to identify your paint job. Mod users will NOT see this name
+HELP_CABIN,"Whether your paint job supports only the largest cabin for each truck, or all cabins"
+HELP_SPLIT,"Whether to make a single paint job for each truck, or to split it up and make one for each cabin"
+HELP_BASE,The colour that shows through any transparent parts of your paint job
+HELP_CHANGE,Extra changeable colours that show through specific colours on your paint job
+HELP_CHANGER,Shows through bright red (#FF0000)
+HELP_CHANGEG,Shows through bright green (#00FF00)
+HELP_CHANGEB,Shows through bright blue (#0000FF)

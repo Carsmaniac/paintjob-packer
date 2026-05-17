@@ -33,9 +33,7 @@ offset_top = 67.0
 offset_right = 28.0
 offset_bottom = 67.0
 input_name = "MOD_NAME"
-help_text = "Your paint job's name, shown at the upgrade shop in-game.
-
-e.g. Transit Co"
+help_text = "HELP_MNAME"
 input_type = "mod_name"
 
 [node name="Author" parent="Panel" unique_id=473766507 instance=ExtResource("1_gm1yk")]
@@ -45,9 +43,7 @@ offset_top = 158.0
 offset_right = 28.0
 offset_bottom = 158.0
 input_name = "MOD_AUTHOR"
-help_text = "How much your paint job costs in-game, in euro.
-
-e.g. 6000"
+help_text = "HELP_MAUTH"
 input_type = "author_name"
 
 [node name="Version" parent="Panel" unique_id=1966072170 instance=ExtResource("1_gm1yk")]
@@ -57,9 +53,7 @@ offset_top = 249.0
 offset_right = 28.0
 offset_bottom = 249.0
 input_name = "MOD_VERSION"
-help_text = "If checked, your paint job can be purchased from level 0, such as on a brand new profile.
-
-If not checked, what level your paint job is purchasable from."
+help_text = "HELP_MVER"
 input_type = "version"
 
 [node name="Description" parent="Panel" unique_id=1167826409 instance=ExtResource("1_gm1yk")]
@@ -69,9 +63,7 @@ offset_top = 332.0
 offset_right = 28.0
 offset_bottom = 332.0
 input_name = "MOD_DESCRIPTION"
-help_text = "If checked, your paint job can be purchased from level 0, such as on a brand new profile.
-
-If not checked, what level your paint job is purchasable from."
+help_text = "HELP_MDESC"
 input_type = "description"
 
 [node name="GameChoiceLabel" type="Label" parent="Panel" unique_id=918912563]
