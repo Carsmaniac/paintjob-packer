@@ -34,7 +34,12 @@ func extract_file(zip_path: String, file_path: String) -> void:
 
 
 func int_to_hex(input: int) -> String:
-	return String.num_uint64(input, 16, true)
+	var hex_num: String = String.num_uint64(input, 16, true)
+	if len(hex_num) == 1:
+		hex_num = "0" + hex_num
+		# This is in case the dds path is shorter than 16 characters
+		# If over 255, we're toast anyway
+	return hex_num
 
 
 func string_to_hex(input: String) -> String:
