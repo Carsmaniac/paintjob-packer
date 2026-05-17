@@ -21,7 +21,7 @@ func change_language(index: int) -> void:
 	if index < len(translations) - 1:
 		TranslationServer.set_locale(translations[index][1])
 	else:
-		pass # TODO: open browser window to weblate
+		OS.shell_open(get_node("../AboutScreen").weblate_link)
 	for child in get_node("../ModInfoScreen/Panel").get_children():
 		if child is VariableInput:
 			child.update_localisation()
