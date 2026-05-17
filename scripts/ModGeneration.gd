@@ -146,14 +146,29 @@ func make_def_sii(vehicle_dict: Dictionary, paint_job_name: String, internal_nam
 	file.store_line("}")
 
 
-func make_settings_sui(vehicle_dict: Dictionary, internal_name: String, paint_job_name: String, price: int, unlock_level: int) -> void:
+func make_settings_sui(vehicle_dict: Dictionary, internal_name: String, paint_job_name: String, price: int, unlock_level: int, advanced: Dictionary) -> void:
 	var file := FileAccess.open(output_path + "def/vehicle/%s/%s/paint_job/%s_settings.sui" % [vehicle_dict["type"], vehicle_dict["path"], internal_name], FileAccess.WRITE)
 	file.store_line("\tname: \"%s\"" % paint_job_name)
 	file.store_line("\tprice: %s" % str(price))
 	file.store_line("\tunlock: %s" % str(unlock_level))
-	file.store_line("\tairbrush: true")
-	if vehicle_dict["colour_picker"]:
+	file.store_line("\ticon: \"%s_icon\"" % internal_name)
+	if advanced["changeable_enabled"]:
+		file.store_line("\tairbrush: false")
+	else:
+		file.store_line("\tairbrush: true")
+	file.store_line("\tbase_color: %s" % advanced["base_colour"])
+	if vehicle_dict["colour_picker"] or advanced["base_colour_unlocked"]:
 		file.store_line("\tbase_color_locked: false")
+	if advanced["changeable_enabled"]:
+		if advanced["changeable1_enabled"]:
+			file.store_line("\tmask_r_color: %s" % advanced["changeable1_colour"])
+			file.store_line("\tmask_r_locked: %s" % str(not advanced["changeable1_unlocked"]))
+		if advanced["changeable2_enabled"]:
+			file.store_line("\tmask_g_color: %s" % advanced["changeable2_colour"])
+			file.store_line("\tmask_g_locked: %s" % str(not advanced["changeable2_unlocked"]))
+		if advanced["changeable3_enabled"]:
+			file.store_line("\tmask_b_color: %s" % advanced["changeable3_colour"])
+			file.store_line("\tmask_b_locked: %s" % str(not advanced["changeable3_unlocked"]))
 	if vehicle_dict["alt_uv"]:
 		file.store_line("\talternate_uvset: true")
 
@@ -235,7 +250,7 @@ func make_mod(mod_dict: Dictionary, new_output_path: String) -> void:
 		make_paint_job_icon_mat(paint_job["internal_name"])
 		for vehicle in paint_job["vehicles"]:
 			make_def_folder(vehicle["vehicle_dict"])
-			make_settings_sui(vehicle["vehicle_dict"], paint_job["internal_name"], paint_job["paint_job_name"], paint_job["price"], paint_job["unlock_level"])
+			make_settings_sui(vehicle["vehicle_dict"], paint_job["internal_name"], paint_job["paint_job_name"], paint_job["price"], paint_job["unlock_level"], paint_job["advanced"])
 			make_vehicle_folder(vehicle["vehicle_dict"], paint_job["paint_job_name"])
 			for indiv in vehicle["indivs"]:
 				if vehicle["vehicle_dict"]["uses_accessories"]:

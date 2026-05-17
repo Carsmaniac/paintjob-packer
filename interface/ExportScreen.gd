@@ -99,6 +99,21 @@ func update_localisation() -> void:
 	change_warning()
 
 
+func convert_to_scs(colour: Color) -> String:
+	# From Drive Safely's website
+	# Formula help from knox_xss
+	var red: float = colour.r
+	var green: float = colour.g
+	var blue: float = colour.b
+	for element in [red, green, blue]:
+		if element >= 0.04045:
+			element = (element + 0.055) / 1.055
+			element = element ** 2.4
+		else:
+			element = element / 12.92
+	return "(%s, %s, %s)" % [String.num(red, 4), String.num(green, 4), String.num(blue, 4)]
+
+
 func export_mod() -> void:
 	var mod_panel: Node = get_node("../ModInfoScreen/Panel")
 	var mod_dict: Dictionary = {
@@ -115,12 +130,25 @@ func export_mod() -> void:
 		mod_dict["workshop"] = true
 	for paint_job_tab in get_node("../MainScreen/PaintJobTabContainer").get_children():
 		if paint_job_tab.name != "+":
-			print(paint_job_tab)
 			var paint_job_dict: Dictionary = {
 				"paint_job_name": paint_job_tab.get_node("Name/TextInput").text,
 				"price": int(paint_job_tab.get_node("Price/NumberInput").value),
 				"unlock_level": int(paint_job_tab.get_node("Unlock/NumberInput").value),
 				"internal_name": paint_job_tab.get_node("InternalName/TextInput").text,
+				"advanced": {
+					"base_colour": convert_to_scs(paint_job_tab.get_node("AdvancedTab/BaseColour").color),
+					"base_colour_unlocked": paint_job_tab.get_node("AdvancedTab/BaseChangeable").button_pressed,
+					"changeable_enabled": paint_job_tab.get_node("AdvancedTab/ChangeableEnabled").button_pressed,
+					"changeable1_enabled": paint_job_tab.get_node("AdvancedTab/ChangeableControls/Changeable1/EnableCheckbox").button_pressed,
+					"changeable1_colour": convert_to_scs(paint_job_tab.get_node("AdvancedTab/ChangeableControls/Changeable1/Enabled/ColourButton").color),
+					"changeable1_unlocked": paint_job_tab.get_node("AdvancedTab/ChangeableControls/Changeable1/Enabled/ChangeableCheckbox").button_pressed,
+					"changeable2_enabled": paint_job_tab.get_node("AdvancedTab/ChangeableControls/Changeable2/EnableCheckbox").button_pressed,
+					"changeable2_colour": convert_to_scs(paint_job_tab.get_node("AdvancedTab/ChangeableControls/Changeable2/Enabled/ColourButton").color),
+					"changeable2_unlocked": paint_job_tab.get_node("AdvancedTab/ChangeableControls/Changeable2/Enabled/ChangeableCheckbox").button_pressed,
+					"changeable3_enabled": paint_job_tab.get_node("AdvancedTab/ChangeableControls/Changeable3/EnableCheckbox").button_pressed,
+					"changeable3_colour": convert_to_scs(paint_job_tab.get_node("AdvancedTab/ChangeableControls/Changeable3/Enabled/ColourButton").color),
+					"changeable3_unlocked": paint_job_tab.get_node("AdvancedTab/ChangeableControls/Changeable3/Enabled/ChangeableCheckbox").button_pressed
+				},
 				"vehicles": []
 			}
 			if paint_job_tab.get_node("CabinSupport/DropdownInput").selected == 0:
