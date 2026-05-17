@@ -40,11 +40,11 @@ horizontal_alignment = 1
 [node name="AcknowledgementOfCountry" type="Label" parent="Panel" unique_id=1386306666]
 layout_mode = 0
 offset_left = 230.0
-offset_top = 122.0
+offset_top = 126.0
 offset_right = 784.0
-offset_bottom = 159.0
-theme_override_font_sizes/font_size = 12
-text = "This software was created on unceded Darramurragal and Gadigal Land in Sydney, Australia"
+offset_bottom = 163.0
+theme_override_font_sizes/font_size = 13
+text = "This software was created on unceded Aboriginal Land in Sydney, Australia"
 horizontal_alignment = 1
 
 [node name="VersionText" type="Label" parent="Panel" unique_id=1383723736]
