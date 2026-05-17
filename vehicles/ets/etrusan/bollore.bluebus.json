@@ -3,7 +3,9 @@
 	
 	"name": "Bolloré Bluebus",
 	"path": "bollore.bluebus",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": true,
 	"car": false,

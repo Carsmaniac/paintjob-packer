@@ -3,7 +3,9 @@
 	
 	"name": "Peterbilt 389 Modified",
 	"path": "peterbilt.389v2",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

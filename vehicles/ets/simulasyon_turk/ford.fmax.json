@@ -3,7 +3,9 @@
 	
 	"name": "Ford F-MAX",
 	"path": "ford.fmax",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

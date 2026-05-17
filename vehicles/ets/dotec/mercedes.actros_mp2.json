@@ -3,7 +3,9 @@
 	
 	"name": "Mercedes-Benz Actros MP2",
 	"path": "mercedes.actros_mp2",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

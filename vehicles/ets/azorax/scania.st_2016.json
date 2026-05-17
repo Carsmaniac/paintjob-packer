@@ -3,7 +3,9 @@
 	
 	"name": "Scania S T-Cab",
 	"path": "scania.st_2016",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

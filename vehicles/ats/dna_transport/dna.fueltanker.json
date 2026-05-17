@@ -3,7 +3,9 @@
 	
 	"name": "Ownable SCS Fuel Tanker",
 	"path": "dna.fueltanker",
+	"type": "trailer_owned",
 	
+	"truck": false,
 	"trailer": true,
 	"bus": false,
 	"car": false,

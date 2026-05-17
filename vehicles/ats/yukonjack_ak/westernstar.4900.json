@@ -3,7 +3,9 @@
 	
 	"name": "Western Star 4900FA",
 	"path": "westernstar.4900",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

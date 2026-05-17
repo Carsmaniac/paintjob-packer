@@ -3,7 +3,9 @@
 	
 	"name": "Karosa B95x",
 	"path": "karosa.b95x",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": true,
 	"car": false,

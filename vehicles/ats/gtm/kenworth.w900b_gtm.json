@@ -3,7 +3,9 @@
 	
 	"name": "Kenworth W900B",
 	"path": "kenworth.w900b_gtm",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

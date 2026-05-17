@@ -3,7 +3,9 @@
 	
 	"name": "Caio Millennium 2 PBC",
 	"path": "caio.millennium2",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": true,
 	"car": false,

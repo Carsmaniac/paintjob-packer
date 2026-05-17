@@ -3,7 +3,9 @@
 	
 	"name": "SCS Drop Deck (Sliding Tarp)",
 	"path": "scs.dropdeck",
+	"type": "trailer_owned",
 	
+	"truck": false,
 	"trailer": true,
 	"bus": false,
 	"car": false,

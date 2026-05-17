@@ -3,7 +3,9 @@
 	
 	"name": "Scot A2HD",
 	"path": "scot.a2hd",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

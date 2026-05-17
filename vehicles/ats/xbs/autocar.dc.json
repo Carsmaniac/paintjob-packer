@@ -3,7 +3,9 @@
 	
 	"name": "Autocar DC",
 	"path": "autocar.dc",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

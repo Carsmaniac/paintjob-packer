@@ -3,7 +3,9 @@
 	
 	"name": "Mercedes-Benz Arocs SLT",
 	"path": "mercedes.arocs.wtd",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

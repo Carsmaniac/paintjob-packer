@@ -3,7 +3,9 @@
 	
 	"name": "Scania Streamline",
 	"path": "scania.streamline",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

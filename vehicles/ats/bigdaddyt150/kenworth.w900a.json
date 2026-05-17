@@ -3,7 +3,9 @@
 	
 	"name": "Kenworth W900A",
 	"path": "kenworth.w900a",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

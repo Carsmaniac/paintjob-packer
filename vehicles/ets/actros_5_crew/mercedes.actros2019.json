@@ -3,7 +3,9 @@
 	
 	"name": "Mercedes-Benz New Actros 2019",
 	"path": "mercedes.actros2019",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

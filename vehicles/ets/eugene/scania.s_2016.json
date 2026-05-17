@@ -3,7 +3,9 @@
 	
 	"name": "Scania S Next Generation",
 	"path": "scania.s_2016",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

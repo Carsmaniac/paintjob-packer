@@ -3,7 +3,9 @@
 	
 	"name": "Iveco Stralis Hi-Way",
 	"path": "iveco.hiway",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

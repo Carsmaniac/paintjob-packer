@@ -3,7 +3,9 @@
 	
 	"name": "MAN TGS Euro 6",
 	"path": "man.tgs_euro6",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

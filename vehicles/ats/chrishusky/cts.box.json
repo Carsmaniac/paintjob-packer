@@ -3,7 +3,9 @@
 	
 	"name": "Custom 53 ft Trailer",
 	"path": "cts.box",
+	"type": "trailer_owned",
 	
+	"truck": false,
 	"trailer": true,
 	"bus": false,
 	"car": false,

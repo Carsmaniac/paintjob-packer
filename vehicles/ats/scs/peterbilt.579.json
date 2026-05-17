@@ -3,7 +3,9 @@
 	
 	"name": "Peterbilt 579",
 	"path": "peterbilt.579",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

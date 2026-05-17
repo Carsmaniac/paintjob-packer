@@ -3,7 +3,9 @@
 	
 	"name": "Volvo VNL 2018",
 	"path": "volvo.vnl.2018",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

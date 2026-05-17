@@ -3,7 +3,9 @@
 	
 	"name": "Custom SCS Kenworth W900",
 	"path": "kenworth.w900",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

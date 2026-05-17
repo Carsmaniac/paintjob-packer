@@ -3,7 +3,9 @@
 	
 	"name": "Renault Premium",
 	"path": "renault.premium",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

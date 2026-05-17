@@ -3,7 +3,9 @@
 	
 	"name": "Freightliner Coronado 122SD",
 	"path": "freightliner.coronado",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

@@ -3,7 +3,9 @@
 	
 	"name": "Autocar AT",
 	"path": "autocar.at",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

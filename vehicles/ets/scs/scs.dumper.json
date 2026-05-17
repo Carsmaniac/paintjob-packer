@@ -3,7 +3,9 @@
 	
 	"name": "SCS Dumper",
 	"path": "scs.dumper",
+	"type": "trailer_owned",
 	
+	"truck": false,
 	"trailer": true,
 	"bus": false,
 	"car": false,

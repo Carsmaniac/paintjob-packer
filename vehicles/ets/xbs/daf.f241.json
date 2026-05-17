@@ -3,7 +3,9 @@
 	
 	"name": "DAF F241",
 	"path": "daf.f241",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

@@ -3,7 +3,9 @@
 	
 	"name": "Solaris Urbino",
 	"path": "solaris.urbino",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": true,
 	"car": false,

@@ -3,7 +3,9 @@
 	
 	"name": "Renault Magnum Updates",
 	"path": "renault.magnum",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

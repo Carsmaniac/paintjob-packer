@@ -3,7 +3,9 @@
 	
 	"name": "Scania T 4-series",
 	"path": "scania.t4",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

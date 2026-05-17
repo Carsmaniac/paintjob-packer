@@ -3,7 +3,9 @@
 	
 	"name": "Fruehauf FB 40 ft Reefer",
 	"path": "fruehauf40",
+	"type": "trailer_owned",
 	
+	"truck": false,
 	"trailer": true,
 	"bus": false,
 	"car": false,

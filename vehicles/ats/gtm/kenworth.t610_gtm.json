@@ -3,7 +3,9 @@
 	
 	"name": "Kenworth T610",
 	"path": "kenworth.t610_gtm",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

@@ -3,7 +3,9 @@
 	
 	"name": "Schmitz Cargobull S.CS Huckepack",
 	"path": "bora_team",
+	"type": "trailer_owned",
 	
+	"truck": false,
 	"trailer": true,
 	"bus": false,
 	"car": false,

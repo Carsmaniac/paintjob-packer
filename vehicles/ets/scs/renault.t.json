@@ -3,7 +3,9 @@
 	
 	"name": "Renault T",
 	"path": "renault.t",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

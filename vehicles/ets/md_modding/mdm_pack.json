@@ -3,7 +3,9 @@
 	
 	"name": "Schmitz Cargobull Trailer",
 	"path": "mdm_pack",
+	"type": "trailer_owned",
 	
+	"truck": false,
 	"trailer": true,
 	"bus": false,
 	"car": false,

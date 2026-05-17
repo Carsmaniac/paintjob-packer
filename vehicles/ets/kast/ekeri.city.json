@@ -3,7 +3,9 @@
 	
 	"name": "Ekeri City",
 	"path": "ekeri.city",
+	"type": "trailer_owned",
 	
+	"truck": false,
 	"trailer": true,
 	"bus": false,
 	"car": false,

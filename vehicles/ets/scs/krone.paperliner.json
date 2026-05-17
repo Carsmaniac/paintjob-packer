@@ -3,7 +3,9 @@
 	
 	"name": "Krone Paper Liner",
 	"path": "krone.paperliner",
+	"type": "trailer_owned",
 	
+	"truck": false,
 	"trailer": true,
 	"bus": false,
 	"car": false,

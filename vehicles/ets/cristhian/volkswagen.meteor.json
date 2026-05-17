@@ -3,7 +3,9 @@
 	
 	"name": "Volkswagen Meteor",
 	"path": "volkswagen.meteor",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

@@ -3,7 +3,9 @@
 	
 	"name": "Mercedes-Benz New Actros SLT",
 	"path": "mercedes.actros2014.wtd",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

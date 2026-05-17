@@ -3,7 +3,9 @@
 	
 	"name": "DAF NTT",
 	"path": "daf.ntt",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

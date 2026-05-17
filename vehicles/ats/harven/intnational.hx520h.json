@@ -3,7 +3,9 @@
 	
 	"name": "International HX520",
 	"path": "intnational.hx520h",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

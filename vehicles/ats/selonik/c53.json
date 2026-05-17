@@ -3,7 +3,9 @@
 	
 	"name": "53 ft Container Ownable",
 	"path": "c53",
+	"type": "trailer_owned",
 	
+	"truck": false,
 	"trailer": true,
 	"bus": false,
 	"car": false,

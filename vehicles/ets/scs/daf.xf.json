@@ -3,7 +3,9 @@
 	
 	"name": "DAF XF105",
 	"path": "daf.xf",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

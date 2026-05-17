@@ -3,7 +3,9 @@
 	
 	"name": "Volvo FH 3rd Generation",
 	"path": "volvo.fh3",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

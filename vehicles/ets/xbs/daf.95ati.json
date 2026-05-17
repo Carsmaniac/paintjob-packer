@@ -3,7 +3,9 @@
 	
 	"name": "DAF 95 ATi",
 	"path": "daf.95ati",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

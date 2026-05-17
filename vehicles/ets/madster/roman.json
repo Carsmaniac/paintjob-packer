@@ -3,7 +3,9 @@
 	
 	"name": "Roman Diesel",
 	"path": "roman",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

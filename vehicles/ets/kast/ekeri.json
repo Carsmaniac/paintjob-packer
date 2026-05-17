@@ -3,7 +3,9 @@
 	
 	"name": "Ekeri Trailer",
 	"path": "ekeri",
+	"type": "trailer_owned",
 	
+	"truck": false,
 	"trailer": true,
 	"bus": false,
 	"car": false,

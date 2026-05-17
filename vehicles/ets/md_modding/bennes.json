@@ -3,7 +3,9 @@
 	
 	"name": "Schmitz Cargobull Tipper Trailer",
 	"path": "bennes",
+	"type": "trailer_owned",
 	
+	"truck": false,
 	"trailer": true,
 	"bus": false,
 	"car": false,

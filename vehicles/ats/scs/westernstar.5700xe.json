@@ -3,7 +3,9 @@
 	
 	"name": "Western Star 5700XE",
 	"path": "westernstar.5700xe",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

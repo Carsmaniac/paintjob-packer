@@ -3,7 +3,9 @@
 	
 	"name": "International 9900i",
 	"path": "intnational.9900i",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

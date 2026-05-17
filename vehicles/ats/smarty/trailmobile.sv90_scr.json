@@ -3,7 +3,9 @@
 	
 	"name": "Trailmobile SuperVan 90",
 	"path": "trailmobile.sv90_scr",
+	"type": "trailer_owned",
 	
+	"truck": false,
 	"trailer": true,
 	"bus": false,
 	"car": false,

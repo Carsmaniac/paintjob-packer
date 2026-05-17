@@ -3,7 +3,9 @@
 	
 	"name": "Mercedes-Benz Tourismo",
 	"path": "tourismo.new",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": true,
 	"car": false,

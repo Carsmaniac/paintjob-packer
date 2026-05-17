@@ -3,7 +3,9 @@
 	
 	"name": "Volvo FM",
 	"path": "volvo.fm",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

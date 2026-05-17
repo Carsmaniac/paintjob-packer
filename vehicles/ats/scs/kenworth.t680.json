@@ -3,7 +3,9 @@
 	
 	"name": "Kenworth T680",
 	"path": "kenworth.t680",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

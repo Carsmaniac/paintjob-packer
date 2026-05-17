@@ -3,7 +3,9 @@
 	
 	"name": "Knapen K100",
 	"path": "knapen",
+	"type": "trailer_owned",
 	
+	"truck": false,
 	"trailer": true,
 	"bus": false,
 	"car": false,

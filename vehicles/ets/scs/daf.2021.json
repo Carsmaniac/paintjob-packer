@@ -3,7 +3,9 @@
 	
 	"name": "DAF 2021",
 	"path": "daf.2021",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

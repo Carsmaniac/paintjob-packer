@@ -3,7 +3,9 @@
 	
 	"name": "International LT",
 	"path": "internationl.lt.2019",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

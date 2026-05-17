@@ -3,7 +3,9 @@
 	
 	"name": "Volvo VNR",
 	"path": "volvo.vnr",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

@@ -3,7 +3,9 @@
 	
 	"name": "Feldbinder TSA LM",
 	"path": "feldbinder.tsalm",
+	"type": "trailer_owned",
 	
+	"truck": false,
 	"trailer": true,
 	"bus": false,
 	"car": false,

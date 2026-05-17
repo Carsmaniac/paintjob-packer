@@ -3,7 +3,9 @@
 	
 	"name": "Project 3XX",
 	"path": "peterbilt.3xx",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

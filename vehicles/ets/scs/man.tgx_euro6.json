@@ -3,7 +3,9 @@
 	
 	"name": "MAN TGX Euro 6",
 	"path": "man.tgx_euro6",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

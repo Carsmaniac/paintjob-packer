@@ -3,7 +3,9 @@
 	
 	"name": "Freightliner FLD",
 	"path": "freightliner.fld",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

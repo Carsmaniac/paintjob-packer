@@ -3,7 +3,9 @@
 	
 	"name": "Volvo FH 2012 Classic",
 	"path": "volvo.fh16_2012",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

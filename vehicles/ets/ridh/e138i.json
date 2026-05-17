@@ -3,7 +3,9 @@
 	
 	"name": "SKSBUS e138i",
 	"path": "e138i",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": true,
 	"car": false,

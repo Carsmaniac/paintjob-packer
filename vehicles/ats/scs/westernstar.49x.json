@@ -3,7 +3,9 @@
 	
 	"name": "Western Star 49X",
 	"path": "westernstar.49x",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

@@ -3,7 +3,9 @@
 	
 	"name": "MAN TGA",
 	"path": "man.tga",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

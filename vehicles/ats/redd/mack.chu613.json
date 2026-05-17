@@ -3,7 +3,9 @@
 	
 	"name": "Mack Pinnacle CHU613",
 	"path": "mack.chu613",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

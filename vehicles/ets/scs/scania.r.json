@@ -3,7 +3,9 @@
 	
 	"name": "Scania R 2009",
 	"path": "scania.r",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

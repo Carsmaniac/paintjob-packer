@@ -3,7 +3,9 @@
 	
 	"name": "Ownable SCS Chemical Tanker",
 	"path": "dna.chemtanker",
+	"type": "trailer_owned",
 	
+	"truck": false,
 	"trailer": true,
 	"bus": false,
 	"car": false,

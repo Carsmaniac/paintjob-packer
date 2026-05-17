@@ -3,7 +3,9 @@
 	
 	"name": "Scania P Next Generation",
 	"path": "scania.p_2016",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

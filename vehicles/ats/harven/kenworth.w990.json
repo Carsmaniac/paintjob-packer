@@ -3,7 +3,9 @@
 	
 	"name": "Kenworth W990",
 	"path": "kenworth.w990",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

@@ -3,7 +3,9 @@
 	
 	"name": "Mercedes-Benz Actros",
 	"path": "mercedes.actros",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

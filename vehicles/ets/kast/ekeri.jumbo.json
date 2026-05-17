@@ -3,7 +3,9 @@
 	
 	"name": "Ekeri Jumbo",
 	"path": "ekeri.jumbo",
+	"type": "trailer_owned",
 	
+	"truck": false,
 	"trailer": true,
 	"bus": false,
 	"car": false,

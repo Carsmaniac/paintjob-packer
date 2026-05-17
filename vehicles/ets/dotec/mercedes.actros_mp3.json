@@ -3,7 +3,9 @@
 	
 	"name": "Mercedes-Benz Actros MP3",
 	"path": "mercedes.actros_mp3",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

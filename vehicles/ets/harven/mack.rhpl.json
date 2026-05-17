@@ -3,7 +3,9 @@
 	
 	"name": "Mack R Series",
 	"path": "mack.rhpl",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

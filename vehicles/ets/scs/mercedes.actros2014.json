@@ -3,7 +3,9 @@
 	
 	"name": "Mercedes-Benz New Actros",
 	"path": "mercedes.actros2014",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

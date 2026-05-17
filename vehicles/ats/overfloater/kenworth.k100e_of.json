@@ -3,7 +3,9 @@
 	
 	"name": "Kenworth K100E",
 	"path": "kenworth.k100e_of",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

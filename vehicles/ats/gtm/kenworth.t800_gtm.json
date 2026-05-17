@@ -3,7 +3,9 @@
 	
 	"name": "Kenworth T800",
 	"path": "kenworth.t800_gtm",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

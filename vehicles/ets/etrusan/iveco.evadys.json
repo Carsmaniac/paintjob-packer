@@ -3,7 +3,9 @@
 	
 	"name": "Iveco Evadys Line",
 	"path": "iveco.evadys",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": true,
 	"car": false,

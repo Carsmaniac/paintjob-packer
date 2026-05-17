@@ -3,7 +3,9 @@
 	
 	"name": "Feldbinder KIP",
 	"path": "feldbinder.kip",
+	"type": "trailer_owned",
 	
+	"truck": false,
 	"trailer": true,
 	"bus": false,
 	"car": false,

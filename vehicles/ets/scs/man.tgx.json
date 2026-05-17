@@ -3,7 +3,9 @@
 	
 	"name": "MAN TGX",
 	"path": "man.tgx",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

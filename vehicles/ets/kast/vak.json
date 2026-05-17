@@ -3,7 +3,9 @@
 	
 	"name": "VAK Trailer",
 	"path": "vak",
+	"type": "trailer_owned",
 	
+	"truck": false,
 	"trailer": true,
 	"bus": false,
 	"car": false,

@@ -3,7 +3,9 @@
 	
 	"name": "SCS Food Tank",
 	"path": "scs.foodtank",
+	"type": "trailer_owned",
 	
+	"truck": false,
 	"trailer": true,
 	"bus": false,
 	"car": false,

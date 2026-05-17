@@ -3,7 +3,9 @@
 	
 	"name": "Pacton Reefer",
 	"path": "pacton",
+	"type": "trailer_owned",
 	
+	"truck": false,
 	"trailer": true,
 	"bus": false,
 	"car": false,

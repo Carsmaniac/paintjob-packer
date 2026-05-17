@@ -3,7 +3,9 @@
 	
 	"name": "Mercedes-Benz Actros MP2 Black Edition",
 	"path": "mercedes.actros_1861",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,

@@ -3,7 +3,9 @@
 	
 	"name": "Mercedes-Benz SK",
 	"path": "mercedes.sk",
+	"type": "truck",
 	
+	"truck": true,
 	"trailer": false,
 	"bus": false,
 	"car": false,
