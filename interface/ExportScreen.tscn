@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://chk5cp55kybmk"]
 
 [ext_resource type="Script" uid="uid://bbgkakjt05mgs" path="res://interface/ExportScreen.gd" id="1_4lqfk"]
-[ext_resource type="Texture2D" uid="uid://2xkrd1bv77g2" path="res://circle.png" id="1_vnvp6"]
+[ext_resource type="Texture2D" uid="uid://vl277dvwicnt" path="res://interface/images/atsblank.png" id="2_lkiki"]
+[ext_resource type="Texture2D" uid="uid://cgxp632oa2a2e" path="res://interface/images/atstemplate.png" id="3_dapx8"]
+[ext_resource type="Texture2D" uid="uid://yj2lppidu25r" path="res://interface/images/etsblank.png" id="4_hh46f"]
+[ext_resource type="Texture2D" uid="uid://4s3nkqnf136" path="res://interface/images/etstemplate.png" id="5_62iw7"]
 
 [node name="ExportScreen" type="Control" unique_id=1936622943]
 layout_mode = 3
@@ -76,7 +79,7 @@ offset_left = 342.0
 offset_top = 291.0
 offset_right = 676.0
 offset_bottom = 468.0
-texture = ExtResource("1_vnvp6")
+texture = ExtResource("2_lkiki")
 expand_mode = 1
 
 [node name="TemplateImageATS" type="TextureRect" parent="Panel" unique_id=1582430745]
@@ -86,7 +89,7 @@ offset_left = 342.0
 offset_top = 291.0
 offset_right = 676.0
 offset_bottom = 468.0
-texture = ExtResource("1_vnvp6")
+texture = ExtResource("3_dapx8")
 expand_mode = 1
 
 [node name="PlaceholderImageETS" type="TextureRect" parent="Panel" unique_id=19869500]
@@ -96,7 +99,7 @@ offset_left = 342.0
 offset_top = 291.0
 offset_right = 676.0
 offset_bottom = 468.0
-texture = ExtResource("1_vnvp6")
+texture = ExtResource("4_hh46f")
 expand_mode = 1
 
 [node name="TemplateImageETS" type="TextureRect" parent="Panel" unique_id=1547099476]
@@ -106,7 +109,7 @@ offset_left = 342.0
 offset_top = 291.0
 offset_right = 676.0
 offset_bottom = 468.0
-texture = ExtResource("1_vnvp6")
+texture = ExtResource("5_62iw7")
 expand_mode = 1
 
 [node name="WorkshopDropdown" type="OptionButton" parent="Panel" unique_id=662421930]

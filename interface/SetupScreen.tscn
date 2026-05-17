@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://chtkqdfc7flig"]
 
-[ext_resource type="Texture2D" uid="uid://2xkrd1bv77g2" path="res://circle.png" id="1_cq6rj"]
+[ext_resource type="Texture2D" uid="uid://dojtoqkxde4ge" path="res://interface/images/create-new.png" id="1_u2ba5"]
+[ext_resource type="Texture2D" uid="uid://b6corghr4re7o" path="res://interface/images/load.png" id="2_hx5t8"]
 
 [node name="SetupScreen" type="Control" unique_id=1936622943]
 layout_mode = 3
@@ -90,38 +91,38 @@ clip_text = true
 
 [node name="CreateImage" type="TextureRect" parent="Panel" unique_id=1119799198]
 layout_mode = 0
-offset_left = 174.0
-offset_top = 274.0
+offset_left = 198.0
+offset_top = 278.0
 offset_right = 449.0
-offset_bottom = 549.0
+offset_bottom = 529.0
 mouse_default_cursor_shape = 2
-texture = ExtResource("1_cq6rj")
+texture = ExtResource("1_u2ba5")
 expand_mode = 1
 
 [node name="LoadImage" type="TextureRect" parent="Panel" unique_id=1354408409]
 layout_mode = 0
-offset_left = 569.0
-offset_top = 274.0
-offset_right = 844.0
-offset_bottom = 549.0
+offset_left = 573.0
+offset_top = 278.0
+offset_right = 824.0
+offset_bottom = 529.0
 mouse_default_cursor_shape = 2
-texture = ExtResource("1_cq6rj")
+texture = ExtResource("2_hx5t8")
 expand_mode = 1
 
 [node name="CreateButton" type="Button" parent="Panel" unique_id=885370677]
 layout_mode = 0
-offset_left = 181.0
+offset_left = 189.0
 offset_top = 571.0
-offset_right = 441.0
+offset_right = 449.0
 offset_bottom = 611.0
 text = "SETUP_CREATE"
 clip_text = true
 
 [node name="LoadButton" type="Button" parent="Panel" unique_id=284199124]
 layout_mode = 0
-offset_left = 576.0
+offset_left = 568.0
 offset_top = 571.0
-offset_right = 838.0
+offset_right = 830.0
 offset_bottom = 611.0
 text = "SETUP_LOAD"
 clip_text = true
