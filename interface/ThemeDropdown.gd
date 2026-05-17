@@ -38,10 +38,16 @@ func change_theme(choice_index) -> void:
 		get_tree().current_scene.theme = pjp_dark_theme
 		current_theme = pjp_dark_theme
 		get_tree().current_scene.find_child("BackgroundColour").color = Color.hex(0x4c4c4cff)
+		for child in get_node("../MainScreen/PaintJobTabContainer").get_children():
+			child.get_node("SearchIconLight").visible = false
+			child.get_node("SearchIconDark").visible = true
 	elif choice_index == 1:
 		get_tree().current_scene.theme = pjp_light_theme
 		current_theme = pjp_light_theme
 		get_tree().current_scene.find_child("BackgroundColour").color = Color.hex(0xffffffff)
+		for child in get_node("../MainScreen/PaintJobTabContainer").get_children():
+			child.get_node("SearchIconLight").visible = true
+			child.get_node("SearchIconDark").visible = false
 	get_node("../ThemeTimer").start()
 	switch_warning_theme()
 
