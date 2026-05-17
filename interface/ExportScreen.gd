@@ -204,10 +204,16 @@ func export_mod() -> void:
 									output_main_dds = source_main_dds
 							else:
 								if paint_job_dict["split"] and vehicle_dict["vehicle_dict"]["separate_paint_jobs"]:
-									source_main_dds = "%s (%s)" % [indiv_dict["cabins"][0]["designation"], indiv_dict["cabins"][0]["name"]]
+									if vehicle_dict["vehicle_dict"]["alt_uv"]:
+										source_main_dds = "%s (%s, alt uvset)" % [indiv_dict["cabins"][0]["designation"], indiv_dict["cabins"][0]["name"]]
+									else:
+										source_main_dds = "%s (%s)" % [indiv_dict["cabins"][0]["designation"], indiv_dict["cabins"][0]["name"]]
 									output_main_dds = source_main_dds
 								else:
-									source_main_dds = "%s (%s)" % [vehicle_dict["vehicle_dict"]["cabins"][0]["designation"], vehicle_dict["vehicle_dict"]["cabins"][0]["name"]]
+									if vehicle_dict["vehicle_dict"]["alt_uv"]:
+										source_main_dds = "%s (%s, alt uvset)" % [vehicle_dict["vehicle_dict"]["cabins"][0]["designation"], vehicle_dict["vehicle_dict"]["cabins"][0]["name"]]
+									else:
+										source_main_dds = "%s (%s)" % [vehicle_dict["vehicle_dict"]["cabins"][0]["designation"], vehicle_dict["vehicle_dict"]["cabins"][0]["name"]]
 									if vehicle_selection.vehicle_dict["uses_accessories"]:
 										output_main_dds = "Cabin"
 									else:
