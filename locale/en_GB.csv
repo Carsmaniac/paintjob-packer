@@ -21,6 +21,11 @@ SETUP_CREATE,Create a new project
 SETUP_LOAD,Load an existing project
 SETUP_WELCOME,Welcome to Paint Job Packer
 SETUP_QUESTION,What would you like to do today?
+ABOUT_TITLE,Paint Job Packer Contributors
+ABOUT_DEVELOPER,Developer:
+ABOUT_THANKS,Special Thanks:
+ABOUT_CONTRIBUTORS,Contributors:
+ABOUT_TRANSLATORS,Translators:
 MOD_TITLE,Mod Manager Info
 MOD_NAME,Mod Name
 MOD_AUTHOR,Author

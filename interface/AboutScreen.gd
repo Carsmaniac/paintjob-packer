@@ -5,20 +5,18 @@ var weblate_link: String = "https://hosted.weblate.org/projects/paint-job-packer
 
 
 func _ready() -> void:
-	$AboutTabContainer/Contributors/ContributionLink.connect("gui_input", open_github_link)
-	$AboutTabContainer/Contributors/TranslationLink.connect("gui_input", open_weblate_link)
+	#$AboutTabContainer/Contributors/ContributionLink.connect("gui_input", open_github_link)
+	#$AboutTabContainer/Contributors/TranslationLink.connect("gui_input", open_weblate_link)
 	get_node("../SetupScreen/Panel/UpdateChecker/UpdateButton").connect("pressed", open_update_link)
-	#fetch_version_json()
+	#fetch_version_json() TODO: uncomment this
 
 
-func open_github_link(input_event: InputEvent) -> void:
-	if input_event is InputEventMouseButton and input_event.button_index == 1 and input_event.pressed:
-		OS.shell_open(github_link)
+func open_github_link() -> void:
+	OS.shell_open(github_link)
 
 
-func open_weblate_link(input_event: InputEvent) -> void:
-	if input_event is InputEventMouseButton and input_event.button_index == 1 and input_event.pressed:
-		OS.shell_open(weblate_link)
+func open_weblate_link() -> void:
+	OS.shell_open(weblate_link)
 
 
 func open_update_link() -> void:
@@ -30,6 +28,7 @@ func fetch_version_json() -> void:
 	add_child(http_request)
 	http_request.connect("request_completed", process_version_json)
 	var _error = http_request.request("https://carsmani.ac/paint-job-packer.json")
+
 
 func process_version_json(_result:int , _response_code: int, _headers: PackedStringArray, body: PackedByteArray) -> void:
 	var json := JSON.new()
