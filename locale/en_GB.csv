@@ -127,7 +127,7 @@ EXPORT_FOLDER,Selected location: %s
 EXPORT_CREATE,%s folder will be created
 EXPORT_EMPTY,Use empty placeholders
 EXPORT_TEMPLATES,Use templates
-EXPORT_TITLE,Export Mod
+EXPORT_WINDOW,Export Mod
 EXPORT_EXISTST,Folder Exists
 EXPORT_EXISTS,The folder %s already exists.
 EXPORT_EXISTS2,"Please choose a different location, or delete the %s folder."

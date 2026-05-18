@@ -40,7 +40,7 @@ func change_image(dropdown_index: int) -> void:
 
 func choose_path() -> void:
 	var export_window := FileDialog.new()
-	export_window.title = tr("EXPORT_TTILE")
+	export_window.title = tr("EXPORT_WINDOW")
 	export_window.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
 	export_window.use_native_dialog = true
 	export_window.file_mode = FileDialog.FILE_MODE_OPEN_DIR
