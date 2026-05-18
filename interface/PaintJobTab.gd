@@ -101,7 +101,7 @@ func switch_to_advanced() -> void:
 	# This is disgusting
 	for node in [$InGameLabel, $Name, $Price, $Unlock, $InternalLabel, $InternalName, 
 	$CabinSupport, $SplitPaintJobs, $SelectedLabel, $SearchBar, $VehicleTabContainer, 
-	$WarningButton, $AdvancedButton]:
+	$WarningButton, $AdvancedButton, $PreviewImage, $SearchIconDark, $SearchIconLight]:
 		node.visible = false
 	$AdvancedTab.visible = true
 	$AdvancedTab.show_hide_changeables()
@@ -118,6 +118,7 @@ func switch_from_advanced() -> void:
 	show_hide_warning_button()
 	_on_cabin_dropdown_change($CabinSupport/DropdownInput.selected)
 	enable_disable_prev_next()
+	get_node("../../../ThemeDropdown").change_theme(get_node("../../../ThemeDropdown").selected)
 
 
 func enable_disable_prev_next() -> void:
