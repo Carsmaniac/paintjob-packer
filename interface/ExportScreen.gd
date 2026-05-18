@@ -6,6 +6,13 @@ var mod_name: String
 var current_path: String = ""
 
 
+func _ready() -> void:
+	if ModGeneration.using_templates:
+		get_node("Panel/PlaceholderDropdown").set_item_disabled(1, false)
+	else:
+		get_node("Panel/PlaceholderDropdown").set_item_disabled(1, true)
+
+
 func try_desktop_folder() -> void:
 	var desktop_dir: String = DirAccess.open(OS.get_user_data_dir() + "/../../../../../Desktop/").get_current_dir()
 	if DirAccess.dir_exists_absolute(desktop_dir):
