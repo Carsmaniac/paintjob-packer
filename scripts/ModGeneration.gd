@@ -66,7 +66,7 @@ func make_workshop_folder() -> void:
 
 func copy_workshop_files() -> void:
 	var placeholder_folder := DirAccess.open("res://placeholders")
-	placeholder_folder.copy("res://placeholders/workshop.jpg", workshop_path + "Workshop Image.jpg")
+	placeholder_folder.copy("res://placeholders/workshop.jpg", output_path + "Workshop Image.jpg")
 	placeholder_folder.copy("res://placeholders/versions.sii", workshop_path + "versions.sii")
 
 
@@ -77,7 +77,7 @@ func make_manifest_sii(mod_version: String, mod_name: String, mod_author: String
 	file.store_line("mod_package: .package_name")
 	file.store_line("{")
 	file.store_line("\tpackage_version: \"%s\"" % mod_version)
-	if workshop:
+	if not workshop:
 		file.store_line("\tdisplay_name: \"%s\"" % mod_name)
 	file.store_line("\tauthor: \"%s\"" % mod_author)
 	file.store_line("")
