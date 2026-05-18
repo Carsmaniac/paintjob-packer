@@ -164,4 +164,13 @@ clip_text = true
 visible = false
 layout_mode = 0
 
+[node name="PreviewImage" type="TextureRect" parent="." unique_id=636274123]
+visible = false
+layout_mode = 0
+offset_left = 11.0
+offset_top = 38.0
+offset_right = 387.0
+offset_bottom = 320.0
+expand_mode = 1
+
 [connection signal="pressed" from="WarningButton" to="." method="show_warnings"]

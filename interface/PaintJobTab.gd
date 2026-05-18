@@ -21,8 +21,14 @@ func get_vehicle_selections() -> Array:
 	return selections
 
 
-#func switch_to_advanced() -> void:
-	#get_node("../../..").switch_screen(true, false, 4)
+func change_preview_image(show_image: bool, vehicle_path: String = "") -> void:
+	var preview = get_node("PreviewImage")
+	var file_path: String = "res://interface/images/vehicles/%s/%s.jpg" % [get_node("../../..").loaded_game, vehicle_path]
+	if FileAccess.file_exists(file_path):
+		preview.texture = load(file_path)
+		preview.visible = show_image
+	else:
+		preview.visible = false
 
 
 func _on_cabin_dropdown_change(tab_index) -> void:
