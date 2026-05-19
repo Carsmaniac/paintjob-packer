@@ -1,163 +1,164 @@
-LOCALE,en_GB
-GAME_ATS,American Truck Simulator
-GAME_ETS,Euro Truck Simulator 2
-BUTTON_SAVE,Save
-BUTTON_LOAD,Load
-BUTTON_PREVIOUS,Previous
-BUTTON_NEXT,Next
-BUTTON_ABOUT,About
-BUTTON_EXPORT,Export
-BUTTON_COLOURS,Colours
-BUTTON_OKAY,Okay
-BUTTON_CONFIRM,Confirm
-BUTTON_CONTINUE,Continue
-BUTTON_NEVERMIND,Nevermind
-BUTTON_YES,Yes
-BUTTON_NO,No
-BUTTON_UPDATE,Update
-SETUP_VERSION,Version %s
-SETUP_UPDATE,New version available!
-SETUP_CREATE,Create a new project
-SETUP_LOAD,Load an existing project
-SETUP_WELCOME,Welcome to Paint Job Packer
-SETUP_QUESTION,What would you like to do today?
-ABOUT_TITLE,Paint Job Packer Contributors
-ABOUT_DEVELOPER,Developer:
-ABOUT_THANKS,Special Thanks:
-ABOUT_CONTRIBUTORS,Contributors:
-ABOUT_TRANSLATORS,Translators:
-MOD_TITLE,Mod Manager Info
-MOD_NAME,Mod Name
-MOD_AUTHOR,Author
-MOD_VERSION,Version
-MOD_DESCRIPTION,Description
-MOD_QUESTION,Which game is your mod for?
-CABIN_LARGEST,Largest cabin only
-CABIN_ALL,All cabins
-CABIN_SELECTED,Selected cabins
-CABIN_DSPLIT,"Don't split, one per truck"
-CABIN_SPLIT,"Split, one per cabin"
-PJOB_TITLE,In-Game Paint Job Info
-PJOB_NAME,Name
-PJOB_PRICE,Price
-PJOB_UNLOCK,Unlock level
-PJOB_UNLOCKD,Unlocked by default
-PJOB_VEHICLES,Vehicles Supported (%s)
-INTERNAL_TITLE,Other Settings
-INTERNAL_NAME,Internal name
-INTERNAL_CABIN,Supported cabins
-INTERNAL_PJOB,Split paint jobs
-TAB_TRUCKS,Trucks
-TAB_TRAILERS,Trailers
-TAB_BUSES,Buses
-TAB_CARS,Cars
-TAB_TRUCK_MODS,Truck Mods
-TAB_TRAILER_MODS,Trailer Mods
-TAB_BUS_MODS,Bus Mods
-TAB_CAR_MODS,Car Mods
-TAB_NEW,New Paint Job
-WARN_MNAME_BLANK,"Mod name cannot be blank, please enter a mod name"
-WARN_MNAME_BLANKS,Mod name is blank
-WARN_MNAME_INVAL,Mod name cannot contain the following characters:
-WARN_MNAME_INVALS,Mod name contains invalid characters
-WARN_MNAME_FULL,Mod name cannot end with a full stop ( . )
-WARN_MNAME_FULLS,Mod name ends with a full stop
-WARN_MNAME_SPC,Mod name cannot end with a space
-WARN_MNAME_SPCS,Mod name ends with a space
-WARN_MNAME_RESER,Mod name cannot be any of the following:
-WARN_MNAME_RESERS,Mod name is a reserved file name
-WARNING_HELP,Help
-WARNING_TITLE,Warning
-WARN_MAUTH_INVAL,Mod author cannot contain the following characters:
-WARN_MAUTH_INVALS,Mod author contains invalid characters
-WARN_MVER_INVAL,Mod version cannot contain the following characters:
-WARN_MVER_INVALS,Mod version contains invalid characters
-WARN_PNAME_BLANK,"Paint job name cannot be blank, please enter a paint job name"
-WARN_PNAME_BLANKS,Paint job name is blank
-WARN_PNAME_INVAL,Paint job name cannot contain the following characters:
-WARN_PNAME_INVALS,Paint job name contains invalid characters
-WARN_PNAME_FULL,Paint job name cannot end with a full stop ( . )
-WARN_PNAME_FULLS,Paint job name ends with a full stop
-WARN_PNAME_SPC,Paint job name cannot end with a space
-WARN_PNAME_SPCS,Paint job name ends with a space
-WARN_PNAME_RESER,Paint job name cannot be any of the following:
-WARN_PNAME_RESERS,Paint job name is a reserved file name
-WARN_PNAME_ASCII,Paint job name can only contain ASCII characters:
-WARN_PNAME_ASCIIS,Paint job name is not ASCII
-WARN_PRICE_ZERO,Price cannot be zero
-WARN_PRICE_ZEROS,Price is zero
-WARN_INAME_BLANK,"Internal name cannot be blank, please enter an internal name"
-WARN_INAME_BLANKS,Internal name is blank
-WARN_INAME_BLANKW,Paint job internal name is blank
-WARN_INAME_LONG10,Internal name cannot be longer than 10 characters
-WARN_INAME_LONG12,Internal name cannot be longer than 12 characters
-WARN_INAME_LONGS,Internal name is too long
-WARN_INAME_LONGW,Paint job internal name is too long
-WARN_INAME_ALPHA,"Internal name can only contain the following characters, with no spaces:"
-WARN_INAME_ALPHAS,Internal name is not alphanumeric
-WARN_INAME_ALPHAW,Paint job internal name is not alphanumeric
-WARN_INAME_RESER,Internal name cannot be any of the following:
-WARN_INAME_RESERS,Internal name is a reserved file name
-WARN_INAME_RESERW,Paint job internal name is a reserved file name
-WARN_INAME_CONF,The following paint jobs have the same internal name:
-WARN_INAME_CONFS,Conflicting internal names
-WARN_INAME_CONFW,Conflicting paint job internal names
-WARN_VEH_NONE,"Please select at least one truck, trailer or mod for your paint job to support"
-WARN_VEH_NONES,No vehicles selected
-WARN_VEH_INCOM,Incompatible vehicles
-WARN_TEXT,The following errors need to be fixed before continuing:
-CONFIRM_STARTT,Return to Start?
-CONFIRM_START,You will lose all unsaved progress if you return to the start.
-CONFIRM_TEXT,Are you sure you want to continue?
-CONFIRM_LOADT,Load Project?
-CONFIRM_LOAD,You will lose all unsaved progress if you load a project.
-CONFIRM_SAVET,Not Exporting Mod
-CONFIRM_SAVE,"This function is for saving your Paint Job Packer project to come back to later, NOT for exporting your mod."
-CONFIRM_SAVEE,"To export your mod, press Export from the In-Game Paint Job Info screen."
-SAVE_TITLE,Save Project
-SAVE_INVALT,Not a Valid Project File
-SAVE_INVAL,Selected file is not a Paint Job Packer project file.
-SAVE_INVALQ,Would you like to save as %s instead?
-LOAD_TITLE,Load Project
-LOAD_INVAL,Please select a .pjpproject file.
-EXPORT_TITLE,Mod Export Options
-EXPORT_CHOOSE,Choose export location
-EXPORT_SELECT,Please select a location to export your mod
-EXPORT_FOLDER,Selected location: %s
-EXPORT_CREATE,%s folder will be created
-EXPORT_EMPTY,Use empty placeholders
-EXPORT_TEMPLATES,Use templates
-EXPORT_WINDOW,Export Mod
-EXPORT_EXISTST,Folder Exists
-EXPORT_EXISTS,The folder %s already exists.
-EXPORT_EXISTS2,"Please choose a different location, or delete the %s folder."
-EXPORT_READY,Ready to export mod :)
-EXPORT_DONET,Export Complete
-EXPORT_DONE,Your mod has been exported to:
-EXPORT_DONE2,Thanks for using Paint Job Packer! Press okay to exit
-THEME_DARK,Dark Mode
-THEME_LIGHT,Light Mode
-WSHOP_LOCAL,Do not generate Steam Workshop files
-WSHOP_WSHOP,Generate Steam Workshop files
-CHANGE_TITLE,Changeable Colours
-CHANGE_DEFAULT,Default colour:
-CHANGE_RED,Red
-CHANGE_GREEN,Green
-CHANGE_BLUE,Blue
-CHANGE_ENABLE,Enabled
-CHANGE_USER,User changeable
-HELP_MNAME,"Your mod's name, in the mod manager"
-HELP_MAUTH,"Your mod's author, in the mod manager"
-HELP_MVER,"Your mod's version, in the mod manager"
-HELP_MDESC,"Your mod's description, in the mod manager"
-HELP_PNAME,"Your paint job's name, shown at the upgrade shop in-game"
-HELP_PRICE,How much your paint job costs at the in-game upgrade shop
-HELP_UNLOCK,"What level users can purchase your paint job from, or whether it is unlocked by default on a new profile"
-HELP_INAME,A unique name used by the game to identify your paint job. Mod users will NOT see this name
-HELP_CABIN,"Whether your paint job supports only the largest cabin for each truck, or all cabins"
-HELP_SPLIT,"Whether to make a single paint job for each truck, or to split it up and make one for each cabin"
-HELP_BASE,The colour that shows through any transparent parts of your paint job
-HELP_CHANGE,Extra changeable colours that show through specific colours on your paint job
-HELP_CHANGER,Shows through bright red (#FF0000)
-HELP_CHANGEG,Shows through bright green (#00FF00)
-HELP_CHANGEB,Shows through bright blue (#0000FF)
+"context","target"
+"LOCALE","en_GB"
+"GAME_ATS","American Truck Simulator"
+"GAME_ETS","Euro Truck Simulator 2"
+"BUTTON_SAVE","Save"
+"BUTTON_LOAD","Load"
+"BUTTON_PREVIOUS","Previous"
+"BUTTON_NEXT","Next"
+"BUTTON_ABOUT","About"
+"BUTTON_EXPORT","Export"
+"BUTTON_COLOURS","Colours"
+"BUTTON_OKAY","Okay"
+"BUTTON_CONFIRM","Confirm"
+"BUTTON_CONTINUE","Continue"
+"BUTTON_NEVERMIND","Nevermind"
+"BUTTON_YES","Yes"
+"BUTTON_NO","No"
+"BUTTON_UPDATE","Update"
+"SETUP_VERSION","Version %s"
+"SETUP_UPDATE","New version available!"
+"SETUP_CREATE","Create a new project"
+"SETUP_LOAD","Load an existing project"
+"SETUP_WELCOME","Welcome to Paint Job Packer"
+"SETUP_QUESTION","What would you like to do today?"
+"ABOUT_TITLE","Paint Job Packer Contributors"
+"ABOUT_DEVELOPER","Developer:"
+"ABOUT_THANKS","Special Thanks:"
+"ABOUT_CONTRIBUTORS","Contributors:"
+"ABOUT_TRANSLATORS","Translators:"
+"MOD_TITLE","Mod Manager Info"
+"MOD_NAME","Mod Name"
+"MOD_AUTHOR","Author"
+"MOD_VERSION","Version"
+"MOD_DESCRIPTION","Description"
+"MOD_QUESTION","Which game is your mod for?"
+"CABIN_LARGEST","Largest cabin only"
+"CABIN_ALL","All cabins"
+"CABIN_SELECTED","Selected cabins"
+"CABIN_DSPLIT","Don't split, one per truck"
+"CABIN_SPLIT","Split, one per cabin"
+"PJOB_TITLE","In-Game Paint Job Info"
+"PJOB_NAME","Name"
+"PJOB_PRICE","Price"
+"PJOB_UNLOCK","Unlock level"
+"PJOB_UNLOCKD","Unlocked by default"
+"PJOB_VEHICLES","Vehicles Supported (%s)"
+"INTERNAL_TITLE","Other Settings"
+"INTERNAL_NAME","Internal name"
+"INTERNAL_CABIN","Supported cabins"
+"INTERNAL_PJOB","Split paint jobs"
+"TAB_TRUCKS","Trucks"
+"TAB_TRAILERS","Trailers"
+"TAB_BUSES","Buses"
+"TAB_CARS","Cars"
+"TAB_TRUCK_MODS","Truck Mods"
+"TAB_TRAILER_MODS","Trailer Mods"
+"TAB_BUS_MODS","Bus Mods"
+"TAB_CAR_MODS","Car Mods"
+"TAB_NEW","New Paint Job"
+"WARN_MNAME_BLANK","Mod name cannot be blank, please enter a mod name"
+"WARN_MNAME_BLANKS","Mod name is blank"
+"WARN_MNAME_INVAL","Mod name cannot contain the following characters:"
+"WARN_MNAME_INVALS","Mod name contains invalid characters"
+"WARN_MNAME_FULL","Mod name cannot end with a full stop ( . )"
+"WARN_MNAME_FULLS","Mod name ends with a full stop"
+"WARN_MNAME_SPC","Mod name cannot end with a space"
+"WARN_MNAME_SPCS","Mod name ends with a space"
+"WARN_MNAME_RESER","Mod name cannot be any of the following:"
+"WARN_MNAME_RESERS","Mod name is a reserved file name"
+"WARNING_HELP","Help"
+"WARNING_TITLE","Warning"
+"WARN_MAUTH_INVAL","Mod author cannot contain the following characters:"
+"WARN_MAUTH_INVALS","Mod author contains invalid characters"
+"WARN_MVER_INVAL","Mod version cannot contain the following characters:"
+"WARN_MVER_INVALS","Mod version contains invalid characters"
+"WARN_PNAME_BLANK","Paint job name cannot be blank, please enter a paint job name"
+"WARN_PNAME_BLANKS","Paint job name is blank"
+"WARN_PNAME_INVAL","Paint job name cannot contain the following characters:"
+"WARN_PNAME_INVALS","Paint job name contains invalid characters"
+"WARN_PNAME_FULL","Paint job name cannot end with a full stop ( . )"
+"WARN_PNAME_FULLS","Paint job name ends with a full stop"
+"WARN_PNAME_SPC","Paint job name cannot end with a space"
+"WARN_PNAME_SPCS","Paint job name ends with a space"
+"WARN_PNAME_RESER","Paint job name cannot be any of the following:"
+"WARN_PNAME_RESERS","Paint job name is a reserved file name"
+"WARN_PNAME_ASCII","Paint job name can only contain ASCII characters:"
+"WARN_PNAME_ASCIIS","Paint job name is not ASCII"
+"WARN_PRICE_ZERO","Price cannot be zero"
+"WARN_PRICE_ZEROS","Price is zero"
+"WARN_INAME_BLANK","Internal name cannot be blank, please enter an internal name"
+"WARN_INAME_BLANKS","Internal name is blank"
+"WARN_INAME_BLANKW","Paint job internal name is blank"
+"WARN_INAME_LONG10","Internal name cannot be longer than 10 characters"
+"WARN_INAME_LONG12","Internal name cannot be longer than 12 characters"
+"WARN_INAME_LONGS","Internal name is too long"
+"WARN_INAME_LONGW","Paint job internal name is too long"
+"WARN_INAME_ALPHA","Internal name can only contain the following characters, with no spaces:"
+"WARN_INAME_ALPHAS","Internal name is not alphanumeric"
+"WARN_INAME_ALPHAW","Paint job internal name is not alphanumeric"
+"WARN_INAME_RESER","Internal name cannot be any of the following:"
+"WARN_INAME_RESERS","Internal name is a reserved file name"
+"WARN_INAME_RESERW","Paint job internal name is a reserved file name"
+"WARN_INAME_CONF","The following paint jobs have the same internal name:"
+"WARN_INAME_CONFS","Conflicting internal names"
+"WARN_INAME_CONFW","Conflicting paint job internal names"
+"WARN_VEH_NONE","Please select at least one truck, trailer or mod for your paint job to support"
+"WARN_VEH_NONES","No vehicles selected"
+"WARN_VEH_INCOM","Incompatible vehicles"
+"WARN_TEXT","The following errors need to be fixed before continuing:"
+"CONFIRM_STARTT","Return to Start?"
+"CONFIRM_START","You will lose all unsaved progress if you return to the start."
+"CONFIRM_TEXT","Are you sure you want to continue?"
+"CONFIRM_LOADT","Load Project?"
+"CONFIRM_LOAD","You will lose all unsaved progress if you load a project."
+"CONFIRM_SAVET","Not Exporting Mod"
+"CONFIRM_SAVE","This function is for saving your Paint Job Packer project to come back to later, NOT for exporting your mod."
+"CONFIRM_SAVEE","To export your mod, press Export from the In-Game Paint Job Info screen."
+"SAVE_TITLE","Save Project"
+"SAVE_INVALT","Not a Valid Project File"
+"SAVE_INVAL","Selected file is not a Paint Job Packer project file."
+"SAVE_INVALQ","Would you like to save as %s instead?"
+"LOAD_TITLE","Load Project"
+"LOAD_INVAL","Please select a .pjpproject file."
+"EXPORT_TITLE","Mod Export Options"
+"EXPORT_CHOOSE","Choose export location"
+"EXPORT_SELECT","Please select a location to export your mod"
+"EXPORT_FOLDER","Selected location: %s"
+"EXPORT_CREATE","%s folder will be created"
+"EXPORT_EMPTY","Use empty placeholders"
+"EXPORT_TEMPLATES","Use templates"
+"EXPORT_WINDOW","Export Mod"
+"EXPORT_EXISTST","Folder Exists"
+"EXPORT_EXISTS","The folder %s already exists."
+"EXPORT_EXISTS2","Please choose a different location, or delete the %s folder."
+"EXPORT_READY","Ready to export mod :)"
+"EXPORT_DONET","Export Complete"
+"EXPORT_DONE","Your mod has been exported to:"
+"EXPORT_DONE2","Thanks for using Paint Job Packer! Press okay to exit"
+"THEME_DARK","Dark Mode"
+"THEME_LIGHT","Light Mode"
+"WSHOP_LOCAL","Do not generate Steam Workshop files"
+"WSHOP_WSHOP","Generate Steam Workshop files"
+"CHANGE_TITLE","Colour Mask Mode"
+"CHANGE_DEFAULT","Default colour:"
+"CHANGE_RED","Red"
+"CHANGE_GREEN","Green"
+"CHANGE_BLUE","Blue"
+"CHANGE_ENABLE","Enabled"
+"CHANGE_USER","User changeable"
+"HELP_MNAME","Your mod's name, in the mod manager"
+"HELP_MAUTH","Your mod's author, in the mod manager"
+"HELP_MVER","Your mod's version, in the mod manager"
+"HELP_MDESC","Your mod's description, in the mod manager"
+"HELP_PNAME","Your paint job's name, shown at the upgrade shop in-game"
+"HELP_PRICE","How much your paint job costs at the in-game upgrade shop"
+"HELP_UNLOCK","What level users can purchase your paint job from, or whether it is unlocked by default on a new profile"
+"HELP_INAME","A unique name used by the game to identify your paint job. Mod users will NOT see this name"
+"HELP_CABIN","Whether your paint job supports only the largest cabin for each truck, or all cabins"
+"HELP_SPLIT","Whether to make a single paint job for each truck, or to split it up and make one for each cabin"
+"HELP_BASE","The colour that shows through any transparent parts of your paint job"
+"HELP_CHANGE","Requires you to make a paint job mask with red, green and blue instead of a regular paint job. Allows for multiple changeable colours, but not full-colour logos and such."
+"HELP_CHANGER","Shows through bright red (#FF0000)"
+"HELP_CHANGEG","Shows through bright green (#00FF00)"
+"HELP_CHANGEB","Shows through bright blue (#0000FF)"
