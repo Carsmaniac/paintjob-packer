@@ -1,12 +1,10 @@
 [gd_scene format=3 uid="uid://dme18bmwlo3vq"]
 
-[ext_resource type="Theme" uid="uid://2i35ywbubie7" path="res://simple-box-theme/pjp-dark/PJPDark.tres" id="1_ipa5j"]
 [ext_resource type="Script" uid="uid://cluw8kdp14ct6" path="res://interface/AdvancedTab.gd" id="1_urcvw"]
 
 [node name="AdvancedTab" type="Control" unique_id=1384706168]
 layout_mode = 3
 anchors_preset = 0
-theme = ExtResource("1_ipa5j")
 script = ExtResource("1_urcvw")
 metadata/_tab_index = 0
 

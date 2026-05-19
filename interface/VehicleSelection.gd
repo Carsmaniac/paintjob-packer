@@ -45,6 +45,11 @@ func init(vehicle: Dictionary, show_cabins: bool, show_author: bool) -> Control:
 	return self
 
 
+func _ready() -> void:
+	vehicle_checkbox.connect("mouse_entered", Callable(get_node("../../../../.."), "change_preview_image").bind(true, "%s/%s" % [author_name, vehicle_name]))
+	vehicle_checkbox.connect("mouse_exited", Callable(get_node("../../../../.."), "change_preview_image").bind(false))
+
+
 func _on_panel_gui_input(event: InputEvent) -> void:
 	if (event is InputEventMouseButton) and event.pressed and event.button_index == 1:
 		vehicle_checkbox.button_pressed = !vehicle_checkbox.pressed

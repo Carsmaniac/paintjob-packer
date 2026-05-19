@@ -21,8 +21,14 @@ func get_vehicle_selections() -> Array:
 	return selections
 
 
-#func switch_to_advanced() -> void:
-	#get_node("../../..").switch_screen(true, false, 4)
+func change_preview_image(show_image: bool, vehicle_path: String = "") -> void:
+	var preview = get_node("PreviewImage")
+	var file_path: String = "res://interface/images/vehicles/%s/%s.jpg" % [get_node("../../..").loaded_game, vehicle_path]
+	if FileAccess.file_exists(file_path):
+		preview.texture = load(file_path)
+		preview.visible = show_image
+	else:
+		preview.visible = false
 
 
 func _on_cabin_dropdown_change(tab_index) -> void:
@@ -95,7 +101,7 @@ func switch_to_advanced() -> void:
 	# This is disgusting
 	for node in [$InGameLabel, $Name, $Price, $Unlock, $InternalLabel, $InternalName, 
 	$CabinSupport, $SplitPaintJobs, $SelectedLabel, $SearchBar, $VehicleTabContainer, 
-	$WarningButton, $AdvancedButton]:
+	$WarningButton, $AdvancedButton, $PreviewImage, $SearchIconDark, $SearchIconLight]:
 		node.visible = false
 	$AdvancedTab.visible = true
 	$AdvancedTab.show_hide_changeables()
@@ -112,6 +118,7 @@ func switch_from_advanced() -> void:
 	show_hide_warning_button()
 	_on_cabin_dropdown_change($CabinSupport/DropdownInput.selected)
 	enable_disable_prev_next()
+	get_node("../../../ThemeDropdown").change_theme(get_node("../../../ThemeDropdown").selected)
 
 
 func enable_disable_prev_next() -> void:
