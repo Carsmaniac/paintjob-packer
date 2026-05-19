@@ -1,8 +1,8 @@
 {
 	"format_version": 1,
 	
-	"name": "MAN TGX Euro 5",
-	"path": "man.tgx",
+	"name": "DAF XF Electric",
+	"path": "daf.xf_electric",
 	"type": "truck",
 	
 	"truck": true,
@@ -21,30 +21,24 @@
 	
 	"colour_picker": false,
 	"alt_uv": false,
-	"separate_paint_jobs": true,
+	"separate_paint_jobs": false,
 	
 	"cabins": [
 		{
 			"code": "a",
 			"designation": "Cabin A",
-			"name": "XXL",
-			"internal_name": ["xxl_cab"]
-		},
-		{
-			"code": "b",
-			"designation": "Cabin B",
-			"name": "XLX",
-			"internal_name": ["xlx_cab"]
-		},
-		{
-			"code": "c",
-			"designation": "Cabin C",
-			"name": "XL",
-			"internal_name": ["xl_cab"]
+			"name": "Sleeper High",
+			"internal_name": ["slh"]
 		}
 	],
 	
-	"uses_accessories": false,
+	"uses_accessories": true,
 	"accessories": {
+		"Sideskirts": [
+			"sideskirt.pnt_4x2"
+		],
+		"Mirrors": [
+			"mirror.cam_semi"
+		]
 	}
 }

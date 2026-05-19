@@ -1,8 +1,8 @@
 {
 	"format_version": 1,
 	
-	"name": "Volvo FH4",
-	"path": "volvo.fh16_2012",
+	"name": "Volvo FH6",
+	"path": "volvo.fh_2025",
 	"type": "truck",
 	
 	"truck": true,
@@ -27,20 +27,50 @@
 		{
 			"code": "a",
 			"designation": "Cabin A",
-			"name": "Globetrotter XL",
-			"internal_name": ["l2h3", "l2h3_8x4"]
+			"name": "Globetrotter XXL",
+			"internal_name": ["l3h3", "l3h34_8x4"]
 		},
 		{
 			"code": "b",
 			"designation": "Cabin B",
-			"name": "Globetrotter",
-			"internal_name": ["l2h2"]
+			"name": "Globetrotter XL",
+			"internal_name": ["l2h3", "l2h3_8x4"]
 		},
 		{
 			"code": "c",
 			"designation": "Cabin C",
+			"name": "Globetrotter",
+			"internal_name": ["l2h2"]
+		},
+		{
+			"code": "d",
+			"designation": "Cabin D",
 			"name": "Sleeper",
 			"internal_name": ["l2h1"]
+		},
+		{
+			"code": "e",
+			"designation": "Cabin A Aero",
+			"name": "Aero Globetrotter XXL",
+			"internal_name": ["l3h3_aero", "l3h3_8x4_a"]
+		},
+		{
+			"code": "f",
+			"designation": "Cabin B Aero",
+			"name": "Aero Globetrotter XL",
+			"internal_name": ["l2h3_aero", "l2h3_8x4_a"]
+		},
+		{
+			"code": "g",
+			"designation": "Cabin C Aero",
+			"name": "Aero Globetrotter",
+			"internal_name": ["l2h2_aero"]
+		},
+		{
+			"code": "h",
+			"designation": "Cabin D Aero",
+			"name": "Aero Sleeper",
+			"internal_name": ["l2h1_aero"]
 		}
 	],
 	
@@ -74,7 +104,8 @@
 			"s_mirror.paint",
 			"mirror.chrome_logo",
 			"mirror.chrome_led",
-			"mirror.shape3"
+			"mirror.shape3",
+			"mirror.cam_digi_a"
 		],
 		"Rear Fender": [
 			"r_fender.paint_4x",
@@ -91,15 +122,16 @@
 			"f_grill.net"
 		],
 		"Air Filter": [
-			"filter.paint_gl",
-			"filter.paint_glxl",
-			"filter.paint_slep"
+			"filter.paint_gtxxl",
+			"filter.paint_gtxl",
+			"filter.paint_gt",
+			"filter.paint_slp"
 		],
 		"Sideskirts": [
-			"shape2.sideskirt",
+			"stock_4x_a.sideskirt",
 			"chrome_4x.sideskirt",
 			"chrome_s4x.sideskirt",
-			"stock_6x.sideskirt",
+			"stock_6x_a.sideskirt",
 			"chrome_6.sideskirt",
 			"chrome_s6x.sideskirt"
 		],
