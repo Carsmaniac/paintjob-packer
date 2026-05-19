@@ -1,8 +1,8 @@
 {
 	"format_version": 1,
 	
-	"name": "MAN TGX Euro 5",
-	"path": "man.tgx",
+	"name": "DAF XD",
+	"path": "daf.xd",
 	"type": "truck",
 	
 	"truck": true,
@@ -27,24 +27,36 @@
 		{
 			"code": "a",
 			"designation": "Cabin A",
-			"name": "XXL",
-			"internal_name": ["xxl_cab"]
+			"name": "Sleeper High",
+			"internal_name": ["slh"]
 		},
 		{
 			"code": "b",
 			"designation": "Cabin B",
-			"name": "XLX",
-			"internal_name": ["xlx_cab"]
+			"name": "Sleeper",
+			"internal_name": ["sl"]
 		},
 		{
 			"code": "c",
 			"designation": "Cabin C",
-			"name": "XL",
-			"internal_name": ["xl_cab"]
+			"name": "Day Cab",
+			"internal_name": ["day"]
 		}
 	],
 	
-	"uses_accessories": false,
+	"uses_accessories": true,
 	"accessories": {
+		"Mirrors": [
+			"mirror.plast",
+			"mirror.semi",
+			"mirror.cam_semi",
+			"mirror.cam_semi_h"
+		],
+		"Sideskirts": [
+			"sideskirt.pnt_4x2s"
+		],
+		"Sun Visor": [
+			"sunshield.paint_slh"
+		]
 	}
 }

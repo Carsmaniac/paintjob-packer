@@ -1,0 +1,86 @@
+{
+	"format_version": 1,
+	
+	"name": "MAN TGX",
+	"path": "man.tgx_2020",
+	"type": "truck",
+	
+	"truck": true,
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "GX",
+			"internal_name": ["gx"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "GM",
+			"internal_name": ["gm"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "GN",
+			"internal_name": ["gn"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Front Bumper - Duty": [
+			"f_bumper.pnt_pla_duty"
+		],
+		"Mirrors": [
+			"mirror.cam_pnt",
+			"mirror.pnt_pla",
+			"mirror.pnt_pla_bs",
+			"s_mirror.pnt"
+		],
+		"Roof Deflectors (Cabin B)": [
+			"r_deflector.gm",
+			"r_deflector.gm_2024"
+		],
+		"Roof Deflectors (Cabin C)": [
+			"r_deflector.gn"
+		],
+		"Rear Fender": [
+			"r_fender.pnt_4x2",
+			"r_fender.pnt_6x22",
+			"r_fender.pnt_6x4",
+			"r_fender.pnt_8x4",
+			"r_fendr_top.pnt_4x2",
+			"r_fendr_top.pnt_6x22",
+			"r_fendr_top.pnt_6x4",
+			"r_fendr_top.pnt_8x4"
+		],
+		"Sideskirts": [
+			"fender_s.sideskirt",
+			"fender_s_e.sideskirt",
+			"fender_p.sideskirt",
+			"fender_p_e.sideskirt",
+			"4x2.sideskirt",
+			"4x2_e.sideskirt",
+			"4x2_p.sideskirt",
+			"4x2_p_e.sideskirt"
+		]
+	}
+}

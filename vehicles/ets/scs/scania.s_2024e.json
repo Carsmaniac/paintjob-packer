@@ -1,8 +1,8 @@
 {
 	"format_version": 1,
 	
-	"name": "MAN TGX Euro 5",
-	"path": "man.tgx",
+	"name": "Scania S BEV",
+	"path": "scania.s_2024e",
 	"type": "truck",
 	
 	"truck": true,
@@ -21,30 +21,24 @@
 	
 	"colour_picker": false,
 	"alt_uv": false,
-	"separate_paint_jobs": true,
+	"separate_paint_jobs": false,
 	
 	"cabins": [
 		{
 			"code": "a",
 			"designation": "Cabin A",
-			"name": "XXL",
-			"internal_name": ["xxl_cab"]
-		},
-		{
-			"code": "b",
-			"designation": "Cabin B",
-			"name": "XLX",
-			"internal_name": ["xlx_cab"]
-		},
-		{
-			"code": "c",
-			"designation": "Cabin C",
-			"name": "XL",
-			"internal_name": ["xl_cab"]
+			"name": "High Roof",
+			"internal_name": ["highline"]
 		}
 	],
 	
-	"uses_accessories": false,
+	"uses_accessories": true,
 	"accessories": {
+		"Sun Visor": [
+			"sunshld.stock"
+		],
+		"Rear Fender": [
+			"r_fender.4x2_p"
+		]
 	}
 }

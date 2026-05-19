@@ -1,8 +1,8 @@
 {
 	"format_version": 1,
 	
-	"name": "Volvo FH4",
-	"path": "volvo.fh16_2012",
+	"name": "Volvo FH5",
+	"path": "volvo.fh_2021",
 	"type": "truck",
 	
 	"truck": true,
@@ -91,15 +91,15 @@
 			"f_grill.net"
 		],
 		"Air Filter": [
-			"filter.paint_gl",
-			"filter.paint_glxl",
-			"filter.paint_slep"
+			"filter.paint_h3",
+			"filter.paint_h2",
+			"filter.paint_h1"
 		],
 		"Sideskirts": [
-			"shape2.sideskirt",
+			"stock_4x_a.sideskirt",
 			"chrome_4x.sideskirt",
 			"chrome_s4x.sideskirt",
-			"stock_6x.sideskirt",
+			"stock_6x_a.sideskirt",
 			"chrome_6.sideskirt",
 			"chrome_s6x.sideskirt"
 		],
