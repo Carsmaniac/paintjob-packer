@@ -254,6 +254,8 @@ func make_mod(mod_dict: Dictionary, new_output_path: String) -> void:
 		make_paint_job_icon_tobj(paint_job["paint_job_name"], paint_job["internal_name"])
 		make_paint_job_icon_mat(paint_job["internal_name"])
 		for vehicle in paint_job["vehicles"]:
+			vehicle["vehicle_dict"]["name"] = TextServerManager.get_primary_interface().strip_diacritics(vehicle["vehicle_dict"]["name"])
+			vehicle["vehicle_dict"]["mod_author"] = TextServerManager.get_primary_interface().strip_diacritics(vehicle["vehicle_dict"]["mod_author"])
 			make_def_folder(vehicle["vehicle_dict"])
 			make_settings_sui(vehicle["vehicle_dict"], paint_job["internal_name"], paint_job["paint_job_name"], paint_job["price"], paint_job["unlock_level"], paint_job["advanced"])
 			make_vehicle_folder(vehicle["vehicle_dict"], paint_job["paint_job_name"])
