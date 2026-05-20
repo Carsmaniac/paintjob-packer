@@ -31,7 +31,7 @@ offset_left = 161.0
 offset_top = 120.0
 offset_right = 368.0
 offset_bottom = 143.0
-text = "Base Colour"
+text = "CHANGE_BASE"
 
 [node name="BaseDefault" type="Label" parent="." unique_id=1446900602]
 layout_mode = 0
@@ -48,7 +48,7 @@ offset_left = 305.0
 offset_top = 157.0
 offset_right = 355.0
 offset_bottom = 195.0
-color = Color(0.37775686, 0.34263512, 0.89209753, 1)
+color = Color(0.2, 0.2, 0.2, 1)
 edit_alpha = false
 edit_intensity = false
 
@@ -73,7 +73,7 @@ text = "?"
 layout_mode = 0
 offset_left = 161.0
 offset_top = 264.0
-offset_right = 368.0
+offset_right = 454.0
 offset_bottom = 287.0
 text = "CHANGE_TITLE"
 
@@ -98,9 +98,9 @@ text = "?"
 visible = false
 layout_mode = 0
 offset_left = 163.0
-offset_top = 409.0
+offset_top = 392.0
 offset_right = 903.0
-offset_bottom = 555.0
+offset_bottom = 538.0
 theme_override_constants/separation = 16
 
 [node name="Changeable1" type="HBoxContainer" parent="ChangeableControls" unique_id=219960229]
