@@ -56,30 +56,11 @@ autowrap_mode = 3
 layout_mode = 0
 offset_left = 289.0
 offset_top = 186.0
-offset_right = 403.0
-offset_bottom = 443.0
+offset_right = 692.0
+offset_bottom = 390.0
 text = "Carsmaniac
 
-DrLockdown"
-autowrap_mode = 3
-
-[node name="Contributors2" type="Label" parent="AboutTabContainer/Contributors" unique_id=2082677231]
-layout_mode = 0
-offset_left = 433.0
-offset_top = 186.0
-offset_right = 546.0
-offset_bottom = 415.0
-text = "
-
-Ephainkartur"
-autowrap_mode = 3
-
-[node name="Contributors3" type="Label" parent="AboutTabContainer/Contributors" unique_id=1055170297]
-layout_mode = 0
-offset_left = 577.0
-offset_top = 186.0
-offset_right = 690.0
-offset_bottom = 411.0
+DrLockdown & Ephainkartur"
 autowrap_mode = 3
 
 [node name="ContributeButton" type="Button" parent="AboutTabContainer/Contributors" unique_id=484928373]
