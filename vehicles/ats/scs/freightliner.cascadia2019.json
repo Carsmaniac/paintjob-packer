@@ -1,7 +1,7 @@
 {
 	"format_version": 1,
 	
-	"name": "Freightliner Cascadia",
+	"name": "Freightliner Cascadia 2019",
 	"path": "freightliner.cascadia2019",
 	"type": "truck",
 	
@@ -95,13 +95,9 @@
 			"sideskirt.lng240_pt",
 			"sideskirt.mid200_pt",
 			"sideskirt.mid220_pt",
-			"sideskirt.shr160_pt"
-		],
-		"Sideskirts - Aero Painted (Cabin A)": [
+			"sideskirt.shr160_pt",
 			"sideskirt.lng200_pt_a",
-			"sideskirt.lng240_pt_a"
-		],
-		"Sideskirts - Aero Painted (Cabin C)": [
+			"sideskirt.lng240_pt_a",
 			"sideskirt.mid200_pt_a",
 			"sideskirt.mid220_pt_a"
 		],
