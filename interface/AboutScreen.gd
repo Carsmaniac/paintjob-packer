@@ -5,10 +5,8 @@ var weblate_link: String = "https://hosted.weblate.org/projects/paint-job-packer
 
 
 func _ready() -> void:
-	#$AboutTabContainer/Contributors/ContributionLink.connect("gui_input", open_github_link)
-	#$AboutTabContainer/Contributors/TranslationLink.connect("gui_input", open_weblate_link)
 	get_node("../SetupScreen/Panel/UpdateChecker/UpdateButton").connect("pressed", open_update_link)
-	#fetch_version_json() TODO: uncomment this
+	fetch_version_json()
 
 
 func open_github_link() -> void:

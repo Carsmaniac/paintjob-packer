@@ -37,7 +37,8 @@ func show_help(type: String) -> void:
 	var popup := AcceptDialog.new()
 	popup.title = tr("WARNING_HELP")
 	popup.dialog_text = help_text + "\n"
-	# TODO: Set help_text for price based on game selected
+	popup.max_size[0] = 500
+	popup.dialog_autowrap = true
 	popup.size.y = 0
 	popup.ok_button_text = tr("BUTTON_OKAY")
 	popup.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
