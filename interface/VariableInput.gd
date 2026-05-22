@@ -71,6 +71,8 @@ func show_warnings() -> void:
 		dialogue_text += "%s\n%s\n\n" % [warning[0], warning[1]]
 	dialogue_text = dialogue_text.substr(0, len(dialogue_text) - 1)
 	popup.dialog_text = dialogue_text
+	popup.max_size[0] = 500
+	popup.dialog_autowrap = true
 	popup.size.y = 0
 	popup.ok_button_text = tr("BUTTON_OKAY")
 	popup.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
@@ -82,6 +84,8 @@ func show_help() -> void:
 	var popup := AcceptDialog.new()
 	popup.title = tr("WARNING_HELP")
 	popup.dialog_text = tr(help_text) + "\n"
+	popup.max_size[0] = 500
+	popup.dialog_autowrap = true
 	popup.size.y = 0
 	popup.ok_button_text = tr("BUTTON_OKAY")
 	popup.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
