@@ -26,18 +26,18 @@ metadata/_tab_index = 0
 [node name="PJP1Heading" type="Label" parent="AboutTabContainer/Contributors" unique_id=1461756827]
 layout_mode = 0
 offset_left = 242.0
-offset_top = 127.0
+offset_top = 111.0
 offset_right = 582.0
-offset_bottom = 150.0
+offset_bottom = 134.0
 text = "ABOUT_TITLE"
 horizontal_alignment = 1
 
 [node name="DevelopersTitle" type="Label" parent="AboutTabContainer/Contributors" unique_id=1365849646]
 layout_mode = 0
 offset_left = 125.0
-offset_top = 202.0
+offset_top = 186.0
 offset_right = 248.0
-offset_bottom = 231.0
+offset_bottom = 235.0
 text = "ABOUT_DEVELOPER"
 horizontal_alignment = 2
 autowrap_mode = 3
@@ -45,9 +45,9 @@ autowrap_mode = 3
 [node name="SpecialTitle" type="Label" parent="AboutTabContainer/Contributors" unique_id=1741195625]
 layout_mode = 0
 offset_left = 125.0
-offset_top = 246.0
+offset_top = 230.0
 offset_right = 248.0
-offset_bottom = 275.0
+offset_bottom = 279.0
 text = "ABOUT_THANKS"
 horizontal_alignment = 2
 autowrap_mode = 3
@@ -55,9 +55,9 @@ autowrap_mode = 3
 [node name="Contributors1" type="Label" parent="AboutTabContainer/Contributors" unique_id=1635576308]
 layout_mode = 0
 offset_left = 289.0
-offset_top = 202.0
+offset_top = 186.0
 offset_right = 403.0
-offset_bottom = 459.0
+offset_bottom = 443.0
 text = "Carsmaniac
 
 DrLockdown"
@@ -66,9 +66,9 @@ autowrap_mode = 3
 [node name="Contributors2" type="Label" parent="AboutTabContainer/Contributors" unique_id=2082677231]
 layout_mode = 0
 offset_left = 433.0
-offset_top = 202.0
+offset_top = 186.0
 offset_right = 546.0
-offset_bottom = 431.0
+offset_bottom = 415.0
 text = "
 
 Ephainkartur"
@@ -77,30 +77,28 @@ autowrap_mode = 3
 [node name="Contributors3" type="Label" parent="AboutTabContainer/Contributors" unique_id=1055170297]
 layout_mode = 0
 offset_left = 577.0
-offset_top = 202.0
+offset_top = 186.0
 offset_right = 690.0
-offset_bottom = 427.0
+offset_bottom = 411.0
 autowrap_mode = 3
 
 [node name="ContributeButton" type="Button" parent="AboutTabContainer/Contributors" unique_id=484928373]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 0
-offset_left = 108.0
-offset_top = 460.0
-offset_right = 305.0
-offset_bottom = 514.0
-text = "Help contribute to
-Paint Job Packer"
+offset_left = 92.0
+offset_top = 408.0
+offset_right = 392.0
+offset_bottom = 448.0
+text = "Help contribute to Paint Job Packer"
 
 [node name="TranslateButton" type="Button" parent="AboutTabContainer/Contributors" unique_id=225377465]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 40)
 layout_mode = 0
-offset_left = 515.0
-offset_top = 460.0
-offset_right = 712.0
-offset_bottom = 514.0
-text = "Help translate
-Paint Job Packer"
+offset_left = 427.0
+offset_top = 408.0
+offset_right = 727.0
+offset_bottom = 448.0
+text = "Help translate Paint Job Packer"
 
 [node name="Acknowledgement of Country" type="Control" parent="AboutTabContainer" unique_id=407968040]
 visible = false
@@ -123,9 +121,9 @@ autowrap_mode = 3
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 0
 offset_left = 456.0
-offset_top = 599.0
+offset_top = 631.0
 offset_right = 586.0
-offset_bottom = 653.0
+offset_bottom = 691.0
 text = "BUTTON_OKAY"
 clip_text = true
 
