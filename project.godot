@@ -42,7 +42,7 @@ common/drop_mouse_on_gui_input_disabled=true
 
 [internationalization]
 
-locale/translations=PackedStringArray("res://locale/en_GB.en_GB.translation")
+locale/translations=PackedStringArray("res://locale.en_GB.translation", "res://locale.en_US.translation")
 
 [locale]
 
