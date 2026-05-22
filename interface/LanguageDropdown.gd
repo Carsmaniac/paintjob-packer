@@ -9,11 +9,26 @@ var translations: Array[Array] = [
 
 
 func _ready() -> void:
+	var target_locale: String = TranslationServer.get_locale()
+	var locale_found: bool = false
+	
 	TranslationServer.set_locale("en_GB")
 	clear()
 	for translation in translations:
 		add_item(translation[0])
 	connect("item_selected", change_language)
+	
+	for i in range(len(translations)):
+		if translations[i][1] == target_locale or (translations[i][1] == "en_GB" and target_locale in ["en_AU", "en_NZ", "en_IE", "en_ZA", "en_CA"]):
+			locale_found = true
+			TranslationServer.set_locale(translations[i][1])
+			self.selected = i
+	if not locale_found:
+		for i in range(len(translations)):
+			if translations[i][1].substr(0, 2) == target_locale.substr(0, 2):
+				locale_found = true
+				TranslationServer.set_locale(translations[i][1])
+				self.selected = i
 
 
 func change_language(index: int) -> void:
