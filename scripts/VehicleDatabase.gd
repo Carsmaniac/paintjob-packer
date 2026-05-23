@@ -9,6 +9,8 @@ var bus_mods: Array[Dictionary]
 var car_mods: Array[Dictionary]
 
 var vehicle_format_version: int = 1
+# TODO: ensure this is false for release
+var test_accessories: bool = true
 
 
 func load_vehicle_lists(game: String) -> void:
@@ -18,6 +20,12 @@ func load_vehicle_lists(game: String) -> void:
 		if vehicle_dict != {}:
 			if vehicle_dict["format_version"] == vehicle_format_version:
 				vehicle_dict["file_path"] = file_name.substr(19, len(file_name) - 24) # <res...>author/make.model<.json>
+				
+				if test_accessories:
+					vehicle_dict["uses_accessories"] = true
+					for i in range(10):
+						vehicle_dict["accessories"]["test%s" % str(i)] = []
+				
 				vehicle_list.append(vehicle_dict)
 			else:
 				pass # For future use, when the format changes
