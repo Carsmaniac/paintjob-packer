@@ -179,7 +179,7 @@ func export_mod() -> void:
 						if not vehicle_selection.vehicle_dict["trailer"]:
 							var selected_cabins: PackedStringArray
 							for cabin in vehicle_selection.find_child("CabinsContainer").get_children():
-								if cabin.button_pressed:
+								if cabin.button_pressed or paint_job_dict["cabins"] == "all":
 									selected_cabins.append("Cabin " + cabin.text)
 							for cabin_dict in vehicle_selection.vehicle_dict["cabins"]:
 								if cabin_dict["designation"] in selected_cabins:
@@ -196,7 +196,7 @@ func export_mod() -> void:
 							}
 							vehicle_dict["indivs"].append(indiv_dict)
 						for indiv_dict in vehicle_dict["indivs"]:
-							if paint_job_dict["split"]:
+							if paint_job_dict["split"] and vehicle_dict["vehicle_dict"]["truck"]:
 								indiv_dict["indiv_name"] = paint_job_dict["internal_name"] + "_" + indiv_dict["cabins"][0]["code"]
 							else:
 								indiv_dict["indiv_name"] = paint_job_dict["internal_name"]
