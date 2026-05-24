@@ -1,0 +1,70 @@
+{
+	"format_version": 1,
+	
+	"name": "SCS Gas Tank",
+	"path": "scs.gastank",
+	"type": "trailer_owned",
+	
+	"truck": false,
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body (3 Axles)": [
+			"body.tank_12"
+		],
+		"Body (2 Axles)": [
+			"body.tank_10"
+		],
+		"Rear Fender": [
+			"r_fender.pt_sin_3a",
+			"r_fender.pt_mul_3a",
+			"r_fender.pt_sin_2a",
+			"r_fender.pt_mul_2a"
+		],
+		"Sideskirts": [
+			"chs_f_l.paint_box",
+			"chs_f_l.paint_box_2",
+			"chs_f_l.p_box_sidsk",
+			"chs_f_r.side_short",
+			"chs_f_r.paint_box",
+			"chs_f_r.side_long",
+			"chs_f_r.p_box_sidsk"
+		],
+		"Hoses": [
+			"l_body.spipe_pnt_2a",
+			"l_body.dpipe_pnt_2a",
+			"l_body.spipe_pnt_3a",
+			"l_body.dpipe_pnt_3a",
+			"r_body.spipe_pnt_2a",
+			"r_body.dpipe_pnt_2a",
+			"r_body.spipe_pnt_3a",
+			"r_body.dpipe_pnt_3a"
+		],
+		"Rear Bumper": [
+			"r_bumper.simple",
+			"r_bumper.standard",
+			"r_bumper.simple_led",
+			"r_bumper.exc_white",
+			"r_bumper.exc_black"
+		]
+	}
+}

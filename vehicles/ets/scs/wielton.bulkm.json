@@ -1,0 +1,52 @@
+{
+	"format_version": 1,
+	
+	"name": "Wielton Bulk Master",
+	"path": "wielton.bulkm",
+	"type": "trailer_owned",
+	
+	"truck": false,
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body": [
+			"body.dumper",
+			"rear_body.door_1",
+			"rear_body.door_2"
+		],
+		"Rear Bumper": [
+			"r_bumper.exclusive"
+		],
+		"Sideskirts": [
+			"chs_f_l.cgp",
+			"chs_f_l.cgp_ext",
+			"chs_f_l.cgp_bpl",
+			"chs_f_l.cgp_wt",
+			"chs_f_l.cgp_st",
+			"chs_f_r.cgp",
+			"chs_f_r.cgp_ext",
+			"chs_f_r.cgp_bpl",
+			"chs_f_r.cgp_wt",
+			"chs_f_r.cgp_st"
+		]
+	}
+}

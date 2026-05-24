@@ -1,0 +1,78 @@
+{
+	"format_version": 1,
+	
+	"name": "Kässbohrer K.SCS",
+	"path": "kassbohrer.scs",
+	"type": "trailer_owned",
+	
+	"truck": false,
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body": [
+			"body.curt_13",
+			"body.curt_13p"
+		],
+		"Sideskirts": [
+			"chs_f_l.sd1p_3_13",
+			"chs_f_l.sd2p_3_13",
+			"chs_f_l.sd3p_3_13",
+			"chs_f_l.sd4p_3_13",
+			"chs_f_l.sd5p_3_13",
+			"chs_f_l.sd6p_3_13",
+			"chs_f_l.sd7p_3_13",
+			"chs_f_l.sd8p_3_13",
+			"chs_f_l.sd9p_3_13",
+			"chs_f_l.cg_bp_3_13",
+			"chs_f_l.sd2_bp_3_13",
+			"chs_f_l.sd3_bp_3_13",
+			"chs_f_l.sd4_bp_3_13",
+			"chs_f_l.sd5_bp_3_13",
+			"chs_f_l.sd6_bp_3_13",
+			"chs_f_l.sd7_bp_3_13",
+			"chs_f_l.sd8_bp_3_13",
+			"chs_f_r.sd1p_3_13",
+			"chs_f_r.sd2p_3_13",
+			"chs_f_r.sd3p_3_13",
+			"chs_f_r.sd4p_3_13",
+			"chs_f_r.sd5p_3_13",
+			"chs_f_r.sd6p_3_13",
+			"chs_f_r.sd7p_3_13",
+			"chs_f_r.sd8p_3_13",
+			"chs_f_r.sd9p_3_13",
+			"chs_f_r.cg_bp_3_13",
+			"chs_f_r.sd2_bp_3_13",
+			"chs_f_r.sd3_bp_3_13",
+			"chs_f_r.sd4_bp_3_13",
+			"chs_f_r.sd5_bp_3_13",
+			"chs_f_r.sd6_bp_3_13",
+			"chs_f_r.sd7_bp_3_13",
+			"chs_f_r.sd8_bp_3_13",
+			"chs_f_r.pal_3_13",
+			"chs_r_l.bp",
+			"chs_r_r.bp"
+		],
+		"Rear Bumper": [
+			"r_bumper.paint"
+		]
+	}
+}

@@ -1,8 +1,8 @@
 {
 	"format_version": 1,
 	
-	"name": "Kenworth W900",
-	"path": "kenworth.w900",
+	"name": "Volvo VNL 2018",
+	"path": "volvo.vnl2018",
 	"type": "truck",
 	
 	"truck": true,
@@ -27,30 +27,38 @@
 		{
 			"code": "a",
 			"designation": "Cabin A",
-			"name": "86-inch Studio Sleeper",
-			"internal_name": ["s86"]
+			"name": "780",
+			"internal_name": ["s860"]
 		},
 		{
 			"code": "b",
 			"designation": "Cabin B",
-			"name": "72-inch Aerodyne Sleeper",
-			"internal_name": ["s72"]
+			"name": "740",
+			"internal_name": ["s740"]
 		},
 		{
 			"code": "c",
 			"designation": "Cabin C",
-			"name": "72-inch Flat Roof Sleeper",
-			"internal_name": ["s72f"]
-		},
-		{
-			"code": "d",
-			"designation": "Cabin D",
-			"name": "Day Cab",
+			"name": "300",
 			"internal_name": ["day"]
 		}
 	],
 	
-	"uses_accessories": false,
+	"uses_accessories": true,
 	"accessories": {
+		"FlowBelow": [
+			"mudflaps.pnt2b_aero",
+			"mudflaps.pnt2b_aero_l",
+			"mudflaps.pnt2b_aero_w",
+			"mudflaps.pnt2w_aero",
+			"mudflaps.pnt2w_aero_l",
+			"mudflaps.pnt2w_aero_w",
+			"mudflaps.pntb_aero",
+			"mudflaps.pntb_aero_l",
+			"mudflaps.pntb_aero_w",
+			"mudflaps.pntw_aero",
+			"mudflaps.pntw_aero_l",
+			"mudflaps.pntw_aero_w"
+		]
 	}
 }

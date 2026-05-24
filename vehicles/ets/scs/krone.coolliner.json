@@ -29,16 +29,12 @@
 	"uses_accessories": true,
 	"accessories": {
 		"Body": [
-			"body.reefer"
+			"body.reefer",
+			"body.reef_13ct"
 		],
-		"Trailer Front - Cool Master": [
-			"f_body.reefer01p"
-		],
-		"Front Sideskirts - Pallet Box": [
+		"Sideskirts": [
 			"chs_f_l.pallet01p",
-			"chs_f_r.pallet01p"
-		],
-		"Front Sideskirts - Side Skirt": [
+			"chs_f_r.pallet01p",
 			"chs_f_l.side02p",
 			"chs_f_l.side02sp",
 			"chs_f_l.side02tp",
@@ -46,22 +42,16 @@
 			"chs_f_r.side02p",
 			"chs_f_r.side02sp",
 			"chs_f_r.side02tp",
-			"chs_f_r.side02tsp"
-		],
-		"Front Sideskirts - Simple Side Skirt": [
+			"chs_f_r.side02tsp",
 			"chs_f_l.side01p",
-			"chs_f_r.side01p"
-		],
-		"Rear Sideskirts - Pallet Box": [
+			"chs_f_r.side01p",
 			"chs_r_l.pallet01p",
 			"chs_r_l.pallet01sp",
 			"chs_r_r.pallet01p",
 			"chs_r_r.pallet01sp"
 		],
-		"Rear Bumper - Paint": [
-			"r_bumper.bumper01p"
-		],
-		"Rear Bumper - Paint II": [
+		"Rear Bumper": [
+			"r_bumper.bumper01p",
 			"r_bumper.bumper02p"
 		]
 	}

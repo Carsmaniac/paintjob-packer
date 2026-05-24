@@ -1,0 +1,59 @@
+{
+	"format_version": 1,
+	
+	"name": "Wielton Strong Master",
+	"path": "wielton.strongm",
+	"type": "trailer_owned",
+	
+	"truck": false,
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body": [
+			"body.dumper3",
+			"rear_body.door_1",
+			"rear_body.door_2"
+		],
+		"Body (Long)": [
+			"body.dumper4"
+		],
+		"Rear Bumper": [
+			"r_bumper.exclusive"
+		],
+		"Sideskirts": [
+			"chs_f_l.cgp_3",
+			"chs_f_l.cgp_ext_3",
+			"chs_f_l.cgp_wt_3",
+			"chs_f_r.cgp_3",
+			"chs_f_r.cgp_ext_3",
+			"chs_f_r.cgp_wt_3",
+			"chs_f_l.cgp_4",
+			"chs_f_l.cgp_ext_4",
+			"chs_f_l.cgp_bpl_4"
+			"chs_f_l.cgp_wt_4",
+			"chs_f_r.cgp_4",
+			"chs_f_r.cgp_ext_4",
+			"chs_f_r.cgp_bpl_4",
+			"chs_f_r.cgp_wt_4"
+		]
+	}
+}

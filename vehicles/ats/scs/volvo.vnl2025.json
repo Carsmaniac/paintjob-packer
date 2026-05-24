@@ -1,8 +1,8 @@
 {
 	"format_version": 1,
 	
-	"name": "Kenworth W900",
-	"path": "kenworth.w900",
+	"name": "Volvo VNL",
+	"path": "volvo.vnl2025",
 	"type": "truck",
 	
 	"truck": true,
@@ -27,30 +27,38 @@
 		{
 			"code": "a",
 			"designation": "Cabin A",
-			"name": "86-inch Studio Sleeper",
-			"internal_name": ["s86"]
+			"name": "860",
+			"internal_name": ["74h"]
 		},
 		{
 			"code": "b",
 			"designation": "Cabin B",
-			"name": "72-inch Aerodyne Sleeper",
-			"internal_name": ["s72"]
+			"name": "840",
+			"internal_name": ["74m"]
 		},
 		{
 			"code": "c",
 			"designation": "Cabin C",
-			"name": "72-inch Flat Roof Sleeper",
-			"internal_name": ["s72f"]
+			"name": "440",
+			"internal_name": ["42m"]
 		},
 		{
 			"code": "d",
 			"designation": "Cabin D",
-			"name": "Day Cab",
-			"internal_name": ["day"]
+			"name": "300",
+			"internal_name": ["dc"]
 		}
 	],
 	
-	"uses_accessories": false,
+	"uses_accessories": true,
 	"accessories": {
+		"Cabin Deflectors (Cabin B)": [
+			"cabdefl.std_42m"
+		],
+		"Sideskirts": [
+			"sideskirt.std_pnt_dc",
+			"sideskirt.std_pnt_42",
+			"sideskirt.std_pnt_74"
+		]
 	}
 }
