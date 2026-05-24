@@ -44,7 +44,10 @@
 		}
 	],
 	
-	"uses_accessories": false,
+	"uses_accessories": true,
 	"accessories": {
+		"FlowBelow": [
+			"mudflaps.aero_pnt"
+		]
 	}
 }

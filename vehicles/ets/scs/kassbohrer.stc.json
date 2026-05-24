@@ -1,8 +1,8 @@
 {
 	"format_version": 1,
 	
-	"name": "Wielton Weight Master",
-	"path": "wielton.weightm",
+	"name": "Kässbohrer K.STC",
+	"path": "kassbohrer.stc",
 	"type": "trailer_owned",
 	
 	"truck": false,
@@ -29,22 +29,26 @@
 	"uses_accessories": true,
 	"accessories": {
 		"Body": [
-			"body.dumper",
-			"rear_body.door_1",
-			"rear_body.door_2"
-		],
-		"Rear Bumper": [
-			"r_bumper.exclusive"
+			"body.tnk_30",
+			"body.tnk_30_p"
 		],
 		"Sideskirts": [
-			"chs_f_l.cgp",
-			"chs_f_l.cgp_ext",
-			"chs_f_l.cgp_bpl",
-			"chs_f_l.cgp_wt",
-			"chs_f_r.cgp",
-			"chs_f_r.cgp_ext",
-			"chs_f_r.cgp_bpl",
-			"chs_f_r.cgp_wt"
+			"chs_f_l.cg_bp_3_30",
+			"chs_f_r.cg_bp_3_30",
+			"chs_r_l.bp",
+			"chs_r_r.bp"
+		],
+		"Hoses": [
+			"l_body.t_1_p_3_30",
+			"l_body.t_2_p_3_30",
+			"r_body.t_1_p_3_30",
+			"r_body.t_2_p_3_30"
+		],
+		"Ladder": [
+			"rear_body.cwlp_3_30"
+		],
+		"Rear Bumper": [
+			"r_bumper.paint"
 		]
 	}
 }

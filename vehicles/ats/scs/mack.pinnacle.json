@@ -20,7 +20,7 @@
 	},
 	
 	"colour_picker": false,
-	"alt_uv": true,
+	"alt_uv": false,
 	"separate_paint_jobs": true,
 	
 	"cabins": [

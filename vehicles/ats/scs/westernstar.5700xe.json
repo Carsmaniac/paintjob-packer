@@ -52,10 +52,12 @@
 			"bumper.highway"
 		],
 		"Sideskirts": [
-			"f_fender.stock",
 			"sideskirt.day",
 			"sideskirt.s54",
 			"sideskirt.s82"
+		],
+		"Front Fender": [
+			"f_fender.stock"
 		],
 		"Sun Visor": [
 			"sunshield.stock_day",
@@ -63,6 +65,9 @@
 		],
 		"Cabin Deflector (Cabin A)": [
 			"cabdefl.s82"
+		],
+		"FlowBelow": [
+			"mudflaps.aero_pnt"
 		]
 	}
 }

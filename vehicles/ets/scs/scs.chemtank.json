@@ -36,9 +36,11 @@
 			"body.tank_8_p",
 			"body.tank_8_ch"
 		],
-		"Trailer Front and Rear": [
+		"Trailer Front": [
 			"f_body.paint",
-			"f_body.chrome",
+			"f_body.chrome"
+		],
+		"Trailer Rear": [
 			"rear_body.paint",
 			"rear_body.chrome"
 		],

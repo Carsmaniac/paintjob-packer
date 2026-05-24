@@ -50,7 +50,99 @@
 		}
 	],
 	
-	"uses_accessories": false,
+	"uses_accessories": true,
 	"accessories": {
+		"Front Bumper": [
+			"bumper.shape01_pnt",
+			"bumper.ram_pnt",
+			"bumper.shape04_pnt",
+			"bumper.shape02_pnt",
+			"bumper.mirage_pnt",
+			"bumper.boxer_pnt",
+			"bumper.shape03_pnt",
+			"bumper.ranger_pnt",
+			"bumper.foreman_pnt",
+			"bumper.shape05_pnt",
+			"bumper.storm_pnt",
+			"bumper.storm_chr"
+		],
+		"Grille": [
+			"grill.std_pnt",
+			"grill.v18_pnt",
+			"grill.louver_pnt",
+			"grill.diamond_cut",
+			"grill.srd_pnt",
+			"grill.louver_a_pnt"
+		],
+		"Mirrors": [
+			"mirror.shape1_pnt",
+			"mirror.nxtgen1_pnt",
+			"mirror.shape2_pnt",
+			"mirror.nxtgen2_pnt",
+			"mirror.modern1_pnt",
+			"mirror.modern2_pnt",
+			"fl_mirror.shape1_pnt",
+			"fr_mirror.shape1_pnt"
+		],
+		"Sun Visor": [
+			"sunshield.untie_pnt",
+			"sunshield.shape01_pnt",
+			"sunshield.shape02_pnt",
+			"sunshield.shape03_pnt",
+			"sunshield.bat_pnt"
+		],
+		"Exhaust": [
+			"exhaust.day_ss_s_pnt",
+			"exhaust.day_ss_l_pnt",
+			"exhaust.day_sa_l_pnt",
+			"exhaust.day_sn_s_pnt",
+			"exhaust.day_sn_l_pnt",
+			"exhaust.slp_ks_l_pnt",
+			"exhaust.slp_kn_l_pnt"
+		],
+		"Fuel Tanks": [
+			"tank.pnt2_sh120",
+			"tank.pnt_sh120",
+			"doorstep.pnt_120",
+			"doorstep.pnt2_120",
+			"tank.pnt_sh180",
+			"tank.pnt2_sh180,
+			"doorstep.pnt_180",
+			"doorstep.pnt2_180",
+			"doorstep.pnt_180b",
+			"doorstep.pnt2_180b"
+			"tank.pnt2_md235",
+			"tank.pnt_md235",
+			"doorstep.pnt_235",
+			"doorstep.pnt2_235",
+			"doorstep.pnt_235b",
+			"doorstep.pnt2_235b"
+			"tank.pnt2_md260",
+			"tank.pnt_md260",
+			"tank.pnt_md300",
+			"tank.pnt2_md300",
+			"tank.pnt2_ln235",
+			"tank.pnt_ln235",
+			"tank.pnt2_ln260",
+			"tank.pnt_ln260",
+			"tank.pnt_ln300",
+			"tank.pnt2_ln300",
+			"tank.100yp_ln260",
+			"tank.100yp2_ln260"
+		],
+		"Rear Bumper": [
+			"r_bumper.chariot_pnt",
+			"r_bumper.storm"
+		],
+		"Cabin Deflectors (Cabin A)": [
+			"cabdefl.s86_std"
+		],
+		"Cabin Deflectors (Cabin B)": [
+			"cabdefl.s72_std"
+		],
+		"Cabin Deflectors - Wing": [
+			"cabdefl.wing_pnt",
+			"cabdefl.whale_pnt"
+		]
 	}
 }
