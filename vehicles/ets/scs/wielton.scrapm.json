@@ -1,0 +1,69 @@
+{
+	"format_version": 1,
+	
+	"name": "Wielton Scrap Master",
+	"path": "wielton.scrapm",
+	"type": "trailer_owned",
+	
+	"truck": false,
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body": [
+			"body.dumper_52",
+			"rear_body.door_52"
+		],
+		"Body (Long)": [
+			"body.dumper_62",
+			"rear_body.door_62"
+		],
+		"Rear Bumper": [
+			"r_bumper.paint"
+		],
+		"Sideskirts": [
+			"chs_f_l.cgp_3_10",
+			"chs_f_l.cgp_ext_3_10",
+			"chs_f_l.cgp_bpl_3_10",
+			"chs_f_l.cgp_wt_3_10",
+			"chs_f_l.cgp_st_3_10",
+			"chs_f_l.cgp_bpstwt10",
+			"chs_f_r.cgp_3_10",
+			"chs_f_r.cgp_ext_3_10",
+			"chs_f_r.cgp_bpl_3_10",
+			"chs_f_r.cgp_wt_3_10",
+			"chs_f_r.cgp_st_3_10",
+			"chs_f_r.cgp_bpstwt10",
+			"chs_f_l.cgp_3_12",
+			"chs_f_l.cgp_ext_3_12",
+			"chs_f_l.cgp_bpl_3_12",
+			"chs_f_l.cgp_wt_3_12",
+			"chs_f_l.cgp_st_3_12",
+			"chs_f_l.cgp_bpstwt12",
+			"chs_f_r.cgp_3_12",
+			"chs_f_r.cgp_ext_3_12",
+			"chs_f_r.cgp_bpl_3_12",
+			"chs_f_r.cgp_wt_3_12",
+			"chs_f_r.cgp_st_3_12",
+			"chs_f_r.cgp_bpstwt12"
+		]
+	}
+}
