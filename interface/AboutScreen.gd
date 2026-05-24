@@ -7,6 +7,22 @@ var weblate_link: String = "https://hosted.weblate.org/projects/paint-job-packer
 func _ready() -> void:
 	get_node("../SetupScreen/Panel/UpdateChecker/UpdateButton").connect("pressed", open_update_link)
 	fetch_version_json()
+	
+	#if not FileAccess.file_exists("user://popup_seen.dat"):
+		#var popup := AcceptDialog.new()
+		#popup.title = tr("Single Popup")
+		#popup.dialog_text = "This popup should only appear once\n"
+		#popup.max_size[0] = 500
+		#popup.dialog_autowrap = true
+		#popup.size.y = 0
+		#popup.ok_button_text = tr("BUTTON_OKAY")
+		#popup.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
+		#self.add_child(popup)
+		#popup.popup_centered()
+	#
+	#var save_file := FileAccess.open("user://popup_seen.dat", FileAccess.WRITE)
+	#save_file.store_string("seen")
+	#save_file.close()
 
 
 func open_github_link() -> void:
