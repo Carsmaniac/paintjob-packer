@@ -244,6 +244,10 @@ func make_accessory_tobj(vehicle_dict: Dictionary, paint_job_name: String) -> vo
 
 
 func make_mod(mod_dict: Dictionary, new_output_path: String) -> void:
+	if mod_dict["using_templates"] == 1:
+		using_templates = true
+	else:
+		using_templates = false
 	output_path = new_output_path
 	if mod_dict["workshop"]:
 		workshop_path = new_output_path + "Workshop Uploading/"
