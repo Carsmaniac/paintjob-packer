@@ -43,13 +43,13 @@
 		"Bumper": [
 			"bumper.paint"
 		],
-		"Cabin Deflector - Standard": [
+		"Cabin Deflector - Standard (Cabin B)": [
 			"cabdefl.day_std"
 		],
-		"Cabin Deflector - Aero": [
+		"Cabin Deflector - Aero (Cabin B)": [
 			"cabdefl.day_aero"
 		],
-		"Cabin Deflector - Aero II": [
+		"Cabin Deflector - Aero II (Cabin B)": [
 			"cabdefl.day_aero2"
 		],
 		"Sideskirts - Paint": [
@@ -62,6 +62,9 @@
 			"sideskirt.lng_fnd_pt",
 			"sideskirt.shr12_fnd_pt",
 			"sideskirt.shr16_fnd_pt"
+		],
+		"FlowBelow": [
+			"mudflaps.aero_pnt"
 		]
 	}
 }

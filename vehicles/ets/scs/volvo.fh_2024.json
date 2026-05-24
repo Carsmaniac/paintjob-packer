@@ -2,7 +2,7 @@
 	"format_version": 1,
 	
 	"name": "Volvo FH6",
-	"path": "volvo.fh_2025",
+	"path": "volvo.fh_2024",
 	"type": "truck",
 	
 	"truck": true,

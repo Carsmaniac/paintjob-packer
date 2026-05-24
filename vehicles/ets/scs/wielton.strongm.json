@@ -29,12 +29,14 @@
 	"uses_accessories": true,
 	"accessories": {
 		"Body": [
-			"body.dumper3",
-			"rear_body.door_1",
-			"rear_body.door_2"
+			"body.dumper3"
 		],
 		"Body (Long)": [
 			"body.dumper4"
+		],
+		"Trailer Rear": [
+			"rear_body.door_1",
+			"rear_body.door_2"
 		],
 		"Rear Bumper": [
 			"r_bumper.exclusive"
@@ -48,7 +50,7 @@
 			"chs_f_r.cgp_wt_3",
 			"chs_f_l.cgp_4",
 			"chs_f_l.cgp_ext_4",
-			"chs_f_l.cgp_bpl_4"
+			"chs_f_l.cgp_bpl_4",
 			"chs_f_l.cgp_wt_4",
 			"chs_f_r.cgp_4",
 			"chs_f_r.cgp_ext_4",

@@ -28,16 +28,16 @@
 	
 	"uses_accessories": true,
 	"accessories": {
-		"Body (32 feet)": [
+		"Body (32 ft)": [
 			"body.tank_32",
 		],
-		"Body (43 feet)": [
+		"Body (43 ft)": [
 			"body.tank_43"
 		],
-		"Body (48 feet)": [
+		"Body (48 ft)": [
 			"body.tank_48"
 		],
-		"Body (53 feet)": [
+		"Body (53 ft)": [
 			"body.tank_53"
 		],
 		"Rear Bumper": [

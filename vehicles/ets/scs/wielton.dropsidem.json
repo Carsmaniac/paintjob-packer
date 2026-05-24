@@ -28,9 +28,13 @@
 	
 	"uses_accessories": true,
 	"accessories": {
-		"Body": [
-			"body.ds_635",
-			"body.ds_825",
+		"Body (635 mm)": [
+			"body.ds_635"
+		],
+		"Body (825 mm)": [
+			"body.ds_825"
+		],
+		"Body (1035 mm)": [
 			"body.ds_1035"
 		],
 		"Rear Bumper": [

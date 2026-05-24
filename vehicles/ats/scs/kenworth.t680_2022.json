@@ -1,8 +1,8 @@
 {
 	"format_version": 1,
 	
-	"name": "Kenworth T680 2014",
-	"path": "kenworth.t680",
+	"name": "Kenworth T680",
+	"path": "kenworth.t680_2022",
 	"type": "truck",
 	
 	"truck": true,
@@ -39,7 +39,7 @@
 		{
 			"code": "c",
 			"designation": "Cabin C",
-			"name": "Day Cabin",
+			"name": "Day Cab",
 			"internal_name": ["day"]
 		}
 	],
@@ -63,4 +63,5 @@
 			"sideskirt.day_s_pnt",
 			"sideskirt.day_l_pnt"
 		]
+	}
 }

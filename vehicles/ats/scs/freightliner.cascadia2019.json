@@ -103,6 +103,9 @@
 		],
 		"Sun Visor": [
 			"sunshield.stock"
+		],
+		"FlowBelow": [
+			"mudflaps.aero_pnt"
 		]
 	}
 }

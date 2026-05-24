@@ -100,6 +100,9 @@
 			"sideskirt.shr93d_pc",
 			"sideskirt.shr93d_pcs",
 			"sideskirt.shr93d_ps"
+		],
+		"FlowBelow": [
+			"mudflaps.aero_pnt"
 		]
 	}
 }

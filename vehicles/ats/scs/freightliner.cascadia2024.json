@@ -75,12 +75,12 @@
 		],
 		"Sideskirts - Aluminium or Chrome Tank": [
 			"sideskirt.shr120_e",
-			"sideskirt.shr120_eat"
+			"sideskirt.shr120_eal",
 			"sideskirt.shr160_e",
-			"sideskirt.shr160_eat"
+			"sideskirt.shr160_eal"
 		],
 		"Sideskirts - Paint": [
-			"sideskirt.shr160_pnt",
+			"sideskirt.shr160_pt",
 			"sideskirt.mid200_pt_a",
 			"sideskirt.mid220_pt_a",
 			"sideskirt.lng200_pt_a",
@@ -88,6 +88,9 @@
 		],
 		"Sun Visor": [
 			"sunshield.paint"
+		],
+		"FlowBelow": [
+			"mudflaps.aero_pnt"
 		]
 	}
 }
