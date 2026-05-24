@@ -129,6 +129,7 @@ func export_mod() -> void:
 		"mod_version": mod_panel.get_node("Version/TextInput").text,
 		"mod_description": mod_panel.get_node("Description/TextBox").text,
 		"game": get_node("..").loaded_game,
+		"using_templates": self.get_node("Panel/PlaceholderDropdown").selected,
 		"paint_jobs": []
 	}
 	if get_node("Panel/WorkshopDropdown").selected == 0:
