@@ -298,6 +298,8 @@ func make_mod(mod_dict: Dictionary, new_output_path: String) -> void:
 	popup.title = tr("EXPORT_DONET")
 	popup.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
 	popup.dialog_text = tr("EXPORT_DONE") + "\n%s\n\n" % (output_path) + tr("EXPORT_DONE2")
+	popup.max_size[0] = 500
+	popup.dialog_autowrap = true
 	popup.size.y = 0
 	popup.ok_button_text = tr("BUTTON_OKAY")
 	popup.get_ok_button().connect("pressed", quit)

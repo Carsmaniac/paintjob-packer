@@ -69,6 +69,8 @@ func verify_path(file_path: String) -> void:
 			popup.title = tr("EXPORT_EXISTST")
 			popup.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
 			popup.dialog_text = tr("EXPORT_EXISTS") % (file_path + "/" + mod_name) + "\n\n" + tr("EXPORT_EXISTS2") % mod_name + "\n"
+			popup.max_size[0] = 500
+			popup.dialog_autowrap = true
 			popup.size.y = 0
 			popup.ok_button_text = tr("BUTTON_OKAY")
 			self.add_child(popup)
