@@ -24,7 +24,7 @@ func get_vehicle_selections() -> Array:
 func change_preview_image(show_image: bool, vehicle_path: String = "") -> void:
 	var preview = get_node("PreviewImage")
 	var file_path: String = "res://interface/images/vehicles/%s/%s.jpg" % [get_node("../../..").loaded_game, vehicle_path]
-	if FileAccess.file_exists(file_path):
+	if ResourceLoader.exists(file_path):
 		preview.texture = load(file_path)
 		preview.visible = show_image
 	else:
