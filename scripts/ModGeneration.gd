@@ -74,11 +74,22 @@ func make_workshop_folder() -> void:
 	make_folder("Workshop Uploading")
 
 
-func copy_workshop_files() -> void:
+func copy_workshop_image() -> void:
 	var placeholder_folder := DirAccess.open("res://placeholders")
 	placeholder_folder.copy("res://placeholders/versions.sii", workshop_path + "versions.sii")
 	var workshop_image := Image.load_from_file("res://placeholders/workshop.jpg")
 	workshop_image.save_jpg(output_path + "Workshop Image.jpg", 1.0)
+
+
+func make_versions_sii() -> void:
+	var file = FileAccess.open(workshop_path + "versions.sii", FileAccess.WRITE)
+	file.store_line("SiiNunit")
+	file.store_line("{")
+	file.store_line("package_version_info: .universal")
+	file.store_line("{")
+	file.store_line("\tpackage_name: \"universal\"")
+	file.store_line("}")
+	file.store_line("}")
 
 
 func make_manifest_sii(mod_version: String, mod_name: String, mod_author: String, workshop: bool) -> void:
@@ -256,7 +267,8 @@ func make_mod(mod_dict: Dictionary, new_output_path: String) -> void:
 	if mod_dict["workshop"]:
 		workshop_path = new_output_path + "Workshop Uploading/"
 		make_workshop_folder()
-		copy_workshop_files()
+		copy_workshop_image()
+		make_versions_sii()
 		output_path = new_output_path + mod_dict["mod_name"] + "/"
 	make_folder("")
 	make_manifest_sii(mod_dict["mod_version"], mod_dict["mod_name"], mod_dict["mod_author"], mod_dict["workshop"])
@@ -286,6 +298,8 @@ func make_mod(mod_dict: Dictionary, new_output_path: String) -> void:
 	popup.title = tr("EXPORT_DONET")
 	popup.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
 	popup.dialog_text = tr("EXPORT_DONE") + "\n%s\n\n" % (output_path) + tr("EXPORT_DONE2")
+	popup.max_size[0] = 500
+	popup.dialog_autowrap = true
 	popup.size.y = 0
 	popup.ok_button_text = tr("BUTTON_OKAY")
 	popup.get_ok_button().connect("pressed", quit)
