@@ -76,8 +76,9 @@ func make_workshop_folder() -> void:
 
 func copy_workshop_files() -> void:
 	var placeholder_folder := DirAccess.open("res://placeholders")
-	placeholder_folder.copy("res://placeholders/workshop.jpg", output_path + "Workshop Image.jpg")
 	placeholder_folder.copy("res://placeholders/versions.sii", workshop_path + "versions.sii")
+	var workshop_image := Image.load_from_file("res://placeholders/workshop.jpg")
+	workshop_image.save_jpg(output_path + "Workshop Image.jpg", 1.0)
 
 
 func make_manifest_sii(mod_version: String, mod_name: String, mod_author: String, workshop: bool) -> void:
@@ -105,8 +106,8 @@ func make_description_file(mod_description: String) -> void:
 
 
 func copy_mod_image() -> void:
-	var placeholder_folder := DirAccess.open("res://placeholders")
-	placeholder_folder.copy("res://placeholders/mod-manager.jpg", "%sImage.jpg" % output_path)
+	var mod_image := Image.load_from_file("res://placeholders/mod-manager.jpg")
+	mod_image.save_jpg(output_path + "Image.jpg", 1.0)
 
 
 func make_material_folder() -> void:
