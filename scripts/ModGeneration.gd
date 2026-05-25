@@ -7,9 +7,12 @@ var using_templates: bool = true
 
 
 func _ready() -> void:
-	if OS.has_feature("standalone"):
-		if FileAccess.file_exists(OS.get_executable_path().get_base_dir() + "/templates.zip"):
-			var _error = template_zip.open(OS.get_executable_path().get_base_dir() + "/templates.zip")
+	var exec_path: String = OS.get_executable_path().get_base_dir()
+	if OS.has_feature("macos"):
+		exec_path = DirAccess.open(exec_path + "/../../..").get_current_dir()
+	if not OS.has_feature("editor"):
+		if FileAccess.file_exists(exec_path + "/templates.zip"):
+			var _error = template_zip.open(exec_path + "/templates.zip")
 		else:
 			using_templates = false
 	else:
