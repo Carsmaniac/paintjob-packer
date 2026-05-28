@@ -104,6 +104,7 @@ func make_manifest_sii(mod_version: String, mod_name: String, mod_author: String
 	file.store_line("\tauthor: \"%s\"" % mod_author)
 	file.store_line("")
 	file.store_line("\tcategory[]: \"paint_job\"")
+	file.store_line("\tmp_mod_optional: true")
 	file.store_line("")
 	file.store_line("\ticon: \"Image.jpg\"")
 	file.store_line("\tdescription_file: \"Description.txt\"")
