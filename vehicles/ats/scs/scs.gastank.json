@@ -1,0 +1,87 @@
+{
+	"format_version": 1,
+	
+	"name": "SCS Gas Tank",
+	"path": "scs.gastank",
+	"type": "trailer_owned",
+	
+	"truck": false,
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body (32 ft)": [
+			"body.tank_32",
+		],
+		"Body (43 ft)": [
+			"body.tank_43"
+		],
+		"Body (48 ft)": [
+			"body.tank_48"
+		],
+		"Body (53 ft)": [
+			"body.tank_53"
+		],
+		"Rear Bumper": [
+			"r_bumper.sim_paint",
+			"r_bumper.exc_paint"
+		],
+		"Pipeguards": [
+			"chs_f_l.pgpn",
+			"chs_f_l.pgpn_ext",
+			"chs_f_l.pgpn_albox",
+			"chs_f_l.pgpn_chbox",
+			"chs_f_r.pgpn",
+			"chs_f_r.pgpn_ext",
+			"chs_f_r.pgpn_albox",
+			"chs_f_r.pgpn_chbox"
+		],
+		"Hoses": [
+			"l_body.hose1_pn_32",
+			"l_body.hose2_pn_32",
+			"l_body.hose1_pn_43",
+			"l_body.hose2_pn_43",
+			"l_body.hose1_pn_48",
+			"l_body.hose2_pn_48",
+			"l_body.hose1_pn_53",
+			"l_body.hose2_pn_53",
+			"r_body.hose1_pn_32",
+			"r_body.hose2_pn_32",
+			"r_body.hose1_pn_43",
+			"r_body.hose2_pn_43",
+			"r_body.hose1_pn_48",
+			"r_body.hose2_pn_48",
+			"r_body.hose1_pn_53",
+			"r_body.hose2_pn_53"
+		],
+		"Rear Fender": [
+			"r_fender.pnt_sin_2",
+			"r_fender.pnt_mult_2",
+			"r_fender.pnt_sin_3",
+			"r_fender.pnt_mult_3",
+			"r_fender.pnt_sin_4",
+			"r_fender.pnt_mult_4"
+		],
+		"Front Fender": [
+			"f_fender.paint"
+		]
+	}
+}

@@ -1,0 +1,113 @@
+{
+	"format_version": 1,
+	
+	"name": "Schmitz Cargobull S.CS",
+	"path": "schmitz.scs",
+	"type": "trailer_owned",
+	
+	"truck": false,
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body": [
+			"body.curt_13",
+			"body.curt_13p",
+			"body.curt_13ef",
+			"body.curt_13er",
+			"body.curt_13efp",
+			"body.curt_13erp",
+			"body.curt_13ec",
+			"body.curt_13ecp",
+			"rear_body.bmp_rub",
+			"rear_body.bmp_stl",
+			"rear_body.rol_rub",
+			"rear_body.rol_stl"
+		],
+		"Body (Long)": [
+			"body.curt_15",
+			"body.curt_15p"
+		],
+		"Body - EcoFIX": [
+			"body.ecofix",
+			"body.ecofixp"
+		],
+		"Body (Double)": [
+			"body.curt_8",
+			"body.curt_8p"
+		],
+		"Sideskirts": [
+			"chs_f_l.cgp_3_13",
+			"chs_f_l.cgp_ex_3_13",
+			"chs_f_l.cgp_bpl_3_13",
+			"chs_f_l.cgp_bs_3_13",
+			"chs_f_l.cg1_bp_3_13",
+			"chs_f_l.cgp_bp_3_13",
+			"chs_f_l.cg2_bp_3_13",
+			"chs_f_l.palp_3_13",
+			"chs_f_r.cgp_3_13",
+			"chs_f_r.cgp_ex_3_13",
+			"chs_f_r.cgp_bpl_3_13",
+			"chs_f_r.cgp_bs_3_13",
+			"chs_f_r.cg1_bp_3_13",
+			"chs_f_r.cgp_bp_3_13",
+			"chs_f_r.cg2_bp_3_13",
+			"chs_f_r.palp_3_13",
+			"chs_f_l.cgp_2_13",
+			"chs_f_l.cgp_ex_2_13",
+			"chs_f_l.cgp_bpl_2_13",
+			"chs_f_l.cgp_bs_2_13",
+			"chs_f_l.cg1_bp_2_13",
+			"chs_f_l.cgp_bp_2_13",
+			"chs_f_l.cg2_bp_2_13",
+			"chs_f_r.cgp_2_13",
+			"chs_f_r.cgp_ex_2_13",
+			"chs_f_r.cgp_bpl_2_13",
+			"chs_f_r.cgp_bs_2_13",
+			"chs_f_r.cg1_bp_2_13",
+			"chs_f_r.cgp_bp_2_13",
+			"chs_f_r.cg2_bp_2_13",
+			"chs_f_l.cgp_3_15",
+			"chs_f_l.cgp_ex_3_15",
+			"chs_f_l.cgp_bpl_3_15",
+			"chs_f_l.cgp_bs_3_15",
+			"chs_f_l.cg1_bp_3_15",
+			"chs_f_l.cgp_bp_3_15",
+			"chs_f_l.cg2_bp_3_15",
+			"chs_f_l.palp_3_15",
+			"chs_f_r.cgp_3_15",
+			"chs_f_r.cgp_ex_3_15",
+			"chs_f_r.cgp_bpl_3_15",
+			"chs_f_r.cgp_bs_3_15",
+			"chs_f_r.cg1_bp_3_15",
+			"chs_f_r.cgp_bp_3_15",
+			"chs_f_r.cg2_bp_3_15",
+			"chs_f_r.palp_3_15",
+			"chs_r_l.bp",
+			"chs_r_r.bp",
+			"chs_r_l.palp",
+			"chs_r_r.palp"
+		],
+		"Rear Bumper": [
+			"r_bumper.paint"
+		]
+	}
+}

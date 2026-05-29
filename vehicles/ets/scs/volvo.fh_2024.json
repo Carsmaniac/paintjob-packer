@@ -1,0 +1,142 @@
+{
+	"format_version": 1,
+	
+	"name": "Volvo FH6",
+	"path": "volvo.fh_2024",
+	"type": "truck",
+	
+	"truck": true,
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Globetrotter XXL",
+			"internal_name": ["l3h3", "l3h34_8x4"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Globetrotter XL",
+			"internal_name": ["l2h3", "l2h3_8x4"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "Globetrotter",
+			"internal_name": ["l2h2"]
+		},
+		{
+			"code": "d",
+			"designation": "Cabin D",
+			"name": "Sleeper",
+			"internal_name": ["l2h1"]
+		},
+		{
+			"code": "e",
+			"designation": "Cabin A Aero",
+			"name": "Aero Globetrotter XXL",
+			"internal_name": ["l3h3_aero", "l3h3_8x4_a"]
+		},
+		{
+			"code": "f",
+			"designation": "Cabin B Aero",
+			"name": "Aero Globetrotter XL",
+			"internal_name": ["l2h3_aero", "l2h3_8x4_a"]
+		},
+		{
+			"code": "g",
+			"designation": "Cabin C Aero",
+			"name": "Aero Globetrotter",
+			"internal_name": ["l2h2_aero"]
+		},
+		{
+			"code": "h",
+			"designation": "Cabin D Aero",
+			"name": "Aero Sleeper",
+			"internal_name": ["l2h1_aero"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Sun Visor": [
+			"sunshld.dual",
+			"sunshld.quatro",
+			"sunshld.shape1",
+			"sunshld.shape2",
+			"sunshld.triangle"
+		],
+		"Chassis Cover": [
+			"r_chs_cover.mix_4x",
+			"r_chs_cover.mix_6x",
+			"r_chs_cover.painted_4x",
+			"r_chs_cover.painted_6x"
+		],
+		"Rear Exhaust": [
+			"exhaust_m.shape1",
+			"exhaust_m.shape2"
+		],
+		"Rear Bumper": [
+			"r_bumper.bend",
+			"r_bumper.smoth",
+			"r_bumper.painted"
+		],
+		"Mirrors": [
+			"f_mirror.painted",
+			"f_mirror.paintedl",
+			"s_mirror.paint",
+			"mirror.chrome_logo",
+			"mirror.chrome_led",
+			"mirror.shape3",
+			"mirror.cam_digi_a"
+		],
+		"Rear Fender": [
+			"r_fender.paint_4x",
+			"r_fendr_top.paint_4x",
+			"r_fendr_top.chrome_p_4x",
+			"r_fender.paint_6x",
+			"r_fendr_top.paint_6x",
+			"r_fendr_top.chrome_p_6x",
+			"r_fender.paint_8x",
+			"r_fendr_top.paint_8x",
+			"r_fendr_top.chrome_p_8x"
+		],
+		"Bull Bar": [
+			"f_grill.net"
+		],
+		"Air Filter": [
+			"filter.paint_gtxxl",
+			"filter.paint_gtxl",
+			"filter.paint_gt",
+			"filter.paint_slp"
+		],
+		"Sideskirts": [
+			"stock_4x_a.sideskirt",
+			"chrome_4x.sideskirt",
+			"chrome_s4x.sideskirt",
+			"stock_6x_a.sideskirt",
+			"chrome_6.sideskirt",
+			"chrome_s6x.sideskirt"
+		],
+		"Side Deflectors (8x)": [
+			"8x4.chassis"
+		]
+	}
+}

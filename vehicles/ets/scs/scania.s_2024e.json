@@ -1,0 +1,44 @@
+{
+	"format_version": 1,
+	
+	"name": "Scania S BEV",
+	"path": "scania.s_2024e",
+	"type": "truck",
+	
+	"truck": true,
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "High Roof",
+			"internal_name": ["highline"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Sun Visor": [
+			"sunshld.stock"
+		],
+		"Rear Fender": [
+			"r_fender.4x2_p"
+		]
+	}
+}

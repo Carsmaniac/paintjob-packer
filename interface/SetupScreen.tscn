@@ -1,0 +1,128 @@
+[gd_scene format=3 uid="uid://chtkqdfc7flig"]
+
+[ext_resource type="Texture2D" uid="uid://dojtoqkxde4ge" path="res://interface/images/create-new.png" id="1_u2ba5"]
+[ext_resource type="Texture2D" uid="uid://b6corghr4re7o" path="res://interface/images/load.png" id="2_hx5t8"]
+
+[node name="SetupScreen" type="Control" unique_id=1936622943]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="." unique_id=548289295]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 73.0
+offset_right = 1027.0
+offset_bottom = 785.0
+
+[node name="Title" type="Label" parent="Panel" unique_id=147659293]
+layout_mode = 0
+offset_left = 102.0
+offset_top = 73.0
+offset_right = 912.0
+offset_bottom = 128.0
+theme_override_font_sizes/font_size = 34
+text = "SETUP_WELCOME"
+horizontal_alignment = 1
+
+[node name="StartQuestion" type="Label" parent="Panel" unique_id=542103112]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 196.0
+offset_right = 834.0
+offset_bottom = 230.0
+theme_override_font_sizes/font_size = 24
+text = "SETUP_QUESTION"
+horizontal_alignment = 1
+
+[node name="AcknowledgementOfCountry" type="Label" parent="Panel" unique_id=1386306666]
+layout_mode = 0
+offset_left = 230.0
+offset_top = 126.0
+offset_right = 784.0
+offset_bottom = 163.0
+theme_override_font_sizes/font_size = 13
+text = "This software was created on unceded Aboriginal Land in Sydney, Australia"
+horizontal_alignment = 1
+
+[node name="VersionText" type="Label" parent="Panel" unique_id=1383723736]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 14.0
+offset_right = 303.0
+offset_bottom = 40.0
+text = "SETUP_VERSION"
+
+[node name="UpdateChecker" type="Label" parent="Panel" unique_id=702563951]
+visible = false
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 0
+offset_left = 17.0
+offset_top = 39.0
+offset_right = 275.0
+offset_bottom = 62.0
+text = "SETUP_UPDATE"
+
+[node name="UpdateButton" type="Button" parent="Panel/UpdateChecker" unique_id=309684427]
+custom_minimum_size = Vector2(25, 31)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 39.0
+offset_right = -141.0
+offset_bottom = 47.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "BUTTON_UPDATE"
+
+[node name="AboutButton" type="Button" parent="Panel" unique_id=1421973815]
+layout_mode = 0
+offset_left = 915.0
+offset_top = 24.0
+offset_right = 997.0
+offset_bottom = 64.0
+text = "BUTTON_ABOUT"
+clip_text = true
+
+[node name="CreateImage" type="TextureRect" parent="Panel" unique_id=1119799198]
+layout_mode = 0
+offset_left = 198.0
+offset_top = 278.0
+offset_right = 449.0
+offset_bottom = 529.0
+mouse_default_cursor_shape = 2
+texture = ExtResource("1_u2ba5")
+expand_mode = 1
+
+[node name="LoadImage" type="TextureRect" parent="Panel" unique_id=1354408409]
+layout_mode = 0
+offset_left = 573.0
+offset_top = 278.0
+offset_right = 824.0
+offset_bottom = 529.0
+mouse_default_cursor_shape = 2
+texture = ExtResource("2_hx5t8")
+expand_mode = 1
+
+[node name="CreateButton" type="Button" parent="Panel" unique_id=885370677]
+layout_mode = 0
+offset_left = 189.0
+offset_top = 571.0
+offset_right = 449.0
+offset_bottom = 611.0
+text = "SETUP_CREATE"
+clip_text = true
+
+[node name="LoadButton" type="Button" parent="Panel" unique_id=284199124]
+layout_mode = 0
+offset_left = 568.0
+offset_top = 571.0
+offset_right = 830.0
+offset_bottom = 611.0
+text = "SETUP_LOAD"
+clip_text = true

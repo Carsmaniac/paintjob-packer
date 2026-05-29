@@ -1,0 +1,123 @@
+[gd_scene format=3 uid="uid://qogjjbkt12ds"]
+
+[ext_resource type="Theme" uid="uid://2i35ywbubie7" path="res://simple-box-theme/pjp-dark/PJPDark.tres" id="1_a38eb"]
+[ext_resource type="PackedScene" uid="uid://c032als0ywamf" path="res://interface/MainScreen.tscn" id="2_lmi3l"]
+[ext_resource type="Script" uid="uid://da3e7k0a1i50y" path="res://interface/ScreenLoader.gd" id="2_wnf8p"]
+[ext_resource type="Script" uid="uid://cy6kpcyr0cngc" path="res://interface/ThemeDropdown.gd" id="3_lom2f"]
+[ext_resource type="PackedScene" uid="uid://biv6yh7kfq5do" path="res://interface/AboutScreen.tscn" id="3_q8r4r"]
+[ext_resource type="PackedScene" uid="uid://chtkqdfc7flig" path="res://interface/SetupScreen.tscn" id="3_wnf8p"]
+[ext_resource type="PackedScene" uid="uid://ber04fmjjbd4e" path="res://interface/ModInfoScreen.tscn" id="4_ldyqi"]
+[ext_resource type="PackedScene" uid="uid://chk5cp55kybmk" path="res://interface/ExportScreen.tscn" id="5_q8r4r"]
+[ext_resource type="Script" uid="uid://dko10nbv5god8" path="res://interface/LanguageDropdown.gd" id="7_ldyqi"]
+[ext_resource type="PackedScene" uid="uid://brubeeutvyrgd" path="res://interface/AdvancedScreen.tscn" id="8_imstj"]
+
+[node name="ScreenLoader" type="Control" unique_id=1942051723]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_a38eb")
+script = ExtResource("2_wnf8p")
+metadata/_edit_horizontal_guides_ = [-61.0]
+
+[node name="BackgroundColour" type="ColorRect" parent="." unique_id=154655389]
+layout_mode = 0
+offset_right = 1040.0
+offset_bottom = 800.0
+color = Color(0.29803923, 0.29803923, 0.29803923, 1)
+
+[node name="AboutScreen" parent="." unique_id=633265906 instance=ExtResource("3_q8r4r")]
+visible = false
+layout_mode = 1
+
+[node name="MainScreen" parent="." unique_id=679194180 instance=ExtResource("2_lmi3l")]
+layout_mode = 0
+
+[node name="ModInfoScreen" parent="." unique_id=1936622943 instance=ExtResource("4_ldyqi")]
+visible = false
+layout_mode = 1
+
+[node name="ExportScreen" parent="." unique_id=458158079 instance=ExtResource("5_q8r4r")]
+visible = false
+layout_mode = 1
+
+[node name="SetupScreen" parent="." unique_id=816446239 instance=ExtResource("3_wnf8p")]
+visible = false
+layout_mode = 1
+
+[node name="AdvancedScreen" parent="." unique_id=1074656815 instance=ExtResource("8_imstj")]
+visible = false
+layout_mode = 1
+
+[node name="LanguageDropdown" type="OptionButton" parent="." unique_id=1925412515]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 19.0
+offset_right = 188.0
+offset_bottom = 54.0
+selected = 0
+item_count = 2
+popup/item_0/text = "English"
+popup/item_0/id = 0
+popup/item_1/text = "Help us translate!"
+popup/item_1/id = 1
+script = ExtResource("7_ldyqi")
+
+[node name="ThemeDropdown" type="OptionButton" parent="." unique_id=1269022841]
+layout_mode = 0
+offset_left = 837.0
+offset_top = 19.0
+offset_right = 1026.0
+offset_bottom = 54.0
+selected = 0
+item_count = 2
+popup/item_0/text = "THEME_DARK"
+popup/item_0/id = 1
+popup/item_1/text = "THEME_LIGHT"
+popup/item_1/id = 6
+script = ExtResource("3_lom2f")
+
+[node name="ThemeTimer" type="Timer" parent="." unique_id=516298091]
+wait_time = 0.5
+
+[node name="PrevButton" type="Button" parent="." unique_id=952650051]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 727.0
+offset_right = 149.0
+offset_bottom = 767.0
+text = "BUTTON_PREVIOUS"
+clip_text = true
+
+[node name="NextButton" type="Button" parent="." unique_id=1978448322]
+layout_mode = 0
+offset_left = 916.0
+offset_top = 728.0
+offset_right = 1008.0
+offset_bottom = 768.0
+text = "BUTTON_NEXT"
+clip_text = true
+
+[node name="SaveButton" type="Button" parent="." unique_id=145162302]
+layout_mode = 0
+offset_left = 203.0
+offset_top = 21.0
+offset_right = 287.0
+offset_bottom = 61.0
+text = "BUTTON_SAVE"
+clip_text = true
+
+[node name="LoadButton" type="Button" parent="." unique_id=1271456416]
+layout_mode = 0
+offset_left = 301.0
+offset_top = 21.0
+offset_right = 389.0
+offset_bottom = 61.0
+text = "BUTTON_LOAD"
+clip_text = true
+
+[connection signal="item_selected" from="LanguageDropdown" to="." method="change_language"]
+[connection signal="timeout" from="ThemeTimer" to="ThemeDropdown" method="switch_warning_theme"]
+[connection signal="pressed" from="NextButton" to="." method="switch_screen" binds= [true, false]]

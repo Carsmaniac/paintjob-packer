@@ -1,0 +1,153 @@
+[gd_scene format=3 uid="uid://chk5cp55kybmk"]
+
+[ext_resource type="Script" uid="uid://bbgkakjt05mgs" path="res://interface/ExportScreen.gd" id="1_4lqfk"]
+[ext_resource type="Texture2D" uid="uid://vl277dvwicnt" path="res://interface/images/atsblank.png" id="2_lkiki"]
+[ext_resource type="Texture2D" uid="uid://cgxp632oa2a2e" path="res://interface/images/atstemplate.png" id="3_dapx8"]
+[ext_resource type="Texture2D" uid="uid://yj2lppidu25r" path="res://interface/images/etsblank.png" id="4_hh46f"]
+[ext_resource type="Texture2D" uid="uid://4s3nkqnf136" path="res://interface/images/etstemplate.png" id="5_62iw7"]
+
+[node name="ExportScreen" type="Control" unique_id=1936622943]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4lqfk")
+
+[node name="Panel" type="Panel" parent="." unique_id=548289295]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 73.0
+offset_right = 1027.0
+offset_bottom = 785.0
+
+[node name="ModExportLabel" type="Label" parent="Panel" unique_id=1418096420]
+layout_mode = 0
+offset_left = 420.0
+offset_top = 60.0
+offset_right = 594.0
+offset_bottom = 83.0
+text = "EXPORT_TITLE"
+horizontal_alignment = 1
+
+[node name="BrowseButton" type="Button" parent="Panel" unique_id=1580491184]
+layout_mode = 0
+offset_left = 380.0
+offset_top = 115.0
+offset_right = 634.0
+offset_bottom = 157.0
+text = "EXPORT_CHOOSE"
+
+[node name="LocationLabel" type="Label" parent="Panel" unique_id=757773364]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 171.0
+offset_right = 958.0
+offset_bottom = 199.0
+theme_override_font_sizes/font_size = 14
+text = "EXPORT_SELECT"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="WarningLabel" type="Label" parent="Panel" unique_id=83355862]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 203.0
+offset_right = 958.0
+offset_bottom = 235.0
+text = "EXPORT_CREATE"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="PlaceholderDropdown" type="OptionButton" parent="Panel" unique_id=1805094865]
+layout_mode = 0
+offset_left = 360.0
+offset_top = 251.0
+offset_right = 656.0
+offset_bottom = 282.0
+selected = 0
+item_count = 2
+popup/item_0/text = "EXPORT_EMPTY"
+popup/item_0/id = 0
+popup/item_1/text = "EXPORT_TEMPLATES"
+popup/item_1/id = 1
+
+[node name="PlaceholderImageATS" type="TextureRect" parent="Panel" unique_id=1485041110]
+layout_mode = 0
+offset_left = 342.0
+offset_top = 291.0
+offset_right = 676.0
+offset_bottom = 468.0
+texture = ExtResource("2_lkiki")
+expand_mode = 1
+
+[node name="TemplateImageATS" type="TextureRect" parent="Panel" unique_id=1582430745]
+visible = false
+layout_mode = 0
+offset_left = 342.0
+offset_top = 291.0
+offset_right = 676.0
+offset_bottom = 468.0
+texture = ExtResource("3_dapx8")
+expand_mode = 1
+
+[node name="PlaceholderImageETS" type="TextureRect" parent="Panel" unique_id=19869500]
+visible = false
+layout_mode = 0
+offset_left = 342.0
+offset_top = 291.0
+offset_right = 676.0
+offset_bottom = 468.0
+texture = ExtResource("4_hh46f")
+expand_mode = 1
+
+[node name="TemplateImageETS" type="TextureRect" parent="Panel" unique_id=1547099476]
+visible = false
+layout_mode = 0
+offset_left = 342.0
+offset_top = 291.0
+offset_right = 676.0
+offset_bottom = 468.0
+texture = ExtResource("5_62iw7")
+expand_mode = 1
+
+[node name="WorkshopDropdown" type="OptionButton" parent="Panel" unique_id=662421930]
+layout_mode = 0
+offset_left = 317.0
+offset_top = 481.0
+offset_right = 699.0
+offset_bottom = 512.0
+selected = 0
+item_count = 2
+popup/item_0/text = "WSHOP_LOCAL"
+popup/item_0/id = 0
+popup/item_1/text = "WSHOP_WSHOP"
+popup/item_1/id = 1
+
+[node name="ExportButton" type="Button" parent="Panel" unique_id=1650769393]
+layout_mode = 0
+offset_left = 380.0
+offset_top = 551.0
+offset_right = 634.0
+offset_bottom = 593.0
+text = "BUTTON_EXPORT"
+
+[node name="StatusLabel" type="Label" parent="Panel" unique_id=210497185]
+layout_mode = 0
+offset_left = 56.0
+offset_top = 610.0
+offset_right = 958.0
+offset_bottom = 694.0
+text = "EXPORT_SELECT"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=1037700436]
+position = Vector2(16, 19)
+show_rect = false
+
+[connection signal="pressed" from="Panel/BrowseButton" to="." method="choose_path"]
+[connection signal="item_selected" from="Panel/PlaceholderDropdown" to="." method="change_image"]
+[connection signal="pressed" from="Panel/ExportButton" to="." method="export_mod"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="update_values"]

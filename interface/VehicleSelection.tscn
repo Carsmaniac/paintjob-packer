@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://dumqing5dk5cf"]
+
+[ext_resource type="Script" uid="uid://di2446gffbmiw" path="res://interface/VehicleSelection.gd" id="1"]
+
+[node name="VehicleSelection" type="PanelContainer" unique_id=2145266285]
+custom_minimum_size = Vector2(570, 50)
+offset_right = 550.0
+offset_bottom = 58.0
+size_flags_horizontal = 0
+script = ExtResource("1")
+
+[node name="TwoColumns" type="HBoxContainer" parent="." unique_id=1146497546]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="LeftColumnPadding" type="CenterContainer" parent="TwoColumns" unique_id=281426149]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VehicleCheckbox" type="CheckBox" parent="TwoColumns/LeftColumnPadding" unique_id=357224761]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(340, 0)
+layout_mode = 2
+text = "Vehicle Name"
+clip_text = true
+
+[node name="RightColumnPadding" type="CenterContainer" parent="TwoColumns" unique_id=1200277899]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="RightColumn" type="VBoxContainer" parent="TwoColumns/RightColumnPadding" unique_id=371510251]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CabinsContainer" type="HFlowContainer" parent="TwoColumns/RightColumnPadding/RightColumn" unique_id=1949296256]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="CabinA" type="CheckBox" parent="TwoColumns/RightColumnPadding/RightColumn/CabinsContainer" unique_id=1067458373]
+visible = false
+layout_mode = 2
+text = "A"
+
+[node name="CabinB" type="CheckBox" parent="TwoColumns/RightColumnPadding/RightColumn/CabinsContainer" unique_id=480439030]
+visible = false
+layout_mode = 2
+text = "B"
+
+[node name="CabinC" type="CheckBox" parent="TwoColumns/RightColumnPadding/RightColumn/CabinsContainer" unique_id=578321696]
+visible = false
+layout_mode = 2
+text = "C"
+
+[node name="CabinD" type="CheckBox" parent="TwoColumns/RightColumnPadding/RightColumn/CabinsContainer" unique_id=593794410]
+visible = false
+layout_mode = 2
+text = "D"
+
+[node name="CabinE" type="CheckBox" parent="TwoColumns/RightColumnPadding/RightColumn/CabinsContainer" unique_id=435116584]
+visible = false
+layout_mode = 2
+text = "E"
+
+[connection signal="gui_input" from="." to="." method="_on_panel_gui_input"]

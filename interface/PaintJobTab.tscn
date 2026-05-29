@@ -1,0 +1,176 @@
+[gd_scene format=3 uid="uid://b84ho7fa58hvj"]
+
+[ext_resource type="PackedScene" uid="uid://bkkg8mcxaxrdm" path="res://interface/VariableInput.tscn" id="1"]
+[ext_resource type="Script" uid="uid://cluddbataqyfw" path="res://interface/PaintJobTab.gd" id="2"]
+[ext_resource type="Texture2D" uid="uid://cvrvprlhqqo1u" path="res://simple-box-theme/search-light.svg" id="3_3chfe"]
+[ext_resource type="Script" uid="uid://ci2baftvihbv6" path="res://interface/VehicleTabContainer.gd" id="4"]
+[ext_resource type="Texture2D" uid="uid://c6dcitrjg6hgh" path="res://simple-box-theme/search-dark.svg" id="4_rtde7"]
+[ext_resource type="PackedScene" uid="uid://dme18bmwlo3vq" path="res://interface/AdvancedTab.tscn" id="4_y8xsb"]
+
+[node name="PaintJobTab" type="Control" unique_id=1825590139]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2")
+
+[node name="InGameLabel" type="Label" parent="." unique_id=157070453]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 9.0
+offset_right = 186.0
+offset_bottom = 32.0
+text = "PJOB_TITLE"
+
+[node name="Name" parent="." unique_id=264099359 instance=ExtResource("1")]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 36.0
+offset_right = 11.0
+offset_bottom = 36.0
+input_name = "PJOB_NAME"
+help_text = "HELP_PNAME"
+input_type = "paint_job_name"
+
+[node name="Price" parent="." unique_id=1366954901 instance=ExtResource("1")]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 111.0
+offset_right = 11.0
+offset_bottom = 111.0
+input_name = "PJOB_PRICE"
+help_text = "HELP_PRICE"
+input_type = "price"
+
+[node name="Unlock" parent="." unique_id=573177043 instance=ExtResource("1")]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 186.0
+offset_right = 11.0
+offset_bottom = 186.0
+input_name = "PJOB_UNLOCK"
+help_text = "HELP_UNLOCK"
+input_type = "unlock_level"
+
+[node name="InternalLabel" type="Label" parent="." unique_id=1336872857]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 340.0
+offset_right = 272.0
+offset_bottom = 363.0
+text = "INTERNAL_TITLE"
+
+[node name="InternalName" parent="." unique_id=371417409 instance=ExtResource("1")]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 367.0
+offset_right = 11.0
+offset_bottom = 367.0
+input_name = "INTERNAL_NAME"
+help_text = "HELP_INAME"
+input_type = "internal_name"
+
+[node name="CabinSupport" parent="." unique_id=443377221 instance=ExtResource("1")]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 442.0
+offset_right = 11.0
+offset_bottom = 442.0
+input_name = "INTERNAL_CABIN"
+help_text = "HELP_CABIN"
+input_type = "cabin_support"
+
+[node name="SplitPaintJobs" parent="." unique_id=815995416 instance=ExtResource("1")]
+visible = false
+layout_mode = 0
+offset_left = 11.0
+offset_top = 517.0
+offset_right = 11.0
+offset_bottom = 517.0
+input_name = "INTERNAL_PJOB"
+help_text = "HELP_SPLIT"
+input_type = "split_cabins"
+
+[node name="SelectedLabel" type="Label" parent="." unique_id=37915328]
+layout_mode = 0
+offset_left = 399.0
+offset_top = 9.0
+offset_right = 571.0
+offset_bottom = 32.0
+text = "PJOB_VEHICLES"
+
+[node name="SearchIconLight" type="TextureRect" parent="." unique_id=823137165]
+layout_mode = 0
+offset_left = 403.0
+offset_top = 35.0
+offset_right = 440.0
+offset_bottom = 72.0
+texture = ExtResource("3_3chfe")
+expand_mode = 1
+
+[node name="SearchIconDark" type="TextureRect" parent="." unique_id=532438546]
+layout_mode = 0
+offset_left = 403.0
+offset_top = 35.0
+offset_right = 440.0
+offset_bottom = 72.0
+texture = ExtResource("4_rtde7")
+expand_mode = 1
+
+[node name="SearchBar" type="LineEdit" parent="." unique_id=45462170]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 37.0
+offset_right = 758.0
+offset_bottom = 68.0
+
+[node name="VehicleTabContainer" type="TabContainer" parent="." unique_id=112539841]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 88.0
+offset_right = 998.0
+offset_bottom = 608.0
+script = ExtResource("4")
+
+[node name="WarningButton" type="Button" parent="." unique_id=2058345288]
+visible = false
+custom_minimum_size = Vector2(25, 31)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 417.0
+offset_top = 673.0
+offset_right = -594.0
+offset_bottom = -64.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "!"
+
+[node name="AdvancedButton" type="Button" parent="." unique_id=985484368]
+layout_mode = 0
+offset_left = 783.0
+offset_top = 628.0
+offset_right = 885.0
+offset_bottom = 668.0
+text = "BUTTON_COLOURS"
+clip_text = true
+
+[node name="AdvancedTab" parent="." unique_id=1384706168 instance=ExtResource("4_y8xsb")]
+visible = false
+layout_mode = 0
+
+[node name="PreviewImage" type="TextureRect" parent="." unique_id=636274123]
+visible = false
+layout_mode = 0
+offset_left = 11.0
+offset_top = 38.0
+offset_right = 387.0
+offset_bottom = 320.0
+expand_mode = 1
+
+[connection signal="pressed" from="WarningButton" to="." method="show_warnings"]

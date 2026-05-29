@@ -1,0 +1,53 @@
+{
+	"format_version": 1,
+	
+	"name": "Volvo VNL 2014",
+	"path": "volvo.vnl",
+	"type": "truck",
+	
+	"truck": true,
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": true,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "780",
+			"internal_name": ["exclusive"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "730",
+			"internal_name": ["standard"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "300",
+			"internal_name": ["duty"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"FlowBelow": [
+			"mudflaps.aero_pnt"
+		]
+	}
+}

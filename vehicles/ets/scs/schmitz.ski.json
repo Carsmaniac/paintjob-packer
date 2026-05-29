@@ -1,0 +1,65 @@
+{
+	"format_version": 1,
+	
+	"name": "Schmitz Cargobull S.KI",
+	"path": "schmitz.ski",
+	"type": "trailer_owned",
+	
+	"truck": false,
+	"trailer": true,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Body - SOLID": [
+			"body.solid_24",
+			"body.solid_24_sc"
+		],
+		"Body - SOLID (Long)": [
+			"body.solid_33",
+			"body.solid_33_sc"
+		],
+		"Body - LIGHT": [
+			"body.light_24",
+			"body.light_24_sc"
+		],
+		"Body - LIGHT (Long)": [
+			"body.light_33",
+			"body.light_33_sc"
+		],
+		"Sideskirts": [
+			"chs_f_l.cgp_3_24",
+			"chs_f_l.cgp_ext_3_24",
+			"chs_f_l.cgp_wt_3_24",
+			"chs_f_r.cgp_3_24",
+			"chs_f_r.cgp_ext_3_24",
+			"chs_f_r.cgp_wt_3_24",
+			"chs_f_l.cgp_3_33",
+			"chs_f_l.cgp_ext_3_33",
+			"chs_f_l.cgp_wt_3_33",
+			"chs_f_r.cgp_3_33",
+			"chs_f_r.cgp_ext_3_33",
+			"chs_f_r.cgp_wt_3_33"
+		],
+		"Rear Bumper": [
+			"r_bumper.paint"
+		]
+	}
+}

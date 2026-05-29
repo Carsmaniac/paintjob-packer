@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://c032als0ywamf"]
+
+[ext_resource type="Script" uid="uid://c1xlgjtjgg8d6" path="res://interface/PaintJobTabContainer.gd" id="3"]
+[ext_resource type="Theme" uid="uid://2i35ywbubie7" path="res://simple-box-theme/pjp-dark/PJPDark.tres" id="3_mvc2l"]
+
+[node name="MainScreen" type="Control" unique_id=679194180]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="PaintJobTabContainer" type="TabContainer" parent="." unique_id=953752903]
+layout_mode = 0
+offset_left = 14.0
+offset_top = 68.0
+offset_right = 1026.0
+offset_bottom = 785.0
+script = ExtResource("3")
+
+[node name="AcceptDialogue" type="AcceptDialog" parent="." unique_id=947412343]
+size = Vector2i(400, 100)
+unresizable = true
+popup_window = true
+extend_to_title = true
+force_native = true
+theme = ExtResource("3_mvc2l")
+dialog_autowrap = true
+
+[connection signal="tab_changed" from="PaintJobTabContainer" to="PaintJobTabContainer" method="_on_tab_changed"]

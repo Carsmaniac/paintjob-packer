@@ -1,0 +1,74 @@
+{
+	"format_version": 1,
+	
+	"name": "International LT",
+	"path": "intnational.lt",
+	"type": "truck",
+	
+	"truck": true,
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "Skyrise Sleeper",
+			"internal_name": ["skyrise"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "Hi-Rise Sleeper",
+			"internal_name": ["hirise"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "Day Cab",
+			"internal_name": ["day"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Front Bumper": [
+			"bumper.lux",
+			"bumper.paint",
+			"bumper.paint_s13",
+			"bumper.paint_pl_s13"
+		],
+		"Cabin Deflectors": [
+			"cabdefl.hi_ext",
+			"cabdefl.hi_std"
+		],
+		"Sideskirts": [
+			"sideskirt.lng_pn",
+			"sideskirt.mid_pn",
+			"sideskirt.shr_pn",
+			"sideskirt.lng_pn_s13",
+			"sideskirt.mid_pn_s13",
+			"sideskirt.shr_pn_s13"
+		],
+		"Sun Visor": [
+			"sunshield.standard"
+		],
+		"FlowBelow": [
+			"mudflaps.aero_paint"
+		]
+	}
+}

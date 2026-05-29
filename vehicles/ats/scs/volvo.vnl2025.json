@@ -1,0 +1,64 @@
+{
+	"format_version": 1,
+	
+	"name": "Volvo VNL",
+	"path": "volvo.vnl2025",
+	"type": "truck",
+	
+	"truck": true,
+	"trailer": false,
+	"bus": false,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Cabin A",
+			"name": "860",
+			"internal_name": ["74h"]
+		},
+		{
+			"code": "b",
+			"designation": "Cabin B",
+			"name": "840",
+			"internal_name": ["74m"]
+		},
+		{
+			"code": "c",
+			"designation": "Cabin C",
+			"name": "440",
+			"internal_name": ["42m"]
+		},
+		{
+			"code": "d",
+			"designation": "Cabin D",
+			"name": "300",
+			"internal_name": ["dc"]
+		}
+	],
+	
+	"uses_accessories": true,
+	"accessories": {
+		"Cabin Deflectors (Cabin B)": [
+			"cabdefl.std_42m"
+		],
+		"Sideskirts": [
+			"sideskirt.std_pnt_dc",
+			"sideskirt.std_pnt_42",
+			"sideskirt.std_pnt_74"
+		]
+	}
+}
