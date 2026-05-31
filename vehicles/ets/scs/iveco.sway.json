@@ -38,5 +38,12 @@
 			"sideskirt.pnt_4x2",
 			"sideskirt.pnt_4x2_a"
 		],
+		"Sun Visor": [
+			"sunshield.standard_p"
+		],
+		"Rear Fender": [
+			"r_fendr_top.paint_4x2",
+			"r_fendr_top.plastic_4x2"
+		]
 	}
 }
