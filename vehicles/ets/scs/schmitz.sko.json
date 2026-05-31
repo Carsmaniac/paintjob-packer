@@ -30,16 +30,34 @@
 	"accessories": {
 		"Body - COOL": [
 			"body.reefer_13",
-			"body.reefer_13ec"
+			"body.reefer_13ec",
+			"rear_body.bmp_rub13",
+			"rear_body.rol_stl13",
+			"rear_body.rbmp_stl13",
+			"rear_body.bmp_rub13ec",
+			"rear_body.rol_stl13ec",
+			"rear_body.rbmp_stl13ec"
 		],
 		"Body - COOL (Long)": [
 			"body.reefer_15"
+			"rear_body.bmp_rub15",
+			"rear_body.rol_stl15",
+			"rear_body.rbmp_stl15"
 		],
 		"Body - CITY": [
 			"body.reefer_13ct"
+			"rear_body.bmp_rub13ct",
+			"rear_body.rol_stl13ct",
+			"rear_body.rbmp_stl13ct"
 		],
 		"Body (Double)": [
-			"body.reefer_8"
+			"body.reefer_8",
+			"rear_body.bmp_rubc",
+			"rear_body.rol_stlc",
+			"rear_body.rbmp_stlc",
+			"f_body.wall_c",
+			"f_body.door_c",
+			"f_body.rol_c"
 		],
 		"Sideskirts": [
 			"chs_f_l.cgp_3_13",
