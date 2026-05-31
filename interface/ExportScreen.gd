@@ -181,9 +181,14 @@ func export_mod() -> void:
 						var selected_cabin_dicts: Array[Dictionary]
 						if not vehicle_selection.vehicle_dict["trailer"]:
 							var selected_cabins: PackedStringArray
-							for cabin in vehicle_selection.find_child("CabinsContainer").get_children():
-								if cabin.button_pressed or paint_job_dict["cabins"] == "all":
-									selected_cabins.append("Cabin " + cabin.text)
+							if paint_job_tab.get_node("CabinSupport/DropdownInput").selected == 0:
+								for cabin in vehicle_dict["vehicle_dict"].cabins:
+									if cabin["code"] == "a":
+										selected_cabins.append(cabin["designation"])
+							else:
+								for cabin in vehicle_selection.find_child("CabinsContainer").get_children():
+									if cabin.button_pressed or paint_job_dict["cabins"] == "all":
+										selected_cabins.append("Cabin " + cabin.text)
 							for cabin_dict in vehicle_selection.vehicle_dict["cabins"]:
 								if cabin_dict["designation"] in selected_cabins:
 									selected_cabin_dicts.append(cabin_dict)
