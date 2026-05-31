@@ -25,49 +25,49 @@
 	
 	"cabins": [
 		{
-			"code": "a",
+			"code": "e",
 			"designation": "Cabin A",
 			"name": "Globetrotter XXL",
 			"internal_name": ["l3h3", "l3h34_8x4"]
 		},
 		{
-			"code": "b",
+			"code": "f",
 			"designation": "Cabin B",
 			"name": "Globetrotter XL",
 			"internal_name": ["l2h3", "l2h3_8x4"]
 		},
 		{
-			"code": "c",
+			"code": "g",
 			"designation": "Cabin C",
 			"name": "Globetrotter",
 			"internal_name": ["l2h2"]
 		},
 		{
-			"code": "d",
+			"code": "h",
 			"designation": "Cabin D",
 			"name": "Sleeper",
 			"internal_name": ["l2h1"]
 		},
 		{
-			"code": "e",
+			"code": "a",
 			"designation": "Cabin A Aero",
 			"name": "Aero Globetrotter XXL",
 			"internal_name": ["l3h3_aero", "l3h3_8x4_a"]
 		},
 		{
-			"code": "f",
+			"code": "b",
 			"designation": "Cabin B Aero",
 			"name": "Aero Globetrotter XL",
 			"internal_name": ["l2h3_aero", "l2h3_8x4_a"]
 		},
 		{
-			"code": "g",
+			"code": "c",
 			"designation": "Cabin C Aero",
 			"name": "Aero Globetrotter",
 			"internal_name": ["l2h2_aero"]
 		},
 		{
-			"code": "h",
+			"code": "d",
 			"designation": "Cabin D Aero",
 			"name": "Aero Sleeper",
 			"internal_name": ["l2h1_aero"]
