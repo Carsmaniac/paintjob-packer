@@ -96,15 +96,15 @@
 			"filter.paint_h1"
 		],
 		"Sideskirts": [
-			"stock_4x_a.sideskirt",
-			"chrome_4x.sideskirt",
-			"chrome_s4x.sideskirt",
-			"stock_6x_a.sideskirt",
-			"chrome_6.sideskirt",
-			"chrome_s6x.sideskirt"
+			"sideskirt.stock_4x_a",
+			"sideskirt.chrome_4x",
+			"sideskirt.chrome_s4x",
+			"sideskirt.stock_6x_a",
+			"sideskirt.chrome_6x",
+			"sideskirt.chrome_s6x"
 		],
 		"Side Deflectors (8x)": [
-			"8x4.chassis"
+			"chassis.8x4"
 		]
 	}
 }
