@@ -14,7 +14,7 @@ func _ready() -> void:
 
 
 func try_desktop_folder() -> void:
-	var desktop_dir: String = DirAccess.open(OS.get_user_data_dir() + "/../../../../../Desktop/").get_current_dir()
+	var desktop_dir: String = OS.get_system_dir(OS.SYSTEM_DIR_DESKTOP)
 	if DirAccess.dir_exists_absolute(desktop_dir):
 		if not DirAccess.dir_exists_absolute(desktop_dir + "/" + get_node("../ModInfoScreen/Panel/Name/TextInput").text):
 			current_path = desktop_dir
