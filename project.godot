@@ -28,7 +28,6 @@ ModGeneration="*uid://bvqf5ibfx2qld"
 
 window/size/viewport_width=1040
 window/size/viewport_height=800
-window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
 [editor_plugins]

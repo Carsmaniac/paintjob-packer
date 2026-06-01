@@ -1,22 +1,43 @@
 [gd_scene format=3 uid="uid://bst2ww1sansi0"]
 
 [ext_resource type="Texture2D" uid="uid://babcnq4qe41qd" path="res://designer/Streamline Cabin A (Topline).png" id="1_jmyei"]
+[ext_resource type="Texture2D" uid="uid://ckw3svi1syg02" path="res://designer/temp-model.jpg" id="2_vynwk"]
+[ext_resource type="Script" uid="uid://cwe1pjrsq1n6y" path="res://designer/DesignerCanvas.gd" id="3_hp84d"]
 
 [node name="DesignerCanvas" type="Control" unique_id=1156557595]
 layout_mode = 3
 anchors_preset = 0
 
-[node name="BackgroundColour" type="ColorRect" parent="." unique_id=1794990337]
-layout_mode = 0
-offset_left = -2048.0
-offset_top = -2048.0
-offset_right = 2048.0
-offset_bottom = 2048.0
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=41392612]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 4096.0
+offset_bottom = 4096.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
 
-[node name="Template" type="TextureRect" parent="." unique_id=326154988]
-layout_mode = 0
-offset_left = -2048.0
-offset_top = -2048.0
-offset_right = 2048.0
-offset_bottom = 2048.0
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=61003486]
+handle_input_locally = false
+size = Vector2i(4096, 4096)
+render_target_update_mode = 4
+
+[node name="BackgroundColour" type="ColorRect" parent="SubViewportContainer/SubViewport" unique_id=1794990337]
+offset_right = 4096.0
+offset_bottom = 4096.0
+
+[node name="Template" type="TextureRect" parent="SubViewportContainer/SubViewport" unique_id=326154988]
+offset_right = 4096.0
+offset_bottom = 4096.0
 texture = ExtResource("1_jmyei")
+
+[node name="TempModel" type="Sprite2D" parent="SubViewportContainer/SubViewport" unique_id=134639442]
+position = Vector2(440, 324)
+rotation = -0.6283185
+scale = Vector2(0.4465282, 0.12605916)
+texture = ExtResource("2_vynwk")
+script = ExtResource("3_hp84d")

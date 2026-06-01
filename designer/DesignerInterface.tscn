@@ -278,3 +278,8 @@ popup/item_0/text = "Rectangle"
 popup/item_0/id = 0
 popup/item_1/text = "Ellipse"
 popup/item_1/id = 1
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=793889110]
+position = Vector2(15, 13)
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_visible"]
