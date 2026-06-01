@@ -1,19 +1,21 @@
 [gd_scene format=3 uid="uid://bon2kychdfdpl"]
 
-[ext_resource type="Theme" uid="uid://2i35ywbubie7" path="res://simple-box-theme/pjp-dark/PJPDark.tres" id="1_gxusu"]
-[ext_resource type="Texture2D" uid="uid://ckw3svi1syg02" path="res://designer/temp-model.jpg" id="2_xpxaf"]
-[ext_resource type="Texture2D" uid="uid://ck16roq0gep15" path="res://designer/temp-canvas.jpg" id="3_en8jn"]
-[ext_resource type="Script" uid="uid://dh12vg3fbiuad" path="res://designer/ViewSwitcher.gd" id="4_en8jn"]
-[ext_resource type="Script" uid="uid://wwbrhxqrb7mg" path="res://designer/Toolbar.gd" id="4_lolpp"]
+[ext_resource type="Theme" uid="uid://2i35ywbubie7" path="res://simple-box-theme/pjp-dark/PJPDark.tres" id="1_0818m"]
+[ext_resource type="Script" uid="uid://cmy4ad0pbkjvi" path="res://designer/ViewModel.gd" id="2_gxryq"]
+[ext_resource type="PackedScene" uid="uid://b42jqutl0sg7v" path="res://designer/PreviewModel.tscn" id="2_t3brk"]
+[ext_resource type="Script" uid="uid://dni1tcf3ra7xy" path="res://designer/ViewCanvas.gd" id="3_gxryq"]
+[ext_resource type="Script" uid="uid://wwbrhxqrb7mg" path="res://designer/Toolbar.gd" id="3_l64ss"]
+[ext_resource type="PackedScene" uid="uid://bst2ww1sansi0" path="res://designer/DesignerCanvas.tscn" id="3_t3brk"]
+[ext_resource type="Script" uid="uid://dh12vg3fbiuad" path="res://designer/ViewSwitcher.gd" id="4_gxryq"]
 
-[node name="ScreenLoader" type="Control" unique_id=1942051723]
+[node name="DesignerInterface" type="Control" unique_id=1942051723]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("1_gxusu")
+theme = ExtResource("1_0818m")
 metadata/_edit_horizontal_guides_ = [-61.0]
 
 [node name="BackgroundColour" type="ColorRect" parent="." unique_id=154655389]
@@ -38,17 +40,32 @@ grow_vertical = 2
 split_offsets = PackedInt32Array(430)
 split_offset = 430
 
-[node name="ViewModel" type="TextureRect" parent="TwoUp" unique_id=206922010]
+[node name="ViewModel" type="SubViewportContainer" parent="TwoUp" unique_id=235436035]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-texture = ExtResource("2_xpxaf")
-expand_mode = 1
+stretch = true
+script = ExtResource("2_gxryq")
 
-[node name="ViewCanvas" type="TextureRect" parent="TwoUp" unique_id=1032322790]
+[node name="SubViewport" type="SubViewport" parent="TwoUp/ViewModel" unique_id=1811264340]
+handle_input_locally = false
+size = Vector2i(430, 759)
+size_2d_override_stretch = true
+render_target_update_mode = 4
+
+[node name="PreviewModel" parent="TwoUp/ViewModel/SubViewport" unique_id=1024880228 instance=ExtResource("2_t3brk")]
+
+[node name="ViewCanvas" type="SubViewportContainer" parent="TwoUp" unique_id=1512129254]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-texture = ExtResource("3_en8jn")
-expand_mode = 1
+stretch = true
+script = ExtResource("3_gxryq")
+
+[node name="SubViewport" type="SubViewport" parent="TwoUp/ViewCanvas" unique_id=1690901565]
+handle_input_locally = false
+size = Vector2i(441, 759)
+render_target_update_mode = 4
+
+[node name="DesignerCanvas" parent="TwoUp/ViewCanvas/SubViewport" unique_id=1156557595 instance=ExtResource("3_t3brk")]
 
 [node name="LeftPanel" type="Panel" parent="." unique_id=1915631464]
 layout_mode = 1
@@ -68,9 +85,9 @@ offset_right = 43.0
 offset_bottom = -3.0
 grow_vertical = 2
 theme_override_constants/separation = 12
-script = ExtResource("4_lolpp")
+script = ExtResource("3_l64ss")
 
-[node name="ButtonMove" type="Button" parent="Toolbar" unique_id=1813952138]
+[node name="ToolMove" type="Button" parent="Toolbar" unique_id=1813952138]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 tooltip_text = "Move
@@ -79,7 +96,7 @@ toggle_mode = true
 button_pressed = true
 text = "Mo"
 
-[node name="ButtonTransform" type="Button" parent="Toolbar" unique_id=2043037669]
+[node name="ToolTransform" type="Button" parent="Toolbar" unique_id=2043037669]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 tooltip_text = "Transform
@@ -87,7 +104,7 @@ Shortcut: Ctrl-T"
 toggle_mode = true
 text = "Tr"
 
-[node name="ButtonBrush" type="Button" parent="Toolbar" unique_id=1242664334]
+[node name="ToolBrush" type="Button" parent="Toolbar" unique_id=1242664334]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 tooltip_text = "Brush
@@ -95,7 +112,15 @@ Shortcut: B"
 toggle_mode = true
 text = "Br"
 
-[node name="ButtonRectangle" type="Button" parent="Toolbar" unique_id=1318769923]
+[node name="ToolEraser" type="Button" parent="Toolbar" unique_id=2018208953]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+tooltip_text = "Eraser
+Shortcut: E"
+toggle_mode = true
+text = "Er"
+
+[node name="ToolRectangle" type="Button" parent="Toolbar" unique_id=1318769923]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 tooltip_text = "Rectangle
@@ -103,7 +128,7 @@ Shortcut: U"
 toggle_mode = true
 text = "Re"
 
-[node name="ButtonText" type="Button" parent="Toolbar" unique_id=2124195899]
+[node name="ToolText" type="Button" parent="Toolbar" unique_id=2124195899]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 tooltip_text = "Text
@@ -111,15 +136,13 @@ Shortcut: T"
 toggle_mode = true
 text = "Te"
 
-[node name="Button6" type="Button" parent="Toolbar" unique_id=2018208953]
+[node name="ToolHand" type="Button" parent="Toolbar" unique_id=1574784453]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
+tooltip_text = "Hand
+Shortcut: H"
 toggle_mode = true
-
-[node name="Button7" type="Button" parent="Toolbar" unique_id=1574784453]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-toggle_mode = true
+text = "Ha"
 
 [node name="Button8" type="Button" parent="Toolbar" unique_id=735924308]
 custom_minimum_size = Vector2(40, 40)
@@ -157,7 +180,7 @@ popup/item_0/text = "Left"
 popup/item_0/id = 2
 popup/item_1/text = "Right"
 popup/item_1/id = 1
-script = ExtResource("4_en8jn")
+script = ExtResource("4_gxryq")
 
 [node name="TopPanel" type="Panel" parent="." unique_id=1733788061]
 custom_minimum_size = Vector2(0, 30)
@@ -197,6 +220,7 @@ popup/item_1/id = 1
 [node name="TextureDropdown" type="OptionButton" parent="TopPanel/HBoxContainer" unique_id=1475382106]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
+clip_text = true
 selected = 0
 fit_to_longest_item = false
 item_count = 2

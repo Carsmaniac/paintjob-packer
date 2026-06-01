@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bst2ww1sansi0"]
+
+[ext_resource type="Texture2D" uid="uid://babcnq4qe41qd" path="res://designer/Streamline Cabin A (Topline).png" id="1_jmyei"]
+
+[node name="DesignerCanvas" type="Control" unique_id=1156557595]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="BackgroundColour" type="ColorRect" parent="." unique_id=1794990337]
+layout_mode = 0
+offset_left = -2048.0
+offset_top = -2048.0
+offset_right = 2048.0
+offset_bottom = 2048.0
+
+[node name="Template" type="TextureRect" parent="." unique_id=326154988]
+layout_mode = 0
+offset_left = -2048.0
+offset_top = -2048.0
+offset_right = 2048.0
+offset_bottom = 2048.0
+texture = ExtResource("1_jmyei")

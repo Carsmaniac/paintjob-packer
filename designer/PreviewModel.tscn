@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://b42jqutl0sg7v"]
+
+[ext_resource type="PackedScene" uid="uid://bvlgako2iuusy" path="res://designer/daf.xf.glb" id="1_voe0j"]
+
+[node name="PreviewModel" type="Node3D" unique_id=1024880228]
+
+[node name="CameraOrbiter" type="Node3D" parent="." unique_id=1361442022]
+
+[node name="Camera3D" type="Camera3D" parent="CameraOrbiter" unique_id=1002652522]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 8.583934)
+fov = 51.0
+
+[node name="VehicleModel" type="Node3D" parent="." unique_id=1006307209]
+
+[node name="daf_xf" parent="VehicleModel" unique_id=626395573 instance=ExtResource("1_voe0j")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
