@@ -1,6 +1,6 @@
 extends SubViewportContainer
 var canvas: Node
-var zoom_amount: float = 1.02
+var zoom_amount: float = 1.04
 var canvas_view_scale: float = 1.0
 
 
@@ -10,6 +10,10 @@ func _ready() -> void:
 
 func _gui_input(event: InputEvent) -> void:
 	var selected_tool: String = get_node("../../Toolbar").selected_tool
+	
+	if Input.is_key_pressed(KEY_SPACE):
+		selected_tool = "ToolHand"
+	
 	if selected_tool == "ToolHand":
 		if event is InputEventMouseMotion and event.button_mask == 1:
 			canvas.position += event.relative
@@ -24,12 +28,10 @@ func zoom_to_pos(zoom_in: bool, mouse_pos: Vector2) -> void:
 	
 	if zoom_in:
 		canvas_view_scale *= zoom_amount
-		canvas.scale = Vector2(canvas_view_scale, canvas_view_scale)
 		canvas.position.x -= zoom_pos.x * (zoom_amount - 1) * canvas_view_scale
 		canvas.position.y -= zoom_pos.y * (zoom_amount - 1) * canvas_view_scale
 	else:
 		canvas_view_scale /= zoom_amount
-		canvas.scale = Vector2(canvas_view_scale, canvas_view_scale)
 		canvas.position.x += zoom_pos.x * (zoom_amount - 1) * canvas_view_scale
 		canvas.position.y += zoom_pos.y * (zoom_amount - 1) * canvas_view_scale
-	print(canvas_view_scale)
+	canvas.scale = Vector2(canvas_view_scale, canvas_view_scale)

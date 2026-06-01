@@ -7,6 +7,24 @@ func _ready() -> void:
 		child.connect("pressed", switch_button.bind(child))
 
 
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey and event.pressed and not event.echo:
+		if event.keycode == KEY_V:
+			switch_button(get_node("ToolMove"))
+		elif event.keycode == KEY_T and event.ctrl_pressed:
+			switch_button(get_node("ToolTransform"))
+		elif event.keycode == KEY_B:
+			switch_button(get_node("ToolBrush"))
+		elif event.keycode == KEY_E:
+			switch_button(get_node("ToolEraser"))
+		elif event.keycode == KEY_U:
+			switch_button(get_node("ToolRectangle"))
+		elif event.keycode == KEY_T:
+			switch_button(get_node("ToolText"))
+		elif event.keycode == KEY_H:
+			switch_button(get_node("ToolHand"))
+
+
 func switch_button(pressed_button: Node) -> void:
 	for child in get_children():
 		if child == pressed_button:
@@ -24,3 +42,6 @@ func switch_button(pressed_button: Node) -> void:
 		tool_buttons.get_node("TransformButtons").visible = true
 	elif pressed_button.name == "ToolRectangle":
 		tool_buttons.get_node("RectangleButtons").visible = true
+		
+	if pressed_button.name == "ToolHand":
+		get_node("ToolHand").mouse_default_cursor_shape = CursorShape.CURSOR_MOVE
