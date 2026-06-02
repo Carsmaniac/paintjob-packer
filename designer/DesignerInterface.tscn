@@ -8,14 +8,17 @@
 [ext_resource type="PackedScene" uid="uid://bst2ww1sansi0" path="res://designer/DesignerCanvas.tscn" id="3_t3brk"]
 [ext_resource type="ArrayMesh" uid="uid://2gprlmbtok47" path="res://designer/untitled2.obj" id="4_f6jw8"]
 [ext_resource type="Script" uid="uid://dh12vg3fbiuad" path="res://designer/ViewSwitcher.gd" id="4_gxryq"]
+[ext_resource type="Script" uid="uid://cwe1pjrsq1n6y" path="res://designer/DesignerCanvas.gd" id="7_ft5e4"]
+[ext_resource type="Script" uid="uid://fwahj12kbw6s" path="res://designer/LayerList.gd" id="10_88d6u"]
+[ext_resource type="PackedScene" uid="uid://rj5qt6afxl1r" path="res://designer/Layer.tscn" id="10_f6jw8"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ft5e4"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_88d6u"]
 viewport_path = NodePath("../../../ViewCanvas/SubViewport/DesignerCanvas/SubViewportContainer/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ft5e4"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ce8c"]
 resource_local_to_scene = true
 albedo_color = Color(1, 1, 1, 0)
-albedo_texture = SubResource("ViewportTexture_ft5e4")
+albedo_texture = SubResource("ViewportTexture_88d6u")
 
 [node name="DesignerInterface" type="Control" unique_id=1942051723]
 layout_mode = 3
@@ -34,7 +37,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.4679286, 0.1818864, 0.31399417, 1)
+color = Color(0.29803923, 0.29803923, 0.29803923, 1)
 
 [node name="TwoUp" type="HSplitContainer" parent="." unique_id=1507496012]
 layout_mode = 1
@@ -43,14 +46,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 46.0
 offset_top = 41.0
-offset_right = -111.0
+offset_right = -145.0
 grow_horizontal = 2
 grow_vertical = 2
 split_offsets = PackedInt32Array(430)
 split_offset = 430
 
 [node name="ViewModel" type="SubViewportContainer" parent="TwoUp" unique_id=235436035]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 stretch = true
 script = ExtResource("2_gxryq")
@@ -66,20 +69,21 @@ render_target_update_mode = 4
 [node name="VehicleModel" parent="TwoUp/ViewModel/SubViewport/PreviewModel" index="1" unique_id=1695738561]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.7146196)
 mesh = ExtResource("4_f6jw8")
-surface_material_override/0 = SubResource("StandardMaterial3D_ft5e4")
+surface_material_override/0 = SubResource("StandardMaterial3D_8ce8c")
 
 [node name="ViewCanvas" type="SubViewportContainer" parent="TwoUp" unique_id=1512129254]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 stretch = true
 script = ExtResource("3_gxryq")
 
 [node name="SubViewport" type="SubViewport" parent="TwoUp/ViewCanvas" unique_id=1690901565]
 handle_input_locally = false
-size = Vector2i(441, 759)
+size = Vector2i(407, 759)
 render_target_update_mode = 4
 
 [node name="DesignerCanvas" parent="TwoUp/ViewCanvas/SubViewport" unique_id=1156557595 instance=ExtResource("3_t3brk")]
+script = ExtResource("7_ft5e4")
 
 [node name="LeftPanel" type="Panel" parent="." unique_id=1915631464]
 layout_mode = 1
@@ -88,7 +92,7 @@ anchor_bottom = 1.0
 offset_right = 46.0
 grow_vertical = 2
 
-[node name="Toolbar" type="VBoxContainer" parent="." unique_id=904101171]
+[node name="Toolbar" type="VBoxContainer" parent="LeftPanel" unique_id=904101171]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 1
 anchors_preset = 9
@@ -98,10 +102,10 @@ offset_top = 10.0
 offset_right = 43.0
 offset_bottom = -3.0
 grow_vertical = 2
-theme_override_constants/separation = 12
+theme_override_constants/separation = 10
 script = ExtResource("3_l64ss")
 
-[node name="ToolMove" type="Button" parent="Toolbar" unique_id=1813952138]
+[node name="ToolMove" type="Button" parent="LeftPanel/Toolbar" unique_id=1813952138]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 tooltip_text = "Move
@@ -110,7 +114,7 @@ toggle_mode = true
 button_pressed = true
 text = "Mo"
 
-[node name="ToolTransform" type="Button" parent="Toolbar" unique_id=2043037669]
+[node name="ToolTransform" type="Button" parent="LeftPanel/Toolbar" unique_id=2043037669]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 tooltip_text = "Transform
@@ -118,15 +122,16 @@ Shortcut: Ctrl-T"
 toggle_mode = true
 text = "Tr"
 
-[node name="ToolBrush" type="Button" parent="Toolbar" unique_id=1242664334]
+[node name="ToolBrush" type="Button" parent="LeftPanel/Toolbar" unique_id=1242664334]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 tooltip_text = "Brush
 Shortcut: B"
+disabled = true
 toggle_mode = true
 text = "Br"
 
-[node name="ToolEraser" type="Button" parent="Toolbar" unique_id=2018208953]
+[node name="ToolEraser" type="Button" parent="LeftPanel/Toolbar" unique_id=2018208953]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 tooltip_text = "Eraser
@@ -134,7 +139,7 @@ Shortcut: E"
 toggle_mode = true
 text = "Er"
 
-[node name="ToolRectangle" type="Button" parent="Toolbar" unique_id=1318769923]
+[node name="ToolRectangle" type="Button" parent="LeftPanel/Toolbar" unique_id=1318769923]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 tooltip_text = "Rectangle
@@ -142,7 +147,7 @@ Shortcut: U"
 toggle_mode = true
 text = "Re"
 
-[node name="ToolText" type="Button" parent="Toolbar" unique_id=2124195899]
+[node name="ToolText" type="Button" parent="LeftPanel/Toolbar" unique_id=2124195899]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 tooltip_text = "Text
@@ -150,7 +155,7 @@ Shortcut: T"
 toggle_mode = true
 text = "Te"
 
-[node name="ToolHand" type="Button" parent="Toolbar" unique_id=1574784453]
+[node name="ToolHand" type="Button" parent="LeftPanel/Toolbar" unique_id=1574784453]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 tooltip_text = "Hand
@@ -158,15 +163,30 @@ Shortcut: H"
 toggle_mode = true
 text = "Ha"
 
-[node name="Button8" type="Button" parent="Toolbar" unique_id=735924308]
+[node name="Button8" type="Button" parent="LeftPanel/Toolbar" unique_id=735924308]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 toggle_mode = true
 
-[node name="Button9" type="Button" parent="Toolbar" unique_id=1909526754]
+[node name="Button9" type="Button" parent="LeftPanel/Toolbar" unique_id=1909526754]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 toggle_mode = true
+
+[node name="ColourPadding" type="Control" parent="LeftPanel/Toolbar" unique_id=28215110]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="ColourPrimary" type="ColorPickerButton" parent="LeftPanel/Toolbar" unique_id=498311146]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+edit_intensity = false
+
+[node name="ColourSecondary" type="ColorPickerButton" parent="LeftPanel/Toolbar" unique_id=642481162]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+color = Color(1, 1, 1, 1)
+edit_intensity = false
 
 [node name="RightPanel" type="Panel" parent="." unique_id=3673591]
 layout_mode = 1
@@ -174,27 +194,87 @@ anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -111.0
+offset_left = -145.0
 grow_horizontal = 0
 grow_vertical = 2
 
-[node name="ViewSwitcher" type="OptionButton" parent="." unique_id=1880620143]
+[node name="ViewSwitcher" type="OptionButton" parent="RightPanel" unique_id=1880620143]
 layout_mode = 1
-anchors_preset = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -69.5
+offset_top = 3.0
+offset_right = 69.5
+offset_bottom = 38.0
+grow_horizontal = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "Model Left"
+popup/item_0/id = 2
+popup/item_1/text = "Model Right"
+popup/item_1/id = 1
+popup/item_2/text = "Canvas Only"
+popup/item_2/id = 2
+popup/item_3/text = "Model Only"
+popup/item_3/id = 3
+script = ExtResource("4_gxryq")
+
+[node name="ButtonSave" type="Button" parent="RightPanel" unique_id=121054057]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -69.5
+offset_top = -752.0
+offset_right = 69.5
+offset_bottom = -700.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Save"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="RightPanel" unique_id=1430981041]
+layout_mode = 1
+anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -108.0
-offset_top = 3.0
+anchor_bottom = 1.0
+offset_left = -142.0
+offset_top = 103.0
 offset_right = -3.0
-offset_bottom = 105.0
+offset_bottom = -51.0
 grow_horizontal = 0
-selected = 0
-item_count = 2
-popup/item_0/text = "Left"
-popup/item_0/id = 2
-popup/item_1/text = "Right"
-popup/item_1/id = 1
-script = ExtResource("4_gxryq")
+grow_vertical = 2
+
+[node name="LayerList" type="VBoxContainer" parent="RightPanel/ScrollContainer" unique_id=1720164249]
+layout_mode = 2
+theme_override_constants/separation = 3
+script = ExtResource("10_88d6u")
+
+[node name="Layer" parent="RightPanel/ScrollContainer/LayerList" unique_id=234734521 node_paths=PackedStringArray("linked_node") instance=ExtResource("10_f6jw8")]
+layout_mode = 2
+linked_node = NodePath("../../../../TwoUp/ViewCanvas/SubViewport/DesignerCanvas/SubViewportContainer/SubViewport/LayerNodes/TempModel")
+
+[node name="Layer2" parent="RightPanel/ScrollContainer/LayerList" unique_id=1636741636 node_paths=PackedStringArray("linked_node") instance=ExtResource("10_f6jw8")]
+layout_mode = 2
+linked_node = NodePath("../../../../TwoUp/ViewCanvas/SubViewport/DesignerCanvas/SubViewportContainer/SubViewport/LayerNodes/Label")
+
+[node name="ButtonNewLayer" type="Button" parent="RightPanel" unique_id=748545334]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -69.5
+offset_top = -41.0
+offset_right = 69.5
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "New Layer"
 
 [node name="TopPanel" type="Panel" parent="." unique_id=1733788061]
 custom_minimum_size = Vector2(0, 30)
@@ -202,7 +282,7 @@ layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_left = 46.0
-offset_right = -111.0
+offset_right = -145.0
 offset_bottom = 41.0
 grow_horizontal = 2
 
@@ -217,31 +297,6 @@ offset_right = -3.0
 offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="VehicleDropdown" type="OptionButton" parent="TopPanel/HBoxContainer" unique_id=1917666426]
-clip_contents = true
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-clip_text = true
-selected = 0
-fit_to_longest_item = false
-item_count = 2
-popup/item_0/text = "Scania Streamline"
-popup/item_0/id = 0
-popup/item_1/text = "SCS Box Trailer"
-popup/item_1/id = 1
-
-[node name="TextureDropdown" type="OptionButton" parent="TopPanel/HBoxContainer" unique_id=1475382106]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-clip_text = true
-selected = 0
-fit_to_longest_item = false
-item_count = 2
-popup/item_0/text = "Cabin A (Topline)"
-popup/item_0/id = 0
-popup/item_1/text = "Cabin B (Highline)"
-popup/item_1/id = 1
 
 [node name="ToolButtons" type="Control" parent="TopPanel/HBoxContainer" unique_id=2090799396]
 layout_mode = 2
@@ -292,11 +347,6 @@ popup/item_0/text = "Rectangle"
 popup/item_0/id = 0
 popup/item_1/text = "Ellipse"
 popup/item_1/id = 1
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=793889110]
-position = Vector2(15, 13)
-
-[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_visible"]
 
 [editable path="TwoUp/ViewModel/SubViewport/PreviewModel"]
 [editable path="TwoUp/ViewCanvas/SubViewport/DesignerCanvas"]

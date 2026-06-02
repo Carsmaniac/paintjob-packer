@@ -1,19 +1,34 @@
 extends SubViewportContainer
 var canvas: Node
+var layer_list: Node
 var zoom_amount: float = 1.04
+var pan_amount: float = 20.0
 var canvas_view_scale: float = 1.0
 
 
 func _ready() -> void:
 	canvas = get_node("SubViewport/DesignerCanvas")
+	layer_list = get_node("../../RightPanel/ScrollContainer/LayerList")
+
+
+func fit_to_view() -> void:
+	var fit_width_scale: float = self.size.x / canvas.width
+	var fit_height_scale: float = self.size.y / canvas.height
+	if fit_width_scale < fit_height_scale:
+		canvas.position = Vector2(0, self.size.y/2 - (canvas_view_scale * canvas.height / 2))
+	else:
+		canvas.position = Vector2(self.size.x/2 - (canvas_view_scale * canvas.width / 2), 0)
+	canvas_view_scale = min(fit_width_scale, fit_height_scale)
+	canvas.scale = Vector2(canvas_view_scale, canvas_view_scale)
 
 
 func _gui_input(event: InputEvent) -> void:
-	var selected_tool: String = get_node("../../Toolbar").selected_tool
+	var selected_tool: String = get_node("../../LeftPanel/Toolbar").selected_tool
 	
 	if Input.is_key_pressed(KEY_SPACE):
 		selected_tool = "ToolHand"
 	
+	# Hand tool
 	if selected_tool == "ToolHand":
 		if event is InputEventMouseMotion and event.button_mask == 1:
 			canvas.position += event.relative
@@ -21,6 +36,32 @@ func _gui_input(event: InputEvent) -> void:
 			zoom_to_pos(true, event.position)
 		elif event is InputEventMouseButton and event.button_index == 5:
 			zoom_to_pos(false, event.position)
+	
+	# Scrolling
+	elif event is InputEventMouseButton and event.button_index in [4, 5]:
+		# Alt-scroll to zoom
+		if Input.is_key_pressed(KEY_ALT) and event.button_index == 4:
+			zoom_to_pos(true, event.position)
+		elif Input.is_key_pressed(KEY_ALT) and event.button_index == 5:
+			zoom_to_pos(false, event.position)
+		
+		# Ctrl-scroll to pan horizontal
+		elif Input.is_key_pressed(KEY_CTRL) and event.button_index == 4:
+			canvas.position.x += pan_amount
+		elif Input.is_key_pressed(KEY_CTRL) and event.button_index == 5:
+			canvas.position.x -= pan_amount
+		
+		# Scroll to pan vertical
+		elif event.button_index == 4:
+			canvas.position.y += pan_amount
+		elif event.button_index == 5:
+			canvas.position.y -= pan_amount
+	
+	# Move tool
+	elif selected_tool == "ToolMove":
+		if event is InputEventMouseMotion and event.button_mask == 1:
+			for layer in layer_list.selected_layers:
+				layer.linked_node.position += (event.relative / canvas_view_scale)
 
 
 func zoom_to_pos(zoom_in: bool, mouse_pos: Vector2) -> void:

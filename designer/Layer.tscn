@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://rj5qt6afxl1r"]
+
+[ext_resource type="Theme" uid="uid://dlrx2nnnj6pu6" path="res://simple-box-theme/pjp-dark/PJPDarkLayer.tres" id="1_w8lta"]
+[ext_resource type="Script" uid="uid://dodq8o2tb4gi8" path="res://designer/Layer.gd" id="2_s1top"]
+[ext_resource type="Texture2D" uid="uid://ckw3svi1syg02" path="res://designer/temp-model.jpg" id="3_ltint"]
+
+[node name="Layer" type="Panel" unique_id=234734521]
+custom_minimum_size = Vector2(139, 85)
+size_flags_vertical = 3
+theme = ExtResource("1_w8lta")
+script = ExtResource("2_s1top")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1975219756]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 25.0
+offset_right = 101.0
+offset_bottom = 52.0
+texture = ExtResource("3_ltint")
+expand_mode = 1
+
+[node name="Label" type="Label" parent="." unique_id=1498602194]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 57.0
+offset_bottom = 22.0
+text = "Layer 1"
+
+[node name="ButtonUp" type="Button" parent="." unique_id=1144750321]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 25.0
+offset_right = 29.0
+offset_bottom = 52.0
+tooltip_text = "Move Up"
+text = "↑"
+
+[node name="ButtonDown" type="Button" parent="." unique_id=399455746]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 55.0
+offset_right = 29.0
+offset_bottom = 82.0
+tooltip_text = "Move Down"
+text = "↓"
+
+[node name="ButtonHide" type="Button" parent="." unique_id=621508624]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 55.0
+offset_right = 58.0
+offset_bottom = 82.0
+tooltip_text = "Show/Hide"
+toggle_mode = true
+text = "H"
+
+[node name="ButtonDelete" type="Button" parent="." unique_id=1739734587]
+layout_mode = 0
+offset_left = 61.0
+offset_top = 55.0
+offset_right = 86.0
+offset_bottom = 82.0
+tooltip_text = "Delete"
+text = "X"
+
+[connection signal="pressed" from="ButtonDelete" to="." method="delete"]

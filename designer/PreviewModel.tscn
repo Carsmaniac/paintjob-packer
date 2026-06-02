@@ -3,6 +3,7 @@
 [node name="PreviewModel" type="Node3D" unique_id=1024880228]
 
 [node name="CameraOrbiter" type="Node3D" parent="." unique_id=1361442022]
+transform = Transform3D(-0.9145014, 0, -0.40458304, 0, 1, 0, 0.40458304, 0, -0.9145014, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraOrbiter" unique_id=1002652522]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 8.583934)

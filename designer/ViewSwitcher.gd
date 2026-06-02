@@ -6,4 +6,4 @@ func _ready() -> void:
 
 
 func switch_view_side(option: int) -> void:
-	get_node("../TwoUp").move_child(get_node("../TwoUp/ViewModel"), option)
+	get_node("../../TwoUp").move_child(get_node("../../TwoUp/ViewModel"), option)

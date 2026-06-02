@@ -1,4 +1,0 @@
-[gd_resource type="ViewportTexture" format=3 uid="uid://ds6et76yqt0k2"]
-
-[resource]
-viewport_path = NodePath("TwoUp/ViewCanvas/SubViewport/DesignerCanvas/SubViewportContainer/SubViewport")
