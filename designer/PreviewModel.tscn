@@ -1,7 +1,5 @@
 [gd_scene format=3 uid="uid://b42jqutl0sg7v"]
 
-[ext_resource type="PackedScene" uid="uid://bvlgako2iuusy" path="res://designer/daf.xf.glb" id="1_voe0j"]
-
 [node name="PreviewModel" type="Node3D" unique_id=1024880228]
 
 [node name="CameraOrbiter" type="Node3D" parent="." unique_id=1361442022]
@@ -10,7 +8,14 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 8.583934)
 fov = 51.0
 
-[node name="VehicleModel" type="Node3D" parent="." unique_id=1006307209]
+[node name="OmniLight3D" type="OmniLight3D" parent="CameraOrbiter/Camera3D" unique_id=553643235]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 0)
+light_energy = 4.28
+omni_range = 26.0
 
-[node name="daf_xf" parent="VehicleModel" unique_id=626395573 instance=ExtResource("1_voe0j")]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+[node name="OmniLight3D2" type="OmniLight3D" parent="CameraOrbiter/Camera3D" unique_id=270843349]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 0)
+light_energy = 4.28
+omni_range = 26.0
+
+[node name="VehicleModel" type="MeshInstance3D" parent="." unique_id=1695738561]

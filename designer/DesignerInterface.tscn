@@ -6,7 +6,16 @@
 [ext_resource type="Script" uid="uid://dni1tcf3ra7xy" path="res://designer/ViewCanvas.gd" id="3_gxryq"]
 [ext_resource type="Script" uid="uid://wwbrhxqrb7mg" path="res://designer/Toolbar.gd" id="3_l64ss"]
 [ext_resource type="PackedScene" uid="uid://bst2ww1sansi0" path="res://designer/DesignerCanvas.tscn" id="3_t3brk"]
+[ext_resource type="ArrayMesh" uid="uid://2gprlmbtok47" path="res://designer/untitled2.obj" id="4_f6jw8"]
 [ext_resource type="Script" uid="uid://dh12vg3fbiuad" path="res://designer/ViewSwitcher.gd" id="4_gxryq"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ft5e4"]
+viewport_path = NodePath("../../../ViewCanvas/SubViewport/DesignerCanvas/SubViewportContainer/SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ft5e4"]
+resource_local_to_scene = true
+albedo_color = Color(1, 1, 1, 0)
+albedo_texture = SubResource("ViewportTexture_ft5e4")
 
 [node name="DesignerInterface" type="Control" unique_id=1942051723]
 layout_mode = 3
@@ -53,6 +62,11 @@ size_2d_override_stretch = true
 render_target_update_mode = 4
 
 [node name="PreviewModel" parent="TwoUp/ViewModel/SubViewport" unique_id=1024880228 instance=ExtResource("2_t3brk")]
+
+[node name="VehicleModel" parent="TwoUp/ViewModel/SubViewport/PreviewModel" index="1" unique_id=1695738561]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.7146196)
+mesh = ExtResource("4_f6jw8")
+surface_material_override/0 = SubResource("StandardMaterial3D_ft5e4")
 
 [node name="ViewCanvas" type="SubViewportContainer" parent="TwoUp" unique_id=1512129254]
 custom_minimum_size = Vector2(50, 0)
@@ -283,3 +297,6 @@ popup/item_1/id = 1
 position = Vector2(15, 13)
 
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_visible"]
+
+[editable path="TwoUp/ViewModel/SubViewport/PreviewModel"]
+[editable path="TwoUp/ViewCanvas/SubViewport/DesignerCanvas"]
