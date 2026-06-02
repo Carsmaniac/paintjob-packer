@@ -1,14 +1,15 @@
 extends Panel
 
 @export var linked_node: Node
-enum LayerType {RASTER, IMAGE, TEXT, SHAPE}
-var layer_type: LayerType
-var layer_name: String = "Layer"
+@export var layer_name: String = "Layer"
+@export_enum("raster", "text", "image", "shape") var layer_type: String
+var text_size: float
 
 
 func _ready() -> void:
 	get_node("ButtonUp").connect("pressed", reorder.bind(false))
 	get_node("ButtonDown").connect("pressed", reorder.bind(true))
+	get_node("ButtonHide").connect("pressed", show_hide)
 	get_node("Label").text = self.layer_name
 	update_buttons()
 	self.connect("gui_input", maybe_select_layer)
@@ -37,8 +38,8 @@ func maybe_select_layer(event) -> void:
 func rename_layer(new_name: String = "") -> void:
 	if new_name == "":
 		new_name = get_node("RenameWindow/LineEdit").text
-	layer_name = new_name
-	get_node("Label").text = new_name
+	layer_name = new_name.replace("\n", "")
+	get_node("Label").text = new_name.replace("\n", "")
 	get_node("RenameWindow").visible = false
 
 
@@ -62,9 +63,9 @@ func confirm_change_text(_new_name: String = "") -> void:
 
 func show_hide() -> void:
 	if get_node("ButtonHide").button_pressed:
-		pass
+		linked_node.visible = false
 	else:
-		pass
+		linked_node.visible = true
 
 
 func reorder(move_down: bool) -> void:

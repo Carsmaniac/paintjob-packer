@@ -69,6 +69,18 @@ func _gui_input(event: InputEvent) -> void:
 			layer_list.add_text_layer(get_canvas_position(event.position))
 
 
+func sync_tool_to_layer() -> void:
+	if len(layer_list.selected_layers) == 1:
+		var selected_tool: String = get_node("../../LeftPanel/Toolbar").selected_tool
+		var selected_layer = layer_list.selected_layers[0]
+		if selected_tool == "ToolShape" and selected_layer.layer_type == "shape":
+			pass
+		elif selected_tool == "ToolText" and selected_layer.layer_type == "text":
+			var text_buttons: Node = get_node("../../TopPanel/HBoxContainer/ToolButtons/TextButtons")
+			text_buttons.get_node("FontSize").value = selected_layer.text_size
+
+
+
 func get_canvas_position(rel_pos: Vector2) -> Vector2:
 	return (rel_pos - canvas.position) / canvas_view_scale
 

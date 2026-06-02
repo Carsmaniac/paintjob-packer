@@ -11,14 +11,15 @@
 [ext_resource type="Script" uid="uid://cwe1pjrsq1n6y" path="res://designer/DesignerCanvas.gd" id="7_ft5e4"]
 [ext_resource type="Script" uid="uid://fwahj12kbw6s" path="res://designer/LayerList.gd" id="10_88d6u"]
 [ext_resource type="PackedScene" uid="uid://rj5qt6afxl1r" path="res://designer/Layer.tscn" id="10_f6jw8"]
+[ext_resource type="Script" uid="uid://nhqnn382pqji" path="res://designer/TextButtons.gd" id="12_8ce8c"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_88d6u"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_8ce8c"]
 viewport_path = NodePath("../../../ViewCanvas/SubViewport/DesignerCanvas/SubViewportContainer/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8ce8c"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oa1j1"]
 resource_local_to_scene = true
 albedo_color = Color(1, 1, 1, 0)
-albedo_texture = SubResource("ViewportTexture_88d6u")
+albedo_texture = SubResource("ViewportTexture_8ce8c")
 
 [node name="DesignerInterface" type="Control" unique_id=1942051723]
 layout_mode = 3
@@ -69,7 +70,7 @@ render_target_update_mode = 4
 [node name="VehicleModel" parent="TwoUp/ViewModel/SubViewport/PreviewModel" index="1" unique_id=1695738561]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.7146196)
 mesh = ExtResource("4_f6jw8")
-surface_material_override/0 = SubResource("StandardMaterial3D_8ce8c")
+surface_material_override/0 = SubResource("StandardMaterial3D_oa1j1")
 
 [node name="ViewCanvas" type="SubViewportContainer" parent="TwoUp" unique_id=1512129254]
 custom_minimum_size = Vector2(200, 0)
@@ -119,6 +120,7 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 tooltip_text = "Transform
 Shortcut: Ctrl-T"
+disabled = true
 toggle_mode = true
 text = "Tr"
 
@@ -136,13 +138,14 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 tooltip_text = "Eraser
 Shortcut: E"
+disabled = true
 toggle_mode = true
 text = "Er"
 
-[node name="ToolRectangle" type="Button" parent="LeftPanel/Toolbar" unique_id=1318769923]
+[node name="ToolShape" type="Button" parent="LeftPanel/Toolbar" unique_id=1318769923]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
-tooltip_text = "Rectangle
+tooltip_text = "Shape
 Shortcut: U"
 toggle_mode = true
 text = "Re"
@@ -253,10 +256,14 @@ script = ExtResource("10_88d6u")
 [node name="Layer" parent="RightPanel/ScrollContainer/LayerList" unique_id=234734521 node_paths=PackedStringArray("linked_node") instance=ExtResource("10_f6jw8")]
 layout_mode = 2
 linked_node = NodePath("../../../../TwoUp/ViewCanvas/SubViewport/DesignerCanvas/SubViewportContainer/SubViewport/LayerNodes/TempModel")
+layer_name = "Truck Image"
+layer_type = "image"
 
 [node name="Layer2" parent="RightPanel/ScrollContainer/LayerList" unique_id=1636741636 node_paths=PackedStringArray("linked_node") instance=ExtResource("10_f6jw8")]
 layout_mode = 2
 linked_node = NodePath("../../../../TwoUp/ViewCanvas/SubViewport/DesignerCanvas/SubViewportContainer/SubViewport/LayerNodes/Label")
+layer_name = "Here is some text"
+layer_type = "text"
 
 [node name="ButtonNewLayer" type="Button" parent="RightPanel" unique_id=748545334]
 layout_mode = 1
@@ -299,6 +306,7 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="MoveButtons" type="HBoxContainer" parent="TopPanel/HBoxContainer/ToolButtons" unique_id=164166152]
+visible = false
 layout_mode = 0
 offset_left = 4.0
 offset_right = 208.0
@@ -329,14 +337,14 @@ offset_bottom = 35.0
 layout_mode = 2
 text = "Maintain Aspect"
 
-[node name="RectangleButtons" type="HBoxContainer" parent="TopPanel/HBoxContainer/ToolButtons" unique_id=373798830]
+[node name="ShapeButtons" type="HBoxContainer" parent="TopPanel/HBoxContainer/ToolButtons" unique_id=373798830]
 visible = false
 layout_mode = 0
 offset_left = 4.0
 offset_right = 208.0
 offset_bottom = 35.0
 
-[node name="ShapeSelect" type="OptionButton" parent="TopPanel/HBoxContainer/ToolButtons/RectangleButtons" unique_id=1986816064]
+[node name="ShapeSelect" type="OptionButton" parent="TopPanel/HBoxContainer/ToolButtons/ShapeButtons" unique_id=1986816064]
 layout_mode = 2
 selected = 0
 item_count = 2
@@ -344,6 +352,46 @@ popup/item_0/text = "Rectangle"
 popup/item_0/id = 0
 popup/item_1/text = "Ellipse"
 popup/item_1/id = 1
+
+[node name="TextButtons" type="HBoxContainer" parent="TopPanel/HBoxContainer/ToolButtons" unique_id=33357878]
+layout_mode = 0
+offset_right = 121.0
+offset_bottom = 35.0
+theme_override_constants/separation = 9
+script = ExtResource("12_8ce8c")
+
+[node name="FontDropdown" type="OptionButton" parent="TopPanel/HBoxContainer/ToolButtons/TextButtons" unique_id=2133395167]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Control" type="Control" parent="TopPanel/HBoxContainer/ToolButtons/TextButtons" unique_id=1640647688]
+layout_mode = 2
+
+[node name="FontWeightLabel" type="Label" parent="TopPanel/HBoxContainer/ToolButtons/TextButtons" unique_id=967375620]
+layout_mode = 2
+text = "Font weight"
+
+[node name="FontWeight" type="HSlider" parent="TopPanel/HBoxContainer/ToolButtons/TextButtons" unique_id=1998312293]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 4
+min_value = 100.0
+max_value = 1000.0
+step = 100.0
+value = 400.0
+
+[node name="Control2" type="Control" parent="TopPanel/HBoxContainer/ToolButtons/TextButtons" unique_id=2027980134]
+layout_mode = 2
+
+[node name="FontSizeLabel" type="Label" parent="TopPanel/HBoxContainer/ToolButtons/TextButtons" unique_id=518510175]
+layout_mode = 2
+text = "Font size"
+
+[node name="FontSize" type="SpinBox" parent="TopPanel/HBoxContainer/ToolButtons/TextButtons" unique_id=807026089]
+layout_mode = 2
+min_value = 6.0
+max_value = 520.0
+value = 72.0
 
 [editable path="TwoUp/ViewModel/SubViewport/PreviewModel"]
 [editable path="TwoUp/ViewCanvas/SubViewport/DesignerCanvas"]

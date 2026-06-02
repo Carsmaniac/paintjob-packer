@@ -115,10 +115,10 @@ text = "Okay"
 oversampling_override = 1.0
 title = "Change Text"
 initial_position = 2
-size = Vector2i(300, 150)
+size = Vector2i(300, 200)
 visible = false
 
-[node name="LineEdit" type="LineEdit" parent="ChangeTextWindow" unique_id=1314522751]
+[node name="LineEdit" type="TextEdit" parent="ChangeTextWindow" unique_id=1159957259]
 custom_minimum_size = Vector2(200, 0)
 anchors_preset = 8
 anchor_left = 0.5
@@ -126,9 +126,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -136.0
-offset_top = -23.0
+offset_top = -49.0
 offset_right = 136.0
-offset_bottom = 10.0
+offset_bottom = 36.0
 grow_horizontal = 2
 grow_vertical = 2
 
