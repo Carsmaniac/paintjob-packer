@@ -1,12 +1,18 @@
 extends VBoxContainer
+
 const Layer := preload("res://designer/Layer.tscn")
+enum LayerType {RASTER, IMAGE, TEXT, SHAPE}
 var selected_layers: Array[Node]
+
 var layer_theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDarkLayer.tres")
 var layer_selected_theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDarkLayerSelected.tres")
+
+var layer_nodes: Node
 
 
 func _ready() -> void:
 	get_node("../../ButtonNewLayer").connect("pressed", add_layer)
+	layer_nodes = get_node("../../../TwoUp/ViewCanvas/SubViewport/DesignerCanvas/SubViewportContainer/SubViewport/LayerNodes")
 	#for i in range(5):
 		#add_layer()
 
@@ -21,7 +27,7 @@ func update_buttons() -> void:
 		child.update_buttons()
 
 
-func add_layer() -> void:
+func add_layer() -> Node:
 	var new_layer: Node = Layer.instantiate()
 	var name_list: Array
 	for child in get_children():
@@ -30,8 +36,23 @@ func add_layer() -> void:
 		if "Layer " + str(i) not in name_list:
 			new_layer.layer_name = "Layer " + str(i)
 			break
+	return new_layer
+
+
+func add_text_layer(new_position: Vector2) -> void:
+	var new_layer: Node = add_layer()
+	new_layer.layer_type = LayerType.TEXT
+	new_layer.layer_name = "Text"
+	var layer_node = Label.new()
+	layer_node.text = "Text"
+	layer_node.position = new_position
+	layer_node.add_theme_color_override("font_color", Color.BLACK)
+	layer_node.add_theme_font_size_override("font_size", 72)
+	layer_nodes.add_child(layer_node)
+	new_layer.linked_node = layer_node
 	add_child(new_layer)
 	update_buttons()
+	new_layer.change_text_layer()
 
 
 func select_layer(index: int) -> void:

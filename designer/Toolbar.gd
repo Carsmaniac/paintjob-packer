@@ -4,7 +4,8 @@ var selected_tool: String
 
 func _ready() -> void:
 	for child in get_children():
-		child.connect("pressed", switch_button.bind(child))
+		if child is Button and child is not ColorPickerButton:
+			child.connect("pressed", switch_button.bind(child))
 	switch_button(get_node("ToolMove"))
 
 

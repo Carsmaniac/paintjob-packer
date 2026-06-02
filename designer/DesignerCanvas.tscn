@@ -40,11 +40,6 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TempModel" type="Sprite2D" parent="SubViewportContainer/SubViewport/LayerNodes" unique_id=134639442]
-position = Vector2(496, 316)
-scale = Vector2(0.19581677, 0.20887665)
-texture = ExtResource("2_vynwk")
-
 [node name="Label" type="Label" parent="SubViewportContainer/SubViewport/LayerNodes" unique_id=183299907]
 layout_mode = 0
 offset_left = 326.0
@@ -54,6 +49,11 @@ offset_bottom = 965.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 69
 text = "Here is some text"
+
+[node name="TempModel" type="Sprite2D" parent="SubViewportContainer/SubViewport/LayerNodes" unique_id=134639442]
+position = Vector2(496, 316)
+scale = Vector2(0.19581677, 0.20887665)
+texture = ExtResource("2_vynwk")
 
 [node name="ForegroundTemplate" type="TextureRect" parent="SubViewportContainer/SubViewport" unique_id=1211417610]
 visible = false

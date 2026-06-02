@@ -222,17 +222,14 @@ script = ExtResource("4_gxryq")
 
 [node name="ButtonSave" type="Button" parent="RightPanel" unique_id=121054057]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -69.5
-offset_top = -752.0
-offset_right = 69.5
-offset_bottom = -700.0
-grow_horizontal = 2
-grow_vertical = 0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -142.0
+offset_top = 48.0
+offset_right = -3.0
+offset_bottom = 100.0
+grow_horizontal = 0
 text = "Save"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="RightPanel" unique_id=1430981041]

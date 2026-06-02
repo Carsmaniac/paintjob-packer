@@ -62,10 +62,19 @@ func _gui_input(event: InputEvent) -> void:
 		if event is InputEventMouseMotion and event.button_mask == 1:
 			for layer in layer_list.selected_layers:
 				layer.linked_node.position += (event.relative / canvas_view_scale)
+	
+	# Text tool
+	elif selected_tool == "ToolText":
+		if event is InputEventMouseButton and event.button_index == 1 and event.pressed:
+			layer_list.add_text_layer(get_canvas_position(event.position))
+
+
+func get_canvas_position(rel_pos: Vector2) -> Vector2:
+	return (rel_pos - canvas.position) / canvas_view_scale
 
 
 func zoom_to_pos(zoom_in: bool, mouse_pos: Vector2) -> void:
-	var zoom_pos: Vector2 = (mouse_pos - canvas.position) / canvas_view_scale
+	var zoom_pos: Vector2 = get_canvas_position(mouse_pos)
 	
 	if zoom_in:
 		canvas_view_scale *= zoom_amount

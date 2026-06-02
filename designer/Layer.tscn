@@ -64,4 +64,98 @@ offset_bottom = 82.0
 tooltip_text = "Delete"
 text = "X"
 
+[node name="RenameWindow" type="Window" parent="." unique_id=2072066201]
+oversampling_override = 1.0
+title = "Rename Layer"
+initial_position = 2
+size = Vector2i(300, 150)
+visible = false
+
+[node name="LineEdit" type="LineEdit" parent="RenameWindow" unique_id=155462925]
+custom_minimum_size = Vector2(200, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = -23.0
+offset_right = 136.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="RenameWindow" unique_id=1711496211]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -83.0
+offset_top = 18.0
+offset_right = 83.0
+offset_bottom = 37.0
+grow_horizontal = 2
+text = "Enter new layer name"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="RenameWindow" unique_id=563713578]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -36.0
+offset_top = -51.0
+offset_right = 36.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Okay"
+
+[node name="ChangeTextWindow" type="Window" parent="." unique_id=1954184076]
+oversampling_override = 1.0
+title = "Change Text"
+initial_position = 2
+size = Vector2i(300, 150)
+visible = false
+
+[node name="LineEdit" type="LineEdit" parent="ChangeTextWindow" unique_id=1314522751]
+custom_minimum_size = Vector2(200, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.0
+offset_top = -23.0
+offset_right = 136.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="ChangeTextWindow" unique_id=496782210]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -83.0
+offset_top = 18.0
+offset_right = 83.0
+offset_bottom = 37.0
+grow_horizontal = 2
+text = "Enter new text"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="ChangeTextWindow" unique_id=19126414]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -36.0
+offset_top = -51.0
+offset_right = 36.0
+offset_bottom = -11.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Okay"
+
 [connection signal="pressed" from="ButtonDelete" to="." method="delete"]
