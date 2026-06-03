@@ -1,6 +1,10 @@
 extends SubViewportContainer
+
 var canvas: Node
 var layer_list: Node
+var toolbar: Node
+var tool_buttons: Node
+
 var zoom_amount: float = 1.04
 var pan_amount: float = 20.0
 var canvas_view_scale: float = 1.0
@@ -9,6 +13,8 @@ var canvas_view_scale: float = 1.0
 func _ready() -> void:
 	canvas = get_node("SubViewport/DesignerCanvas")
 	layer_list = get_node("../../RightPanel/ScrollContainer/LayerList")
+	toolbar = get_node("../../LeftPanel/Toolbar")
+	tool_buttons = get_node("../../TopPanel/HBoxContainer/ToolButtons")
 
 
 func fit_to_view() -> void:
@@ -23,13 +29,11 @@ func fit_to_view() -> void:
 
 
 func _gui_input(event: InputEvent) -> void:
-	var selected_tool: String = get_node("../../LeftPanel/Toolbar").selected_tool
-	
 	if Input.is_key_pressed(KEY_SPACE):
-		selected_tool = "ToolHand"
+		toolbar.selected_tool = "ToolHand"
 	
 	# Hand tool
-	if selected_tool == "ToolHand":
+	if toolbar.selected_tool == "ToolHand":
 		if event is InputEventMouseMotion and event.button_mask == 1:
 			canvas.position += event.relative
 		elif event is InputEventMouseButton and event.button_index == 4:
@@ -58,27 +62,34 @@ func _gui_input(event: InputEvent) -> void:
 			canvas.position.y -= pan_amount
 	
 	# Move tool
-	elif selected_tool == "ToolMove":
-		if event is InputEventMouseMotion and event.button_mask == 1:
+	elif toolbar.selected_tool == "ToolMove":
+		# Select on click
+		if event is InputEventMouseButton and event.button_index == 1 and event.pressed and \
+		((Input.is_key_pressed(KEY_CTRL) and tool_buttons.get_node("MoveButtons/AutoSelect").button_pressed == false) or \
+		(Input.is_key_pressed(KEY_CTRL) == false and tool_buttons.get_node("MoveButtons/AutoSelect").button_pressed)):
+			for layer in layer_list.get_children():
+				if layer.linked_node.get_rect().has_point(get_canvas_position(event.position)):
+					layer_list.select_layer(layer.get_index(), true)
+					break
+		
+		# Move on drag
+		elif event is InputEventMouseMotion and event.button_mask == 1:
 			for layer in layer_list.selected_layers:
 				layer.linked_node.position += (event.relative / canvas_view_scale)
 	
 	# Text tool
-	elif selected_tool == "ToolText":
+	elif toolbar.selected_tool == "ToolText":
 		if event is InputEventMouseButton and event.button_index == 1 and event.pressed:
 			layer_list.add_text_layer(get_canvas_position(event.position))
 
 
 func sync_tool_to_layer() -> void:
 	if len(layer_list.selected_layers) == 1:
-		var selected_tool: String = get_node("../../LeftPanel/Toolbar").selected_tool
 		var selected_layer = layer_list.selected_layers[0]
-		if selected_tool == "ToolShape" and selected_layer.layer_type == "shape":
+		if toolbar.selected_tool == "ToolShape" and selected_layer.layer_type == "shape":
 			pass
-		elif selected_tool == "ToolText" and selected_layer.layer_type == "text":
-			var text_buttons: Node = get_node("../../TopPanel/HBoxContainer/ToolButtons/TextButtons")
-			text_buttons.get_node("FontSize").value = selected_layer.text_size
-
+		elif toolbar.selected_tool == "ToolText" and selected_layer.layer_type == "text":
+			tool_buttons.get_node("TextButtons/FontSize").value = selected_layer.text_size
 
 
 func get_canvas_position(rel_pos: Vector2) -> Vector2:

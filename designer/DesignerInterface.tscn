@@ -318,6 +318,7 @@ text = "Auto Select"
 
 [node name="Snap" type="CheckBox" parent="TopPanel/HBoxContainer/ToolButtons/MoveButtons" unique_id=1355192226]
 layout_mode = 2
+disabled = true
 button_pressed = true
 text = "Snap"
 

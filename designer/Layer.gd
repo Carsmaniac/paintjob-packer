@@ -19,7 +19,8 @@ func _ready() -> void:
 	get_node("RenameWindow").connect("close_requested", cancel_rename)
 	
 	get_node("ChangeTextWindow/Button").connect("pressed", confirm_change_text)
-	get_node("ChangeTextWindow/LineEdit").connect("text_submitted", confirm_change_text)
+	# TODO: Ctrl-Enter confirms text entry, esc cancels it
+	# get_node("ChangeTextWindow/LineEdit").connect("text_submitted", confirm_change_text)
 
 
 func maybe_select_layer(event) -> void:

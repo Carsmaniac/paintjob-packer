@@ -2,6 +2,7 @@ extends VBoxContainer
 
 const Layer := preload("res://designer/Layer.tscn")
 var selected_layers: Array[Node]
+var previous_selected: int
 
 var layer_theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDarkLayer.tres")
 var layer_selected_theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDarkLayerSelected.tres")
@@ -57,10 +58,33 @@ func add_text_layer(new_position: Vector2) -> void:
 	new_layer.change_text_layer()
 
 
-func select_layer(index: int) -> void:
-	selected_layers = [get_child(index)]
+func select_layer(index: int, select_from_canvas: bool = false) -> void:
+	# Shift + auto-select adds or removes selection
+	if select_from_canvas and Input.is_key_pressed(KEY_CTRL) and Input.is_key_pressed(KEY_SHIFT):
+		if get_child(index) not in selected_layers:
+			selected_layers.append(get_child(index))
+		else:
+			selected_layers.remove_at(selected_layers.find(get_child(index)))
+	
+	# Shift-click layer adds range to selection
+	elif not select_from_canvas and Input.is_key_pressed(KEY_SHIFT):
+		for i in range(min(index, previous_selected), max(index, previous_selected) + 1):
+			if get_child(i) not in selected_layers:
+				selected_layers.append(get_child(i))
+	
+	# Ctrl-click layer adds or removes selection
+	elif not select_from_canvas and Input.is_key_pressed(KEY_CTRL):
+		if get_child(index) not in selected_layers:
+			selected_layers.append(get_child(index))
+		else:
+			selected_layers.remove_at(selected_layers.find(get_child(index)))
+	
+	# Select a single layer otherwise
+	else:
+		selected_layers = [get_child(index)]
 	update_selected_themes()
 	get_node("../../../TwoUp/ViewCanvas").sync_tool_to_layer()
+	previous_selected = index
 
 
 func update_selected_themes() -> void:

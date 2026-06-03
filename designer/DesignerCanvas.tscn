@@ -45,13 +45,17 @@ layout_mode = 0
 offset_left = 326.0
 offset_top = 823.0
 offset_right = 907.0
-offset_bottom = 965.0
+offset_bottom = 918.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 69
 text = "Here is some text"
 
-[node name="TempModel" type="Sprite2D" parent="SubViewportContainer/SubViewport/LayerNodes" unique_id=134639442]
-position = Vector2(496, 316)
+[node name="TempModel" type="TextureRect" parent="SubViewportContainer/SubViewport/LayerNodes" unique_id=1093748113]
+layout_mode = 0
+offset_left = 288.0
+offset_top = 134.00005
+offset_right = 3906.0
+offset_bottom = 2549.0
 scale = Vector2(0.19581677, 0.20887665)
 texture = ExtResource("2_vynwk")
 
