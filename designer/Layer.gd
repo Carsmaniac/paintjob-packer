@@ -2,6 +2,7 @@ extends Panel
 
 @export var linked_node: Node
 @export var layer_name: String = "Layer"
+var custom_layer_name: bool = false
 @export_enum("raster", "text", "image", "shape") var layer_type: String
 var text_size: float
 
@@ -40,6 +41,7 @@ func rename_layer(new_name: String = "") -> void:
 	if new_name == "":
 		new_name = get_node("RenameWindow/LineEdit").text
 	layer_name = new_name.replace("\n", "")
+	custom_layer_name = true
 	get_node("Label").text = new_name.replace("\n", "")
 	get_node("RenameWindow").visible = false
 
@@ -57,7 +59,8 @@ func change_text_layer() -> void:
 
 func confirm_change_text(_new_name: String = "") -> void:
 	linked_node.text = get_node("ChangeTextWindow/LineEdit").text
-	rename_layer(linked_node.text)
+	if not custom_layer_name:
+		rename_layer(linked_node.text)
 	get_node("ChangeTextWindow").visible = false
 	get_parent().select_layer(get_index())
 

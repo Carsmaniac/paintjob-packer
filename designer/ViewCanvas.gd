@@ -80,7 +80,17 @@ func _gui_input(event: InputEvent) -> void:
 	# Text tool
 	elif toolbar.selected_tool == "ToolText":
 		if event is InputEventMouseButton and event.button_index == 1 and event.pressed:
-			layer_list.add_text_layer(get_canvas_position(event.position))
+			var editing_text: bool = false
+			for layer in layer_list.get_children():
+				if layer.layer_type == "text":
+					if layer.linked_node.get_rect().has_point(get_canvas_position(event.position)):
+						layer_list.select_layer(layer.get_index())
+						sync_tool_to_layer()
+						layer.change_text_layer()
+						editing_text = true
+						break
+			if not editing_text:
+				layer_list.add_text_layer(get_canvas_position(event.position))
 
 
 func sync_tool_to_layer() -> void:
