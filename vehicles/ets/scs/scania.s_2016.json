@@ -130,7 +130,15 @@
 			"r_fender.6x2l_spcgr_p",
 			"r_fender.8x4_blk_p",
 			"r_fender.8x4_p",
-			"r_fender.8x4_spcgr_p"
+			"r_fender.8x4_spcgr_p",
+			"r_fendr_top.4x2_p",
+			"r_fendr_top.low_4x2_p",
+			"r_fendr_top.6x2_p",
+			"r_fendr_top.low_6x2_p",
+			"r_fendr_top.6x2l_p",
+			"r_fendr_top.low_6x2l_p",
+			"r_fendr_top.8x4_p",
+			"r_fendr_top.low_8x4_p"
 		]
 	}
 }
