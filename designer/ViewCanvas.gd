@@ -4,10 +4,15 @@ var canvas: Node
 var layer_list: Node
 var toolbar: Node
 var tool_buttons: Node
+var temp_layer: Node
 
 var zoom_amount: float = 1.04
 var pan_amount: float = 20.0
 var canvas_view_scale: float = 1.0
+
+var drawing_shape: bool = false
+var drawing_shape_node: Node
+var drawing_shape_starting_pos: Vector2
 
 
 func _ready() -> void:
@@ -15,25 +20,30 @@ func _ready() -> void:
 	layer_list = get_node("../../RightPanel/ScrollContainer/LayerList")
 	toolbar = get_node("../../LeftPanel/Toolbar")
 	tool_buttons = get_node("../../TopPanel/HBoxContainer/ToolButtons")
+	temp_layer = canvas.get_node("SubViewportContainer/SubViewport/TempLayer")
 
 
 func fit_to_view() -> void:
 	var fit_width_scale: float = self.size.x / canvas.width
 	var fit_height_scale: float = self.size.y / canvas.height
+	canvas_view_scale = min(fit_width_scale, fit_height_scale)
+	canvas.scale = Vector2(canvas_view_scale, canvas_view_scale)
 	if fit_width_scale < fit_height_scale:
 		canvas.position = Vector2(0, self.size.y/2 - (canvas_view_scale * canvas.height / 2))
 	else:
 		canvas.position = Vector2(self.size.x/2 - (canvas_view_scale * canvas.width / 2), 0)
-	canvas_view_scale = min(fit_width_scale, fit_height_scale)
-	canvas.scale = Vector2(canvas_view_scale, canvas_view_scale)
 
 
 func _gui_input(event: InputEvent) -> void:
 	if Input.is_key_pressed(KEY_SPACE):
 		toolbar.selected_tool = "ToolHand"
 	
+	# Pan with middle-click drag
+	if event is InputEventMouseMotion and event.button_mask == 4:
+			canvas.position += event.relative
+	
 	# Hand tool
-	if toolbar.selected_tool == "ToolHand":
+	elif toolbar.selected_tool == "ToolHand":
 		if event is InputEventMouseMotion and event.button_mask == 1:
 			canvas.position += event.relative
 		elif event is InputEventMouseButton and event.button_index == 4:
@@ -91,6 +101,25 @@ func _gui_input(event: InputEvent) -> void:
 						break
 			if not editing_text:
 				layer_list.add_text_layer(get_canvas_position(event.position))
+	
+	elif toolbar.selected_tool == "ToolShape":
+		if event is InputEventMouseButton and event.button_index == 1 and not event.pressed:
+			drawing_shape = false
+			if event.position == drawing_shape_starting_pos:
+				drawing_shape_node.queue_free()
+			else:
+				pass # add a new layer with the shape
+				layer_list.add_shape_layer(drawing_shape_node, "rect")
+		elif event is InputEventMouseButton and event.button_index == 1 and event.pressed:
+			drawing_shape = true
+			drawing_shape_node = ColorRect.new()
+			drawing_shape_node.color = Color.RED
+			drawing_shape_node.position = get_canvas_position(event.position)
+			drawing_shape_starting_pos = get_canvas_position(event.position)
+			temp_layer.add_child(drawing_shape_node)
+		elif event is InputEventMouseMotion and event.button_mask == 1:
+			drawing_shape_node.position = drawing_shape_starting_pos.min(get_canvas_position(event.position))
+			drawing_shape_node.size = (drawing_shape_starting_pos - get_canvas_position(event.position)).abs()
 
 
 func sync_tool_to_layer() -> void:

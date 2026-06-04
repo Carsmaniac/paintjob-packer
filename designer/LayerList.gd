@@ -58,6 +58,17 @@ func add_text_layer(new_position: Vector2) -> void:
 	new_layer.change_text_layer()
 
 
+func add_shape_layer(shape_node: Node, layer_type: String) -> void:
+	var new_layer: Node = create_layer()
+	new_layer.layer_type = layer_type
+	new_layer.layer_name = "New Shape"
+	new_layer.linked_node = shape_node
+	shape_node.reparent(layer_nodes)
+	add_child(new_layer)
+	move_child(new_layer, 0)
+	update_buttons()
+	
+
 func select_layer(index: int, select_from_canvas: bool = false) -> void:
 	# Shift + auto-select adds or removes selection
 	if select_from_canvas and Input.is_key_pressed(KEY_CTRL) and Input.is_key_pressed(KEY_SHIFT):

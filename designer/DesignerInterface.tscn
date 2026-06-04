@@ -6,19 +6,20 @@
 [ext_resource type="Script" uid="uid://dni1tcf3ra7xy" path="res://designer/ViewCanvas.gd" id="3_gxryq"]
 [ext_resource type="Script" uid="uid://wwbrhxqrb7mg" path="res://designer/Toolbar.gd" id="3_l64ss"]
 [ext_resource type="PackedScene" uid="uid://bst2ww1sansi0" path="res://designer/DesignerCanvas.tscn" id="3_t3brk"]
-[ext_resource type="ArrayMesh" uid="uid://2gprlmbtok47" path="res://designer/untitled2.obj" id="4_f6jw8"]
 [ext_resource type="Script" uid="uid://dh12vg3fbiuad" path="res://designer/ViewSwitcher.gd" id="4_gxryq"]
 [ext_resource type="Script" uid="uid://cwe1pjrsq1n6y" path="res://designer/DesignerCanvas.gd" id="7_ft5e4"]
 [ext_resource type="Script" uid="uid://fwahj12kbw6s" path="res://designer/LayerList.gd" id="10_88d6u"]
 [ext_resource type="PackedScene" uid="uid://rj5qt6afxl1r" path="res://designer/Layer.tscn" id="10_f6jw8"]
+[ext_resource type="Script" uid="uid://btajgdoh00cse" path="res://designer/ButtonSelect.gd" id="10_oa1j1"]
 [ext_resource type="Script" uid="uid://nhqnn382pqji" path="res://designer/TextButtons.gd" id="12_8ce8c"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8ce8c"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_8ce8c"]
 viewport_path = NodePath("../../../ViewCanvas/SubViewport/DesignerCanvas/SubViewportContainer/SubViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oa1j1"]
 resource_local_to_scene = true
-albedo_color = Color(1, 1, 1, 0)
 albedo_texture = SubResource("ViewportTexture_8ce8c")
 
 [node name="DesignerInterface" type="Control" unique_id=1942051723]
@@ -39,6 +40,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.29803923, 0.29803923, 0.29803923, 1)
+
+[node name="OneUp" type="CenterContainer" parent="." unique_id=719869572]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 46.0
+offset_top = 41.0
+offset_right = -145.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TwoUp" type="HSplitContainer" parent="." unique_id=1507496012]
 layout_mode = 1
@@ -69,7 +82,7 @@ render_target_update_mode = 4
 
 [node name="VehicleModel" parent="TwoUp/ViewModel/SubViewport/PreviewModel" index="1" unique_id=1695738561]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.7146196)
-mesh = ExtResource("4_f6jw8")
+mesh = SubResource("BoxMesh_8ce8c")
 surface_material_override/0 = SubResource("StandardMaterial3D_oa1j1")
 
 [node name="ViewCanvas" type="SubViewportContainer" parent="TwoUp" unique_id=1512129254]
@@ -148,7 +161,7 @@ layout_mode = 2
 tooltip_text = "Shape
 Shortcut: U"
 toggle_mode = true
-text = "Re"
+text = "Sh"
 
 [node name="ToolText" type="Button" parent="LeftPanel/Toolbar" unique_id=2124195899]
 custom_minimum_size = Vector2(40, 40)
@@ -212,18 +225,14 @@ offset_right = 69.5
 offset_bottom = 38.0
 grow_horizontal = 2
 selected = 0
-item_count = 4
+item_count = 2
 popup/item_0/text = "Model Left"
 popup/item_0/id = 2
 popup/item_1/text = "Model Right"
 popup/item_1/id = 1
-popup/item_2/text = "Canvas Only"
-popup/item_2/id = 2
-popup/item_3/text = "Model Only"
-popup/item_3/id = 3
 script = ExtResource("4_gxryq")
 
-[node name="ButtonSave" type="Button" parent="RightPanel" unique_id=121054057]
+[node name="ButtonSelect" type="Button" parent="RightPanel" unique_id=479063609]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -231,9 +240,10 @@ anchor_right = 1.0
 offset_left = -142.0
 offset_top = 48.0
 offset_right = -3.0
-offset_bottom = 100.0
+offset_bottom = 102.0
 grow_horizontal = 0
-text = "Save"
+text = "Select Model"
+script = ExtResource("10_oa1j1")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="RightPanel" unique_id=1430981041]
 layout_mode = 1
@@ -242,7 +252,7 @@ anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -142.0
-offset_top = 103.0
+offset_top = 105.0
 offset_right = -3.0
 offset_bottom = -51.0
 grow_horizontal = 0
@@ -265,6 +275,12 @@ linked_node = NodePath("../../../../TwoUp/ViewCanvas/SubViewport/DesignerCanvas/
 layer_name = "Here is some text"
 layer_type = "text"
 
+[node name="Layer3" parent="RightPanel/ScrollContainer/LayerList" unique_id=115983831 node_paths=PackedStringArray("linked_node") instance=ExtResource("10_f6jw8")]
+layout_mode = 2
+linked_node = NodePath("../../../../TwoUp/ViewCanvas/SubViewport/DesignerCanvas/SubViewportContainer/SubViewport/LayerNodes/RedRect")
+layer_name = "Rectyboi"
+layer_type = "rect"
+
 [node name="ButtonNewLayer" type="Button" parent="RightPanel" unique_id=748545334]
 layout_mode = 1
 anchors_preset = 7
@@ -279,6 +295,70 @@ offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 0
 text = "New Layer"
+
+[node name="Button" type="Button" parent="RightPanel" unique_id=269709168]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -69.5
+offset_top = -89.0
+offset_right = -40.5
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 0
+tooltip_text = "New"
+text = " N "
+
+[node name="Button2" type="Button" parent="RightPanel" unique_id=1579757289]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -37.5
+offset_top = -89.0
+offset_right = -8.5
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 0
+tooltip_text = "Delete"
+text = " X "
+
+[node name="Button3" type="Button" parent="RightPanel" unique_id=672519628]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -5.5
+offset_top = -89.0
+offset_right = 23.5
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 0
+tooltip_text = "Rasterise"
+text = " R "
+
+[node name="Button4" type="Button" parent="RightPanel" unique_id=1738051009]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 26.5
+offset_top = -89.0
+offset_right = 55.5
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 0
+tooltip_text = "Group"
+text = " G "
 
 [node name="TopPanel" type="Panel" parent="." unique_id=1733788061]
 custom_minimum_size = Vector2(0, 30)
@@ -348,11 +428,13 @@ offset_bottom = 35.0
 [node name="ShapeSelect" type="OptionButton" parent="TopPanel/HBoxContainer/ToolButtons/ShapeButtons" unique_id=1986816064]
 layout_mode = 2
 selected = 0
-item_count = 2
+item_count = 3
 popup/item_0/text = "Rectangle"
 popup/item_0/id = 0
-popup/item_1/text = "Ellipse"
-popup/item_1/id = 1
+popup/item_1/text = "Rounded Rectanlge"
+popup/item_1/id = 2
+popup/item_2/text = "Ellipse"
+popup/item_2/id = 1
 
 [node name="TextButtons" type="HBoxContainer" parent="TopPanel/HBoxContainer/ToolButtons" unique_id=33357878]
 layout_mode = 0
