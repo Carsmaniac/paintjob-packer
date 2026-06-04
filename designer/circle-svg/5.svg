@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 345 345">
-  <!-- Generator: Adobe Illustrator 30.5.0, SVG Export Plug-In . SVG Version: 2.1.4 Build 167)  -->
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 4000 4000">
+  <!-- Generator: Adobe Illustrator 30.5.1, SVG Export Plug-In . SVG Version: 2.1.4 Build 3)  -->
   <defs>
     <style>
       .st0 {
         fill: url(#radial-gradient);
       }
     </style>
-    <radialGradient id="radial-gradient" cx="172.5" cy="172.5" fx="172.5" fy="172.5" r="172.5" gradientUnits="userSpaceOnUse">
-      <stop offset=".5" stop-color="#000"/>
-      <stop offset="1" stop-color="#000" stop-opacity="0"/>
+    <radialGradient id="radial-gradient" cx="2000" cy="-1001" fx="2000" fy="-1001" r="2000" gradientTransform="translate(0 3001)" gradientUnits="userSpaceOnUse">
+      <stop offset=".5" stop-color="#fff"/>
+      <stop offset="1" stop-color="#fff" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <circle class="st0" cx="172.5" cy="172.5" r="172.5"/>
+  <circle class="st0" cx="2000" cy="2000" r="2000"/>
 </svg>
