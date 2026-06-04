@@ -39,13 +39,13 @@
 			"rear_body.rbmp_stl13ec"
 		],
 		"Body - COOL (Long)": [
-			"body.reefer_15"
+			"body.reefer_15",
 			"rear_body.bmp_rub15",
 			"rear_body.rol_stl15",
 			"rear_body.rbmp_stl15"
 		],
 		"Body - CITY": [
-			"body.reefer_13ct"
+			"body.reefer_13ct",
 			"rear_body.bmp_rub13ct",
 			"rear_body.rol_stl13ct",
 			"rear_body.rbmp_stl13ct"
