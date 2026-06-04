@@ -17,6 +17,7 @@ var drawing_shape_type: String
 var drawing_shape_theme: Theme
 var drawing_shape_style: StyleBoxFlat
 var drawing_shape_texture: ImageTexture
+var drawing_shape_colour: Color
 
 
 func _ready() -> void:
@@ -104,7 +105,7 @@ func _gui_input(event: InputEvent) -> void:
 						editing_text = true
 						break
 			if not editing_text:
-				layer_list.add_text_layer(get_canvas_position(event.position))
+				layer_list.add_text_layer(get_canvas_position(event.position), tool_buttons.get_node("TextButtons/TextColour").color)
 	
 	elif toolbar.selected_tool == "ToolShape":
 		if event is InputEventMouseButton and event.button_index == 1 and not event.pressed:
@@ -113,14 +114,15 @@ func _gui_input(event: InputEvent) -> void:
 				drawing_shape_node.queue_free()
 			else:
 				pass # add a new layer with the shape
-				layer_list.add_shape_layer(drawing_shape_node, drawing_shape_type)
+				layer_list.add_shape_layer(drawing_shape_node, drawing_shape_type, drawing_shape_colour)
 		elif event is InputEventMouseButton and event.button_index == 1 and event.pressed:
 			if tool_buttons.get_node("ShapeButtons/ShapeSelect").selected == 0:
-				drawing_shape_type = "roundrect"
+				drawing_shape_type = "rect"
 				drawing_shape_node = Panel.new()
 				drawing_shape_theme = Theme.new()
 				drawing_shape_style = StyleBoxFlat.new()
-				drawing_shape_style.bg_color = Color.RED
+				drawing_shape_colour = tool_buttons.get_node("ShapeButtons/ShapeColour").color
+				drawing_shape_style.bg_color = drawing_shape_colour
 				drawing_shape_style.set_corner_radius_all(tool_buttons.get_node("ShapeButtons/CornerRadius").value)
 				drawing_shape_theme.set_stylebox("panel", "Panel", drawing_shape_style)
 				drawing_shape_node.theme = drawing_shape_theme
@@ -130,7 +132,8 @@ func _gui_input(event: InputEvent) -> void:
 				drawing_shape_texture = ImageTexture.create_from_image(Image.load_from_file("res://designer/circle-svg/10.svg"))
 				drawing_shape_node.set_texture(drawing_shape_texture)
 				drawing_shape_node.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-				drawing_shape_node.modulate = Color.RED
+				drawing_shape_colour = tool_buttons.get_node("ShapeButtons/ShapeColour").color
+				drawing_shape_node.modulate = drawing_shape_colour
 			drawing_shape = true
 			drawing_shape_node.position = get_canvas_position(event.position)
 			drawing_shape_starting_pos = get_canvas_position(event.position)
@@ -143,10 +146,11 @@ func _gui_input(event: InputEvent) -> void:
 func sync_tool_to_layer() -> void:
 	if len(layer_list.selected_layers) == 1:
 		var selected_layer = layer_list.selected_layers[0]
-		if toolbar.selected_tool == "ToolShape" and selected_layer.layer_type == "shape":
-			pass
+		if toolbar.selected_tool == "ToolShape" and selected_layer.layer_type in ["rect", "ellipse"]:
+			tool_buttons.get_node("ShapeButtons/ShapeColour").color = selected_layer.layer_colour
 		elif toolbar.selected_tool == "ToolText" and selected_layer.layer_type == "text":
 			tool_buttons.get_node("TextButtons/FontSize").value = selected_layer.text_size
+			tool_buttons.get_node("TextButtons/TextColour").color = selected_layer.layer_colour
 
 
 func get_canvas_position(rel_pos: Vector2) -> Vector2:

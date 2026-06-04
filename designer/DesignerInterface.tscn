@@ -12,15 +12,16 @@
 [ext_resource type="PackedScene" uid="uid://rj5qt6afxl1r" path="res://designer/Layer.tscn" id="10_f6jw8"]
 [ext_resource type="Script" uid="uid://btajgdoh00cse" path="res://designer/ButtonSelect.gd" id="10_oa1j1"]
 [ext_resource type="Script" uid="uid://nhqnn382pqji" path="res://designer/TextButtons.gd" id="12_8ce8c"]
+[ext_resource type="Theme" uid="uid://dlrx2nnnj6pu6" path="res://simple-box-theme/pjp-dark/PJPDarkLayer.tres" id="12_oa1j1"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8ce8c"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_8ce8c"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_oa1j1"]
 viewport_path = NodePath("../../../ViewCanvas/SubViewport/DesignerCanvas/SubViewportContainer/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oa1j1"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x3lof"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_8ce8c")
+albedo_texture = SubResource("ViewportTexture_oa1j1")
 
 [node name="DesignerInterface" type="Control" unique_id=1942051723]
 layout_mode = 3
@@ -40,18 +41,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.29803923, 0.29803923, 0.29803923, 1)
-
-[node name="OneUp" type="CenterContainer" parent="." unique_id=719869572]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 46.0
-offset_top = 41.0
-offset_right = -145.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="TwoUp" type="HSplitContainer" parent="." unique_id=1507496012]
 layout_mode = 1
@@ -83,7 +72,7 @@ render_target_update_mode = 4
 [node name="VehicleModel" parent="TwoUp/ViewModel/SubViewport/PreviewModel" index="1" unique_id=1695738561]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.7146196)
 mesh = SubResource("BoxMesh_8ce8c")
-surface_material_override/0 = SubResource("StandardMaterial3D_oa1j1")
+surface_material_override/0 = SubResource("StandardMaterial3D_x3lof")
 
 [node name="ViewCanvas" type="SubViewportContainer" parent="TwoUp" unique_id=1512129254]
 custom_minimum_size = Vector2(200, 0)
@@ -441,6 +430,15 @@ text = "Corner radius"
 layout_mode = 2
 max_value = 1000.0
 
+[node name="ShapeColourLabel" type="Label" parent="TopPanel/HBoxContainer/ToolButtons/ShapeButtons" unique_id=1808364611]
+layout_mode = 2
+text = "Fill colour"
+
+[node name="ShapeColour" type="ColorPickerButton" parent="TopPanel/HBoxContainer/ToolButtons/ShapeButtons" unique_id=1540914431]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("12_oa1j1")
+
 [node name="TextButtons" type="HBoxContainer" parent="TopPanel/HBoxContainer/ToolButtons" unique_id=33357878]
 visible = false
 layout_mode = 0
@@ -481,6 +479,15 @@ layout_mode = 2
 min_value = 6.0
 max_value = 520.0
 value = 72.0
+
+[node name="TextColourLabel" type="Label" parent="TopPanel/HBoxContainer/ToolButtons/TextButtons" unique_id=1754198410]
+layout_mode = 2
+text = "Text colour"
+
+[node name="TextColour" type="ColorPickerButton" parent="TopPanel/HBoxContainer/ToolButtons/TextButtons" unique_id=1568358764]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("12_oa1j1")
 
 [editable path="TwoUp/ViewModel/SubViewport/PreviewModel"]
 [editable path="TwoUp/ViewCanvas/SubViewport/DesignerCanvas"]

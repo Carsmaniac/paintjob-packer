@@ -6,7 +6,7 @@ var custom_layer_name: bool = false
 @export_enum("raster", "text", "image", "rect", "ellipse") var layer_type: String
 
 var text_size: float
-var shape_colour: Color
+var layer_colour: Color
 
 
 func _ready() -> void:
@@ -67,6 +67,18 @@ func confirm_change_text(_new_name: String = "") -> void:
 	get_parent().select_layer(get_index())
 
 
+func change_colour(new_colour: Color) -> void:
+	layer_colour = new_colour
+	if layer_type == "rect":
+		var new_style: StyleBoxFlat = linked_node.theme.get_stylebox("panel", "Panel")
+		new_style.bg_color = new_colour
+		linked_node.theme.set_stylebox("panel", "Panel", new_style)
+	elif layer_type == "ellipse":
+		linked_node.modulate = new_colour
+	elif layer_type == "text":
+		linked_node.add_theme_color_override("font_color", new_colour)
+
+
 func show_hide() -> void:
 	if get_node("ButtonHide").button_pressed:
 		linked_node.visible = false
@@ -101,4 +113,6 @@ func update_buttons() -> void:
 
 func delete() -> void:
 	linked_node.queue_free()
+	if self in get_parent().selected_layers:
+		get_parent().remove_selection(self)
 	get_parent().remove_layer(get_index())

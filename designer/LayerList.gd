@@ -39,14 +39,15 @@ func create_layer() -> Node:
 	return new_layer
 
 
-func add_text_layer(new_position: Vector2) -> void:
+func add_text_layer(new_position: Vector2, text_colour: Color) -> void:
 	var new_layer: Node = create_layer()
 	new_layer.layer_type = "text"
 	new_layer.layer_name = "Text"
+	new_layer.layer_colour = text_colour
 	var layer_node = Label.new()
 	layer_node.text = "Text"
 	layer_node.position = new_position
-	layer_node.add_theme_color_override("font_color", Color.BLACK)
+	layer_node.add_theme_color_override("font_color", text_colour)
 	var text_size = get_node("../../../TopPanel/HBoxContainer/ToolButtons/TextButtons/FontSize").value
 	layer_node.add_theme_font_size_override("font_size", text_size)
 	new_layer.text_size = text_size
@@ -58,10 +59,11 @@ func add_text_layer(new_position: Vector2) -> void:
 	new_layer.change_text_layer()
 
 
-func add_shape_layer(shape_node: Node, layer_type: String) -> void:
+func add_shape_layer(shape_node: Node, layer_type: String, shape_colour: Color) -> void:
 	var new_layer: Node = create_layer()
 	new_layer.layer_type = layer_type
 	new_layer.layer_name = "New Shape"
+	new_layer.layer_colour = shape_colour
 	new_layer.linked_node = shape_node
 	shape_node.reparent(layer_nodes)
 	add_child(new_layer)
@@ -96,6 +98,10 @@ func select_layer(index: int, select_from_canvas: bool = false) -> void:
 	update_selected_themes()
 	get_node("../../../TwoUp/ViewCanvas").sync_tool_to_layer()
 	previous_selected = index
+
+
+func remove_selection(layer: Node) -> void:
+	selected_layers.remove_at(selected_layers.find(layer))
 
 
 func update_selected_themes() -> void:

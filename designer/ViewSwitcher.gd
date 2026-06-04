@@ -2,7 +2,6 @@ extends OptionButton
 
 var view_canvas: Node
 var view_model: Node
-var one_up: Node
 var two_up: Node
 
 
@@ -10,7 +9,6 @@ func _ready() -> void:
 	connect("item_selected", switch_view_side)
 	view_canvas = get_node("../..").find_child("ViewCanvas")
 	view_model = get_node("../..").find_child("ViewModel")
-	one_up = get_node("../../OneUp")
 	two_up = get_node("../../TwoUp")
 
 
