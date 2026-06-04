@@ -13,6 +13,10 @@ var canvas_view_scale: float = 1.0
 var drawing_shape: bool = false
 var drawing_shape_node: Node
 var drawing_shape_starting_pos: Vector2
+var drawing_shape_type: String
+var drawing_shape_theme: Theme
+var drawing_shape_style: StyleBoxFlat
+var drawing_shape_texture: ImageTexture
 
 
 func _ready() -> void:
@@ -109,11 +113,25 @@ func _gui_input(event: InputEvent) -> void:
 				drawing_shape_node.queue_free()
 			else:
 				pass # add a new layer with the shape
-				layer_list.add_shape_layer(drawing_shape_node, "rect")
+				layer_list.add_shape_layer(drawing_shape_node, drawing_shape_type)
 		elif event is InputEventMouseButton and event.button_index == 1 and event.pressed:
+			if tool_buttons.get_node("ShapeButtons/ShapeSelect").selected == 0:
+				drawing_shape_type = "roundrect"
+				drawing_shape_node = Panel.new()
+				drawing_shape_theme = Theme.new()
+				drawing_shape_style = StyleBoxFlat.new()
+				drawing_shape_style.bg_color = Color.RED
+				drawing_shape_style.set_corner_radius_all(tool_buttons.get_node("ShapeButtons/CornerRadius").value)
+				drawing_shape_theme.set_stylebox("panel", "Panel", drawing_shape_style)
+				drawing_shape_node.theme = drawing_shape_theme
+			elif tool_buttons.get_node("ShapeButtons/ShapeSelect").selected == 1:
+				drawing_shape_type = "ellipse"
+				drawing_shape_node = TextureRect.new()
+				drawing_shape_texture = ImageTexture.create_from_image(Image.load_from_file("res://designer/circle-svg/10.svg"))
+				drawing_shape_node.set_texture(drawing_shape_texture)
+				drawing_shape_node.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+				drawing_shape_node.modulate = Color.RED
 			drawing_shape = true
-			drawing_shape_node = ColorRect.new()
-			drawing_shape_node.color = Color.RED
 			drawing_shape_node.position = get_canvas_position(event.position)
 			drawing_shape_starting_pos = get_canvas_position(event.position)
 			temp_layer.add_child(drawing_shape_node)

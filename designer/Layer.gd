@@ -3,8 +3,10 @@ extends Panel
 @export var linked_node: Node
 @export var layer_name: String = "Layer"
 var custom_layer_name: bool = false
-@export_enum("raster", "text", "image", "rect", "roundrect", "ellipse") var layer_type: String
+@export_enum("raster", "text", "image", "rect", "ellipse") var layer_type: String
+
 var text_size: float
+var shape_colour: Color
 
 
 func _ready() -> void:

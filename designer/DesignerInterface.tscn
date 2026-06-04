@@ -388,8 +388,7 @@ layout_mode = 2
 [node name="MoveButtons" type="HBoxContainer" parent="TopPanel/HBoxContainer/ToolButtons" unique_id=164166152]
 visible = false
 layout_mode = 0
-offset_left = 4.0
-offset_right = 208.0
+offset_right = 843.0
 offset_bottom = 35.0
 
 [node name="AutoSelect" type="CheckBox" parent="TopPanel/HBoxContainer/ToolButtons/MoveButtons" unique_id=158408456]
@@ -410,8 +409,7 @@ text = "Show Transform Controls"
 [node name="TransformButtons" type="HBoxContainer" parent="TopPanel/HBoxContainer/ToolButtons" unique_id=385798567]
 visible = false
 layout_mode = 0
-offset_left = 4.0
-offset_right = 208.0
+offset_right = 843.0
 offset_bottom = 35.0
 
 [node name="AutoSelect" type="CheckBox" parent="TopPanel/HBoxContainer/ToolButtons/TransformButtons" unique_id=538989404]
@@ -419,26 +417,34 @@ layout_mode = 2
 text = "Maintain Aspect"
 
 [node name="ShapeButtons" type="HBoxContainer" parent="TopPanel/HBoxContainer/ToolButtons" unique_id=373798830]
-visible = false
 layout_mode = 0
-offset_left = 4.0
-offset_right = 208.0
+offset_right = 843.0
 offset_bottom = 35.0
 
 [node name="ShapeSelect" type="OptionButton" parent="TopPanel/HBoxContainer/ToolButtons/ShapeButtons" unique_id=1986816064]
 layout_mode = 2
 selected = 0
-item_count = 3
+item_count = 2
 popup/item_0/text = "Rectangle"
 popup/item_0/id = 0
-popup/item_1/text = "Rounded Rectanlge"
-popup/item_1/id = 2
-popup/item_2/text = "Ellipse"
-popup/item_2/id = 1
+popup/item_1/text = "Ellipse"
+popup/item_1/id = 1
+
+[node name="CornerRadiusSpacer" type="Control" parent="TopPanel/HBoxContainer/ToolButtons/ShapeButtons" unique_id=439553290]
+layout_mode = 2
+
+[node name="CornerRadiusLabel" type="Label" parent="TopPanel/HBoxContainer/ToolButtons/ShapeButtons" unique_id=118529902]
+layout_mode = 2
+text = "Corner radius"
+
+[node name="CornerRadius" type="SpinBox" parent="TopPanel/HBoxContainer/ToolButtons/ShapeButtons" unique_id=242223925]
+layout_mode = 2
+max_value = 1000.0
 
 [node name="TextButtons" type="HBoxContainer" parent="TopPanel/HBoxContainer/ToolButtons" unique_id=33357878]
+visible = false
 layout_mode = 0
-offset_right = 121.0
+offset_right = 843.0
 offset_bottom = 35.0
 theme_override_constants/separation = 9
 script = ExtResource("12_8ce8c")
@@ -447,7 +453,7 @@ script = ExtResource("12_8ce8c")
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
-[node name="Control" type="Control" parent="TopPanel/HBoxContainer/ToolButtons/TextButtons" unique_id=1640647688]
+[node name="FontWeightSpacer" type="Control" parent="TopPanel/HBoxContainer/ToolButtons/TextButtons" unique_id=1640647688]
 layout_mode = 2
 
 [node name="FontWeightLabel" type="Label" parent="TopPanel/HBoxContainer/ToolButtons/TextButtons" unique_id=967375620]
@@ -463,7 +469,7 @@ max_value = 1000.0
 step = 100.0
 value = 400.0
 
-[node name="Control2" type="Control" parent="TopPanel/HBoxContainer/ToolButtons/TextButtons" unique_id=2027980134]
+[node name="FontSizeSpacer" type="Control" parent="TopPanel/HBoxContainer/ToolButtons/TextButtons" unique_id=2027980134]
 layout_mode = 2
 
 [node name="FontSizeLabel" type="Label" parent="TopPanel/HBoxContainer/ToolButtons/TextButtons" unique_id=518510175]
