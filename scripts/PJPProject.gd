@@ -120,13 +120,15 @@ func verify_save_file_path(file_path: String) -> void:
 func save(file_path: String) -> void:
 	var save_dict: Dictionary = {}
 	save_dict["a"] = "Hello! This is a save file. If you edit it, bad things might happen and Paint Job Packer might crash. Continue at your own risk :)"
-	save_dict["save_data_version"] = 1 # In case it changes in the future
+	save_dict["save_data_version"] = 2
+	# 2: added [mod_info][vehicle_list]
 	
 	var mod_screen: Node = get_node("../ScreenLoader/ModInfoScreen")
 	var mod_info: Dictionary = {
 		mod_name = mod_screen.find_child("Name").find_child("TextInput").text,
 		author = mod_screen.find_child("Author").find_child("TextInput").text,
 		version = mod_screen.find_child("Version").find_child("TextInput").text,
+		vehicle_list = mod_screen.find_child("Description").find_child("CheckboxInput").button_pressed,
 		description = mod_screen.find_child("Description").find_child("TextBox").text,
 		game = get_node("../ScreenLoader").loaded_game
 	}
@@ -209,6 +211,10 @@ func load(file_path: String) -> void:
 	mod_screen.find_child("Name").find_child("TextInput").text = loaded_dict["mod_info"]["mod_name"]
 	mod_screen.find_child("Author").find_child("TextInput").text = loaded_dict["mod_info"]["author"]
 	mod_screen.find_child("Version").find_child("TextInput").text = loaded_dict["mod_info"]["version"]
+	if loaded_dict["save_data_version"] >= 2:
+		mod_screen.find_child("Description").find_child("CheckboxInput").button_pressed = loaded_dict["mod_info"]["vehicle_list"]
+	else:
+		mod_screen.find_child("Description").find_child("CheckboxInput").button_pressed = false
 	mod_screen.find_child("Description").find_child("TextBox").text = loaded_dict["mod_info"]["description"]
 	get_node("../ScreenLoader").switch_game(loaded_dict["mod_info"]["game"])
 	
