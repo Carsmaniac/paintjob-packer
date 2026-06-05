@@ -13,6 +13,7 @@
 [ext_resource type="Script" uid="uid://btajgdoh00cse" path="res://designer/ButtonSelect.gd" id="10_oa1j1"]
 [ext_resource type="Script" uid="uid://nhqnn382pqji" path="res://designer/TextButtons.gd" id="12_8ce8c"]
 [ext_resource type="Theme" uid="uid://dlrx2nnnj6pu6" path="res://simple-box-theme/pjp-dark/PJPDarkLayer.tres" id="12_oa1j1"]
+[ext_resource type="Script" uid="uid://b2vm8h0rr682u" path="res://designer/MoveButtons.gd" id="12_x3lof"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8ce8c"]
 
@@ -185,11 +186,13 @@ layout_mode = 2
 [node name="ColourPrimary" type="ColorPickerButton" parent="LeftPanel/Toolbar" unique_id=498311146]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
+tooltip_text = "Primary Colour"
 edit_intensity = false
 
 [node name="ColourSecondary" type="ColorPickerButton" parent="LeftPanel/Toolbar" unique_id=642481162]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
+tooltip_text = "Secondary Colour"
 color = Color(1, 1, 1, 1)
 edit_intensity = false
 
@@ -270,84 +273,44 @@ linked_node = NodePath("../../../../TwoUp/ViewCanvas/SubViewport/DesignerCanvas/
 layer_name = "Rectyboi"
 layer_type = "rect"
 
-[node name="ButtonNewLayer" type="Button" parent="RightPanel" unique_id=748545334]
+[node name="LayerControlButtons" type="HBoxContainer" parent="RightPanel" unique_id=337002374]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
+anchors_preset = 3
+anchor_left = 1.0
 anchor_top = 1.0
-anchor_right = 0.5
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -69.5
-offset_top = -41.0
-offset_right = 69.5
+offset_left = -142.0
+offset_top = -43.0
+offset_right = -3.0
 offset_bottom = -3.0
-grow_horizontal = 2
+grow_horizontal = 0
 grow_vertical = 0
-text = "New Layer"
+theme_override_constants/separation = 3
 
-[node name="Button" type="Button" parent="RightPanel" unique_id=269709168]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -69.5
-offset_top = -89.0
-offset_right = -40.5
-offset_bottom = -51.0
-grow_horizontal = 2
-grow_vertical = 0
-tooltip_text = "New"
-text = " N "
+[node name="ButtonNew" type="Button" parent="RightPanel/LayerControlButtons" unique_id=269709168]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+tooltip_text = "New Layer"
+text = "+"
 
-[node name="Button2" type="Button" parent="RightPanel" unique_id=1579757289]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -37.5
-offset_top = -89.0
-offset_right = -8.5
-offset_bottom = -51.0
-grow_horizontal = 2
-grow_vertical = 0
-tooltip_text = "Delete"
-text = " X "
+[node name="ButtonDelete" type="Button" parent="RightPanel/LayerControlButtons" unique_id=1579757289]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+tooltip_text = "Delete Layer"
+text = "X"
 
-[node name="Button3" type="Button" parent="RightPanel" unique_id=672519628]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -5.5
-offset_top = -89.0
-offset_right = 23.5
-offset_bottom = -51.0
-grow_horizontal = 2
-grow_vertical = 0
-tooltip_text = "Rasterise"
-text = " R "
+[node name="ButtonRasterise" type="Button" parent="RightPanel/LayerControlButtons" unique_id=672519628]
+custom_minimum_size = Vector2(33, 0)
+layout_mode = 2
+tooltip_text = "Rasterise Layer"
+text = "✏"
 
-[node name="Button4" type="Button" parent="RightPanel" unique_id=1738051009]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 26.5
-offset_top = -89.0
-offset_right = 55.5
-offset_bottom = -51.0
-grow_horizontal = 2
-grow_vertical = 0
-tooltip_text = "Group"
-text = " G "
+[node name="ButtonGroup" type="Button" parent="RightPanel/LayerControlButtons" unique_id=1738051009]
+custom_minimum_size = Vector2(33, 0)
+layout_mode = 2
+tooltip_text = "Group Layers"
+text = "⃞"
 
 [node name="TopPanel" type="Panel" parent="." unique_id=1733788061]
 custom_minimum_size = Vector2(0, 30)
@@ -379,6 +342,7 @@ visible = false
 layout_mode = 0
 offset_right = 843.0
 offset_bottom = 35.0
+script = ExtResource("12_x3lof")
 
 [node name="AutoSelect" type="CheckBox" parent="TopPanel/HBoxContainer/ToolButtons/MoveButtons" unique_id=158408456]
 layout_mode = 2

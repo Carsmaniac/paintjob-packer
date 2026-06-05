@@ -1,12 +1,16 @@
 extends Panel
 
 @export var linked_node: Node
+var selection_box_node: Panel
 @export var layer_name: String = "Layer"
 var custom_layer_name: bool = false
 @export_enum("raster", "text", "image", "rect", "ellipse") var layer_type: String
 
+var selection_theme = ResourceLoader.load("res://simple-box-theme/SelectionTheme.tres")
+
 var text_size: float
 var layer_colour: Color
+var layer_hidden: bool = false
 
 
 func _ready() -> void:
@@ -24,6 +28,12 @@ func _ready() -> void:
 	get_node("ChangeTextWindow/Button").connect("pressed", confirm_change_text)
 	# TODO: Ctrl-Enter confirms text entry, esc cancels it
 	# get_node("ChangeTextWindow/LineEdit").connect("text_submitted", confirm_change_text)
+	
+	selection_box_node = Panel.new()
+	selection_box_node.theme = selection_theme
+	selection_box_node.visible = false
+	update_selection_box()
+	get_node("../../../../TwoUp/ViewCanvas/SubViewport/DesignerCanvas/SubViewportContainer/SubViewport/SelectionBoxes").add_child(selection_box_node)
 
 
 func maybe_select_layer(event) -> void:
@@ -80,10 +90,14 @@ func change_colour(new_colour: Color) -> void:
 
 
 func show_hide() -> void:
-	if get_node("ButtonHide").button_pressed:
-		linked_node.visible = false
-	else:
+	var hide_button: Node = get_node("ButtonHide")
+	if layer_hidden:
 		linked_node.visible = true
+		hide_button.text = "👁"
+	else:
+		linked_node.visible = false
+		hide_button.text = "—"
+	layer_hidden = not layer_hidden
 
 
 func reorder(move_down: bool) -> void:
@@ -109,6 +123,11 @@ func update_buttons() -> void:
 		get_node("ButtonDelete").disabled = true
 	else:
 		get_node("ButtonDelete").disabled = false
+
+
+func update_selection_box() -> void:
+	selection_box_node.position = linked_node.get_rect().position
+	selection_box_node.size = linked_node.get_rect().size
 
 
 func delete() -> void:

@@ -82,15 +82,21 @@ func _gui_input(event: InputEvent) -> void:
 		if event is InputEventMouseButton and event.button_index == 1 and event.pressed and \
 		((Input.is_key_pressed(KEY_CTRL) and tool_buttons.get_node("MoveButtons/AutoSelect").button_pressed == false) or \
 		(Input.is_key_pressed(KEY_CTRL) == false and tool_buttons.get_node("MoveButtons/AutoSelect").button_pressed)):
+			var selecting_layer: bool = false
 			for layer in layer_list.get_children():
 				if layer.linked_node.get_rect().has_point(get_canvas_position(event.position)):
 					layer_list.select_layer(layer.get_index(), true)
+					selecting_layer = true
 					break
+			if not selecting_layer:
+				layer_list.deselect_all()
 		
 		# Move on drag
 		elif event is InputEventMouseMotion and event.button_mask == 1:
 			for layer in layer_list.selected_layers:
 				layer.linked_node.position += (event.relative / canvas_view_scale)
+				layer.update_selection_box()
+				layer_list.update_transform_buttons()
 	
 	# Text tool
 	elif toolbar.selected_tool == "ToolText":
