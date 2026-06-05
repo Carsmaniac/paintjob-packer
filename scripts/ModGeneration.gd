@@ -112,9 +112,27 @@ func make_manifest_sii(mod_version: String, mod_name: String, mod_author: String
 	file.store_line("}")
 
 
-func make_description_file(mod_description: String) -> void:
+func make_description_file(mod_description: String, mod_desc_list: bool, paint_jobs: Array) -> void:
 	var file = FileAccess.open(output_path + "Description.txt", FileAccess.WRITE)
 	file.store_line(mod_description)
+	if mod_desc_list:
+		if len(paint_jobs) > 1:
+			file.store_line("")
+			file.store_line("Paint jobs included:")
+			for paint_job in paint_jobs:
+				file.store_line("- " + paint_job["paint_job_name"])
+		
+		var vehicles: PackedStringArray = []
+		for paint_job in paint_jobs:
+			for vehicle in paint_job["vehicles"]:
+				if vehicle["vehicle_dict"]["mod"]:
+					vehicles.append("%s's %s" % [vehicle["vehicle_dict"]["mod_author"], vehicle["vehicle_dict"]["name"]])
+				else:
+					vehicles.append(vehicle["vehicle_dict"]["name"])
+		file.store_line("")
+		file.store_line("Vehicles supported:")
+		for vehicle in vehicles:
+			file.store_line("- " + vehicle)
 
 
 func copy_mod_image() -> void:
@@ -273,7 +291,7 @@ func make_mod(mod_dict: Dictionary, new_output_path: String) -> void:
 		output_path = new_output_path + mod_dict["mod_name"] + "/"
 	make_folder("")
 	make_manifest_sii(mod_dict["mod_version"], mod_dict["mod_name"], mod_dict["mod_author"], mod_dict["workshop"])
-	make_description_file(mod_dict["mod_description"])
+	make_description_file(mod_dict["mod_description"], mod_dict["mod_desc_list"], mod_dict["paint_jobs"])
 	copy_mod_image()
 	make_material_folder()
 	for paint_job in mod_dict["paint_jobs"]:

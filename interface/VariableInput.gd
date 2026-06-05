@@ -42,7 +42,10 @@ func _ready() -> void:
 		$CheckboxInput.button_pressed = true
 		$NumberInput.position = Vector2(0, 80)
 	elif input_type == "description":
+		$CheckboxInput.visible = true
+		$CheckboxInput.text = tr("MOD_DESC_LIST")
 		$TextBox.visible = true
+		$HelpButton.position.y = 87
 
 
 func update_localisation() -> void:

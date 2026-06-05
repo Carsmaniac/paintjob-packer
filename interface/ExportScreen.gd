@@ -130,6 +130,7 @@ func export_mod() -> void:
 		"mod_author": mod_panel.get_node("Author/TextInput").text,
 		"mod_version": mod_panel.get_node("Version/TextInput").text,
 		"mod_description": mod_panel.get_node("Description/TextBox").text,
+		"mod_desc_list": mod_panel.get_node("Description/CheckboxInput").button_pressed,
 		"game": get_node("..").loaded_game,
 		"using_templates": self.get_node("Panel/PlaceholderDropdown").selected,
 		"paint_jobs": []

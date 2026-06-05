@@ -24,11 +24,10 @@ caret_blink = true
 caret_blink_interval = 0.5
 
 [node name="TextBox" type="TextEdit" parent="." unique_id=286282919]
-visible = false
 layout_mode = 0
-offset_top = 39.0
+offset_top = 80.0
 offset_right = 313.0
-offset_bottom = 213.0
+offset_bottom = 254.0
 wrap_mode = 1
 
 [node name="NumberInput" type="SpinBox" parent="." unique_id=1668907309]
