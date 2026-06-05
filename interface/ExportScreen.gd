@@ -151,14 +151,14 @@ func export_mod() -> void:
 					"base_colour_unlocked": paint_job_tab.get_node("AdvancedTab/BaseChangeable").button_pressed,
 					"changeable_enabled": paint_job_tab.get_node("AdvancedTab/ChangeableEnabled").button_pressed,
 					"changeable1_enabled": paint_job_tab.get_node("AdvancedTab/ChangeableControls/Changeable1/EnableCheckbox").button_pressed,
-					"changeable1_colour": convert_to_scs(paint_job_tab.get_node("AdvancedTab/ChangeableControls/Changeable1/Enabled/ColourButton").color),
-					"changeable1_unlocked": paint_job_tab.get_node("AdvancedTab/ChangeableControls/Changeable1/Enabled/ChangeableCheckbox").button_pressed,
+					"changeable1_colour": convert_to_scs(paint_job_tab.get_node("AdvancedTab/ChangeableControls/Enabled1/ColourButton").color),
+					"changeable1_unlocked": paint_job_tab.get_node("AdvancedTab/ChangeableControls/Enabled1/ChangeableCheckbox").button_pressed,
 					"changeable2_enabled": paint_job_tab.get_node("AdvancedTab/ChangeableControls/Changeable2/EnableCheckbox").button_pressed,
-					"changeable2_colour": convert_to_scs(paint_job_tab.get_node("AdvancedTab/ChangeableControls/Changeable2/Enabled/ColourButton").color),
-					"changeable2_unlocked": paint_job_tab.get_node("AdvancedTab/ChangeableControls/Changeable2/Enabled/ChangeableCheckbox").button_pressed,
+					"changeable2_colour": convert_to_scs(paint_job_tab.get_node("AdvancedTab/ChangeableControls/Enabled2/ColourButton").color),
+					"changeable2_unlocked": paint_job_tab.get_node("AdvancedTab/ChangeableControls/Enabled2/ChangeableCheckbox").button_pressed,
 					"changeable3_enabled": paint_job_tab.get_node("AdvancedTab/ChangeableControls/Changeable3/EnableCheckbox").button_pressed,
-					"changeable3_colour": convert_to_scs(paint_job_tab.get_node("AdvancedTab/ChangeableControls/Changeable3/Enabled/ColourButton").color),
-					"changeable3_unlocked": paint_job_tab.get_node("AdvancedTab/ChangeableControls/Changeable3/Enabled/ChangeableCheckbox").button_pressed
+					"changeable3_colour": convert_to_scs(paint_job_tab.get_node("AdvancedTab/ChangeableControls/Enabled3/ColourButton").color),
+					"changeable3_unlocked": paint_job_tab.get_node("AdvancedTab/ChangeableControls/Enabled3/ChangeableCheckbox").button_pressed
 				},
 				"vehicles": []
 			}

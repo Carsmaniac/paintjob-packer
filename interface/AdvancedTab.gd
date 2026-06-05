@@ -15,11 +15,9 @@ func _ready() -> void:
 
 func show_hide_changeables() -> void:
 	get_node("ChangeableControls").visible = get_node("ChangeableEnabled").button_pressed
-	for changeable in changeables:
-		if changeable.get_node("EnableCheckbox").button_pressed:
-			changeable.get_node("Enabled").visible = true
-		else:
-			changeable.get_node("Enabled").visible = false
+	get_node("ChangeableControls/Enabled1").visible = get_node("ChangeableControls/Changeable1/EnableCheckbox").button_pressed
+	get_node("ChangeableControls/Enabled2").visible = get_node("ChangeableControls/Changeable2/EnableCheckbox").button_pressed
+	get_node("ChangeableControls/Enabled3").visible = get_node("ChangeableControls/Changeable3/EnableCheckbox").button_pressed
 
 
 func show_help(type: String) -> void:
