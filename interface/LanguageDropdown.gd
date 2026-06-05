@@ -2,8 +2,11 @@ extends OptionButton
 
 var languages: Array = []
 var translations: Array[Array] = [
+	["Deutsch", "de"],
 	["English (UK)", "en_GB"],
 	["English (US)", "en_US"],
+	["Português Brasileiro", "pt_BR"],
+	["Türkçe", "tr"],
 	["Help us translate!", "automatic"]
 ]
 

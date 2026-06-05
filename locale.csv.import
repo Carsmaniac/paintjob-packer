@@ -6,10 +6,10 @@ uid="uid://0grtnlg64b3m"
 
 [deps]
 
-files=["res://locale.en_GB.translation", "res://locale.en_US.translation"]
+files=["res://locale.en_GB.translation", "res://locale.cs.translation", "res://locale.en.translation", "res://locale.en.translation", "res://locale.en.translation", "res://locale.en.translation", "res://locale.en.translation", "res://locale.en.translation", "res://locale.en.translation", "res://locale.de.translation", "res://locale.en_US.translation", "res://locale.nl.translation", "res://locale.pt_BR.translation", "res://locale.tr.translation"]
 
 source_file="res://locale.csv"
-dest_files=["res://locale.en_GB.translation", "res://locale.en_US.translation"]
+dest_files=["res://locale.en_GB.translation", "res://locale.cs.translation", "res://locale.en.translation", "res://locale.en.translation", "res://locale.en.translation", "res://locale.en.translation", "res://locale.en.translation", "res://locale.en.translation", "res://locale.en.translation", "res://locale.de.translation", "res://locale.en_US.translation", "res://locale.nl.translation", "res://locale.pt_BR.translation", "res://locale.tr.translation"]
 
 [params]
 
