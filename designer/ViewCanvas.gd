@@ -21,11 +21,11 @@ var drawing_shape_colour: Color
 
 
 func _ready() -> void:
-	canvas = get_node("SubViewport/DesignerCanvas")
-	layer_list = get_node("../../RightPanel/ScrollContainer/LayerList")
-	toolbar = get_node("../../LeftPanel/Toolbar")
-	tool_buttons = get_node("../../TopPanel/HBoxContainer/ToolButtons")
-	temp_layer = canvas.get_node("SubViewportContainer/SubViewport/TempLayer")
+	canvas = get_node("%DesignerCanvas")
+	layer_list = get_node("%LayerList")
+	toolbar = get_node("%Toolbar")
+	tool_buttons = get_node("%ToolButtons")
+	temp_layer = canvas.get_node("%TempLayer")
 
 
 func fit_to_view() -> void:

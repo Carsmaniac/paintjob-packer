@@ -33,7 +33,7 @@ func _ready() -> void:
 	selection_box_node.theme = selection_theme
 	selection_box_node.visible = false
 	update_selection_box()
-	get_node("../../../../TwoUp/ViewCanvas/SubViewport/DesignerCanvas/SubViewportContainer/SubViewport/SelectionBoxes").add_child(selection_box_node)
+	get_node("%DesignerCanvas/%SelectionBoxes").add_child(selection_box_node)
 
 
 func maybe_select_layer(event) -> void:

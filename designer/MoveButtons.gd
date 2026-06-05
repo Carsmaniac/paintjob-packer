@@ -6,4 +6,4 @@ func _ready() -> void:
 
 
 func update_transform_buttons(_pressed: bool) -> void:
-	get_node("../../../../RightPanel/ScrollContainer/LayerList").update_transform_buttons()
+	get_node("%LayerList").update_transform_buttons()

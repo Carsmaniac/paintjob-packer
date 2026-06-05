@@ -15,11 +15,11 @@ var toolbar: Node
 
 
 func _ready() -> void:
-	layer_nodes = get_node("../../../TwoUp/ViewCanvas/SubViewport/DesignerCanvas/SubViewportContainer/SubViewport/LayerNodes")
-	transform_buttons = get_node("../../../TwoUp/ViewCanvas/SubViewport/DesignerCanvas/SubViewportContainer/SubViewport/TransformButtons")
-	layer_buttons = get_node("../../../RightPanel/LayerControlButtons")
-	tool_buttons = get_node("../../../TopPanel/HBoxContainer/ToolButtons")
-	toolbar = get_node("../../../LeftPanel/Toolbar")
+	layer_nodes = get_node("%DesignerCanvas/%LayerNodes")
+	transform_buttons = get_node("%DesignerCanvas/%TransformButtons")
+	layer_buttons = get_node("%LayerControlButtons")
+	tool_buttons = get_node("%ToolButtons")
+	toolbar = get_node("%Toolbar")
 	layer_buttons.get_node("ButtonDelete").connect("pressed", delete_selected_layers)
 	update_layer_buttons()
 
@@ -43,7 +43,7 @@ func add_text_layer(new_position: Vector2, text_colour: Color) -> void:
 	layer_node.text = "Text"
 	layer_node.position = new_position
 	layer_node.add_theme_color_override("font_color", text_colour)
-	var text_size = get_node("../../../TopPanel/HBoxContainer/ToolButtons/TextButtons/FontSize").value
+	var text_size = get_node("%ToolButtons/TextButtons/FontSize").value
 	layer_node.add_theme_font_size_override("font_size", text_size)
 	new_layer.text_size = text_size
 	layer_nodes.add_child(layer_node)
@@ -91,7 +91,7 @@ func select_layer(index: int, select_from_canvas: bool = false) -> void:
 	else:
 		deselect_all()
 		add_selection(get_child(index))
-	get_node("../../../TwoUp/ViewCanvas").sync_tool_to_layer()
+	get_node("%ViewCanvas").sync_tool_to_layer()
 	previous_selected = index
 
 

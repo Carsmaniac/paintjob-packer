@@ -17,12 +17,12 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_8ce8c"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_oa1j1"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_x3lof"]
 viewport_path = NodePath("../../../ViewCanvas/SubViewport/DesignerCanvas/SubViewportContainer/SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x3lof"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dto8l"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_oa1j1")
+albedo_texture = SubResource("ViewportTexture_x3lof")
 
 [node name="DesignerInterface" type="Control" unique_id=1942051723]
 layout_mode = 3
@@ -44,6 +44,7 @@ grow_vertical = 2
 color = Color(0.29803923, 0.29803923, 0.29803923, 1)
 
 [node name="TwoUp" type="HSplitContainer" parent="." unique_id=1507496012]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -57,6 +58,7 @@ split_offsets = PackedInt32Array(430)
 split_offset = 430
 
 [node name="ViewModel" type="SubViewportContainer" parent="TwoUp" unique_id=235436035]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 stretch = true
@@ -69,13 +71,15 @@ size_2d_override_stretch = true
 render_target_update_mode = 4
 
 [node name="PreviewModel" parent="TwoUp/ViewModel/SubViewport" unique_id=1024880228 instance=ExtResource("2_t3brk")]
+unique_name_in_owner = true
 
 [node name="VehicleModel" parent="TwoUp/ViewModel/SubViewport/PreviewModel" index="1" unique_id=1695738561]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.7146196)
 mesh = SubResource("BoxMesh_8ce8c")
-surface_material_override/0 = SubResource("StandardMaterial3D_x3lof")
+surface_material_override/0 = SubResource("StandardMaterial3D_dto8l")
 
 [node name="ViewCanvas" type="SubViewportContainer" parent="TwoUp" unique_id=1512129254]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 stretch = true
@@ -87,6 +91,7 @@ size = Vector2i(407, 759)
 render_target_update_mode = 4
 
 [node name="DesignerCanvas" parent="TwoUp/ViewCanvas/SubViewport" unique_id=1156557595 instance=ExtResource("3_t3brk")]
+unique_name_in_owner = true
 script = ExtResource("7_ft5e4")
 
 [node name="LeftPanel" type="Panel" parent="." unique_id=1915631464]
@@ -97,6 +102,7 @@ offset_right = 46.0
 grow_vertical = 2
 
 [node name="Toolbar" type="VBoxContainer" parent="LeftPanel" unique_id=904101171]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 1
 anchors_preset = 9
@@ -251,6 +257,7 @@ grow_horizontal = 0
 grow_vertical = 2
 
 [node name="LayerList" type="VBoxContainer" parent="RightPanel/ScrollContainer" unique_id=1720164249]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 3
 script = ExtResource("10_88d6u")
@@ -274,6 +281,7 @@ layer_name = "Rectyboi"
 layer_type = "rect"
 
 [node name="LayerControlButtons" type="HBoxContainer" parent="RightPanel" unique_id=337002374]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -335,6 +343,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ToolButtons" type="Control" parent="TopPanel/HBoxContainer" unique_id=2090799396]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="MoveButtons" type="HBoxContainer" parent="TopPanel/HBoxContainer/ToolButtons" unique_id=164166152]

@@ -5,7 +5,7 @@ var vehicle_model: MeshInstance3D
 
 func _ready() -> void:
 	connect("pressed", fit_canvas_to_view)
-	vehicle_model = get_node("../../TwoUp/ViewModel/SubViewport/PreviewModel/VehicleModel")
+	vehicle_model = get_node("%ViewModel/SubViewport/PreviewModel/VehicleModel")
 
 
 func fit_canvas_to_view() -> void:

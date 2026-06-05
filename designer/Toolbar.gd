@@ -6,8 +6,8 @@ var tool_buttons: Node
 
 
 func _ready() -> void:
-	layer_list = get_node("../../RightPanel/ScrollContainer/LayerList")
-	tool_buttons = get_node("../../TopPanel/HBoxContainer/ToolButtons")
+	layer_list = get_node("%LayerList")
+	tool_buttons = get_node("%ToolButtons")
 	for child in get_children():
 		if child is Button and child is not ColorPickerButton:
 			child.connect("pressed", switch_button.bind(child))
@@ -62,7 +62,7 @@ func switch_button(pressed_button: Node) -> void:
 	elif pressed_button.name == "ToolText":
 		tool_buttons.get_node("TextButtons").visible = true
 	
-	get_node("../../TwoUp/ViewCanvas").sync_tool_to_layer()
+	get_node("%ViewCanvas").sync_tool_to_layer()
 
 
 func change_colours(new_colour: Color) -> void:

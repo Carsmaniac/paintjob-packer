@@ -38,6 +38,7 @@ offset_bottom = 4096.0
 texture = ExtResource("1_jmyei")
 
 [node name="LayerNodes" type="Control" parent="SubViewportContainer/SubViewport" unique_id=1117880655]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -74,12 +75,14 @@ pivot_offset_ratio = Vector2(0.5, 0.5)
 color = Color(1, 0.42000002, 0.42000002, 1)
 
 [node name="SelectionBoxes" type="Control" parent="SubViewportContainer/SubViewport" unique_id=2094138687]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="TransformButtons" type="Control" parent="SubViewportContainer/SubViewport" unique_id=1271296663]
+unique_name_in_owner = true
 visible = false
 layout_mode = 3
 anchors_preset = 0
@@ -156,6 +159,7 @@ offset_bottom = 25.0
 text = "↻"
 
 [node name="TempLayer" type="Control" parent="SubViewportContainer/SubViewport" unique_id=150594314]
+unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
