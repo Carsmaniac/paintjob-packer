@@ -8,7 +8,7 @@
 layout_mode = 3
 anchors_preset = 0
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=41392612]
+[node name="CanvasViewportContainer" type="SubViewportContainer" parent="." unique_id=41392612]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -21,30 +21,29 @@ grow_horizontal = 2
 grow_vertical = 2
 stretch = true
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=61003486]
+[node name="SubViewport" type="SubViewport" parent="CanvasViewportContainer" unique_id=61003486]
 handle_input_locally = false
 size = Vector2i(4096, 4096)
 render_target_update_mode = 4
 
-[node name="BackgroundColour" type="ColorRect" parent="SubViewportContainer/SubViewport" unique_id=1794990337]
-visibility_layer = 2
+[node name="BackgroundColour" type="ColorRect" parent="CanvasViewportContainer/SubViewport" unique_id=1794990337]
 offset_right = 4096.0
 offset_bottom = 4096.0
 
-[node name="BackgroundTemplate" type="TextureRect" parent="SubViewportContainer/SubViewport" unique_id=326154988]
+[node name="BackgroundTemplate" type="TextureRect" parent="CanvasViewportContainer/SubViewport" unique_id=326154988]
 visibility_layer = 2
 offset_right = 4096.0
 offset_bottom = 4096.0
 texture = ExtResource("1_jmyei")
 
-[node name="LayerNodes" type="Control" parent="SubViewportContainer/SubViewport" unique_id=1117880655]
+[node name="LayerNodes" type="Control" parent="CanvasViewportContainer/SubViewport" unique_id=1117880655]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Label" type="Label" parent="SubViewportContainer/SubViewport/LayerNodes" unique_id=183299907]
+[node name="Label" type="Label" parent="CanvasViewportContainer/SubViewport/LayerNodes" unique_id=183299907]
 layout_mode = 0
 offset_left = 326.0
 offset_top = 823.0
@@ -55,7 +54,7 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 69
 text = "Here is some text"
 
-[node name="TempModel" type="TextureRect" parent="SubViewportContainer/SubViewport/LayerNodes" unique_id=1093748113]
+[node name="TempModel" type="TextureRect" parent="CanvasViewportContainer/SubViewport/LayerNodes" unique_id=1093748113]
 layout_mode = 0
 offset_left = -1310.0
 offset_top = -897.99994
@@ -65,7 +64,7 @@ scale = Vector2(0.19581677, 0.20887665)
 pivot_offset_ratio = Vector2(0.5, 0.5)
 texture = ExtResource("2_vynwk")
 
-[node name="RedRect" type="ColorRect" parent="SubViewportContainer/SubViewport/LayerNodes" unique_id=1619465981]
+[node name="RedRect" type="ColorRect" parent="CanvasViewportContainer/SubViewport/LayerNodes" unique_id=1619465981]
 layout_mode = 0
 offset_left = 1674.0
 offset_top = 375.0
@@ -74,30 +73,32 @@ offset_bottom = 877.0
 pivot_offset_ratio = Vector2(0.5, 0.5)
 color = Color(1, 0.42000002, 0.42000002, 1)
 
-[node name="SelectionBoxes" type="Control" parent="SubViewportContainer/SubViewport" unique_id=2094138687]
+[node name="SelectionBoxes" type="Control" parent="CanvasViewportContainer/SubViewport" unique_id=2094138687]
 unique_name_in_owner = true
+visibility_layer = 2
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TransformButtons" type="Control" parent="SubViewportContainer/SubViewport" unique_id=1271296663]
+[node name="TransformButtons" type="Control" parent="CanvasViewportContainer/SubViewport" unique_id=1271296663]
 unique_name_in_owner = true
 visible = false
+visibility_layer = 2
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 theme = ExtResource("3_hp84d")
 
-[node name="ButtonNW" type="Button" parent="SubViewportContainer/SubViewport/TransformButtons" unique_id=1785805220]
+[node name="ButtonNW" type="Button" parent="CanvasViewportContainer/SubViewport/TransformButtons" unique_id=1785805220]
 layout_mode = 0
 offset_top = 25.0
 offset_right = 25.0
 offset_bottom = 50.0
 text = "↖"
 
-[node name="ButtonN" type="Button" parent="SubViewportContainer/SubViewport/TransformButtons" unique_id=1531227050]
+[node name="ButtonN" type="Button" parent="CanvasViewportContainer/SubViewport/TransformButtons" unique_id=1531227050]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 25.0
@@ -105,7 +106,7 @@ offset_right = 50.0
 offset_bottom = 50.0
 text = "↑"
 
-[node name="ButtonNE" type="Button" parent="SubViewportContainer/SubViewport/TransformButtons" unique_id=2031794932]
+[node name="ButtonNE" type="Button" parent="CanvasViewportContainer/SubViewport/TransformButtons" unique_id=2031794932]
 layout_mode = 0
 offset_left = 50.0
 offset_top = 25.0
@@ -113,7 +114,7 @@ offset_right = 75.0
 offset_bottom = 50.0
 text = "↗"
 
-[node name="ButtonE" type="Button" parent="SubViewportContainer/SubViewport/TransformButtons" unique_id=58748209]
+[node name="ButtonE" type="Button" parent="CanvasViewportContainer/SubViewport/TransformButtons" unique_id=58748209]
 layout_mode = 0
 offset_left = 50.0
 offset_top = 50.0
@@ -121,7 +122,7 @@ offset_right = 75.0
 offset_bottom = 75.0
 text = "→"
 
-[node name="ButtonSE" type="Button" parent="SubViewportContainer/SubViewport/TransformButtons" unique_id=1356692048]
+[node name="ButtonSE" type="Button" parent="CanvasViewportContainer/SubViewport/TransformButtons" unique_id=1356692048]
 layout_mode = 0
 offset_left = 50.0
 offset_top = 75.0
@@ -129,7 +130,7 @@ offset_right = 75.0
 offset_bottom = 100.0
 text = "↘"
 
-[node name="ButtonS" type="Button" parent="SubViewportContainer/SubViewport/TransformButtons" unique_id=100917154]
+[node name="ButtonS" type="Button" parent="CanvasViewportContainer/SubViewport/TransformButtons" unique_id=100917154]
 layout_mode = 0
 offset_left = 25.0
 offset_top = 75.0
@@ -137,36 +138,37 @@ offset_right = 50.0
 offset_bottom = 100.0
 text = "↓"
 
-[node name="ButtonSW" type="Button" parent="SubViewportContainer/SubViewport/TransformButtons" unique_id=1988529218]
+[node name="ButtonSW" type="Button" parent="CanvasViewportContainer/SubViewport/TransformButtons" unique_id=1988529218]
 layout_mode = 0
 offset_top = 75.0
 offset_right = 25.0
 offset_bottom = 100.0
 text = "↙"
 
-[node name="ButtonW" type="Button" parent="SubViewportContainer/SubViewport/TransformButtons" unique_id=2111006868]
+[node name="ButtonW" type="Button" parent="CanvasViewportContainer/SubViewport/TransformButtons" unique_id=2111006868]
 layout_mode = 0
 offset_top = 50.0
 offset_right = 25.0
 offset_bottom = 75.0
 text = "←"
 
-[node name="ButtonR" type="Button" parent="SubViewportContainer/SubViewport/TransformButtons" unique_id=788763331]
+[node name="ButtonR" type="Button" parent="CanvasViewportContainer/SubViewport/TransformButtons" unique_id=788763331]
 layout_mode = 0
 offset_left = 25.0
 offset_right = 50.0
 offset_bottom = 25.0
 text = "↻"
 
-[node name="TempLayer" type="Control" parent="SubViewportContainer/SubViewport" unique_id=150594314]
+[node name="TempLayer" type="Control" parent="CanvasViewportContainer/SubViewport" unique_id=150594314]
 unique_name_in_owner = true
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="ForegroundTemplate" type="TextureRect" parent="SubViewportContainer/SubViewport" unique_id=1211417610]
+[node name="ForegroundTemplate" type="TextureRect" parent="CanvasViewportContainer/SubViewport" unique_id=1211417610]
 visible = false
+visibility_layer = 2
 offset_right = 4096.0
 offset_bottom = 4096.0
 texture = ExtResource("1_jmyei")

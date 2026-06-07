@@ -5,61 +5,68 @@
 [ext_resource type="Texture2D" uid="uid://ckw3svi1syg02" path="res://designer/temp-model.jpg" id="3_ltint"]
 
 [node name="Layer" type="Panel" unique_id=234734521]
-custom_minimum_size = Vector2(139, 85)
+custom_minimum_size = Vector2(139, 29)
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
 size_flags_vertical = 3
 theme = ExtResource("1_w8lta")
 script = ExtResource("2_s1top")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=1975219756]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 25.0
-offset_right = 101.0
-offset_bottom = 52.0
+layout_mode = 1
+offset_left = 26.0
+offset_top = 3.0
+offset_right = 49.0
+offset_bottom = 26.0
 texture = ExtResource("3_ltint")
 expand_mode = 1
 
 [node name="Label" type="Label" parent="." unique_id=1498602194]
-layout_mode = 0
-offset_left = 3.0
+layout_mode = 1
+offset_left = 52.0
 offset_top = 3.0
-offset_right = 57.0
-offset_bottom = 22.0
+offset_right = 106.0
+offset_bottom = 26.0
 text = "Layer 1"
+vertical_alignment = 1
 
 [node name="ButtonUp" type="Button" parent="." unique_id=1144750321]
+visible = false
 layout_mode = 0
-offset_left = 3.0
-offset_top = 25.0
-offset_right = 29.0
-offset_bottom = 52.0
+offset_left = 153.0
+offset_top = 7.0
+offset_right = 179.0
+offset_bottom = 34.0
 tooltip_text = "Move Up"
 text = "↑"
 
 [node name="ButtonDown" type="Button" parent="." unique_id=399455746]
+visible = false
 layout_mode = 0
-offset_left = 3.0
-offset_top = 55.0
-offset_right = 29.0
-offset_bottom = 82.0
+offset_left = 153.0
+offset_top = 37.0
+offset_right = 179.0
+offset_bottom = 64.0
 tooltip_text = "Move Down"
 text = "↓"
 
 [node name="ButtonHide" type="Button" parent="." unique_id=621508624]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 55.0
-offset_right = 58.0
-offset_bottom = 82.0
+layout_mode = 1
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 26.0
+offset_bottom = 26.0
 tooltip_text = "Show/Hide"
 text = "👁"
 
 [node name="ButtonDelete" type="Button" parent="." unique_id=1739734587]
+visible = false
 layout_mode = 0
-offset_left = 61.0
-offset_top = 55.0
-offset_right = 86.0
-offset_bottom = 82.0
+offset_left = 187.0
+offset_top = 26.0
+offset_right = 212.0
+offset_bottom = 53.0
 tooltip_text = "Delete"
 text = "X"
 
