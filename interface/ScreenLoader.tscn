@@ -101,6 +101,7 @@ text = "BUTTON_NEXT"
 clip_text = true
 
 [node name="SaveButton" type="Button" parent="." unique_id=145162302]
+visible = false
 layout_mode = 0
 offset_left = 221.0
 offset_top = 21.0
@@ -110,6 +111,7 @@ text = "BUTTON_SAVE"
 clip_text = true
 
 [node name="LoadButton" type="Button" parent="." unique_id=1271456416]
+visible = false
 layout_mode = 0
 offset_left = 319.0
 offset_top = 21.0

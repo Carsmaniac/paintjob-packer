@@ -91,15 +91,16 @@ clip_text = true
 
 [node name="CreateImage" type="TextureRect" parent="Panel" unique_id=1119799198]
 layout_mode = 0
-offset_left = 198.0
+offset_left = 385.0
 offset_top = 278.0
-offset_right = 449.0
+offset_right = 636.0
 offset_bottom = 529.0
 mouse_default_cursor_shape = 2
 texture = ExtResource("1_u2ba5")
 expand_mode = 1
 
 [node name="LoadImage" type="TextureRect" parent="Panel" unique_id=1354408409]
+visible = false
 layout_mode = 0
 offset_left = 573.0
 offset_top = 278.0
@@ -111,14 +112,15 @@ expand_mode = 1
 
 [node name="CreateButton" type="Button" parent="Panel" unique_id=885370677]
 layout_mode = 0
-offset_left = 189.0
+offset_left = 376.0
 offset_top = 571.0
-offset_right = 449.0
+offset_right = 636.0
 offset_bottom = 611.0
 text = "SETUP_CREATE"
 clip_text = true
 
 [node name="LoadButton" type="Button" parent="Panel" unique_id=284199124]
+visible = false
 layout_mode = 0
 offset_left = 568.0
 offset_top = 571.0
