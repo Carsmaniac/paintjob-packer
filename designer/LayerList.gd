@@ -145,6 +145,8 @@ func get_selection_bounding_box() -> Vector4:
 
 
 func update_transform_buttons() -> void:
+	for layer in get_children():
+		layer.update_selection_box()
 	if len(selected_layers) > 0 and ((toolbar.selected_tool == "ToolMove" and tool_buttons.get_node("MoveButtons/TransformControls").button_pressed) or toolbar.selected_tool == "ToolTransform"):
 		transform_buttons.visible = true
 		var bounding_box: Vector4 = get_selection_bounding_box() 

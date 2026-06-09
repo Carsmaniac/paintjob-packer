@@ -117,8 +117,6 @@ func stop_transform() -> void:
 				layer_nodes.move_child(key, transform_node_index_dict[key])
 	transforming = false
 	transform_node_index_dict = {}
-	for layer in layer_list.get_children():
-		layer.update_selection_box()
 	layer_list.update_transform_buttons()
 
 
@@ -172,8 +170,6 @@ func _gui_input(event: InputEvent) -> void:
 					var current_scale: Vector2 = transform_opposite_position - get_canvas_position(event.position)
 					transform_node.scale = current_scale / initial_scale
 					layer_list.update_transform_buttons()
-					for layer in layer_list.selected_layers:
-						layer.update_selection_box()
 			
 			else:
 				# Select on click
@@ -193,8 +189,7 @@ func _gui_input(event: InputEvent) -> void:
 				elif event is InputEventMouseMotion and event.button_mask == 1:
 					for layer in layer_list.selected_layers:
 						layer.linked_node.position += (event.relative / canvas_view_scale)
-						layer.update_selection_box()
-						layer_list.update_transform_buttons()
+					layer_list.update_transform_buttons()
 		
 		# Text tool
 		elif toolbar.selected_tool == "ToolText":
@@ -212,13 +207,15 @@ func _gui_input(event: InputEvent) -> void:
 					layer_list.add_text_layer(get_canvas_position(event.position), tool_buttons.get_node("TextButtons/TextColour").color)
 		
 		elif toolbar.selected_tool == "ToolShape":
+			# Finish drawing shape on mouse release
 			if event is InputEventMouseButton and event.button_index == 1 and not event.pressed and drawing_shape:
 				drawing_shape = false
 				if event.position == drawing_shape_starting_pos:
 					drawing_shape_node.queue_free()
 				else:
-					pass # add a new layer with the shape
 					layer_list.add_shape_layer(drawing_shape_node, drawing_shape_type, drawing_shape_colour)
+			
+			# Start drawing shape on click
 			elif event is InputEventMouseButton and event.button_index == 1 and event.pressed:
 				if tool_buttons.get_node("ShapeButtons/ShapeSelect").selected == 0:
 					drawing_shape_type = "rect"
@@ -242,6 +239,8 @@ func _gui_input(event: InputEvent) -> void:
 				drawing_shape_node.position = get_canvas_position(event.position)
 				drawing_shape_starting_pos = get_canvas_position(event.position)
 				temp_layer.add_child(drawing_shape_node)
+			
+			# Draw shape on drag
 			elif event is InputEventMouseMotion and event.button_mask == 1 and drawing_shape:
 				drawing_shape_node.position = drawing_shape_starting_pos.min(get_canvas_position(event.position))
 				drawing_shape_node.size = (drawing_shape_starting_pos - get_canvas_position(event.position)).abs()

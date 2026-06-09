@@ -8,6 +8,8 @@ var custom_layer_name: bool = false
 
 var selection_theme = ResourceLoader.load("res://simple-box-theme/SelectionTheme.tres")
 
+var view_canvas: Node
+
 var text_size: float
 var layer_colour: Color
 var layer_hidden: bool = false
@@ -26,6 +28,8 @@ func _ready() -> void:
 	get_node("RenameWindow").connect("close_requested", cancel_rename)
 	
 	get_node("ChangeTextWindow/Button").connect("pressed", confirm_change_text)
+	
+	view_canvas = get_node("%ViewCanvas")
 	# TODO: Ctrl-Enter confirms text entry, esc cancels it
 	# get_node("ChangeTextWindow/LineEdit").connect("text_submitted", confirm_change_text)
 
@@ -34,7 +38,6 @@ func _enter_tree() -> void:
 	selection_box_node = Panel.new()
 	selection_box_node.theme = selection_theme
 	selection_box_node.visible = false
-	update_selection_box()
 	get_tree().root.get_node("DesignerInterface").get_node("%DesignerCanvas/%SelectionBoxes").add_child(selection_box_node)
 
 
@@ -140,10 +143,15 @@ func update_selection_box() -> void:
 
 
 func bounding_box() -> Rect2:
+	var bounding_box_rect: Rect2
 	if linked_node is Sprite2D:
-		return Rect2(linked_node.position, linked_node.get_rect().size * linked_node.scale)
+		bounding_box_rect = Rect2(linked_node.position, linked_node.get_rect().size * linked_node.scale)
 	else:
-		return linked_node.get_rect()
+		bounding_box_rect = linked_node.get_rect()
+	if view_canvas.transforming:
+		bounding_box_rect.position += view_canvas.transform_node.position + (linked_node.position * (view_canvas.transform_node.scale - Vector2(1, 1)))
+		bounding_box_rect.size *= view_canvas.transform_node.scale
+	return bounding_box_rect
 
 
 func delete() -> void:
