@@ -28,12 +28,14 @@ func _ready() -> void:
 	get_node("ChangeTextWindow/Button").connect("pressed", confirm_change_text)
 	# TODO: Ctrl-Enter confirms text entry, esc cancels it
 	# get_node("ChangeTextWindow/LineEdit").connect("text_submitted", confirm_change_text)
-	
+
+
+func _enter_tree() -> void:
 	selection_box_node = Panel.new()
 	selection_box_node.theme = selection_theme
 	selection_box_node.visible = false
 	update_selection_box()
-	get_node("%DesignerCanvas/%SelectionBoxes").add_child(selection_box_node)
+	get_tree().root.get_node("DesignerInterface").get_node("%DesignerCanvas/%SelectionBoxes").add_child(selection_box_node)
 
 
 func maybe_select_layer(event) -> void:
@@ -56,6 +58,7 @@ func rename_layer(new_name: String = "") -> void:
 	custom_layer_name = true
 	get_node("Label").text = new_name.replace("\n", "")
 	get_node("RenameWindow").visible = false
+	update_selection_box()
 
 
 func cancel_rename() -> void:
@@ -75,6 +78,12 @@ func confirm_change_text(_new_name: String = "") -> void:
 		rename_layer(linked_node.text)
 	get_node("ChangeTextWindow").visible = false
 	get_parent().select_layer(get_index())
+
+
+func change_text_size(new_size: float) -> void:
+	text_size = new_size
+	linked_node.remove_theme_font_size_override("font_size")
+	linked_node.add_theme_font_size_override("font_size", new_size * 10)
 
 
 func change_colour(new_colour: Color) -> void:
@@ -126,8 +135,15 @@ func update_buttons() -> void:
 
 
 func update_selection_box() -> void:
-	selection_box_node.position = linked_node.get_rect().position
-	selection_box_node.size = linked_node.get_rect().size
+	selection_box_node.position = bounding_box().position
+	selection_box_node.size = bounding_box().size
+
+
+func bounding_box() -> Rect2:
+	if linked_node is Sprite2D:
+		return Rect2(linked_node.position, linked_node.get_rect().size * linked_node.scale)
+	else:
+		return linked_node.get_rect()
 
 
 func delete() -> void:

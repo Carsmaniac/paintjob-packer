@@ -4,7 +4,6 @@
 [ext_resource type="Script" uid="uid://d2bt11nqjiyw1" path="res://designer/EditLayerSplit.gd" id="2_dto8l"]
 [ext_resource type="Script" uid="uid://bkbk37spw4048" path="res://designer/DesignerInterface.gd" id="2_fu6ox"]
 [ext_resource type="Script" uid="uid://cmy4ad0pbkjvi" path="res://designer/ViewModel.gd" id="2_gxryq"]
-[ext_resource type="PackedScene" uid="uid://b42jqutl0sg7v" path="res://designer/PreviewModel.tscn" id="2_t3brk"]
 [ext_resource type="Script" uid="uid://dni1tcf3ra7xy" path="res://designer/ViewCanvas.gd" id="3_gxryq"]
 [ext_resource type="Script" uid="uid://wwbrhxqrb7mg" path="res://designer/Toolbar.gd" id="3_l64ss"]
 [ext_resource type="PackedScene" uid="uid://bst2ww1sansi0" path="res://designer/DesignerCanvas.tscn" id="3_t3brk"]
@@ -20,7 +19,7 @@
 [sub_resource type="BoxMesh" id="BoxMesh_8ce8c"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_fu6ox"]
-viewport_path = NodePath("../../../ViewCanvas/SubViewport/DesignerCanvas/CanvasViewportContainer/SubViewport")
+viewport_path = NodePath("EditLayerSplit/EditArea/TwoUp/ViewModel/SubViewport/PreviewModel/FilteredViewport")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6k3x5"]
 resource_local_to_scene = true
@@ -88,10 +87,32 @@ size = Vector2i(300, 759)
 size_2d_override_stretch = true
 render_target_update_mode = 4
 
-[node name="PreviewModel" parent="EditLayerSplit/EditArea/TwoUp/ViewModel/SubViewport" unique_id=1024880228 instance=ExtResource("2_t3brk")]
-unique_name_in_owner = true
+[node name="PreviewModel" type="Node3D" parent="EditLayerSplit/EditArea/TwoUp/ViewModel/SubViewport" unique_id=1024880228]
 
-[node name="VehicleModel" parent="EditLayerSplit/EditArea/TwoUp/ViewModel/SubViewport/PreviewModel" index="1" unique_id=1695738561]
+[node name="FilteredViewport" type="SubViewport" parent="EditLayerSplit/EditArea/TwoUp/ViewModel/SubViewport/PreviewModel" unique_id=12896033]
+unique_name_in_owner = true
+canvas_cull_mask = 4294967293
+size = Vector2i(4096, 4096)
+
+[node name="CameraOrbiter" type="Node3D" parent="EditLayerSplit/EditArea/TwoUp/ViewModel/SubViewport/PreviewModel" unique_id=1361442022]
+transform = Transform3D(-0.9145014, 0, -0.40458304, 0, 1, 0, 0.40458304, 0, -0.9145014, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="EditLayerSplit/EditArea/TwoUp/ViewModel/SubViewport/PreviewModel/CameraOrbiter" unique_id=1002652522]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 8.583934)
+fov = 51.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="EditLayerSplit/EditArea/TwoUp/ViewModel/SubViewport/PreviewModel/CameraOrbiter/Camera3D" unique_id=553643235]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 1, 0)
+light_energy = 4.28
+omni_range = 26.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="EditLayerSplit/EditArea/TwoUp/ViewModel/SubViewport/PreviewModel/CameraOrbiter/Camera3D" unique_id=270843349]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1, 0)
+light_energy = 4.28
+omni_range = 26.0
+
+[node name="VehicleModel" type="MeshInstance3D" parent="EditLayerSplit/EditArea/TwoUp/ViewModel/SubViewport/PreviewModel" unique_id=1695738561]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.7146196)
 mesh = SubResource("BoxMesh_8ce8c")
 surface_material_override/0 = SubResource("StandardMaterial3D_6k3x5")
@@ -141,15 +162,6 @@ Shortcut: V"
 toggle_mode = true
 button_pressed = true
 text = "Mo"
-
-[node name="ToolTransform" type="Button" parent="EditLayerSplit/EditArea/LeftPanel/Toolbar" unique_id=2043037669]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-tooltip_text = "Transform
-Shortcut: Ctrl-T"
-disabled = true
-toggle_mode = true
-text = "Tr"
 
 [node name="ToolBrush" type="Button" parent="EditLayerSplit/EditArea/LeftPanel/Toolbar" unique_id=1242664334]
 custom_minimum_size = Vector2(40, 40)
@@ -208,12 +220,14 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
 [node name="ColourPrimary" type="ColorPickerButton" parent="EditLayerSplit/EditArea/LeftPanel/Toolbar" unique_id=498311146]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 tooltip_text = "Primary Colour"
 edit_intensity = false
 
 [node name="ColourSecondary" type="ColorPickerButton" parent="EditLayerSplit/EditArea/LeftPanel/Toolbar" unique_id=642481162]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 tooltip_text = "Secondary Colour"
@@ -262,14 +276,6 @@ layout_mode = 2
 button_pressed = true
 text = "Show Transform Controls"
 
-[node name="TransformButtons" type="HBoxContainer" parent="EditLayerSplit/EditArea/TopPanel/ToolButtons" unique_id=385798567]
-visible = false
-layout_mode = 2
-
-[node name="AutoSelect" type="CheckBox" parent="EditLayerSplit/EditArea/TopPanel/ToolButtons/TransformButtons" unique_id=538989404]
-layout_mode = 2
-text = "Maintain Aspect"
-
 [node name="ShapeButtons" type="HBoxContainer" parent="EditLayerSplit/EditArea/TopPanel/ToolButtons" unique_id=373798830]
 layout_mode = 2
 
@@ -298,6 +304,7 @@ layout_mode = 2
 text = "Fill colour"
 
 [node name="ShapeColour" type="ColorPickerButton" parent="EditLayerSplit/EditArea/TopPanel/ToolButtons/ShapeButtons" unique_id=1540914431]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("12_oa1j1")
@@ -346,6 +353,7 @@ layout_mode = 2
 text = "Text colour"
 
 [node name="TextColour" type="ColorPickerButton" parent="EditLayerSplit/EditArea/TopPanel/ToolButtons/TextButtons" unique_id=1568358764]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("12_oa1j1")
@@ -404,19 +412,19 @@ script = ExtResource("10_88d6u")
 
 [node name="Layer" parent="EditLayerSplit/RightPanel/ScrollContainer/LayerList" unique_id=234734521 node_paths=PackedStringArray("linked_node") instance=ExtResource("10_f6jw8")]
 layout_mode = 2
-linked_node = NodePath("../../../../EditArea/TwoUp/ViewCanvas/SubViewport/DesignerCanvas/CanvasViewportContainer/SubViewport/LayerNodes/TempModel")
+linked_node = NodePath("../../../../EditArea/TwoUp/ViewCanvas/SubViewport/DesignerCanvas/CanvasViewportContainer/CanvasViewport/LayerNodes/TempModel")
 layer_name = "Truck Image"
 layer_type = "image"
 
 [node name="Layer2" parent="EditLayerSplit/RightPanel/ScrollContainer/LayerList" unique_id=1636741636 node_paths=PackedStringArray("linked_node") instance=ExtResource("10_f6jw8")]
 layout_mode = 2
-linked_node = NodePath("../../../../EditArea/TwoUp/ViewCanvas/SubViewport/DesignerCanvas/CanvasViewportContainer/SubViewport/LayerNodes/Label")
+linked_node = NodePath("../../../../EditArea/TwoUp/ViewCanvas/SubViewport/DesignerCanvas/CanvasViewportContainer/CanvasViewport/LayerNodes/Label")
 layer_name = "Here is some text"
 layer_type = "text"
 
 [node name="Layer3" parent="EditLayerSplit/RightPanel/ScrollContainer/LayerList" unique_id=115983831 node_paths=PackedStringArray("linked_node") instance=ExtResource("10_f6jw8")]
 layout_mode = 2
-linked_node = NodePath("../../../../EditArea/TwoUp/ViewCanvas/SubViewport/DesignerCanvas/CanvasViewportContainer/SubViewport/LayerNodes/RedRect")
+linked_node = NodePath("../../../../EditArea/TwoUp/ViewCanvas/SubViewport/DesignerCanvas/CanvasViewportContainer/CanvasViewport/LayerNodes/RedRect")
 layer_name = "Rectyboi"
 layer_type = "rect"
 
@@ -460,5 +468,4 @@ layout_mode = 2
 tooltip_text = "Group Layers"
 text = "⃞"
 
-[editable path="EditLayerSplit/EditArea/TwoUp/ViewModel/SubViewport/PreviewModel"]
 [editable path="EditLayerSplit/EditArea/TwoUp/ViewCanvas/SubViewport/DesignerCanvas"]

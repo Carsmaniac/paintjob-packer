@@ -12,6 +12,7 @@ var transform_buttons: Node
 var layer_buttons: Node
 var tool_buttons: Node
 var toolbar: Node
+var view_canvas: Node
 
 
 func _ready() -> void:
@@ -20,6 +21,7 @@ func _ready() -> void:
 	layer_buttons = get_node("%LayerControlButtons")
 	tool_buttons = get_node("%ToolButtons")
 	toolbar = get_node("%Toolbar")
+	view_canvas = get_node("%ViewCanvas")
 	layer_buttons.get_node("ButtonDelete").connect("pressed", delete_selected_layers)
 	update_layer_buttons()
 
@@ -42,12 +44,12 @@ func add_text_layer(new_position: Vector2, text_colour: Color) -> void:
 	var layer_node = Label.new()
 	layer_node.text = "Text"
 	layer_node.position = new_position
+	layer_node.scale = Vector2(0.1, 0.1)
 	layer_node.add_theme_color_override("font_color", text_colour)
 	var text_size = get_node("%ToolButtons/TextButtons/FontSize").value
-	layer_node.add_theme_font_size_override("font_size", text_size)
-	new_layer.text_size = text_size
 	layer_nodes.add_child(layer_node)
 	new_layer.linked_node = layer_node
+	new_layer.change_text_size(text_size)
 	add_child(new_layer)
 	move_child(new_layer, 0)
 	update_buttons()
@@ -91,7 +93,7 @@ func select_layer(index: int, select_from_canvas: bool = false) -> void:
 	else:
 		deselect_all()
 		add_selection(get_child(index))
-	get_node("%ViewCanvas").sync_tool_to_layer()
+	view_canvas.sync_tool_to_layer()
 	previous_selected = index
 
 
@@ -119,29 +121,33 @@ func remove_selection(layer: Node) -> void:
 
 
 func delete_selected_layers() -> void:
-	print(selected_layers)
 	while len(selected_layers) > 0:
 		selected_layers[0].delete()
+
+
+func get_selection_bounding_box() -> Vector4:
+	var layer_rect: Rect2 = selected_layers[0].bounding_box()
+	var bounding_box := Vector4(layer_rect.position.x,
+								layer_rect.position.y,
+								layer_rect.position.x + layer_rect.size.x,
+								layer_rect.position.y + layer_rect.size.y)
+	for layer in selected_layers:
+		layer_rect = layer.bounding_box()
+		if layer_rect.position.x < bounding_box[0]:
+			bounding_box[0] = layer_rect.position.x
+		if layer_rect.position.y < bounding_box[1]:
+			bounding_box[1] = layer_rect.position.y
+		if layer_rect.position.x + layer_rect.size.x > bounding_box[2]:
+			bounding_box[2] = layer_rect.position.x + layer_rect.size.x
+		if layer_rect.position.y + layer_rect.size.y > bounding_box[3]:
+			bounding_box[3] = layer_rect.position.y + layer_rect.size.y
+	return bounding_box
 
 
 func update_transform_buttons() -> void:
 	if len(selected_layers) > 0 and ((toolbar.selected_tool == "ToolMove" and tool_buttons.get_node("MoveButtons/TransformControls").button_pressed) or toolbar.selected_tool == "ToolTransform"):
 		transform_buttons.visible = true
-		var layer_rect: Rect2 = selected_layers[0].linked_node.get_rect()
-		var bounding_box := Vector4(layer_rect.position.x,
-									layer_rect.position.y,
-									layer_rect.position.x + layer_rect.size.x,
-									layer_rect.position.y + layer_rect.size.y)
-		for layer in selected_layers:
-			layer_rect = layer.linked_node.get_rect()
-			if layer_rect.position.x < bounding_box[0]:
-				bounding_box[0] = layer_rect.position.x
-			if layer_rect.position.y < bounding_box[1]:
-				bounding_box[1] = layer_rect.position.y
-			if layer_rect.position.x + layer_rect.size.x > bounding_box[2]:
-				bounding_box[2] = layer_rect.position.x + layer_rect.size.x
-			if layer_rect.position.y + layer_rect.size.y > bounding_box[3]:
-				bounding_box[3] = layer_rect.position.y + layer_rect.size.y
+		var bounding_box: Vector4 = get_selection_bounding_box() 
 		
 		transform_buttons.get_node("ButtonNW").position = Vector2(bounding_box[0], bounding_box[1])
 		transform_buttons.get_node("ButtonN").position = Vector2((bounding_box[0] + bounding_box[2]) / 2, bounding_box[1])

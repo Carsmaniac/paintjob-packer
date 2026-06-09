@@ -2,7 +2,7 @@ extends SubViewportContainer
 
 
 func _ready() -> void:
-	pass
+	get_node("%FilteredViewport").world_2d = get_node("%DesignerCanvas/%CanvasViewport").world_2d
 
 
 func _gui_input(event: InputEvent) -> void:
