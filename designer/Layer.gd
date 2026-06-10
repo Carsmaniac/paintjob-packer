@@ -29,7 +29,7 @@ func _ready() -> void:
 	
 	get_node("ChangeTextWindow/Button").connect("pressed", confirm_change_text)
 	
-	view_canvas = get_node("%ViewCanvas")
+	view_canvas = get_tree().root.get_node("DesignerInterface").get_node("%ViewCanvas")
 	# TODO: Ctrl-Enter confirms text entry, esc cancels it
 	# get_node("ChangeTextWindow/LineEdit").connect("text_submitted", confirm_change_text)
 

@@ -52,8 +52,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-split_offsets = PackedInt32Array(800)
-split_offset = 800
+split_offsets = PackedInt32Array(1080)
+split_offset = 1080
 script = ExtResource("2_dto8l")
 right_panel_max_width = 300.0
 
@@ -126,7 +126,7 @@ script = ExtResource("3_gxryq")
 
 [node name="SubViewport" type="SubViewport" parent="EditLayerSplit/EditArea/TwoUp/ViewCanvas" unique_id=1690901565]
 handle_input_locally = false
-size = Vector2i(442, 759)
+size = Vector2i(722, 759)
 render_target_update_mode = 4
 
 [node name="DesignerCanvas" parent="EditLayerSplit/EditArea/TwoUp/ViewCanvas/SubViewport" unique_id=1156557595 instance=ExtResource("3_t3brk")]

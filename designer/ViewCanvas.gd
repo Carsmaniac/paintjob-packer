@@ -103,6 +103,7 @@ func start_transform(button_name: String) -> void:
 			transform_middle_position = (get_node("%DesignerCanvas/%TransformButtons/Button" + transform_type).position + transform_opposite_position) / 2 + Vector2(selection_button_size/2, selection_button_size/2)
 		for layer in layer_list.selected_layers:
 			transform_node_index_dict[layer.linked_node] = layer.linked_node.get_index()
+			layer.selection_box_node.visible = false
 		transform_node = Control.new()
 		var bounding_box: Vector4 = layer_list.get_selection_bounding_box()
 		transform_node.position = Vector2((bounding_box[0] + bounding_box[2]) / 2, (bounding_box[1] + bounding_box[3]) / 2)
@@ -128,6 +129,7 @@ func start_transform(button_name: String) -> void:
 
 func stop_transform() -> void:
 	for layer in layer_list.selected_layers:
+		layer.selection_box_node.visible = true
 		if layer.layer_type in ["text", "rect", "ellipse"]:
 			layer.linked_node.scale *= transform_node.scale
 			layer.linked_node.rotation = transform_node.rotation + layer.linked_node.rotation
@@ -200,7 +202,7 @@ func _gui_input(event: InputEvent) -> void:
 							transform_node_scale_change.x = 1
 						elif transform_type in ["E", "W"]:
 							transform_node_scale_change.y = 1
-						transform_node.scale = transform_node_scale_change
+						transform_node.scale = abs(transform_node_scale_change)
 						var transform_node_position_change: Vector2 = (transform_starting_position - get_canvas_position(event.position)) / -2
 						if transform_type in ["N", "S"]:
 							transform_node_position_change.x = 0

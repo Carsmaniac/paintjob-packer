@@ -145,26 +145,29 @@ func get_selection_bounding_box() -> Vector4:
 
 
 func update_transform_buttons() -> void:
-	for layer in get_children():
-		layer.update_selection_box()
-	if len(selected_layers) > 0 and ((toolbar.selected_tool == "ToolMove" and tool_buttons.get_node("MoveButtons/TransformControls").button_pressed) or toolbar.selected_tool == "ToolTransform"):
-		transform_buttons.visible = true
-		var bounding_box: Vector4 = get_selection_bounding_box() 
-		
-		transform_buttons.get_node("ButtonNW").position = Vector2(bounding_box[0], bounding_box[1])
-		transform_buttons.get_node("ButtonN").position = Vector2((bounding_box[0] + bounding_box[2]) / 2, bounding_box[1])
-		transform_buttons.get_node("ButtonNE").position = Vector2(bounding_box[2], bounding_box[1])
-		transform_buttons.get_node("ButtonE").position = Vector2(bounding_box[2], (bounding_box[1] + bounding_box[3]) / 2)
-		transform_buttons.get_node("ButtonSE").position = Vector2(bounding_box[2], bounding_box[3])
-		transform_buttons.get_node("ButtonS").position = Vector2((bounding_box[0] + bounding_box[2]) / 2, bounding_box[3])
-		transform_buttons.get_node("ButtonSW").position = Vector2(bounding_box[0], bounding_box[3])
-		transform_buttons.get_node("ButtonW").position = Vector2(bounding_box[0], (bounding_box[1] + bounding_box[3]) / 2)
-		transform_buttons.get_node("ButtonR").position = Vector2((bounding_box[0] + bounding_box[2]) / 2, bounding_box[1] - 50)
-		
-		for button in transform_buttons.get_children():
-			button.position -= Vector2(view_canvas.selection_button_size/2, view_canvas.selection_button_size/2)
-	else:
+	if view_canvas.transforming:
 		transform_buttons.visible = false
+	else:
+		for layer in get_children():
+			layer.update_selection_box()
+		if len(selected_layers) > 0 and ((toolbar.selected_tool == "ToolMove" and tool_buttons.get_node("MoveButtons/TransformControls").button_pressed) or toolbar.selected_tool == "ToolTransform"):
+			transform_buttons.visible = true
+			var bounding_box: Vector4 = get_selection_bounding_box() 
+			
+			transform_buttons.get_node("ButtonNW").position = Vector2(bounding_box[0], bounding_box[1])
+			transform_buttons.get_node("ButtonN").position = Vector2((bounding_box[0] + bounding_box[2]) / 2, bounding_box[1])
+			transform_buttons.get_node("ButtonNE").position = Vector2(bounding_box[2], bounding_box[1])
+			transform_buttons.get_node("ButtonE").position = Vector2(bounding_box[2], (bounding_box[1] + bounding_box[3]) / 2)
+			transform_buttons.get_node("ButtonSE").position = Vector2(bounding_box[2], bounding_box[3])
+			transform_buttons.get_node("ButtonS").position = Vector2((bounding_box[0] + bounding_box[2]) / 2, bounding_box[3])
+			transform_buttons.get_node("ButtonSW").position = Vector2(bounding_box[0], bounding_box[3])
+			transform_buttons.get_node("ButtonW").position = Vector2(bounding_box[0], (bounding_box[1] + bounding_box[3]) / 2)
+			transform_buttons.get_node("ButtonR").position = Vector2((bounding_box[0] + bounding_box[2]) / 2, bounding_box[1] - 50)
+			
+			for button in transform_buttons.get_children():
+				button.position -= Vector2(view_canvas.selection_button_size/2, view_canvas.selection_button_size/2)
+		else:
+			transform_buttons.visible = false
 
 
 func update_selected_themes() -> void:
