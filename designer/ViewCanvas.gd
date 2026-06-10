@@ -103,16 +103,17 @@ func start_transform(button_name: String) -> void:
 		for layer in layer_list.selected_layers:
 			transform_node_index_dict[layer.linked_node] = layer.linked_node.get_index()
 		transform_node = Control.new()
+		var bounding_box: Vector4 = layer_list.get_selection_bounding_box()
+		transform_node.position = Vector2((bounding_box[0] + bounding_box[2]) / 2, (bounding_box[1] + bounding_box[3]) / 2)
+		transform_node_starting_position = transform_node.position
+		print(transform_node.position)
 		if len(layer_list.selected_layers) == 1:
 			var selected_node: Node = layer_list.selected_layers[0].linked_node
 			layer_nodes.add_child(transform_node)
-			transform_node.position = selected_node.position
 			transform_node.rotation = selected_node.rotation
 			layer_nodes.move_child(transform_node, selected_node.get_index())
 		elif len(layer_list.selected_layers) > 1:
-			var bounding_box: Vector4 = layer_list.get_selection_bounding_box()
 			layer_nodes.add_child(transform_node)
-			transform_node.position = Vector2(bounding_box[0], bounding_box[1])
 			transform_node.rotation = 0
 			var average_index: float = 0
 			for layer in layer_list.selected_layers:
@@ -186,7 +187,18 @@ func _gui_input(event: InputEvent) -> void:
 				elif event is InputEventMouseMotion and event.button_mask == 1:
 					var initial_scale: Vector2 = transform_opposite_position - transform_starting_position
 					var current_scale: Vector2 = transform_opposite_position - get_canvas_position(event.position)
-					transform_node.scale = current_scale / initial_scale
+					var transform_node_scale_change: Vector2 = current_scale / initial_scale
+					if transform_type in ["N", "S"]:
+						transform_node_scale_change.x = 1
+					elif transform_type in ["E", "W"]:
+						transform_node_scale_change.y = 1
+					transform_node.scale = transform_node_scale_change
+					var transform_node_position_change: Vector2 = (transform_starting_position - get_canvas_position(event.position)) / -2
+					if transform_type in ["N", "S"]:
+						transform_node_position_change.x = 0
+					elif transform_type in ["E", "W"]:
+						transform_node_position_change.y = 0
+					transform_node.position = transform_node_starting_position + transform_node_position_change
 					layer_list.update_transform_buttons()
 			
 			else:
