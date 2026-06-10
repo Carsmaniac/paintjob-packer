@@ -35,6 +35,7 @@ var transform_opposite_position: Vector2
 var transform_middle_position: Vector2
 var transform_node: Node
 var transform_node_starting_position: Vector2
+var transform_node_starting_rotation: float
 var transform_node_index_dict: Dictionary # {node: index}
 
 
@@ -106,11 +107,11 @@ func start_transform(button_name: String) -> void:
 		var bounding_box: Vector4 = layer_list.get_selection_bounding_box()
 		transform_node.position = Vector2((bounding_box[0] + bounding_box[2]) / 2, (bounding_box[1] + bounding_box[3]) / 2)
 		transform_node_starting_position = transform_node.position
-		print(transform_node.position)
 		if len(layer_list.selected_layers) == 1:
 			var selected_node: Node = layer_list.selected_layers[0].linked_node
 			layer_nodes.add_child(transform_node)
-			transform_node.rotation = selected_node.rotation
+			if selected_node is Sprite2D:
+				transform_node.rotation = selected_node.rotation
 			layer_nodes.move_child(transform_node, selected_node.get_index())
 		elif len(layer_list.selected_layers) > 1:
 			layer_nodes.add_child(transform_node)
@@ -122,12 +123,14 @@ func start_transform(button_name: String) -> void:
 			layer_nodes.move_child(transform_node, int(average_index))
 		for layer in layer_list.selected_layers:
 			layer.linked_node.reparent(transform_node)
+		transform_node_starting_rotation = transform_node.rotation
 
 
 func stop_transform() -> void:
 	for layer in layer_list.selected_layers:
 		if layer.layer_type in ["text", "rect", "ellipse"]:
 			layer.linked_node.scale *= transform_node.scale
+			layer.linked_node.rotation = transform_node.rotation + layer.linked_node.rotation
 	layer_nodes.remove_child(transform_node)
 	for index in range(len(layer_nodes.get_children()) + len(transform_node.get_children())):
 		for key in transform_node_index_dict.keys():
@@ -185,21 +188,26 @@ func _gui_input(event: InputEvent) -> void:
 				
 				# Transform on drag
 				elif event is InputEventMouseMotion and event.button_mask == 1:
-					var initial_scale: Vector2 = transform_opposite_position - transform_starting_position
-					var current_scale: Vector2 = transform_opposite_position - get_canvas_position(event.position)
-					var transform_node_scale_change: Vector2 = current_scale / initial_scale
-					if transform_type in ["N", "S"]:
-						transform_node_scale_change.x = 1
-					elif transform_type in ["E", "W"]:
-						transform_node_scale_change.y = 1
-					transform_node.scale = transform_node_scale_change
-					var transform_node_position_change: Vector2 = (transform_starting_position - get_canvas_position(event.position)) / -2
-					if transform_type in ["N", "S"]:
-						transform_node_position_change.x = 0
-					elif transform_type in ["E", "W"]:
-						transform_node_position_change.y = 0
-					transform_node.position = transform_node_starting_position + transform_node_position_change
-					layer_list.update_transform_buttons()
+					if transform_type == "R":
+						transform_node.rotation = (transform_node_starting_position - get_canvas_position(event.position)).angle() - PI/2 + transform_node_starting_rotation
+						if Input.is_key_pressed(KEY_SHIFT):
+							transform_node.rotation = snapped(transform_node.rotation, PI/12)
+					else:
+						var initial_scale: Vector2 = transform_opposite_position - transform_starting_position
+						var current_scale: Vector2 = transform_opposite_position - get_canvas_position(event.position)
+						var transform_node_scale_change: Vector2 = current_scale / initial_scale
+						if transform_type in ["N", "S"]:
+							transform_node_scale_change.x = 1
+						elif transform_type in ["E", "W"]:
+							transform_node_scale_change.y = 1
+						transform_node.scale = transform_node_scale_change
+						var transform_node_position_change: Vector2 = (transform_starting_position - get_canvas_position(event.position)) / -2
+						if transform_type in ["N", "S"]:
+							transform_node_position_change.x = 0
+						elif transform_type in ["E", "W"]:
+							transform_node_position_change.y = 0
+						transform_node.position = transform_node_starting_position + transform_node_position_change
+						layer_list.update_transform_buttons()
 			
 			else:
 				# Select on click
