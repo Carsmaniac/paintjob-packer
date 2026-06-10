@@ -162,7 +162,7 @@ func update_transform_buttons() -> void:
 		transform_buttons.get_node("ButtonR").position = Vector2((bounding_box[0] + bounding_box[2]) / 2, bounding_box[1] - 50)
 		
 		for button in transform_buttons.get_children():
-			button.position -= Vector2(12, 12)
+			button.position -= Vector2(view_canvas.selection_button_size/2, view_canvas.selection_button_size/2)
 	else:
 		transform_buttons.visible = false
 
