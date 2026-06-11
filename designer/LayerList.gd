@@ -126,13 +126,13 @@ func delete_selected_layers() -> void:
 
 
 func get_selection_bounding_box() -> Vector4:
-	var layer_rect: Rect2 = selected_layers[0].bounding_box()
+	var layer_rect: Rect2 = selected_layers[0].get_bounding_box()
 	var bounding_box := Vector4(layer_rect.position.x,
 								layer_rect.position.y,
 								layer_rect.position.x + layer_rect.size.x,
 								layer_rect.position.y + layer_rect.size.y)
 	for layer in selected_layers:
-		layer_rect = layer.bounding_box()
+		layer_rect = layer.get_bounding_box()
 		if layer_rect.position.x < bounding_box[0]:
 			bounding_box[0] = layer_rect.position.x
 		if layer_rect.position.y < bounding_box[1]:
@@ -162,7 +162,7 @@ func update_transform_buttons() -> void:
 			transform_buttons.get_node("ButtonS").position = Vector2((bounding_box[0] + bounding_box[2]) / 2, bounding_box[3])
 			transform_buttons.get_node("ButtonSW").position = Vector2(bounding_box[0], bounding_box[3])
 			transform_buttons.get_node("ButtonW").position = Vector2(bounding_box[0], (bounding_box[1] + bounding_box[3]) / 2)
-			transform_buttons.get_node("ButtonR").position = Vector2((bounding_box[0] + bounding_box[2]) / 2, bounding_box[1] - 50)
+			transform_buttons.get_node("ButtonR").position = Vector2((bounding_box[0] + bounding_box[2]) / 2, bounding_box[1] - view_canvas.selection_button_size * 1.5)
 			
 			for button in transform_buttons.get_children():
 				button.position -= Vector2(view_canvas.selection_button_size/2, view_canvas.selection_button_size/2)

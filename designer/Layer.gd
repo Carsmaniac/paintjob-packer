@@ -1,7 +1,6 @@
 extends Panel
 
 @export var linked_node: Node
-var selection_box_node: Panel
 @export var layer_name: String = "Layer"
 var custom_layer_name: bool = false
 @export_enum("raster", "text", "image", "rect", "ellipse") var layer_type: String
@@ -13,6 +12,11 @@ var view_canvas: Node
 var text_size: float
 var layer_colour: Color
 var layer_hidden: bool = false
+
+var selection_box_node: Panel
+var selection_point_ne: Control
+var selection_point_se: Control
+var selection_point_sw: Control
 
 
 func _ready() -> void:
@@ -38,7 +42,25 @@ func _enter_tree() -> void:
 	selection_box_node = Panel.new()
 	selection_box_node.theme = selection_theme
 	selection_box_node.visible = false
+	
+	selection_point_ne = Control.new()
+	selection_point_ne.size = Vector2(0, 0)
+	selection_point_ne.set_anchors_preset(Control.PRESET_TOP_RIGHT)
+	selection_box_node.add_child(selection_point_ne)
+	#selection_point_ne.position = Vector2(selection_box_node.size.x, 0)
+	selection_point_se = Control.new()
+	selection_point_se.size = Vector2(0, 0)
+	selection_point_se.set_anchors_preset(Control.PRESET_BOTTOM_RIGHT)
+	selection_box_node.add_child(selection_point_se)
+	#selection_point_se.position = Vector2(selection_box_node.size.x, selection_box_node.size.y)
+	selection_point_sw = Control.new()
+	selection_point_sw.size = Vector2(0, 0)
+	selection_point_sw.set_anchors_preset(Control.PRESET_BOTTOM_LEFT)
+	selection_box_node.add_child(selection_point_sw)
+	#selection_point_sw.position = Vector2(0, selection_box_node.size.y)
+	
 	get_tree().root.get_node("DesignerInterface").get_node("%DesignerCanvas/%SelectionBoxes").add_child(selection_box_node)
+	update_selection_box()
 
 
 func maybe_select_layer(event) -> void:
@@ -138,20 +160,42 @@ func update_buttons() -> void:
 
 
 func update_selection_box() -> void:
-	selection_box_node.position = bounding_box().position
-	selection_box_node.size = bounding_box().size
-
-
-func bounding_box() -> Rect2:
-	var bounding_box_rect: Rect2
+	var unrotated_rect: Rect2
 	if linked_node is Sprite2D:
-		bounding_box_rect = Rect2(linked_node.position, linked_node.get_rect().size * linked_node.scale)
+		unrotated_rect = Rect2(linked_node.position, linked_node.get_rect().size * linked_node.scale)
 	else:
-		bounding_box_rect = linked_node.get_rect()
-	if view_canvas.transforming:
-		bounding_box_rect.position += view_canvas.transform_node.position + (linked_node.position * (view_canvas.transform_node.scale - Vector2(1, 1)))
-		bounding_box_rect.size *= view_canvas.transform_node.scale
+		unrotated_rect = linked_node.get_rect()
+	selection_box_node.position = unrotated_rect.position
+	selection_box_node.size = unrotated_rect.size
+	selection_box_node.rotation = linked_node.rotation
+
+
+func get_rotated_selection_box() -> PackedVector2Array:
+	var a: Vector2 = selection_box_node.position
+	var b: Vector2 = selection_point_ne.position.rotated(selection_box_node.rotation) + a
+	var c: Vector2 = selection_point_se.position.rotated(selection_box_node.rotation) + a
+	var d: Vector2 = selection_point_sw.position.rotated(selection_box_node.rotation) + a
+	return PackedVector2Array([a, b, c, d])
+
+
+func get_bounding_box() -> Rect2:
+	var selection_box: PackedVector2Array = get_rotated_selection_box()
+	var bounding_box_rect: Rect2 = Rect2(selection_box[0], Vector2.ZERO)
+	for point in selection_box:
+		if point.x < bounding_box_rect.position.x:
+			bounding_box_rect.position.x = point.x
+		if point.y < bounding_box_rect.position.y:
+			bounding_box_rect.position.y = point.y
+		if point.x > bounding_box_rect.size.x:
+			bounding_box_rect.size.x = point.x
+		if point.y > bounding_box_rect.size.y:
+			bounding_box_rect.size.y = point.y
+	bounding_box_rect.size = bounding_box_rect.size - bounding_box_rect.position
 	return bounding_box_rect
+
+
+func point_inside_selection_box(point: Vector2) -> bool:
+	return Geometry2D.is_point_in_polygon(point, get_rotated_selection_box())
 
 
 func delete() -> void:

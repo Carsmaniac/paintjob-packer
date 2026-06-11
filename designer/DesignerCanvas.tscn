@@ -34,6 +34,7 @@ offset_right = 4096.0
 offset_bottom = 4096.0
 
 [node name="BackgroundTemplate" type="TextureRect" parent="CanvasViewportContainer/CanvasViewport" unique_id=326154988]
+unique_name_in_owner = true
 visibility_layer = 2
 offset_right = 4096.0
 offset_bottom = 4096.0
@@ -165,6 +166,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="ForegroundTemplate" type="TextureRect" parent="CanvasViewportContainer/CanvasViewport" unique_id=1211417610]
+unique_name_in_owner = true
 visible = false
 visibility_layer = 2
 offset_right = 4096.0

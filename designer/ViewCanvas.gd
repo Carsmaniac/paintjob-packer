@@ -59,9 +59,9 @@ func fit_to_view() -> void:
 	canvas_view_scale = min(fit_width_scale, fit_height_scale)
 	canvas.scale = Vector2(canvas_view_scale, canvas_view_scale)
 	if fit_width_scale < fit_height_scale:
-		canvas.position = Vector2(0, self.size.y/2 - (canvas_view_scale * canvas.height / 2))
+		canvas.position = Vector2(-canvas.width * canvas_view_scale / 2, self.size.y/2 - (canvas_view_scale * canvas.height))
 	else:
-		canvas.position = Vector2(self.size.x/2 - (canvas_view_scale * canvas.width / 2), 0)
+		canvas.position = Vector2(self.size.x/2 - (canvas_view_scale * canvas.width), -canvas.height * canvas_view_scale / 2)
 	update_selection_theme()
 	layer_list.update_transform_buttons()
 
@@ -125,6 +125,7 @@ func start_transform(button_name: String) -> void:
 		for layer in layer_list.selected_layers:
 			layer.linked_node.reparent(transform_node)
 		transform_node_starting_rotation = transform_node.rotation
+	layer_list.update_transform_buttons()
 
 
 func stop_transform() -> void:
@@ -209,7 +210,6 @@ func _gui_input(event: InputEvent) -> void:
 						elif transform_type in ["E", "W"]:
 							transform_node_position_change.y = 0
 						transform_node.position = transform_node_starting_position + transform_node_position_change
-						layer_list.update_transform_buttons()
 			
 			else:
 				# Select on click
@@ -218,7 +218,8 @@ func _gui_input(event: InputEvent) -> void:
 				(Input.is_key_pressed(KEY_CTRL) == false and tool_buttons.get_node("MoveButtons/AutoSelect").button_pressed)):
 					var selecting_layer: bool = false
 					for layer in layer_list.get_children():
-						if layer.bounding_box().has_point(get_canvas_position(event.position)):
+						#if layer.bounding_box().has_point(get_canvas_position(event.position)):
+						if layer.point_inside_selection_box(get_canvas_position(event.position)):
 							layer_list.select_layer(layer.get_index(), true)
 							selecting_layer = true
 							break
@@ -237,7 +238,7 @@ func _gui_input(event: InputEvent) -> void:
 				var editing_text: bool = false
 				for layer in layer_list.get_children():
 					if layer.layer_type == "text":
-						if layer.linked_node.get_rect().has_point(get_canvas_position(event.position)):
+						if layer.point_inside_selection_box(get_canvas_position(event.position)):
 							layer_list.select_layer(layer.get_index())
 							sync_tool_to_layer()
 							layer.change_text_layer()

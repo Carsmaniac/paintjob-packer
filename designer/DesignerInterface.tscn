@@ -133,6 +133,12 @@ render_target_update_mode = 4
 unique_name_in_owner = true
 script = ExtResource("7_ft5e4")
 
+[node name="CanvasViewportContainer" parent="EditLayerSplit/EditArea/TwoUp/ViewCanvas/SubViewport/DesignerCanvas" index="0" unique_id=41392612]
+offset_right = 8192.0
+
+[node name="CanvasViewport" parent="EditLayerSplit/EditArea/TwoUp/ViewCanvas/SubViewport/DesignerCanvas/CanvasViewportContainer" index="0" unique_id=61003486]
+size = Vector2i(8192, 4096)
+
 [node name="LeftPanel" type="Panel" parent="EditLayerSplit/EditArea" unique_id=1915631464]
 layout_mode = 1
 anchors_preset = 9
