@@ -18,4 +18,4 @@ func fit_canvas_to_view() -> void:
 	var new_mat := StandardMaterial3D.new()
 	new_mat.albedo_texture = new_tex
 	new_model.set_surface_override_material(0, new_mat)
-	vehicle_model.get_parent().add_child(new_model)
+	#vehicle_model.get_parent().add_child(new_model)

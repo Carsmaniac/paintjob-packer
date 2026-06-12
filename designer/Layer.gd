@@ -11,6 +11,7 @@ var view_canvas: Node
 
 var text_size: float
 var layer_colour: Color
+var image_path: String
 var layer_hidden: bool = false
 
 var selection_box_node: Panel
@@ -190,7 +191,7 @@ func get_bounding_box() -> Rect2:
 			bounding_box_rect.size.x = point.x
 		if point.y > bounding_box_rect.size.y:
 			bounding_box_rect.size.y = point.y
-	bounding_box_rect.size = bounding_box_rect.size - bounding_box_rect.position
+	bounding_box_rect.size -= bounding_box_rect.position
 	return bounding_box_rect
 
 

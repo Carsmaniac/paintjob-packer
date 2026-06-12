@@ -23,6 +23,7 @@ func _ready() -> void:
 	toolbar = get_node("%Toolbar")
 	view_canvas = get_node("%ViewCanvas")
 	layer_buttons.get_node("ButtonDelete").connect("pressed", delete_selected_layers)
+	get_viewport().connect("files_dropped", add_image_layers)
 	update_layer_buttons()
 
 
@@ -66,6 +67,35 @@ func add_shape_layer(shape_node: Node, layer_type: String, shape_colour: Color) 
 	add_child(new_layer)
 	move_child(new_layer, 0)
 	update_buttons()
+
+
+func add_image_layers(file_paths: PackedStringArray) -> void:
+	var project_name = "Test Project"
+	for file_path in file_paths:
+		if FileAccess.file_exists(file_path):
+			var image_directory: String = "user://projects/%s/images" % project_name
+			var file_contents: PackedByteArray = FileAccess.get_file_as_bytes(file_path)
+			if not DirAccess.dir_exists_absolute(image_directory):
+				DirAccess.make_dir_recursive_absolute(image_directory)
+			var file_extension: String = file_path.get_file().split(".")[-1]
+			var i: int = 0
+			while FileAccess.file_exists("%s/%s.%s" % [image_directory, i, file_extension]):
+				i += 1
+			var file := FileAccess.open("%s/%s.%s" % [image_directory, i, file_extension], FileAccess.WRITE)
+			file.store_buffer(file_contents)
+			file.close()
+			var new_layer: Node = Layer.instantiate()
+			new_layer.layer_type = "image"
+			new_layer.layer_name = "Image"
+			new_layer.image_path = "%s.%s" % [i, file_extension]
+			var new_node: Node = Sprite2D.new()
+			new_node.texture = ImageTexture.create_from_image(Image.load_from_file("%s/%s.%s" % [image_directory, i, file_extension]))
+			new_node.position = Vector2(get_node("%DesignerCanvas").width, get_node("%DesignerCanvas").height) - (new_node.texture.get_size() / 2)
+			new_node.centered = false
+			new_layer.linked_node = new_node
+			layer_nodes.add_child(new_node)
+			add_child(new_layer)
+			move_child(new_layer, 0)
 
 
 func select_layer(index: int, select_from_canvas: bool = false) -> void:
