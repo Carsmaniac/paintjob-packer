@@ -199,7 +199,11 @@ func _gui_input(event: InputEvent) -> void:
 							transform_node.rotation = snapped(transform_node.rotation, PI/12)
 					else:
 						var initial_scale: Vector2 = transform_opposite_position - transform_starting_position
-						var current_scale: Vector2 = transform_opposite_position - get_canvas_position(event.position)
+						var current_scale: Vector2
+						if Input.is_key_pressed(KEY_ALT):
+							current_scale = (transform_middle_position - get_canvas_position(event.position)) * 2
+						else:
+							current_scale = transform_opposite_position - get_canvas_position(event.position)
 						var transform_node_scale_change: Vector2 = current_scale / initial_scale
 						if transform_type in ["N", "S"]:
 							transform_node_scale_change.x = 1
@@ -211,6 +215,8 @@ func _gui_input(event: InputEvent) -> void:
 							transform_node_position_change.x = 0
 						elif transform_type in ["E", "W"]:
 							transform_node_position_change.y = 0
+						if Input.is_key_pressed(KEY_ALT):
+							transform_node_position_change = Vector2.ZERO
 						transform_node.position = transform_node_starting_position + transform_node_position_change
 			
 			else:
