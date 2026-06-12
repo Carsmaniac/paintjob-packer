@@ -97,6 +97,9 @@ offset_right = 25.0
 offset_bottom = 50.0
 text = "↖"
 
+[node name="TransformPoint" type="Node2D" parent="CanvasViewportContainer/CanvasViewport/TransformButtons/ButtonNW" unique_id=1866062148]
+visible = false
+
 [node name="ButtonN" type="Button" parent="CanvasViewportContainer/CanvasViewport/TransformButtons" unique_id=1531227050]
 layout_mode = 0
 offset_left = 25.0
@@ -104,6 +107,9 @@ offset_top = 25.0
 offset_right = 50.0
 offset_bottom = 50.0
 text = "↑"
+
+[node name="TransformPoint" type="Node2D" parent="CanvasViewportContainer/CanvasViewport/TransformButtons/ButtonN" unique_id=408258500]
+visible = false
 
 [node name="ButtonNE" type="Button" parent="CanvasViewportContainer/CanvasViewport/TransformButtons" unique_id=2031794932]
 layout_mode = 0
@@ -113,6 +119,9 @@ offset_right = 75.0
 offset_bottom = 50.0
 text = "↗"
 
+[node name="TransformPoint" type="Node2D" parent="CanvasViewportContainer/CanvasViewport/TransformButtons/ButtonNE" unique_id=514404682]
+visible = false
+
 [node name="ButtonE" type="Button" parent="CanvasViewportContainer/CanvasViewport/TransformButtons" unique_id=58748209]
 layout_mode = 0
 offset_left = 50.0
@@ -120,6 +129,9 @@ offset_top = 50.0
 offset_right = 75.0
 offset_bottom = 75.0
 text = "→"
+
+[node name="TransformPoint" type="Node2D" parent="CanvasViewportContainer/CanvasViewport/TransformButtons/ButtonE" unique_id=598377199]
+visible = false
 
 [node name="ButtonSE" type="Button" parent="CanvasViewportContainer/CanvasViewport/TransformButtons" unique_id=1356692048]
 layout_mode = 0
@@ -129,6 +141,9 @@ offset_right = 75.0
 offset_bottom = 100.0
 text = "↘"
 
+[node name="TransformPoint" type="Node2D" parent="CanvasViewportContainer/CanvasViewport/TransformButtons/ButtonSE" unique_id=385855691]
+visible = false
+
 [node name="ButtonS" type="Button" parent="CanvasViewportContainer/CanvasViewport/TransformButtons" unique_id=100917154]
 layout_mode = 0
 offset_left = 25.0
@@ -137,12 +152,18 @@ offset_right = 50.0
 offset_bottom = 100.0
 text = "↓"
 
+[node name="TransformPoint" type="Node2D" parent="CanvasViewportContainer/CanvasViewport/TransformButtons/ButtonS" unique_id=1599424770]
+visible = false
+
 [node name="ButtonSW" type="Button" parent="CanvasViewportContainer/CanvasViewport/TransformButtons" unique_id=1988529218]
 layout_mode = 0
 offset_top = 75.0
 offset_right = 25.0
 offset_bottom = 100.0
 text = "↙"
+
+[node name="TransformPoint" type="Node2D" parent="CanvasViewportContainer/CanvasViewport/TransformButtons/ButtonSW" unique_id=55085451]
+visible = false
 
 [node name="ButtonW" type="Button" parent="CanvasViewportContainer/CanvasViewport/TransformButtons" unique_id=2111006868]
 layout_mode = 0
@@ -151,12 +172,18 @@ offset_right = 25.0
 offset_bottom = 75.0
 text = "←"
 
+[node name="TransformPoint" type="Node2D" parent="CanvasViewportContainer/CanvasViewport/TransformButtons/ButtonW" unique_id=1907727166]
+visible = false
+
 [node name="ButtonR" type="Button" parent="CanvasViewportContainer/CanvasViewport/TransformButtons" unique_id=788763331]
 layout_mode = 0
 offset_left = 25.0
 offset_right = 50.0
 offset_bottom = 25.0
 text = "↻"
+
+[node name="TransformPoint" type="Node2D" parent="CanvasViewportContainer/CanvasViewport/TransformButtons/ButtonR" unique_id=2103891175]
+visible = false
 
 [node name="TempLayer" type="Control" parent="CanvasViewportContainer/CanvasViewport" unique_id=150594314]
 unique_name_in_owner = true

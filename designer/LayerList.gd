@@ -201,7 +201,32 @@ func update_transform_buttons() -> void:
 			layer.update_selection_box()
 		if len(selected_layers) > 0 and ((toolbar.selected_tool == "ToolMove" and tool_buttons.get_node("MoveButtons/TransformControls").button_pressed) or toolbar.selected_tool == "ToolTransform"):
 			transform_buttons.visible = true
-			var bounding_box: Vector4 = get_selection_bounding_box() 
+			var bounding_box: Vector4 = get_selection_bounding_box()
+			
+			for button in transform_buttons.get_children():
+				button.get_node("TransformPoint").position = Vector2(view_canvas.selection_button_size / 2, view_canvas.selection_button_size / 2)
+
+			var box_wider = (bounding_box[2] - bounding_box[0] - (view_canvas.selection_button_size * 2.2)) * -1
+			if box_wider > 0:
+				bounding_box[0] -= box_wider / 2
+				transform_buttons.get_node("ButtonNW/TransformPoint").position.x += box_wider
+				transform_buttons.get_node("ButtonW/TransformPoint").position.x += box_wider
+				transform_buttons.get_node("ButtonSW/TransformPoint").position.x += box_wider
+				bounding_box[2] += box_wider / 2
+				transform_buttons.get_node("ButtonNE/TransformPoint").position.x -= box_wider
+				transform_buttons.get_node("ButtonE/TransformPoint").position.x -= box_wider
+				transform_buttons.get_node("ButtonSE/TransformPoint").position.x -= box_wider
+			
+			var box_taller = (bounding_box[3] - bounding_box[1] - (view_canvas.selection_button_size * 2.2)) * -1
+			if box_taller > 0:
+				bounding_box[1] -= box_taller / 2
+				transform_buttons.get_node("ButtonNW/TransformPoint").position.y += box_taller
+				transform_buttons.get_node("ButtonN/TransformPoint").position.y += box_taller
+				transform_buttons.get_node("ButtonNE/TransformPoint").position.y += box_taller
+				bounding_box[3] += box_taller / 2
+				transform_buttons.get_node("ButtonSE/TransformPoint").position.y -= box_taller
+				transform_buttons.get_node("ButtonS/TransformPoint").position.y -= box_taller
+				transform_buttons.get_node("ButtonSW/TransformPoint").position.y -= box_taller
 			
 			transform_buttons.get_node("ButtonNW").position = Vector2(bounding_box[0], bounding_box[1])
 			transform_buttons.get_node("ButtonN").position = Vector2((bounding_box[0] + bounding_box[2]) / 2, bounding_box[1])

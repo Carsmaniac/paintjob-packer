@@ -99,8 +99,10 @@ func start_transform(button_name: String) -> void:
 				opposite_type = "NE"
 			elif transform_type == "W":
 				opposite_type = "E"
-			transform_opposite_position = get_node("%DesignerCanvas/%TransformButtons/Button" + opposite_type).position + Vector2(selection_button_size/2, selection_button_size/2)
-			transform_middle_position = (get_node("%DesignerCanvas/%TransformButtons/Button" + transform_type).position + transform_opposite_position) / 2 + Vector2(selection_button_size/2, selection_button_size/2)
+			var clicked_button = get_node("%DesignerCanvas/%TransformButtons/Button" + transform_type)
+			var opposite_button = get_node("%DesignerCanvas/%TransformButtons/Button" + opposite_type)
+			transform_opposite_position = opposite_button.position + opposite_button.get_node("TransformPoint").position
+			transform_middle_position = (clicked_button.position + transform_opposite_position) / 2 + clicked_button.get_node("TransformPoint").position
 		for layer in layer_list.selected_layers:
 			transform_node_index_dict[layer.linked_node] = layer.linked_node.get_index()
 			layer.selection_box_node.visible = false
