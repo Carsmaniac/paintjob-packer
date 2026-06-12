@@ -24,6 +24,7 @@ func _ready() -> void:
 	view_canvas = get_node("%ViewCanvas")
 	layer_buttons.get_node("ButtonDelete").connect("pressed", delete_selected_layers)
 	get_viewport().connect("files_dropped", add_image_layers)
+	clear_unused_images()
 	update_layer_buttons()
 
 
@@ -33,8 +34,12 @@ func remove_layer(index: int) -> void:
 
 
 func update_buttons() -> void:
-	for child in get_children():
+	for child in get_layers():
 		child.update_buttons()
+
+
+func get_layers() -> Array[Node]:
+	return get_children()
 
 
 func add_text_layer(new_position: Vector2, text_colour: Color) -> void:
@@ -98,6 +103,17 @@ func add_image_layers(file_paths: PackedStringArray) -> void:
 			move_child(new_layer, 0)
 
 
+func clear_unused_images() -> void:
+	var image_directory: String = "user://projects/Test Project/images"
+	var used_images: PackedStringArray
+	for layer in get_layers():
+		used_images.append(layer.image_path)
+	var dir := DirAccess.open(image_directory)
+	for file in dir.get_files():
+		if file not in used_images:
+			DirAccess.remove_absolute("%s/%s" % [image_directory, file])
+
+
 func select_layer(index: int, select_from_canvas: bool = false) -> void:
 	# Shift + auto-select adds or removes selection
 	if select_from_canvas and Input.is_key_pressed(KEY_CTRL) and Input.is_key_pressed(KEY_SHIFT):
@@ -129,7 +145,7 @@ func select_layer(index: int, select_from_canvas: bool = false) -> void:
 
 func deselect_all() -> void:
 	selected_layers = []
-	for layer in get_children():
+	for layer in get_layers():
 		remove_selection(layer)
 
 
@@ -178,7 +194,7 @@ func update_transform_buttons() -> void:
 	if view_canvas.transforming:
 		transform_buttons.visible = false
 	else:
-		for layer in get_children():
+		for layer in get_layers():
 			layer.update_selection_box()
 		if len(selected_layers) > 0 and ((toolbar.selected_tool == "ToolMove" and tool_buttons.get_node("MoveButtons/TransformControls").button_pressed) or toolbar.selected_tool == "ToolTransform"):
 			transform_buttons.visible = true
@@ -201,7 +217,7 @@ func update_transform_buttons() -> void:
 
 
 func update_selected_themes() -> void:
-	for layer in get_children():
+	for layer in get_layers():
 		if layer in selected_layers:
 			layer.theme = layer_selected_theme
 		else:

@@ -217,7 +217,7 @@ func _gui_input(event: InputEvent) -> void:
 				((Input.is_key_pressed(KEY_CTRL) and tool_buttons.get_node("MoveButtons/AutoSelect").button_pressed == false) or \
 				(Input.is_key_pressed(KEY_CTRL) == false and tool_buttons.get_node("MoveButtons/AutoSelect").button_pressed)):
 					var selecting_layer: bool = false
-					for layer in layer_list.get_children():
+					for layer in layer_list.get_layers():
 						#if layer.bounding_box().has_point(get_canvas_position(event.position)):
 						if layer.point_inside_selection_box(get_canvas_position(event.position)):
 							layer_list.select_layer(layer.get_index(), true)
@@ -236,7 +236,7 @@ func _gui_input(event: InputEvent) -> void:
 		elif toolbar.selected_tool == "ToolText":
 			if event is InputEventMouseButton and event.button_index == 1 and event.pressed:
 				var editing_text: bool = false
-				for layer in layer_list.get_children():
+				for layer in layer_list.get_layers():
 					if layer.layer_type == "text":
 						if layer.point_inside_selection_box(get_canvas_position(event.position)):
 							layer_list.select_layer(layer.get_index())
