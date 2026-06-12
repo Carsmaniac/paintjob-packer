@@ -8,8 +8,10 @@ var custom_layer_name: bool = false
 var selection_theme = ResourceLoader.load("res://simple-box-theme/SelectionTheme.tres")
 
 var view_canvas: Node
+var toolbar: Node
 
 var text_size: float
+var creating_text: bool = false
 var layer_colour: Color
 var image_path: String
 var layer_hidden: bool = false
@@ -35,6 +37,7 @@ func _ready() -> void:
 	get_node("ChangeTextWindow/Button").connect("pressed", confirm_change_text)
 	
 	view_canvas = get_tree().root.get_node("DesignerInterface").get_node("%ViewCanvas")
+	toolbar = get_tree().root.get_node("DesignerInterface").get_node("%Toolbar")
 	# TODO: Ctrl-Enter confirms text entry, esc cancels it
 	# get_node("ChangeTextWindow/LineEdit").connect("text_submitted", confirm_change_text)
 
@@ -91,7 +94,8 @@ func cancel_rename() -> void:
 	get_node("RenameWindow").visible = false
 
 
-func change_text_layer() -> void:
+func change_text_layer(creating: bool = false) -> void:
+	creating_text = creating
 	get_node("ChangeTextWindow").popup_centered()
 	get_node("ChangeTextWindow/LineEdit").grab_focus()
 	get_node("ChangeTextWindow/LineEdit").text = linked_node.text
@@ -104,6 +108,11 @@ func confirm_change_text(_new_name: String = "") -> void:
 		rename_layer(linked_node.text)
 	get_node("ChangeTextWindow").visible = false
 	get_parent().select_layer(get_index())
+	if creating_text:
+		creating_text = false
+		toolbar.change_tool("ToolMove")
+	update_selection_box.call_deferred()
+	get_parent().update_transform_buttons.call_deferred()
 
 
 func change_text_size(new_size: float) -> void:

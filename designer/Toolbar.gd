@@ -42,6 +42,11 @@ func _input(event: InputEvent) -> void:
 			get_node("ColourSecondary").color = Color.WHITE
 
 
+func change_tool(tool_name: String) -> void:
+	switch_button(get_node(tool_name))
+	layer_list.update_transform_buttons()
+
+
 func switch_button(pressed_button: Node) -> void:
 	for child in get_children():
 		if child is Button:

@@ -58,8 +58,9 @@ func add_text_layer(new_position: Vector2, text_colour: Color) -> void:
 	new_layer.change_text_size(text_size)
 	add_child(new_layer)
 	move_child(new_layer, 0)
+	select_layer(0)
 	update_buttons()
-	new_layer.change_text_layer()
+	new_layer.change_text_layer(true)
 
 
 func add_shape_layer(shape_node: Node, layer_type: String, shape_colour: Color) -> void:
@@ -101,6 +102,8 @@ func add_image_layers(file_paths: PackedStringArray) -> void:
 			layer_nodes.add_child(new_node)
 			add_child(new_layer)
 			move_child(new_layer, 0)
+			select_layer(0)
+			toolbar.change_tool("ToolMove")
 
 
 func clear_unused_images() -> void:

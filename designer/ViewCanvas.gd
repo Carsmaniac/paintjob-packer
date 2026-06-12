@@ -255,6 +255,8 @@ func _gui_input(event: InputEvent) -> void:
 					drawing_shape_node.queue_free()
 				else:
 					layer_list.add_shape_layer(drawing_shape_node, drawing_shape_type, drawing_shape_colour)
+					layer_list.select_layer(0)
+					toolbar.change_tool("ToolMove")
 			
 			# Start drawing shape on click
 			elif event is InputEventMouseButton and event.button_index == 1 and event.pressed:
