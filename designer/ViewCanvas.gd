@@ -193,24 +193,84 @@ func _gui_input(event: InputEvent) -> void:
 				
 				# Transform on drag
 				elif event is InputEventMouseMotion and event.button_mask == 1:
+					# Rotate
 					if transform_type == "R":
 						transform_node.rotation = (transform_node_starting_position - get_canvas_position(event.position)).angle() - PI/2 + transform_node_starting_rotation
 						if Input.is_key_pressed(KEY_SHIFT):
 							transform_node.rotation = snapped(transform_node.rotation, PI/12)
+					
+					# Scale proportionally
+					elif Input.is_key_pressed(KEY_SHIFT):
+						var bounding_box: Vector4 = layer_list.get_selection_bounding_box()
+						var initial_size := Vector2(bounding_box[2] - bounding_box[0], bounding_box[3] - bounding_box[1])
+						var mouse_position: Vector2 = get_canvas_position(event.position)
+						var from_a: Vector2 = transform_opposite_position
+						var dir_a: Vector2 = (transform_opposite_position - transform_starting_position).normalized()
+						var from_b: Vector2 = mouse_position
+						var dir_b: Vector2 = dir_a.rotated(PI/2)
+						var intersects: Vector2 = Geometry2D.line_intersects_line(from_a, dir_a, from_b, dir_b)
+						if transform_type in ["NW", "NE", "SE", "SW"]:
+							var transform_new_scale: Vector2
+							if Input.is_key_pressed(KEY_ALT):
+								transform_new_scale = abs(transform_middle_position - intersects) / initial_size * 2
+							else:
+								transform_new_scale = abs(transform_opposite_position - intersects) / initial_size
+							transform_node.scale = transform_new_scale
+							
+							var direction_vector: Vector2
+							if transform_type == "NW":
+								direction_vector = Vector2(-1, -1)
+							elif transform_type == "NE":
+								direction_vector = Vector2(1, -1)
+							elif transform_type == "SE":
+								direction_vector = Vector2(1, 1)
+							elif transform_type == "SW":
+								direction_vector = Vector2(-1, 1)
+							var transform_position_change: Vector2 = (abs(intersects - transform_opposite_position) - initial_size) / 2 * direction_vector
+							if Input.is_key_pressed(KEY_ALT):
+								transform_position_change = Vector2.ZERO
+							transform_node.position = transform_node_starting_position + transform_position_change
+						
+						else:
+							var transform_new_scale: Vector2
+							if Input.is_key_pressed(KEY_ALT):
+								transform_new_scale = abs(transform_middle_position - mouse_position) / initial_size
+							else:
+								transform_new_scale = abs(transform_opposite_position - mouse_position) / initial_size
+							if transform_type in ["N", "S"]:
+								transform_new_scale.x = transform_new_scale.y
+							else:
+								transform_new_scale.y = transform_new_scale.x
+							if Input.is_key_pressed(KEY_ALT):
+								transform_new_scale *= 2
+							transform_node.scale = transform_new_scale
+							
+							var transform_position_change: Vector2 = (mouse_position - transform_starting_position) / 2
+							if transform_type in ["N", "S"]:
+								transform_position_change.x = 0
+							else:
+								transform_position_change.y = 0
+							if Input.is_key_pressed(KEY_ALT):
+								transform_position_change = Vector2.ZERO
+							transform_node.position = transform_node_starting_position + Vector2(transform_position_change)
+					# Scale disproportionally
 					else:
 						var initial_scale: Vector2 = transform_opposite_position - transform_starting_position
+						var mouse_position: Vector2 = get_canvas_position(event.position)
 						var current_scale: Vector2
 						if Input.is_key_pressed(KEY_ALT):
-							current_scale = (transform_middle_position - get_canvas_position(event.position)) * 2
+							current_scale = (transform_middle_position - mouse_position) * 2
 						else:
-							current_scale = transform_opposite_position - get_canvas_position(event.position)
+							current_scale = transform_opposite_position - mouse_position
+						
 						var transform_node_scale_change: Vector2 = current_scale / initial_scale
 						if transform_type in ["N", "S"]:
 							transform_node_scale_change.x = 1
 						elif transform_type in ["E", "W"]:
 							transform_node_scale_change.y = 1
 						transform_node.scale = abs(transform_node_scale_change)
-						var transform_node_position_change: Vector2 = (transform_starting_position - get_canvas_position(event.position)) / -2
+						
+						var transform_node_position_change: Vector2 = (transform_starting_position - mouse_position) / -2
 						if transform_type in ["N", "S"]:
 							transform_node_position_change.x = 0
 						elif transform_type in ["E", "W"]:
