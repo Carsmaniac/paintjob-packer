@@ -32,13 +32,16 @@ func _ready() -> void:
 				locale_found = true
 				TranslationServer.set_locale(translations[i][1])
 				self.selected = i
+	
+	set_item_disabled(len(translations) - 1, true)
 
 
 func change_language(index: int) -> void:
 	if index < len(translations) - 1:
 		TranslationServer.set_locale(translations[index][1])
 	else:
-		OS.shell_open(get_node("../AboutScreen").weblate_link)
+		#OS.shell_open(get_node("../AboutScreen").weblate_link)
+		pass
 	for child in get_node("../ModInfoScreen/Panel").get_children():
 		if child is VariableInput:
 			child.update_localisation()

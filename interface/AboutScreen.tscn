@@ -91,6 +91,7 @@ offset_left = 427.0
 offset_top = 408.0
 offset_right = 727.0
 offset_bottom = 448.0
+disabled = true
 text = "Help translate Paint Job Packer"
 
 [node name="Acknowledgement of Country" type="Control" parent="AboutTabContainer" unique_id=407968040]
