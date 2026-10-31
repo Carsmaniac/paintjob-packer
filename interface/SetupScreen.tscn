@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://chtkqdfc7flig"]
 
+[ext_resource type="Script" uid="uid://cwri24hbtjhob" path="res://interface/DiscordButton.gd" id="1_hx5t8"]
 [ext_resource type="Texture2D" uid="uid://dojtoqkxde4ge" path="res://interface/images/create-new.png" id="1_u2ba5"]
 [ext_resource type="Texture2D" uid="uid://b6corghr4re7o" path="res://interface/images/load.png" id="2_hx5t8"]
 
@@ -88,6 +89,16 @@ offset_right = 997.0
 offset_bottom = 64.0
 text = "BUTTON_ABOUT"
 clip_text = true
+
+[node name="DiscordButton" type="Button" parent="Panel" unique_id=555761901]
+layout_mode = 0
+offset_left = 803.0
+offset_top = 24.0
+offset_right = 899.0
+offset_bottom = 64.0
+text = "Discord"
+clip_text = true
+script = ExtResource("1_hx5t8")
 
 [node name="CreateImage" type="TextureRect" parent="Panel" unique_id=1119799198]
 layout_mode = 0
