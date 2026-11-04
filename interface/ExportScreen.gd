@@ -52,6 +52,7 @@ func choose_path() -> void:
 	export_window.use_native_dialog = true
 	export_window.file_mode = FileDialog.FILE_MODE_OPEN_DIR
 	export_window.connect("dir_selected", verify_path)
+	export_window.current_dir = current_path
 	get_node("..").add_child(export_window)
 	export_window.popup_file_dialog()
 
