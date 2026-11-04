@@ -1,10 +1,12 @@
 {
-	"format_version": 1,
+	"format_version": 2,
 	
 	"name": "Kenworth T800",
 	"path": "kenworth.t800_gtm",
-	"type": "truck",
+	"author": "gtm",
+	"game": "ats",
 	
+	"type": "truck",
 	"truck": true,
 	"trailer": false,
 	"bus": false,

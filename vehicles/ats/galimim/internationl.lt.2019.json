@@ -1,10 +1,12 @@
 {
-	"format_version": 1,
+	"format_version": 2,
 	
 	"name": "International LT",
 	"path": "internationl.lt.2019",
-	"type": "truck",
+	"author": "galimim",
+	"game": "ats",
 	
+	"type": "truck",
 	"truck": true,
 	"trailer": false,
 	"bus": false,

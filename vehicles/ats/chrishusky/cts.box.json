@@ -1,10 +1,12 @@
 {
-	"format_version": 1,
+	"format_version": 2,
 	
 	"name": "Custom 53 ft Trailer",
 	"path": "cts.box",
-	"type": "trailer_owned",
+	"author": "chrishusky",
+	"game": "ats",
 	
+	"type": "trailer_owned",
 	"truck": false,
 	"trailer": true,
 	"bus": false,

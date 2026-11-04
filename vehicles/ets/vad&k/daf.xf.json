@@ -1,10 +1,12 @@
 {
-	"format_version": 1,
+	"format_version": 2,
 	
 	"name": "DAF XF105",
 	"path": "daf.xf",
-	"type": "truck",
+	"author": "vad&k",
+	"game": "ets",
 	
+	"type": "truck",
 	"truck": true,
 	"trailer": false,
 	"bus": false,

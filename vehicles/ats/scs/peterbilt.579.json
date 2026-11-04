@@ -1,10 +1,12 @@
 {
-	"format_version": 1,
+	"format_version": 2,
 	
 	"name": "Peterbilt 579",
 	"path": "peterbilt.579",
-	"type": "truck",
+	"author": "scs",
+	"game": "ats",
 	
+	"type": "truck",
 	"truck": true,
 	"trailer": false,
 	"bus": false,

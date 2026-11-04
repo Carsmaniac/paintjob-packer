@@ -1,10 +1,12 @@
 {
-	"format_version": 1,
+	"format_version": 2,
 	
 	"name": "Volvo VNL 2014",
 	"path": "volvo.vnl",
-	"type": "truck",
+	"author": "scs",
+	"game": "ats",
 	
+	"type": "truck",
 	"truck": true,
 	"trailer": false,
 	"bus": false,

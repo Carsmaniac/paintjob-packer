@@ -1,10 +1,12 @@
 {
-	"format_version": 1,
+	"format_version": 2,
 	
 	"name": "Scania P Next Generation",
 	"path": "scania.p_2016",
-	"type": "truck",
+	"author": "eugene",
+	"game": "ets",
 	
+	"type": "truck",
 	"truck": true,
 	"trailer": false,
 	"bus": false,

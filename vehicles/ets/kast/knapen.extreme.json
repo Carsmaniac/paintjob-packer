@@ -1,10 +1,12 @@
 {
-	"format_version": 1,
+	"format_version": 2,
 	
 	"name": "Knapen Extreme",
 	"path": "knapen.extreme",
-	"type": "trailer_owned",
+	"author": "kast",
+	"game": "ets",
 	
+	"type": "trailer_owned",
 	"truck": false,
 	"trailer": true,
 	"bus": false,

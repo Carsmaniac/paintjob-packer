@@ -1,10 +1,12 @@
 {
-	"format_version": 1,
+	"format_version": 2,
 	
 	"name": "Mercedes-Benz New Actros",
 	"path": "mercedes.actros2014",
-	"type": "truck",
+	"author": "scs",
+	"game": "ets",
 	
+	"type": "truck",
 	"truck": true,
 	"trailer": false,
 	"bus": false,

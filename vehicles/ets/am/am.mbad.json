@@ -1,10 +1,12 @@
 {
-	"format_version": 1,
+	"format_version": 2,
 	
 	"name": "MB Aerodynamic",
 	"path": "am.mbad",
-	"type": "trailer_owned",
+	"author": "am",
+	"game": "ets",
 	
+	"type": "trailer_owned",
 	"truck": false,
 	"trailer": true,
 	"bus": false,

@@ -1,10 +1,12 @@
 {
-	"format_version": 1,
+	"format_version": 2,
 	
 	"name": "Peterbilt 379X",
 	"path": "pet379",
-	"type": "truck",
+	"author": "bigdaddyt150",
+	"game": "ats",
 	
+	"type": "truck",
 	"truck": true,
 	"trailer": false,
 	"bus": false,

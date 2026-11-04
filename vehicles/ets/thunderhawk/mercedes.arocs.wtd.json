@@ -1,10 +1,12 @@
 {
-	"format_version": 1,
+	"format_version": 2,
 	
 	"name": "Mercedes-Benz Arocs SLT",
 	"path": "mercedes.arocs.wtd",
-	"type": "truck",
+	"author": "thunderhawk",
+	"game": "ets",
 	
+	"type": "truck",
 	"truck": true,
 	"trailer": false,
 	"bus": false,

@@ -1,10 +1,12 @@
 {
-	"format_version": 1,
+	"format_version": 2,
 	
 	"name": "Karosa B95x",
 	"path": "karosa.b95x",
-	"type": "truck",
+	"author": "etrusan",
+	"game": "ets",
 	
+	"type": "truck",
 	"truck": true,
 	"trailer": false,
 	"bus": true,

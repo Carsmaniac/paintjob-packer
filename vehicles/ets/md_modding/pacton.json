@@ -1,10 +1,12 @@
 {
-	"format_version": 1,
+	"format_version": 2,
 	
 	"name": "Pacton Reefer",
 	"path": "pacton",
-	"type": "trailer_owned",
+	"author": "md_modding",
+	"game": "ets",
 	
+	"type": "trailer_owned",
 	"truck": false,
 	"trailer": true,
 	"bus": false,

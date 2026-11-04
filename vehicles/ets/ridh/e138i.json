@@ -1,10 +1,12 @@
 {
-	"format_version": 1,
+	"format_version": 2,
 	
 	"name": "SKSBUS e138i",
 	"path": "e138i",
-	"type": "truck",
+	"author": "ridh",
+	"game": "ets",
 	
+	"type": "truck",
 	"truck": true,
 	"trailer": false,
 	"bus": true,

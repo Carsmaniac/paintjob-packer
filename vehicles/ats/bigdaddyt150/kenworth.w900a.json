@@ -1,10 +1,12 @@
 {
-	"format_version": 1,
+	"format_version": 2,
 	
 	"name": "Kenworth W900A",
 	"path": "kenworth.w900a",
-	"type": "truck",
+	"author": "bigdaddyt150",
+	"game": "ats",
 	
+	"type": "truck",
 	"truck": true,
 	"trailer": false,
 	"bus": false,

@@ -1,10 +1,12 @@
 {
-	"format_version": 1,
+	"format_version": 2,
 	
 	"name": "SCS Chip Van",
 	"path": "scs.chipvan",
-	"type": "trailer_owned",
+	"author": "scs",
+	"game": "ats",
 	
+	"type": "trailer_owned",
 	"truck": false,
 	"trailer": true,
 	"bus": false,

@@ -1,10 +1,12 @@
 {
-	"format_version": 1,
+	"format_version": 2,
 	
 	"name": "SCS Gas Tank",
 	"path": "scs.gastank",
-	"type": "trailer_owned",
+	"author": "scs",
+	"game": "ets",
 	
+	"type": "trailer_owned",
 	"truck": false,
 	"trailer": true,
 	"bus": false,
