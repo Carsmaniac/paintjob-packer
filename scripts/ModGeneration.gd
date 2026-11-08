@@ -3,6 +3,7 @@ extends Node
 var output_path: String
 var workshop_path: String
 var template_zip := ZIPReader.new()
+var mod_template_zip := ZIPReader.new()
 var using_templates: bool = true
 
 
@@ -15,11 +16,15 @@ func _ready() -> void:
 			var _error = template_zip.open(exec_path + "/templates.zip")
 		else:
 			using_templates = false
+		if FileAccess.file_exists(exec_path + "/mod-templates.zip"):
+			var _error = mod_template_zip.open(exec_path + "/mod-templates.zip")
 	else:
 		if FileAccess.file_exists("res://templates.zip"):
 			var _error = template_zip.open("res://templates.zip")
 		else:
 			using_templates = false
+		if FileAccess.file_exists("res://mod-templates.zip"):
+			var _error = mod_template_zip.open("res://mod-templates.zip")
 
 
 func make_folder(path: String) -> void:
@@ -31,6 +36,9 @@ func extract_file(zip_path: String, file_path: String) -> void:
 	if using_templates and template_zip.file_exists(zip_path):
 		var file := FileAccess.open(output_path + file_path, FileAccess.WRITE)
 		file.store_buffer(template_zip.read_file(zip_path))
+	elif using_templates and mod_template_zip.file_exists(zip_path):
+		var file := FileAccess.open(output_path + file_path, FileAccess.WRITE)
+		file.store_buffer(mod_template_zip.read_file(zip_path))
 	else:
 		var placeholder_folder := DirAccess.open("res://placeholders")
 		placeholder_folder.copy("res://placeholders/empty.dds", output_path + file_path)
