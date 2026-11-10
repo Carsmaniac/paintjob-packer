@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://ds2q5ehrxqsar"]
+
+[ext_resource type="Script" uid="uid://b27qfxemf2ojx" path="res://interface/EditVehicleCabAcc.gd" id="1_yjscb"]
+
+[node name="EditVehicleAccessory" type="VBoxContainer" unique_id=2079684037]
+script = ExtResource("1_yjscb")
+
+[node name="Spacer4" type="Control" parent="." unique_id=46733692]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1995061576]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1263758033]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Accesory Name"
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer" unique_id=861402611]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+placeholder_text = "e.g. Sun Visor"
+
+[node name="TextEdit" type="TextEdit" parent="." unique_id=138922720]
+custom_minimum_size = Vector2(435, 150)
+layout_mode = 2
+size_flags_horizontal = 0
+placeholder_text = "e.g. sunshld.dual
+sunshld.quatro
+sunshld.shape1
+sunshld.shape2
+sunshld.triangle"
+
+[node name="RemoveButton" type="Button" parent="." unique_id=294700975]
+layout_mode = 2
+text = "Remove
+"

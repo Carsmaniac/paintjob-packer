@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://b2dnm5oktm1vy"]
+
+[ext_resource type="Script" uid="uid://b27qfxemf2ojx" path="res://interface/EditVehicleCabAcc.gd" id="1_4bg2n"]
+
+[node name="EditVehicleCabin" type="VBoxContainer" unique_id=92420798]
+script = ExtResource("1_4bg2n")
+
+[node name="Spacer4" type="Control" parent="." unique_id=890613624]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="CabinCode" type="HBoxContainer" parent="." unique_id=678133039]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CabinCode" unique_id=1006661587]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Code"
+
+[node name="LineEdit" type="LineEdit" parent="CabinCode" unique_id=380346943]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+placeholder_text = "e.g. a"
+
+[node name="CabinDesignation" type="HBoxContainer" parent="." unique_id=1532381982]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CabinDesignation" unique_id=805311854]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Designation"
+
+[node name="LineEdit" type="LineEdit" parent="CabinDesignation" unique_id=1020035214]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+placeholder_text = "e.g. Cabin A"
+
+[node name="CabinName" type="HBoxContainer" parent="." unique_id=518420751]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CabinName" unique_id=115432503]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Name"
+
+[node name="LineEdit" type="LineEdit" parent="CabinName" unique_id=185189157]
+custom_minimum_size = Vector2(230, 0)
+layout_mode = 2
+placeholder_text = "e.g. Globetrotter XL"
+
+[node name="CabinInternalName" type="HBoxContainer" parent="." unique_id=593231155]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CabinInternalName" unique_id=1575458182]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Internal Name(s)
+(One per line)"
+
+[node name="TextEdit" type="TextEdit" parent="CabinInternalName" unique_id=1798087085]
+custom_minimum_size = Vector2(230, 80)
+layout_mode = 2
+placeholder_text = "e.g. l2h3
+l2h3_8x4"
+
+[node name="RemoveButton" type="Button" parent="." unique_id=791177666]
+layout_mode = 2
+text = "Remove"

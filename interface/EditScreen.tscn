@@ -1,0 +1,387 @@
+[gd_scene format=3 uid="uid://cfs5w1qoho4fx"]
+
+[ext_resource type="Theme" uid="uid://2i35ywbubie7" path="res://simple-box-theme/pjp-dark/PJPDark.tres" id="1_ycub2"]
+[ext_resource type="Script" uid="uid://cue3glkvdxwlu" path="res://interface/EditScreen.gd" id="2_1ifga"]
+[ext_resource type="PackedScene" uid="uid://b2dnm5oktm1vy" path="res://interface/EditVehicleCabin.tscn" id="2_ycub2"]
+[ext_resource type="PackedScene" uid="uid://ds2q5ehrxqsar" path="res://interface/EditVehicleAccessory.tscn" id="3_1ifga"]
+
+[node name="EditScreen" type="Control" unique_id=1936622943]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_ycub2")
+script = ExtResource("2_1ifga")
+
+[node name="Panel" type="Panel" parent="." unique_id=548289295]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 73.0
+offset_right = 1027.0
+offset_bottom = 785.0
+
+[node name="VehicleInfoEditing" type="ScrollContainer" parent="Panel" unique_id=1879179807]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 11.0
+offset_top = 10.0
+offset_right = -504.0
+offset_bottom = -66.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VehicleInfoEditing" unique_id=257067933]
+layout_mode = 2
+
+[node name="EditGame" type="HBoxContainer" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=1309188658]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VehicleInfoEditing/VBoxContainer/EditGame" unique_id=1905579041]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Game"
+
+[node name="OptionButton" type="OptionButton" parent="Panel/VehicleInfoEditing/VBoxContainer/EditGame" unique_id=657925122]
+layout_mode = 2
+selected = 0
+item_count = 2
+popup/item_0/text = "ets"
+popup/item_0/id = 0
+popup/item_1/text = "ats"
+popup/item_1/id = 1
+
+[node name="EditAuthorASCII" type="HBoxContainer" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=1391519204]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VehicleInfoEditing/VBoxContainer/EditAuthorASCII" unique_id=907122945]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Author (ASCII)"
+
+[node name="LineEdit" type="LineEdit" parent="Panel/VehicleInfoEditing/VBoxContainer/EditAuthorASCII" unique_id=1882118537]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+placeholder_text = "e.g. scs"
+
+[node name="EditVehiclePath" type="HBoxContainer" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=30735314]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VehicleInfoEditing/VBoxContainer/EditVehiclePath" unique_id=573750322]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Vehicle Path"
+
+[node name="LineEdit" type="LineEdit" parent="Panel/VehicleInfoEditing/VBoxContainer/EditVehiclePath" unique_id=1649411470]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+placeholder_text = "e.g. volvo.fh_2021"
+
+[node name="EditVehicleName" type="HBoxContainer" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=57545043]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VehicleInfoEditing/VBoxContainer/EditVehicleName" unique_id=161193726]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Vehicle Name"
+
+[node name="LineEdit" type="LineEdit" parent="Panel/VehicleInfoEditing/VBoxContainer/EditVehicleName" unique_id=1416649072]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+placeholder_text = "e.g. Volvo FH5"
+
+[node name="Spacer" type="Control" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=2087063973]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="EditType" type="HBoxContainer" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=9000611]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VehicleInfoEditing/VBoxContainer/EditType" unique_id=1992487838]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Type"
+
+[node name="OptionButton" type="OptionButton" parent="Panel/VehicleInfoEditing/VBoxContainer/EditType" unique_id=8436812]
+layout_mode = 2
+selected = 0
+item_count = 4
+popup/item_0/text = "truck"
+popup/item_0/id = 0
+popup/item_1/text = "trailer"
+popup/item_1/id = 1
+popup/item_2/text = "bus"
+popup/item_2/id = 2
+popup/item_3/text = "car"
+popup/item_3/id = 3
+
+[node name="Spacer2" type="Control" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=484970770]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="EditMod" type="HBoxContainer" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=977737097]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="Panel/VehicleInfoEditing/VBoxContainer/EditMod" unique_id=1733563603]
+layout_mode = 2
+button_pressed = true
+text = "Vehicle is a mod"
+
+[node name="EditModAuthor" type="HBoxContainer" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=2102803564]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VehicleInfoEditing/VBoxContainer/EditModAuthor" unique_id=2043109445]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Mod Author"
+
+[node name="LineEdit" type="LineEdit" parent="Panel/VehicleInfoEditing/VBoxContainer/EditModAuthor" unique_id=610010023]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="EditLinkWorkshop" type="HBoxContainer" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=331244953]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VehicleInfoEditing/VBoxContainer/EditLinkWorkshop" unique_id=1807686744]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Workshop Link"
+
+[node name="LineEdit" type="LineEdit" parent="Panel/VehicleInfoEditing/VBoxContainer/EditLinkWorkshop" unique_id=401161553]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="EditLinkForums" type="HBoxContainer" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=382911899]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VehicleInfoEditing/VBoxContainer/EditLinkForums" unique_id=254065495]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Forums Link"
+
+[node name="LineEdit" type="LineEdit" parent="Panel/VehicleInfoEditing/VBoxContainer/EditLinkForums" unique_id=1577402388]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="EditLinkTrucky" type="HBoxContainer" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=1850348739]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VehicleInfoEditing/VBoxContainer/EditLinkTrucky" unique_id=240042519]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "TruckyMods Link"
+
+[node name="LineEdit" type="LineEdit" parent="Panel/VehicleInfoEditing/VBoxContainer/EditLinkTrucky" unique_id=1925818114]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="EditLinkAuthor" type="HBoxContainer" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=163121532]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VehicleInfoEditing/VBoxContainer/EditLinkAuthor" unique_id=1324403862]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Author's Site Link"
+
+[node name="LineEdit" type="LineEdit" parent="Panel/VehicleInfoEditing/VBoxContainer/EditLinkAuthor" unique_id=1447518490]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="Spacer3" type="Control" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=1234431021]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="EditColourPicker" type="HBoxContainer" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=42803266]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="Panel/VehicleInfoEditing/VBoxContainer/EditColourPicker" unique_id=2049466959]
+layout_mode = 2
+text = "Always show colour picker"
+
+[node name="EditAltUV" type="HBoxContainer" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=620434614]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="Panel/VehicleInfoEditing/VBoxContainer/EditAltUV" unique_id=1901602994]
+layout_mode = 2
+text = "Use alternate UV set"
+
+[node name="EditSeparatePaintJobs" type="HBoxContainer" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=722037553]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="Panel/VehicleInfoEditing/VBoxContainer/EditSeparatePaintJobs" unique_id=515227588]
+layout_mode = 2
+button_pressed = true
+text = "Allow separate paint jobs"
+
+[node name="Spacer4" type="Control" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=927370248]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="Cabins" type="VBoxContainer" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=1758007704]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VehicleInfoEditing/VBoxContainer/Cabins" unique_id=432430698]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VehicleInfoEditing/VBoxContainer/Cabins/HBoxContainer" unique_id=294471629]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Cabins"
+
+[node name="Button" type="Button" parent="Panel/VehicleInfoEditing/VBoxContainer/Cabins/HBoxContainer" unique_id=648184360]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "Add"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VehicleInfoEditing/VBoxContainer/Cabins" unique_id=1002541996]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(15, 0)
+
+[node name="EditVehicleCabin" parent="Panel/VehicleInfoEditing/VBoxContainer/Cabins/VBoxContainer" unique_id=92420798 instance=ExtResource("2_ycub2")]
+layout_mode = 2
+
+[node name="Spacer5" type="Control" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=364455768]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="EditUsesAccessories" type="HBoxContainer" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=365741394]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CheckBox" type="CheckBox" parent="Panel/VehicleInfoEditing/VBoxContainer/EditUsesAccessories" unique_id=571490165]
+layout_mode = 2
+text = "Uses accessories"
+
+[node name="EditAccessories" type="VBoxContainer" parent="Panel/VehicleInfoEditing/VBoxContainer" unique_id=2103544902]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/VehicleInfoEditing/VBoxContainer/EditAccessories" unique_id=7319850]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panel/VehicleInfoEditing/VBoxContainer/EditAccessories/HBoxContainer" unique_id=413002053]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+text = "Accesories"
+
+[node name="Button" type="Button" parent="Panel/VehicleInfoEditing/VBoxContainer/EditAccessories/HBoxContainer" unique_id=978854948]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+text = "Add"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/VehicleInfoEditing/VBoxContainer/EditAccessories" unique_id=190511478]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(15, 0)
+
+[node name="EditVehicleAccessory" parent="Panel/VehicleInfoEditing/VBoxContainer/EditAccessories/VBoxContainer" unique_id=2079684037 instance=ExtResource("3_1ifga")]
+layout_mode = 2
+
+[node name="VehicleSelectionTree" type="Tree" parent="Panel" unique_id=1776299430]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 528.0
+offset_top = 138.0
+offset_right = 1002.0
+offset_bottom = 591.0
+
+[node name="Label" type="Label" parent="Panel" unique_id=1748447024]
+custom_minimum_size = Vector2(470, 0)
+layout_mode = 0
+offset_left = 528.0
+offset_top = 11.0
+offset_right = 1001.0
+offset_bottom = 96.0
+text = "Note that only one of each <game>/<author>/<vehicle_path> can exist, e.g. there can only be one \"ets/scs/scania.r\". Trying to add a second will instead overwrite the first."
+autowrap_mode = 2
+
+[node name="LoadButton" type="Button" parent="Panel" unique_id=1266953273]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 0
+offset_left = 527.0
+offset_top = 89.0
+offset_right = 680.0
+offset_bottom = 127.0
+text = "Load selected"
+
+[node name="DeleteButton" type="Button" parent="Panel" unique_id=1238361500]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 0
+offset_left = 693.0
+offset_top = 89.0
+offset_right = 849.0
+offset_bottom = 127.0
+text = "Delete selected"
+
+[node name="SaveButton" type="Button" parent="Panel" unique_id=2047206081]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 0
+offset_left = 147.0
+offset_top = 662.0
+offset_right = 384.0
+offset_bottom = 700.0
+text = "Save"
+
+[node name="FinishedButton" type="Button" parent="Panel" unique_id=1712148848]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 0
+offset_left = 603.0
+offset_top = 662.0
+offset_right = 940.0
+offset_bottom = 700.0
+text = "Back to Paint Job Packer"
+
+[node name="ExportButtonv2" type="Button" parent="Panel" unique_id=1739203634]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 0
+offset_left = 529.0
+offset_top = 608.0
+offset_right = 759.0
+offset_bottom = 646.0
+text = "Export selected (PJP v2)"
+
+[node name="ExportButtonv1" type="Button" parent="Panel" unique_id=1249992438]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 0
+offset_left = 770.0
+offset_top = 608.0
+offset_right = 885.0
+offset_bottom = 646.0
+text = "Export (v1)"
+
+[node name="ImportButton" type="Button" parent="Panel" unique_id=1561517077]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 0
+offset_left = 896.0
+offset_top = 608.0
+offset_right = 1002.0
+offset_bottom = 646.0
+text = "Import"
+
+[node name="NewButton" type="Button" parent="Panel" unique_id=858905471]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 0
+offset_left = 859.0
+offset_top = 89.0
+offset_right = 1002.0
+offset_bottom = 127.0
+text = "New vehicle"
