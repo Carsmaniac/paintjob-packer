@@ -8,6 +8,9 @@ const EditVehicleAccessory := preload("res://interface/EditVehicleAccessory.tscn
 
 func _ready() -> void:
 	veh_tree = get_node("%VehicleSelectionTree")
+	VehicleDatabase.load_vehicle_lists("ets")
+	vehicle_list = VehicleDatabase.universal_vehicle_list
+	vehicle_list.sort_custom(func(a, b): return a["game"]+a["author"]+a["path"] < b["game"]+b["author"]+b["path"])
 	load_vehicle_tree()
 	get_node("Panel/LoadButton").pressed.connect(load_vehicle_file)
 	get_node("Panel/SaveButton").pressed.connect(save_vehicle_file)
@@ -24,57 +27,6 @@ func alphanumericise(in_str: String) -> String:
 
 
 func load_vehicle_tree() -> void:
-	var default_vehicle_list = []
-	for file_name in VehicleDatabase.get_file_list("res://vehicles/ets"):
-		var vehicle_dict: Dictionary = VehicleDatabase.load_vehicle_file(file_name)
-		if vehicle_dict != {}:
-			default_vehicle_list.append(vehicle_dict)
-	for file_name in VehicleDatabase.get_file_list("res://vehicles/ats"):
-		var vehicle_dict: Dictionary = VehicleDatabase.load_vehicle_file(file_name)
-		if vehicle_dict != {}:
-			default_vehicle_list.append(vehicle_dict)
-	
-	var user_paths = []
-	var user_vehicle_zip := ZIPReader.new()
-	user_vehicle_zip.open("vehicles-user.zip")
-	for file in user_vehicle_zip.get_files():
-		if file.ends_with(".json"):
-			var json_file := user_vehicle_zip.read_file(file)
-			var test_json_conv = JSON.new()
-			test_json_conv.parse(json_file.get_string_from_utf8())
-			var content = test_json_conv.get_data()
-			if content is Dictionary:
-				vehicle_list.append(content)
-				user_paths.append(content["game"]+content["author"]+content["path"])
-	user_vehicle_zip.close()
-	
-	for vehicle in default_vehicle_list:
-		if vehicle["game"]+vehicle["author"]+vehicle["path"] not in user_paths:
-			vehicle_list.append(vehicle)
-	
-	vehicle_list.sort_custom(func(a, b): return a["game"]+a["author"]+a["path"] < b["game"]+b["author"]+b["path"])
-	
-	#var file := FileAccess.open(file_path, FileAccess.READ)
-	#var test_json_conv = JSON.new()
-	#test_json_conv.parse(file.get_as_text())
-	#file.close()
-	#var content = test_json_conv.get_data()
-	#
-	#if content is Dictionary:
-		#return content
-	#else:
-		#return {}
-
-	
-	#func get_file_list(scan_dir: String) -> PackedStringArray:
-	#var file_list: PackedStringArray = []
-	#var folders := ResourceLoader.list_directory(scan_dir)
-	#for folder in folders:
-		#var files := ResourceLoader.list_directory("%s/%s" % [scan_dir, folder])
-		#for file in files:
-			#file_list.append("%s/%s%s" % [scan_dir, folder, file])
-	#return file_list
-	
 	veh_tree.clear()
 	var root = veh_tree.create_item()
 	veh_tree.hide_root = true
@@ -122,11 +74,6 @@ func load_vehicle_file() -> void:
 				if selected_item.get_parent().get_parent().get_parent() != null:
 					var vehicle_dictionary = get_vehicle_dictionary(
 						selected_item.get_parent().get_parent().get_text(0)+selected_item.get_parent().get_text(0)+selected_item.get_text(0))
-					#var vehicle_dictionary = VehicleDatabase.load_vehicle_file("res://vehicles/%s/%s/%s.json" % [
-						#selected_item.get_parent().get_parent().get_text(0),
-						#selected_item.get_parent().get_text(0),
-						#selected_item.get_text(0)])
-					print(vehicle_dictionary)
 					
 					if vehicle_dictionary["game"] == "ets":
 						get_node("%EditGame/OptionButton").selected = 0

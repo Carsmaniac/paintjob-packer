@@ -1,5 +1,6 @@
 extends Node
 	
+var universal_vehicle_list: Array[Dictionary] # vehicles from both games
 var vehicle_list: Array[Dictionary]
 var trucks: Array[Dictionary]
 var trailers: Array[Dictionary]
@@ -16,41 +17,70 @@ var vehicle_format_version: int = 2
 
 
 func load_vehicle_lists(game: String) -> void:
-	vehicle_list = []
-	for file_name in get_file_list("res://vehicles/" + game):
+	universal_vehicle_list = []
+	
+	var default_vehicle_list = []
+	for file_name in get_file_list("res://vehicles/"):
 		var vehicle_dict: Dictionary = load_vehicle_file(file_name)
 		if vehicle_dict != {}:
-			# May need to duplicate this logic in EditScreen.gd in the future
-			if vehicle_dict["format_version"] == 1:
-				vehicle_dict["file_path"] = file_name.substr(19, len(file_name) - 24) # <res...>author/make.model<.json>
-				vehicle_list.append(vehicle_dict)
-			elif vehicle_dict["format_version"] == 2:
-				vehicle_dict["file_path"] = vehicle_dict["author"] + "/" + vehicle_dict["path"]
-				vehicle_list.append(vehicle_dict)
-			else:
-				pass # For future use, when the format changes
-
+			vehicle_dict["file_name"] = file_name
+			default_vehicle_list.append(vehicle_dict)
+	
+	var user_paths: Array = []
+	var user_vehicle_zip := ZIPReader.new()
+	user_vehicle_zip.open("vehicles-user.zip")
+	for file in user_vehicle_zip.get_files():
+		if file.ends_with(".json"):
+			var json_file := user_vehicle_zip.read_file(file)
+			var test_json_conv = JSON.new()
+			test_json_conv.parse(json_file.get_string_from_utf8())
+			var content = test_json_conv.get_data()
+			if content is Dictionary:
+				if content != {}:
+					content["file_name"] = file
+					universal_vehicle_list.append(content)
+					user_paths.append(content["game"]+content["author"]+content["path"])
+	
+	for vehicle in default_vehicle_list:
+		if vehicle["game"]+vehicle["author"]+vehicle["path"] not in user_paths:
+			universal_vehicle_list.append(vehicle)
+	
+	for vehicle_dict in universal_vehicle_list:
+		if vehicle_dict["format_version"] == 1:
+			vehicle_dict["file_path"] = vehicle_dict["file_name"].substr(19, len(vehicle_dict["file_name"]) - 24) # <res...>author/make.model<.json>
+			default_vehicle_list.append(vehicle_dict)
+		elif vehicle_dict["format_version"] == 2:
+			vehicle_dict["file_path"] = vehicle_dict["author"] + "/" + vehicle_dict["path"]
+			default_vehicle_list.append(vehicle_dict)
+		else:
+			pass # For future use, when the format changes
+	
+	universal_vehicle_list.sort_custom(func(a, b): return a["name"] < b["name"])
+	
+	vehicle_list = []
 	trucks = []
 	trailers = []
 	truck_mods = []
 	trailer_mods = []
 	bus_mods = []
 	car_mods = []
-	for vehicle in vehicle_list:
-		if vehicle["mod"]:
-			if vehicle["trailer"]:
-				trailer_mods.append(vehicle)
-			elif vehicle["bus"]:
-				bus_mods.append(vehicle)
-			elif vehicle["car"]:
-				car_mods.append(vehicle)
+	for vehicle in universal_vehicle_list:
+		if vehicle["game"] == game:
+			vehicle_list.append(vehicle)
+			if vehicle["mod"]:
+				if vehicle["trailer"]:
+					trailer_mods.append(vehicle)
+				elif vehicle["bus"]:
+					bus_mods.append(vehicle)
+				elif vehicle["car"]:
+					car_mods.append(vehicle)
+				else:
+					truck_mods.append(vehicle)
 			else:
-				truck_mods.append(vehicle)
-		else:
-			if vehicle["trailer"]:
-				trailers.append(vehicle)
-			else:
-				trucks.append(vehicle)
+				if vehicle["trailer"]:
+					trailers.append(vehicle)
+				else:
+					trucks.append(vehicle)
 
 	truck_mods.sort_custom(func(a, b): return a["name"] < b["name"])
 	trailer_mods.sort_custom(func(a, b): return a["name"] < b["name"])
@@ -71,11 +101,14 @@ func load_vehicle_file(file_path: String) -> Dictionary:
 		return {}
 
 
-func get_file_list(scan_dir: String) -> PackedStringArray:
+func get_file_list(_scan_dir: String) -> PackedStringArray:
+	# TODO: tidy this up maybe, now that we're scanning both games every time
 	var file_list: PackedStringArray = []
-	var folders := ResourceLoader.list_directory(scan_dir)
-	for folder in folders:
-		var files := ResourceLoader.list_directory("%s/%s" % [scan_dir, folder])
-		for file in files:
-			file_list.append("%s/%s%s" % [scan_dir, folder, file])
+	for game in ["ets", "ats"]:
+		var scan_dir = _scan_dir + game
+		var folders := ResourceLoader.list_directory(scan_dir)
+		for folder in folders:
+			var files := ResourceLoader.list_directory("%s/%s" % [scan_dir, folder])
+			for file in files:
+				file_list.append("%s/%s%s" % [scan_dir, folder, file])
 	return file_list
