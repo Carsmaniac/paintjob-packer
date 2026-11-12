@@ -1,5 +1,5 @@
 extends Control
-@onready var screens: Array[Node] = [$SetupScreen, $ModInfoScreen, $MainScreen, $ExportScreen, $AdvancedScreen]
+@onready var screens: Array[Node] = [$SetupScreen, $ModInfoScreen, $MainScreen, $ExportScreen, $AdvancedScreen, $EditScreen]
 var current_screen_index: int = 0
 @onready var prev_button: Node = $PrevButton
 @onready var next_button: Node = $NextButton
@@ -127,6 +127,9 @@ func switch_screen(next: bool, startup: bool = false, to_screen: int = -5) -> vo
 		next_button.visible = false
 		get_node("ExportScreen").try_desktop_folder()
 	elif current_screen_index == 4:
+		next_button.visible = false
+		prev_button.visible = false
+	elif current_screen_index == 5:
 		next_button.visible = false
 		prev_button.visible = false
 		

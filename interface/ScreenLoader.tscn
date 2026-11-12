@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://chk5cp55kybmk" path="res://interface/ExportScreen.tscn" id="5_q8r4r"]
 [ext_resource type="Script" uid="uid://dko10nbv5god8" path="res://interface/LanguageDropdown.gd" id="7_ldyqi"]
 [ext_resource type="PackedScene" uid="uid://brubeeutvyrgd" path="res://interface/AdvancedScreen.tscn" id="8_imstj"]
+[ext_resource type="PackedScene" uid="uid://cfs5w1qoho4fx" path="res://interface/EditScreen.tscn" id="9_00gcv"]
 
 [node name="ScreenLoader" type="Control" unique_id=1942051723]
 layout_mode = 3
@@ -48,6 +49,10 @@ visible = false
 layout_mode = 1
 
 [node name="AdvancedScreen" parent="." unique_id=1074656815 instance=ExtResource("8_imstj")]
+visible = false
+layout_mode = 1
+
+[node name="EditScreen" parent="." unique_id=1349854928 instance=ExtResource("9_00gcv")]
 visible = false
 layout_mode = 1
 

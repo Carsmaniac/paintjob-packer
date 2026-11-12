@@ -14,8 +14,17 @@ func _ready() -> void:
 	load_vehicle_tree()
 	get_node("Panel/LoadButton").pressed.connect(load_vehicle_file)
 	get_node("Panel/SaveButton").pressed.connect(save_vehicle_file)
+	get_node("Panel/FinishedButton").pressed.connect(return_to_main)
 	get_node("%Cabins/HBoxContainer/Button").pressed.connect(func(): get_node("%Cabins/VBoxContainer").add_child(EditVehicleCabin.instantiate()))
 	get_node("%EditAccessories/HBoxContainer/Button").pressed.connect(func(): get_node("%EditAccessories/VBoxContainer").add_child(EditVehicleAccessory.instantiate()))
+
+
+func show_edit_screen() -> void:
+	get_parent().switch_screen(true, false, 5)
+
+
+func return_to_main() -> void:
+	get_parent().switch_screen(true, false, 2)
 
 
 func alphanumericise(in_str: String) -> String:

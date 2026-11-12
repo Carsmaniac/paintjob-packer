@@ -10,6 +10,7 @@ func _ready() -> void:
 	__ = $Unlock/CheckboxInput.connect("toggled", enable_disable_unlock_level)
 	__ = $SearchBar.connect("text_changed", filter_vehicles)
 	__ = $AdvancedButton.connect("pressed", switch_to_advanced)
+	get_node("ButtonEdit").pressed.connect(confirm_show_edit_screen)
 
 
 func get_vehicle_selections() -> Array:
@@ -101,7 +102,7 @@ func switch_to_advanced() -> void:
 	# This is disgusting
 	for node in [$InGameLabel, $Name, $Price, $Unlock, $InternalLabel, $InternalName, 
 	$CabinSupport, $SplitPaintJobs, $SelectedLabel, $SearchBar, $VehicleTabContainer, 
-	$WarningButton, $AdvancedButton, $PreviewImage, $SearchIconDark, $SearchIconLight]:
+	$WarningButton, $AdvancedButton, $PreviewImage, $SearchIconDark, $SearchIconLight, $ButtonEdit]:
 		node.visible = false
 	$AdvancedTab.visible = true
 	$AdvancedTab.show_hide_changeables()
@@ -112,13 +113,26 @@ func switch_to_advanced() -> void:
 func switch_from_advanced() -> void:
 	for node in [$InGameLabel, $Name, $Price, $Unlock, $InternalLabel, $InternalName, 
 	$CabinSupport, $SplitPaintJobs, $SelectedLabel, $SearchBar, $VehicleTabContainer, 
-	$WarningButton, $AdvancedButton]:
+	$WarningButton, $AdvancedButton, $ButtonEdit]:
 		node.visible = true
 	$AdvancedTab.visible = false
 	show_hide_warning_button()
 	_on_cabin_dropdown_change($CabinSupport/DropdownInput.selected)
 	enable_disable_prev_next()
 	get_node("../../../ThemeDropdown").change_theme(get_node("../../../ThemeDropdown").selected)
+
+
+func confirm_show_edit_screen() -> void:
+	var popup := ConfirmationDialog.new()
+	popup.title = "Edit vehicles"
+	popup.dialog_text = "This feature is intended for advanced users only.\n\nIt can be used to update the vehicles PJP supports\nand add support for new truck and trailer mods.\n\nWould you like to open the vehicle editor?"
+	popup.size.y = 0
+	popup.ok_button_text = " Proceed "
+	popup.cancel_button_text = " Nevermind "
+	popup.theme = ResourceLoader.load("res://simple-box-theme/pjp-dark/PJPDark.tres")
+	self.add_child(popup)
+	popup.popup_centered()
+	popup.get_ok_button().pressed.connect(func(): get_node("../../../EditScreen").show_edit_screen())
 
 
 func enable_disable_prev_next() -> void:
