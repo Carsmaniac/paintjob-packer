@@ -7,10 +7,6 @@
 	"game": "ats",
 	
 	"type": "trailer_owned",
-	"truck": false,
-	"trailer": true,
-	"bus": false,
-	"car": false,
 	
 	"mod": true,
 	"mod_author": "selonik",

@@ -7,10 +7,6 @@
 	"game": "ets",
 	"author": "scs",
 	
-	"type": "truck",
-	"truck": true,
-	"trailer": false,
-	"bus": false,
 	"car": false,
 	
 	"mod": false,

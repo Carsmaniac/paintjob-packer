@@ -7,10 +7,6 @@
 	"game": "ets",
 	
 	"type": "truck",
-	"truck": true,
-	"trailer": false,
-	"bus": false,
-	"car": false,
 	
 	"mod": true,
 	"mod_author": "Thunderhawk",
