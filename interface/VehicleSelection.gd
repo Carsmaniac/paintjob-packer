@@ -32,7 +32,10 @@ func init(vehicle: Dictionary, show_cabins: bool, show_author: bool) -> Control:
 		if len(cabins_list) > 0:
 			for i in range(len(cabins_list)):
 				var cabin_checkbox := CheckBox.new()
-				cabin_checkbox.text = cabins_list[i]["designation"].substr(6)
+				if vehicle["type"] == "bus":
+					cabin_checkbox.text = cabins_list[i]["designation"].substr(5)
+				else:
+					cabin_checkbox.text = cabins_list[i]["designation"].substr(6)
 				cabin_checkbox.name = cabin_checkbox.text
 				cabin_checkbox.tooltip_text = "{0} ({1})".format([
 						cabins_list[i]["designation"], cabins_list[i]["name"]])

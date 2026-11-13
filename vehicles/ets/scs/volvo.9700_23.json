@@ -1,0 +1,40 @@
+{
+	"format_version": 2,
+	
+	"name": "Volvo 9700 DD",
+	"path": "volvo.9700_23",
+	"author": "scs",
+	"game": "ets",
+	
+	"type": "bus",
+	"truck": true,
+	"trailer": false,
+	"bus": true,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": false,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Body A",
+			"name": "DD 4.0 m",
+			"internal_name": ["143d6"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

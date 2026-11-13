@@ -181,7 +181,7 @@ func export_mod() -> void:
 							"indivs": []
 						}
 						var selected_cabin_dicts: Array[Dictionary]
-						if not vehicle_selection.vehicle_dict["trailer"]:
+						if vehicle_selection.vehicle_dict["type"] != "trailer_owned":
 							var selected_cabins: PackedStringArray
 							if paint_job_tab.get_node("CabinSupport/DropdownInput").selected == 0:
 								for cabin in vehicle_dict["vehicle_dict"].cabins:
@@ -190,11 +190,14 @@ func export_mod() -> void:
 							else:
 								for cabin in vehicle_selection.find_child("CabinsContainer").get_children():
 									if cabin.button_pressed or paint_job_dict["cabins"] == "all":
-										selected_cabins.append("Cabin " + cabin.text)
+										if vehicle_selection.vehicle_dict["type"] == "bus":
+											selected_cabins.append("Body " + cabin.text)
+										else:
+											selected_cabins.append("Cabin " + cabin.text)
 							for cabin_dict in vehicle_selection.vehicle_dict["cabins"]:
 								if cabin_dict["designation"] in selected_cabins:
 									selected_cabin_dicts.append(cabin_dict)
-						if paint_job_dict["split"] and not vehicle_selection.vehicle_dict["trailer"]:
+						if paint_job_dict["split"] and vehicle_selection.vehicle_dict["type"] != "trailer_owned":
 							for cabin_dict in selected_cabin_dicts:
 								var indiv_dict: Dictionary = {
 									"cabins": [cabin_dict]
@@ -206,13 +209,13 @@ func export_mod() -> void:
 							}
 							vehicle_dict["indivs"].append(indiv_dict)
 						for indiv_dict in vehicle_dict["indivs"]:
-							if paint_job_dict["split"] and vehicle_dict["vehicle_dict"]["truck"]:
+							if paint_job_dict["split"] and vehicle_dict["vehicle_dict"]["type"] in ["truck", "bus"]:
 								indiv_dict["indiv_name"] = paint_job_dict["internal_name"] + "_" + indiv_dict["cabins"][0]["code"]
 							else:
 								indiv_dict["indiv_name"] = paint_job_dict["internal_name"]
 							var source_main_dds: String
 							var output_main_dds: String
-							if vehicle_selection.vehicle_dict["trailer"]:
+							if vehicle_selection.vehicle_dict["type"] == "trailer_owned":
 								if vehicle_selection.vehicle_dict["uses_accessories"]:
 									source_main_dds = "Base"
 									output_main_dds = source_main_dds
@@ -224,6 +227,8 @@ func export_mod() -> void:
 								for cabin in indiv_dict["cabins"]:
 									if cabin["code"] == "a":
 										largest_cabin = cabin
+								if "designation" not in largest_cabin.keys():
+									largest_cabin = indiv_dict["cabins"][0]
 								if paint_job_dict["split"] and vehicle_dict["vehicle_dict"]["separate_paint_jobs"]:
 									if vehicle_dict["vehicle_dict"]["alt_uv"]:
 										source_main_dds = "%s (%s, alt uvset)" % [largest_cabin["designation"], largest_cabin["name"]]

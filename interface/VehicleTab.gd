@@ -5,7 +5,7 @@ const EachVehicleSelection := preload("res://interface/VehicleSelection.tscn")
 
 func init(vehicle_list: Array, show_cabins: bool):
 	var show_author: bool = vehicle_list[0]["mod"]
-	if vehicle_list[0]["trailer"]:
+	if vehicle_list[0]["type"] == "trailer_owned":
 		show_cabins = false
 
 	for vehicle in vehicle_list:

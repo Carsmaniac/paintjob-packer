@@ -1,0 +1,46 @@
+{
+	"format_version": 2,
+	
+	"name": "MAN Lion's Coach",
+	"path": "man.lions_24",
+	"author": "scs",
+	"game": "ets",
+	
+	"type": "bus",
+	"truck": true,
+	"trailer": false,
+	"bus": true,
+	"car": false,
+	
+	"mod": false,
+	"mod_author": "",
+	"mod_links": {
+		"workshop": "",
+		"forums": "",
+		"trucky": "",
+		"author": ""
+	},
+	
+	"colour_picker": false,
+	"alt_uv": false,
+	"separate_paint_jobs": true,
+	
+	"cabins": [
+		{
+			"code": "a",
+			"designation": "Body A",
+			"name": "L 13.9 m",
+			"internal_name": ["139h6"]
+		},
+		{
+			"code": "b",
+			"designation": "Body B",
+			"name": "12.1 m",
+			"internal_name": ["121h4"]
+		}
+	],
+	
+	"uses_accessories": false,
+	"accessories": {
+	}
+}

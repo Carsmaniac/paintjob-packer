@@ -10,6 +10,8 @@ func load_tabs() -> void:
 	var list_dict: Dictionary = {
 		"Trucks": VehicleDatabase.trucks, 
 		"Trailers": VehicleDatabase.trailers, 
+		"Buses": VehicleDatabase.buses, 
+		"Cars": VehicleDatabase.cars,
 		"Truck Mods": VehicleDatabase.truck_mods, 
 		"Trailer Mods": VehicleDatabase.trailer_mods, 
 		"Bus Mods": VehicleDatabase.bus_mods, 
@@ -28,7 +30,7 @@ func update_localisation() -> void:
 	var tab_index: int = 0
 	var tab_names: Array[Array] = [
 		[VehicleDatabase.trucks, "TAB_TRUCKS"], [VehicleDatabase.trailers, "TAB_TRAILERS"],
-		#[VehicleDatabase.buses, "TAB_BUSES"], [VehicleDatabase.cars, "TAB_CARS"],
+		[VehicleDatabase.buses, "TAB_BUSES"], [VehicleDatabase.cars, "TAB_CARS"],
 		[VehicleDatabase.truck_mods, "TAB_TRUCK_MODS"], [VehicleDatabase.trailer_mods, "TAB_TRAILER_MODS"], 
 		[VehicleDatabase.bus_mods, "TAB_BUS_MODS"], [VehicleDatabase.car_mods, "TAB_CAR_MODS"]]
 	for tab in tab_names:

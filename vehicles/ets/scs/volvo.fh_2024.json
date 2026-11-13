@@ -135,7 +135,12 @@
 			"sideskirt.chrome_s4x",
 			"sideskirt.stock_6x_a",
 			"sideskirt.chrome_6x",
-			"sideskirt.chrome_s6x"
+			"sideskirt.chrome_s6x",
+			"f_fender_chs.paint"
+		],
+		"Side Deflectors": [
+			"s_deflector.stock_gtxxl",
+			"s_deflector.light_xxl"
 		],
 		"Side Deflectors (8x)": [
 			"chassis.8x4"

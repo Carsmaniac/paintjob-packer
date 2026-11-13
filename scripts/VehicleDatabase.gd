@@ -1,8 +1,12 @@
 extends Node
 	
 var vehicle_list: Array[Dictionary]
+
 var trucks: Array[Dictionary]
 var trailers: Array[Dictionary]
+var buses: Array[Dictionary]
+var cars: Array[Dictionary]
+
 var truck_mods: Array[Dictionary]
 var trailer_mods: Array[Dictionary]
 var bus_mods: Array[Dictionary]
@@ -10,7 +14,7 @@ var car_mods: Array[Dictionary]
 
 var vehicle_format_version: int = 2
 # 1 - initial version
-# 2 - added "game" and "author"
+# 2 - added "game" and "author", removed "truck", "trailer", "bus" and "car" (just use "type")
 
 #var test_accessories: bool = false
 
@@ -31,23 +35,31 @@ func load_vehicle_lists(game: String) -> void:
 
 	trucks = []
 	trailers = []
+	buses = []
+	cars = []
+	
 	truck_mods = []
 	trailer_mods = []
 	bus_mods = []
 	car_mods = []
+	
 	for vehicle in vehicle_list:
 		if vehicle["mod"]:
-			if vehicle["trailer"]:
+			if vehicle["type"] == "trailer_owned":
 				trailer_mods.append(vehicle)
-			elif vehicle["bus"]:
+			elif vehicle["type"] == "bus":
 				bus_mods.append(vehicle)
-			elif vehicle["car"]:
+			elif vehicle["type"] == "car":
 				car_mods.append(vehicle)
 			else:
 				truck_mods.append(vehicle)
 		else:
-			if vehicle["trailer"]:
+			if vehicle["type"] == "trailer_owned":
 				trailers.append(vehicle)
+			elif vehicle["type"] == "bus":
+				buses.append(vehicle)
+			elif vehicle["type"] == "car":
+				cars.append(vehicle)
 			else:
 				trucks.append(vehicle)
 
